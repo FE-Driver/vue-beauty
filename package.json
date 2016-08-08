@@ -1,8 +1,8 @@
 {
-  "name": "vue-ant-design",
+  "name": "vue-beauty",
   "version": "0.0.1",
   "description": "Ant Design components built with Vue.js",
-  "author": "TDiDa <tdida@qq.com>",
+  "author": "FE-driver <327661640@qq.com>",
   "main": "src/index.js",
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -11,16 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TDiDa/vue-antDesign.git"
+    "url": "https://github.com/FE-Driver/vue-beauty.git"
   },
   "keywords": [
     "vue",
-    "vue-antDesign",
+    "vue-beauty",
     "vue-component",
-    "antDesign",
     "ant-design"
   ],
-  "homepage": "https://github.com/TDiDa/vue-antDesign",
+  "homepage": "https://github.com/FE-Driver/vue-beauty",
   "dependencies": {
     "babel-runtime": "^6.0.0",
     "less": "^2.7.1",

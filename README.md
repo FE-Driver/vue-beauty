@@ -18,6 +18,7 @@ Beautiful  UI components build with vue and ant design
 - Affix 固钉
 - Steps 步骤条
 - radio 单选框
+- BackTop 回到顶部
 
 
 **(持续更新中。。。)**
