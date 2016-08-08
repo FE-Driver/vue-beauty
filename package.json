@@ -1,0 +1,60 @@
+{
+  "name": "vue-ant-design",
+  "version": "0.0.1",
+  "description": "Ant Design components built with Vue.js",
+  "author": "TDiDa <tdida@qq.com>",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node build/dev-server.js",
+    "build": "node build/build.js",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TDiDa/vue-antDesign.git"
+  },
+  "keywords": [
+    "vue",
+    "vue-antDesign",
+    "vue-component",
+    "antDesign",
+    "ant-design"
+  ],
+  "homepage": "https://github.com/TDiDa/vue-antDesign",
+  "dependencies": {
+    "babel-runtime": "^6.0.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "vue": "^1.0.21",
+    "vue-router": "^0.7.13",
+    "classnames": "^2.2.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-plugin-transform-runtime": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-stage-2": "^6.0.0",
+    "connect-history-api-fallback": "^1.1.0",
+    "css-loader": "^0.23.0",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.4",
+    "function-bind": "^1.0.2",
+    "html-webpack-plugin": "^2.8.1",
+    "http-proxy-middleware": "^0.12.0",
+    "json-loader": "^0.5.4",
+    "ora": "^0.2.0",
+    "shelljs": "^0.6.0",
+    "url-loader": "^0.5.7",
+    "vue-hot-reload-api": "^1.2.0",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^8.3.0",
+    "vue-style-loader": "^1.0.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.6.0",
+    "webpack-merge": "^0.8.3"
+  }
+}
