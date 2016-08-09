@@ -61,7 +61,7 @@
               Message 全局提示
             </menu-item>
             <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
-              modal 摸态框 
+              Modal 模态框 
             </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
