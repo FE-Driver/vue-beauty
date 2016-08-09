@@ -112,6 +112,12 @@ export default function (router) {
           component: function index(resolve) {
             require(['./views/radio.vue'], resolve);
           },
+        },
+        '/modal': {
+          name: 'modal',
+          component: function index(resolve) {
+            require(['./views/modal.vue'], resolve);
+          }
         }
       }
     },

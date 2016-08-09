@@ -60,6 +60,9 @@
             <menu-item v-link="{ name: 'message', activeClass: 'ant-menu-item-selected' }">
               Message 全局提示
             </menu-item>
+            <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
+              modal 摸态框 
+            </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
