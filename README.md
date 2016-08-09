@@ -44,3 +44,15 @@ Beautiful  UI components build with vue and ant design
 - 根据某个issue，fork并实现
 - 提交pr
 - 合并pr并发布
+
+## 开发步骤
+- 到[ant-design](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
+- 打开style/components/index.less，导出组件的样式
+- 涉及文件：src/routers.js、src/views/components.vue
+- 到src/views下添加组件的文档
+- 在components开发组件
+
+## 感谢
+- 感谢为这个项目做过贡献的所有朋友。
+- 感谢vue和ant design的开发者。
+- 感谢[okoala](https://github.com/okoala)的[vue-antd](https://github.com/okoala/vue-antd)。
