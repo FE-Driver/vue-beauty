@@ -65,6 +65,12 @@ export default function (router) {
             require(['./views/input-number.vue'], resolve);
           },
         },
+        '/input': {
+          name: 'input',
+          component: function index(resolve) {
+            require(['./views/input.vue'], resolve);
+          },
+        },
         '/slider': {
           name: 'slider',
           component: function index(resolve) {

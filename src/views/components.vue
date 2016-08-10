@@ -13,12 +13,9 @@
           <menu-item>
             <a href="/">更新日志</a>
           </menu-item>
-          <sub-menu title="Baseic">
+          <sub-menu title="Basic">
             <menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
               Button 按钮
-            </menu-item>
-            <menu-item v-link="{ name: 'input-number', activeClass: 'ant-menu-item-selected' }">
-              InputNumber 数字输入框
             </menu-item>
           </sub-menu>
           <sub-menu title="Form Controls">
@@ -27,6 +24,12 @@
             </menu-item>
             <menu-item v-link="{ name: 'radio', activeClass: 'ant-menu-item-selected' }">
               Radio 单选框
+            </menu-item>
+            <menu-item v-link="{ name: 'input', activeClass: 'ant-menu-item-selected' }">
+              Input 输入框
+            </menu-item>
+            <menu-item v-link="{ name: 'input-number', activeClass: 'ant-menu-item-selected' }">
+              InputNumber 数字输入框
             </menu-item>
           </sub-menu>
           <sub-menu title="Views">
