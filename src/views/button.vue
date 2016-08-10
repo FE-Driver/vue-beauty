@@ -29,6 +29,9 @@
 <v-button type='dashed'>Dashed</v-button>"
         >
           <v-button type='primary'>Primary</v-button>
+          <v-button type='success'>success</v-button>
+          <v-button type='error'>error</v-button>
+          <v-button type='warning'>warning</v-button>
           <v-button>default</v-button>
           <v-button type='ghost'>Ghost</v-button>
           <v-button type='dashed'>Dashed</v-button>
@@ -105,7 +108,7 @@ export default {
     return {
       apis: [{
           parameter: 'type',
-          explain: '设置按钮类型，可选值为 primary ghost 或者不设',
+          explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
           type: 'String',
           default: '无'
         },{

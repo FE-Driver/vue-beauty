@@ -63,4 +63,24 @@ export default {
 </script>
 
 <style lang="css">
+  /*.ant-btn-success{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #449d44;
+  }
+  .ant-btn-info{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #449d44;
+  }
+  .ant-btn-warning{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #449d44;
+  }
+  .ant-btn-danger{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #449d44;
+  }*/
 </style>

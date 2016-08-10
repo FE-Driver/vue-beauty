@@ -14,6 +14,7 @@ Beautiful  UI components build with vue and ant design
 - Rate 评分
 - Notification 通知提醒框
 - Message 全局提示
+- Input 输入框
 - InputNumber 数字输入框
 - Affix 固钉
 - Steps 步骤条
