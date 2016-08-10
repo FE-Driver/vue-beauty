@@ -1,23 +1,29 @@
 <template lang="html">
 
-<div class="ant-btn-group" :class="{'ant-btn-group-'+s: size}">
+<div :class="wrapClasses" >
   <slot></slot>
 </div>
 
 </template>
 
 <script>
+import cx from 'classnames'
+
 export default {
+  data:()=>({
+    prefix: 'ant-btn-group',
+  }),
   props: {
     size: String
   },
   computed: {
-    s: function () {
-      if (this.size === 'large') {
-        return lg
-      }else if (this.size === 'small') {
-        return sm
-      }
+    wrapClasses () {
+      const size = {small:'sm',large:'lg'}[this.size];
+      
+      return cx({
+        [this.prefix]: true,
+        [`${this.prefix}-${size}`]: size
+      })
     }
   },
 }

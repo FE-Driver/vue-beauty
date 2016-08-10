@@ -50,7 +50,7 @@
         </code-box>
 
         <code-box
-          title="按钮尺寸"
+          title="加载中状态"
           describe="添加 loading 属性即可让按钮处于加载状态，最后两个按钮演示点击后进入加载状态。"
           code="<v-button type='primary' loading>Loading</v-button>"
         >
@@ -83,6 +83,37 @@
         >
           <v-button type='primary'>Primary</v-button>
           <v-button type='primary' disabled>Primary</v-button>
+        </code-box>
+
+        <code-box
+          title="按钮组合"
+          describe="可以将多个 Button 放入 Button.Group 的容器中。<br>
+通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。"
+          code="<v-button-group size='large'>
+    <v-button>Large</v-button>
+    <v-button>Large</v-button>
+</v-button-group>
+<v-button-group>
+    <v-button>Default</v-button>
+    <v-button>Default</v-button>
+</v-button-group>
+<v-button-group size='small'>
+    <v-button>Small</v-button>
+    <v-button>Small</v-button>
+</v-button-group>"
+        >
+          <v-button-group size="large">
+             <v-button>Large</v-button>
+             <v-button>Large</v-button>
+          </v-button-group>
+          <v-button-group>
+             <v-button>Default</v-button>
+             <v-button>Default</v-button>
+          </v-button-group>
+          <v-button-group size="small">
+             <v-button>Small</v-button>
+             <v-button>Small</v-button>
+          </v-button-group>
         </code-box>
 
       </div>
@@ -147,6 +178,7 @@ export default {
   },
   components: {
     vButton,
+    vButtonGroup: vButton.Group,
     codeBox,
     apiTable
   }
