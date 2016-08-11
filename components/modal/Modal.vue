@@ -26,7 +26,7 @@
     </div>
   </dialog>
 </template>
-<script>
+<script lang="babel">
 import { defaultProps, KeyCode } from '../../utils'
 import Dialog from './dialog'
 import vButton from '../button'
