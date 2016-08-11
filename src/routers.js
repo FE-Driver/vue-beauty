@@ -124,6 +124,12 @@ export default function (router) {
           component: function index(resolve) {
             require(['./views/modal.vue'], resolve);
           }
+        },
+        '/spin': {
+          name: 'spin',
+          component: function index(resolve) {
+            require(['./views/spin.vue'], resolve);
+          }
         }
       }
     },

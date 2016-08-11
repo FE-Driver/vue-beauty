@@ -31,6 +31,9 @@
             <menu-item v-link="{ name: 'input-number', activeClass: 'ant-menu-item-selected' }">
               InputNumber 数字输入框
             </menu-item>
+            <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
+              Switch 开关
+            </menu-item>
           </sub-menu>
           <sub-menu title="Views">
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
@@ -47,9 +50,6 @@
             </menu-item>
             <menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
               Dropdown 下拉菜单
-            </menu-item>
-            <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
-              Switch 开关
             </menu-item>
             <menu-item v-link="{ name: 'slider', activeClass: 'ant-menu-item-selected' }">
               Slider 滑动输入条
@@ -78,6 +78,9 @@
             </menu-item>
             <menu-item v-link="{ name: 'back-top', activeClass: 'ant-menu-item-selected' }">
               BackTop 回到顶部
+            </menu-item>
+            <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
+              Spin 加载中
             </menu-item>
           </sub-menu>
         </v-menu>
