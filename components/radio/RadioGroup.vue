@@ -1,6 +1,6 @@
 <template>
 <div :class="wrapClasses">
-  <v-radio v-for="radio in radios" :type="type" :class-name="radioClasses" :disabled="radio.disabled" :value="radio.value" :on-change="_onRadioChange.bind(radio, $index)" :checked="value === radio.value"><span>{{radio.name}}</span></v-radio>
+  <v-radio v-for="radio in radios" :type="type" :class-name="radioClasses" :disabled="radio.disabled" :value="radio.value" :on-change="_onRadioChange.bind(radio, $index)" :checked="value == radio.value"><span>{{radio.name}}</span></v-radio>
 </div>
 </template>
 
