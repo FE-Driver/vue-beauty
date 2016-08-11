@@ -11,6 +11,12 @@ export default function (router) {
         require(['./views/components.vue'], resolve);
       },
       subRoutes: {
+        '/tag': {
+          name: 'tag',
+          component: function index(resolve) {
+            require(['./views/tag.vue'], resolve);
+          },
+        },
         '/alert': {
           name: 'alert',
           component: function index(resolve) {

@@ -21,6 +21,8 @@ Beautiful  UI components build with vue and ant design
 - Radio 单选框
 - BackTop 回到顶部
 - Modal 模态框
+- Spin 加载中
+- Tag 标签
 
 **(持续更新中。。。)**
 
