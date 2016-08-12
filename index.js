@@ -5,7 +5,7 @@ import vAlert from './components/alert'
 import vBadge from './components/badge'
 import vCard from './components/card'
 import vCollapse from './components/collapse'
-
+console.log(1)
 var antDesign = {
   vAlert,
   vBadge,
