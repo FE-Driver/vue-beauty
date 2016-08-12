@@ -136,6 +136,12 @@ export default function (router) {
           component: function index(resolve) {
             require(['./views/spin.vue'], resolve);
           }
+        },
+        '/upload': {
+          name: 'upload',
+          component: function index(resolve) {
+            require(['./views/upload.vue'], resolve);
+          }
         }
       }
     },

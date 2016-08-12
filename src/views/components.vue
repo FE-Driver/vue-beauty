@@ -34,6 +34,9 @@
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
             </menu-item>
+            <menu-item v-link="{ name: 'upload', activeClass: 'ant-menu-item-selected' }">
+              Upload 文件上传
+            </menu-item>
           </sub-menu>
           <sub-menu title="Views">
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
@@ -154,6 +157,14 @@ export default {
       font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   }
 
+  hr{
+    border-radius: 10px;
+    height: 3px;
+    border: 0;
+    background: #eee;
+    margin: 20px 0;
+  }
+  
   p, pre {
       margin: 1em 0;
   }
@@ -168,6 +179,25 @@ export default {
       margin: 1.6em 0 .6em;
       font-weight: 500;
       clear: both;
+  }
+
+  code,kbd,pre,samp{
+    font-family: Consolas, monospace;
+  }
+
+  code{
+    margin: 0 3px;
+  }
+  
+  & > ul li{
+    list-style: circle;
+    margin-left: 20px;
+  }
+
+  & > ol li{
+    list-style: decimal;
+    margin-left: 20px;
+    padding-left: 8px;
   }
 }
 
