@@ -21,8 +21,8 @@
 <script>
 import { defaultProps } from '../../utils'
 import cx from 'classnames'
-import AjaxUpload from './AjaxUploader.vue'
-import UploadList from './UploadList.vue'
+import AjaxUpload from './ajaxUploader.vue'
+import UploadList from './uploadList.vue'
 import getFileItem from './getFileItem'
 
 // Fix IE file.status problem

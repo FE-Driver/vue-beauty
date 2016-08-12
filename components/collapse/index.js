@@ -1,3 +1,3 @@
-import Collapse from './Collapse.vue'
+import vCollapse from './collapse.vue'
 
-export default Collapse
+export default vCollapse

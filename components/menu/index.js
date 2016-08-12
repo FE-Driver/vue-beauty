@@ -1,8 +1,8 @@
-import Menu from './Menu.vue'
-import MenuItem from './MenuItem.vue'
-import subMenu from './SubMenu.vue'
+import vMenu from './menu.vue'
+import vMenuItem from './menuItem.vue'
+import vSubMenu from './subMenu.vue'
 
-Menu.Item = MenuItem
-Menu.subMenu = subMenu
+vMenu.Item = vMenuItem
+vMenu.subMenu = vSubMenu
 
-export default Menu
+export default vMenu

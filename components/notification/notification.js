@@ -1,15 +1,15 @@
-import Notification from './notification.vue'
+import vNotification from './notification.vue'
 import Vue from 'vue'
 
-Notification.newInstance = (data) => {
+vNotification.newInstance = (data) => {
   const div = document.createElement('div')
-  div.innerHTML = `<notification :top='${data.top}'></notification>`
+  div.innerHTML = `<v-notification :top='${data.top}'></v-notification>`
   document.body.appendChild(div)
 
   const notification = new Vue({
     el: div,
     data: {},
-    components: { Notification }
+    components: { vNotification }
   }).$children[0]
 
   return {
@@ -29,4 +29,4 @@ Notification.newInstance = (data) => {
   }
 }
 
-export default Notification
+export default vNotification

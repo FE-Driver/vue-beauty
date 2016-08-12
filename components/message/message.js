@@ -1,16 +1,16 @@
-import Message from './message.vue'
+import vMessage from './message.vue'
 import Vue from 'vue'
 
-Message.newInstance = () => {
+vMessage.newInstance = () => {
 
   const div = document.createElement('div')
-  div.innerHTML = `<message></message>`
+  div.innerHTML = `<v-message></v-message>`
   document.body.appendChild(div)
 
   const message = new Vue({
     el: div,
     data: {},
-    components: { Message }
+    components: { vMessage }
   }).$children[0]
 
   return {
@@ -30,4 +30,4 @@ Message.newInstance = () => {
   }
 }
 
-export default Message
+export default vMessage

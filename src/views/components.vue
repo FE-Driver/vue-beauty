@@ -28,7 +28,7 @@
             <menu-item v-link="{ name: 'input', activeClass: 'ant-menu-item-selected' }">
               Input 输入框
             </menu-item>
-            <menu-item v-link="{ name: 'input-number', activeClass: 'ant-menu-item-selected' }">
+            <menu-item v-link="{ name: 'inputNumber', activeClass: 'ant-menu-item-selected' }">
               InputNumber 数字输入框
             </menu-item>
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
@@ -82,7 +82,7 @@
             <menu-item v-link="{ name: 'affix', activeClass: 'ant-menu-item-selected' }">
               Affix 固钉
             </menu-item>
-            <menu-item v-link="{ name: 'back-top', activeClass: 'ant-menu-item-selected' }">
+            <menu-item v-link="{ name: 'backTop', activeClass: 'ant-menu-item-selected' }">
               BackTop 回到顶部
             </menu-item>
             <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
@@ -188,7 +188,7 @@ export default {
   code{
     margin: 0 3px;
   }
-  
+
   & > ul li{
     list-style: circle;
     margin-left: 20px;

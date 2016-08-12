@@ -6,7 +6,7 @@
 
 <script>
 import { defaultProps, oneOfType } from '../../utils'
-import vRadio from './Radio.vue'
+import vRadio from './radio.vue'
 import cx from 'classnames'
 
 export default {

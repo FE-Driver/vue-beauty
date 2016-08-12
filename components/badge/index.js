@@ -1,3 +1,3 @@
-import Badge from './Badge.vue'
+import vBadge from './badge.vue'
 
-export default Badge
+export default vBadge

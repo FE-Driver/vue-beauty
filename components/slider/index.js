@@ -1,3 +1,3 @@
-import Slider from './Slider.vue'
+import vSlider from './slider.vue'
 
-export default Slider
+export default vSlider

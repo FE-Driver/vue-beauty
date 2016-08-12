@@ -57,6 +57,10 @@ Beautiful  UI components build with vue and ant design
 - 在components开发组件  
 notice：如果你需要增加样式，可以在组件对应的样式目录中增加xxx_vb.less（如button_vb.less），并在index.less中import该样式文件
 
+## 命名规范
+- 文件，目录均以小写开头，驼峰式(如inputNumber)
+- 组件的import export 均以v开头，驼峰式(如vInputNumber)
+
 ## 感谢
 - 感谢为这个项目做过贡献的所有朋友。
 - 感谢vue和ant design的开发者。

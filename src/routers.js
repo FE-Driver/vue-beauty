@@ -65,10 +65,10 @@ export default function (router) {
             require(['./views/rate.vue'], resolve);
           },
         },
-        '/input-number': {
-          name: 'input-number',
+        '/inputNumber': {
+          name: 'inputNumber',
           component: function index(resolve) {
-            require(['./views/input-number.vue'], resolve);
+            require(['./views/inputNumber.vue'], resolve);
           },
         },
         '/input': {
@@ -107,10 +107,10 @@ export default function (router) {
             require(['./views/affix.vue'], resolve);
           },
         },
-        '/back-top': {
-          name: 'back-top',
+        '/backTop': {
+          name: 'backTop',
           component: function index(resolve) {
-            require(['./views/back-top.vue'], resolve);
+            require(['./views/backTop.vue'], resolve);
           },
         },
         '/steps': {

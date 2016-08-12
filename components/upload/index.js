@@ -1,3 +1,3 @@
-import vUpload from './Uploads.vue'
+import vUpload from './uploads.vue'
 
 export default vUpload

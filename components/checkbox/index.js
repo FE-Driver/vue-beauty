@@ -1,6 +1,6 @@
-import Checkbox from './Checkbox.vue'
-import CheckboxGroup from './CheckboxGroup.vue'
+import vCheckbox from './checkbox.vue'
+import vCheckboxGroup from './checkboxGroup.vue'
 
-Checkbox.Group = CheckboxGroup
+vCheckbox.Group = vCheckboxGroup
 
-export default Checkbox
+export default vCheckbox
