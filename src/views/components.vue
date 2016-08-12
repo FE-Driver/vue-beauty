@@ -88,6 +88,9 @@
             <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
               Spin 加载中
             </menu-item>
+              <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
+                  tooltip
+            </menu-item>
           </sub-menu>
         </v-menu>
       </div>

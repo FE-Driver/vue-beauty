@@ -41,6 +41,7 @@ module.exports = {
         'space-before-blocks': 0,
         //禁用键名后需要保留空格
         'key-spacing': 0,
+        'no-alert': 0,
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
     }
