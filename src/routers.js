@@ -11,6 +11,12 @@ export default function (router) {
         require(['./views/components.vue'], resolve);
       },
       subRoutes: {
+        '/tag': {
+          name: 'tag',
+          component: function index(resolve) {
+            require(['./views/tag.vue'], resolve);
+          },
+        },
         '/alert': {
           name: 'alert',
           component: function index(resolve) {
@@ -123,6 +129,12 @@ export default function (router) {
           name: 'modal',
           component: function index(resolve) {
             require(['./views/modal.vue'], resolve);
+          }
+        },
+        '/spin': {
+          name: 'spin',
+          component: function index(resolve) {
+            require(['./views/spin.vue'], resolve);
           }
         }
       }
