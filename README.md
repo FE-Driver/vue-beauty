@@ -23,6 +23,7 @@ Beautiful  UI components build with vue and ant design
 - Modal 模态框
 - Spin 加载中
 - Tag 标签
+- Upload 上传
 
 **(持续更新中。。。)**
 
