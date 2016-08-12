@@ -61,6 +61,3 @@ export default {
   components: {}
 }
 </script>
-
-<style lang="css">
-</style>

@@ -1,0 +1,45 @@
+.@{btn-prefix-cls} {
+  .btn_generator(success);
+  .btn_generator(error);
+  .btn_generator(warning);
+}
+.btn_generator(@type){
+    &-@{type} {
+    .button(@type);
+
+    .@{btn-prefix-cls}-group &:not(:first-child):not(:last-child) {
+      border-right-color: @btn-group-border;
+      border-left-color: @btn-group-border;
+    }
+
+    .@{btn-prefix-cls}-group &:first-child {
+      &:not(:last-child) {
+        border-right-color: @btn-group-border;
+        &[disabled] {
+          border-right-color: @btn-default-border;
+        }
+      }
+    }
+
+    .@{btn-prefix-cls}-group &:last-child:not(:first-child),
+    .@{btn-prefix-cls}-group & + .@{btn-prefix-cls} {
+      border-left-color: @btn-group-border;
+      &[disabled] {
+        border-left-color: @btn-default-border;
+      }
+    }
+  }
+}
+
+.button(@type) {
+    @color: ~"btn-@{type}-bg";
+    .button-variant(@btn-primary-color; @@color; @@color);
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        color: @btn-primary-color;
+    }
+}
+
