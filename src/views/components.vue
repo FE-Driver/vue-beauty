@@ -80,6 +80,9 @@
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
               Steps 步骤条
             </menu-item>
+            <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
+              Breadcrumb 面包屑
+            </menu-item>
           </sub-menu>
           <sub-menu title="Other">
             <menu-item v-link="{ name: 'affix', activeClass: 'ant-menu-item-selected' }">

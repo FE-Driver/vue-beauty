@@ -154,6 +154,12 @@ export default function (router) {
                     component: function index(resolve) {
                         require(['./views/tooltip.vue'], resolve);
                     }
+                },
+                '/breadcrumb': {
+                    name: 'breadcrumb',
+                    component: function index(resolve) {
+                        require(['./views/breadcrumb.vue'], resolve);
+                    }
                 }
 
             }
