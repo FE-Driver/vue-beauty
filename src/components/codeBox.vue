@@ -39,7 +39,10 @@
         }).join('\n')
       }
 
-      hljs.highlightBlock(this.$el.querySelector('pre code'))
+      this.$nextTick(()=> {
+        hljs.highlightBlock(this.$el.querySelector('pre code'))
+      })
+
     },
     methods: {
       handleOpen() {
