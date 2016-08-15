@@ -47,6 +47,12 @@ export default function (router) {
                         require(['./views/dropdown.vue'], resolve);
                     },
                 },
+                '/font': {
+                  name: 'font',
+                  component: function index(resolve) {
+                    require(['./views/font.vue'], resolve);
+                  },
+                },
                 '/button': {
                     name: 'button',
                     component: function index(resolve) {

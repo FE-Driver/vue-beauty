@@ -14,6 +14,9 @@
             <a href="/">更新日志</a>
           </menu-item>
           <sub-menu title="Basic">
+            <menu-item v-link="{ name: 'font', activeClass: 'ant-menu-item-selected' }">
+              iconfont 图标
+            </menu-item>
             <menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
               Button 按钮
             </menu-item>
@@ -167,7 +170,7 @@ export default {
     background: #eee;
     margin: 20px 0;
   }
-  
+
   p, pre {
       margin: 1em 0;
   }
