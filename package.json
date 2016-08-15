@@ -21,8 +21,8 @@
   ],
   "eslintConfig": {
     "env": {
-        "browser": true,
-        "es6": true
+      "browser": true,
+      "es6": true
     }
   },
   "homepage": "https://github.com/FE-Driver/vue-beauty",
@@ -30,6 +30,7 @@
     "babel-runtime": "^6.0.0",
     "classnames": "^2.2.5",
     "eslint": "^3.2.2",
+    "clipboard": "^1.5.12",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "^4.1.0",
@@ -52,6 +53,7 @@
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",
+    "formidable": "^1.0.17",
     "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.12.0",

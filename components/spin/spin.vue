@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import spinInner from './SpinInner'
+import spinInner from './spinInner'
 import { defaultProps } from '../../utils'
 import cx from 'classnames'
 

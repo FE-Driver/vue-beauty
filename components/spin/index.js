@@ -1,3 +1,3 @@
-import vSpin from './Spin.vue'
+import vSpin from './spin.vue'
 
 export default vSpin

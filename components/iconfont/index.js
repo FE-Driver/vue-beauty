@@ -1,3 +1,3 @@
-import Iconfont from './Iconfont.vue'
+import vIconfont from './iconfont.vue'
 
-export default Iconfont
+export default vIconfont

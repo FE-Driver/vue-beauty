@@ -14,7 +14,7 @@
 
 <script>
 
-import vCheckbox from './Checkbox'
+import vCheckbox from './checkbox'
 
 export default {
   props: {
