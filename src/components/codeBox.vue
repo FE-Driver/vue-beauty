@@ -39,8 +39,7 @@
         }).join('\n')
       }
 
-
-      hljs.initHighlightingOnLoad()
+      hljs.highlightBlock(this.$el.querySelector('pre code'))
     },
     methods: {
       handleOpen() {
