@@ -87,8 +87,7 @@
 
         <code-box
           title="按钮组合"
-          describe="可以将多个 Button 放入 Button.Group 的容器中。<br>
-通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。"
+          describe="可以将多个 Button 放入 Button.Group 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。"
           code="<v-button-group size='large'>
     <v-button>Large</v-button>
     <v-button>Large</v-button>

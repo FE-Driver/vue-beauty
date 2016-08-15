@@ -3,7 +3,7 @@
   <div>
 
     <section class="markdown">
-      <h1>Steps 步骤条</h1>
+      <h1>v-steps 步骤条</h1>
       <p>
         引导用户按照流程完成任务的导航条。
       </p>
@@ -20,74 +20,74 @@
         <code-box
           title="基本用法"
           describe="简单的步骤条。"
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
-<Steps :current="1">
-  <Step title="已完成" description="这里是多信息的描述" ></Step>
-  <Step title="进行中" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-</Steps>
+<v-steps :current="1">
+  <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+  <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+</v-steps>
 '
         >
-          <Steps :current="1">
-            <Step title="已完成" description="这里是多信息的描述" ></Step>
-            <Step title="进行中" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-          </Steps>
+          <v-steps :current="1">
+            <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+            <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+          </v-steps>
         </code-box>
 
         <code-box
           title="迷你版"
-          describe="迷你版的步骤条，通过设置 <Steps size='small'> 启用."
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          describe="迷你版的步骤条，通过设置 <v-steps size='small'> 启用."
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
-<Steps size="small" :current="1">
-  <Step title="已完成" ></Step>
-  <Step title="进行中" ></Step>
-  <Step title="待运行" ></Step>
-  <Step title="待运行" ></Step>
-</Steps>
+<v-steps size="small" :current="1">
+  <v-step title="已完成" ></v-step>
+  <v-step title="进行中" ></v-step>
+  <v-step title="待运行" ></v-step>
+  <v-step title="待运行" ></v-step>
+</v-steps>
 '
         >
-          <Steps size="small" :current="1">
-            <Step title="已完成" ></Step>
-            <Step title="进行中" ></Step>
-            <Step title="待运行" ></Step>
-            <Step title="待运行" ></Step>
-          </Steps>
+          <v-steps size="small" :current="1">
+            <v-step title="已完成" ></v-step>
+            <v-step title="进行中" ></v-step>
+            <v-step title="待运行" ></v-step>
+            <v-step title="待运行" ></v-step>
+          </v-steps>
         </code-box>
 
         <code-box
           title="带图标的步骤条"
-          describe="通过设置 Steps.Step 的 icon 属性，可以启用自定义图标。"
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          describe="通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。"
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
-<Steps>
-  <Step status="finish" title="步骤1" icon="cloud" ></Step>
-  <Step status="process" title="步骤2" icon="apple" ></Step>
-  <Step status="wait" title="步骤3" icon="github" ></Step>
-</Steps>'
+<v-steps>
+  <v-step status="finish" title="步骤1" icon="cloud" ></v-step>
+  <v-step status="process" title="步骤2" icon="apple" ></v-step>
+  <v-step status="wait" title="步骤3" icon="github" ></v-step>
+</v-steps>'
         >
-          <Steps>
-            <Step status="finish" title="步骤1" icon="cloud" ></Step>
-            <Step status="process" title="步骤2" icon="apple" ></Step>
-            <Step status="wait" title="步骤3" icon="github" ></Step>
-          </Steps>
+          <v-steps>
+            <v-step status="finish" title="步骤1" icon="cloud" ></v-step>
+            <v-step status="process" title="步骤2" icon="apple" ></v-step>
+            <v-step status="wait" title="步骤3" icon="github" ></v-step>
+          </v-steps>
         </code-box>
 
         <code-box
           title="带图标的步骤条"
-          describe="通过设置 Steps.Step 的 icon 属性，可以启用自定义图标。"
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          describe="通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。"
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
 current: 1,
-steps: [
+v-steps: [
   {
     title: "步骤1",
   },
@@ -103,7 +103,7 @@ steps: [
 ],
 
 next() {
-  if (this.current < this.steps.length) {
+  if (this.current < this.v-steps.length) {
     this.current ++
   }else{
     this.current = 1
@@ -112,9 +112,9 @@ next() {
 
 <div>
   <div style="margin-bottom: 24px">当前正在执行第 {{current}} 步</div>
-  <Steps :current="current - 1">
-    <Step :key="$index" :title="s.title" v-for="s in steps" ></Step>
-  </Steps>
+  <v-steps :current="current - 1">
+    <v-step :key="$index" :title="s.title" v-for="s in v-steps" ></v-step>
+  </v-steps>
   <div style="margin-top: 24px">
     <button type="button" name="button" class="ant-btn" @click="next">下一步</button>
   </div>
@@ -123,9 +123,9 @@ next() {
         >
           <div>
             <div style="margin-bottom: 24px">当前正在执行第 {{current}} 步</div>
-            <Steps :current="current - 1">
-              <Step :key="$index" :title="s.title" v-for="s in steps" ></Step>
-            </Steps>
+            <v-steps :current="current - 1">
+              <v-step :key="$index" :title="s.title" v-for="s in v-steps" ></v-step>
+            </v-steps>
             <div style="margin-top: 24px">
               <button type="button" name="button" class="ant-btn" @click="next">下一步</button>
             </div>
@@ -135,67 +135,67 @@ next() {
         <code-box
           title="竖直方向的步骤条"
           describe="简单的竖直方向的步骤条。"
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
-<Steps :current="1" direction="vertical">
-  <Step title="已完成" description="这里是多信息的描述" ></Step>
-  <Step title="进行中" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-</Steps>
+<v-steps :current="1" direction="vertical">
+  <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+  <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+</v-steps>
 '
         >
-          <Steps :current="1" direction="vertical">
-            <Step title="已完成" description="这里是多信息的描述" ></Step>
-            <Step title="进行中" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-          </Steps>
+          <v-steps :current="1" direction="vertical">
+            <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+            <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+          </v-steps>
         </code-box>
 
         <code-box
           title="竖直方向的步骤条"
           describe="简单的竖直方向的步骤条。"
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
-<Steps :current="1" direction="vertical" size="small">
-  <Step title="已完成" description="这里是多信息的描述" ></Step>
-  <Step title="进行中" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-</Steps>
+<v-steps :current="1" direction="vertical" size="small">
+  <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+  <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+</v-steps>
 '
         >
-          <Steps :current="1" direction="vertical" size="small">
-            <Step title="已完成" description="这里是多信息的描述" ></Step>
-            <Step title="进行中" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-          </Steps>
+          <v-steps :current="1" direction="vertical" size="small">
+            <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+            <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+          </v-steps>
         </code-box>
 
         <code-box
           title="步骤运行错误"
-          describe="使用 Steps 的 status 属性来指定当前步骤的状态。"
-          code='import Steps from "../../components/steps"
-const Step = Steps.vStep
+          describe="使用 v-steps 的 status 属性来指定当前步骤的状态。"
+          code='import v-steps from "../../components/v-steps"
+const v-step = v-steps.vStep
 
-<Steps :current="1" status="error">
-  <Step title="已完成" description="这里是多信息的描述" ></Step>
-  <Step title="进行中" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-  <Step title="待运行" description="这里是多信息的描述" ></Step>
-</Steps>
+<v-steps :current="1" status="error">
+  <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+  <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+  <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+</v-steps>
 '
         >
-          <Steps :current="1" status="error">
-            <Step title="已完成" description="这里是多信息的描述" ></Step>
-            <Step title="进行中" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-            <Step title="待运行" description="这里是多信息的描述" ></Step>
-          </Steps>
+          <v-steps :current="1" status="error">
+            <v-step title="已完成" description="这里是多信息的描述" ></v-step>
+            <v-step title="进行中" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+            <v-step title="待运行" description="这里是多信息的描述" ></v-step>
+          </v-steps>
         </code-box>
 
       </div>
@@ -228,10 +228,10 @@ const Step = Steps.vStep
 
 <script>
 
-import Steps from '../../components/steps'
+import vSteps from '../../components/steps'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-const Step = Steps.vStep
+const vStep = vSteps.Step
 
 export default {
   data: function () {
@@ -307,8 +307,8 @@ export default {
     }
   },
   components: {
-    Steps,
-    Step,
+    vSteps,
+    vStep,
     codeBox,
     apiTable
   }

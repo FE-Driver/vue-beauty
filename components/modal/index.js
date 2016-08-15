@@ -1,8 +1,8 @@
-import Modal from './Modal.vue'
+import vModal from './modal.vue'
 import confirm from './confirm'
 import assign from 'object-assign'
 
-Modal.info = function (props) {
+vModal.info = function (props) {
   const config = assign({
     type: 'info',
     iconType: 'info-circle',
@@ -11,7 +11,7 @@ Modal.info = function (props) {
   return confirm(config)
 }
 
-Modal.success = function (props) {
+vModal.success = function (props) {
   const config = assign({
     type: 'success',
     iconType: 'check-circle',
@@ -20,7 +20,7 @@ Modal.success = function (props) {
   return confirm(config)
 }
 
-Modal.error = function (props) {
+vModal.error = function (props) {
   const config = assign({
     type: 'error',
     iconType: 'exclamation-circle',
@@ -29,7 +29,7 @@ Modal.error = function (props) {
   return confirm(config)
 }
 
-Modal.confirm = function (props) {
+vModal.confirm = function (props) {
   const config = assign({
     type: 'confirm',
     okCancel: true,
@@ -37,4 +37,4 @@ Modal.confirm = function (props) {
   return confirm(config)
 }
 
-export default Modal
+export default vModal

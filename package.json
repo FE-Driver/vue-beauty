@@ -19,10 +19,17 @@
     "vue-component",
     "ant-design"
   ],
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true
+    }
+  },
   "homepage": "https://github.com/FE-Driver/vue-beauty",
   "dependencies": {
     "babel-runtime": "^6.0.0",
     "classnames": "^2.2.5",
+    "eslint": "^3.2.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "^4.1.0",
@@ -31,16 +38,21 @@
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.0.0",
     "babel-plugin-transform-runtime": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
     "babel-preset-stage-2": "^6.0.0",
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.23.0",
+    "eslint-config-airbnb-base": "^5.0.1",
+    "eslint-plugin-html": "^1.5.2",
+    "eslint-plugin-import": "^1.12.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",
+    "formidable": "^1.0.17",
     "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.12.0",

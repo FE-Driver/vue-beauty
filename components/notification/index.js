@@ -1,4 +1,4 @@
-import Natification from './natification.js'
+import Notification from './notification.js'
 
 const defaultDuration = 4.5
 
@@ -7,8 +7,8 @@ let duration = 4.5
 let natificationInstance
 let key = 1
 
-function getNatificationInstance () {
-  natificationInstance = natificationInstance || Natification.newInstance({
+function getNotificationInstance () {
+  natificationInstance = natificationInstance || Notification.newInstance({
     top: top,
     duration: duration
   })
@@ -18,7 +18,7 @@ function getNatificationInstance () {
 
 function notice (message, description, duration = defaultDuration, type) {
 
-  let instance = getNatificationInstance()
+  let instance = getNotificationInstance()
 
   instance.notice({
     key: key,

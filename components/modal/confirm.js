@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Dialog from './Modal'
+import Dialog from './modal'
 import vIcon from '../iconfont'
 import vButton from '../button'
 import { getConfirmLocale } from './locale'

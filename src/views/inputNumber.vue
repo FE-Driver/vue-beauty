@@ -78,7 +78,7 @@
 
 <script>
 
-import vInputNumber from '../../components/input-number'
+import vInputNumber from '../../components/inputNumber'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
