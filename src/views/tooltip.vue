@@ -48,7 +48,7 @@
     import vButton from '../../components/button'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-    import tooltip from '../../directive/Tooltip'
+    import tooltip from '../../directive/tooltip'
 
     export default {
         data: function () {

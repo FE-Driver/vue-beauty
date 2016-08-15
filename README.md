@@ -24,6 +24,7 @@ Beautiful  UI components build with vue and ant design
 - Spin 加载中
 - Tag 标签
 - Upload 上传
+- Icon 图标
 
 **(持续更新中。。。)**
 
