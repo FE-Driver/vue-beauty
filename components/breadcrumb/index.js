@@ -1,6 +1,6 @@
-import vBreadcrumbs from './Breadcrumbs.vue'
-import vBreadcrumb from './Breadcrumb.vue'
+import vBreadcrumbs from './breadcrumbs.vue'
+import vBreadcrumb from './breadcrumb.vue'
 
-vBreadcrumbs.Breadcrumb = vBreadcrumb;
+vBreadcrumbs.breadcrumb = vBreadcrumb;
 
 export default vBreadcrumbs
