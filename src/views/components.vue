@@ -45,6 +45,9 @@
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
               Alert 警告提醒
             </menu-item>
+            <menu-item v-link="{ name: 'progress', activeClass: 'ant-menu-item-selected' }">
+              Progress进度条
+            </menu-item>
             <menu-item v-link="{ name: 'badge', activeClass: 'ant-menu-item-selected' }">
               Badge 徽标数
             </menu-item>
