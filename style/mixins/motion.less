@@ -9,14 +9,18 @@
 }
 
 .make-motion(@className, @keyframeName) {
+  .@{className}-transition{
+    .motion-common();
+  }
+
   .@{className}-enter,
   .@{className}-appear {
-    .motion-common();
-    animation-play-state: paused;
+    animation-name: ~"@{keyframeName}In";
+    animation-play-state: running;
   }
   .@{className}-leave {
-    .motion-common-leave();
-    animation-play-state: paused;
+    animation-name: ~"@{keyframeName}Out";
+    animation-play-state: running;
   }
   .@{className}-enter.@{className}-enter-active,
   .@{className}-appear.@{className}-appear-active {
