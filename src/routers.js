@@ -124,6 +124,12 @@ export default function (router) {
           component: function index(resolve) {
             require(['./views/modal.vue'], resolve);
           }
+        },
+        '/pagination': {
+          name: 'pagination',
+          component: function index(resolve) {
+            require(['./views/pagination.vue'], resolve);
+          }
         }
       }
     },

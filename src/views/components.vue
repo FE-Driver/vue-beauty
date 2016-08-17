@@ -66,6 +66,9 @@
             <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
               Modal 模态框 
             </menu-item>
+            <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
+              Pagination 分页
+            </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
