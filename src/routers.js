@@ -23,6 +23,12 @@ export default function (router) {
                         require(['./views/alert.vue'], resolve);
                     },
                 },
+                '/progress': {
+                    name: 'progress',
+                    component: function index(resolve) {
+                        require(['./views/progress.vue'], resolve);
+                    },
+                },
                 '/badge': {
                     name: 'badge',
                     component: function index(resolve) {
@@ -153,6 +159,12 @@ export default function (router) {
                     name: 'tooltip',
                     component: function index(resolve) {
                         require(['./views/tooltip.vue'], resolve);
+                    }
+                },
+                '/breadcrumb': {
+                    name: 'breadcrumb',
+                    component: function index(resolve) {
+                        require(['./views/breadcrumb.vue'], resolve);
                     }
                 }
 

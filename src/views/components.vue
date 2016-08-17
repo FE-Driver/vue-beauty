@@ -45,6 +45,9 @@
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
               Alert 警告提醒
             </menu-item>
+            <menu-item v-link="{ name: 'progress', activeClass: 'ant-menu-item-selected' }">
+              Progress进度条
+            </menu-item>
             <menu-item v-link="{ name: 'badge', activeClass: 'ant-menu-item-selected' }">
               Badge 徽标数
             </menu-item>
@@ -79,6 +82,9 @@
           <sub-menu title="Navigation">
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
               Steps 步骤条
+            </menu-item>
+            <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
+              Breadcrumb 面包屑
             </menu-item>
           </sub-menu>
           <sub-menu title="Other">
