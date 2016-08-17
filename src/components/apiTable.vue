@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="markdown api-container">
-    <h2>API</h2>
+    <h2>{{ title }}</h2>
     <slot></slot>
     <table>
       <thead>
@@ -26,7 +26,12 @@
 <script>
 export default {
   props:{
-    apis: Array
+    apis: Array,
+    title: {
+      type: String,
+      required: false,
+      default: "API"
+    }
   },
 }
 </script>

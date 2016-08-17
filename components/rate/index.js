@@ -1,3 +1,3 @@
-import Rate from './Rate.vue'
+import vRate from './rate.vue'
 
-export default Rate
+export default vRate

@@ -1,146 +1,189 @@
-export default function (router) {
+export default function(router) {
   router.map({
-    '/': {
-      name: 'index',
-      component: function index(resolve) {
-        require(['./views/components.vue'], resolve);
+      '/': {
+        name: 'index',
+        component: function index(resolve) {
+          require(['./views/components.vue'], resolve);
+        },
       },
-    },
-    'components': {
-      component: function index(resolve) {
-        require(['./views/components.vue'], resolve);
-      },
-      subRoutes: {
-        '/alert': {
-          name: 'alert',
-          component: function index(resolve) {
-            require(['./views/alert.vue'], resolve);
-          },
+      'components': {
+        component: function index(resolve) {
+          require(['./views/components.vue'], resolve);
         },
-        '/badge': {
-          name: 'badge',
-          component: function index(resolve) {
-            require(['./views/badge.vue'], resolve);
+        subRoutes: {
+          '/tag': {
+            name: 'tag',
+            component: function index(resolve) {
+              require(['./views/tag.vue'], resolve);
+            },
           },
-        },
-        '/card': {
-          name: 'card',
-          component: function index(resolve) {
-            require(['./views/card.vue'], resolve);
+          '/alert': {
+            name: 'alert',
+            component: function index(resolve) {
+              require(['./views/alert.vue'], resolve);
+            },
           },
-        },
-        '/collapse': {
-          name: 'collapse',
-          component: function index(resolve) {
-            require(['./views/collapse.vue'], resolve);
+          '/progress': {
+            name: 'progress',
+            component: function index(resolve) {
+              require(['./views/progress.vue'], resolve);
+            },
           },
-        },
-        '/dropdown': {
-          name: 'dropdown',
-          component: function index(resolve) {
-            require(['./views/dropdown.vue'], resolve);
+          '/badge': {
+            name: 'badge',
+            component: function index(resolve) {
+              require(['./views/badge.vue'], resolve);
+            },
           },
-        },
-        '/button': {
-          name: 'button',
-          component: function index(resolve) {
-            require(['./views/button.vue'], resolve);
+          '/card': {
+            name: 'card',
+            component: function index(resolve) {
+              require(['./views/card.vue'], resolve);
+            },
           },
-        },
-        '/switch': {
-          name: 'switch',
-          component: function index(resolve) {
-            require(['./views/switch.vue'], resolve);
+          '/collapse': {
+            name: 'collapse',
+            component: function index(resolve) {
+              require(['./views/collapse.vue'], resolve);
+            },
           },
-        },
-        '/rate': {
-          name: 'rate',
-          component: function index(resolve) {
-            require(['./views/rate.vue'], resolve);
+          '/dropdown': {
+            name: 'dropdown',
+            component: function index(resolve) {
+              require(['./views/dropdown.vue'], resolve);
+            },
           },
-        },
-        '/input-number': {
-          name: 'input-number',
-          component: function index(resolve) {
-            require(['./views/input-number.vue'], resolve);
+          '/font': {
+            name: 'font',
+            component: function index(resolve) {
+              require(['./views/font.vue'], resolve);
+            },
           },
-        },
-        '/input': {
-          name: 'input',
-          component: function index(resolve) {
-            require(['./views/input.vue'], resolve);
+          '/button': {
+            name: 'button',
+            component: function index(resolve) {
+              require(['./views/button.vue'], resolve);
+            },
           },
-        },
-        '/slider': {
-          name: 'slider',
-          component: function index(resolve) {
-            require(['./views/slider.vue'], resolve);
+          '/switch': {
+            name: 'switch',
+            component: function index(resolve) {
+              require(['./views/switch.vue'], resolve);
+            },
           },
-        },
-        '/checkbox': {
-          name: 'checkbox',
-          component: function index(resolve) {
-            require(['./views/checkbox.vue'], resolve);
+          '/rate': {
+            name: 'rate',
+            component: function index(resolve) {
+              require(['./views/rate.vue'], resolve);
+            },
           },
-        },
-        '/notification': {
-          name: 'notification',
-          component: function index(resolve) {
-            require(['./views/notification.vue'], resolve);
+          '/inputNumber': {
+            name: 'inputNumber',
+            component: function index(resolve) {
+              require(['./views/inputNumber.vue'], resolve);
+            },
           },
-        },
-        '/message': {
-          name: 'message',
-          component: function index(resolve) {
-            require(['./views/message.vue'], resolve);
+          '/input': {
+            name: 'input',
+            component: function index(resolve) {
+              require(['./views/input.vue'], resolve);
+            },
           },
-        },
-        '/affix': {
-          name: 'affix',
-          component: function index(resolve) {
-            require(['./views/affix.vue'], resolve);
+          '/slider': {
+            name: 'slider',
+            component: function index(resolve) {
+              require(['./views/slider.vue'], resolve);
+            },
           },
-        },
-        '/back-top': {
-          name: 'back-top',
-          component: function index(resolve) {
-            require(['./views/back-top.vue'], resolve);
+          '/checkbox': {
+            name: 'checkbox',
+            component: function index(resolve) {
+              require(['./views/checkbox.vue'], resolve);
+            },
           },
-        },
-        '/steps': {
-          name: 'steps',
-          component: function index(resolve) {
-            require(['./views/steps.vue'], resolve);
+          '/notification': {
+            name: 'notification',
+            component: function index(resolve) {
+              require(['./views/notification.vue'], resolve);
+            },
+          },
+          '/message': {
+            name: 'message',
+            component: function index(resolve) {
+              require(['./views/message.vue'], resolve);
+            },
+          },
+          '/affix': {
+            name: 'affix',
+            component: function index(resolve) {
+              require(['./views/affix.vue'], resolve);
+            },
+          },
+          '/backTop': {
+            name: 'backTop',
+            component: function index(resolve) {
+              require(['./views/backTop.vue'], resolve);
+            },
+          },
+          '/steps': {
+            name: 'steps',
+            component: function index(resolve) {
+              require(['./views/steps.vue'], resolve);
+            }
+          },
+          '/radio': {
+            name: 'radio',
+            component: function index(resolve) {
+              require(['./views/radio.vue'], resolve);
+            },
+          },
+          '/modal': {
+            name: 'modal',
+            component: function index(resolve) {
+              require(['./views/modal.vue'], resolve);
+            }
+          },
+          '/pagination': {
+            name: 'pagination',
+            component: function index(resolve) {
+              require(['./views/pagination.vue'], resolve);
+            },
+            '/spin': {
+              name: 'spin',
+              component: function index(resolve) {
+                require(['./views/spin.vue'], resolve);
+              }
+            },
+            '/upload': {
+              name: 'upload',
+              component: function index(resolve) {
+                require(['./views/upload.vue'], resolve);
+              }
+            },
+            '/tooltip': {
+              name: 'tooltip',
+              component: function index(resolve) {
+                require(['./views/tooltip.vue'], resolve);
+              }
+            },
+            '/breadcrumb': {
+              name: 'breadcrumb',
+              component: function index(resolve) {
+                require(['./views/breadcrumb.vue'], resolve);
+              }
+            }
+
           }
         },
-        '/radio': {
-          name: 'radio',
-          component: function index(resolve) {
-            require(['./views/radio.vue'], resolve);
-          },
-        },
-        '/modal': {
-          name: 'modal',
-          component: function index(resolve) {
-            require(['./views/modal.vue'], resolve);
-          }
-        },
-        '/pagination': {
-          name: 'pagination',
-          component: function index(resolve) {
-            require(['./views/pagination.vue'], resolve);
+        // 404路由
+        '*': {
+          component: function(resolve) {
+            require(['./views/components.vue'], resolve);
           }
         }
       }
-    },
-    //404路由
-		'*': {
-			component: function(resolve) {
-				require(['./views/components.vue'], resolve);
-			}
-		}
-  });
+  }); 
   router.redirect({
-	  '/':'/components/alert'
-	})
+    '/': '/components/alert'
+  });
 }

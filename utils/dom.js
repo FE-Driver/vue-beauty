@@ -1,6 +1,6 @@
 import { isIE9 } from './env'
 import { camelize } from './lang'
-import _scrollIntoView from 'dom-scroll-into-view'
+// import _scrollIntoView from 'dom-scroll-into-view'
 
 function setClass (el, cls) {
   /* istanbul ignore if */
@@ -89,4 +89,4 @@ export function getTrustSlotNode (node) {
   return childNode
 }
 
-export const scrollIntoView = _scrollIntoView
+// export const scrollIntoView = _scrollIntoView

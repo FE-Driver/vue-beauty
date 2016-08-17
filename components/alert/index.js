@@ -1,3 +1,3 @@
-import Alert from './Alert.vue'
+import vAlert from './alert.vue'
 
-export default Alert
+export default vAlert

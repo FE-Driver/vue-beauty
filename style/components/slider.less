@@ -2,6 +2,7 @@
 @import "../mixins/index";
 
 @slider-prefix-cls: ant-slider;
+
 // slider color
 @slider-disabled-color: #ccc;
 // tooltip
@@ -13,7 +14,7 @@
 
 .@{slider-prefix-cls} {
   position: relative;
-  margin: 10px 8px;
+  margin: 10px 0;
   height: 12px;
   border-radius: 5px;
   background-color: #e9e9e9;
@@ -60,8 +61,12 @@
       border-color: tint(@primary-color, 20%);
     }
 
-    &:active {
-      box-shadow: 0 0 0 2px fadeout(@primary-color, 80%);
+    &-active {
+      &:active {
+        @color-rgba: rgba(red(@primary-color), green(@primary-color), blue(@primary-color), .2);
+        border-color: tint(@primary-color, 20%);
+        box-shadow: 0 0 0 2px @color-rgba;
+      }
     }
   }
 
@@ -124,15 +129,13 @@
       background-color: @slider-disabled-color !important;
     }
 
-    .@{slider-prefix-cls}-handle,
-    .@{slider-prefix-cls}-dot {
+    .@{slider-prefix-cls}-handle, .@{slider-prefix-cls}-dot {
       border-color: @slider-disabled-color!important;
       background-color: #fff;
       cursor: not-allowed;
     }
 
-    .@{slider-prefix-cls}-mark-text,
-    .@{slider-prefix-cls}-dot {
+    .@{slider-prefix-cls}-mark-text, .@{slider-prefix-cls}-dot {
       cursor: not-allowed!important;
     }
   }

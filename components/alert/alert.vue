@@ -66,7 +66,8 @@ export default {
     },
     onClose: {
       type: Function,
-      require: false
+      require: false,
+      default(){}
     },
     closed: {
       type: Boolean,

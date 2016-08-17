@@ -1,5 +1,7 @@
 var path = require('path')
 var express = require('express')
+var formidable = require('formidable')
+var fs = require('fs')
 var webpack = require('webpack')
 var config = require('../config')
 var proxyMiddleware = require('http-proxy-middleware')
@@ -55,6 +57,31 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
+
+app.post('/upload', (req, res) => {
+  var form = new formidable.IncomingForm()
+  form.parse(req, (err, fields, files) => {
+    var old_path = files.file.path
+    var file_ext = files.file.name.split('.').pop()
+    var index = old_path.lastIndexOf('/') + 1
+    var file_name = old_path.substr(index)
+    var new_path = path.join(path.join(__dirname, '..', 'static'), '/uploads/', file_name + '.' + file_ext)
+
+    fs.readFile(old_path, (err, data) => {
+      fs.writeFile(new_path, data, err => {
+        fs.unlink(old_path, err => {
+          if (err) {
+            res.status(500)
+            res.json({'success': false})
+          } else {
+            res.status(200)
+            res.json({'success': true})
+          }
+        })
+      })
+    })
+  })
+})
 
 module.exports = app.listen(port, function (err) {
   if (err) {

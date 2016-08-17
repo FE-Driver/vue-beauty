@@ -2,7 +2,7 @@
 export * from './env'*/
 //export * from './dom'
 export * from './props'
-/*export * from './event'
+export * from './event'
 export * from './guid'
 
 import _cx from 'classnames'
@@ -15,4 +15,3 @@ export const slotMixin = _slotMixin
 export function getPlainObject (vueObject) {
   return JSON.parse(JSON.stringify(vueObject))
 }
-*/

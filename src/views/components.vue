@@ -17,6 +17,9 @@
             <menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
               Button 按钮
             </menu-item>
+            <menu-item v-link="{ name: 'font', activeClass: 'ant-menu-item-selected' }">
+              Icon 图标
+            </menu-item>
           </sub-menu>
           <sub-menu title="Form Controls">
             <menu-item v-link="{ name: 'checkbox', activeClass: 'ant-menu-item-selected' }">
@@ -28,13 +31,22 @@
             <menu-item v-link="{ name: 'input', activeClass: 'ant-menu-item-selected' }">
               Input 输入框
             </menu-item>
-            <menu-item v-link="{ name: 'input-number', activeClass: 'ant-menu-item-selected' }">
+            <menu-item v-link="{ name: 'inputNumber', activeClass: 'ant-menu-item-selected' }">
               InputNumber 数字输入框
+            </menu-item>
+            <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
+              Switch 开关
+            </menu-item>
+            <menu-item v-link="{ name: 'upload', activeClass: 'ant-menu-item-selected' }">
+              Upload 文件上传
             </menu-item>
           </sub-menu>
           <sub-menu title="Views">
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
               Alert 警告提醒
+            </menu-item>
+            <menu-item v-link="{ name: 'progress', activeClass: 'ant-menu-item-selected' }">
+              Progress进度条
             </menu-item>
             <menu-item v-link="{ name: 'badge', activeClass: 'ant-menu-item-selected' }">
               Badge 徽标数
@@ -47,9 +59,6 @@
             </menu-item>
             <menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
               Dropdown 下拉菜单
-            </menu-item>
-            <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
-              Switch 开关
             </menu-item>
             <menu-item v-link="{ name: 'slider', activeClass: 'ant-menu-item-selected' }">
               Slider 滑动输入条
@@ -64,7 +73,10 @@
               Message 全局提示
             </menu-item>
             <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
-              Modal 模态框 
+              Modal 模态框
+            </menu-item>
+            <menu-item v-link="{ name: 'tag', activeClass: 'ant-menu-item-selected' }">
+              Tag 标签
             </menu-item>
             <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
               Pagination 分页
@@ -74,13 +86,22 @@
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
               Steps 步骤条
             </menu-item>
+            <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
+              Breadcrumb 面包屑
+            </menu-item>
           </sub-menu>
           <sub-menu title="Other">
             <menu-item v-link="{ name: 'affix', activeClass: 'ant-menu-item-selected' }">
               Affix 固钉
             </menu-item>
-            <menu-item v-link="{ name: 'back-top', activeClass: 'ant-menu-item-selected' }">
+            <menu-item v-link="{ name: 'backTop', activeClass: 'ant-menu-item-selected' }">
               BackTop 回到顶部
+            </menu-item>
+            <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
+              Spin 加载中
+            </menu-item>
+              <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
+                  tooltip
             </menu-item>
           </sub-menu>
         </v-menu>
@@ -151,6 +172,14 @@ export default {
       font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   }
 
+  hr{
+    border-radius: 10px;
+    height: 3px;
+    border: 0;
+    background: #eee;
+    margin: 20px 0;
+  }
+
   p, pre {
       margin: 1em 0;
   }
@@ -165,6 +194,25 @@ export default {
       margin: 1.6em 0 .6em;
       font-weight: 500;
       clear: both;
+  }
+
+  code,kbd,pre,samp{
+    font-family: Consolas, monospace;
+  }
+
+  code{
+    margin: 0 3px;
+  }
+
+  & > ul li{
+    list-style: circle;
+    margin-left: 20px;
+  }
+
+  & > ol li{
+    list-style: decimal;
+    margin-left: 20px;
+    padding-left: 8px;
   }
 }
 

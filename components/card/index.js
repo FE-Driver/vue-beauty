@@ -1,3 +1,3 @@
-import Card from './Card.vue'
+import vCard from './card.vue'
 
-export default Card
+export default vCard

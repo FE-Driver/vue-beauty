@@ -21,7 +21,6 @@
         <code-box
           title="基础"
           describe="最简单的用法，适用于简短的警告提示。"
-          code='<v-alert type="success" message="成功提示的文案"></v-alert>'
         >
           <v-alert type="success" message="成功提示的文案"></v-alert>
         </code-box>
