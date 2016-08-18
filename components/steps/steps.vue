@@ -90,9 +90,11 @@ export default {
       }
       const dom = this.$el
       const len = this.$el.children.length - 1
+      if(len <0 ) return;
       let width = 0
-      for (let children of this.$children[len].$el.children) {
-        width = width + children.clientWidth
+      for(let i=0;i<this.$children[len].$el.children.length;i++){
+        let child = this.$children[len].$el.children[i];
+        width += child.clientWidth
       }
       this.$children.forEach((child, index) => {
 
@@ -103,10 +105,6 @@ export default {
         }
       })
     }
-  },
-  components: {}
+  }
 }
 </script>
-
-<style lang="css">
-</style>

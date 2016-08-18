@@ -124,7 +124,7 @@ next() {
           <div>
             <div style="margin-bottom: 24px">当前正在执行第 {{current}} 步</div>
             <v-steps :current="current - 1">
-              <v-step :key="$index" :title="s.title" v-for="s in v-steps" ></v-step>
+              <v-step :key="$index" :title="s.title" v-for="s in steps" ></v-step>
             </v-steps>
             <div style="margin-top: 24px">
               <button type="button" name="button" class="ant-btn" @click="next">下一步</button>
