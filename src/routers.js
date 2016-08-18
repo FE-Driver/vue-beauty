@@ -190,6 +190,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/apiTable.vue'], resolve);
           }
+        },
+        '/codeBox': {
+          name: 'codeBox',
+          component: function index(resolve) {
+            require(['./views/codeBox.vue'], resolve);
+          }
         }
       }
     },

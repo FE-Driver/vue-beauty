@@ -111,6 +111,9 @@
             <menu-item v-link="{ name: 'apiTable', activeClass: 'ant-menu-item-selected' }">
               ApiTable api表格
             </menu-item>
+            <menu-item v-link="{ name: 'codeBox', activeClass: 'ant-menu-item-selected' }">
+              CodeBox 代码示例
+            </menu-item>
           </sub-menu>
         </v-menu>
       </div>
