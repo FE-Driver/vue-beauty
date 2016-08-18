@@ -172,6 +172,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/breadcrumb.vue'], resolve);
           }
+        },
+        '/select': {
+          name: 'select',
+          component: function index(resolve) {
+            require(['./views/select.vue'], resolve);
+          }
         }
       }
     },
