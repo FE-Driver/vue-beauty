@@ -103,8 +103,13 @@
             <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
               Spin 加载中
             </menu-item>
-              <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
-                  tooltip
+            <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
+              Tooltip 文字提示
+            </menu-item>
+          </sub-menu>
+          <sub-menu title="Docs">
+            <menu-item v-link="{ name: 'apiTable', activeClass: 'ant-menu-item-selected' }">
+              ApiTable api表格
             </menu-item>
           </sub-menu>
         </v-menu>
