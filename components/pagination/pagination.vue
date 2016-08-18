@@ -107,33 +107,31 @@
 
 	  	<div :class="prefixCls + '-options'">
 	  		<div 
-	  			v-if="showQuickJumper" 
-	  			:class="prefixCls + '-options-quick-jumper'">
-	  		跳至
-	  		<input 
-	  			type="text" 
-	  			:value="currentForSimple"
-	  			@keyup="_handleKeyUp($event)"
-	  			@change="_handleKeyUp">
-	  		页
-	  		</div>
-	  		<div 
 	  			v-if="showSizeChanger"
 	  			:class="prefixCls + '-options-size-changer'">
-	  			<select 
-	  				v-model="pageSize"
-	  				@change="_pageSizeChange">
-	  				<option 
-	  					v-for="size in pageSizeOptions" 
-	  					value="{{size}}">每页{{size}}条</option>
-	  			</select>
+          <v-Select 
+            :size="!!size ? 'sm' : ''"
+            :options="options" 
+            :value.sync="pageSize"></v-Select>
 	  		</div>
+        <div 
+          v-if="showQuickJumper" 
+          :class="prefixCls + '-options-quick-jumper'">
+        跳至
+        <input 
+          type="text" 
+          :value="currentForSimple"
+          @keyup="_handleKeyUp($event)"
+          @change="_handleKeyUp">
+        页
+        </div>
 	  	</div>
 	  </ul>
 	</div>
 </template>
 <script>
 import { defaultProps, KeyCode } from '../../utils'
+import vSelect from '../select'
 export default {
   props: defaultProps({
   	prefixCls: 'ant-pagination',
@@ -177,18 +175,25 @@ export default {
   		let current = this.current;
       let newCurrent = this.allPages;
       current = current > newCurrent ? newCurrent : current;
-      this.current = this.currentForSimple = current;
+      this.current =  current;
       this.onShowSizeChange(current, Number(this.pageSize));
   	}
   },
   created() {
-  	this.pageSize = this.pageSize || this.defaultPageSize;
+  	let pageSize = this.pageSize || this.defaultPageSize;
+    this.pageSize = pageSize.toString();
   	this.current = this.current || this.defaultCurrent;
   	this.totalText = this.showTotal && this.showTotal(this.allPages);
+    this.options = this.pageSizeOptions.map(function(item, index) {
+      return {
+        value: item,
+        text: `${item}条/页`
+      }
+    }) 
   },
   computed: {
   	allPages() {
-  		return Math.floor((this.total - 1) / this.pageSize) + 1;
+  		return Math.floor((this.total - 1) / Number(this.pageSize)) + 1;
   	},
   	pageList() {
   		let biger = this.allPages <= 9;
@@ -234,7 +239,9 @@ export default {
 				  page = this.allPages;
 		    }
 		    this.current = page;
-		    this.currentForSimple = page;
+        if(this.simple) {
+          this.currentForSimple = page;
+        }
   	  }
   	},
   	_prev() {
@@ -282,26 +289,12 @@ export default {
         this._handleChange(val + 1);
       }
 		},
-		_go(e) {
-			let _val = e.target.value;
-      if (_val === '') {
-        return;
-      }
-      let val = Number(this.state._current);
-      if (isNaN(val)) {
-        val = this.state.current;
-      }
-      if (e.keyCode === KEYCODE.ENTER) {
-        let c = this.props.quickGo(val);
-        this.setState({
-          _current: c,
-          current: c
-        });
-      }
-		},
 		_pageSizeChange() {
 
 		}
+  },
+  components: {
+    vSelect
   }
 }
 </script>
