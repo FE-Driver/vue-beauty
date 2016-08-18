@@ -5,13 +5,13 @@
     <table>
       <thead>
         <tr>
-          <th>参数</th>
-          <th>说明</th>
-          <th>类型</th>
-          <th>默认值</th>
+          <th v-for="text in head">{{text}}</th>
         </tr>
       </thead>
       <tbody>
+        <tr v-for="item in content">
+          <td v-for="text in item">{{text}}</td>
+        </tr>
         <tr v-for="api in apis">
           <td>{{api.parameter}}</td>
           <td>{{api.explain}}</td>
@@ -26,6 +26,14 @@
 <script>
 export default {
   props:{
+    head: {
+      type: Array,
+      required: false,
+      default(){
+        return ['参数','说明','类型','默认值']
+      }
+    },
+    content: Array,
     apis: Array,
     title: {
       type: String,

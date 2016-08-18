@@ -184,6 +184,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/select.vue'], resolve);
           }
+        },
+        '/apiTable': {
+          name: 'apiTable',
+          component: function index(resolve) {
+            require(['./views/apiTable.vue'], resolve);
+          }
         }
       }
     },

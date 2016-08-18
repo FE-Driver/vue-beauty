@@ -38,6 +38,7 @@
 
     <api-table
       :apis='apiTreeNode'
+      title=""
     >
       <h3>TreeNode props</h3>
     </api-table>
