@@ -167,6 +167,12 @@ export default function(router) {
             require(['./views/tooltip.vue'], resolve);
           }
         },
+        '/tree': {
+          name: 'tree',
+          component: function index(resolve) {
+            require(['./views/tree.vue'], resolve);
+          }
+        },
         '/breadcrumb': {
           name: 'breadcrumb',
           component: function index(resolve) {

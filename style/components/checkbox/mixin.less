@@ -1,7 +1,9 @@
-@import "../mixins/index";
+@import "../../mixins/index";
 
+.antCheckboxFn(@checkbox-prefix-cls: ant-checkbox) {
+  @checkbox-inner-prefix-cls: ~"@{checkbox-prefix-cls}-inner";
   // 一般状态
-  .ant-checkbox {
+  .@{checkbox-prefix-cls} {
     white-space: nowrap;
     cursor: pointer;
     outline: none;
@@ -12,7 +14,7 @@
 
     &:hover,
     &-focused {
-      .ant-checkbox-inner {
+      .@{checkbox-inner-prefix-cls} {
         border-color: #bcbcbc;
       }
     }
@@ -62,8 +64,8 @@
   }
 
   // 半选状态
-  .ant-checkbox-indeterminate {
-    .ant-checkbox-inner {
+  .@{checkbox-prefix-cls}-indeterminate {
+    .@{checkbox-inner-prefix-cls} {
       border-color: @primary-color;
       background-color: @primary-color;
       &:after {
@@ -77,21 +79,21 @@
       }
     }
     &:hover {
-      .ant-checkbox-inner {
+      .@{checkbox-inner-prefix-cls} {
         border-color: @primary-color;
       }
     }
   }
   // 选中状态
-  .ant-checkbox-checked {
+  .@{checkbox-prefix-cls}-checked {
 
     &:hover {
-      .ant-checkbox-inner {
+      .@{checkbox-inner-prefix-cls} {
         border-color: @primary-color;
       }
     }
 
-    .ant-checkbox-inner {
+    .@{checkbox-inner-prefix-cls} {
       border-color: @primary-color;
       background-color: @primary-color;
 
@@ -112,15 +114,15 @@
     }
   }
 
-  .ant-checkbox-disabled {
-    &.ant-checkbox-checked {
+  .@{checkbox-prefix-cls}-disabled {
+    &.@{checkbox-prefix-cls}-checked {
       &:hover {
-        .ant-checkbox-inner {
+        .@{checkbox-inner-prefix-cls} {
           border-color: @border-color-base;
         }
       }
 
-      .ant-checkbox-inner {
+      .@{checkbox-inner-prefix-cls} {
         background-color: #f3f3f3;
         border-color: @border-color-base;
 
@@ -132,12 +134,12 @@
     }
 
     &:hover {
-      .ant-checkbox-inner {
+      .@{checkbox-inner-prefix-cls} {
         border-color: @border-color-base;
       }
     }
 
-    .ant-checkbox-inner {
+    .@{checkbox-inner-prefix-cls} {
       border-color: @border-color-base;
       background-color: #f3f3f3;
       &:after {
@@ -146,7 +148,7 @@
       }
     }
 
-    .ant-checkbox-inner-input {
+    .@{checkbox-inner-prefix-cls}-input {
       cursor: default;
     }
 
@@ -156,7 +158,7 @@
     }
   }
 
-  .ant-checkbox-wrapper {
+  .@{checkbox-prefix-cls}-wrapper {
     cursor: pointer;
     font-size: @font-size-base;
     display: inline-block;
@@ -165,17 +167,17 @@
     }
   }
 
-  .ant-checkbox-wrapper + span,
-  .ant-checkbox + span {
+  .@{checkbox-prefix-cls}-wrapper + span,
+  .@{checkbox-prefix-cls} + span {
     margin-left: 8px;
     margin-right: 8px;
   }
 
-  .ant-checkbox-wrapper + span {
+  .@{checkbox-prefix-cls}-wrapper + span {
     display: inline-block;
   }
 
-  .ant-checkbox-group {
+  .@{checkbox-prefix-cls}-group {
     font-size: @font-size-base;
     &-item {
       display: inline-block;
@@ -186,10 +188,9 @@
 
   // IE8 hack for https://github.com/ant-design/ant-design/issues/2148
   @media @ie8 {
-    .ant-checkbox-checked .ant-checkbox-inner:before,
-    .ant-checkbox-checked .ant-checkbox-inner:after {
-      font-family: 'anticon';
-      content: '\E62E';
+    .@{checkbox-prefix-cls}-checked .@{checkbox-prefix-cls}-inner:before,
+    .@{checkbox-prefix-cls}-checked .@{checkbox-prefix-cls}-inner:after {
+      .iconfont-font("\e62e");
       font-weight: bold;
       font-size: 8px;
       border: 0;
@@ -199,3 +200,4 @@
       position: absolute;
     }
   }
+}

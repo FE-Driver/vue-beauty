@@ -29,8 +29,8 @@
   "dependencies": {
     "babel-runtime": "^6.0.0",
     "classnames": "^2.2.5",
-    "eslint": "^3.2.2",
     "clipboard": "^1.5.12",
+    "eslint": "^3.2.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "^4.1.0",
