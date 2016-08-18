@@ -91,19 +91,20 @@ export default {
       const dom = this.$el
       const len = this.$el.children.length - 1
       if(len <0 ) return;
-      let width = 0
-      for(let i=0;i<this.$children[len].$el.children.length;i++){
+      let width = this.$children[len].$el.offsetWidth
+      /*for(let i=0;i<this.$children[len].$el.children.length;i++){
         let child = this.$children[len].$el.children[i];
         width += child.clientWidth
-      }
+      }*/
       this.$children.forEach((child, index) => {
 
         if (index == len) {
           child.tailWidth = 'auto'
         }else{
-          child.tailWidth = ( dom.clientWidth - width ) / len + 'px'
+          child.tailWidth = Math.floor(( dom.offsetWidth - width -1 ) / len) + 'px'
         }
       })
+      console.log(dom.offsetWidth ,width,( dom.clientWidth - width ) / len)
     }
   }
 }
