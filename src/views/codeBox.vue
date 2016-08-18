@@ -51,7 +51,7 @@
 
 
     <api-table
-      :apis='apis'
+      :content='content'
     ></api-table>
 
   </div>
