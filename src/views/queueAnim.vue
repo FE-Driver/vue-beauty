@@ -72,60 +72,26 @@
           <v-queue-anim class="ant-form-horizontal" type="bottom"
             :leave-reverse="true"
             :show="show">
-            <form class="ant-form ant-form ant-form-horizontal">
-              <div class="ant-row ant-form-item" style="opacity: 1; visibility: visible; transform: translateY(0px);" key='name'>
-                  <div class="ant-col-6 ant-form-item-label">
-                      <label class="">用户名</label>
-                  </div>
-                  <div class="ant-col-14">
-                      <div class="ant-form-item-control ">
-                          <p class="ant-form-text">大眼萌 minion</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="ant-row ant-form-item" style="opacity: 1; visibility: visible; transform: translateY(0px);" key='password'>
-                  <div class="ant-col-6 ant-form-item-label">
-                      <label class="">密码</label>
-                  </div>
-                  <div class="ant-col-14">
-                      <div class="ant-form-item-control "><span class="ant-input-wrapper"><input type="password" placeholder="请输入密码" class="ant-input ant-input-lg" value=""></span>
-                      </div>
-                  </div>
-              </div>
-              <div class="ant-row ant-form-item" style="opacity: 1; visibility: visible; transform: translateY(0px);" key='sex'>
-                  <div class="ant-col-6 ant-form-item-label">
-                      <label class="">您的性别</label>
-                  </div>
-                  <div class="ant-col-14">
-                      <div class="ant-form-item-control ">
-                          <div class="ant-radio-group ant-radio-group-large">
-                              <label class="ant-radio-wrapper"><span class="ant-radio"><span class="ant-radio-inner"></span>
-                                  <input type="radio" class="ant-radio-input" value="on">
-                                  </span><span>男的</span>
-                              </label>
-                              <label class="ant-radio-wrapper"><span class="ant-radio"><span class="ant-radio-inner"></span>
-                                  <input type="radio" class="ant-radio-input" value="on">
-                                  </span><span>女的</span>
-                              </label>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="ant-row ant-form-item" style="opacity: 1; visibility: visible; transform: translateY(0px);" key='remark'>
-                  <div class="ant-col-6 ant-form-item-label">
-                      <label class="">备注</label>
-                  </div>
-                  <div class="ant-col-14">
-                      <div class="ant-form-item-control "><span class="ant-input-wrapper"><textarea type="textarea" placeholder="随便写" class="ant-input ant-input-lg"></textarea></span>
-                      </div>
-                  </div>
-              </div>
-              <div class="ant-row" style="opacity: 1; visibility: visible; transform: translateY(0px);" key='btn'>
-                  <div class="ant-col-16 ant-col-offset-6">
-                      <v-button type="primary">确定</v-button>
-                  </div>
-              </div>
-          </form>
+            <v-form direction="horizontal">
+              <v-form-item label="用户名" :label-col="labelCol" :wrapper-col="wrapperCol" key="name">
+                <p className="ant-form-text" id="userName" name="userName">大眼萌 minion</p>
+              </v-form-item>
+              <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol" key="password">
+                <v-input type="password" placeholder="请输入密码" size="large"></v-input>
+              </v-form-item>
+              <v-form-item label="您的性别" :label-col="labelCol" :wrapper-col="wrapperCol" key="sex">
+                <v-radio-group
+                  default-value='female'
+                  :radios="[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]">
+                </v-radio-group>
+              </v-form-item>
+              <v-form-item label="备注" :label-col="labelCol" :wrapper-col="wrapperCol" key="remark">
+                <v-input type='textarea' placeholder="随便写"></v-input>
+              </v-form-item>
+              <v-form-item :wrapper-col="{span:16,offset:6}" style="margin-top:24px" key="btn">
+                <v-button type='primary' html-type="submit">确定</v-button>
+              </v-form-item>
+            </v-form>
           </v-queue-anim>
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
@@ -304,9 +270,14 @@
 <script>
 
 import vQueueAnim from '../../components/queueAnim'
+import vForm from '../../components/form'
+import vInput from '../../components/input'
+import vRadio from '../../components/radio'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
+let vFormItem = vForm.Item
+let vRadioGroup = vRadio.Group
 
 export default {
   data: function () {
@@ -368,11 +339,18 @@ export default {
         ]
       ],
       items: ['1', '2', '3'],
-      show: true
+      show: true,
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 }
     }
   },
   components: {
     vQueueAnim,
+    vForm,
+    vRadio,
+    vRadioGroup,
+    vFormItem,
+    vInput,
     vButton,
     codeBox,
     apiTable
@@ -559,5 +537,8 @@ export default {
     border-bottom: 1px solid #cacaca;
     overflow: hidden;
     padding: 5px 15px;
+}
+.code-box-demo .ant-form-horizontal{
+  max-width: 540px
 }
 </style>
