@@ -13,10 +13,7 @@
           <td v-for="text in item" v-html="text"></td>
         </tr>
         <tr v-for="api in apis">
-          <td>{{api.parameter}}</td>
-          <td>{{api.explain}}</td>
-          <td>{{api.type}}</td>
-          <td>{{api.default}}</td>
+          <td v-for="text in api" v-html="text"></td>
         </tr>
       </tbody>
     </table>
