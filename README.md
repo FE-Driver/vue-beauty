@@ -24,6 +24,12 @@ Beautiful  UI components build with vue and ant design
 - Spin 加载中
 - Tag 标签
 - Upload 上传
+- Icon 图标
+- Select 选择器
+- Tree 树形控件
+- Pagination 分页
+- QueueAnim 进出场动画
+- Form 表单
 
 **(持续更新中。。。)**
 
@@ -36,9 +42,9 @@ Beautiful  UI components build with vue and ant design
     |   |-- components      一些文档组件
     |   |-- views           组件的说明文档
     |   `-- routers.js      路由
-    |-- style 
+    |-- style
     |   `-- components      存放组件的样式
-    `-- utils               一些工具方法         
+    `-- utils               一些工具方法
 </pre>
 
 ## 参与流程
@@ -50,11 +56,11 @@ Beautiful  UI components build with vue and ant design
 - 合并pr，测试并发布到master分支
 
 ## 开发步骤
-- 到[ant-design1.8](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
+- 到[ant-design1.9.1](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
 - 打开style/components/index.less，导出组件的样式
 - 涉及文件：src/routers.js、src/views/components.vue
 - 到src/views下添加组件的文档
-- 在components开发组件  
+- 在components开发组件
 notice：如果你需要增加样式，可以在组件对应的样式目录中增加xxx_vb.less（如button_vb.less），并在index.less中import该样式文件
 
 ## 命名规范

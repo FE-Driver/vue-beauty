@@ -9,7 +9,6 @@
 </template>
 
 <script lang="babel">
-
     export default {
         props:{
             offsetTop:Number,
@@ -26,7 +25,6 @@
             };
         },
         computed: {
-
         },
         ready: function () {
             document.addEventListener('scroll', this.handleScroll);
@@ -59,7 +57,6 @@
                 const clientLeft = element.clientLeft || body.clientLeft || 0;
                 const scrollTop = this.getScroll(window, true);
                 const scrollLeft = this.getScroll(window);
-
                 return {
                     top: rect.top + scrollTop - clientTop,
                     left: rect.left + scrollLeft - clientLeft,
@@ -76,7 +73,6 @@
                     top: this.offsetTop,
                     bottom: this.offsetBottom
                 }
-
                 if (scrollTop > elemOffset.top - offsetTop && (offsetMode.top || offsetMode.top == 0)) {
                     this.affixStyle = {
                         position: 'fixed',
@@ -109,15 +105,12 @@
             },
         },
         components: {
-
         }
     }
 </script>
 
 <style lang="css">
-
     .ant-affix {
         z-index: 10
     }
-
 </style>

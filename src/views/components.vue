@@ -17,19 +17,34 @@
             <menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
               Button 按钮
             </menu-item>
+            <menu-item v-link="{ name: 'font', activeClass: 'ant-menu-item-selected' }">
+              Icon 图标
+            </menu-item>
           </sub-menu>
           <sub-menu title="Form Controls">
             <menu-item v-link="{ name: 'checkbox', activeClass: 'ant-menu-item-selected' }">
               Checkbox 多选框
             </menu-item>
-            <menu-item v-link="{ name: 'radio', activeClass: 'ant-menu-item-selected' }">
-              Radio 单选框
+            <menu-item v-link="{ name: 'form', activeClass: 'ant-menu-item-selected' }">
+              Form 表单
             </menu-item>
             <menu-item v-link="{ name: 'input', activeClass: 'ant-menu-item-selected' }">
               Input 输入框
             </menu-item>
             <menu-item v-link="{ name: 'inputNumber', activeClass: 'ant-menu-item-selected' }">
               InputNumber 数字输入框
+            </menu-item>
+            <menu-item v-link="{ name: 'radio', activeClass: 'ant-menu-item-selected' }">
+              Radio 单选框
+            </menu-item>
+            <menu-item v-link="{ name: 'rate', activeClass: 'ant-menu-item-selected' }">
+              Rate 评分
+            </menu-item>
+            <menu-item v-link="{ name: 'select', activeClass: 'ant-menu-item-selected' }">
+              Select 选择器
+            </menu-item>
+            <menu-item v-link="{ name: 'slider', activeClass: 'ant-menu-item-selected' }">
+              Slider 滑动输入条
             </menu-item>
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
@@ -41,6 +56,9 @@
           <sub-menu title="Views">
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
               Alert 警告提醒
+            </menu-item>
+            <menu-item v-link="{ name: 'progress', activeClass: 'ant-menu-item-selected' }">
+              Progress进度条
             </menu-item>
             <menu-item v-link="{ name: 'badge', activeClass: 'ant-menu-item-selected' }">
               Badge 徽标数
@@ -54,12 +72,6 @@
             <menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
               Dropdown 下拉菜单
             </menu-item>
-            <menu-item v-link="{ name: 'slider', activeClass: 'ant-menu-item-selected' }">
-              Slider 滑动输入条
-            </menu-item>
-            <menu-item v-link="{ name: 'rate', activeClass: 'ant-menu-item-selected' }">
-              Rate 评分
-            </menu-item>
             <menu-item v-link="{ name: 'notification', activeClass: 'ant-menu-item-selected' }">
               Notification 通知提醒框
             </menu-item>
@@ -72,10 +84,19 @@
             <menu-item v-link="{ name: 'tag', activeClass: 'ant-menu-item-selected' }">
               Tag 标签
             </menu-item>
+            <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
+              Pagination 分页
+            </menu-item>
+            <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
+              Tree 树形控件
+            </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
               Steps 步骤条
+            </menu-item>
+            <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
+              Breadcrumb 面包屑
             </menu-item>
           </sub-menu>
           <sub-menu title="Other">
@@ -85,11 +106,22 @@
             <menu-item v-link="{ name: 'backTop', activeClass: 'ant-menu-item-selected' }">
               BackTop 回到顶部
             </menu-item>
+            <menu-item v-link="{ name: 'queueAnim', activeClass: 'ant-menu-item-selected' }">
+              QueueAnim 进出场动画
+            </menu-item>
             <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
               Spin 加载中
             </menu-item>
-              <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
-                  tooltip
+            <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
+              Tooltip 文字提示
+            </menu-item>
+          </sub-menu>
+          <sub-menu title="Docs">
+            <menu-item v-link="{ name: 'apiTable', activeClass: 'ant-menu-item-selected' }">
+              ApiTable api表格
+            </menu-item>
+            <menu-item v-link="{ name: 'codeBox', activeClass: 'ant-menu-item-selected' }">
+              CodeBox 代码示例
             </menu-item>
           </sub-menu>
         </v-menu>
@@ -167,9 +199,15 @@ export default {
     background: #eee;
     margin: 20px 0;
   }
-  
+
   p, pre {
       margin: 1em 0;
+  }
+
+  pre{
+    padding: 1em;
+    background-color: #F7F7F7;
+    border-radius: 6px;
   }
 
   h2 {

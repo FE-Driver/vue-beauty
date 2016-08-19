@@ -90,23 +90,18 @@ export default {
       }
       const dom = this.$el
       const len = this.$el.children.length - 1
-      let width = 0
-      for (let children of this.$children[len].$el.children) {
-        width = width + children.clientWidth
-      }
+      if(len <0 ) return;
+      let width = this.$children[len].$el.offsetWidth
+
       this.$children.forEach((child, index) => {
 
         if (index == len) {
           child.tailWidth = 'auto'
         }else{
-          child.tailWidth = ( dom.clientWidth - width ) / len + 'px'
+          child.tailWidth = Math.floor(( dom.offsetWidth - width -1 ) / len) + 'px'
         }
       })
     }
-  },
-  components: {}
+  }
 }
 </script>
-
-<style lang="css">
-</style>

@@ -1,21 +1,26 @@
 <template lang="html">
-
-  <button type="button" :class="['ant-btn', type, size, shape, {'ant-btn-loading': loading}]" disabled="{{disabled}}">
+  <button :type="htmlType" :class="['ant-btn', type, size, shape, {'ant-btn-loading': loading}, {'ant-btn-clicked': clicked}]" disabled="{{disabled}}" @click="_click">
     <i class="anticon anticon-loading" v-if="loading"></i>
     <i class="anticon anticon-{{icon}}" v-if="icon"></i>
     <slot></slot>
   </button>
-
 </template>
-type
 <script>
 export default {
+  data:()=>({
+    clicked: false,
+    clickTimer: null
+  }),
   props: {
     type: {
       type: String,
       coerce: function (val) {
         return `ant-btn-${val}`
       }
+    },
+    htmlType: {
+      type: String,
+      default: 'button'
     },
     icon: String,
     shape: {
@@ -51,13 +56,14 @@ export default {
       default: false
     }
   },
-  data: function () {
-    return {
+  methods:{
+    _click(){
+      this.clicked = true;
+
+      if(this.clickTimer) clearTimeout(this.clickTimer);
+
+      this.clickTimer = setTimeout(()=>this.clicked = false,500);
     }
-  },
-  ready: function () {},
-  attached: function () {},
-  methods: {},
-  components: {}
+  }
 }
 </script>

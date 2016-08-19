@@ -29,10 +29,12 @@
   "dependencies": {
     "babel-runtime": "^6.0.0",
     "classnames": "^2.2.5",
+    "clipboard": "^1.5.12",
     "eslint": "^3.2.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "^4.1.0",
+    "velocity-animate": "^1.2.3",
     "vue": "^1.0.21",
     "vue-router": "^0.7.13"
   },

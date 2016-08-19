@@ -42,7 +42,7 @@
                         title="路由"
                         describe="和 vue-router 进行结合使用。"
                         code='import vBreadcrumbs from "../../components/breadcrumb"
-还没想好'
+暂且放一放'
                         >
 
                     <v-breadcrumbs>

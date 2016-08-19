@@ -1,7 +1,7 @@
 <template>
     <span :class="wrapClasses">
-      <input v-if="type ==='text'" type="text" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="value"/>
-      <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :value="value"></textarea>
+      <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="value"></textarea>
+      <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="value"/>
     </span>
 </template>
 

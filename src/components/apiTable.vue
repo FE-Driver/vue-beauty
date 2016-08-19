@@ -1,22 +1,19 @@
 <template lang="html">
   <section class="markdown api-container">
-    <h2>API</h2>
+    <h2>{{ title }}</h2>
     <slot></slot>
     <table>
       <thead>
         <tr>
-          <th>参数</th>
-          <th>说明</th>
-          <th>类型</th>
-          <th>默认值</th>
+          <th v-for="text in head" v-html="text"></th>
         </tr>
       </thead>
       <tbody>
+        <tr v-for="item in content">
+          <td v-for="text in item" v-html="text"></td>
+        </tr>
         <tr v-for="api in apis">
-          <td>{{api.parameter}}</td>
-          <td>{{api.explain}}</td>
-          <td>{{api.type}}</td>
-          <td>{{api.default}}</td>
+          <td v-for="text in api" v-html="text"></td>
         </tr>
       </tbody>
     </table>
@@ -26,7 +23,20 @@
 <script>
 export default {
   props:{
-    apis: Array
+    head: {
+      type: Array,
+      required: false,
+      default(){
+        return ['参数','说明','类型','默认值']
+      }
+    },
+    content: Array,
+    apis: Array,
+    title: {
+      type: String,
+      required: false,
+      default: "API"
+    }
   },
 }
 </script>

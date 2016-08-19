@@ -34,15 +34,10 @@
         <code-box
           title="按钮尺寸"
           describe="RadioGroup组合"
-          code="<v-radio-group
-  :on-change=‘_onGroupChange’
-  :value='groupValue''
-  :radios='[{value: 'a', name: 'A'},{value: 'b', name: 'B'},{value: 'c', name: 'C'},{value: 'd', name: 'D'}]'>
-</v-radio-group>"
         >
           <v-radio-group
             :on-change="_onGroupChange"
-            :value="groupValue"
+            default-value='a'
             :radios="[{value: 'a', name: 'A'},{value: 'b', name: 'B'},{value: 'c', name: 'C'},{value: 'd', name: 'D'}]">
           </v-radio-group>
         </code-box>
@@ -173,6 +168,7 @@
     </api-table>
 
     <api-table
+      title=""
       :apis='apiGroup'
     >
       <h3>RadioGroup</h3>
@@ -276,7 +272,7 @@ export default {
   },
   components: {
     vRadio,
-    vRadioGroup:vRadio.vRadioGroup,
+    vRadioGroup:vRadio.Group,
     vButton,
     codeBox,
     apiTable

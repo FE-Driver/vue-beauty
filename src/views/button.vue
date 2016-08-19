@@ -142,6 +142,11 @@ export default {
           type: 'String',
           default: '无'
         },{
+          parameter: 'htmlType',
+          explain: '设置 button 原生的 type 值，可选值请参考 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type" target="_blank">HTML 标准<a/>',
+          type: 'string',
+          default: 'button'
+        },{
           parameter: 'icon',
           explain: '设置按钮的图标类型',
           type: 'string',
