@@ -55,7 +55,7 @@ Beautiful  UI components build with vue and ant design
 - 合并pr，测试并发布到master分支
 
 ## 开发步骤
-- 到[ant-design1.8](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
+- 到[ant-design1.9.1](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
 - 打开style/components/index.less，导出组件的样式
 - 涉及文件：src/routers.js、src/views/components.vue
 - 到src/views下添加组件的文档
