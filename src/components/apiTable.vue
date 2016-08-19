@@ -5,12 +5,12 @@
     <table>
       <thead>
         <tr>
-          <th v-for="text in head">{{text}}</th>
+          <th v-for="text in head" v-html="text"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in content">
-          <td v-for="text in item">{{text}}</td>
+          <td v-for="text in item" v-html="text"></td>
         </tr>
         <tr v-for="api in apis">
           <td>{{api.parameter}}</td>

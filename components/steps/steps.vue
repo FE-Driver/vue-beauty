@@ -92,10 +92,7 @@ export default {
       const len = this.$el.children.length - 1
       if(len <0 ) return;
       let width = this.$children[len].$el.offsetWidth
-      /*for(let i=0;i<this.$children[len].$el.children.length;i++){
-        let child = this.$children[len].$el.children[i];
-        width += child.clientWidth
-      }*/
+
       this.$children.forEach((child, index) => {
 
         if (index == len) {
@@ -104,7 +101,6 @@ export default {
           child.tailWidth = Math.floor(( dom.offsetWidth - width -1 ) / len) + 'px'
         }
       })
-      console.log(dom.offsetWidth ,width,( dom.clientWidth - width ) / len)
     }
   }
 }

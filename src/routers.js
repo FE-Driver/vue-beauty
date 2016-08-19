@@ -185,6 +185,12 @@ export default function(router) {
             require(['./views/select.vue'], resolve);
           }
         },
+        '/queueAnim': {
+          name: 'queueAnim',
+          component: function index(resolve) {
+            require(['./views/queueAnim.vue'], resolve);
+          }
+        },
         '/apiTable': {
           name: 'apiTable',
           component: function index(resolve) {

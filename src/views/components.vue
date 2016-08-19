@@ -100,6 +100,9 @@
             <menu-item v-link="{ name: 'backTop', activeClass: 'ant-menu-item-selected' }">
               BackTop 回到顶部
             </menu-item>
+            <menu-item v-link="{ name: 'queueAnim', activeClass: 'ant-menu-item-selected' }">
+              QueueAnim 进出场动画
+            </menu-item>
             <menu-item v-link="{ name: 'spin', activeClass: 'ant-menu-item-selected' }">
               Spin 加载中
             </menu-item>
@@ -193,6 +196,12 @@ export default {
 
   p, pre {
       margin: 1em 0;
+  }
+
+  pre{
+    padding: 1em;
+    background-color: #F7F7F7;
+    border-radius: 6px;
   }
 
   h2 {

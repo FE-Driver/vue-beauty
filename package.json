@@ -34,6 +34,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "^4.1.0",
+    "velocity-animate": "^1.2.3",
     "vue": "^1.0.21",
     "vue-router": "^0.7.13"
   },
