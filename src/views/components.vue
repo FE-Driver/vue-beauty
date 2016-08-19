@@ -25,14 +25,26 @@
             <menu-item v-link="{ name: 'checkbox', activeClass: 'ant-menu-item-selected' }">
               Checkbox 多选框
             </menu-item>
-            <menu-item v-link="{ name: 'radio', activeClass: 'ant-menu-item-selected' }">
-              Radio 单选框
+            <menu-item v-link="{ name: 'form', activeClass: 'ant-menu-item-selected' }">
+              Form 表单
             </menu-item>
             <menu-item v-link="{ name: 'input', activeClass: 'ant-menu-item-selected' }">
               Input 输入框
             </menu-item>
             <menu-item v-link="{ name: 'inputNumber', activeClass: 'ant-menu-item-selected' }">
               InputNumber 数字输入框
+            </menu-item>
+            <menu-item v-link="{ name: 'radio', activeClass: 'ant-menu-item-selected' }">
+              Radio 单选框
+            </menu-item>
+            <menu-item v-link="{ name: 'rate', activeClass: 'ant-menu-item-selected' }">
+              Rate 评分
+            </menu-item>
+            <menu-item v-link="{ name: 'select', activeClass: 'ant-menu-item-selected' }">
+              Select 选择器
+            </menu-item>
+            <menu-item v-link="{ name: 'slider', activeClass: 'ant-menu-item-selected' }">
+              Slider 滑动输入条
             </menu-item>
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
@@ -59,12 +71,6 @@
             </menu-item>
             <menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
               Dropdown 下拉菜单
-            </menu-item>
-            <menu-item v-link="{ name: 'slider', activeClass: 'ant-menu-item-selected' }">
-              Slider 滑动输入条
-            </menu-item>
-            <menu-item v-link="{ name: 'rate', activeClass: 'ant-menu-item-selected' }">
-              Rate 评分
             </menu-item>
             <menu-item v-link="{ name: 'notification', activeClass: 'ant-menu-item-selected' }">
               Notification 通知提醒框

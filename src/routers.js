@@ -191,6 +191,12 @@ export default function(router) {
             require(['./views/queueAnim.vue'], resolve);
           }
         },
+        '/form': {
+          name: 'form',
+          component: function index(resolve) {
+            require(['./views/form.vue'], resolve);
+          }
+        },
         '/apiTable': {
           name: 'apiTable',
           component: function index(resolve) {

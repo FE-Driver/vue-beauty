@@ -29,6 +29,7 @@ Beautiful  UI components build with vue and ant design
 - Tree 树形控件
 - Pagination 分页
 - QueueAnim 进出场动画
+- Form 表单
 
 **(持续更新中。。。)**
 

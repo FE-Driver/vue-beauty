@@ -6,8 +6,8 @@
 <script>
   export default {
     props: {
-      span: String,
-      offset: String
+      span: [String, Number],
+      offset: [String, Number]
     },
     computed: {
       classes () {
