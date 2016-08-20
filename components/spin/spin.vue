@@ -18,13 +18,18 @@ import cx from 'classnames'
 export default {
   data:()=>({
       prefix: 'ant-spin',
+      hasSlot:false
   }),
   props: defaultProps({
       size: String,
       spinning: true,
-      tip: String,
-      hasSlot:false
+      tip: String
   }),
+  ready(){
+    if(this._slotContents && this._slotContents.default){
+      this.hasSlot = true;
+    }
+  },
   components:{spinInner}
 }
 </script>
