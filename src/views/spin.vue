@@ -23,7 +23,6 @@
         <code-box
           title="基本用法"
           describe="一个简单的 loading 状态。"
-          code="<v-spin></v-spin>"
         >
           <v-spin></v-spin>
         </code-box>
@@ -31,13 +30,8 @@
         <code-box
           title="自定义描述文案"
           describe="自定义描述文案，指定的 tip 文案会直接代替 ...。"
-          code="<v-spin :has-slot='true' tip='正在读取数据.'>
-  <v-alert type='info' message='消息提示的文案'
-    description='消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍'
-  ></v-alert>
-</v-spin>"
         >
-          <v-spin :has-slot="true" tip="正在读取数据.">
+          <v-spin tip="正在读取数据.">
             <v-alert type="info" message="消息提示的文案"
               description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"
             ></v-alert>
@@ -51,9 +45,6 @@
         <code-box
           title="各种大小"
           describe="小的用于文本加载，默认用于卡片容器级加载，大的用于页面级加载。"
-          code="<v-spin size='small'></v-spin>
-<v-spin></v-spin>
-<v-spin size='large'></v-spin>"
         >
           <v-spin size="small"></v-spin>
           <v-spin></v-spin>
@@ -63,13 +54,8 @@
         <code-box
           title="卡片加载中"
           describe="可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。"
-          code="<v-spin :has-slot='true' :spinning='spinning'>
-  <v-alert type='info' message='消息提示的文案'
-    description='消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍'
-  ></v-alert>
-</v-spin>"
         >
-          <v-spin :has-slot="true" :spinning="spinning">
+          <v-spin :spinning="spinning">
             <v-alert type="info" message="消息提示的文案"
               description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"
             ></v-alert>
@@ -115,11 +101,6 @@ export default {
           explain: '自定义描述文案',
           type: 'string',
           default: '无'
-        },{
-          parameter: 'hasSlot',
-          explain: '当使用slot的时候需要设置为true',
-          type: 'Boolean',
-          default: 'false'
         }
       ],
       spinning: false

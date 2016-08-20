@@ -1,13 +1,12 @@
 <template lang="html">
   <ul :class="wrapperCls" role="tree-node" unselectable="true">
-    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :key="item.key">
-      <tree v-if="item.node && item.node.length" :data.sync="item.node" :root="false" :expand.sync="item.expand"></tree>
+    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :key="item.key" :checkable="checkable" :multiple="multiple">
+      <tree v-if="item.node && item.node.length" :data.sync="item.node" :root="false" :expand.sync="item.expand" :checkable="checkable" :multiple="multiple"></tree>
     </tree-node>
   </ul>
 </template>
 
 <script>
-import cx from 'classnames'
 import treeNode from './treeNode'
 import { defaultProps } from '../../utils'
 
@@ -19,6 +18,8 @@ export default {
   }),
   props: defaultProps({
     data: [],
+    multiple: false,
+    checkable: false,
     expand: false,
     root: true
   }),
@@ -31,10 +32,10 @@ export default {
   components: {treeNode},
   computed: {
     wrapperCls () {
-      return cx({
-        [this.prefix]: true,
-        [`${this.prefix}-open`]: this.expand
-      })
+      return [
+        this.prefix,
+        {[`${this.prefix}-open`]: this.expand}
+      ]
     }
   },
   methods: {
