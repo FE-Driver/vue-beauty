@@ -1,9 +1,9 @@
 <template>
 <div :class="wrapClasses">
-  <span v-if="showInfo === true">
+  <span v-if="showInfo === true" >
     <span v-if="progressStatus === 'exception' || progressStatus === 'success'" :class="prefixCls + '-line-text'">
-      <v-icon :type="progressStatus === 'exception' ? 'exclamation-circle-o' : 'check-circle-o' "></v-icon>
-</span>
+      <v-icon :type="progressStatus === 'exception' ? 'exclamation-circle' : 'check-circle' "></v-icon>
+    </span>
     <span v-else :class="prefixCls + '-line-text'">
       {{ percent }}%
     </span>
