@@ -6,6 +6,7 @@
     <v-col :span="wrapperCol.span" :offset="wrapperCol.offset">
         <div :class="controlCls">
 			<slot></slot>
+            <div v-if="help" v-text="help" class="{{this.prefixCls}}-explain"></div>
 		</div>
     </v-col>
 </div>
@@ -14,34 +15,40 @@
 <script>
 import {vRow, vCol} from '../layout'
 import { defaultProps, oneOfType } from '../../utils'
-import cx from 'classnames'
 
 export default {
   data:()=>({
     prefix: 'ant-form-item',
   }),
   props: defaultProps({
+      prefixCls:'ant-form',
       label: String,
       labelCol: {},
-      wrapperCol: {}
+      wrapperCol: {},
+      help: String,
+      validateStatus: String,
+      hasFeedback: false,
   }),
   components: {vRow,vCol},
   computed: {
     itemCls () {
-      return cx({
-        'ant-row': true,
-        [`${this.prefix}`]: true
-      })
+      return [
+          'ant-row',
+          this.prefix,
+          {[`${this.prefix}-with-help`]: this.help}
+      ]
     },
     labelCls () {
-        return cx({
-            [`${this.prefix}-label`]: true
-        })
+        return `${this.prefix}-label`
     },
     controlCls () {
-        return cx({
-            [`${this.prefix}-control`]: true
-        })
+        let status = {error:'has-error',warning:'has-warning',success:'has-success',validating:'is-validating'}[this.validateStatus];
+
+        return [
+            `${this.prefix}-control`,
+            {'has-feedback': this.hasFeedback},
+            {[status]:status}
+        ]
     }
   }
 }

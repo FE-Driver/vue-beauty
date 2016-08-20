@@ -18,19 +18,19 @@
       <h2>表单域</h2>
       <ul>
         <p>
-          表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。<br>这里我们封装了表单域 <Form.Item /> 。
+          表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。<br>这里我们封装了表单域 <code>&lt;Form.Item /&gt;</code 。
         </p>
       </ul>
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
+    <v-row>
 
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
+      <v-col>
 
         <code-box
           title="平行排列"
-          describe="行内排列，常用于登录界面。"
+          :describe="行内排列，常用于登录界面。"
         >
           <v-form>
             <v-form-item label="账户">
@@ -75,9 +75,38 @@
           </v-form>
         </code-box>
 
-      </div>
+        <code-box
+          title="校验提示"
+          describe="我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。
+validateStatus: 'success', 'warning', 'error', 'validating'。
+另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。
+注意: 反馈图标只对 <Input /> 有效。"
+        >
+          <v-form direction="horizontal">
+            <v-form-item label="失败校验" :label-col="labelCol" :wrapper-col="wrapperCol" help="请输入数字和字母的组合" validate-status="error">
+              <v-input value="无效选择" size="large"></v-input>
+            </v-form-item>
+            <v-form-item label="警告校验" :label-col="labelCol" :wrapper-col="wrapperCol" validate-status="warning">
+              <v-input value="前方高能预警" size="large"></v-input>
+            </v-form-item>
+            <v-form-item label="校验中" :label-col="labelCol" :wrapper-col="wrapperCol" help="信息审核中..." has-feedback validate-status="validating">
+              <v-input value="我是被校验的内容" size="large"></v-input>
+            </v-form-item>
+            <v-form-item label="成功校验" :label-col="labelCol" :wrapper-col="wrapperCol" has-feedback validate-status="success">
+              <v-input value="我是正文" size="large"></v-input>
+            </v-form-item>
+            <v-form-item label="警告校验" :label-col="labelCol" :wrapper-col="wrapperCol" has-feedback validate-status="warning">
+              <v-input value="前方高能预警" size="large"></v-input>
+            </v-form-item>
+            <v-form-item label="失败校验" :label-col="labelCol" :wrapper-col="wrapperCol" help="请输入数字和字母的组合" has-feedback validate-status="error">
+              <v-input value="无效选择" size="large"></v-input>
+            </v-form-item>
+          </v-form>
+        </code-box>
+
+      </v-col>
       
-    </div>
+    </v-row>
 
 
     <api-table
@@ -106,6 +135,7 @@ import vCheckbox from '../../components/checkbox'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
+import {vRow, vCol} from '../../components/layout'
 let vFormItem = vForm.Item
 let vRadioGroup = vRadio.Group
 
@@ -153,7 +183,9 @@ export default {
     vCheckbox,
     vButton,
     codeBox,
-    apiTable
+    apiTable,
+    vRow,
+    vCol
   }
 }
 </script>
