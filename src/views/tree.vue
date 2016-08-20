@@ -21,8 +21,8 @@
           title="基本"
           describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
         >
-          <v-tree :data.sync="treedata"></v-tree>
-          <v-button @click="getTreeData">tree数据</v-button>
+          <v-tree :data.sync="treedata" checkable></v-tree>
+          <v-button @click="getTreeData" type="primary">tree数据</v-button>
         </code-box>
 
       </div>
@@ -31,7 +31,7 @@
 
 
     <api-table
-      :apis='apis'
+      :content='content'
     >
       <h3>Tree props</h3>
     </api-table>
@@ -56,12 +56,25 @@ import apiTable from '../components/apiTable'
 export default {
   data: function () {
     return {
-      apis: [{
-          parameter: 'data',
-          explain: '可嵌套的节点属性的数组，生成tree的数据',
-          type: 'array',
-          default: '无'
-        }
+      content:[
+        [
+          'data',
+          '可嵌套的节点属性的数组，生成tree的数据',
+          'array',
+          '无'
+        ],
+        [
+          'multiple',
+          '是否支持多选',
+          'bool',
+          'false'
+        ],
+        [
+          'checkable',
+          '是否支持选中',
+          'bool',
+          'false'
+        ]
       ],
       apiTreeNode: [{
           parameter: 'disabled',
@@ -98,6 +111,7 @@ export default {
         {
           title:'parent 1',
           key: '0',
+          selected: true,
           expand: true,
           node:[
             {

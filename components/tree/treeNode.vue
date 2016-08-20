@@ -1,17 +1,17 @@
 <template>
 <li :class="wrapperCls">
     <span :class="switcherCls" @click="setExpand"></span>
-    <span :class="checkboxCls" @click="setCheck">
+    <span v-if="checkable" :class="checkboxCls" @click="setCheck">
         <span class="ant-tree-checkbox-inner"></span>
     </span>
-    <a :title="title">
+    <a :title="title" :class="titleCls" @click="setSelect">
         <span class="ant-tree-title" v-html="title"></span>
     </a>
     <slot></slot>
 </li>
 </template>
 <script>
-    import cx from 'classnames'
+    import Bus from './bus.js';
     import { defaultProps,oneOfType } from '../../utils'
 
     export default{
@@ -22,33 +22,51 @@
         }),
         props: defaultProps({
             title: oneOfType([Object, String], '---'),
+            checkable: false,
             expand: false,
             checked: false,
             disabled: false,
+            selected: false,
+            multiple: false,
             disableCheckbox: false,
             key: String
         }),
+        created(){
+            Bus.$on('nodeSelected', target => {
+                if(target === this) return;
+                if(!this.multiple && this.selected) this.selected = false;
+            });
+        },
         computed:{
             wrapperCls(){
-                return cx({
+                return {
                     [`${this.prefix}-treenode-disabled`]: this.disabled
-                })
+                }
             },
             switcherCls(){
-                return cx({
-                    [`${this.prefix}-switcher`]: true,
-                    [`${this.prefix}-switcher-disabled`]: this.disabled,
-                    [`${this.prefix}-noline_close`]: !this.expand && !this.isLeaf,
-                    [`${this.prefix}-noline_open`]: this.expand && !this.isLeaf,
-                })
+                return [
+                    `${this.prefix}-switcher`,
+                    {
+                        [`${this.prefix}-switcher-disabled`]: this.disabled,
+                        [`${this.prefix}-noline_close`]: !this.expand && !this.isLeaf,
+                        [`${this.prefix}-noline_open`]: this.expand && !this.isLeaf,
+                    }
+                ]
             },
             checkboxCls(){
-                return cx({
-                    [`${this.prefix}-checkbox`]: true,
-                    [`${this.prefix}-checkbox-disabled`]: this.disabled || this.disableCheckbox,
-                    [`${this.prefix}-checkbox-checked`]: this.checked && this.childrenCheckedStatus == 2,
-                    [`${this.prefix}-checkbox-indeterminate`]: this.checked && this.childrenCheckedStatus == 1
-                })
+                return [
+                    [`${this.prefix}-checkbox`],
+                    {
+                        [`${this.prefix}-checkbox-disabled`]: this.disabled || this.disableCheckbox,
+                        [`${this.prefix}-checkbox-checked`]: this.checked && this.childrenCheckedStatus == 2,
+                        [`${this.prefix}-checkbox-indeterminate`]: this.checked && this.childrenCheckedStatus == 1
+                    }
+                ]
+            },
+            titleCls(){
+                return [
+                    {[`${this.prefix}-node-selected`]:this.selected}
+                ]
             }
         },
         ready(){
@@ -78,6 +96,13 @@
                 this.$broadcast('parentCheck',this.checked);
                 this.childrenCheckedStatus = this.checked? 2 : 0;
                 this.$dispatch('childCheck',this);
+            },
+            setSelect(){
+                if(this.disabled) return;
+                this.selected = !this.selected;
+                if(this.selected){
+                    Bus.$emit('nodeSelected', this);
+                }
             },
             getChildrenCheckedStatus(){
                 return this.$children[0].childrenCheckedStatus;

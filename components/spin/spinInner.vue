@@ -7,7 +7,6 @@
 
 <script>
 import { defaultProps } from '../../utils'
-import cx from 'classnames'
 
 export default {
     props: defaultProps({
@@ -18,14 +17,16 @@ export default {
     }),
     computed: {
         wrapClasses () {
-        const size = {small:'sm',large:'lg'}[this.size];
+            const size = {small:'sm',large:'lg'}[this.size];
 
-        return cx({
-            [this.prefix]: true,
-            [`${this.prefix}-spinning`]: this.spinning,
-            [`${this.prefix}-show-text`]: this.tip,
-            [`${this.prefix}-${size}`]: size
-        })
+            return [
+                this.prefix,
+                {
+                    [`${this.prefix}-spinning`]: this.spinning,
+                    [`${this.prefix}-show-text`]: this.tip,
+                    [`${this.prefix}-${size}`]: size
+                }
+            ]
         }
     }
 }
