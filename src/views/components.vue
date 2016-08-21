@@ -81,11 +81,14 @@
             <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
               Modal 模态框
             </menu-item>
+            <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
+              Pagination 分页
+            </menu-item>
             <menu-item v-link="{ name: 'tag', activeClass: 'ant-menu-item-selected' }">
               Tag 标签
             </menu-item>
-            <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
-              Pagination 分页
+            <menu-item v-link="{ name: 'timeline', activeClass: 'ant-menu-item-selected' }">
+              Timeline 时间轴
             </menu-item>
             <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
               Tree 树形控件
