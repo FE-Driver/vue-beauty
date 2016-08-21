@@ -90,3 +90,7 @@ export function getTrustSlotNode (node) {
 }
 
 // export const scrollIntoView = _scrollIntoView
+
+export function isShow (node) {
+    return getComputedStyle(node).getPropertyValue('display') !== 'none';
+}
