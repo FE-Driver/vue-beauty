@@ -1,6 +1,6 @@
 import vTimeline from './timeline.vue'
 import vTimelineItem from './timelineItem.vue'
 
-vTimeline.vTimelineItem = vTimelineItem
+vTimeline.Item = vTimelineItem
 
 export default vTimeline

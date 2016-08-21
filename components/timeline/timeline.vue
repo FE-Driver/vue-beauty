@@ -1,35 +1,49 @@
 <template>
-  <ul class="ant-timeline">
-    <li class="ant-timeline-item">
-      <div class="ant-timeline-item-tail"></div>
-      <div class="ant-timeline-item-head ant-timeline-item-head-blue"></div>
-      <div class="ant-timeline-item-content">创建服务现场 2015-09-01</div>
-    </li>
-    <li class="ant-timeline-item">
-      <div class="ant-timeline-item-tail"></div>
-      <div class="ant-timeline-item-head ant-timeline-item-head-blue"></div>
-      <div class="ant-timeline-item-content">初步排除网络异常 2015-09-01</div>
-    </li>
-    <li class="ant-timeline-item">
-      <div class="ant-timeline-item-tail"></div>
-      <div class="ant-timeline-item-head ant-timeline-item-head-blue"></div>
-      <div class="ant-timeline-item-content">技术测试异常 2015-09-01</div>
-    </li>
-    <li class="ant-timeline-item ant-timeline-item-last">
-      <div class="ant-timeline-item-tail"></div>
-      <div class="ant-timeline-item-head ant-timeline-item-head-blue"></div>
-      <div class="ant-timeline-item-content">网络异常正在修复 2015-09-01</div>
-    </li>
+  <ul :class="wrapClasses">
+    <slot></slot>
   </ul>
 </template>
-<script>
-  export default{
+<script lang="babel">
+  import { defaultProps, oneOfType } from '../../utils'
+  import Vue from 'vue'
+  import cx from 'classnames'
+  import vTimelineItem from './timelineItem.vue'
 
-    data(){
-      return {
-        msg: 'hello vue'
+  export default {
+    props: defaultProps({
+      prefixCls: 'ant-timeline',
+      pending: oneOfType([Boolean, String])
+    }),
+    ready (){
+      this._mapPropsToChildComponent()
+    },
+    computed: {
+      wrapClasses () {
+        return cx({
+          [`${this.prefixCls}`]: true,
+          [`${this.prefixCls}-pending`]: !!this.pending
+        })
       }
     },
-    components: {}
+    methods: {
+      _mapPropsToChildComponent () {
+        const len = this.$children.length
+        this.$children.forEach((child, index) => {
+          child.last = index === len - 1
+        })
+
+        if(this.pending){
+          const pendingNode = typeof this.pending === 'boolean' ? '' : this.pending;
+
+          const _TimelineItem = Vue.extend({
+            template:`<v-timeline-item :pending="true">${pendingNode}</v-timeline-item>`,
+            components: { vTimelineItem }
+          })
+
+
+          new _TimelineItem({propsData: {pending: true}}).$mount().$appendTo(this.$el);
+        }
+      }
+    }
   }
 </script>

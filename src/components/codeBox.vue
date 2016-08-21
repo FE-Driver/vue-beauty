@@ -202,4 +202,8 @@
   //   display: block;
   // }
 
+  .hljs {
+    background: none;
+  }
+
 </style>
