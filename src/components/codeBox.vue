@@ -35,7 +35,7 @@
       // fixme 暂时没有处理文本节点
       if (!this.code) {
         this.code = Array.prototype.map.call(children, function (dom) {
-          return dom.outerHTML
+          return dom.outerHTML.replace(/\t| {4}/g, '')
         }).join('\n')
       }
 

@@ -11,12 +11,6 @@ export default function(router) {
         require(['./views/components.vue'], resolve);
       },
       subRoutes: {
-        '/tag': {
-          name: 'tag',
-          component: function index(resolve) {
-            require(['./views/tag.vue'], resolve);
-          },
-        },
         '/alert': {
           name: 'alert',
           component: function index(resolve) {
@@ -161,6 +155,18 @@ export default function(router) {
             require(['./views/upload.vue'], resolve);
           }
         },
+        '/tag': {
+          name: 'tag',
+          component: function index(resolve) {
+            require(['./views/tag.vue'], resolve);
+          },
+        },
+        '/timeline': {
+          name: 'timeline',
+          component: function index(resolve) {
+            require(['./views/timeline.vue'], resolve);
+          }
+        },
         '/tooltip': {
           name: 'tooltip',
           component: function index(resolve) {
@@ -213,7 +219,7 @@ export default function(router) {
     },
     // 404路由
     '*': {
-      component: function(resolve) {
+      component: function (resolve) {
         require(['./views/components.vue'], resolve);
       }
     }
@@ -221,4 +227,11 @@ export default function(router) {
   router.redirect({
     '/': '/components/alert'
   });
+
+  router.afterEach(function ({from, to}) {
+    setTimeout(()=> {
+      hljs.initHighlighting();
+    })
+  });
+
 }
