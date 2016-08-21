@@ -173,6 +173,18 @@ export default function(router) {
             require(['./views/tooltip.vue'], resolve);
           }
         },
+        '/popover': {
+          name: 'popover',
+          component: function index(resolve) {
+            require(['./views/popover.vue'], resolve);
+          }
+        },
+        '/popconfirm': {
+          name: 'popconfirm',
+          component: function index(resolve) {
+            require(['./views/popconfirm.vue'], resolve);
+          }
+        },
         '/tree': {
           name: 'tree',
           component: function index(resolve) {
