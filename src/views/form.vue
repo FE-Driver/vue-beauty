@@ -30,7 +30,7 @@
 
         <code-box
           title="平行排列"
-          :describe="行内排列，常用于登录界面。"
+          describe="行内排列，常用于登录界面。"
         >
           <v-form>
             <v-form-item label="账户">

@@ -7,7 +7,9 @@
     <a :title="title" :class="titleCls" @click="setSelect">
         <span class="ant-tree-title" v-html="title"></span>
     </a>
-    <slot></slot>
+    <ul v-if="node && node.length" :class="nodeCls" data-expanded="true">
+        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus'></tree-node>
+    </ul>
 </li>
 </template>
 <script>
@@ -15,10 +17,10 @@
     import { defaultProps,oneOfType } from '../../utils'
 
     export default{
+        name: 'treeNode',
         data:()=>({
             prefix: 'ant-tree',
-            isLeaf: false,
-            childrenCheckedStatus: 2
+            isLeaf: false
         }),
         props: defaultProps({
             title: oneOfType([Object, String], '---'),
@@ -29,12 +31,30 @@
             selected: false,
             multiple: false,
             disableCheckbox: false,
-            key: String
+            key: String,
+            node:[],
+            childrenCheckedStatus: 0
         }),
         created(){
-            Bus.$on('nodeSelected', target => {
+            Bus.$on('nodeSelected', (target,selected) => {
                 if(target === this) return;
-                if(!this.multiple && this.selected) this.selected = false;
+                if(!this.multiple && selected && this.selected) this.selected = false;
+            });
+            Bus.$on('nodeCheckedToAll', (key,checked) => {
+                //本身就忽略
+                if(this.key === key) return;
+                //如果是自己的父级以上
+                if(this.key.startsWith(key)){
+                    this.checked = checked;
+                    this.childrenCheckedStatus = checked? 2 : 0; 
+                }
+
+            });
+            //接收来自子节点的checked消息
+            Bus.$on('nodeCheckedTo'+this.key, () => {
+                this.childrenCheckedStatus = this.getChildrenCheckedStatus();
+                this.checked = this.childrenCheckedStatus == 0 ? false:true;
+                Bus.$emit('nodeCheckedTo'+this.key.substr(0,this.key.length-2));
             });
         },
         computed:{
@@ -55,7 +75,7 @@
             },
             checkboxCls(){
                 return [
-                    [`${this.prefix}-checkbox`],
+                    `${this.prefix}-checkbox`,
                     {
                         [`${this.prefix}-checkbox-disabled`]: this.disabled || this.disableCheckbox,
                         [`${this.prefix}-checkbox-checked`]: this.checked && this.childrenCheckedStatus == 2,
@@ -66,6 +86,12 @@
             titleCls(){
                 return [
                     {[`${this.prefix}-node-selected`]:this.selected}
+                ]
+            },
+            nodeCls(){
+                return [
+                    `${this.prefix}-child-tree`,
+                    {[`${this.prefix}-child-tree-open`]:this.expand}
                 ]
             }
         },
@@ -78,7 +104,8 @@
             }
             //选中 则把子组件都选中
             if(this.checked){
-                this.$broadcast('parentCheck',this.checked);
+                this.childrenCheckedStatus = 2;
+                Bus.$emit('nodeCheckedToAll', this.key,this.checked);
             }else{
                 this.childrenCheckedStatus = this.getChildrenCheckedStatus();
                 if(this.childrenCheckedStatus !== 0) this.checked = true;
@@ -88,39 +115,39 @@
             setExpand(){
                 if(this.disabled) return;
                 this.expand = !this.expand;
-                this.$broadcast('parentExpand',this.expand);
             },
             setCheck(){
                 if(this.disabled || this.disableCheckbox) return;
                 this.checked = !this.checked;
-                this.$broadcast('parentCheck',this.checked);
-                this.childrenCheckedStatus = this.checked? 2 : 0;
-                this.$dispatch('childCheck',this);
+                this.childrenCheckedStatus = this.checked? 2 : 0; 
+                Bus.$emit('nodeCheckedToAll', this.key,this.checked);
+                Bus.$emit('nodeCheckedTo'+this.key.substr(0,this.key.length-2));
             },
             setSelect(){
                 if(this.disabled) return;
                 this.selected = !this.selected;
-                if(this.selected){
-                    Bus.$emit('nodeSelected', this);
-                }
+                Bus.$emit('nodeSelected', this,this.selected);
             },
             getChildrenCheckedStatus(){
-                return this.$children[0].childrenCheckedStatus;
-            }
-        },
-        events: {
-            parentNodeCheck(check){
-                this.checked = check;
-                this.childrenCheckedStatus = this.checked? 2 : 0;
-                this.$broadcast('parentCheck',this.checked);
-            },
-            childCheck(target){
-                if(this === target) return;
-                this.childrenCheckedStatus = this.getChildrenCheckedStatus();
-                this.checked = this.childrenCheckedStatus == 0 ? false:true;
-                return true;
+                let checkNum = 0,child_childrenAllChecked = true;
+                for(let child of this.$children){
+                    if(child.checked){
+                        checkNum++;
+                    }
+                    if(child.childrenCheckedStatus !== 2){
+                        child_childrenAllChecked = false;
+                    }
+                }
+                //全选
+                if(checkNum == this.$children.length){
+                    return child_childrenAllChecked?2:1;
+                //部分选择
+                }else if(checkNum>0){
+                    return 1;
+                }else{
+                    return 0;
+                }
             }
         }
-
     }
 </script>

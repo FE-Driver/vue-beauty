@@ -30,6 +30,8 @@ Beautiful  UI components build with vue and ant design
 - Pagination 分页
 - QueueAnim 进出场动画
 - Form 表单
+- Popover 气泡卡片
+- Popconfirm 气泡确认框
 
 **(持续更新中。。。)**
 
