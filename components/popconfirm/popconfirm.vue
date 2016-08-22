@@ -28,7 +28,7 @@ export default {
         onCancel: ()=>{},
         openClassName: '',
         visible: false,
-        placement: 'bottom',
+        placement: 'top',
         skip: false//跳过确认,直接执行confirm回调
     }),
     data: function () {

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { defaultProps, isShow, addClass, removeClass, addStyle } from '../../utils';
+import { defaultProps, addClass, removeClass, addStyle } from '../../utils';
 
 const $body = document.body;
 
@@ -78,14 +78,12 @@ export default {
                 top: `${offset.top + (eleHeight * topFactor)}px`
             });
             _this.visible = true;
-            _this.onVisibleChange(true);
             if(_this.openClassName){
                 addClass($trigger, _this.openClassName);
             }
         };
         _this.popHide = function () {
             _this.visible = false;
-            _this.onVisibleChange(false);
             if(_this.openClassName){
                 removeClass($trigger, _this.openClassName);
             }
@@ -177,6 +175,7 @@ export default {
             }else{
                 this.popHide();
             }
+            this.onVisibleChange(this.visible);
         }
     },
     destroyed: function(){

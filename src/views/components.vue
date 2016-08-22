@@ -118,6 +118,12 @@
             <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
               Tooltip 文字提示
             </menu-item>
+            <menu-item v-link="{ name: 'popover', activeClass: 'ant-menu-item-selected' }">
+              Popover 气泡卡片
+            </menu-item>
+            <menu-item v-link="{ name: 'popconfirm', activeClass: 'ant-menu-item-selected' }">
+              Popconfirm 气泡确认框
+            </menu-item>
           </sub-menu>
           <sub-menu title="Docs">
             <menu-item v-link="{ name: 'apiTable', activeClass: 'ant-menu-item-selected' }">
