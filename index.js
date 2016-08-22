@@ -5,13 +5,13 @@ import vAlert from './components/alert'
 import vBadge from './components/badge'
 import vCard from './components/card'
 import vCollapse from './components/collapse'
-var antDesign = {
+var vueBeauty = {
   vAlert,
   vBadge,
   vCard,
   vCollapse
 }
 
-antDesign.version = meta.version
+vueBeauty.version = meta.version
 
-export default antDesign
+export default vueBeauty

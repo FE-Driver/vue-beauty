@@ -28,7 +28,6 @@
   import Vue from 'vue'
   import XOption from './option.vue'
   import {getOffset, closeByElement} from '../_util/_func'
-  console.log(getOffset)
 
   /*
    * 根据value获取text值
@@ -216,5 +215,3 @@
     }
   }
 </script>
-<style lang="less">
-</style>
