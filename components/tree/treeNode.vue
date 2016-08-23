@@ -8,7 +8,7 @@
         <span class="ant-tree-title" v-html="title"></span>
     </a>
     <ul v-if="node && node.length" :class="nodeCls" data-expanded="true">
-        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus'></tree-node>
+        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' @childchecked="childChecked"></tree-node>
     </ul>
 </li>
 </template>
@@ -50,12 +50,6 @@
                 }
 
             });
-            //接收来自子节点的checked消息
-            Bus.$on('nodeCheckedTo'+this.key, () => {
-                this.childrenCheckedStatus = this.getChildrenCheckedStatus();
-                this.checked = this.childrenCheckedStatus == 0 ? false:true;
-                Bus.$emit('nodeCheckedTo'+this.key.substr(0,this.key.length-2));
-            });
         },
         computed:{
             wrapperCls(){
@@ -70,6 +64,7 @@
                         [`${this.prefix}-switcher-disabled`]: this.disabled,
                         [`${this.prefix}-noline_close`]: !this.expand && !this.isLeaf,
                         [`${this.prefix}-noline_open`]: this.expand && !this.isLeaf,
+                        [`${this.prefix}-switcher-noop`]: this.isLeaf
                     }
                 ]
             },
@@ -121,7 +116,13 @@
                 this.checked = !this.checked;
                 this.childrenCheckedStatus = this.checked? 2 : 0; 
                 Bus.$emit('nodeCheckedToAll', this.key,this.checked);
-                Bus.$emit('nodeCheckedTo'+this.key.substr(0,this.key.length-2));
+                this.$emit('childchecked');
+            },
+             //接收来自子节点的checked消息
+            childChecked(){
+                this.childrenCheckedStatus = this.getChildrenCheckedStatus();
+                this.checked = this.childrenCheckedStatus == 0 ? false:true;
+                this.$emit('childchecked');
             },
             setSelect(){
                 if(this.disabled) return;

@@ -49,6 +49,9 @@
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
             </menu-item>
+            <menu-item v-link="{ name: 'treeSelect', activeClass: 'ant-menu-item-selected' }">
+              TreeSelect 树选择
+            </menu-item>
             <menu-item v-link="{ name: 'upload', activeClass: 'ant-menu-item-selected' }">
               Upload 文件上传
             </menu-item>

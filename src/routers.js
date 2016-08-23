@@ -191,6 +191,12 @@ export default function(router) {
             require(['./views/tree.vue'], resolve);
           }
         },
+        '/treeSelect': {
+          name: 'treeSelect',
+          component: function index(resolve) {
+            require(['./views/treeSelect.vue'], resolve);
+          }
+        },
         '/breadcrumb': {
           name: 'breadcrumb',
           component: function index(resolve) {

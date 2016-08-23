@@ -5,23 +5,21 @@
         <div v-if="placeholder" v-show="placeholder_show" class="ant-select-selection__placeholder"
              style="display: block; -webkit-user-select: none;">{{ placeholder }}
         </div>
-        <div v-if="!placeholder" class="ant-select-selection-selected-value" v-show="value_show"
-             :style="value_opacity">
+        <div v-if="!placeholder" class="ant-select-selection-selected-value" v-show="value_show" :style="value_opacity">
           <slot></slot>
           {{ source | wrap value}}
         </div>
         <div v-if="type=='search'" class="ant-select-search ant-select-search--inline" v-show="selected">
-          <div class="ant-select-search__field__wrap"><input @input="keyat" v-on:focus="value_opacity.opacity=.4"
-                                                             v-on:blur="value_opacity.opacity=1"
-                                                             class="ant-select-search__field"
-                                                             v-el:searchinput><span
-            class="ant-select-search__field__mirror"></span></div>
+          <div class="ant-select-search__field__wrap">
+            <input @input="keyat" v-on:focus="value_opacity.opacity=.4" v-on:blur="value_opacity.opacity=1" class="ant-select-search__field" v-el:searchinput>
+            <span class="ant-select-search__field__mirror"></span>
+          </div>
         </div>
       </div>
-      <span class="ant-select-arrow" style="-webkit-user-select: none;"><b></b></span></div>
+      <span class="ant-select-arrow" style="-webkit-user-select: none;"><b></b></span>
+    </div>
     <X-Option v-if="!disabled" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
-              :class="clazz" :multiple="multiple" :placeholder="placeholder" :notfound="notfound"
-              :value="value" v-el:dropdownlist></X-Option>
+    :class="clazz" :multiple="multiple" :placeholder="placeholder" :notfound="notfound" :value="value" v-el:dropdownlist></X-Option>
   </div>
 </template>
 <script>
