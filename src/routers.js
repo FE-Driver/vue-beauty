@@ -208,6 +208,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/codeBox.vue'], resolve);
           }
+        },
+        '/datatable': {
+          name: 'datatable',
+          component: function index(resolve) {
+            require(['./views/datatable.vue'], resolve);
+          }
         }
       }
     },
