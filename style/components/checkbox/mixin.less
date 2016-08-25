@@ -1,4 +1,4 @@
-@import "../../mixins/index";
+@import "../../style/mixins/index";
 
 .antCheckboxFn(@checkbox-prefix-cls: ant-checkbox) {
   @checkbox-inner-prefix-cls: ~"@{checkbox-prefix-cls}-inner";
@@ -171,10 +171,6 @@
   .@{checkbox-prefix-cls} + span {
     margin-left: 8px;
     margin-right: 8px;
-  }
-
-  .@{checkbox-prefix-cls}-wrapper + span {
-    display: inline-block;
   }
 
   .@{checkbox-prefix-cls}-group {
