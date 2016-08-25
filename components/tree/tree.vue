@@ -1,6 +1,6 @@
 <template lang="html">
   <ul :class="prefix" role="tree-node" unselectable="true">
-    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node.sync="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus'></tree-node>
+    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node.sync="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' :root-id="rootID"></tree-node>
   </ul>
 </template>
 
@@ -18,17 +18,20 @@ export default {
     data: [],
     multiple: false,
     checkable: false,
+    rootID: Number,
     onSelect(){},
     onCheck(){}
   }),
   created(){
+    if(!this.rootID) this.rootID = this._uid;
     this.addkey('',this.data);
-    Bus.$on('nodeCheckedToAll', (key,checked) => {
+
+    Bus.$on(this.rootID+'_nodeCheckedToAll', (key,checked) => {
       this.$nextTick( () =>{
         this.onCheck(this.getCheckedNodes(this.data));
       })
     });
-    Bus.$on('nodeSelected', (target) => {
+    Bus.$on(this.rootID+'_nodeSelected', (target) => {
       this.$nextTick( () =>{
         this.onSelect(this.getSelectedNodes(this.data));
       })

@@ -8,7 +8,7 @@
         <span class="ant-tree-title" v-html="title"></span>
     </a>
     <ul v-if="node && node.length" :class="nodeCls" data-expanded="true">
-        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' @childchecked="childChecked"></tree-node>
+        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' @childchecked="childChecked" :root-id="rootID"></tree-node>
     </ul>
 </li>
 </template>
@@ -32,15 +32,18 @@
             multiple: false,
             disableCheckbox: false,
             key: String,
+            rootID: Number,
             node:[],
             childrenCheckedStatus: 0
         }),
         created(){
-            Bus.$on('nodeSelected', (target,selected) => {
+            if(!this.rootID) this.rootID = this._uid;
+
+            Bus.$on(this.rootID+'_nodeSelected', (target,selected) => {
                 if(target === this) return;
                 if(!this.multiple && selected && this.selected) this.selected = false;
             });
-            Bus.$on('nodeCheckedToAll', (key,checked) => {
+            Bus.$on(this.rootID+'_nodeCheckedToAll', (key,checked) => {
                 //本身就忽略
                 if(this.key === key) return;
                 //如果是自己的父级以上
@@ -100,7 +103,7 @@
             //选中 则把子组件都选中
             if(this.checked){
                 this.childrenCheckedStatus = 2;
-                Bus.$emit('nodeCheckedToAll', this.key,this.checked);
+                Bus.$emit(this.rootID+'_nodeCheckedToAll', this.key,this.checked);
             }else{
                 this.childrenCheckedStatus = this.getChildrenCheckedStatus();
                 if(this.childrenCheckedStatus !== 0) this.checked = true;
@@ -115,7 +118,7 @@
                 if(this.disabled || this.disableCheckbox) return;
                 this.checked = !this.checked;
                 this.childrenCheckedStatus = this.checked? 2 : 0; 
-                Bus.$emit('nodeCheckedToAll', this.key,this.checked);
+                Bus.$emit(this.rootID+'_nodeCheckedToAll', this.key,this.checked);
                 this.$emit('childchecked');
             },
              //接收来自子节点的checked消息
@@ -127,7 +130,7 @@
             setSelect(){
                 if(this.disabled) return;
                 this.selected = !this.selected;
-                Bus.$emit('nodeSelected', this,this.selected);
+                Bus.$emit(this.rootID+'_nodeSelected', this,this.selected);
             },
             getChildrenCheckedStatus(){
                 let checkNum = 0,child_childrenAllChecked = true;

@@ -35,7 +35,7 @@
     </api-table>
 
     <api-table
-      :content='content'
+      :apis='apiTreeNode'
       title=""
     >
       <h3>TreeNode props</h3>
@@ -112,10 +112,22 @@ export default {
           default: 'false'
         },
         {
+          parameter: 'selected',
+          explain: '是否选中子节点',
+          type: 'bool',
+          default: 'false'
+        },
+        {
           parameter: 'checked',
           explain: '是否勾选(如果勾选，子节点也会全部勾选)',
           type: 'bool',
           default: 'false'
+        },
+        {
+          parameter: 'node',
+          explain: '子节点属性数组',
+          type: 'Array',
+          default: '无'
         }
       ],
       treedata:[
