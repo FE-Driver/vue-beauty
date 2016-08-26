@@ -20,8 +20,14 @@
           title="基本"
           describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
         >
-          <v-tree :data.sync="treedata" checkable multiple :on-select="selectFn" :on-check="checkFn"></v-tree>
-          <v-button @click="getTreeData" type="primary">tree数据</v-button>
+          <v-tree-select :data="treedata1" allow-clear></v-tree-select>
+        </code-box>
+
+        <code-box
+          title="基本"
+          describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
+        >
+          <v-tree-select :data="treedata2" multiple allow-clear></v-tree-select>
         </code-box>
 
       </v-Col>
@@ -31,11 +37,11 @@
     <api-table
       :content='content'
     >
-      <h3>Tree props</h3>
+      <h3>TreeSelect props</h3>
     </api-table>
 
     <api-table
-      :apis='apiTreeNode'
+      :content='content'
       title=""
     >
       <h3>TreeNode props</h3>
@@ -46,7 +52,7 @@
 
 <script>
 
-import vTree from '../../components/tree'
+import vTreeSelect from '../../components/treeSelect'
 import {vRow, vCol} from '../../components/layout'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
@@ -63,28 +69,28 @@ export default {
           '无'
         ],
         [
+          'open',
+          '下拉选择框是否显示',
+          'bool',
+          'false'
+        ],
+        [
           'multiple',
-          '是否支持多选',
+          '支持多选',
           'bool',
           'false'
         ],
         [
-          'checkable',
-          '是否支持选中',
+          'allowClear',
+          '显示清除按钮',
           'bool',
-          'false'
-        ],
-        [
-          'onCheck',
-          '点击复选框触发',
-          'function(nodeArray)',
-          '-'
+          'false'   
         ],
         [
           'onSelect',
-          '点击树节点触发',
-          'function(nodeArray)',
-          '-'
+          '被选中时调用，参数为选中项的 value 值',
+          'function(valueArray)',
+          '无'
         ]
       ],
       apiTreeNode: [{
@@ -112,55 +118,68 @@ export default {
           default: 'false'
         },
         {
-          parameter: 'selected',
-          explain: '是否选中子节点',
-          type: 'bool',
-          default: 'false'
-        },
-        {
           parameter: 'checked',
           explain: '是否勾选(如果勾选，子节点也会全部勾选)',
           type: 'bool',
           default: 'false'
-        },
-        {
-          parameter: 'node',
-          explain: '子节点属性数组',
-          type: 'Array',
-          default: '无'
         }
       ],
-      treedata:[
+      treedata1:[
         {
           title:'parent 1',
-          //key: '0',
           selected: true,
           expand: true,
           node:[
             {
               title:'parent 1-0',
-              //key: '0-0',
               expand: true,
               disabled: true,
               node: [
                 {
                   title:'leaf',
-                  //key: '0-0-0',
                   disableCheckbox: true
                 },
                 {
                   title:'leaf',
-                  //key: '0-0-1'
                 }
               ]
             },
             {
               title:'parent 1-1',
-              //key: '0-1',
               node: [
                 {
-                  title:"<span style='color:#08c'>sss</span>",
-                  //key: '0-1-0'
+                  title:"<span style='color:#08c'>sss</span>"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      treedata2:[
+        {
+          title:'parent 1',
+          expand: true,
+          node:[
+            {
+              title:'parent 1-0',
+              expand: true,
+              disabled: true,
+              node: [
+                {
+                  title:'leaf',
+                  disableCheckbox: true
+                },
+                {
+                  title:'leaf',
+                  checked: true,
+                }
+              ]
+            },
+            {
+              title:'parent 1-1',
+              node: [
+                {
+                  title:"<span style='color:#08c'>sss</span>"
                 }
               ]
             }
@@ -169,19 +188,8 @@ export default {
       ]
     }
   },
-  methods: {
-    getTreeData(){
-      console.log(this.$get('treedata'))
-    },
-    selectFn(data){
-      console.log(data)
-    },
-    checkFn(data){
-      console.log(data)
-    }
-  },
   components: {
-    vTree,
+    vTreeSelect,
     vRow,
     vCol,
     vButton,

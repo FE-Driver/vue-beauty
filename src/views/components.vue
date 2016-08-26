@@ -49,8 +49,14 @@
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
             </menu-item>
+            <menu-item v-link="{ name: 'treeSelect', activeClass: 'ant-menu-item-selected' }">
+              TreeSelect 树选择
+            </menu-item>
             <menu-item v-link="{ name: 'upload', activeClass: 'ant-menu-item-selected' }">
               Upload 文件上传
+            </menu-item>
+            <menu-item v-link="{ name: 'timePicker', activeClass: 'ant-menu-item-selected' }">
+              TimePicker 时间选择框
             </menu-item>
           </sub-menu>
           <sub-menu title="Views">
@@ -95,6 +101,9 @@
             </menu-item>
             <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
               Tree 树形控件
+            </menu-item>
+            <menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
+              Datatable
             </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">

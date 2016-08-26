@@ -27,6 +27,7 @@ Beautiful  UI components build with vue and ant design
 - Icon 图标
 - Select 选择器
 - Tree 树形控件
+- TreeSelect 树选择
 - Pagination 分页
 - QueueAnim 进出场动画
 - Form 表单
@@ -59,7 +60,7 @@ Beautiful  UI components build with vue and ant design
 - NOTICE：可以加入QQ群548062121讨论
 
 ## 开发步骤
-- 到[ant-design1.9.1](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
+- 到[ant-design1.10](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
 - 打开style/components/index.less，导出组件的样式
 - 涉及文件：src/routers.js、src/views/components.vue
 - 到src/views下添加组件的文档

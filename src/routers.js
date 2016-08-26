@@ -197,6 +197,19 @@ export default function(router) {
             require(['./views/tree.vue'], resolve);
           }
         },
+        '/treeSelect':
+        {
+          name: 'treeSelect',
+              component: function index(resolve) {
+            require(['./views/treeSelect.vue'], resolve);
+          }
+        },
+        '/timePicker': {
+          name: 'timePicker',
+          component: function index(resolve) {
+            require(['./views/timePicker.vue'], resolve);
+          }
+        },
         '/breadcrumb': {
           name: 'breadcrumb',
           component: function index(resolve) {
@@ -231,6 +244,12 @@ export default function(router) {
           name: 'codeBox',
           component: function index(resolve) {
             require(['./views/codeBox.vue'], resolve);
+          }
+        },
+        '/datatable': {
+          name: 'datatable',
+          component: function index(resolve) {
+            require(['./views/datatable.vue'], resolve);
           }
         }
       }

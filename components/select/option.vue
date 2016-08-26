@@ -1,6 +1,5 @@
 <template>
-  <div class="ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft" v-show="show"
-       v-el:opts :style.sync="styles">
+  <div class="ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft" v-show="show" v-el:opts :style.sync="styles">
     <div style="overflow: auto;">
       <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root">
         <li class="ant-select-dropdown-menu-item"
@@ -67,5 +66,3 @@
     }
   }
 </script>
-<style lang="less">
-</style>
