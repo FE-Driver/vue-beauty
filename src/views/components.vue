@@ -84,6 +84,9 @@
             <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
               Pagination 分页
             </menu-item>
+            <menu-item v-link="{ name: 'transfer', activeClass: 'ant-menu-item-selected' }">
+              Transfer 穿梭框
+            </menu-item>
             <menu-item v-link="{ name: 'tag', activeClass: 'ant-menu-item-selected' }">
               Tag 标签
             </menu-item>

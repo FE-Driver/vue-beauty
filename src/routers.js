@@ -143,6 +143,12 @@ export default function(router) {
             require(['./views/pagination.vue'], resolve);
           }
         },
+        '/transfer': {
+          name: 'transfer',
+          component: function index(resolve) {
+            require(['./views/transfer.vue'], resolve);
+          }
+        },
         '/spin': {
           name: 'spin',
           component: function index(resolve) {
