@@ -1,5 +1,5 @@
 <template>
-    <div :class="wrapCls" style="width: 120px;" @click.stop="openDropdown">
+    <div :class="wrapCls" style="width: 120px;" @click.stop="openDropdown" v-el:input-area>
         <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="true" tabindex="0">
             <ul v-if="multiple" class="ant-select-selection__rendered">
                 <li v-for="item in value" unselectable="unselectable" class="ant-select-selection__choice" title="{{item.text}}" style="-webkit-user-select: none;">
@@ -16,11 +16,11 @@
                 <span v-show="value.length" v-text="value.length?value[0].text:''"></span>
             </div>
             <span class="ant-select-search__field__placeholder" v-show="!value.length">请选择</span>
-            <span v-if="allowClear" class="ant-select-selection__clear" @click.stop="clearSelected"></span>
+            <span v-if="allowClear && value.length" class="ant-select-selection__clear" @click.stop="clearSelected"></span>
             <span class="ant-select-arrow" unselectable="unselectable" style="-webkit-user-select: none;"><b></b></span>
         </div>
     </div>
-    <div :class="dropdownCls" style="left: 0; top:100%; min-width: 100%; transform:translate(0,4px)" @click='hide'>
+    <div :class="dropdownCls" style="left: 0; min-width: 100%;" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
         <div>
             <slot></slot>
         </div>
@@ -28,6 +28,7 @@
 </template>
 <script>
     import { defaultProps } from '../../../utils'
+
     export default {
         data:()=>({
             prefix: 'ant-select'
@@ -39,6 +40,9 @@
             onClear(){},
             value: []
         }),
+        ready(){
+            this.$els.dropdown.style.top = parseInt(getComputedStyle(this.$els.inputArea, false).height) + 4 + 'px';
+        },
         computed: {
             wrapCls(){
                 return [
@@ -61,11 +65,12 @@
                 ]
             },
             dropdownCls(){
+                let multiple = this.multiple?'multiple':'single';
+
                 return [
                     `${this.prefix}-dropdown`,
-                    `${this.prefix}-dropdown--single`,
-                    `${this.prefix}-dropdown-placement-bottomLeft`,
-                    {[`${this.prefix}-dropdown-hidden`]: !this.open}
+                    `${this.prefix}-dropdown--${multiple}`,
+                    `${this.prefix}-dropdown-placement-bottomLeft`
                 ]
             }
         },
