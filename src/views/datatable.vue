@@ -19,7 +19,7 @@
         <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
             <div class="ant-col-lg-24 code-boxes-col-2-1">
                 <code-box title="表格-自定义事件" describe="自定义事件">
-                    <v-datatable :data-source='url' :columns='columns' v-on:select='handleIt' :formatter='formatter'></v-datatable>
+                    <v-datatable :data-source='url' :columns='columns' v-on:select='handleIt' :formatter='formatter' :row-selection='rowSelection'></v-datatable>
                 </code-box>
             </div>
         </div>
@@ -54,6 +54,15 @@
                         obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
                     }
                     return data;
+                },
+                rowSelection:{
+                    type:"checkbox",
+                    onSelect:function (item) {
+                        console.log(item);
+                    },
+                    onSelectAll:function (item) {
+                        console.log(item);
+                    }
                 }
             }
         },

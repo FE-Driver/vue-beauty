@@ -6,8 +6,12 @@
                 <table>
                     <thead class="{{prefix}}-thead">
                         <tr>
+                            <th v-if="rowSelection" class="{{prefix}}-selection-column">
+                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked="checkAllState" :on-change="checkAllChange"></v-checkbox>
+                                <v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>
+                            </th>
                             <template v-for="column in columns">
-                                <th style="{{column.width ? 'width:'+column.width : ''}}" class="{{column.className}}">
+                                <th :style="{width:column.width}" class="{{column.className}}">
                                     {{column.title}}
                                     <template v-if="column.sort">
                                         <div class="{{prefix}}-column-sorter">
@@ -21,6 +25,10 @@
                     </thead>
                     <tbody class="{{prefix}}-tbody" v-show="current.length">
                         <tr v-for="(index, item) in current">
+                            <td v-if="rowSelection" class="{{prefix}}-selection-column">
+                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked="rowSelectionStates[index]" :on-change="rowSelectionChange"></v-checkbox>
+                                <v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>
+                            </td>
                             <td v-for="column in columns">
                                 <template v-if="column.type=='html'">
                                     {{{item[column.field]}}}
@@ -45,7 +53,7 @@
 
         <div class="{{prefix}}-pagination">
             <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
-            <v-pagination
+            <v-pagination v-if="total"
                     :default-current="defaultCurrent"
                     :total="total"
                     :show-size-changer="true"
@@ -62,6 +70,8 @@
     import vPagination from '../pagination'
     import vSpin from '../spin'
     import vIcon from '../iconfont'
+    import vCheckbox from '../checkbox'
+    import vRadio from '../radio'
 
     export default {
         props: {
@@ -117,6 +127,12 @@
                 default: function () {
                     return {}
                 }
+            },
+            rowSelection:{
+                type: Object,
+                validator: function (value) {
+                    return value.type == "checkbox" || value.type == "radio";
+                }
             }
         },
         /*
@@ -139,9 +155,6 @@
 //                排序模式:single和multi,单参数和多参数
                 sortModel:'single'
             }
-        },
-        computed: {
-
         },
         watch:{
 
@@ -265,17 +278,39 @@
                     self.loading = false;
                     }
                 );
+            },
+            rowSelectionChange:function () {
+                
+            },
+            checkAllChange:function (val) {
+                console.log(val);
+                this.rowSelectionStates = new Array(this.current.length || 0).fill(val);
             }
         },
         computed:{
             sizeClass:function () {
                 return this.prefix + this.size;
+            },
+            rowSelectionStates:function () {
+                return new Array(this.current.length || 0).fill(false);
+            },
+            checkAllState:function () {
+                let checkAllState = true;
+                for (var i = 0; i < this.rowSelectionStates.length; i++) {
+                    if (this.rowSelectionStates[i] == false){
+                        checkAllState = false;
+                        break;
+                    }
+                }
+                return checkAllState;
             }
         },
         components: {
             vPagination,
             vSpin,
-            vIcon
+            vIcon,
+            vCheckbox,
+            vRadio
         }
     }
 </script>
