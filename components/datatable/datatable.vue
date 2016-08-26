@@ -7,8 +7,8 @@
                     <thead class="{{prefix}}-thead">
                         <tr>
                             <th v-if="rowSelection" class="{{prefix}}-selection-column">
-                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked="checkAllState" :on-change="checkAllChange"></v-checkbox>
-                                <v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>
+                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="checkAllState" :on-change="checkAllChange"></v-checkbox>
+                                <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
                             </th>
                             <template v-for="column in columns">
                                 <th :style="{width:column.width}" class="{{column.className}}">
@@ -26,20 +26,15 @@
                     <tbody class="{{prefix}}-tbody" v-show="current.length">
                         <tr v-for="(index, item) in current">
                             <td v-if="rowSelection" class="{{prefix}}-selection-column">
-                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked="rowSelectionStates[index]" :on-change="rowSelectionChange"></v-checkbox>
-                                <v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>
+                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
+                                <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
                             </td>
                             <td v-for="column in columns">
-                                <template v-if="column.type=='html'">
-                                    {{{item[column.field]}}}
+                                <template v-if="column.render">
+                                    {{{column.render(item[column.field],item,index)}}}
                                 </template>
                                 <template v-else>
-                                    <template v-if="column.render">
-                                        {{{column.render(item[column.field],item,index)}}}
-                                    </template>
-                                    <template v-else>
-                                        {{item[column.field]}}
-                                    </template>
+                                    {{{item[column.field]}}}
                                 </template>
                             </td>
                             <!--<td><input type="checkbox" @click="clickCheck($index,$event)"></td>-->
@@ -76,7 +71,8 @@
     export default {
         props: {
             size: {
-                type: String
+                type: String,
+                default:"middle"
             },
             //接口地址
             dataSource: {
@@ -153,7 +149,8 @@
                 loading:false,
                 sortParams:{},
 //                排序模式:single和multi,单参数和多参数
-                sortModel:'single'
+                sortModel:'single',
+                rowSelectionStates:[]
             }
         },
         watch:{
@@ -181,6 +178,10 @@
                 }, item);
                 //派发事件
                 this.$dispatch('select', msg);
+            },
+            clickHandle:function (index) {
+                console.log(index);
+                console.log(this.rowSelectionStates[index])
             },
             /**
              * 翻页
@@ -272,6 +273,7 @@
                     self.pageNum = data[self.paramsName.pageNumber];
                     self.pageSize = data[self.paramsName.pageSize];
 
+                    self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
                     self.loading = false;
                 },(response) =>{
                     // error callback
@@ -279,27 +281,30 @@
                     }
                 );
             },
-            rowSelectionChange:function () {
-                
+            rowSelectionChange:function (index) {
+                if(this.rowSelection.onSelect){
+                    this.rowSelection.onSelect(index,this.rowSelectionStates[index],this.current[index]);
+                }
             },
-            checkAllChange:function (val) {
-                console.log(val);
-                this.rowSelectionStates = new Array(this.current.length || 0).fill(val);
+            checkAllChange:function (e) {
+                this.rowSelectionStates = new Array(this.current.length || 0).fill(e.checked);
+                if(this.rowSelection.onSelectAll){
+                    this.rowSelection.onSelectAll(e.checked, this.current);
+                }
             }
         },
         computed:{
             sizeClass:function () {
-                return this.prefix + this.size;
-            },
-            rowSelectionStates:function () {
-                return new Array(this.current.length || 0).fill(false);
+                return this.prefix + "-" + this.size;
             },
             checkAllState:function () {
-                let checkAllState = true;
+                let checkAllState = false;
                 for (var i = 0; i < this.rowSelectionStates.length; i++) {
                     if (this.rowSelectionStates[i] == false){
                         checkAllState = false;
                         break;
+                    }else{
+                        checkAllState = true;
                     }
                 }
                 return checkAllState;
