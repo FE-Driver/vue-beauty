@@ -99,6 +99,9 @@
             <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
               Tree 树形控件
             </menu-item>
+            <menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
+              Datatable
+            </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
