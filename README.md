@@ -26,6 +26,7 @@ Beautiful  UI components build with vue and ant design
 - Upload 上传
 - Icon 图标
 - Select 选择器
+- Transfer 穿梭框
 - Tree 树形控件
 - TreeSelect 树选择
 - Pagination 分页

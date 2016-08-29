@@ -49,6 +49,9 @@
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
             </menu-item>
+            <menu-item v-link="{ name: 'transfer', activeClass: 'ant-menu-item-selected' }">
+              Transfer 穿梭框
+            </menu-item>
             <menu-item v-link="{ name: 'treeSelect', activeClass: 'ant-menu-item-selected' }">
               TreeSelect 树选择
             </menu-item>
@@ -84,14 +87,17 @@
             <menu-item v-link="{ name: 'message', activeClass: 'ant-menu-item-selected' }">
               Message 全局提示
             </menu-item>
+            <menu-item v-link="{ name: 'popover', activeClass: 'ant-menu-item-selected' }">
+              Popover 气泡卡片
+            </menu-item>
+            <menu-item v-link="{ name: 'popconfirm', activeClass: 'ant-menu-item-selected' }">
+              Popconfirm 气泡确认框
+            </menu-item>
             <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
               Modal 模态框
             </menu-item>
             <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
               Pagination 分页
-            </menu-item>
-            <menu-item v-link="{ name: 'transfer', activeClass: 'ant-menu-item-selected' }">
-              Transfer 穿梭框
             </menu-item>
             <menu-item v-link="{ name: 'tag', activeClass: 'ant-menu-item-selected' }">
               Tag 标签
@@ -129,12 +135,6 @@
             </menu-item>
             <menu-item v-link="{ name: 'tooltip', activeClass: 'ant-menu-item-selected' }">
               Tooltip 文字提示
-            </menu-item>
-            <menu-item v-link="{ name: 'popover', activeClass: 'ant-menu-item-selected' }">
-              Popover 气泡卡片
-            </menu-item>
-            <menu-item v-link="{ name: 'popconfirm', activeClass: 'ant-menu-item-selected' }">
-              Popconfirm 气泡确认框
             </menu-item>
           </sub-menu>
           <sub-menu title="Docs">
