@@ -1,0 +1,18 @@
+{
+  "code":0,
+  "data":[
+    {"name":"李前永","sex":"男","check":"<input type='checkbox'>","id":1},
+    {"name":"王永强","sex":"男","check":"<input type='checkbox'>","id":2},
+    {"name":"王道伟","sex":"男","check":"<input type='checkbox'>","id":3},
+    {"name":"余力","sex":"男","check":"<input type='checkbox'>","id":4},
+    {"name":"邓波","sex":"男","check":"<input type='checkbox'>","id":5},
+    {"name":"姚丽梅","sex":"男","check":"<input type='checkbox'>","id":6},
+    {"name":"徐远志","sex":"男","check":"<input type='checkbox'>","id":7},
+    {"name":"蓝冰","sex":"男","check":"<input type='checkbox'>","id":8},
+    {"name":"羊峻霄","sex":"男","check":"<input type='checkbox'>","id":9},
+    {"name":"邓磊","sex":"女","check":"<input type='checkbox'>","id":10}
+  ],
+  "total":11,
+  "pagesize":10,
+  "pagenum":1
+}

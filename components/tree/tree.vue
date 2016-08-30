@@ -1,12 +1,11 @@
 <template lang="html">
-  <ul :class="wrapperCls" role="tree-node" unselectable="true">
-    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :key="item.key" :checkable="checkable" :multiple="multiple">
-      <tree v-if="item.node && item.node.length" :data.sync="item.node" :root="false" :expand.sync="item.expand" :checkable="checkable" :multiple="multiple"></tree>
-    </tree-node>
+  <ul :class="prefix" role="tree-node" unselectable="true">
+    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node.sync="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' :root-id="rootID"></tree-node>
   </ul>
 </template>
 
 <script>
+import Bus from './bus.js';
 import treeNode from './treeNode'
 import { defaultProps } from '../../utils'
 
@@ -14,65 +13,70 @@ export default {
   name: 'tree',
   data:()=>({
     prefix: 'ant-tree',
-    childrenCheckedStatus: 2
   }),
   props: defaultProps({
     data: [],
     multiple: false,
     checkable: false,
-    expand: false,
-    root: true
+    rootID: Number,
+    onSelect(){},
+    onCheck(){}
   }),
-  ready(){
-    if(!this.root){
-      this.prefix = 'ant-tree-child-tree';
-    }
-    this.childrenCheckedStatus = this.getChildrenCheckedStatus();
+  created(){
+    if(!this.rootID) this.rootID = this._uid;
+    this.addkey('',this.data);
+
+    Bus.$on(this.rootID+'_nodeCheckedToAll', (key,checked) => {
+      this.$nextTick( () =>{
+        this.onCheck(this.getCheckedNodes(this.data));
+      })
+    });
+    Bus.$on(this.rootID+'_nodeSelected', (target) => {
+      this.$nextTick( () =>{
+        this.onSelect(this.getSelectedNodes(this.data));
+      })
+    });
   },
-  components: {treeNode},
-  computed: {
-    wrapperCls () {
-      return [
-        this.prefix,
-        {[`${this.prefix}-open`]: this.expand}
-      ]
-    }
-  },
-  methods: {
-    getChildrenCheckedStatus(){
-        let checkNum = 0,child_childrenAllChecked = true;
-        for(let child of this.$children){
-            if(child.checked){
-                checkNum++;
-            }
-            if(child.childrenCheckedStatus !== 2){
-                child_childrenAllChecked = false;
-            }
-        }
-        //全选
-        if(checkNum == this.$children.length){
-            return child_childrenAllChecked?2:1;
-        //部分选择
-        }else if(checkNum>0){
-            return 1;
+  methods:{
+    addkey(parentKey,data){
+      for(let i=0;i<data.length;i++){
+        if(parentKey){
+          data[i].key = parentKey+'-'+i;
         }else{
-            return 0;
+          data[i].key = i+'';
         }
+        if(data[i].node){
+          this.addkey(data[i].key,data[i].node);
+        }
+      }
+    },
+    getNodes(data,opt){
+      let res = [];
+      for(let node of data){
+        let tmp = true;
+        for (let [key, value] of Object.entries(opt)) {
+          if(node[key] != value){
+            tmp = false;
+            break;
+          }
+        }
+        if(tmp){
+          res.push(node);
+        }
+        if(node.node && node.node.length){
+          res = res.concat(this.getNodes(node.node,opt));
+        }
+      }
+      return res;
+    },
+    getSelectedNodes(data){
+      return this.getNodes(data,{selected: true});
+    },
+    getCheckedNodes(data){
+      return this.getNodes(data,{checked: true,childrenCheckedStatus:2});
     }
   },
-  events: {
-    parentExpand(expand){
-      this.expand = expand;
-    },
-    parentCheck(check){
-      this.$broadcast('parentNodeCheck',check);
-      this.childrenCheckedStatus = this.checked? 2 : 0;
-    },
-    childCheck(){
-      this.childrenCheckedStatus = this.getChildrenCheckedStatus();
-      return true;
-    }
-  }
+  components: {treeNode}
 }
 
 </script>

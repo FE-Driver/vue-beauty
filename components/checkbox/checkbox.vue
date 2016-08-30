@@ -4,7 +4,10 @@
       <span class="ant-checkbox-inner"></span>
       <input type="checkbox" class="ant-checkbox-input">
     </span>
-    <span><slot></slot></span>
+    <span 
+      v-if="_slotContents && _slotContents.default">
+      <slot></slot>
+    </span>
   </label>
 </template>
 
@@ -32,6 +35,6 @@ export default {
       this.checked = !this.checked
       this.onChange(this)
     }
-  },
+  }
 }
 </script>

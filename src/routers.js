@@ -11,12 +11,6 @@ export default function(router) {
         require(['./views/components.vue'], resolve);
       },
       subRoutes: {
-        '/tag': {
-          name: 'tag',
-          component: function index(resolve) {
-            require(['./views/tag.vue'], resolve);
-          },
-        },
         '/alert': {
           name: 'alert',
           component: function index(resolve) {
@@ -149,6 +143,12 @@ export default function(router) {
             require(['./views/pagination.vue'], resolve);
           }
         },
+        '/transfer': {
+          name: 'transfer',
+          component: function index(resolve) {
+            require(['./views/transfer.vue'], resolve);
+          }
+        },
         '/spin': {
           name: 'spin',
           component: function index(resolve) {
@@ -161,16 +161,53 @@ export default function(router) {
             require(['./views/upload.vue'], resolve);
           }
         },
+        '/tag': {
+          name: 'tag',
+          component: function index(resolve) {
+            require(['./views/tag.vue'], resolve);
+          },
+        },
+        '/timeline': {
+          name: 'timeline',
+          component: function index(resolve) {
+            require(['./views/timeline.vue'], resolve);
+          }
+        },
         '/tooltip': {
           name: 'tooltip',
           component: function index(resolve) {
             require(['./views/tooltip.vue'], resolve);
           }
         },
+        '/popover': {
+          name: 'popover',
+          component: function index(resolve) {
+            require(['./views/popover.vue'], resolve);
+          }
+        },
+        '/popconfirm': {
+          name: 'popconfirm',
+          component: function index(resolve) {
+            require(['./views/popconfirm.vue'], resolve);
+          }
+        },
         '/tree': {
           name: 'tree',
           component: function index(resolve) {
             require(['./views/tree.vue'], resolve);
+          }
+        },
+        '/treeSelect':
+        {
+          name: 'treeSelect',
+              component: function index(resolve) {
+            require(['./views/treeSelect.vue'], resolve);
+          }
+        },
+        '/timePicker': {
+          name: 'timePicker',
+          component: function index(resolve) {
+            require(['./views/timePicker.vue'], resolve);
           }
         },
         '/breadcrumb': {
@@ -208,12 +245,18 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/codeBox.vue'], resolve);
           }
+        },
+        '/datatable': {
+          name: 'datatable',
+          component: function index(resolve) {
+            require(['./views/datatable.vue'], resolve);
+          }
         }
       }
     },
     // 404路由
     '*': {
-      component: function(resolve) {
+      component: function (resolve) {
         require(['./views/components.vue'], resolve);
       }
     }
@@ -221,4 +264,11 @@ export default function(router) {
   router.redirect({
     '/': '/components/alert'
   });
+
+  router.afterEach(function ({from, to}) {
+    setTimeout(()=> {
+      hljs.initHighlighting();
+    })
+  });
+
 }

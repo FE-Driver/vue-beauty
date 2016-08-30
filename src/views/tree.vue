@@ -13,21 +13,19 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本"
           describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
         >
-          <v-tree :data.sync="treedata" checkable></v-tree>
+          <v-tree :data.sync="treedata" checkable multiple :on-select="selectFn" :on-check="checkFn"></v-tree>
           <v-button @click="getTreeData" type="primary">tree数据</v-button>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-Col>
+    </v-Row>
 
 
     <api-table
@@ -49,6 +47,7 @@
 <script>
 
 import vTree from '../../components/tree'
+import {vRow, vCol} from '../../components/layout'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
@@ -74,6 +73,18 @@ export default {
           '是否支持选中',
           'bool',
           'false'
+        ],
+        [
+          'onCheck',
+          '点击复选框触发',
+          'function(nodeArray)',
+          '-'
+        ],
+        [
+          'onSelect',
+          '点击树节点触发',
+          'function(nodeArray)',
+          '-'
         ]
       ],
       apiTreeNode: [{
@@ -101,43 +112,55 @@ export default {
           default: 'false'
         },
         {
+          parameter: 'selected',
+          explain: '是否选中子节点',
+          type: 'bool',
+          default: 'false'
+        },
+        {
           parameter: 'checked',
           explain: '是否勾选(如果勾选，子节点也会全部勾选)',
           type: 'bool',
           default: 'false'
+        },
+        {
+          parameter: 'node',
+          explain: '子节点属性数组',
+          type: 'Array',
+          default: '无'
         }
       ],
       treedata:[
         {
           title:'parent 1',
-          key: '0',
+          //key: '0',
           selected: true,
           expand: true,
           node:[
             {
               title:'parent 1-0',
-              key: '0-0',
+              //key: '0-0',
               expand: true,
               disabled: true,
               node: [
                 {
                   title:'leaf',
-                  key: '0-0-0',
+                  //key: '0-0-0',
                   disableCheckbox: true
                 },
                 {
                   title:'leaf',
-                  key: '0-0-1'
+                  //key: '0-0-1'
                 }
               ]
             },
             {
               title:'parent 1-1',
-              key: '0-1',
+              //key: '0-1',
               node: [
                 {
                   title:"<span style='color:#08c'>sss</span>",
-                  key: '0-1-0'
+                  //key: '0-1-0'
                 }
               ]
             }
@@ -149,10 +172,18 @@ export default {
   methods: {
     getTreeData(){
       console.log(this.$get('treedata'))
+    },
+    selectFn(data){
+      console.log(data)
+    },
+    checkFn(data){
+      console.log(data)
     }
   },
   components: {
     vTree,
+    vRow,
+    vCol,
     vButton,
     codeBox,
     apiTable
