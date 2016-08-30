@@ -9,17 +9,17 @@
                 <div class="ant-time-picker-panel-combobox">
                     <div class="ant-time-picker-panel-select">
                         <ul @mouseover="createSelection($els.timePickerPanel, 0, 2)">
-                            <li v-for="($index) in 24" @click="timePicker('H', $event)" v-if="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')">{{$index<10?0:''}}{{$index}}</li>
+                            <li v-for="$index in 24" @click="timePicker('H', $event)" v-if="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
                         </ul>
                     </div>
                     <div class="ant-time-picker-panel-select">
                         <ul @mouseover="createSelection($els.timePickerPanel, 3, 5)">
-                            <li v-for="($index) in 60" @click="timePicker('M', $event)" v-if="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')">{{$index<10?0:''}}{{$index}}</li>
+                            <li v-for="$index in 60" @click="timePicker('M', $event)" v-if="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
                         </ul>
                     </div>
                     <div class="ant-time-picker-panel-select" v-if="hasSeconds">
                         <ul @mouseover="createSelection($els.timePickerPanel, 6, 8)">
-                            <li v-for="($index) in 60" @click="timePicker('S', $event)" v-if="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')">{{$index<10?0:''}}{{$index}}</li>
+                            <li v-for="$index in 60" @click="timePicker('S', $event)" v-if="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
                         </ul>
                     </div>
                 </div>
@@ -143,7 +143,6 @@
             showLi (curNum, type){
                 let hasNum = -1;
                 let show = true;
-                console.log('curNum'+curNum)
                 hasNum = this['disabled'+type]?this['disabled'+type].indexOf(curNum):-1;
                 if(hasNum>-1){
                     show = false;
