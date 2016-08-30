@@ -247,9 +247,15 @@ export default function(router) {
           }
         },
         '/datatable': {
-          name: 'datatable',
+            name: 'datatable',
+            component: function index(resolve) {
+                require(['./views/datatable.vue'], resolve);
+            },
+        },
+        '/carousel': {
+          name: 'carousel',
           component: function index(resolve) {
-            require(['./views/datatable.vue'], resolve);
+            require(['./views/carousel.vue'], resolve);
           }
         }
       }

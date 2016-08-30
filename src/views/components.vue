@@ -75,6 +75,9 @@
             <menu-item v-link="{ name: 'card', activeClass: 'ant-menu-item-selected' }">
               Card 卡片
             </menu-item>
+              <menu-item v-link="{ name: 'carousel', activeClass: 'ant-menu-item-selected' }">
+                  Carousel 走马灯
+              </menu-item>
             <menu-item v-link="{ name: 'collapse', activeClass: 'ant-menu-item-selected' }">
               Collapse 折叠面板
             </menu-item>
