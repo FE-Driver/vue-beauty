@@ -197,10 +197,9 @@ export default function(router) {
             require(['./views/tree.vue'], resolve);
           }
         },
-        '/treeSelect':
-        {
+        '/treeSelect':{
           name: 'treeSelect',
-              component: function index(resolve) {
+          component: function index(resolve) {
             require(['./views/treeSelect.vue'], resolve);
           }
         },
@@ -208,6 +207,12 @@ export default function(router) {
           name: 'timePicker',
           component: function index(resolve) {
             require(['./views/timePicker.vue'], resolve);
+          }
+        },  
+        '/cascader': {
+          name: 'cascader',
+          component: function index(resolve) {
+            require(['./views/cascader.vue'], resolve);
           }
         },
         '/breadcrumb': {
