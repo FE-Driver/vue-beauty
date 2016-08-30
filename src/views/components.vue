@@ -22,6 +22,9 @@
             </menu-item>
           </sub-menu>
           <sub-menu title="Form Controls">
+            <menu-item v-link="{ name: 'cascader', activeClass: 'ant-menu-item-selected' }">
+              Cascader 级联控件
+            </menu-item>
             <menu-item v-link="{ name: 'checkbox', activeClass: 'ant-menu-item-selected' }">
               Checkbox 多选框
             </menu-item>
@@ -107,9 +110,6 @@
             </menu-item>
             <menu-item v-link="{ name: 'timeline', activeClass: 'ant-menu-item-selected' }">
               Timeline 时间轴
-            </menu-item>
-            <menu-item v-link="{ name: 'cascader', activeClass: 'ant-menu-item-selected' }">
-              Cascader 级联控件
             </menu-item>
             <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
               Tree 树形控件
