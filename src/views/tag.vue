@@ -125,7 +125,7 @@
       _addTag(){
         //todo
         let tagTmp = {}
-        tagTmp.title = '新标签' + this.tags.length
+        tagTmp.title = '新标签' + (this.tags.length+1)
         tagTmp.closable = true
         this.tags.push(tagTmp)
       }

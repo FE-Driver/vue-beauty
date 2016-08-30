@@ -34,6 +34,7 @@ Beautiful  UI components build with vue and ant design
 - Form 表单
 - Popover 气泡卡片
 - Popconfirm 气泡确认框
+- TimePicker 时间选择框
 
 **(持续更新中。。。)**
 

@@ -49,6 +49,9 @@
             <menu-item v-link="{ name: 'switch', activeClass: 'ant-menu-item-selected' }">
               Switch 开关
             </menu-item>
+            <menu-item v-link="{ name: 'timePicker', activeClass: 'ant-menu-item-selected' }">
+              TimePicker 时间选择框
+            </menu-item>
             <menu-item v-link="{ name: 'transfer', activeClass: 'ant-menu-item-selected' }">
               Transfer 穿梭框
             </menu-item>
@@ -57,9 +60,6 @@
             </menu-item>
             <menu-item v-link="{ name: 'upload', activeClass: 'ant-menu-item-selected' }">
               Upload 文件上传
-            </menu-item>
-            <menu-item v-link="{ name: 'timePicker', activeClass: 'ant-menu-item-selected' }">
-              TimePicker 时间选择框
             </menu-item>
           </sub-menu>
           <sub-menu title="Views">
