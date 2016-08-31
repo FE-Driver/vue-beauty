@@ -38,7 +38,6 @@
         },
         created (){
             document.addEventListener('click', this.backdrop);
-            console.log(this.disabledMinutes)
         },
         computed: {
             sizeClass (){

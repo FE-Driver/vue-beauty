@@ -22,6 +22,9 @@
             </menu-item>
           </sub-menu>
           <sub-menu title="Form Controls">
+            <menu-item v-link="{ name: 'cascader', activeClass: 'ant-menu-item-selected' }">
+              Cascader 级联控件
+            </menu-item>
             <menu-item v-link="{ name: 'checkbox', activeClass: 'ant-menu-item-selected' }">
               Checkbox 多选框
             </menu-item>
@@ -75,6 +78,9 @@
             <menu-item v-link="{ name: 'card', activeClass: 'ant-menu-item-selected' }">
               Card 卡片
             </menu-item>
+              <menu-item v-link="{ name: 'carousel', activeClass: 'ant-menu-item-selected' }">
+                  Carousel 走马灯
+              </menu-item>
             <menu-item v-link="{ name: 'collapse', activeClass: 'ant-menu-item-selected' }">
               Collapse 折叠面板
             </menu-item>
@@ -108,6 +114,7 @@
             <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
               Tree 树形控件
             </menu-item>
+            
             <menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
               Datatable
             </menu-item>
@@ -118,6 +125,9 @@
             </menu-item>
             <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
               Breadcrumb 面包屑
+            </menu-item>
+            <menu-item v-link="{ name: 'menu', activeClass: 'ant-menu-item-selected' }">
+              Menu 导航菜单
             </menu-item>
           </sub-menu>
           <sub-menu title="Other">

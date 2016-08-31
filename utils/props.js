@@ -1,5 +1,12 @@
 const toString = Object.prototype.toString
 
+//解决ie下面函数没有name属性的bug
+if(!String.name) String.name = "String"
+if(!Number.name) Number.name = "Number"
+if(!Boolean.name) Boolean.name = "Boolean"
+if(!Object.name) Object.name = "Object"
+if(!Array.name) Array.name = "Array"
+
 // 返回vue匹配的props的对象
 export function defaultProps (props) {
   for (const i in props) {
@@ -12,7 +19,6 @@ export function defaultProps (props) {
           type: defaultValue,
           default: null
         }
-
         continue
       }
 
@@ -47,7 +53,6 @@ export function defaultProps (props) {
       }
     }
   }
-
   return props
 }
 

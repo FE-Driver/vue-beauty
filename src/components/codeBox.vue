@@ -31,10 +31,14 @@
       }
     },
     ready(){
-      var children = this._slotContents.default.children
+      let children = this._slotContents.default.childNodes
+
+      children = Array.prototype.filter.call(children, function (node) {
+        return node.nodeType === 1
+      })
       // fixme 暂时没有处理文本节点
       if (!this.code) {
-        this.code = Array.prototype.map.call(children, function (dom) {
+        this.code = children.map(function (dom) {
           return dom.outerHTML.replace(/\t| {4}/g, '')
         }).join('\n')
       }

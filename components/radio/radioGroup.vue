@@ -7,7 +7,6 @@
 <script>
 import { defaultProps, oneOfType } from '../../utils'
 import vRadio from './radio.vue'
-import cx from 'classnames'
 
 export default {
   props: defaultProps({
@@ -25,12 +24,12 @@ export default {
 
   computed: {
     wrapClasses () {
-        const size = ['small','large'].includes(this.size)?this.size:'';
-
-        return cx({
-            [this.prefixCls]:true,
-            [`${this.prefixCls}-${size}`]: size
-        })
+        let size = ['small','large'].indexOf(this.size) !== -1?this.size:'';
+ 
+        return [
+          this.prefixCls,
+          {[`${this.prefixCls}-${size}`]: size}
+        ]
     },
     radioClasses () {
         return this.type === 'button'?'ant-radio-button-wrapper':'ant-radio-wrapper';

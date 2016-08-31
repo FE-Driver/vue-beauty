@@ -197,10 +197,9 @@ export default function(router) {
             require(['./views/tree.vue'], resolve);
           }
         },
-        '/treeSelect':
-        {
+        '/treeSelect':{
           name: 'treeSelect',
-              component: function index(resolve) {
+          component: function index(resolve) {
             require(['./views/treeSelect.vue'], resolve);
           }
         },
@@ -209,11 +208,23 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/timePicker.vue'], resolve);
           }
+        },  
+        '/cascader': {
+          name: 'cascader',
+          component: function index(resolve) {
+            require(['./views/cascader.vue'], resolve);
+          }
         },
         '/breadcrumb': {
           name: 'breadcrumb',
           component: function index(resolve) {
             require(['./views/breadcrumb.vue'], resolve);
+          }
+        },
+        '/menu': {
+          name: 'menu',
+          component: function index(resolve) {
+            require(['./views/menu.vue'], resolve);
           }
         },
         '/select': {
@@ -247,9 +258,15 @@ export default function(router) {
           }
         },
         '/datatable': {
-          name: 'datatable',
+            name: 'datatable',
+            component: function index(resolve) {
+                require(['./views/datatable.vue'], resolve);
+            },
+        },
+        '/carousel': {
+          name: 'carousel',
           component: function index(resolve) {
-            require(['./views/datatable.vue'], resolve);
+            require(['./views/carousel.vue'], resolve);
           }
         }
       }
