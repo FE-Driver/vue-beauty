@@ -221,6 +221,12 @@ export default function(router) {
             require(['./views/breadcrumb.vue'], resolve);
           }
         },
+        '/menu': {
+          name: 'menu',
+          component: function index(resolve) {
+            require(['./views/menu.vue'], resolve);
+          }
+        },
         '/select': {
           name: 'select',
           component: function index(resolve) {

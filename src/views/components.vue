@@ -126,6 +126,9 @@
             <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
               Breadcrumb 面包屑
             </menu-item>
+            <menu-item v-link="{ name: 'menu', activeClass: 'ant-menu-item-selected' }">
+              Menu 导航菜单
+            </menu-item>
           </sub-menu>
           <sub-menu title="Other">
             <menu-item v-link="{ name: 'affix', activeClass: 'ant-menu-item-selected' }">
