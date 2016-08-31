@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import cx from 'classnames'
-
 export default {
   data:()=>({
     prefix: 'ant-switch',
@@ -33,14 +31,14 @@ export default {
   },
   computed: {
     wrapClasses () {
-      const size = ['small'].includes(this.size)?this.size:'';
+      let size = ['small'].indexOf(this.size) !== -1?this.size:'';
 
-      return cx({
-        [this.prefix]: true,
-        [`${this.prefix}-checked`]: this.checked,
-        [`${this.prefix}-disabled`]: this.disabled,
-        [`${this.prefix}-${size}`]: size
-      })
+      return [
+        this.prefix,
+        {[`${this.prefix}-checked`]: this.checked},
+        {[`${this.prefix}-disabled`]: this.disabled},
+        {[`${this.prefix}-${size}`]: size}
+      ]
     }
   },
   methods: {

@@ -1,10 +1,10 @@
 <template lang="html">
 
   <li class="ant-menu-submenu-inline ant-menu-submenu" :class="{'ant-menu-submenu-open': open}">
-    <div class="ant-menu-submenu-title" @click="open=!open" transition="badge">
+    <div class="ant-menu-submenu-title" @click="open = !open">
       <span><span>{{title}}</span></span>
     </div>
-    <ul class="ant-menu ant-menu-inline ant-menu-sub" :style="{'height': 42 * count + 'px'}" >
+    <ul :class="itemCls">
       <slot></slot>
     </ul>
   </li>
@@ -16,19 +16,18 @@ export default {
   props: {
     title: String
   },
-  data(){
-    return {
-      open: false,
-      count: 0
-    }
-  },
-  watch: {
-    open: function () {
-      if (this.open) {
-        this.count = this._slotContents.default.childElementCount
-      }else{
-        this.count = 0
-      }
+  data:()=>({
+    open: false,
+    count: 0
+  }),
+  computed:{
+    itemCls(){
+      return [
+        'ant-menu', 
+        'ant-menu-inline', 
+        'ant-menu-sub',
+        {['ant-menu-hidden']:!this.open}
+      ]
     }
   }
 }
