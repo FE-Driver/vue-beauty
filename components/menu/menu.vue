@@ -15,6 +15,11 @@ export default {
       type: String,
       default: 'light'
     },
+  },
+  ready(){
+    for(let child of this.$children){
+      child.level = 1;
+    }
   }
 }
 </script>

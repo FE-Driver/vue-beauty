@@ -1,7 +1,7 @@
 <template lang="html">
 
   <li class="ant-menu-submenu-inline ant-menu-submenu" :class="{'ant-menu-submenu-open': open}">
-    <div class="ant-menu-submenu-title" @click="open = !open">
+    <div class="ant-menu-submenu-title" @click="open = !open" :style="titleSty">
       <span><span>{{title}}</span></span>
     </div>
     <ul :class="itemCls">
@@ -18,8 +18,16 @@ export default {
   },
   data:()=>({
     open: false,
-    count: 0
+    level:0
   }),
+  watch: {
+    'level' : function(val, oldVal){
+      const childVal = ++val;
+      for(let child of this.$children){
+        child.level = childVal;
+      }
+    }
+  },
   computed:{
     itemCls(){
       return [
@@ -28,6 +36,11 @@ export default {
         'ant-menu-sub',
         {['ant-menu-hidden']:!this.open}
       ]
+    },
+    titleSty(){
+      return {
+        paddingLeft: 24 * this.level + 'px'
+      }
     }
   }
 }

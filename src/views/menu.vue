@@ -25,26 +25,26 @@
                 describe=""
                 code=""
         >
-          <v-menu class="aside-container" mode="inline">
-            <menu-item>
-              level1_1
-            </menu-item>
-
-            <sub-menu title="level1_2">
-
-              <menu-item>
-                level2_1
-              </menu-item>
-
-              <sub-menu title="level2_2">
-                <menu-item>
-                  level3_1
-                </menu-item>
-                <menu-item>
-                  level3_1
-                </menu-item>
+          <v-menu mode="inline" style="width:240px">
+            <sub-menu title="导航一">
+              <menu-item>选项1</menu-item>
+              <menu-item>选项2</menu-item>
+              <menu-item>选项3</menu-item>
+              <menu-item>选项4</menu-item>
+            </sub-menu>
+            <sub-menu title="导航二">
+              <menu-item>选项5</menu-item>
+              <menu-item>选项6</menu-item>
+              <sub-menu title="三级导航">
+                <menu-item>选项7</menu-item>
+                <menu-item>选项8</menu-item>
               </sub-menu>
-
+            </sub-menu>
+            <sub-menu title="导航三">
+              <menu-item>选项9</menu-item>
+              <menu-item>选项10</menu-item>
+              <menu-item>选项11</menu-item>
+              <menu-item>选项12</menu-item>
             </sub-menu>
           </v-menu>
 
