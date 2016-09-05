@@ -167,6 +167,12 @@ export default function(router) {
             require(['./views/tag.vue'], resolve);
           },
         },
+        '/tabs': {
+          name: 'tabs',
+          component: function index(resolve) {
+            require(['./views/tabs.vue'], resolve);
+          },
+        },
         '/timeline': {
           name: 'timeline',
           component: function index(resolve) {

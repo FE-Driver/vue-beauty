@@ -4,12 +4,14 @@
 @success-color          : #16C294;
 @error-color            : #E95471;
 @warning-color          : #FA9E33;
+@normal-color           : #d9d9d9;
 
 // ------ Base & Require ------
 @body-background        : #fff;
 @font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 @code-family            : Consolas,Menlo,Courier,monospace;
 @text-color             : #666;
+@heading-color          : #404040;
 @font-size-base         : 12px;
 @line-height-base       : 1.5;
 @line-height-computed   : floor((@font-size-base * @line-height-base));
@@ -46,6 +48,11 @@
 // Border color
 @border-color-base      : #d9d9d9;        // base border outline a component
 @border-color-split     : #e9e9e9;        // split border inside a component
+
+// Outline
+@outline-blur-size      : 0;
+@outline-width          : 2px;
+@outline-color          : @primary-color;
 
 // Background color
 @background-color-base  : #f7f7f7;        // basic gray background
@@ -155,7 +162,6 @@
 @input-bg                    : #fff;
 
 @input-hover-border-color    : @primary-color;
-@input-focus-border-color    : @primary-color;
 @input-disabled-bg           : @background-color-base;
 
 @form-item-margin-bottom     : 24px;
