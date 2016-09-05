@@ -17,9 +17,8 @@ export default {
     },
   },
   ready(){
-    for(let child of this.$children){
-      child.level = 1;
-    }
+    this.$broadcast('setLevel',1);
+    this.$broadcast('modeChage',this.mode);
   }
 }
 </script>

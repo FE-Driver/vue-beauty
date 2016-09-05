@@ -7,7 +7,8 @@
 <script>
 export default {
   data:()=>({
-    level:0
+    level:0,
+    mode: 'vertical'
   }),
   props: {
     disabled: {
@@ -15,19 +16,20 @@ export default {
       default: false
     }
   },
-  watch: {
-    'level' : function(val, oldVal){
-      const childVal = ++val;
-      for(let child of this.$children){
-        child.level = childVal;
-      }
-    }
+  ready(){
+    this.$on('modeChage',(mode)=>{
+      this.mode = mode;
+    })
+
+    this.$on('setLevel',(level)=>{
+      this.level = level;
+    })
   },
   computed:{
     itemSty(){
-      return {
-        paddingLeft: 24 * this.level + 'px'
-      }
+      return this.mode == 'inline'?{
+          paddingLeft: 24 * this.level + 'px'
+        }: '';
     }
   }
 }

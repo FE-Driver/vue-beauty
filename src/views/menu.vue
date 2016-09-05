@@ -16,23 +16,46 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
+    <v-Row :gutter="16">
+      <v-Col>
+        <code-box
+                title="顶部导航"
+                describe="水平的顶部导航菜单。"
+        >
+          <v-menu mode="horizontal">
+            <menu-item><v-icon type='mail'></v-icon>导航一</menu-item>
+            <menu-item disabled><v-icon type='appstore'></v-icon>导航二</menu-item>
+            <sub-menu title="导航 - 子菜单" icon="setting">
+              <item-group title="分组1">
+                <menu-item>选项1</menu-item>
+                <menu-item>选项2</menu-item>
+              </item-group>
+              <item-group title="分组2">
+                <menu-item>选项3</menu-item>
+                <menu-item>选项4</menu-item>
+              </item-group>
+            </sub-menu>
+             <menu-item><a href="http://www.alipay.com/" target="_blank">导航四 - 链接</a></menu-item>
+          </v-menu>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+        </code-box>
 
         <code-box
-                title="导航菜单"
-                describe=""
-                code=""
+                title="内嵌菜单"
+                describe="垂直菜单，子菜单内嵌在菜单区域。"
         >
           <v-menu mode="inline" style="width:240px">
-            <sub-menu title="导航一">
-              <menu-item>选项1</menu-item>
-              <menu-item>选项2</menu-item>
-              <menu-item>选项3</menu-item>
-              <menu-item>选项4</menu-item>
+            <sub-menu title="导航一" icon="mail">
+              <item-group title="分组1">
+                <menu-item>选项1</menu-item>
+                <menu-item>选项2</menu-item>
+              </item-group>
+              <item-group title="分组2">
+                <menu-item>选项3</menu-item>
+                <menu-item>选项4</menu-item>
+              </item-group>
             </sub-menu>
-            <sub-menu title="导航二">
+            <sub-menu title="导航二" icon="appstore">
               <menu-item>选项5</menu-item>
               <menu-item>选项6</menu-item>
               <sub-menu title="三级导航">
@@ -40,7 +63,7 @@
                 <menu-item>选项8</menu-item>
               </sub-menu>
             </sub-menu>
-            <sub-menu title="导航三">
+            <sub-menu title="导航三" icon="setting">
               <menu-item>选项9</menu-item>
               <menu-item>选项10</menu-item>
               <menu-item>选项11</menu-item>
@@ -50,22 +73,80 @@
 
         </code-box>
 
-      </div>
+        <code-box
+                title="垂直菜单"
+                describe="子菜单是弹出的形式。"
+        >
+          <v-menu style="width:240px">
+            <sub-menu title="导航一" icon="mail">
+              <item-group title="分组1">
+                <menu-item>选项1</menu-item>
+                <menu-item>选项2</menu-item>
+              </item-group>
+              <item-group title="分组2">
+                <menu-item>选项3</menu-item>
+                <menu-item>选项4</menu-item>
+              </item-group>
+            </sub-menu>
+            <sub-menu title="导航二" icon="appstore">
+              <menu-item>选项5</menu-item>
+              <menu-item>选项6</menu-item>
+              <sub-menu title="三级导航">
+                <menu-item>选项7</menu-item>
+                <menu-item>选项8</menu-item>
+              </sub-menu>
+            </sub-menu>
+            <sub-menu title="导航三" icon="setting">
+              <menu-item>选项9</menu-item>
+              <menu-item>选项10</menu-item>
+              <menu-item>选项11</menu-item>
+              <menu-item>选项12</menu-item>
+            </sub-menu>
+          </v-menu>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+        </code-box>
 
         <code-box
+                title="主题"
+                describe="内建了两套主题 light|dark，默认 light。"
+        >
+          <v-menu style="width:240px" theme="dark" mode="inline">
+            <sub-menu title="导航一" icon="mail">
+              <menu-item>选项1</menu-item>
+              <menu-item>选项2</menu-item>
+              <menu-item>选项3</menu-item>
+              <menu-item>选项4</menu-item>
+            </sub-menu>
+            <sub-menu title="导航二" icon="appstore">
+              <menu-item>选项5</menu-item>
+              <menu-item>选项6</menu-item>
+              <sub-menu title="三级导航">
+                <menu-item>选项7</menu-item>
+                <menu-item>选项8</menu-item>
+              </sub-menu>
+            </sub-menu>
+            <sub-menu title="导航三" icon="setting">
+              <menu-item>选项9</menu-item>
+              <menu-item>选项10</menu-item>
+              <menu-item>选项11</menu-item>
+              <menu-item>选项12</menu-item>
+            </sub-menu>
+          </v-menu>
+
+        </code-box>
+
+        <!--<code-box
                 title="导航菜单"
                 describe=""
                 code=""
         >
           <v-nav :data="menuData"></v-nav>
 
-        </code-box>
+        </code-box>-->
 
-      </div>
+      </v-Col>
 
-    </div>
+    </v-Row>
 
 
     <api-table
@@ -77,11 +158,11 @@
 </template>
 
 <script>
-
-import vDropdown from '../../components/dropdown'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
+import {vRow, vCol} from '../../components/layout'
+import vIcon from '../../components/iconfont'
 
 import vMenu from '../../components/menu'
 let menuItem = vMenu.Item
@@ -212,9 +293,13 @@ export default {
     }
   },
   components: {
+    vIcon,
+    vRow,
+    vCol,
     codeBox,
     apiTable,
     vMenu,
+    itemGroup: vMenu.ItemGroup,
     menuItem,
     subMenu,
     vNav
