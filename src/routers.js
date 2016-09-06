@@ -11,6 +11,12 @@ export default function(router) {
         require(['./views/components.vue'], resolve);
       },
       subRoutes: {
+        '/tag': {
+          name: 'tag',
+          component: function index(resolve) {
+            require(['./views/tag.vue'], resolve);
+          },
+        },
         '/alert': {
           name: 'alert',
           component: function index(resolve) {
@@ -51,6 +57,12 @@ export default function(router) {
           name: 'font',
           component: function index(resolve) {
             require(['./views/font.vue'], resolve);
+          },
+        },
+        '/layout': {
+          name: 'layout',
+          component: function index(resolve) {
+            require(['./views/layout.vue'], resolve);
           },
         },
         '/button': {
@@ -208,7 +220,7 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/timePicker.vue'], resolve);
           }
-        },  
+        },
         '/cascader': {
           name: 'cascader',
           component: function index(resolve) {

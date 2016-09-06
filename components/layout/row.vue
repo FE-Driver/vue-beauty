@@ -1,5 +1,5 @@
 <template>
-  <div class="ant-row">
+  <div class="ant-row" :class="classes">
     <slot></slot>
   </div>
 </template>
@@ -7,7 +7,10 @@
   import { defaultProps } from '../../utils'
   export default {
     props: defaultProps({
-      gutter: Number
+      gutter: Number,
+      pack:String,
+      display:String,
+      align:String
     }),
     ready(){
       if(this.gutter){
@@ -20,6 +23,17 @@
           $child.$el.style.paddingRight = half + 'px';
         }
       }
+    },
+    computed: {
+      classes () {
+        return [
+          this.display ? `ant-row-${this.display}` : '',
+          this.pack ? `ant-row-flex-${this.pack}` : '',
+          this.align ? `ant-row-flex-${this.align}` : '',
+        ]
+      }
     }
+
   }
 </script>
+

@@ -14,6 +14,9 @@
             <a href="/">更新日志</a>
           </menu-item>
           <sub-menu title="Basic">
+            <menu-item v-link="{ name: 'layout', activeClass: 'ant-menu-item-selected' }">
+              layout 布局
+            </menu-item>
             <menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
               Button 按钮
             </menu-item>
