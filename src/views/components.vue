@@ -131,6 +131,9 @@
             <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
               Steps 步骤条
             </menu-item>
+            <menu-item v-link="{ name: 'tabs', activeClass: 'ant-menu-item-selected' }">
+              Tabs 标签页
+            </menu-item>
           </sub-menu>
           <sub-menu title="Other">
             <menu-item v-link="{ name: 'affix', activeClass: 'ant-menu-item-selected' }">
