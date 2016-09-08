@@ -14,6 +14,7 @@
         }),
         props: defaultProps({
             key: String,
+            disabled: false,
             tab: String
         }),
         ready(){

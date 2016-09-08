@@ -38,10 +38,27 @@
           title="图标按钮"
           describe=""
         >
-          <v-tabs active-key="2">
-            <v-tab-pane key="1" tab="选项卡一">选项卡一内容</v-tab-pane>
-            <v-tab-pane key="2" tab="选项卡二">选项卡二内容</v-tab-pane>
-            <v-tab-pane key="3" tab="选项卡三">选项卡三内容</v-tab-pane>
+          <v-tabs active-key="1">
+            <v-tab-pane key="1" tab="选项卡一">选项卡一</v-tab-pane>
+            <v-tab-pane key="2" disabled tab="选项卡二">选项卡二</v-tab-pane>
+            <v-tab-pane key="3" tab="选项卡三">选项卡三</v-tab-pane>
+          </v-tabs>
+        </code-box>
+
+        <code-box
+          title="图标按钮"
+          describe=""
+        >
+          <v-tabs active-key="1">
+            <v-tab-pane key="1" tab="选项一">选项卡一</v-tab-pane>
+            <v-tab-pane key="2" tab="选项二">选项卡二</v-tab-pane>
+            <v-tab-pane key="3" tab="选项三">选项卡三</v-tab-pane>
+            <v-tab-pane key="4" tab="选项四">选项卡四</v-tab-pane>
+            <v-tab-pane key="5" tab="选项五">选项卡五</v-tab-pane>
+            <v-tab-pane key="6" tab="选项六">选项卡六</v-tab-pane>
+            <v-tab-pane key="7" tab="选项七">选项卡七</v-tab-pane>
+            <v-tab-pane key="8" tab="选项八">选项卡八</v-tab-pane>
+            <v-tab-pane key="9" tab="选项九">选项卡九</v-tab-pane>
           </v-tabs>
         </code-box>
         
