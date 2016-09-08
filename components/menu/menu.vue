@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'menu',
   props: {
     mode: {
       type: String,
@@ -15,10 +16,6 @@ export default {
       type: String,
       default: 'light'
     },
-  },
-  ready(){
-    this.$broadcast('setLevel',1);
-    this.$broadcast('modeChage',this.mode);
   }
 }
 </script>

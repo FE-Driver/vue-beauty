@@ -13,15 +13,6 @@
     export default {
         props: {
             title: String
-        },
-        ready(){
-            this.$on('modeChage',(mode)=>{
-                this.$broadcast('modeChage',mode);
-            })
-
-            this.$on('setLevel',(level)=>{
-                this.$broadcast('setLevel',level);
-            })
         }
     }
 </script>

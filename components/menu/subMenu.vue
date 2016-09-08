@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'subMenu',
   props: {
     title: String,
     icon: String
@@ -26,23 +27,8 @@ export default {
     mode: 'vertical',
     timer: null
   }),
-  watch: {
-    'level' : function(val, oldVal){
-      const childVal = ++val;
-    }
-  },
   ready(){
-    this.$on('modeChage',(mode)=>{
-      this.mode = mode;
-
-      this.$broadcast('modeChage',mode);
-    })
-
-    this.$on('setLevel',(level)=>{
-      this.level = level;
-
-      this.$broadcast('setLevel',++level);
-    })
+    this.setLevelAndMode();
   },
   computed:{
     subMenuCls(){
@@ -67,6 +53,17 @@ export default {
     }
   },
   methods: {
+    setLevelAndMode(){
+      let index = 1;
+      let parent = this.$parent;
+
+      while (parent.$options.name !== 'menu') {
+        if(parent.$options.name == 'subMenu') index++;
+        parent = parent.$parent;
+      }
+      this.mode = parent.mode;
+      this.level = index;
+    },
     clickTriggerOpen(){
       if(this.mode == 'inline'){
         this.setOpen(!this.open);

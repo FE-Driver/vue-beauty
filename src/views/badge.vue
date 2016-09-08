@@ -22,7 +22,7 @@
         <code-box
           title="基础"
           describe="简单的徽章展示。"
-          code='<v-badge :count="30"><a href="#" class="head-example"></a></v-badge>'
+          code='<v-badge :count="5"><a href="#" class="head-example"></a></v-badge>'
         >
           <v-badge :count="5">
             <a class="head-example"></a>

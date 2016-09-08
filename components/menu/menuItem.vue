@@ -17,19 +17,26 @@ export default {
     }
   },
   ready(){
-    this.$on('modeChage',(mode)=>{
-      this.mode = mode;
-    })
-
-    this.$on('setLevel',(level)=>{
-      this.level = level;
-    })
+    this.setLevelAndMode();
   },
   computed:{
     itemSty(){
       return this.mode == 'inline'?{
           paddingLeft: 24 * this.level + 'px'
         }: '';
+    }
+  },
+  methods: {
+    setLevelAndMode(){
+      let index = 1;
+      let parent = this.$parent;
+
+      while (parent.$options.name !== 'menu') {
+        if(parent.$options.name == 'subMenu') index++;
+        parent = parent.$parent;
+      }
+      this.mode = parent.mode;
+      this.level = index;
     }
   }
 }
