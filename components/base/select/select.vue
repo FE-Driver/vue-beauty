@@ -87,7 +87,7 @@
                 this.onClear(deleteEle);
             },
             hide(event){
-                if(this.multiple) event.stopPropagation();
+                event.stopPropagation();
             }
         }
     }

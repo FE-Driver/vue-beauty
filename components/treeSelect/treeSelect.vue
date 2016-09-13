@@ -1,6 +1,6 @@
 <template>
     <span style="display:inline-block;position:relative">
-        <v-select :value="value" :open.sync="open" :multiple="multiple" :allow-clear="allowClear" :on-clear="clear">
+        <v-select :value="value" :open.sync="open" :multiple="multiple" :allow-clear="allowClear" :on-clear="clear" v-ref:select>
             <v-tree :data="data" :on-select="select" :on-check="check" :multiple="multiple" :checkable="treeCheckable" v-ref:tree></v-tree>
         </v-select>
     </span>
@@ -60,6 +60,7 @@
                 let res = [{text:data[0].title,uid:data[0].key}];
                 this.value = res;
                 this.onSelect(res);
+                this.$refs.select.openDropdown();
             },
             check(data){
                 if(!this.multiple) return;
