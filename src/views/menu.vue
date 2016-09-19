@@ -135,24 +135,50 @@
 
         </code-box>
 
-        <!--<code-box
-                title="导航菜单"
-                describe=""
-                code=""
+        <code-box
+                title="从数据直接生成"
+                describe="使用data从json数据直接生成menu"
         >
-          <v-nav :data="menuData"></v-nav>
+          <v-nav style="width:240px" :data="menuData"></v-nav>
 
-        </code-box>-->
+        </code-box>
 
       </v-Col>
 
     </v-Row>
 
+    <api-table
+      :content='content'
+    >
+      <h3>Menu props</h3>
+    </api-table>
 
     <api-table
-      :apis='apis'
-    ></api-table>
+      :content='content2'
+      title=""
+    >
+      <h3>Menu.Item props</h3>
+    </api-table>
 
+    <api-table
+      :content='content3'
+      title=""
+    >
+      <h3>Menu.SubMenu props</h3>
+    </api-table>
+
+    <api-table
+      :content='content4'
+      title=""
+    >
+      <h3>Menu.ItemGroup props</h3>
+    </api-table>
+    <api-table
+      :content='content5'
+      title=""
+    >
+      <h3>NavMenu props</h3>
+    </api-table>
   </div>
 
 </template>
@@ -176,119 +202,115 @@ export default {
       menuData:[
         {
           name: "首页",
-          icon: "glyphicon glyphicon-globe",
-          url: "/home",
-          target: ""
+          link: {
+            name: 'card'
+          }
         },
         {
-          name: "共配中心",
-          icon: "glyphicon glyphicon-cog",
-          target: "",
-          children: [
-            {
-              name: "业务管理",
-              target: "",
-              children: [
-                {
-                  name: "车次到站",
-                  url: "/distribution/business/arrival",
-                  target: "",
-
-                },
-                {
-                  name: "全状态监控",
-                  url: "/distribution/business/monitor",
-                  target: ""
-                },
-              ]
+          name: "安装指南",
+          icon: 'mail',
+          children: [{
+            link: {
+              name: 'alert',
+              query:{
+                src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
+              }
             },
+            name: "快速上手"
+          }, {
+            link: "/development",
+            name: "开发指南",
+            disabled: true
+          }]
+        },
+        {
+          name: "基础组件",
+          icon: 'mail',
+          groups: [
             {
-              name: "协作中心",
-              target: "",
-              children: [
+              groupName: "Basic",
+              list: [
                 {
-                  name: "合作伙伴管理",
-                  url: "/cooperation/cooperation",
-                  target: ""
-                },
-                {
-                  name: "合作管理",
-                  url: "/cooperation/project",
-                  target: ""
-                },
-                {
-                  name: "项目管理",
-                  url: "/cooperation/partner",
-                  target: ""
+                  link: "/layout",
+                  name: "布局 (layout)"
                 }
               ]
             },
-          ]
-        },
-        {
-          name: "用户中心",
-          icon: "glyphicon glyphicon-user",
-          target: "",
-          children: [
             {
-              name: "机构管理",
-              url: "/ucenter/org",
-              target: "",
-            },
-            {
-              name: "角色管理",
-              url: "/ucenter/role",
-              target: "",
-            },
-            {
-              name: "用户管理",
-              url: "/ucenter/user",
-              target: "",
-            },
-            {
-              name: "资源管理",
-              url: "/ucenter/res",
-              target: "",
-            },
+              groupName: "Form",
+              list: [
+                {
+                  link: "/radio",
+                  name: "按钮 (radio)"
+                }
+              ]
+            }
           ]
         }
       ],
-      apis: [{
-          parameter: 'type',
-          explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'icon',
-          explain: '设置按钮的图标类型',
-          type: 'string',
-          default: '无'
-        },{
-          parameter: 'shape',
-          explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'size',
-          explain: '设置按钮大小，可选值为 small large 或者不设',
-          type: 'String',
-          default: 'default'
-        },{
-          parameter: 'description',
-          explain: '可选参数，警告提示的辅助性文字介绍',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'loading',
-          explain: '设置按钮载入状态',
-          type: 'boolean',
-          default: 'false'
-        },{
-          parameter: 'onClick',
-          explain: 'click 事件的 handler',
-          type: 'function',
-          default: ''
-        }
+      content: [
+        [
+          'theme',
+          '主题颜色',
+          'String: light dark',
+          'light'
+        ],
+        [
+          'mode',
+          '菜单类型，现在支持垂直、水平、和内嵌模式三种',
+          'String: vertical horizontal inline',
+          'vertical'
+        ]
+      ],
+      content2: [
+        [
+          'disabled',
+          '是否禁用',
+          'Boolean',
+          'false'
+        ]
+      ],
+      content3: [
+        [
+          [
+            'title',
+            '子菜单项值',
+            'String',
+            '无'
+          ],
+          'icon',
+          '图标',
+          'String',
+          '无'
+        ]
+      ],
+      content4: [
+        [
+          'title',
+          '分组标题',
+          'String',
+          '无'
+        ]
+      ],
+      content5: [
+          [
+            'data',
+            '可嵌套的节点属性的数组，生成menu的数据',
+            'array',
+            '无'
+          ],
+          [
+            'theme',
+            '主题颜色',
+            'String: light dark',
+            'light'
+          ],
+          [
+            'mode',
+            '菜单类型，现在支持垂直、水平、和内嵌模式三种',
+            'String: vertical horizontal inline',
+            'vertical'
+          ]
       ]
     }
   },
