@@ -71,7 +71,7 @@
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
 
-  import Clipboard from 'Clipboard'
+  import Clipboard from 'clipboard'
 
   export default {
     data: function () {

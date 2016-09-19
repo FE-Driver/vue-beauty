@@ -53,6 +53,12 @@ export default function(router) {
             require(['./views/font.vue'], resolve);
           },
         },
+        '/layout': {
+          name: 'layout',
+          component: function index(resolve) {
+            require(['./views/layout.vue'], resolve);
+          },
+        },
         '/button': {
           name: 'button',
           component: function index(resolve) {
@@ -167,6 +173,12 @@ export default function(router) {
             require(['./views/tag.vue'], resolve);
           },
         },
+        '/tabs': {
+          name: 'tabs',
+          component: function index(resolve) {
+            require(['./views/tabs.vue'], resolve);
+          },
+        },
         '/timeline': {
           name: 'timeline',
           component: function index(resolve) {
@@ -208,7 +220,7 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/timePicker.vue'], resolve);
           }
-        },  
+        },
         '/cascader': {
           name: 'cascader',
           component: function index(resolve) {

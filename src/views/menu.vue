@@ -16,72 +16,179 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
+    <v-Row :gutter="16">
+      <v-Col>
+        <code-box
+                title="顶部导航"
+                describe="水平的顶部导航菜单。"
+        >
+          <v-menu mode="horizontal">
+            <menu-item><v-icon type='mail'></v-icon>导航一</menu-item>
+            <menu-item disabled><v-icon type='appstore'></v-icon>导航二</menu-item>
+            <sub-menu title="导航 - 子菜单" icon="setting">
+              <item-group title="分组1">
+                <menu-item>选项1</menu-item>
+                <menu-item>选项2</menu-item>
+              </item-group>
+              <item-group title="分组2">
+                <menu-item>选项3</menu-item>
+                <menu-item>选项4</menu-item>
+              </item-group>
+            </sub-menu>
+             <menu-item><a href="http://www.alipay.com/" target="_blank">导航四 - 链接</a></menu-item>
+          </v-menu>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+        </code-box>
 
         <code-box
-                title="导航菜单"
-                describe=""
-                code=""
+                title="内嵌菜单"
+                describe="垂直菜单，子菜单内嵌在菜单区域。"
         >
-          <v-menu class="aside-container" mode="inline">
-            <menu-item>
-              level1_1
-            </menu-item>
-
-            <sub-menu title="level1_2">
-
-              <menu-item>
-                level2_1
-              </menu-item>
-
-              <sub-menu title="level2_2">
-                <menu-item>
-                  level3_1
-                </menu-item>
-                <menu-item>
-                  level3_1
-                </menu-item>
+          <v-menu mode="inline" style="width:240px">
+            <sub-menu title="导航一" icon="mail">
+              <item-group title="分组1">
+                <menu-item>选项1</menu-item>
+                <menu-item>选项2</menu-item>
+              </item-group>
+              <item-group title="分组2">
+                <menu-item>选项3</menu-item>
+                <menu-item>选项4</menu-item>
+              </item-group>
+            </sub-menu>
+            <sub-menu title="导航二" icon="appstore">
+              <menu-item>选项5</menu-item>
+              <menu-item>选项6</menu-item>
+              <sub-menu title="三级导航">
+                <menu-item>选项7</menu-item>
+                <menu-item>选项8</menu-item>
               </sub-menu>
-
+            </sub-menu>
+            <sub-menu title="导航三" icon="setting">
+              <menu-item>选项9</menu-item>
+              <menu-item>选项10</menu-item>
+              <menu-item>选项11</menu-item>
+              <menu-item>选项12</menu-item>
             </sub-menu>
           </v-menu>
 
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
-
         <code-box
-                title="导航菜单"
-                describe=""
-                code=""
+                title="垂直菜单"
+                describe="子菜单是弹出的形式。"
         >
-          <v-nav :data="menuData"></v-nav>
+          <v-menu style="width:240px">
+            <sub-menu title="导航一" icon="mail">
+              <item-group title="分组1">
+                <menu-item>选项1</menu-item>
+                <menu-item>选项2</menu-item>
+              </item-group>
+              <item-group title="分组2">
+                <menu-item>选项3</menu-item>
+                <menu-item>选项4</menu-item>
+              </item-group>
+            </sub-menu>
+            <sub-menu title="导航二" icon="appstore">
+              <menu-item>选项5</menu-item>
+              <menu-item>选项6</menu-item>
+              <sub-menu title="三级导航">
+                <menu-item>选项7</menu-item>
+                <menu-item>选项8</menu-item>
+              </sub-menu>
+            </sub-menu>
+            <sub-menu title="导航三" icon="setting">
+              <menu-item>选项9</menu-item>
+              <menu-item>选项10</menu-item>
+              <menu-item>选项11</menu-item>
+              <menu-item>选项12</menu-item>
+            </sub-menu>
+          </v-menu>
 
         </code-box>
 
-      </div>
+        <code-box
+                title="主题"
+                describe="内建了两套主题 light|dark，默认 light。"
+        >
+          <v-menu style="width:240px" theme="dark" mode="inline">
+            <sub-menu title="导航一" icon="mail">
+              <menu-item>选项1</menu-item>
+              <menu-item>选项2</menu-item>
+              <menu-item>选项3</menu-item>
+              <menu-item>选项4</menu-item>
+            </sub-menu>
+            <sub-menu title="导航二" icon="appstore">
+              <menu-item>选项5</menu-item>
+              <menu-item>选项6</menu-item>
+              <sub-menu title="三级导航">
+                <menu-item>选项7</menu-item>
+                <menu-item>选项8</menu-item>
+              </sub-menu>
+            </sub-menu>
+            <sub-menu title="导航三" icon="setting">
+              <menu-item>选项9</menu-item>
+              <menu-item>选项10</menu-item>
+              <menu-item>选项11</menu-item>
+              <menu-item>选项12</menu-item>
+            </sub-menu>
+          </v-menu>
 
-    </div>
+        </code-box>
 
+        <code-box
+                title="从数据直接生成"
+                describe="使用data从json数据直接生成menu"
+        >
+          <v-nav style="width:240px" :data="menuData"></v-nav>
+
+        </code-box>
+
+      </v-Col>
+
+    </v-Row>
 
     <api-table
-      :apis='apis'
-    ></api-table>
+      :content='content'
+    >
+      <h3>Menu props</h3>
+    </api-table>
 
+    <api-table
+      :content='content2'
+      title=""
+    >
+      <h3>Menu.Item props</h3>
+    </api-table>
+
+    <api-table
+      :content='content3'
+      title=""
+    >
+      <h3>Menu.SubMenu props</h3>
+    </api-table>
+
+    <api-table
+      :content='content4'
+      title=""
+    >
+      <h3>Menu.ItemGroup props</h3>
+    </api-table>
+    <api-table
+      :content='content5'
+      title=""
+    >
+      <h3>NavMenu props</h3>
+    </api-table>
   </div>
 
 </template>
 
 <script>
-
-import vDropdown from '../../components/dropdown'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
+import {vRow, vCol} from '../../components/layout'
+import vIcon from '../../components/iconfont'
 
 import vMenu from '../../components/menu'
 let menuItem = vMenu.Item
@@ -95,126 +202,126 @@ export default {
       menuData:[
         {
           name: "首页",
-          icon: "glyphicon glyphicon-globe",
-          url: "/home",
-          target: ""
+          link: {
+            name: 'card'
+          }
         },
         {
-          name: "共配中心",
-          icon: "glyphicon glyphicon-cog",
-          target: "",
-          children: [
-            {
-              name: "业务管理",
-              target: "",
-              children: [
-                {
-                  name: "车次到站",
-                  url: "/distribution/business/arrival",
-                  target: "",
-
-                },
-                {
-                  name: "全状态监控",
-                  url: "/distribution/business/monitor",
-                  target: ""
-                },
-              ]
+          name: "安装指南",
+          icon: 'mail',
+          children: [{
+            link: {
+              name: 'alert',
+              query:{
+                src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
+              }
             },
+            name: "快速上手"
+          }, {
+            link: "/development",
+            name: "开发指南",
+            disabled: true
+          }]
+        },
+        {
+          name: "基础组件",
+          icon: 'mail',
+          groups: [
             {
-              name: "协作中心",
-              target: "",
-              children: [
+              groupName: "Basic",
+              list: [
                 {
-                  name: "合作伙伴管理",
-                  url: "/cooperation/cooperation",
-                  target: ""
-                },
-                {
-                  name: "合作管理",
-                  url: "/cooperation/project",
-                  target: ""
-                },
-                {
-                  name: "项目管理",
-                  url: "/cooperation/partner",
-                  target: ""
+                  link: "/layout",
+                  name: "布局 (layout)"
                 }
               ]
             },
-          ]
-        },
-        {
-          name: "用户中心",
-          icon: "glyphicon glyphicon-user",
-          target: "",
-          children: [
             {
-              name: "机构管理",
-              url: "/ucenter/org",
-              target: "",
-            },
-            {
-              name: "角色管理",
-              url: "/ucenter/role",
-              target: "",
-            },
-            {
-              name: "用户管理",
-              url: "/ucenter/user",
-              target: "",
-            },
-            {
-              name: "资源管理",
-              url: "/ucenter/res",
-              target: "",
-            },
+              groupName: "Form",
+              list: [
+                {
+                  link: "/radio",
+                  name: "按钮 (radio)"
+                }
+              ]
+            }
           ]
         }
       ],
-      apis: [{
-          parameter: 'type',
-          explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'icon',
-          explain: '设置按钮的图标类型',
-          type: 'string',
-          default: '无'
-        },{
-          parameter: 'shape',
-          explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'size',
-          explain: '设置按钮大小，可选值为 small large 或者不设',
-          type: 'String',
-          default: 'default'
-        },{
-          parameter: 'description',
-          explain: '可选参数，警告提示的辅助性文字介绍',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'loading',
-          explain: '设置按钮载入状态',
-          type: 'boolean',
-          default: 'false'
-        },{
-          parameter: 'onClick',
-          explain: 'click 事件的 handler',
-          type: 'function',
-          default: ''
-        }
+      content: [
+        [
+          'theme',
+          '主题颜色',
+          'String: light dark',
+          'light'
+        ],
+        [
+          'mode',
+          '菜单类型，现在支持垂直、水平、和内嵌模式三种',
+          'String: vertical horizontal inline',
+          'vertical'
+        ]
+      ],
+      content2: [
+        [
+          'disabled',
+          '是否禁用',
+          'Boolean',
+          'false'
+        ]
+      ],
+      content3: [
+        [
+          [
+            'title',
+            '子菜单项值',
+            'String',
+            '无'
+          ],
+          'icon',
+          '图标',
+          'String',
+          '无'
+        ]
+      ],
+      content4: [
+        [
+          'title',
+          '分组标题',
+          'String',
+          '无'
+        ]
+      ],
+      content5: [
+          [
+            'data',
+            '可嵌套的节点属性的数组，生成menu的数据',
+            'array',
+            '无'
+          ],
+          [
+            'theme',
+            '主题颜色',
+            'String: light dark',
+            'light'
+          ],
+          [
+            'mode',
+            '菜单类型，现在支持垂直、水平、和内嵌模式三种',
+            'String: vertical horizontal inline',
+            'vertical'
+          ]
       ]
     }
   },
   components: {
+    vIcon,
+    vRow,
+    vCol,
     codeBox,
     apiTable,
     vMenu,
+    itemGroup: vMenu.ItemGroup,
     menuItem,
     subMenu,
     vNav

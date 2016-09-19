@@ -1,0 +1,39 @@
+<template>
+    <sub-menu v-if="data" :title="data.name" :icon="data.icon">
+        <template v-if="data.children">
+            <template v-for="item in data.children">
+                <menu-item v-if="!item.children && !item.groups" v-link="item.link"  :disabled="item.disabled">{{item.name}}</menu-item>
+                <nav-sub-menu v-else :data="item"></nav-sub-menu>
+            </template>
+        </template>
+        <template v-if="data.groups">
+            <menu-item-group v-for="item in data.groups" :title="item.groupName">
+                <template v-for="child in item.list">
+                    <menu-item v-if="!child.children && !child.groups" v-link="child.link"  :disabled="child.disabled">{{child.name}}</menu-item>
+                    <nav-sub-menu v-else :data="child"></nav-sub-menu>
+                </template>
+            </menu-item-group>
+        </template>
+    </sub-menu>
+</template>
+
+<script>
+  import subMenu from './subMenu.vue'
+  import menuItemGroup from './menuItemGroup.vue'
+  import menuItem from './menuItem.vue'
+
+  export default {
+    name: 'navSubMenu',
+    props: {
+      data: {
+        type: Object,
+        required: true
+      }
+    },
+    components:{
+      subMenu,
+      menuItemGroup,
+      menuItem
+    }
+  }
+</script>

@@ -20,6 +20,9 @@
             <menu-item v-link="{ name: 'font', activeClass: 'ant-menu-item-selected' }">
               Icon 图标
             </menu-item>
+            <menu-item v-link="{ name: 'layout', activeClass: 'ant-menu-item-selected' }">
+              Layout 栅格
+            </menu-item>
           </sub-menu>
           <sub-menu title="Form Controls">
             <menu-item v-link="{ name: 'cascader', activeClass: 'ant-menu-item-selected' }">
@@ -102,9 +105,6 @@
             <menu-item v-link="{ name: 'modal', activeClass: 'ant-menu-item-selected' }">
               Modal 模态框
             </menu-item>
-            <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
-              Pagination 分页
-            </menu-item>
             <menu-item v-link="{ name: 'tag', activeClass: 'ant-menu-item-selected' }">
               Tag 标签
             </menu-item>
@@ -114,20 +114,25 @@
             <menu-item v-link="{ name: 'tree', activeClass: 'ant-menu-item-selected' }">
               Tree 树形控件
             </menu-item>
-            
             <menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
-              Datatable
+              Datatable 数据表格
             </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
-            <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
-              Steps 步骤条
-            </menu-item>
             <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
               Breadcrumb 面包屑
             </menu-item>
             <menu-item v-link="{ name: 'menu', activeClass: 'ant-menu-item-selected' }">
               Menu 导航菜单
+            </menu-item>
+            <menu-item v-link="{ name: 'pagination', activeClass: 'ant-menu-item-selected' }">
+              Pagination 分页
+            </menu-item>
+            <menu-item v-link="{ name: 'steps', activeClass: 'ant-menu-item-selected' }">
+              Steps 步骤条
+            </menu-item>
+            <menu-item v-link="{ name: 'tabs', activeClass: 'ant-menu-item-selected' }">
+              Tabs 标签页
             </menu-item>
           </sub-menu>
           <sub-menu title="Other">

@@ -2,7 +2,7 @@
     <span :class="[wrapClasses,{'ant-input-group':hasslot}]">
       <span v-if="hasbefore" class="ant-input-group-addon"><slot name="before"><slot></span>
       <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="value"></textarea>
-      <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="value"/>
+      <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="value" autocomplete="off"/>
       <span v-if="hasafter" class="ant-input-group-addon"><slot name="after"></slot></span>
     </span>
 </template>
@@ -63,7 +63,6 @@ export default {
       }
 
   }
-
 }
 
 </script>
