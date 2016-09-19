@@ -1,6 +1,6 @@
 <template lang="html">
   <li class="ant-menu-item" :class="{'ant-menu-item-disabled': disabled}" :style="itemSty">
-    <slot></slot>
+    <i v-if="icon" class="anticon anticon-{{icon}}"></i><slot></slot>
   </li>
 </template>
 
@@ -14,7 +14,8 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    icon: String
   },
   ready(){
     this.setLevelAndMode();
