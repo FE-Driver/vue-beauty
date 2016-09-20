@@ -1,7 +1,7 @@
 <template lang="html">
 
   <li :class="subMenuCls" @mouseover="mouseTriggerOpen(true)" @mouseout="mouseTriggerOpen(false)">
-    <div class="ant-menu-submenu-title" @click="clickTriggerOpen" :style="titleSty">
+    <div :class="titleCls" @click="clickTriggerOpen" :style="titleSty">
       <span>
         <i v-if="icon" class="anticon anticon-{{icon}}"></i>
         <span>{{title}}</span>
@@ -19,7 +19,11 @@ export default {
   name: 'subMenu',
   props: {
     title: String,
-    icon: String
+    icon: String,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data:()=>({
     open: false,
@@ -36,6 +40,12 @@ export default {
         'ant-menu-submenu',
         `ant-menu-submenu-${this.mode}`,
         {'ant-menu-submenu-open': this.open}
+      ]
+    },
+    titleCls(){
+      return [
+        'ant-menu-submenu-title',
+        {'ant-menu-submenu-disabled': this.disabled}
       ]
     },
     itemCls(){
@@ -65,12 +75,12 @@ export default {
       this.level = index;
     },
     clickTriggerOpen(){
-      if(this.mode == 'inline'){
+      if(!this.disabled && this.mode == 'inline'){
         this.setOpen(!this.open);
       }
     },
     mouseTriggerOpen(status){
-      if(this.mode != 'inline'){
+      if(!this.disabled && this.mode != 'inline'){
         if(this.timer) clearTimeout(this.timer);
         this.timer = setTimeout(() => this.setOpen(status),300);
       }

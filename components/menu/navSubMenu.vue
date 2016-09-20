@@ -1,5 +1,5 @@
 <template>
-    <sub-menu v-if="data" :title="data.name" :icon="data.icon">
+    <sub-menu v-if="data" :title="data.name" :icon="data.icon" :disabled="data.disabled">
         <template v-if="data.children">
             <template v-for="item in data.children">
                 <menu-item v-if="!item.children && !item.groups" v-link="item.link"  :disabled="item.disabled" :icon="item.icon">{{item.name}}</menu-item>

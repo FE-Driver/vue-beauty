@@ -63,7 +63,7 @@
                 <menu-item>选项8</menu-item>
               </sub-menu>
             </sub-menu>
-            <sub-menu title="导航三" icon="setting">
+            <sub-menu title="导航三" icon="setting" disabled>
               <menu-item>选项9</menu-item>
               <menu-item>选项10</menu-item>
               <menu-item>选项11</menu-item>
@@ -96,7 +96,7 @@
                 <menu-item>选项8</menu-item>
               </sub-menu>
             </sub-menu>
-            <sub-menu title="导航三" icon="setting">
+            <sub-menu title="导航三" icon="setting" disabled>
               <menu-item>选项9</menu-item>
               <menu-item>选项10</menu-item>
               <menu-item>选项11</menu-item>
@@ -227,6 +227,7 @@ export default {
         {
           name: "基础组件",
           icon: 'folder',
+          disabled: true,
           groups: [
             {
               groupName: "Basic",
