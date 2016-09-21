@@ -7,7 +7,7 @@
         </div>
         <div v-if="!placeholder" class="ant-select-selection-selected-value" v-show="value_show" :style="value_opacity">
           <slot></slot>
-          {{ source | wrap value}}
+          {{selectedVal}}
         </div>
         <div v-if="type=='search'" class="ant-select-search ant-select-search--inline" v-show="selected">
           <div class="ant-select-search__field__wrap">
@@ -23,23 +23,8 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue'
   import XOption from './option.vue'
   import {getOffset, closeByElement} from '../_util/_func'
-
-  /*
-   * 根据value获取text值
-   */
-  Vue.filter('wrap', function (arr, value) {
-    if (arr instanceof Array && arr.length > 0) {
-      value = value || arr[0].value
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].value.toString() === value.toString()) {
-          return arr[i].text
-        }
-      }
-    }
-  })
 
   export default {
     components: {
@@ -94,6 +79,19 @@
         }
         return {
           cursor: 'pointer'
+        }
+      },
+      selectedVal(){
+        if (this.source instanceof Array && this.source.length) {
+          if(this.value){
+            for(let item of this.source){
+              if(item.value === this.value){
+                return item.text
+              }
+            }
+          }else{
+            return this.source[0].text
+          }
         }
       }
     },
