@@ -1,10 +1,11 @@
 <template lang="html">
 
-    <div :class="[prefix, sizeClass]">
+    <div :class="[prefix, sizeClass, borderClass]">
         <div class="{{prefix}}-content">
-            <v-spin :spinning="loading">
-                <table>
-                    <thead class="{{prefix}}-thead">
+            <div class="{{prefix}}-body">
+                <v-spin :spinning="loading">
+                    <table>
+                        <thead class="{{prefix}}-thead">
                         <tr>
                             <th v-if="rowSelection" class="{{prefix}}-selection-column">
                                 <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="checkAllState" :on-change="checkAllChange"></v-checkbox>
@@ -22,28 +23,37 @@
                                 </th>
                             </template>
                         </tr>
-                    </thead>
-                    <tbody class="{{prefix}}-tbody" v-show="current.length">
-                        <tr v-for="(index, item) in current">
-                            <td v-if="rowSelection" class="{{prefix}}-selection-column">
-                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
-                                <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
-                            </td>
-                            <td v-for="column in columns">
-                                <template v-if="column.render">
-                                    {{{column.render(item[column.field],item,index)}}}
-                                </template>
-                                <template v-else>
-                                    {{{item[column.field]}}}
-                                </template>
-                            </td>
-                            <!--<td><input type="checkbox" @click="clickCheck($index,$event)"></td>-->
-                            <!--<td>{{item.name}}</td>-->
-                            <!--<td>{{item.sex}}</td>-->
-                        </tr>
-                    </tbody>
-                </table>
-            </v-spin>
+                        </thead>
+                        <tbody class="{{prefix}}-tbody" v-show="current.length">
+                            <tr v-for="(index, item) in current">
+                                <td v-if="rowSelection" class="{{prefix}}-selection-column">
+                                    <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
+                                    <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
+                                </td>
+                                <td v-for="column in columns">
+                                    <template v-if="column.render">
+                                        {{{column.render(item[column.field],item,index)}}}
+                                    </template>
+                                    <template v-else>
+                                        {{{item[column.field]}}}
+                                    </template>
+                                </td>
+                                <!--<td><input type="checkbox" @click="clickCheck($index,$event)"></td>-->
+                                <!--<td>{{item.name}}</td>-->
+                                <!--<td>{{item.sex}}</td>-->
+                            </tr>
+                        </tbody>
+
+                        <tbody class="{{prefix}}-tbody" v-show="current.length==0">
+                            <tr>
+                                <td v-else colspan="{{rowSelection ? columns.length+1 : columns.length}}" style="text-align:center">
+                                    {{emptyText}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </v-spin>
+            </div>
         </div>
 
         <div class="{{prefix}}-pagination">
@@ -51,7 +61,6 @@
             <v-pagination v-if="total"
                     :default-current="defaultCurrent"
                     :total="total"
-                    :show-size-changer="true"
                     :on-change="pageChange"
             ></v-pagination>
         </div>
@@ -129,6 +138,10 @@
                 validator: function (value) {
                     return value.type == "checkbox" || value.type == "radio";
                 }
+            },
+            emptyText:{
+                type: String,
+                default:"老板,没有找到你想要的信息......"
             }
         },
         /*
@@ -143,6 +156,7 @@
                 total: 0,
                 // class前缀
                 prefix: 'ant-table',
+                borderClass:"ant-table-bordered",
                 // 默认加载第一页
                 defaultCurrent:1,
                 //加载状态
@@ -162,14 +176,12 @@
             this.loadData({pageNum: this.pageNum});
         },
         ready: function () {
-            console.log(this.columns)
+
         },
         attached: function () {
         },
         methods: {
             clickCheck: function (index, event) {
-                console.log(index);
-                console.log(event);
                 //组装消息
                 const item = this.items[index];
                 const msg = Object.assign({
@@ -180,8 +192,8 @@
                 this.$dispatch('select', msg);
             },
             clickHandle:function (index) {
-                console.log(index);
-                console.log(this.rowSelectionStates[index])
+//                console.log(index);
+//                console.log(this.rowSelectionStates[index])
             },
             /**
              * 翻页
@@ -198,7 +210,6 @@
              */
             pageSizeChange:function (pageSize) {
                 // todo pagenation的该回调有bug
-                console.log(pageSize)
                 this.pageSize = pageSize;
                 this.loadData({pageNum: this.pageNum});
             },
@@ -266,7 +277,7 @@
                 remoteParams[this.paramsName.pageSize] = this.pageSize;
 
                 this.$http.post(url, remoteParams,{emulateJSON:true}).then((response) => {
-                    const data = response.json().data;
+                    const data = response.body.data;
                     let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
                     self.current = results;
                     self.total = data[self.paramsName.total]*1;
@@ -291,6 +302,11 @@
                 if(this.rowSelection.onSelectAll){
                     this.rowSelection.onSelectAll(e.checked, this.current);
                 }
+            }
+        },
+        events:{
+            reload:function (event) {
+                this.loadData({pageNum: this.pageNum});
             }
         },
         computed:{
