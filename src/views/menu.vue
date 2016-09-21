@@ -280,6 +280,12 @@ export default {
       ],
       content3: [
         [
+          'disabled',
+          '是否禁用',
+          'Boolean',
+          'false'
+        ],
+        [
           'title',
           '子菜单项值',
           'String',
