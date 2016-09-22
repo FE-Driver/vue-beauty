@@ -31,11 +31,16 @@
                                     <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
                                 </td>
                                 <td v-for="column in columns">
-                                    <template v-if="column.render">
-                                        {{{column.render(item[column.field],item,index)}}}
+                                    <template v-if="column.component">
+                                        <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item"></component>
                                     </template>
                                     <template v-else>
-                                        {{{item[column.field]}}}
+                                        <template v-if="column.render">
+                                            {{{column.render(item[column.field],item,index)}}}
+                                        </template>
+                                        <template v-else>
+                                            {{{item[column.field]}}}
+                                        </template>
                                     </template>
                                 </td>
                                 <!--<td><input type="checkbox" @click="clickCheck($index,$event)"></td>-->
@@ -142,6 +147,9 @@
             emptyText:{
                 type: String,
                 default:"老板,没有找到你想要的信息......"
+            },
+            ghost:{
+                type: Object
             }
         },
         /*
@@ -176,7 +184,8 @@
             this.loadData({pageNum: this.pageNum});
         },
         ready: function () {
-
+            console.log(this.emptyText)
+            console.log(this)
         },
         attached: function () {
         },
@@ -302,6 +311,10 @@
                 if(this.rowSelection.onSelectAll){
                     this.rowSelection.onSelectAll(e.checked, this.current);
                 }
+            },
+            fuckCell:function (comp) {
+                console.log(this);
+                console.log(comp);
             }
         },
         events:{
