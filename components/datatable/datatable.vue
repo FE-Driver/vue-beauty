@@ -32,7 +32,7 @@
                                 </td>
                                 <td v-for="column in columns">
                                     <template v-if="column.component">
-                                        <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item"></component>
+                                        <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item" @datatable="datatable"></component>
                                     </template>
                                     <template v-else>
                                         <template v-if="column.render">
@@ -175,9 +175,6 @@
                 rowSelectionStates:[]
             }
         },
-        watch:{
-
-        },
         created: function () {
             //初始加载数据
             this.getSortParams();
@@ -186,8 +183,6 @@
         ready: function () {
             console.log(this.emptyText)
             console.log(this)
-        },
-        attached: function () {
         },
         methods: {
             clickCheck: function (index, event) {
@@ -315,11 +310,17 @@
             fuckCell:function (comp) {
                 console.log(this);
                 console.log(comp);
+            },
+            datatable(fn,...rest){
+                this[fn](...rest);
+            },
+            reload(){
+                this.loadData({pageNum: this.pageNum});
             }
         },
         events:{
             reload:function (event) {
-                this.loadData({pageNum: this.pageNum});
+                this.reload();
             }
         },
         computed:{
