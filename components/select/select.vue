@@ -37,7 +37,7 @@
       size: String,
       disabled: Boolean,
       options: Array,
-      value: String,
+      value: [String,Number],
       multiple: Boolean,
       placeholder: String,
       placeholder_show: {
