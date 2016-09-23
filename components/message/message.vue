@@ -48,6 +48,13 @@ export default {
       }
 
     },
+    setContent(key,cont){
+      for(let notice of this.notices){
+        if (notice.key === key) {
+         notice.content = cont
+       }
+      }
+    },
     remove (key) {
      this.notices.map(notice => {
        if (notice.key === key) {

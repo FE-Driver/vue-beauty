@@ -29,8 +29,13 @@ function notice (content, duration = defaultDuration, type) {
   return (function () {
     let target = key++
 
-    return function () {
-      instance.removeNotice(target)
+    return {
+      remove(){
+        instance.removeNotice(target)
+      },
+      setContent(cont){
+        instance.setContent(target,cont)
+      }
     }
   })()
 
