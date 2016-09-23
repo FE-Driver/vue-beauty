@@ -67,6 +67,9 @@
             <menu-item v-link="{ name: 'upload', activeClass: 'ant-menu-item-selected' }">
               Upload 文件上传
             </menu-item>
+            <menu-item v-link="{ name: 'datepicker', activeClass: 'ant-menu-item-selected' }">
+              datepicker
+            </menu-item>
           </sub-menu>
           <sub-menu title="Views">
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">

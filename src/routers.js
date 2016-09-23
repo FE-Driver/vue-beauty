@@ -280,6 +280,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/carousel.vue'], resolve);
           }
+        },
+        '/datepicker': {
+          name: 'datepicker',
+          component: function index(resolve) {
+            require(['./views/datepicker.vue'], resolve);
+          }
         }
       }
     },
