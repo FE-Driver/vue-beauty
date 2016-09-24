@@ -3,6 +3,7 @@ Beautiful  UI components build with vue and ant design
 
 - [Vue官网](http://vuejs.org/)
 - [Ant.Design官网](http://ant.design/)
+- vue2.0版本请关注next分支
 
 ## 已完成组件
 
@@ -38,6 +39,7 @@ Beautiful  UI components build with vue and ant design
 - Cascader 级联控件
 - Carousel 走马灯
 - Menu 菜单
+- DataTable 数据表格
 
 **(持续更新中。。。)**
 
@@ -67,9 +69,9 @@ Beautiful  UI components build with vue and ant design
 ## 开发步骤
 - 到[ant-design1.11](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
 - 打开style/components/index.less，导出组件的样式
-- 涉及文件：src/routers.js、src/views/components.vue
-- 到src/views下添加组件的文档
-- 在components开发组件
+- 在components文件夹下开发组件
+- 到src/views下编写组件的使用文档
+- 修改以下文件：src/routers.js、src/views/components.vue添加路由和链接
 - NOTICE：如果你需要增加样式，可以在组件对应的样式目录中增加xxx_vb.less（如button_vb.less），并在index.less中import该样式文件
 
 ## 命名规范
