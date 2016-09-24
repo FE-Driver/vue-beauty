@@ -1,7 +1,7 @@
 @import "../themes/default";
 @import "../mixins/index";
 
-@menu-prefix-cls: ant-menu;
+@menu-prefix-cls: ~"@{ant-prefix}-menu";
 
 // default theme
 .@{menu-prefix-cls} {
@@ -164,7 +164,7 @@
       }
     }
 
-    .anticon {
+    .@{iconfont-css-prefix} {
       min-width: 14px;
       margin-right: 8px;
     }
@@ -367,7 +367,6 @@
     color: #fff;
     > a {
       color: #fff;
-      transform: translateZ(0);
     }
   }
 

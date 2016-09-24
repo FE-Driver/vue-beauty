@@ -1,6 +1,6 @@
 <template lang="html">
 <slot name="trigger"></slot>
-<div class="ant-popover ant-popover-placement-{{ placement }}" @click.stop transition="fade" v-show="visible">
+<div class="ant-popover ant-popover-placement-{{ placement }} {{clazz}}" @click.stop transition="fade" v-show="visible">
     <div class="ant-popover-content">
         <div class="ant-popover-arrow"></div>
         <div class="ant-popover-inner">
@@ -25,6 +25,7 @@ export default {
     name: 'popover',
     props: defaultProps({
         title: '',
+        clazz:'',
         placement: 'bottom',
         visible: false,
         trigger: 'click',
@@ -59,6 +60,7 @@ export default {
             let leftFactor = 0.5;//偏移0.5个$trigger自身宽度
             let topFactor = 0.5;//偏移0.5个$trigger自身高度
             const offset = getOffset($trigger);
+
             const eleWidth = $trigger.offsetWidth;
             const eleHeight = $trigger.offsetHeight;
             if (_this.placement.toUpperCase().includes('LEFT')){

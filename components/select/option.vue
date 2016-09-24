@@ -29,7 +29,7 @@
         type: Object,
         twoWay: true
       },
-      value: String,
+      value: [String,Number],
       multiple: Boolean,
       placeholder: String,
       notfound: String

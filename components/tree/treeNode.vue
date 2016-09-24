@@ -47,7 +47,7 @@
                 //本身就忽略
                 if(this.key === key) return;
                 //如果是自己的父级以上
-                if(this.key.startsWith(key)){
+                if(this.key.startsWith(key+'-')){
                     this.checked = checked;
                     this.childrenCheckedStatus = checked? 2 : 0; 
                 }

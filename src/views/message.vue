@@ -75,8 +75,8 @@ warning() {
           title="加载中"
           describe="进行全局 loading，异步自行移除。"
           code='loading() {
-  const hide = message.loading("正在执行中...", 0);
-  setTimeout(hide, 2500);
+  const instance = message.loading("正在执行中...", 0);
+  setTimeout(instance.remove, 2500);
 },
 
 <button type="button" class="ant-btn" @click="loading"><span>显示加载中...</span></button>'
@@ -174,8 +174,8 @@ export default {
       message.success("这是一条成功的提示,并将于10秒后消失", 10);
     },
     loading() {
-      const hide = message.loading("正在执行中...", 0);
-      setTimeout(hide, 2500);
+      const instance = message.loading("正在执行中...", 0);
+      setTimeout(instance.remove, 2500);
     },
     openNotificationWithIcon(type) {
       notification[type]({

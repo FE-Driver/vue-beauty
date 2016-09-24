@@ -63,7 +63,7 @@
                 <menu-item>选项8</menu-item>
               </sub-menu>
             </sub-menu>
-            <sub-menu title="导航三" icon="setting">
+            <sub-menu title="导航三" icon="setting" disabled>
               <menu-item>选项9</menu-item>
               <menu-item>选项10</menu-item>
               <menu-item>选项11</menu-item>
@@ -96,7 +96,7 @@
                 <menu-item>选项8</menu-item>
               </sub-menu>
             </sub-menu>
-            <sub-menu title="导航三" icon="setting">
+            <sub-menu title="导航三" icon="setting" disabled>
               <menu-item>选项9</menu-item>
               <menu-item>选项10</menu-item>
               <menu-item>选项11</menu-item>
@@ -202,6 +202,7 @@ export default {
       menuData:[
         {
           name: "首页",
+          icon: 'home',
           link: {
             name: 'card'
           }
@@ -225,7 +226,8 @@ export default {
         },
         {
           name: "基础组件",
-          icon: 'mail',
+          icon: 'folder',
+          disabled: true,
           groups: [
             {
               groupName: "Basic",
@@ -268,16 +270,28 @@ export default {
           '是否禁用',
           'Boolean',
           'false'
+        ],
+        [
+          'icon',
+          '图标',
+          'String',
+          '无'
         ]
       ],
       content3: [
         [
-          [
-            'title',
-            '子菜单项值',
-            'String',
-            '无'
-          ],
+          'disabled',
+          '是否禁用',
+          'Boolean',
+          'false'
+        ],
+        [
+          'title',
+          '子菜单项值',
+          'String',
+          '无'
+        ],
+        [
           'icon',
           '图标',
           'String',

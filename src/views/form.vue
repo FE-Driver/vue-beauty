@@ -54,7 +54,7 @@
             <v-form-item label="用户名" :label-col="labelCol" :wrapper-col="wrapperCol">
               <p className="ant-form-text" id="userName" name="userName">大眼萌 minion</p>
             </v-form-item>
-            <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol">
+            <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol" required>
               <v-input type="password" placeholder="请输入密码" size="large"></v-input>
             </v-form-item>
             <v-form-item label="您的性别" :label-col="labelCol" :wrapper-col="wrapperCol">

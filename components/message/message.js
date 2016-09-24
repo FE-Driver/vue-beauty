@@ -22,6 +22,9 @@ vMessage.newInstance = () => {
       message.remove(key)
     },
 
+    setContent(key,cont){
+      message.setContent(key,cont)
+    },
     component: message,
 
     destory () {
