@@ -70,6 +70,9 @@
             <menu-item v-link="{ name: 'datepicker', activeClass: 'ant-menu-item-selected' }">
               datepicker
             </menu-item>
+            <menu-item v-link="{ name: 'multiselect', activeClass: 'ant-menu-item-selected' }">
+              multiselect
+            </menu-item>
           </sub-menu>
           <sub-menu title="Views">
             <menu-item v-link="{ name: 'alert', activeClass: 'ant-menu-item-selected' }">
