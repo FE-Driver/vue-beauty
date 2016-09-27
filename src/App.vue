@@ -31,8 +31,6 @@ export default {
 
 <style lang="less">
 
-@import "../style/index.less";
-
 body {
     background: #ececec;
 }

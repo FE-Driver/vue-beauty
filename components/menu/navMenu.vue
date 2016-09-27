@@ -16,7 +16,7 @@
 
 
   export default {
-    name: 'navMenu',
+    name: 'v-nav-menu',
     props: {
       data: {
         type: Array,

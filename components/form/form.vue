@@ -8,6 +8,7 @@
 import { defaultProps } from '../../utils'
 
 export default {
+  name:'v-form',
   data:()=>({
     prefix: 'ant-form',
   }),

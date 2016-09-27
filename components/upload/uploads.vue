@@ -41,6 +41,7 @@ function fileToObject (file) {
 }
 
 export default {
+  name: 'v-upload',
   props: defaultProps({
     prefixCls: 'ant-upload',
 

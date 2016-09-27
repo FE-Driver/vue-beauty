@@ -9,6 +9,7 @@ import { defaultProps } from '../../utils'
 import cx from 'classnames'
 
 export default {
+  name:'v-icon',
   props: defaultProps({
     className: '',
     type: {

@@ -68,10 +68,10 @@
               Upload 文件上传
             </menu-item>
             <menu-item v-link="{ name: 'datepicker', activeClass: 'ant-menu-item-selected' }">
-              datepicker
+              Datepicker 日期选择框
             </menu-item>
             <menu-item v-link="{ name: 'multiselect', activeClass: 'ant-menu-item-selected' }">
-              multiselect
+              Multiselect 多选
             </menu-item>
           </sub-menu>
           <sub-menu title="Views">

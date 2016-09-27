@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name:'v-checkbox',
   props: {
     checked: {
       tyle: Boolean,

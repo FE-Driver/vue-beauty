@@ -6,6 +6,7 @@
 <script>
   import { defaultProps } from '../../utils'
   export default {
+    name:'v-row',
     props: defaultProps({
       gutter: Number,
       pack:String,

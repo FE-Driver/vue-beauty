@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: 'v-switch',
   data:()=>({
     prefix: 'ant-switch',
   }),

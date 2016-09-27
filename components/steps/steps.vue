@@ -10,6 +10,7 @@
 import cx from 'classnames'
 
 export default {
+  name: 'v-steps',
   props: {
     current: {
       type: Number,

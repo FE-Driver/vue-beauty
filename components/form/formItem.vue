@@ -17,6 +17,7 @@ import {vRow, vCol} from '../layout'
 import { defaultProps, oneOfType } from '../../utils'
 
 export default {
+  name:'v-form-item',
   data:()=>({
     prefix: 'ant-form-item',
   }),

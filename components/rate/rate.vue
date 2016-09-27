@@ -9,6 +9,7 @@
 <script>
 
 export default {
+  name: 'v-rate',
   data:()=>({
     prefix: 'ant-rate',
     value: 0

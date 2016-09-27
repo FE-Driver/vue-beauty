@@ -33,6 +33,7 @@
     import props from './props'
 
     export default {
+        name:'v-carousel',
         props: props,
         components: { InnerSlider },
         data () {

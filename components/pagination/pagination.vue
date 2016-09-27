@@ -133,6 +133,7 @@
 import { defaultProps, KeyCode } from '../../utils'
 import vSelect from '../select'
 export default {
+	name: 'v-pagination',
   props: defaultProps({
   	prefixCls: 'ant-pagination',
     current: {

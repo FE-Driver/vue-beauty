@@ -19,6 +19,7 @@ import { defaultProps, oneOfType } from '../../utils'
 import cx from 'classnames'
 
 export default {
+  name: 'v-radio',
   props: defaultProps({
     prefixCls: 'ant-radio',
     type:'radio', // or button

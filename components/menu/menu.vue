@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'menu',
+  name:'v-menu',
   props: {
     mode: {
       type: String,

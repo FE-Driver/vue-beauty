@@ -19,7 +19,7 @@ import { defaultProps } from '../../utils';
 import vPopover from '../popover/popover.vue';
 
 export default {
-    name: 'popconfirm',
+    name: 'v-popconfirm',
     props: defaultProps({
         title: '',
         okText: '确 定',

@@ -99,6 +99,7 @@
   import pointerMixin from './pointerMixin'
 
   export default {
+    name: 'v-multiselect',
     mixins: [multiselectMixin, pointerMixin],
     props: {
       /**

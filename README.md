@@ -44,17 +44,37 @@ Beautiful  UI components build with vue and ant design
 
 **(持续更新中。。。)**
 
+## 引入
+```
+import Vue from 'vue'
+import '../components/style/index.less'
+import vue_beauty from '../components'
+
+Vue.use(vue_beauty)
+
+// or
+import {
+  select,
+  button
+  // ...
+} from '../components'
+
+Vue.use(select)
+Vue.use(button)
+```
+
 ## 目录结构
 <pre>
     VUE-BEAUTY/
     |-- build               存放webpack的配置
     |-- components          存放组件
+    |   |-- xxx             xxx组件
+    |   |-- style           组件的公共样式
+    |    `-- components     存放组件的样式
     |-- src                 存放文档
     |   |-- components      一些文档组件
     |   |-- views           组件的说明文档
     |   `-- routers.js      路由
-    |-- style
-    |   `-- components      存放组件的样式
     `-- utils               一些工具方法
 </pre>
 
@@ -68,11 +88,12 @@ Beautiful  UI components build with vue and ant design
 - NOTICE：可以加入QQ群548062121讨论
 
 ## 开发步骤
-- 到[ant-design1.11](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到style/components下
+- 到[ant-design1.11](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到components/style/components下
 - 打开style/components/index.less，导出组件的样式
 - 在components文件夹下开发组件
+- 到components/index.js下导出组件
 - 到src/views下编写组件的使用文档
-- 修改以下文件：src/routers.js、src/views/components.vue添加路由和链接
+- 修改以下文件：src/routers.js、src/views/components.vue添加文档的路由和链接
 - NOTICE：如果你需要增加样式，可以在组件对应的样式目录中增加xxx_vb.less（如button_vb.less），并在index.less中import该样式文件
 
 ## 命名规范

@@ -38,6 +38,7 @@
  */
 
 export default {
+  name: 'v-alert',
   props: {
     type: {
       type: String,

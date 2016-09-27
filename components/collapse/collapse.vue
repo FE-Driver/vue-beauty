@@ -11,6 +11,7 @@
 import panel from './panel'
 
 export default {
+  name:'v-collapse',
   props: {
     accordion: {
       type: Boolean,

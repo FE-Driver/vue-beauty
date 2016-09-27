@@ -23,6 +23,7 @@ function transformArguments (arg) {
 }
 
 export default {
+  name: 'v-queue-anim',
   props: defaultProps({
     show: true,
     interval: oneOfType([Number, Array], 100),

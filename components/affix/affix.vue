@@ -10,6 +10,7 @@
 
 <script lang="babel">
     export default {
+        name: 'v-affix',
         props:{
             offsetTop:Number,
             offsetBottom: Number,

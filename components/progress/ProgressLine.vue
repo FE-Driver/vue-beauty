@@ -26,6 +26,7 @@
 //import cx from 'classnames'
 
 export default {
+  name: 'v-progress-line',
   props: defaultProps({
     prefixCls: 'ant-progress',
 

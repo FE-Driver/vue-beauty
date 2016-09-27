@@ -7,6 +7,7 @@
     import cx from 'classnames'
 
     export default {
+        name: 'v-breadcrumbs',
         computed: {
             wrapClasses () {
                 return cx({

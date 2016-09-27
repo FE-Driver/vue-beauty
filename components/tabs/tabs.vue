@@ -29,6 +29,7 @@
 <script>
     import { defaultProps } from '../../utils'
     export default{
+        name: 'v-tabs',
         data:()=>({
             prefix: 'ant-tabs',
             activeIndex: 0,

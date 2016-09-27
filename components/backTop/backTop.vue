@@ -13,6 +13,7 @@ import {defaultProps} from '../../utils'
 import cx from 'classnames'
 
 export default {
+    name: 'v-back-top',
     data:()=>({
         prefix: 'ant-back-top',
         visible: false

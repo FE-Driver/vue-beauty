@@ -8,6 +8,7 @@
     import { defaultProps } from '../../utils'
 
     export default{
+        name: 'v-tab-pane',
         data:()=>({
             prefix: 'ant-tabs-tabpane',
             selected: false

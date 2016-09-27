@@ -83,6 +83,7 @@
     import vRadio from '../radio'
 
     export default {
+        name:'v-datatable',
         props: {
             size: {
                 type: String,

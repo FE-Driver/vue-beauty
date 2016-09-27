@@ -23,6 +23,7 @@
 import cx from 'classnames'
 
 export default {
+  name: 'v-step',
   props: {
     status: String,
     title: String,

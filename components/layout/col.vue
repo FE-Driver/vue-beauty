@@ -5,6 +5,7 @@
 </template>
 <script>
   export default {
+    name:'v-col',
     props: {
       span: [String, Number],
       offset: [String, Number],

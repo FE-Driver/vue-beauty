@@ -10,7 +10,7 @@ import treeNode from './treeNode'
 import { defaultProps } from '../../utils'
 
 export default {
-  name: 'tree',
+  name: 'v-tree',
   data:()=>({
     prefix: 'ant-tree',
   }),

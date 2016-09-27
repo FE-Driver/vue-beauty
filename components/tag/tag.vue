@@ -9,6 +9,7 @@
 </style>
 <script>
   export default{
+    name: 'v-tag',
     props: {
       color: {
         type: String
