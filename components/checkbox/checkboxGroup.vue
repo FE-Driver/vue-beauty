@@ -17,6 +17,7 @@
 import vCheckbox from './checkbox'
 
 export default {
+  name:'v-checkbox-group',
   props: {
     options: Array,
     defaultValue: {

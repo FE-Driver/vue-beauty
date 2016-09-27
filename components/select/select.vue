@@ -27,6 +27,7 @@
   import {getOffset, closeByElement} from '../_util/_func'
 
   export default {
+    name: 'v-select',
     components: {
       XOption
     },
@@ -36,7 +37,12 @@
       selected: Boolean,
       size: String,
       disabled: Boolean,
-      options: Array,
+      options: {
+        type: Array,
+        default(){
+          return []
+        }
+      },
       value: [String,Number],
       multiple: Boolean,
       placeholder: String,

@@ -60,6 +60,7 @@
       }
     },
     ready () {
+      console.log(123123)
       if (!this.disabled) {
         document.body.appendChild(this.$els.opts)
       }

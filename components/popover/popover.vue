@@ -22,7 +22,7 @@ import { defaultProps, addClass, removeClass, addStyle } from '../../utils';
 const $body = document.body;
 
 export default {
-    name: 'popover',
+    name: 'v-popover',
     props: defaultProps({
         title: '',
         clazz:'',

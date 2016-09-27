@@ -52,7 +52,6 @@
 
 <script>
 
-import vTreeSelect from '../../components/treeSelect'
 import {vRow, vCol} from '../../components/layout'
 import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
@@ -189,7 +188,6 @@ export default {
     }
   },
   components: {
-    vTreeSelect,
     vRow,
     vCol,
     vButton,

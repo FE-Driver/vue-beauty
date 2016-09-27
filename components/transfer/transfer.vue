@@ -54,6 +54,7 @@
 	import operation from './operation'
 	function noop() {}
 	export default {
+		name: 'v-transfer',
 		props: defaultProps({
 			prefixCls: 'ant-transfer',
 			dataSource: [],

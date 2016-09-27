@@ -7,6 +7,7 @@
 </template>
 <script>
 export default {
+  name: 'v-button',
   data:()=>({
     clicked: false,
     clickTimer: null

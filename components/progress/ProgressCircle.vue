@@ -36,6 +36,7 @@ const statusColorMap = {
 }
 
 export default {
+  name: 'v-progress-circle',
   props: defaultProps({
     prefixCls: 'ant-progress',
 

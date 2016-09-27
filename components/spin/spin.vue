@@ -15,6 +15,7 @@ import spinInner from './spinInner'
 import { defaultProps } from '../../utils'
 
 export default {
+  name: 'v-spin',
   data:()=>({
       prefix: 'ant-spin',
       hasSlot:false

@@ -13,6 +13,7 @@
   import cx from 'classnames'
 
   export default {
+    name: 'v-timeline-item',
     props: defaultProps({
       prefixCls: 'ant-timeline',
       color: 'blue',

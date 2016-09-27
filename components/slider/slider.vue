@@ -20,6 +20,7 @@ import Slider from '../base/slider'
 import { defaultProps, oneOfType } from '../../utils'
 
 export default {
+  name: 'v-slider',
   props: defaultProps({
     prefixCls: 'ant-slider',
     tipTransitionName: 'zoom-down',

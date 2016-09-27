@@ -16,6 +16,7 @@
 <script>
 import vPanel from './panel'
 export default{
+	name:'v-cascader',
 	props:{
 		isshow :Boolean,
 		data : Object,

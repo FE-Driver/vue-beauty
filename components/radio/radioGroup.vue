@@ -9,6 +9,7 @@ import { defaultProps, oneOfType } from '../../utils'
 import vRadio from './radio.vue'
 
 export default {
+  name: 'v-radio-group',
   props: defaultProps({
     prefixCls: 'ant-radio-group',
     type: 'radio', // or button

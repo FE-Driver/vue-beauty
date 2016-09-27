@@ -13,6 +13,7 @@
     import cx from 'classnames'
 
     export default {
+        name: 'v-time-picker',
         props: {
             size: String,
             format: String,

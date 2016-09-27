@@ -9,6 +9,7 @@
     import cx from 'classnames'
 
     export default {
+        name: 'v-breadcrumb',
         props: {
             name: String,
             href: String,

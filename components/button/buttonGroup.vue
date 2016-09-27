@@ -10,6 +10,7 @@
 import cx from 'classnames'
 
 export default {
+  name: 'v-button-group',
   data:()=>({
     prefix: 'ant-btn-group',
   }),

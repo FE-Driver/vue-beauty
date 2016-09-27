@@ -11,6 +11,7 @@
 
 <script>
     export default {
+        name:'v-menu-item-group',
         props: {
             title: String
         }

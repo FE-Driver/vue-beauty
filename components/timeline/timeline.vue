@@ -10,6 +10,7 @@
     import vTimelineItem from './timelineItem.vue'
 
     export default {
+        name: 'v-timeline',
         props: defaultProps({
             prefixCls: 'ant-timeline',
             pending: oneOfType([Boolean, String])

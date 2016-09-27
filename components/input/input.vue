@@ -12,6 +12,7 @@ import { defaultProps, oneOfType } from '../../utils'
 import cx from 'classnames'
 
 export default {
+  name:'v-input',
   data:()=>({
     prefix: 'ant-input',
     hasslot:false,

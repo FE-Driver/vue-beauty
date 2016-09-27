@@ -221,6 +221,12 @@ export default function(router) {
             require(['./views/timePicker.vue'], resolve);
           }
         },
+        '/multiselect': {
+          name: 'multiselect',
+          component: function index(resolve) {
+            require(['./views/multiselect.vue'], resolve);
+          }
+        },
         '/cascader': {
           name: 'cascader',
           component: function index(resolve) {

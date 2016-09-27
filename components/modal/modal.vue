@@ -43,6 +43,7 @@ document.addEventListener('click', (e) => {
 }, true)
 
 export default {
+  name: 'v-modal',
   props: defaultProps({
     visible: false,
     confirmLoading: false,

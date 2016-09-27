@@ -63,7 +63,7 @@
 
 <script>
 
-import vBackTop from '../../components/backTop'
+//import vBackTop from '../../components/backTop'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -100,7 +100,7 @@ export default {
     }
   },
   components: {
-    vBackTop,
+    //vBackTop,
     codeBox,
     apiTable
   }

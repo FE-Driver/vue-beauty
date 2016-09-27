@@ -18,6 +18,7 @@
  */
 
 export default {
+  name: 'v-badge',
   props:{
     count: {
       type: Number,

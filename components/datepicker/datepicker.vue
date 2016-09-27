@@ -131,6 +131,7 @@
     import vInput from '../input'
 
     export default {
+        name: 'v-datepicker',
         props: {
             readonly: { type: Boolean, default: false }, //暂时无效
             value: { type: String, default: '' },

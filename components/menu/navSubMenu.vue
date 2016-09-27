@@ -23,7 +23,7 @@
   import menuItem from './menuItem.vue'
 
   export default {
-    name: 'navSubMenu',
+    name: 'v-nav-sub-menu',
     props: {
       data: {
         type: Object,

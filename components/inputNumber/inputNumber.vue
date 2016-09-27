@@ -75,6 +75,7 @@ function preventDefault (e) {
 }
 
 export default {
+  name:'v-input-number',
   props: defaultProps({
     prefixCls: 'ant-input-number',
     max: oneOfType([Number, String], Infinity),
