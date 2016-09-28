@@ -121,6 +121,7 @@ const install = function(Vue) {
 
   Vue.prototype.$message = message;
   Vue.prototype.$notification = notification;
+  Vue.prototype.$confirm = modal.confirm;
 };
 
 // auto install

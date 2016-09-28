@@ -22,7 +22,8 @@
           describe="包含标题、内容、操作区域。"
           code=""
         >
-          <v-card title="Card title" extra='<a href="/#!/components/card">More</a>' >
+          <v-card title="Card title">
+            <a href="/#!/components/card" slot="extra">More</a>
             <p>Card content</p>
             <p>Card content</p>
             <p>Card content</p>
@@ -138,10 +139,10 @@ export default {
           type: 'Sring',
           default: ''
         },{
-          parameter: 'extra',
+          parameter: 'slot::extra',
           explain: '卡片右上角的操作区域',
-          type: 'Sring',
-          default: ''
+          type: 'slot node',
+          default: '无'
         },{
           parameter: 'bordered',
           explain: '是否有边框',
