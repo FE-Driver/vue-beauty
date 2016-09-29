@@ -36,15 +36,14 @@ Beautiful  UI components build with vue and ant design
 - NOTICE：可以加入QQ群548062121讨论
 
 ## 开发步骤
-- 到[ant-design2.0beta](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到对应组件的style文件夹下，并在组件vue文件里面引入
+- 到[ant-design2.0](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到对应组件的style文件夹下，并在组件vue文件里面引入
 - 开发完组件后，需要在components/index.js里面导出
 - 到src/views下编写组件的使用文档
 - 同时在下列文件：src/routers.js、src/views/components.vue，添加组件的路由和链接
-- NOTICE：如果你需要增加样式，可以在组件对应的样式目录中增加xxx_vb.less（如button_vb.less），并在index.less中import该样式文件
 
 ## 命名规范
 - 文件，目录均以小写开头，驼峰式(如inputNumber)
-- 组件的name均以vb-开头，驼峰式(如vb-treeSelect)
+- 组件的name均以vb开头，短横线隔开(如vb-tree-select)
 
 ## 感谢
 - 感谢为这个项目做过贡献的所有朋友。
