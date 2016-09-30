@@ -164,15 +164,8 @@
 </template>
 <script>
 
-import vButton from '../../components/button'
-import vModal from '../../components/modal'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-
-const confirm = vModal.confirm
-const info = vModal.info
-const success = vModal.success
-const error = vModal.error
 
 export default {
   data () {
@@ -321,7 +314,7 @@ export default {
     }
   },
 
-  components: { vModal, vButton, codeBox, apiTable},
+  components: {codeBox, apiTable},
 
   methods: {
     // modal 1
@@ -428,7 +421,7 @@ export default {
     },
 
     _confirmNation() {
-      confirm({
+      Vue.$modal.confirm({
         title: 'Confirm',
         content: 'Bla bla ...',
         okText: 'OK',
@@ -437,7 +430,7 @@ export default {
     },
 
     _showConfirm () {
-      confirm({
+      Vue.$modal.confirm({
         title: '您是否确认要删除这项内容',
         content: '一些解释',
         onOk: function() {
@@ -448,7 +441,7 @@ export default {
     },
 
     _showConfirm2 () {
-      confirm({
+      Vue.$modal.confirm({
         title: '您是否确认要删除这项内容',
         content: '点确认 1 秒后关闭',
         onOk: function() {
@@ -461,7 +454,7 @@ export default {
     },
 
     info() {
-      info({
+      Vue.$modal.info({
         title: '这是一条通知信息',
         content: '一些附加信息一些附加信息一些附加信息',
         onOk: function() {}
@@ -469,21 +462,21 @@ export default {
     },
 
     success() {
-      success({
+      Vue.$modal.success({
         title: '这是一条通知信息',
         content: '一些附加信息一些附加信息一些附加信息'
       })
     },
 
     error() {
-      error({
+      this.$modal.error({
         title: '这是一条通知信息',
         content: '一些附加信息一些附加信息一些附加信息'
       })
     },
 
     _confirmDestroy() {
-      const modal = success({
+      const modal = this.$modal.success({
         title: '这是一条通知信息',
         content: '一秒后自动移除',
       });

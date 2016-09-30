@@ -103,7 +103,7 @@ let compnents = {
 };
 
 for(let k in compnents){
-  if(compnents[k].name){
+  if(!compnents[k].install && compnents[k].name){
     compnents[k].install = function(Vue) {
       Vue.component(compnents[k].name, compnents[k]);
     };
@@ -114,14 +114,13 @@ const install = function(Vue) {
   if (install.installed) return;
 
   for(let k in compnents){
-    if(compnents[k].name){
-      Vue.component(compnents[k].name, compnents[k]);
+    if(compnents[k].install){
+      Vue.use(compnents[k]);
     }
   }
 
   Vue.$message = Vue.prototype.$message = message;
   Vue.$notification = Vue.prototype.$notification = notification;
-  Vue.$confirm = Vue.prototype.$confirm = modal.confirm;
 };
 
 // auto install
@@ -129,7 +128,8 @@ const install = function(Vue) {
   install(window.Vue);
 };*/
 
-module.exports = Object.assign({
+module.exports = {
   version: '0.0.1',
-  install
-},compnents)
+  install,
+  ...compnents
+}

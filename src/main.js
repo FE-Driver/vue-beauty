@@ -6,6 +6,7 @@ import '../components/style/index.less'
 import vue_beauty from '../components'
 import App from './App'
 
+window.Vue = Vue;
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(vue_beauty);
