@@ -6,7 +6,7 @@ Beautiful  UI components build with vue and ant design
 - 本项目采用vue2和ant deisgn2.0进行开发
 
 ## 已完成组件
-- rate
+- 
 
 
 **(持续更新中。。。)**

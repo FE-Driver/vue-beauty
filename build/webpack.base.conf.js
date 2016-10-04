@@ -32,6 +32,10 @@ module.exports = {
         loader: 'vue'
       },
       {
+        test: /\.md/,
+        loader: 'vue-markdown-loader'
+      },
+      {
         test: /\.js$/,
         loader: 'babel',
         include: projectRoot,
@@ -59,6 +63,24 @@ module.exports = {
       }
     ]
   },
+  vueMarkdown: {
+    // markdown-it config 
+    preset: 'default',
+    breaks: true,
+ 
+    preprocess: function(markdownIt, source) {
+      markdownIt.renderer.rules.table_open = function() {
+        return '<table class="table">';
+      };
+      markdownIt.renderer.rules.fence = wrap(markdownIt.renderer.rules.fence);
+      return source;
+    },
+ 
+    use: [
+      /* markdown-it plugin */
+      require('markdown-it-container')
+    ]
+  },
   vue: {
     loaders: utils.cssLoaders(),
     postcss: [
@@ -68,3 +90,11 @@ module.exports = {
     ]
   }
 }
+
+let wrap = function(render) {
+  return function() {
+    return render.apply(this, arguments)
+      .replace('<code class="', '<code class="hljs ')
+      .replace('<code>', '<code class="hljs">');
+  };
+};

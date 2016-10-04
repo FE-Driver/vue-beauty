@@ -31,10 +31,6 @@ export default {
 
 <style scoped lang="less">
 
-  body {
-      background: #ececec;
-  }
-
   header {
       transition: opacity .5s;
       background: #fff;
