@@ -21,8 +21,11 @@ Beautiful  UI components build with vue and ant design
     |   |-- style           组件的通用基础样式
     |   `--utils            一些工具方法
     `-- src                 存放文档
-        |-- components      一些文档组件
+        |-- views           视图页面
+        |-- docs            组件文档
+        |-- components      业务组件
         |-- views           组件的说明文档
+        |-- main.js         入口
         `-- routers.js      路由
 </pre>
 
@@ -38,7 +41,7 @@ Beautiful  UI components build with vue and ant design
 ## 开发步骤
 - 到[ant-design2.0](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到对应组件的style文件夹下，并在组件vue文件里面引入
 - 开发完组件后，需要在components/index.js里面导出
-- 到src/views下编写组件的使用文档
+- 到src/docs下编写组件的使用文档
 - 同时在下列文件：src/routers.js、src/views/components.vue，添加组件的路由和链接
 
 ## 命名规范
