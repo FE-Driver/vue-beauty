@@ -100,6 +100,7 @@
               }
             }
           }else{
+            this.value = this.source[0].value
             return this.source[0].text
           }
         }
