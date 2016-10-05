@@ -8,12 +8,13 @@
 @error-color            : #E95471;
 @warning-color          : #FA9E33;
 @normal-color           : #d9d9d9;
+@dark-color             : #000000;
 
 // ------ Base & Require ------
 @body-background        : #fff;
 @font-family            : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
 @code-family            : Consolas,Menlo,Courier,monospace;
-@text-color             : #666;
+@text-color             : #444;
 @heading-color          : #404040;
 @font-size-base         : 12px;
 @line-height-base       : 1.5;
@@ -26,8 +27,8 @@
 @icon-url               : "https://at.alicdn.com/t/font_1463992151_360388";
 
 // LINK
-@link-color             : #2db7f5;
-@link-hover-color       : tint(@link-color, 20%);
+@link-color             : #369BE9;
+@link-hover-color       : darken(@link-color, 10%);
 @link-active-color      : shade(@link-color, 5%);
 @link-hover-decoration  : none;
 
@@ -168,5 +169,16 @@
 @input-disabled-bg           : @background-color-base;
 
 @form-item-margin-bottom     : 24px;
+
+@font-size-md                : 14px;
+@font-size-lg                : 16px;
+@font-size-xl                : 18px;
+@font-size-xxl               : 20px;
+
+@margin-size-xs               : 2px;
+@margin-size-sm               : 5px;
+@margin-size-md               : 10px;
+@margin-size-lg               : 15px;
+@margin-size-xl               : 20px;
 
 @import "./default_vb";

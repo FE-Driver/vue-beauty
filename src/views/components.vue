@@ -10,8 +10,8 @@
           <menu-item>
             <a href="/">安装</a>
           </menu-item>
-          <menu-item>
-            <a href="/">更新日志</a>
+          <menu-item v-link="{ name: 'css', activeClass: 'ant-menu-item-selected' }">
+            全局CSS样式
           </menu-item>
           <sub-menu title="Basic">
             <menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">

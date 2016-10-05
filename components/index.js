@@ -15,7 +15,7 @@ import form from './form'
 import icon from './iconfont'
 import input from './input'
 import inputNumber from './inputNumber'
-import {vCol,vRow} from './layout'
+import {vCol, vRow} from './layout'
 import menu from './menu'
 import navMenu from './menu/navMenu.vue'
 import modal from './modal'
@@ -23,7 +23,7 @@ import multiselect from './multiselect'
 import pagination from './pagination'
 import popconfirm from './popconfirm'
 import popover from './popover'
-import {vProgressLine,vProgressCircle} from './progress'
+import {vProgressLine, vProgressCircle} from './progress'
 import queueAnim from './queueAnim'
 import radio from './radio'
 import rate from './rate'
@@ -45,91 +45,91 @@ import message from './message'
 import notification from './notification'
 
 let compnents = {
-  affix,
-  alert,
-  backTop,
-  badge,
-  breadcrumbs,
-  breadcrumb: breadcrumbs.Breadcrumb,
-  button,
-  buttonGroup: button.Group,
-  card,
-  carousel,
-  cascader,
-  checkbox,
-  checkboxGroup: checkbox.Group,
-  collapse,
-  datatable,
-  datepicker,
-  form,
-  formItem: form.Item,
-  icon,
-  input,
-  inputNumber,
-  col: vCol,
-  row: vRow,
-  menu,
-  subMenu: menu.subMenu,
-  menuItemGroup: menu.ItemGroup,
-  menuItem: menu.Item,
-  navMenu,
-  modal,
-  multiselect,
-  pagination,
-  popconfirm,
-  popover,
-  progressLine: vProgressLine,
-  progressCircle: vProgressCircle,
-  queueAnim,
-  radio,
-  radioGroup: radio.Group,
-  rate,
-  select,
-  slider,
-  spin,
-  steps,
-  step: steps.Step,
-  _switch,
-  tabs,
-  tabPane: tabs.TabPane,
-  tag,
-  timeline,
-  timelineItem: timeline.Item,
-  timePicker,
-  transfer,
-  tree,
-  treeSelect,
-  upload
+    affix,
+    alert,
+    backTop,
+    badge,
+    breadcrumbs,
+    breadcrumb: breadcrumbs.Breadcrumb,
+    button,
+    buttonGroup: button.Group,
+    card,
+    carousel,
+    cascader,
+    checkbox,
+    checkboxGroup: checkbox.Group,
+    collapse,
+    datatable,
+    datepicker,
+    form,
+    formItem: form.Item,
+    icon,
+    input,
+    inputNumber,
+    col: vCol,
+    row: vRow,
+    menu,
+    subMenu: menu.subMenu,
+    menuItemGroup: menu.ItemGroup,
+    menuItem: menu.Item,
+    navMenu,
+    modal,
+    multiselect,
+    pagination,
+    popconfirm,
+    popover,
+    progressLine: vProgressLine,
+    progressCircle: vProgressCircle,
+    queueAnim,
+    radio,
+    radioGroup: radio.Group,
+    rate,
+    select,
+    slider,
+    spin,
+    steps,
+    step: steps.Step,
+    _switch,
+    tabs,
+    tabPane: tabs.TabPane,
+    tag,
+    timeline,
+    timelineItem: timeline.Item,
+    timePicker,
+    transfer,
+    tree,
+    treeSelect,
+    upload
 };
 
-for(let k in compnents){
-  if(!compnents[k].install && compnents[k].name){
-    compnents[k].install = function(Vue) {
-      Vue.component(compnents[k].name, compnents[k]);
-    };
-  }
+for (let k in compnents) {
+    if (!compnents[k].install && compnents[k].name) {
+        compnents[k].install = function (Vue) {
+            Vue.component(compnents[k].name, compnents[k]);
+        };
+    }
 }
 
-const install = function(Vue) {
-  if (install.installed) return;
+const install = function (Vue) {
+    if (install.installed) return;
 
-  for(let k in compnents){
-    if(compnents[k].install){
-      Vue.use(compnents[k]);
+    for (let k in compnents) {
+        if (compnents[k].install) {
+            Vue.use(compnents[k]);
+        }
     }
-  }
 
-  Vue.$message = Vue.prototype.$message = message;
-  Vue.$notification = Vue.prototype.$notification = notification;
+    Vue.$message = Vue.prototype.$message = message;
+    Vue.$notification = Vue.prototype.$notification = notification;
 };
 
 // auto install
 /*if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
-};*/
+ install(window.Vue);
+ };*/
 
 module.exports = {
-  version: '0.0.1',
-  install,
-  ...compnents
+    version: '0.0.1',
+    install,
+    ...compnents
 }
