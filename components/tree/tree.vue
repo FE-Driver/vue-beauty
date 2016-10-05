@@ -1,6 +1,6 @@
 <template lang="html">
   <ul :class="prefix" role="tree-node" unselectable="true">
-    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node.sync="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' :root-id="rootID"></tree-node>
+    <tree-node v-for="item in data" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node.sync="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' :root-i-d="rootID"></tree-node>
   </ul>
 </template>
 

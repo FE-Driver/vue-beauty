@@ -10,7 +10,7 @@ vModal.install = function(Vue){
         okCancel: true, 
         ...props
       }
-      return confirm.call(Vue,config);
+      return confirm.call(Vue,config)
     },
     info(props) {
       const config = {
