@@ -1,0 +1,22 @@
+
+.padding-side(@side,@size) {
+  padding-@{side} : @size !important;
+}
+
+.padding(@size) {
+  padding: @size !important;
+}
+
+.generate-paddings(@n, @i: 5) when (@i =< @n) {
+  .padding-@{i} {
+    .padding(@i*1px);
+  }
+  .generate-paddings(@n, (@i + 5));
+}
+
+.generate-paddings-side(@side, @n, @i: 5) when (@i =< @n) {
+  .padding-@{side}-@{i} {
+    .padding-side(@side,@i*1px);
+  }
+  .generate-paddings-side(@side, @n, (@i + 5));
+}

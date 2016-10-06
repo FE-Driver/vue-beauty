@@ -8,7 +8,7 @@
         <span class="ant-tree-title" v-html="title"></span>
     </a>
     <ul v-if="node && node.length" :class="nodeCls" data-expanded="true">
-        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' @childchecked="childChecked" :root-id="rootID"></tree-node>
+        <tree-node v-for="item in node" :title.sync="item.title" :expand.sync="item.expand" :checked.sync="item.checked" :selected.sync="item.selected" :disabled.sync="item.disabled" :disable-checkbox.sync="item.disableCheckbox" :checkable="checkable" :multiple="multiple" :node="item.node" :key="item.key" :children-checked-status.sync='item.childrenCheckedStatus' @childchecked="childChecked" :root-i-d="rootID"></tree-node>
     </ul>
 </li>
 </template>

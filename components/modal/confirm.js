@@ -1,17 +1,16 @@
-import Vue from 'vue'
 import Dialog from './modal'
 import vIcon from '../iconfont'
 import vButton from '../button'
 import { getConfirmLocale } from './locale'
-import assign from 'object-assign';
 
-export default function (config) {
+export default function (config = {}) {
   const runtimeLocale = getConfirmLocale();
-  const props = assign({
+  const props = {
     iconType: 'question-circle',
     width: 416,
-    visible: false
-  }, config || {});
+    visible: false,
+    ...config 
+  }
 
   props.okText = props.okText ||
     (props.okCancel ? runtimeLocale.okText : runtimeLocale.justOkText);
@@ -30,7 +29,7 @@ export default function (config) {
     }, 350)
   }
 
-  const _Dialog = Vue.extend({
+  const _Dialog = this.extend({
     template: `
       <div>
         <dialog

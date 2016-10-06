@@ -292,6 +292,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/datepicker.vue'], resolve);
           }
+        },
+        '/css': {
+          name: 'css',
+          component: function index(resolve) {
+            require(['./views/css.vue'], resolve);
+          }
         }
       }
     },
@@ -303,7 +309,7 @@ export default function(router) {
     }
   });
   router.redirect({
-    '/': '/components/alert'
+    '/': '/components/css'
   });
 
   router.afterEach(function ({from, to}) {

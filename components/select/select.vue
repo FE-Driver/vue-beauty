@@ -87,6 +87,10 @@
           cursor: 'pointer'
         }
       },
+      source(){
+        //如果search下拉,则保存原始数据源，删选后回退用
+        return this.type === 'search'? [...this.options] : this.options
+      },
       selectedVal(){
         if (this.source instanceof Array && this.source.length) {
           if(this.value){
@@ -96,6 +100,7 @@
               }
             }
           }else{
+            this.value = this.source[0].value
             return this.source[0].text
           }
         }
@@ -173,16 +178,6 @@
     },
     created: function () {
       document.addEventListener('click', this.backdrop)
-//      如果search下拉,则保存原始数据源，删选后回退用
-      if (this.type === 'search') {
-        var arr = []
-        for (let i = 0; i < this.options.length; i++) {
-          arr.push(this.options[i])
-        }
-        this.source = arr
-      } else {
-        this.source = this.options
-      }
     },
     ready: function () {
       let that = this
@@ -212,6 +207,7 @@
       'select-event': function (newVal) {
         this.placeholder = undefined
         this.value = newVal.value
+
         this.$dispatch('select-change', newVal)
       }
     }
