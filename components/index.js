@@ -102,6 +102,14 @@ let compnents = {
     upload
 };
 
+message.install = function(Vue){
+    Vue.$message = Vue.prototype.$message = message
+}
+
+notification.install = function(Vue){
+    Vue.$notification = Vue.prototype.$notification = notification
+}
+
 for (let k in compnents) {
     if (!compnents[k].install && compnents[k].name) {
         compnents[k].install = function (Vue) {
@@ -118,9 +126,6 @@ const install = function (Vue) {
             Vue.use(compnents[k]);
         }
     }
-
-    Vue.$message = Vue.prototype.$message = message;
-    Vue.$notification = Vue.prototype.$notification = notification;
 };
 
 // auto install
