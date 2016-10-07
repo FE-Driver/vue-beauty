@@ -156,7 +156,6 @@ closable></v-alert>'
 
 <script>
 
-import vAlert from '../../components/alert'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -201,17 +200,11 @@ export default {
           explain: '可选参数，是否显示辅助图标',
           type: 'Boolean',
           default: 'false'
-        },{
-          parameter: 'closed',
-          explain: '可选参数，控制组件隐藏显示，默认显示',
-          type: 'Boolean',
-          default: 'false'
-        }
+        },
       ]
     }
   },
   components: {
-    vAlert,
     codeBox,
     apiTable
   }
