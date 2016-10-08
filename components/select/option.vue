@@ -3,7 +3,7 @@
     <div style="overflow: auto;">
       <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root">
         <li class="ant-select-dropdown-menu-item"
-            :class="{ 'ant-select-dropdown-menu-item-disabled': item.disabled, 'ant-select-dropdown-menu-item-selected': this.value===item.value }"
+            :class="{ 'ant-select-dropdown-menu-item-disabled': item.disabled, 'ant-select-dropdown-menu-item-selected': value===item.value }"
             style="-webkit-user-select: none;" @click="select($index)" v-for="item in options">{{ item.text }}
         </li>
         <li class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" v-if="options.length===0"
@@ -60,7 +60,6 @@
       }
     },
     ready () {
-      console.log(123123)
       if (!this.disabled) {
         document.body.appendChild(this.$els.opts)
       }

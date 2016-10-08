@@ -1,5 +1,5 @@
 <template>
-  <div class="ant-select" :class="classes" @click="select" v-el:select>
+  <div :class="classes" @click="select" v-el:select>
     <div class="ant-select-selection ant-select-selection--single" :style="css">
       <div class="ant-select-selection__rendered">
         <div v-if="placeholder" v-show="placeholder_show" class="ant-select-selection__placeholder"
@@ -16,6 +16,7 @@
           </div>
         </div>
       </div>
+      <span unselectable="unselectable" class="ant-select-selection__clear" style="-webkit-user-select: none" v-if="allowClear && !multiple && value" @click.stop="clear"></span>
       <span class="ant-select-arrow" style="-webkit-user-select: none;"><b></b></span>
     </div>
     <X-Option v-if="!disabled" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
@@ -28,15 +29,26 @@
 
   export default {
     name: 'v-select',
-    components: {
-      XOption
-    },
+    data:()=>({
+        stylus: {
+          top: 0,
+          left: 0
+        },
+        value_opacity: {
+          opacity: '1'
+        },
+        origin_placeholder: ''
+    }),
     props: {
       type: String,
       id: String,
       selected: Boolean,
       size: String,
       disabled: Boolean,
+      allowClear: {
+        type: Boolean,
+        default: true
+      },
       options: {
         type: Array,
         default(){
@@ -59,13 +71,15 @@
     computed: {
       classes () {
         return [
+          'ant-select',
+          this.disabled ? 'ant-select-disabled' : 'ant-select-enabled',
           {
             'ant-select-open': this.selected,
             'ant-select-focused': this.selected,
+            'ant-select-allow-clear': this.allowClear && !this.multiple,
+            [`ant-select-${this.size}`]: this.size,
             'ant-select-show-search': (this.type === 'search')
-          },
-          this.disabled ? 'ant-select-disabled' : 'ant-select-enabled',
-          this.size ? `ant-select-${this.size}` : ''
+          }
         ]
       },
       clazz () {
@@ -107,6 +121,15 @@
       }
     },
     methods: {
+      clear(){
+        this.value = ''
+
+        this.$nextTick(()=>{
+          this.value = ''
+        })
+        this.placeholder = this.origin_placeholder
+        this.$dispatch('select-change', {value:'',text:''})
+      },
       select () {
         if (!this.disabled) {
           this.position()
@@ -165,21 +188,11 @@
         this.options = newlist
       }
     },
-    data: function () {
-      return {
-        stylus: {
-          top: 0,
-          left: 0
-        },
-        value_opacity: {
-          opacity: '1'
-        }
-      }
-    },
     created: function () {
       document.addEventListener('click', this.backdrop)
     },
     ready: function () {
+      this.origin_placeholder = this.placeholder
       let that = this
       let styles = window.getComputedStyle(this.$els.select)
       this.height = parseFloat(styles.getPropertyValue('height'))
@@ -202,6 +215,9 @@
       window.removeEventListener('resize', this.backdrop)
       let node = this.$els.dropdownlist
       node && document.body.removeChild(node)
+    },
+    components: {
+      XOption
     },
     events: {
       'select-event': function (newVal) {
