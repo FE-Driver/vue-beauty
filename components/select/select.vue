@@ -2,10 +2,10 @@
   <div :class="classes" @click="select" v-el:select>
     <div class="ant-select-selection ant-select-selection--single" :style="css">
       <div class="ant-select-selection__rendered">
-        <div v-if="placeholder" v-show="placeholder_show" class="ant-select-selection__placeholder"
+        <div v-if="!selectedVal && placeholder" v-show="placeholder_show" class="ant-select-selection__placeholder"
              style="display: block; -webkit-user-select: none;">{{ placeholder }}
         </div>
-        <div v-if="!placeholder" class="ant-select-selection-selected-value" v-show="value_show" :style="value_opacity">
+        <div v-else class="ant-select-selection-selected-value" v-show="value_show" :style="value_opacity">
           <slot></slot>
           {{selectedVal}}
         </div>
@@ -113,7 +113,7 @@
                 return item.text
               }
             }
-          }else{
+          }else if(!this.placeholder){
             this.value = this.source[0].value
             return this.source[0].text
           }

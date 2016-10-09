@@ -22,7 +22,6 @@ export default {
     onChange: {
       type: Function,
       default: function (key) {
-        console.log(key)
       }
     },
   },
@@ -42,7 +41,6 @@ export default {
   },
   watch: {
     'activeKey': function () {
-      console.log(this);
     }
   }
 }

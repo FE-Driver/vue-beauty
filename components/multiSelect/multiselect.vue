@@ -195,7 +195,6 @@
     },
     ready () {
       /* istanbul ignore else */
-      console.log(111)
       if (!this.showLabels) {
         this.deselectLabel = this.selectedLabel = this.selectLabel = ''
       }
