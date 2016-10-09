@@ -113,21 +113,25 @@
                 return item.text
               }
             }
-          }else if(!this.placeholder){
+          }else if(!this.origin_placeholder){
             this.value = this.source[0].value
             return this.source[0].text
           }
         }
       }
     },
+    watch: {
+      value(val, oldVal){
+        if(val){
+          this.placeholder = ''
+        }else if(this.origin_placeholder){
+          this.placeholder = this.origin_placeholder
+        }
+      }
+    },
     methods: {
       clear(){
         this.value = ''
-
-        this.$nextTick(()=>{
-          this.value = ''
-        })
-        this.placeholder = this.origin_placeholder
         this.$dispatch('select-change', {value:'',text:''})
       },
       select () {
@@ -221,7 +225,6 @@
     },
     events: {
       'select-event': function (newVal) {
-        this.placeholder = undefined
         this.value = newVal.value
 
         this.$dispatch('select-change', newVal)
