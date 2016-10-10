@@ -38,9 +38,9 @@ export default function upload (option) {
   const formData = new FormData()
   formData.append(option.filename, option.file)
   if (option.data) {
-    Object.keys(option.data).map(key => {
+    for(let key in option.data){
       formData.append(key, option.data[key])
-    })
+    }
   }
 
   xhr.onerror = e => {
@@ -54,8 +54,7 @@ export default function upload (option) {
 
     option.onSuccess(getBody(xhr))
   }
-
   xhr.open('post', option.action, true)
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+  //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
   xhr.send(formData)
 }

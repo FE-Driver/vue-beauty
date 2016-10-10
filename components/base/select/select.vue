@@ -20,7 +20,7 @@
             <span class="ant-select-arrow" unselectable="unselectable" style="-webkit-user-select: none;"><b></b></span>
         </div>
     </div>
-    <div :class="dropdownCls" style="left: 0; min-width: 100%;" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
+    <div :class="dropdownCls" style="left: 0; min-width: 100%; max-height: 300px; overflow: auto" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
         <div>
             <slot></slot>
         </div>
