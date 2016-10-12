@@ -91,6 +91,33 @@
             </code-box>
         </v-col>
     </v-row>
+
+    <v-row :gutter="8">
+        <v-col span="12">
+            <code-box title="滚动区域内" describe="滚动区域内的卡片">
+                <div style="height:100px;background:#D7E6F3;overflow:auto;">
+                    <div style="width:1000px;">
+                        按钮在右下角
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <v-popover placement="top" title="标题" content="滚动区域内的定位">
+                            <button class="ant-btn ant-btn-primary" slot="trigger" style="float:right;">点击弹出</button>
+                        </v-popover>
+                    </div>
+                </div>
+            </code-box>
+        </v-col>
+    </v-row>
     <api-table :apis="apis"></api-table>
 </template>
 

@@ -46,15 +46,16 @@ export default {
         const $trigger = this.$el.nextElementSibling;
         const $popover = $trigger.nextElementSibling;
         const getOffset = function(el) {
-            let x = 0;
-            let y = 0;
-            let ele = el;
-            while (ele) {
-                x += parseInt(ele.offsetLeft, 10);
-                y += parseInt(ele.offsetTop, 10);
-                ele = ele.offsetParent;
-            }
-            return { top: y, left: x };
+            var box = el.getBoundingClientRect();
+            var docElem = document.documentElement;
+            var scrollTop = window.pageYOffset || docElem.scrollTop || $body.scrollTop;
+            var scrollLeft = window.pageXOffset || docElem.scrollLeft || $body.scrollLeft;
+            var clientTop = docElem.clientTop || $body.clientTop;
+            var clientLeft = docElem.clientLeft || $body.clientLeft;     
+            return {
+                top: Math.round(box.top + scrollTop - clientTop),
+                left: Math.round(box.left + scrollLeft - clientLeft)      
+            }    
         };
         _this.popShow = function(){
             let leftFactor = 0.5;//偏移0.5个$trigger自身宽度
