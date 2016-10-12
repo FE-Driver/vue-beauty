@@ -1,5 +1,5 @@
 <template>
-  <div class="ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft" v-show="show" v-el:opts :style.sync="styles">
+  <div class="ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-{{position}}Left" v-show="show" v-el:opts :style.sync="styles">
     <div style="overflow: auto;">
       <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root">
         <li class="ant-select-dropdown-menu-item"
@@ -26,21 +26,24 @@
       },
       disabled: Boolean,
       stylus: {
-        type: Object,
-        twoWay: true
+        type: Object
       },
       value: [String,Number],
       multiple: Boolean,
       placeholder: String,
-      notfound: String
+      notfound: String,
+      position:{
+        type: String,
+        default:"bottom"
+      }
     },
     computed: {
       styles () {
         return [
           {
-            top: this.stylus.top + 'px' || 0,
+            top: this.position=="bottom" ? (this.stylus.top+this.stylus.height+4) + 'px' : (this.stylus.top - this.$el.offsetHeight -4) + 'px',
             left: this.stylus.left + 'px' || 0,
-            width: this.stylus.width + 'px'
+            minWidth: this.stylus.width + 'px'
           }
         ]
       }
@@ -63,6 +66,7 @@
       if (!this.disabled) {
         document.body.appendChild(this.$els.opts)
       }
+
     }
   }
 </script>

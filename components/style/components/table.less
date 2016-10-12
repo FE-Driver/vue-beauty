@@ -76,6 +76,10 @@
     position: relative;
     top: -1px;
     border-radius: 0 0 @border-radius-base @border-radius-base;
+
+    .@{table-prefix-cls}-description{
+      line-height: 30px;
+    }
   }
 
   &.@{table-prefix-cls}-bordered &-footer {
@@ -294,8 +298,6 @@
   &-pagination {
     position: absolute;
     right: 0;
-    top:50%;
-    margin: -14px 0 0 8px;
   }
 
   &-filter-dropdown {

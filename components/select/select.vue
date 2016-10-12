@@ -20,7 +20,7 @@
       <span class="ant-select-arrow" style="-webkit-user-select: none;"><b></b></span>
     </div>
     <X-Option v-if="!disabled" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
-    :class="clazz" :multiple="multiple" :placeholder="placeholder" :notfound="notfound" :value="value" v-el:dropdownlist></X-Option>
+    :class="clazz" :multiple="multiple" :placeholder="placeholder" :notfound="notfound" :value="value" :position="position" v-el:dropdownlist></X-Option>
   </div>
 </template>
 <script>
@@ -32,7 +32,9 @@
     data:()=>({
         stylus: {
           top: 0,
-          left: 0
+          left: 0,
+          width:null,
+          height:null
         },
         value_opacity: {
           opacity: '1'
@@ -66,7 +68,11 @@
         type: Boolean,
         default: true
       },
-      notfound: String
+      notfound: String,
+      position: {
+        type: String,
+        default: "bottom"
+      },
     },
     computed: {
       classes () {
@@ -136,7 +142,7 @@
       },
       select () {
         if (!this.disabled) {
-          this.position()
+          this.setPosition();
           this.selected = !this.selected
           if (this.type === 'search' && this.selected) {
             var that = this
@@ -148,13 +154,14 @@
           }
         }
       },
-      position () {
+      setPosition () {
         let p = getOffset(this.$els.select)
-        this.stylus = {
-          top: p.top + this.height + 4,
+        this.stylus = Object.assign({},this.stylus,{
+          top: p.top,
           left: p.left,
-          width: this.stylus.width
-        }
+          width: this.stylus.width,
+          height:this.height
+        });
       },
       backdrop (e) {
         if (!closeByElement(e.target, [this.$els.select, this.$els.dropdownlist])) {
@@ -201,15 +208,15 @@
       let styles = window.getComputedStyle(this.$els.select)
       this.height = parseFloat(styles.getPropertyValue('height'))
       let width = parseFloat(styles.getPropertyValue('width'))
-      this.stylus = {
+      this.stylus = Object.assign({},this.stylus,{
         width: width
-      }
+      });
       let time = null
       window.addEventListener('resize', function () {
         clearTimeout(time)
         time = setTimeout(function () {
           if (!that.disabled && that.selected) {
-            that.position()
+            that.setPosition();
           }
         }, 200)
       })

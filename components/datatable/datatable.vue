@@ -90,11 +90,15 @@
                               :default-current="defaultCurrent"
                               :total="total"
                               :on-change="pageChange"
+                              :show-size-changer="true"
+                              :on-show-size-change="pageSizeChange"
+                              :pageSizeOptions="pageSizeOptions"
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
                 共有{{total}}条数据
             </div>
+            <div class="clearfix"></div>
         </div>
 
 
@@ -224,7 +228,6 @@
         },
         ready: function () {
             var self = this;
-            console.log(this)
             //获取表格实际宽度
             this.calculateSize();
 
@@ -261,8 +264,9 @@
              * 修改分页大小
              * @param pageSize
              */
-            pageSizeChange:function (pageSize) {
+            pageSizeChange:function (current,pageSize) {
                 // todo pagenation的该回调有bug
+                this.pageNum = current;
                 this.pageSize = pageSize;
                 this.loadData({pageNum: this.pageNum});
             },
@@ -379,7 +383,7 @@
                 if(!this.$el){
                     return
                 }
-                var footerHeight = 40;
+                var footerHeight = 56;
                 if(this.height){
                     this.tableBodyHeight = this.height - footerHeight;
                     this.getBodyWidth();

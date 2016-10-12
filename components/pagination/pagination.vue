@@ -112,7 +112,10 @@
           <v-Select 
             :size="!!size ? 'sm' : ''"
             :options="options" 
-            :value.sync="pageSize"></v-Select>
+            :value.sync="pageSize"
+			:allow-clear="false"
+			position="top"
+		  ></v-Select>
 	  		</div>
         <div 
           v-if="showQuickJumper" 
