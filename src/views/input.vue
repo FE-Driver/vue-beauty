@@ -28,7 +28,7 @@
           describe="基本使用。"
           code="<v-input placeholder='基本使用'></v-input>"
         >
-          <v-input placeholder="基本使用"></v-input>
+          <v-input placeholder="基本使用" @blur="blur"></v-input>
         </code-box>
 
       </div>
@@ -102,12 +102,8 @@
 
 <script>
 
-import vInput from '../../components/input'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-import vAlert from '../../components/alert'
-import vSelect from '../../components/select'
 
 export default {
   data: function () {
@@ -137,6 +133,11 @@ export default {
           type: 'Bool',
           default: 'false'
         },{
+          parameter:'debounce',
+          explain:'每次敲击之后同步输入框的值与数据的延时时间',
+          type:'Number',
+          default:'0'
+        },{
           parameter:'slot::before',
           explain:'input前面加前缀修饰',
           type:'slot node',
@@ -146,18 +147,24 @@ export default {
           explain:'input后面加后缀修饰',
           type:'slot node',
           default:'无'
+        },{
+          parameter:'blur(val)',
+          explain:'blur事件',
+          type:'event',
+          default:'无'
         }
       ],
       disabled: true
     }
   },
   components: {
-    vInput,
-    vButton,
     codeBox,
-    apiTable,
-    vAlert,
-    vSelect
+    apiTable
+  },
+  methods: {
+    blur(val){
+      console.log(val)
+    }
   }
 }
 </script>

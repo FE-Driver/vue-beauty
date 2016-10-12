@@ -1,8 +1,8 @@
 <template>
     <span :class="[wrapClasses,{'ant-input-group':hasslot}]">
       <span v-if="hasbefore" class="ant-input-group-addon"><slot name="before"><slot></span>
-      <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="value"></textarea>
-      <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="value" autocomplete="off"/>
+      <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="value" :debounce="debounce" @blur="blur"></textarea>
+      <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="value" autocomplete="off" @blur="blur" :debounce="debounce"/>
       <span v-if="hasafter" class="ant-input-group-addon"><slot name="after"></slot></span>
     </span>
 </template>
@@ -20,6 +20,7 @@ export default {
     hasafter:false
   }),
   props: defaultProps({
+    debounce: 0,
     type: 'text',
     id: oneOfType([Number, String]),
     value: null,
@@ -63,6 +64,11 @@ export default {
           }
       }
 
+  },
+  methods: {
+    blur(){
+      this.$emit('blur',this.value)
+    }
   }
 }
 
