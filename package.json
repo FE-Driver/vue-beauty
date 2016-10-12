@@ -30,6 +30,7 @@
     "babel-runtime": "^6.11.6",
     "classnames": "^2.2.5",
     "clipboard": "^1.5.12",
+    "domtastic": "^0.12.1",
     "eslint": "^3.2.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",

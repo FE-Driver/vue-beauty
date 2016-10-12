@@ -1,18 +1,41 @@
 <template lang="html">
 
     <div>
-
         <section class="markdown">
             <h1>Datatable</h1>
+
             <p>
                 依赖服务端加载的数据表格
             </p>
+
             <h2>何时使用</h2>
             <ul>
                 <p>
                     展示大量结构化数据时使用.
                 </p>
             </ul>
+
+            <v-datatable
+                    :data-source='url'
+                    :columns='columns'
+                    :formatter='formatter'
+                    :row-selection='rowSelection'
+                    :bottom-gap="100"
+                    :left-fix="3"
+            >
+            </v-datatable>
+
+            <br>
+
+            <v-datatable
+                    :data-source='url'
+                    :columns='columns'
+                    :formatter='formatter'
+                    :row-selection='rowSelection'
+                    :height='400'
+            >
+            </v-datatable>
+
             <h2>组件演示</h2>
         </section>
 
@@ -29,6 +52,7 @@
         <api-table :apis='rowSelectionApi'>rowSelection参数</api-table>
 
     </div>
+
 
 </template>
 
@@ -156,11 +180,38 @@
                 ],
                 url:"/truck/search",
                 columns:[
-                    {title:"车牌号",field:'carnum',sort:true},
-                    {title:"设备号",field:'gpsno',render:this.cellrender},
-                    {title:"定位时间",field:'updatetime',className:"test dd"},
-                    {title:"状态",field:'status',width:"10%"},
-                    {title:"机构",field:'orgcode',sort:'asc'}
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true,width:"200px"},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名姓名",field:'name',sort:true},
+                    {title:"姓名姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"性别",field:'sex',render:this.cellrender},
+                    {title:"性别",field:'sex',render:this.cellrender},
+                    {title:"id",field:'id',className:"test dd"},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"id",field:'id',className:"test dd"},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"id",field:'id',className:"test dd"},
+                    {title:"id",field:'id',className:"test dd"},
+                    {title:"姓名",field:'name',sort:true},
+                    {title:"id",field:'id',className:"test dd"}
                 ],
                 msg:{},
                 formatter:function (data) {
@@ -195,7 +246,7 @@
                 this.msg = msg;
             },
             cellrender:function (value, row, index) {
-                console.warn(row);
+//                console.warn(row);
                 return `<strong>${value}</strong>`;
             },
             clickCheck:function () {
