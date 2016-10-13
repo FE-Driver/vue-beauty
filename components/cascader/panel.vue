@@ -48,8 +48,6 @@ export default{
 	},
 	watch:{
 		'data':function(val, oldVal){
-			console.log(val);
-			console.log(oldVal);
 			this.sublist = [];
 			this.result = ''
 		}

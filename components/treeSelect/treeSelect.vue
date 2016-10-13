@@ -1,7 +1,7 @@
 <template>
     <span style="display:inline-block;position:relative">
         <base-select :value="value" :open.sync="open" :multiple="multiple" :allow-clear="allowClear" :on-clear="clear" v-ref:select>
-            <v-tree :data="data" :on-select="select" :on-check="check" :multiple="multiple" :checkable="treeCheckable" v-ref:tree></v-tree>
+            <v-tree :data-source="data" :on-select="select" :on-check="check" :multiple="multiple" :checkable="treeCheckable" v-ref:tree></v-tree>
         </base-select>
     </span>
 </template>
@@ -58,9 +58,13 @@
             },
             select(data){
                 if(this.multiple) return;
-                let res = [{text:data[0].title,uid:data[0].key}];
-                this.value = res;
-                this.onSelect(res);
+
+                let val = []
+                if(data[0]){
+                    val.push({text:data[0].title,uid:data[0].key})
+                }
+                this.value = val;
+                this.onSelect(data[0]);
                 this.$refs.select.openDropdown();
             },
             check(data){
@@ -69,13 +73,14 @@
                 for(let i=0;i<data.length;i++){
                     temp.push(data[i].key);
                 }
-                let res = [];
+                let val = [], res= [];
                 for(let i=0;i<data.length;i++){
                     //判断被选中的节点里面是否有我的父节点
                     if(temp.some((key)=> key!==data[i].key && data[i].key.startsWith(key))) continue;
-                    res.push({text:data[i].title,uid:data[i].key});
+                    val.push({text:data[i].title,uid:data[i].key});
+                    res.push(data[i])
                 }
-                this.value = res;
+                this.value = val;
                 this.onSelect(res);
             },
             clear(value){

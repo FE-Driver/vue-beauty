@@ -38,7 +38,6 @@ export default {
             this.defaultValue.push(e.value)
           }
         }
-        console.log(this.defaultValue);
         this.onChange(this.defaultValue)
       }
     }

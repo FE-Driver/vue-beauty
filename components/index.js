@@ -40,7 +40,6 @@ import transfer from './transfer'
 import tree from './tree'
 import treeSelect from './treeSelect'
 import upload from './upload'
-
 import message from './message'
 import notification from './notification'
 
@@ -99,7 +98,9 @@ let compnents = {
     transfer,
     tree,
     treeSelect,
-    upload
+    upload,
+    message,
+    notification
 };
 
 message.install = function(Vue){

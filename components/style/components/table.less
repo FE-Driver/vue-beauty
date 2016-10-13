@@ -12,12 +12,17 @@
   border-radius: @border-radius-base @border-radius-base 0 0;
   overflow: hidden;
 
+  &-content {
+    overflow: auto;
+  }
+
   &-body {
     transition: opacity 0.3s ease;
   }
 
   table {
-    width: 100%;
+    min-width: 100%;
+    width: auto;
     border-collapse: separate;
     border-spacing: 0;
     text-align: left;
@@ -30,6 +35,7 @@
     font-weight: bold;
     transition: background .3s ease;
     text-align: left;
+    white-space: nowrap;
 
     .anticon-filter {
       margin-left: 4px;
@@ -65,11 +71,15 @@
   }
 
   &-footer {
-    padding: 16px 8px;
+    padding: 8px;
     background: @table-head-background-color;
     position: relative;
     top: -1px;
     border-radius: 0 0 @border-radius-base @border-radius-base;
+
+    .@{table-prefix-cls}-description{
+      line-height: 30px;
+    }
   }
 
   &.@{table-prefix-cls}-bordered &-footer {
@@ -107,7 +117,8 @@
   &-thead > tr > th,
   &-tbody > tr > td {
     padding: 16px 8px;
-    word-break: break-all;
+    word-break: keep-all;
+    white-space: nowrap;
   }
 
   &-thead > tr > th.@{table-prefix-cls}-selection-column,
@@ -119,6 +130,7 @@
   &-header {
     background: @table-head-background-color;
     overflow: hidden;
+    height: 42px;
     border-radius: @border-radius-base @border-radius-base 0 0;
   }
 
@@ -230,8 +242,13 @@
   }
 
   &-bordered {
-    .@{table-prefix-cls}-body table {
+
+    .@{table-prefix-cls}-content {
       border: 1px solid @border-color-split;
+    }
+
+    .@{table-prefix-cls}-body table {
+      border-bottom: 1px solid @border-color-split;
     }
 
     &.@{table-prefix-cls}-fixed-header {
@@ -279,8 +296,8 @@
   }
 
   &-pagination {
-    margin: 16px 0;
-    float: right;
+    position: absolute;
+    right: 0;
   }
 
   &-filter-dropdown {
@@ -399,7 +416,19 @@
   }
 
   &-scroll {
-    overflow: auto;
+    overflow: hidden !important;
+
+    .@{table-prefix-cls}-header{
+      position: relative;
+      z-index: 99;
+      width: 100%;
+    }
+    .@{table-prefix-cls}-body{
+      margin-top: -42px;
+      overflow: scroll;
+    }
+
+
     table {
       width: auto;
       min-width: 100%;

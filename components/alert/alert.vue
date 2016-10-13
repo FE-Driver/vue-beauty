@@ -3,7 +3,6 @@
   <div
     class="ant-alert"
     :class="['ant-alert-'+type,{'ant-alert-with-description':description, 'ant-alert-no-icon':!showIcon}]"
-    v-if="!closed"
     transition="bounce"
   >
     <i
@@ -34,7 +33,6 @@
  * @param description 可选参数，警告提示的辅助性文字介绍
  * @param onClose 可选参数，关闭时触发的回调函数
  * @param showIcon 可选参数，是否显示辅助图标
- * @param closed 可选参数，控制组件显示，默认显示
  */
 
 export default {
@@ -69,10 +67,6 @@ export default {
       type: Function,
       require: false,
       default(){}
-    },
-    closed: {
-      type: Boolean,
-      default: false,
     }
   },
   data () {
@@ -105,7 +99,7 @@ export default {
   },
   methods: {
     handleClose (e) {
-      this.closed = true
+      this.$remove()
       this.onClose()
     },
   }
