@@ -93,6 +93,7 @@
                               :show-size-changer="true"
                               :on-show-size-change="pageSizeChange"
                               :page-size-options="pageSizeOptions"
+
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
@@ -265,7 +266,6 @@
              * @param pageSize
              */
             pageSizeChange:function (current,pageSize) {
-                // todo pagenation的该回调有bug
                 this.pageNum = current;
                 this.pageSize = pageSize;
                 this.loadData({pageNum: this.pageNum});

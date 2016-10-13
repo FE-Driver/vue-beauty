@@ -115,7 +115,7 @@
         if (this.source instanceof Array && this.source.length) {
           if(this.value){
             for(let item of this.source){
-              if(item.value === this.value){
+              if(item.value == this.value){
                 return item.text
               }
             }
@@ -131,7 +131,12 @@
         if(val){
           this.placeholder = ''
         }else if(this.origin_placeholder){
-          this.placeholder = this.origin_placeholder
+          this.placeholder = this.origin_placeholder;
+
+            newTruckList[i] = Object.assign(newTruckList[i],{
+                a:1,
+                b:2
+            })
         }
       }
     },
