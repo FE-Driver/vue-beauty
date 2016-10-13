@@ -12,10 +12,10 @@ import { defaultProps } from '../../utils'
 export default {
   name: 'v-tree',
   data:()=>({
-    prefix: 'ant-tree',
+    prefix: 'ant-tree'
   }),
   props: defaultProps({
-    data: [],
+    dataSource: [],
     multiple: false,
     checkable: false,
     rootID: Number,
@@ -24,7 +24,6 @@ export default {
   }),
   created(){
     if(!this.rootID) this.rootID = this._uid;
-    this.addkey('',this.data);
 
     Bus.$on(this.rootID+'_nodeCheckedToAll', (key,checked) => {
       this.$nextTick( () =>{
@@ -36,6 +35,12 @@ export default {
         this.onSelect(this.getSelectedNodes(this.data));
       })
     });
+  },
+  computed: {
+    data(){
+      this.addkey('',this.dataSource);
+      return this.dataSource;
+    }
   },
   methods:{
     addkey(parentKey,data){

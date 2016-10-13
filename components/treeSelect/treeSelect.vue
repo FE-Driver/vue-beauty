@@ -1,7 +1,7 @@
 <template>
     <span style="display:inline-block;position:relative">
         <base-select :value="value" :open.sync="open" :multiple="multiple" :allow-clear="allowClear" :on-clear="clear" v-ref:select>
-            <v-tree :data="data" :on-select="select" :on-check="check" :multiple="multiple" :checkable="treeCheckable" v-ref:tree></v-tree>
+            <v-tree :data-source="data" :on-select="select" :on-check="check" :multiple="multiple" :checkable="treeCheckable" v-ref:tree></v-tree>
         </base-select>
     </span>
 </template>

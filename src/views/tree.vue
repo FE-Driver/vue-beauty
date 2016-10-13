@@ -20,7 +20,7 @@
           title="基本"
           describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
         >
-          <v-tree :data.sync="treedata" checkable multiple :on-select="selectFn" :on-check="checkFn"></v-tree>
+          <v-tree :data-source.sync="treedata" checkable multiple :on-select="selectFn" :on-check="checkFn"></v-tree>
           <v-button @click="getTreeData" type="primary">tree数据</v-button>
         </code-box>
 
@@ -57,7 +57,7 @@ export default {
     return {
       content:[
         [
-          'data',
+          'dataSource',
           '可嵌套的节点属性的数组，生成tree的数据',
           'array',
           '无'
