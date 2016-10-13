@@ -92,7 +92,7 @@
                               :on-change="pageChange"
                               :show-size-changer="true"
                               :on-show-size-change="pageSizeChange"
-                              :pageSizeOptions="pageSizeOptions"
+                              :page-size-options="pageSizeOptions"
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
