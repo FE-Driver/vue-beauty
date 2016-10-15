@@ -50,25 +50,32 @@
                         </tr>
                         </thead>
                         <tbody class="{{prefix}}-tbody" v-show="current.length">
-                            <tr v-for="(index, item) in current">
-                                <td v-if="rowSelection" class="{{prefix}}-selection-column">
-                                    <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
-                                    <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
-                                </td>
-                                <td v-for="column in columns">
-                                    <template v-if="column.component">
-                                        <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item" @datatable="datatable"></component>
-                                    </template>
-                                    <template v-else>
-                                        <template v-if="column.render">
-                                            {{{column.render(item[column.field],item,index)}}}
+                            <template v-for="(index, item) in current">
+                                <tr v-show="item.vshow">
+                                    <td v-if="rowSelection" class="{{prefix}}-selection-column">
+                                        <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
+                                        <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
+                                    </td>
+                                    <td v-for="(cindex,column) in columns">
+                                        <template v-if="treeTable && cindex==treeTableOption.position">
+                                            <span class="{{prefix}}-row-indent indent-level-{{item.level}}" :style="{'padding-left':item.paddingLeft}"></span>
+                                            <span v-if="item.isparent" @click="expand(item)" class="{{prefix}}-row-expand-icon {{prefix}}-row-{{item.vopen}}"></span>
+                                        </template>
+                                        <template v-if="column.component">
+                                            <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item" @datatable="datatable"></component>
                                         </template>
                                         <template v-else>
-                                            {{{item[column.field]}}}
+                                            <template v-if="column.render">
+                                                {{{column.render(item[column.field],item,index)}}}
+                                            </template>
+                                            <template v-else>
+                                                {{{item[column.field]}}}
+                                            </template>
                                         </template>
-                                    </template>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            </template>
+
                         </tbody>
 
                         <tbody class="{{prefix}}-tbody" v-if="current.length==0">
@@ -173,26 +180,47 @@
                     return {}
                 }
             },
+            //行选择配置
             rowSelection:{
                 type: Object,
                 validator: function (value) {
                     return value.type == "checkbox" || value.type == "radio";
                 }
             },
+            //无数据时的显示文本
             emptyText:{
                 type: String,
                 default:"老板,没有找到你想要的信息......"
             },
+            //幽灵组件
             ghost:{
                 type: Object
             },
+            //距离viewport底部的距离
             bottomGap:{
                 type: Number,
                 default:''
             },
+            //固定高度
             height:{
                 type: Number,
                 default:null
+            },
+            //是否启用树形表格
+            treeTable:{
+                type: Boolean,
+                default:false
+            },
+            treeTableOption:{
+                type:Object,
+                default:{
+                    idKey:"id",
+                    pidKey:"pid",
+                    indent:4,
+                    position:0,
+                    sortKey:null, //启用客户端节点排序，指定排序的字段
+                    order:"asc" //排序的顺序
+                }
             }
         },
         /*
@@ -234,9 +262,7 @@
 
             if(!this.bindResize){
                 window.addEventListener("resize",function () {
-                    self.$nextTick(function () {
-                        self.calculateSize();
-                    });
+                    self.calculateSize();
                 },false);
                 self.bindResize = true;
             }
@@ -341,16 +367,24 @@
 //                            const data = response.data;
                     const data = response.body.data;
                     let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
-                    self.current = results;
+
+//                    处理treeTable数据
+                    if(self.treeTable){
+                        self.dealTreeData(results);
+                    }else{
+                        self.current = results;
+                    }
+
                     self.total = data[self.paramsName.total]*1;
                     self.pageNum = data[self.paramsName.pageNumber];
                     self.pageSize = data[self.paramsName.pageSize];
 
+//                    重置选择状态
                     self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+
                     self.loading = false;
-                    self.$nextTick(function () {
-                        self.calculateSize();
-                    });
+//                    重新计算并设置表格尺寸
+                    self.calculateSize();
                 },(response) =>{
                     // error callback
                     self.loading = false;
@@ -383,15 +417,18 @@
                 if(!this.$el){
                     return
                 }
-                var footerHeight = 56;
-                if(this.height){
-                    this.tableBodyHeight = this.height - footerHeight;
-                    this.getBodyWidth();
-                }else if(this.bottomGap){
-                    //未设置height属性时，处理bottomGap属性（height属性优先）
-                    this.fixGapHeight(footerHeight);
-                    this.getBodyWidth();
-                }
+
+                this.$nextTick(function () {
+                    var footerHeight = 56;
+                    if(this.height){
+                        this.tableBodyHeight = this.height - footerHeight;
+                        this.getBodyWidth();
+                    }else if(this.bottomGap){
+                        //未设置height属性时，处理bottomGap属性（height属性优先）
+                        this.fixGapHeight(footerHeight);
+                        this.getBodyWidth();
+                    }
+                });
             },
             getBodyWidth:function () {
                 //设置表头表格总宽度
@@ -415,13 +452,117 @@
                 var self = this;
                 //获取挂载元素在屏幕上的位置
                 var rect = self.$el.getBoundingClientRect();
-                console.log(rect);
                 var winHeight = window.innerHeight;
                 var tableBodyHeight = winHeight - this.bottomGap*1 - rect.top - footerHeight
 //                    在可见首屏范围内且计算高度至少100时处理，否则不处理
                 if(rect.top > 0 && tableBodyHeight >= 200){
                     this.tableBodyHeight = tableBodyHeight;
                 }
+            },
+            dealTreeData:function (results) {
+                this.originData = results.slice();
+                this.newData = [];
+                var trData = this.transTreeData(0);
+                this.sortTrData(trData);
+                this.current = this.newData;
+            },
+            //处理数据，将一维数组转化为层级结构
+            transTreeData:function (pid) {
+                var self = this;
+                var TreeTableOpt = this.treeTableOption;
+                var results = [];
+                var children = this.findChildren(pid);
+                for (var i = 0; i < children.length; i++) {
+                    var obj = children[i];
+                    obj['children'] = self.transTreeData(obj[TreeTableOpt.idKey]);
+                    obj['level'] = self.getLevel(obj.id);
+                    obj.vshow = (obj.level >1 ? false :true);
+                    obj.vopen = (obj.level >0 ? 'collapsed' : 'expanded');
+                    obj.paddingLeft = ((obj.level-1)*5*self.treeTableOption.indent) + "px";
+                    results.push(obj);
+                }
+                TreeTableOpt.sortKey && results.sort(self.sortData);
+                return results;
+            },
+            //输出排序后的一维数组
+            sortTrData:function (trData) {
+                var self = this;
+                for (var i = 0;i < trData.length; i++) {
+                    var obj = trData[i];
+                    var ch = obj.children;
+
+//                    先插入父节点
+                    obj.isparent = ch.length ? true :false;
+                    self.newData.push(obj);
+//                     递归插入子节点
+                    ch.length && self.sortTrData(ch);
+                }
+            },
+            //对象排序
+            sortData:function (a,b) {
+                var name = this.treeTableOption.sortKey;
+                if(this.treeTableOption.order == "asc"){
+                    return a[name] > b[name] ? 1 : -1;
+                }else{
+                    return a[name] < b[name] ? 1 : -1;
+                }
+            },
+//            查找子节点
+            findChildren:function(pid){
+                var self = this;
+                var results = [];
+                var origindata = this.originData;
+                for(var i=0;i<origindata.length;i++){
+                    if(origindata[i][self.treeTableOption.pidKey]==pid){
+                        results.push(origindata[i]);
+                    }
+                }
+                return results;
+            },
+//            获取节点层级
+            getLevel:function(id) {
+                var self = this;
+                var origindata = this.originData;
+                var TreeTableOpt = this.treeTableOption;
+                for (var i = 0; i < origindata.length; i++) {
+                    var d = origindata[i];
+                    var dataId = d[TreeTableOpt.idKey];
+                    var dataPId = d[TreeTableOpt.pidKey];
+                    if(d[TreeTableOpt.idKey] == id){
+                        if(id==0){
+                            return 0;
+                        }else if(d[TreeTableOpt.pidKey] == 0){
+                            return 1;
+                        }else {
+                            return self.getLevel(dataPId)+1;
+                        }
+                    }
+                }
+                return 0;
+            },
+            expand:function (item) {
+                var self = this;
+                var vshow;
+                if(item.vopen=="collapsed"){
+                    item.vopen = "expanded";
+                    vshow = true;
+                }else if(item.vopen=="expanded"){
+                    item.vopen = "collapsed";
+                    vshow = false;
+                }
+
+                var children = item.children;
+                for(var i=0;i<children.length;i++){
+                    children[i].vshow = vshow;
+//                    关闭节点时，所有子孙节点都要关闭
+                    if(!vshow){
+                        children[i].vopen = "expanded";
+                        self.expand(children[i],false);
+                    }
+                }
+
+//                折叠操作可能导致宽度变化，重算宽度
+                this.calculateSize();
             }
         },
         events:{
