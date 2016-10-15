@@ -51,7 +51,7 @@
                         </thead>
                         <tbody class="{{prefix}}-tbody" v-show="current.length">
                             <template v-for="(index, item) in current">
-                                <tr v-show="item.vshow">
+                                <tr v-show="!treeTable || item.vshow">
                                     <td v-if="rowSelection" class="{{prefix}}-selection-column">
                                         <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
                                         <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
