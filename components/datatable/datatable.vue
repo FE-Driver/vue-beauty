@@ -29,7 +29,7 @@
 
             <div class="{{prefix}}-body" :style="{height:tableBodyHeight+'px'}" @scroll="scrollTableBody">
                 <v-spin :spinning="loading">
-                    <table>
+                    <table v-el:tbody>
                         <thead class="{{prefix}}-thead">
                         <tr>
                             <th v-if="rowSelection" class="{{prefix}}-selection-column">
@@ -93,7 +93,7 @@
                               :show-size-changer="true"
                               :on-show-size-change="pageSizeChange"
                               :page-size-options="pageSizeOptions"
-
+                              :page-size="pageSize"
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
@@ -395,8 +395,8 @@
             },
             getBodyWidth:function () {
                 //设置表头表格总宽度
-                var tbody = $(this.$el).find("div.ant-table-body table");
-                tbody[0] && (this.tableBodyWidth = tbody[0].offsetWidth + "px");
+                var tbody = this.$els.tbody;
+                tbody && (this.tableBodyWidth = tbody.offsetWidth + "px");
                 //设置表头th宽度
                 this.fixHeaderWidth();
             },
