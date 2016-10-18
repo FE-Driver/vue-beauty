@@ -213,13 +213,15 @@
             },
             treeTableOption:{
                 type:Object,
-                default:{
-                    idKey:"id",
-                    pidKey:"pid",
-                    indent:4,
-                    position:0,
-                    sortKey:null, //启用客户端节点排序，指定排序的字段
-                    order:"asc" //排序的顺序
+                default:function () {
+                    return {
+                        idKey:"id",
+                        pidKey:"pid",
+                        indent:4,
+                        position:0,
+                        sortKey:null, //启用客户端节点排序，指定排序的字段
+                        order:"asc" //排序的顺序
+                    };
                 }
             }
         },
