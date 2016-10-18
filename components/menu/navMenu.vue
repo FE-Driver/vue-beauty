@@ -2,7 +2,7 @@
   <div>
     <menu v-if="data && data.length" :mode="mode" :theme="theme">
       <template v-for="item in data">
-        <menu-item v-if="!item.children && !item.groups" v-link="item.link" :disabled="item.disabled" :icon="item.icon">{{item.name}}</menu-item>
+        <menu-item v-if="!item.children && !item.groups" v-link="item.link" :disabled="item.disabled" :icon="item.icon" :title="item.name">{{item.name}}</menu-item>
         <nav-sub-menu v-else :data="item"></nav-sub-menu>
       </template>
     </menu>

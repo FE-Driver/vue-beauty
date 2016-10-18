@@ -20,12 +20,15 @@ export default {
   },
   ready(){
     this.setLevelAndMode();
+    this.$on('modeChange',val=>{
+      this.mode = val
+    })
   },
   computed:{
     itemSty(){
       return this.mode == 'inline'?{
           paddingLeft: 24 * this.level + 'px'
-        }: '';
+        }:{}; 
     }
   },
   methods: {

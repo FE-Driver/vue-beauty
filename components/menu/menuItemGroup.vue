@@ -14,6 +14,11 @@
         name:'v-menu-item-group',
         props: {
             title: String
+        },
+        ready(){
+            this.$on('modeChange',val=>{
+                this.$broadcast('modeChange',val);
+            })
         }
     }
 </script>
