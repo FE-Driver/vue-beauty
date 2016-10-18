@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        <div v-if="total" class="{{prefix}}-footer">
+        <div v-if="pagination && total" class="{{prefix}}-footer">
             <div class="{{prefix}}-pagination">
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
@@ -139,6 +139,10 @@
             columns: {
                 type: Array,
                 required: true
+            },
+            pagination:{
+                type:Boolean,
+                default:true
             },
             //分页大小
             pageSize: {
