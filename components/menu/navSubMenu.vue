@@ -34,6 +34,9 @@
         this.$on('modeChange',val=>{
             this.$broadcast('modeChange',val);
         })
+        this.$on('cancelSelected',ori=>{
+            this.$broadcast('cancelSelected',ori);
+        })
     },
     components:{
       subMenu,

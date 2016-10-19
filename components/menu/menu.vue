@@ -18,6 +18,11 @@ export default {
       default: 'light'
     },
   },
+  ready(){
+    this.$on('nodeSelected',ori=>{
+      this.$broadcast('cancelSelected',ori);
+    })
+  },
   watch: {
     mode(){
       this.$broadcast('modeChange',this.mode);

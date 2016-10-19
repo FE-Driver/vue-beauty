@@ -34,8 +34,12 @@ export default {
   ready(){
     this.setLevelAndMode();
     this.$on('modeChange',val=>{
+      this.open = false
       this.mode = val
       this.$broadcast('modeChange',val);
+    })
+    this.$on('cancelSelected',ori=>{
+      this.$broadcast('cancelSelected',ori);
     })
   },
   computed:{
