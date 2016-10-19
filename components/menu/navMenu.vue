@@ -2,8 +2,8 @@
   <div>
     <menu v-if="data && data.length" :mode="mode" :theme="theme">
       <template v-for="item in data">
-        <menu-item v-if="!item.children && !item.groups" v-link="item.link" :disabled="item.disabled" :icon="item.icon" :title="item.name">{{item.name}}</menu-item>
-        <nav-sub-menu v-else :data="item"></nav-sub-menu>
+        <menu-item v-if="!item.children && !item.groups" v-link="item.link" :link="aTag?item.link:''" :disabled="item.disabled" :icon="item.icon" :title="item.name">{{item.name}}</menu-item>
+        <nav-sub-menu v-else :data="item" :a-tag="aTag"></nav-sub-menu>
       </template>
     </menu>
   </div>
@@ -29,6 +29,10 @@
       theme: {
         type: String,
         default: 'light'
+      },
+      aTag:  {
+        type: Boolean,
+        default: false
       }
     },
     components:{

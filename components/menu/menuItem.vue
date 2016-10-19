@@ -1,6 +1,8 @@
 <template lang="html">
   <li :class="itemCls" :style="itemSty" @click="select">
-    <i v-if="icon" class="anticon anticon-{{icon}}"></i><slot></slot>
+    <i v-if="icon" class="anticon anticon-{{icon}}"></i>
+    <a :href="'#!'+link" style="display:inline" v-if="link"><slot></slot></a>
+    <slot v-else></slot>
   </li>
 </template>
 
@@ -20,9 +22,11 @@ export default {
       type: Boolean,
       default: false
     },
-    icon: String
+    icon: String,
+    link: String
   },
   ready(){
+    console.log(this.link)
     this.setLevelAndMode();
     this.$on('modeChange',val=>{
       this.mode = val

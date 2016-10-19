@@ -314,6 +314,12 @@ export default {
             '无'
           ],
           [
+            'aTag',
+            '是否使用a标签',
+            'boolean',
+            'false'
+          ],
+          [
             'theme',
             '主题颜色',
             'String: light dark',
