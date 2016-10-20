@@ -95,6 +95,7 @@
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
                               :default-current="defaultCurrent"
+                              :current="pageNum"
                               :total="total"
                               :on-change="pageChange"
                               :show-size-changer="true"
@@ -153,6 +154,10 @@
             pageNum: {
                 type: Number,
                 default: 1
+            },
+            fuck:{
+                type: Number,
+                default: 10
             },
 //            数据处理函数
             formatter: {
@@ -382,8 +387,8 @@
                     }
 
                     self.total = data[self.paramsName.total]*1;
-                    self.pageNum = data[self.paramsName.pageNumber];
-                    self.pageSize = data[self.paramsName.pageSize];
+                    self.pageNum = data[self.paramsName.pageNumber]*1;
+                    self.pageSize = data[self.paramsName.pageSize]*1;
 
 //                    重置选择状态
                     self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
@@ -658,7 +663,9 @@
         },
         events:{
             reload:function (event) {
-                this.reload();
+                this.$nextTick(() => {
+                    this.reload();
+                })
             }
         },
         computed:{
