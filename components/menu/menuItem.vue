@@ -26,7 +26,6 @@ export default {
     link: String
   },
   ready(){
-    console.log(this.link)
     this.setLevelAndMode();
     this.$on('modeChange',val=>{
       this.mode = val

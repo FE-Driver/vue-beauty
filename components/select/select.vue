@@ -132,11 +132,6 @@
           this.placeholder = ''
         }else if(this.origin_placeholder){
           this.placeholder = this.origin_placeholder;
-
-            newTruckList[i] = Object.assign(newTruckList[i],{
-                a:1,
-                b:2
-            })
         }
       }
     },
