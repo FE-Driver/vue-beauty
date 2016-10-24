@@ -1,5 +1,5 @@
 <template>
-    <li class=" ant-menu-item-group">
+    <li class="ant-menu-item-group">
         <div class="ant-menu-item-group-title">
             {{title}}
         </div>

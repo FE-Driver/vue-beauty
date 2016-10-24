@@ -416,8 +416,8 @@
             datatable(fn,...rest){
                 this[fn](...rest);
             },
-            reload(){
-                this.loadData({pageNum: this.pageNum});
+            reload(pageNum){
+                this.loadData({pageNum: pageNum || this.pageNum});
             },
             scrollTableBody:function (e) {
                 const target = e.target || e.srcElement;
@@ -662,10 +662,8 @@
             }
         },
         events:{
-            reload:function (event) {
-                this.$nextTick(() => {
-                    this.reload();
-                })
+            reload:function (pageNum) {
+                this.reload(pageNum);
             }
         },
         computed:{

@@ -140,8 +140,7 @@ export default {
   props: defaultProps({
   	prefixCls: 'ant-pagination',
     current: {
-      type: Number, 
-      twoWay: true,
+      type: Number,
       default: 1
     },
     defaultCurrent: 1,
