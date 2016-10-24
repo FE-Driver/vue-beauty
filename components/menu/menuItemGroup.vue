@@ -1,5 +1,5 @@
 <template>
-    <li class=" ant-menu-item-group">
+    <li class="ant-menu-item-group">
         <div class="ant-menu-item-group-title">
             {{title}}
         </div>
@@ -14,6 +14,14 @@
         name:'v-menu-item-group',
         props: {
             title: String
+        },
+        ready(){
+            this.$on('modeChange',val=>{
+                this.$broadcast('modeChange',val);
+            })
+            this.$on('cancelSelected',ori=>{
+                this.$broadcast('cancelSelected',ori);
+            })
         }
     }
 </script>

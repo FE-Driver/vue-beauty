@@ -29,7 +29,7 @@
 
             <div class="{{prefix}}-body" :style="{height:tableBodyHeight+'px'}" @scroll="scrollTableBody">
                 <v-spin :spinning="loading">
-                    <table>
+                    <table v-el:tbody>
                         <thead class="{{prefix}}-thead">
                         <tr>
                             <th v-if="rowSelection" class="{{prefix}}-selection-column">
@@ -50,25 +50,32 @@
                         </tr>
                         </thead>
                         <tbody class="{{prefix}}-tbody" v-show="current.length">
-                            <tr v-for="(index, item) in current">
-                                <td v-if="rowSelection" class="{{prefix}}-selection-column">
-                                    <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
-                                    <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
-                                </td>
-                                <td v-for="column in columns">
-                                    <template v-if="column.component">
-                                        <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item" @datatable="datatable"></component>
-                                    </template>
-                                    <template v-else>
-                                        <template v-if="column.render">
-                                            {{{column.render(item[column.field],item,index)}}}
+                            <template v-for="(index, item) in current">
+                                <tr v-show="!treeTable || item.vshow">
+                                    <td v-if="rowSelection" class="{{prefix}}-selection-column">
+                                        <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
+                                        <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
+                                    </td>
+                                    <td v-for="(cindex,column) in columns">
+                                        <template v-if="treeTable && cindex==treeTableOption.position">
+                                            <span class="{{prefix}}-row-indent indent-level-{{item.level}}" :style="{'padding-left':item.paddingLeft}"></span>
+                                            <span v-if="item.isparent" @click="toggle(item)" class="{{prefix}}-row-expand-icon {{prefix}}-row-{{item.vopen}}"></span>
+                                        </template>
+                                        <template v-if="column.component">
+                                            <component :is="ghost[column.component]" :index="index" :value="item[column.field]" :item="item" @datatable="datatable"></component>
                                         </template>
                                         <template v-else>
-                                            {{{item[column.field]}}}
+                                            <template v-if="column.render">
+                                                {{{column.render(item[column.field],item,index)}}}
+                                            </template>
+                                            <template v-else>
+                                                {{{item[column.field]}}}
+                                            </template>
                                         </template>
-                                    </template>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            </template>
+
                         </tbody>
 
                         <tbody class="{{prefix}}-tbody" v-if="current.length==0">
@@ -83,16 +90,18 @@
             </div>
         </div>
 
-        <div v-if="total" class="{{prefix}}-footer">
+        <div v-if="pagination && total" class="{{prefix}}-footer">
             <div class="{{prefix}}-pagination">
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
                               :default-current="defaultCurrent"
+                              :current="pageNum"
                               :total="total"
                               :on-change="pageChange"
                               :show-size-changer="true"
                               :on-show-size-change="pageSizeChange"
-                              :pageSizeOptions="pageSizeOptions"
+                              :page-size-options="pageSizeOptions"
+                              :page-size="pageSize"
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
@@ -132,6 +141,10 @@
                 type: Array,
                 required: true
             },
+            pagination:{
+                type:Boolean,
+                default:true
+            },
             //分页大小
             pageSize: {
                 type: Number,
@@ -141,6 +154,10 @@
             pageNum: {
                 type: Number,
                 default: 1
+            },
+            fuck:{
+                type: Number,
+                default: 10
             },
 //            数据处理函数
             formatter: {
@@ -172,26 +189,50 @@
                     return {}
                 }
             },
+            //行选择配置
             rowSelection:{
                 type: Object,
                 validator: function (value) {
                     return value.type == "checkbox" || value.type == "radio";
                 }
             },
+            //无数据时的显示文本
             emptyText:{
                 type: String,
                 default:"老板,没有找到你想要的信息......"
             },
+            //幽灵组件
             ghost:{
                 type: Object
             },
+            //距离viewport底部的距离
             bottomGap:{
                 type: Number,
                 default:''
             },
+            //固定高度
             height:{
                 type: Number,
                 default:null
+            },
+            //是否启用树形表格
+            treeTable:{
+                type: Boolean,
+                default:false
+            },
+            treeTableOption:{
+                type:Object,
+                default:function () {
+                    return {
+                        idKey:"id",
+                        pidKey:"pid",
+                        indent:4,
+                        position:0,
+                        sortKey:null, //启用客户端节点排序，指定排序的字段
+                        order:"asc", //排序的顺序,
+                        isAsync:false
+                    };
+                }
             }
         },
         /*
@@ -233,9 +274,7 @@
 
             if(!this.bindResize){
                 window.addEventListener("resize",function () {
-                    self.$nextTick(function () {
-                        self.calculateSize();
-                    });
+                    self.calculateSize();
                 },false);
                 self.bindResize = true;
             }
@@ -265,7 +304,6 @@
              * @param pageSize
              */
             pageSizeChange:function (current,pageSize) {
-                // todo pagenation的该回调有bug
                 this.pageNum = current;
                 this.pageSize = pageSize;
                 this.loadData({pageNum: this.pageNum});
@@ -338,19 +376,26 @@
                 remoteParams[this.paramsName.pageSize] = this.pageSize;
 
                 this.$http.post(url, remoteParams,{emulateJSON:true}).then((response) => {
-//                            const data = response.data;
                     const data = response.body.data;
                     let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
-                    self.current = results;
-                    self.total = data[self.paramsName.total]*1;
-                    self.pageNum = data[self.paramsName.pageNumber];
-                    self.pageSize = data[self.paramsName.pageSize];
 
+//                    处理treeTable数据
+                    if(self.treeTable){
+                        self.dealTreeData(results);
+                    }else{
+                        self.current = results;
+                    }
+
+                    self.total = data[self.paramsName.total]*1;
+                    self.pageNum = data[self.paramsName.pageNumber]*1;
+                    self.pageSize = data[self.paramsName.pageSize]*1;
+
+//                    重置选择状态
                     self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+
                     self.loading = false;
-                    self.$nextTick(function () {
-                        self.calculateSize();
-                    });
+//                    重新计算并设置表格尺寸
+                    self.calculateSize();
                 },(response) =>{
                     // error callback
                     self.loading = false;
@@ -371,8 +416,8 @@
             datatable(fn,...rest){
                 this[fn](...rest);
             },
-            reload(){
-                this.loadData({pageNum: this.pageNum});
+            reload(pageNum){
+                this.loadData({pageNum: pageNum || this.pageNum});
             },
             scrollTableBody:function (e) {
                 const target = e.target || e.srcElement;
@@ -383,20 +428,23 @@
                 if(!this.$el){
                     return
                 }
-                var footerHeight = 56;
-                if(this.height){
-                    this.tableBodyHeight = this.height - footerHeight;
-                    this.getBodyWidth();
-                }else if(this.bottomGap){
-                    //未设置height属性时，处理bottomGap属性（height属性优先）
-                    this.fixGapHeight(footerHeight);
-                    this.getBodyWidth();
-                }
+
+                this.$nextTick(function () {
+                    var footerHeight = 56;
+                    if(this.height){
+                        this.tableBodyHeight = this.height - footerHeight;
+                        this.getBodyWidth();
+                    }else if(this.bottomGap){
+                        //未设置height属性时，处理bottomGap属性（height属性优先）
+                        this.fixGapHeight(footerHeight);
+                        this.getBodyWidth();
+                    }
+                });
             },
             getBodyWidth:function () {
                 //设置表头表格总宽度
-                var tbody = $(this.$el).find("div.ant-table-body table");
-                tbody[0] && (this.tableBodyWidth = tbody[0].offsetWidth + "px");
+                var tbody = this.$els.tbody;
+                tbody && (this.tableBodyWidth = tbody.offsetWidth + "px");
                 //设置表头th宽度
                 this.fixHeaderWidth();
             },
@@ -415,18 +463,207 @@
                 var self = this;
                 //获取挂载元素在屏幕上的位置
                 var rect = self.$el.getBoundingClientRect();
-                console.log(rect);
                 var winHeight = window.innerHeight;
                 var tableBodyHeight = winHeight - this.bottomGap*1 - rect.top - footerHeight
 //                    在可见首屏范围内且计算高度至少100时处理，否则不处理
                 if(rect.top > 0 && tableBodyHeight >= 200){
                     this.tableBodyHeight = tableBodyHeight;
                 }
+            },
+            dealTreeData:function (results) {
+                this.originData = results.slice();
+                this.newData = [];
+                var trData = this.transTreeData(0);
+                this.sortTrData(trData);
+                this.current = this.newData;
+            },
+            //处理数据，将一维数组转化为层级结构
+            transTreeData:function (pid) {
+                var self = this;
+                var TreeTableOpt = this.treeTableOption;
+                var results = [];
+                var children = this.findChildren(pid);
+                for (var i = 0; i < children.length; i++) {
+                    var obj = children[i];
+                    obj['children'] = self.transTreeData(obj[TreeTableOpt.idKey]);
+                    obj['level'] = self.getLevel(obj.id);
+                    obj.vshow = (obj.level >1 ? false :true);
+                    obj.vopen = (obj.level >0 ? 'collapsed' : 'expanded');
+                    obj.paddingLeft = ((obj.level-1)*5*self.treeTableOption.indent) + "px";
+                    results.push(obj);
+                }
+                TreeTableOpt.sortKey && results.sort(self.sortData);
+                return results;
+            },
+            //输出排序后的一维数组
+            sortTrData:function (trData) {
+                var self = this;
+                for (var i = 0;i < trData.length; i++) {
+                    var obj = trData[i];
+                    var ch = obj.children;
+
+//                    如果是异步模式，直接使用isparent字段判断是否为父节点；否则使用children长度判断
+                    if(!self.treeTableOption.isAsync){
+                        obj.isparent = ch.length ? true :false;
+                    }
+//                    先插入父节点
+                    self.newData.push(obj);
+//                     递归插入子节点
+                    ch.length && self.sortTrData(ch);
+                }
+            },
+            //对象排序
+            sortData:function (a,b) {
+                var name = this.treeTableOption.sortKey;
+                if(this.treeTableOption.order == "asc"){
+                    return a[name] > b[name] ? 1 : -1;
+                }else{
+                    return a[name] < b[name] ? 1 : -1;
+                }
+            },
+//            查找子节点
+            findChildren:function(pid){
+                var self = this;
+                var results = [];
+                var origindata = this.originData;
+                for(var i=0;i<origindata.length;i++){
+                    if(origindata[i][self.treeTableOption.pidKey]==pid){
+                        results.push(origindata[i]);
+                    }
+                }
+                return results;
+            },
+//            获取节点层级
+            getLevel:function(id) {
+                var self = this;
+                var origindata = this.originData;
+                var TreeTableOpt = this.treeTableOption;
+                for (var i = 0; i < origindata.length; i++) {
+                    var d = origindata[i];
+                    var dataId = d[TreeTableOpt.idKey];
+                    var dataPId = d[TreeTableOpt.pidKey];
+                    if(d[TreeTableOpt.idKey] == id){
+                        if(id==0){
+                            return 0;
+                        }else if(d[TreeTableOpt.pidKey] == 0){
+                            return 1;
+                        }else {
+                            return self.getLevel(dataPId)+1;
+                        }
+                    }
+                }
+                return 0;
+            },
+            /**
+             * 折叠或打开节点
+             * @param item
+             * @param isRecursion 是否递归，关闭节点时需要递归关闭子节点
+             */
+            toggle:function (item) {
+                var self = this;
+
+                if(item.vopen=="collapsed"){
+                    this.expand(item);
+                }else if(item.vopen=="expanded"){
+                    this.collapse(item);
+                }
+
+            },
+            /**
+             * 折叠或打开节点
+             * @param item
+             */
+            expand:function (item) {
+                var self = this;
+
+                if(self.treeTableOption.isAsync && !item.loadChildren){
+                    self.loadChildren(item);
+                }else{
+                    self.expandChildren(item);
+                }
+            },
+            collapse:function (item) {
+                var self = this;
+                item.vopen = "collapsed";
+                var vshow = false;
+
+                var children = item.children || [];
+                for(var i=0;i<children.length;i++){
+
+                    children[i].vshow = vshow;
+//                    关闭节点时，所有子孙节点都要关闭
+                    self.collapse(children[i]);
+                }
+                this.calculateSize();
+            },
+            expandChildren:function (item) {
+                var self = this;
+                item.vopen = "expanded";
+                var vshow = true;
+
+                var children = item.children || [];
+                for(var i=0;i<children.length;i++){
+                    children[i].vshow = vshow;
+                }
+                this.calculateSize();
+            },
+            loadChildren: function (item) {
+                var self = this;
+                self.loading = true;
+                //拼装请求参数
+                const url = this.dataSource;
+                const remoteParams = Object.assign({parentid:item.id}, this.sortParams, this.otherParams);
+
+                this.$http.post(url, remoteParams,{emulateJSON:true}).then((response) => {
+                    const data = response.body.data;
+                    let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
+
+                    if(results.length){
+                        item.loadChildren = true;
+                        item.children = self.transAsyncTreeData(results,item.level);
+//                        插入到父节点后面
+                        var pindex = self.current.findIndex(function(value, index, arr) {
+                            return value.id == item.id;
+                        }) + 1;
+
+                        if(pindex==0) {
+                            return false;
+                        }
+
+//                    向父节点后面插入子节点数据
+                        var newCurrent = self.current.slice(0,pindex).concat(results,self.current.slice(pindex));
+                        self.current = newCurrent;
+
+//                    向rowSelectionStates数组中插入子节点数据
+                        var newRowSelectionStates = self.rowSelectionStates.slice(0,pindex).concat(new Array(results.length || 0).fill(false),self.rowSelectionStates.slice(pindex));
+                        self.rowSelectionStates = newRowSelectionStates;
+
+                        self.expandChildren(item);
+
+                        self.loading = false;
+//                    重新计算并设置表格尺寸
+                        self.calculateSize();
+                    }
+                },(response) =>{
+                    // error callback
+                    self.loading = false;
+                });
+            },
+            transAsyncTreeData:function (results,level) {
+                var self = this;
+                for (var i = 0; i < results.length; i++) {
+                    var obj = results[i];
+                    obj['level'] = level + 1;
+                    obj.vopen = 'collapsed';
+                    obj.vshow = true;
+                    obj.paddingLeft = ((obj.level-1)*5*self.treeTableOption.indent) + "px";
+                }
+                return results;
             }
         },
         events:{
-            reload:function (event) {
-                this.reload();
+            reload:function (pageNum) {
+                this.reload(pageNum);
             }
         },
         computed:{

@@ -1,6 +1,8 @@
 <template lang="html">
-  <li class="ant-menu-item" :class="{'ant-menu-item-disabled': disabled}" :style="itemSty">
-    <i v-if="icon" class="anticon anticon-{{icon}}"></i><slot></slot>
+  <li :class="itemCls" :style="itemSty" @click="select">
+    <i v-if="icon" class="anticon anticon-{{icon}}"></i>
+    <a :href="'#!'+link" style="display:inline" v-if="link"><slot></slot></a>
+    <slot v-else></slot>
   </li>
 </template>
 
@@ -16,16 +18,37 @@ export default {
       type: Boolean,
       default: false
     },
-    icon: String
+    selected: {
+      type: Boolean,
+      default: false
+    },
+    icon: String,
+    link: String
   },
   ready(){
     this.setLevelAndMode();
+    this.$on('modeChange',val=>{
+      this.mode = val
+    })
+    this.$on('cancelSelected',ori=>{
+      if(this === ori) return;
+      this.selected = false;
+    })
   },
   computed:{
+    itemCls(){
+      return [
+        'ant-menu-item',
+        {
+          'ant-menu-item-disabled': this.disabled,
+          'ant-menu-item-selected': this.selected
+        }
+      ]
+    },
     itemSty(){
       return this.mode == 'inline'?{
           paddingLeft: 24 * this.level + 'px'
-        }: '';
+        }:{}; 
     }
   },
   methods: {
@@ -39,6 +62,11 @@ export default {
       }
       this.mode = parent.mode;
       this.level = index;
+    },
+    select(){
+      if(this.selected) return;
+      this.selected = true;
+      this.$dispatch('nodeSelected',this);
     }
   }
 }

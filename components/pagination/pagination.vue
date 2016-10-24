@@ -140,14 +140,16 @@ export default {
   props: defaultProps({
   	prefixCls: 'ant-pagination',
     current: {
-      type: Number, 
-      twoWay: true,
-      default: 0
+      type: Number,
+      default: 1
     },
     defaultCurrent: 1,
     total: 0,
     defaultPageSize: 10,
-    pageSize: Number,
+    pageSize: {
+        type: Number,
+        default: 10
+    },
     onChange: () => {},
     showSizeChanger: false,
     pageSizeOptions: ['10', '20', '30', '40'],
@@ -184,8 +186,6 @@ export default {
   	}
   },
   created() {
-  	let pageSize = this.pageSize || this.defaultPageSize;
-    this.pageSize = pageSize.toString();
   	this.current = this.current || this.defaultCurrent;
   	this.totalText = this.showTotal && this.showTotal(this.allPages);
     this.options = this.pageSizeOptions.map(function(item, index) {

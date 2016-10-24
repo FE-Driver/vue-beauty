@@ -1,7 +1,7 @@
 <template lang="html">
 
   <li :class="subMenuCls" @mouseover="mouseTriggerOpen(true)" @mouseout="mouseTriggerOpen(false)">
-    <div :class="titleCls" @click="clickTriggerOpen" :style="titleSty">
+    <div :class="titleCls" @click="clickTriggerOpen" :style="titleSty" :title="title">
       <span>
         <i v-if="icon" class="anticon anticon-{{icon}}"></i>
         <span>{{title}}</span>
@@ -33,6 +33,14 @@ export default {
   }),
   ready(){
     this.setLevelAndMode();
+    this.$on('modeChange',val=>{
+      this.open = false
+      this.mode = val
+      this.$broadcast('modeChange',val);
+    })
+    this.$on('cancelSelected',ori=>{
+      this.$broadcast('cancelSelected',ori);
+    })
   },
   computed:{
     subMenuCls(){
@@ -59,7 +67,7 @@ export default {
     titleSty(){
       return this.mode == 'inline'?{
           paddingLeft: 24 * this.level + 'px'
-        }: '';
+        }: {};
     }
   },
   methods: {
