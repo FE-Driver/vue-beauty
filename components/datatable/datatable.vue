@@ -388,7 +388,8 @@
 
                     self.total = data[self.paramsName.total]*1;
                     self.pageNum = data[self.paramsName.pageNumber]*1;
-                    self.pageSize = data[self.paramsName.pageSize]*1;
+//                服务端返回的pagesize不可信，暂时注释
+//                    self.pageSize = data[self.paramsName.pageSize]*1;
 
 //                    重置选择状态
                     self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
