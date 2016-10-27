@@ -77,34 +77,38 @@ const tooltip = Vue.directive('tooltip', {
      * 显示方法
      */
     open: function () {
-        const offset = this.getOffset(this.el);
-        const eleWidth = this.el.offsetWidth;
-        const eleHeight = this.el.offsetHeight;
         const self = this;
 
-        // 创建一个新的tip组件实例,插入到body中
-        this.vm = new TipComponent({
-            data : {
-                tip : this.value, // 支持html内容
-                show: true,
-                place : this.place
-            }
-        }).$mount().$appendTo('body');
+        setTimeout(function () {
+            const offset = self.getOffset(self.el);
+            const eleWidth = self.el.offsetWidth;
+            const eleHeight = self.el.offsetHeight;
 
-        // 这是内部api,使用v-if指令之后,渲染后的dom存在$el.nextElementSibling属性上,而不是$el上,很奇怪
-        this.tooltip = this.vm.$el.nextElementSibling;
+            // 创建一个新的tip组件实例,插入到body中
+            self.vm = new TipComponent({
+                data : {
+                    tip : self.value, // 支持html内容
+                    show: true,
+                    place : self.place
+                }
+            }).$mount().$appendTo('body');
 
-        // 给tip组件本身绑定鼠标事件,鼠标移上去之后停止关闭操作（从而允许复制tip中的内容）,鼠标移开后关闭
-        this.tooltip.addEventListener('mouseover', () => {
-            clearTimeout(self.closeTimer);
-        });
-        this.tooltip.addEventListener('mouseout', this.close.bind(this));
+            // 这是内部api,使用v-if指令之后,渲染后的dom存在$el.nextElementSibling属性上,而不是$el上,很奇怪
+            self.tooltip = self.vm.$el.nextElementSibling;
 
-        // 设置位置
-        addStyle(this.tooltip, {
-            left: `${offset.left + (eleWidth * this.leftFactor)}px`,
-            top: `${offset.top + (eleHeight * this.topFactor)}px`
-        });
+            // 给tip组件本身绑定鼠标事件,鼠标移上去之后停止关闭操作（从而允许复制tip中的内容）,鼠标移开后关闭
+            self.tooltip.addEventListener('mouseover', () => {
+                clearTimeout(self.closeTimer);
+            });
+            self.tooltip.addEventListener('mouseout', self.close.bind(self));
+
+            // 设置位置
+            addStyle(self.tooltip, {
+                left: `${offset.left + (eleWidth * self.leftFactor)}px`,
+                top: `${offset.top + (eleHeight * self.topFactor)}px`
+            });
+        },100)
+
     },
     /**
      * 关闭方法
