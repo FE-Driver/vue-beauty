@@ -4,12 +4,6 @@
     <div class="ant-row">
       <div class="ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
         <v-menu class="aside-container" mode="inline">
-          <menu-item>
-            <a href="/">快速上手</a>
-          </menu-item>
-          <menu-item>
-            <a href="/">安装</a>
-          </menu-item>
           <menu-item v-link="{ name: 'css', activeClass: 'ant-menu-item-selected' }">
             全局CSS样式
           </menu-item>
