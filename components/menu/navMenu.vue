@@ -15,15 +15,15 @@
           <a v-if="aTag" :href="'#!'+item.link" style="display:inline">{{item.name}}</a>
           <template v-else>{{item.name}}</template>
         </li>
-        <li v-else :class="[prefix+'-submenu',prefix+'-submenu-'+mode,{[prefix+'-submenu-open']: data[$index].open}]" @mouseover="mouseTriggerOpen(item.disabled,$index,true)" @mouseout="mouseTriggerOpen(item.disabled,$index,false)">
+        <li v-else :class="[prefix+'-submenu',prefix+'-submenu-'+mode,{[prefix+'-submenu-open']: item.open}]" @mouseover="mouseTriggerOpen(item.disabled,$index,true)" @mouseout="mouseTriggerOpen(item.disabled,$index,false)">
           <div :class="[prefix+'-submenu-title',{[prefix+'-submenu-disabled']: item.disabled}]" :style="paddingSty" :title="item.name" @click="clickTriggerOpen(item.disabled,$index)">
             <span>
               <i v-if="item.icon" class="anticon anticon-{{item.icon}}"></i>
               <span>{{item.name}}</span>
             </span>
           </div>
-          <v-nav-menu v-if="item.children" :data="item.children" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :class="{[prefix+'-hidden']: !data[$index].open}"></v-nav-menu>
-          <v-nav-menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :class="{[prefix+'-hidden']: !data[$index].open}"></v-nav-menu>
+          <v-nav-menu v-if="item.children" :data="item.children" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :class="{[prefix+'-hidden']: !item.open}"></v-nav-menu>
+          <v-nav-menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :class="{[prefix+'-hidden']: !item.open}"></v-nav-menu>
         </li>
       </template>
     </template>
@@ -35,7 +35,8 @@
   export default {
     name: 'v-nav-menu',
     data:()=>({
-      prefix: 'ant-menu'
+      prefix: 'ant-menu',
+      timer: []
     }),
     props: {
       type:  {
@@ -102,6 +103,13 @@
           }:{}; 
       }
     },
+    watch: {
+      mode(){
+        for(let i=0;i<this.data.length;i++){
+          this.$set(`data[${i}].open`,false);
+        }
+      }
+    },
     methods: {
       clickTriggerOpen(disabled,index){
         if(!disabled && this.mode == 'inline'){
@@ -110,8 +118,8 @@
       },
       mouseTriggerOpen(disabled,index,status){
         if(!disabled && this.mode != 'inline'){
-          if(this.timer) clearTimeout(this.timer);
-          this.timer = setTimeout(() => this.setOpen(index,status),300);
+          if(this.timer[index]) clearTimeout(this.timer[index]);
+          this.timer[index] = setTimeout(() => this.setOpen(index,status),300);
         }
       },
       setOpen(index,status){

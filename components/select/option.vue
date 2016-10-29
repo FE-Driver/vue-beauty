@@ -4,7 +4,9 @@
       <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root">
         <li class="ant-select-dropdown-menu-item"
             :class="{ 'ant-select-dropdown-menu-item-disabled': item.disabled, 'ant-select-dropdown-menu-item-selected': value===item.value }"
-            style="-webkit-user-select: none;" @click="select($index)" v-for="item in options">{{ item.text }}
+            style="-webkit-user-select: none;" @click="select($index)" v-for="item in options">
+            {{ item.text }}
+            <i v-if="item.icon" class="anticon anticon-{{item.icon}} pull-right" style="margin-top: 4px"></i>
         </li>
         <li class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" v-if="options.length===0"
             style="-webkit-user-select: none;">{{notfound || '无匹配项'}}

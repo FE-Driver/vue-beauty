@@ -4,7 +4,7 @@
       <header class="clearfix">
         <div class="ant-row">
           <div class="ant-col-xs-24 ant-col-sm-7 ant-col-md-6 ant-col-lg-4">
-            <a id="logo" href="/"><img alt="logo" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg"><span>Ant Design</span></a>
+            <a id="logo" href="/"><img alt="logo" src="./assets/VB-logo.png"><span>Vue Beauty</span></a>
           </div>
         </div>
 
@@ -45,16 +45,14 @@ header {
     width: 100%;
 }
 
-#logo, #logo img {
-    height: 80px;
-    line-height: 80px;
-}
-
 #logo {
     float: left;
+    height: 80px;
+    line-height: 80px;
 
     img{
-      width: 40px;
+      width: 80px;
+      height: 80px;
       margin-right: 8px;
     }
 
@@ -64,7 +62,8 @@ header {
         font-family: Raleway,Hiragino Sans GB,sans-serif;
         height: 80px;
         line-height: 80px;
-        text-transform: uppercase;
+        font-weight: bold;
+        color: #666;
     }
 }
 
