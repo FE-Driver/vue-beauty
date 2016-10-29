@@ -42,7 +42,7 @@
             <v-form-item>
               <v-checkbox>记住我</v-checkbox>
             </v-form-item>
-            <v-button type='primary' html-type="submit">登陆</v-button>
+            <v-button type='primary' html-type="submit">登录</v-button>
           </v-form>
         </code-box>
 
@@ -105,7 +105,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
         </code-box>
 
       </v-col>
-      
+
     </v-row>
 
 
