@@ -17,6 +17,9 @@
 </template>
 <script>
   export default {
+    data: ()=>({
+      height: 0,
+    }),
     props: {
       show: {
         type: Boolean,
@@ -43,11 +46,18 @@
       styles () {
         return [
           {
-            top: this.position=="bottom" ? (this.stylus.top+this.stylus.height+4) + 'px' : (this.stylus.top - this.$el.offsetHeight -4) + 'px',
+            top: this.position=="bottom" ? (this.stylus.top+this.stylus.height+4) + 'px' : (this.stylus.top - this.height -4) + 'px',
             left: this.stylus.left + 'px' || 0,
             minWidth: this.stylus.width + 'px'
           }
         ]
+      }
+    },
+    watch: {
+      show(){
+        this.$nextTick(()=>{
+          this.height = this.$el.offsetHeight;
+        })
       }
     },
     created () {

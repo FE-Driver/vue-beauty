@@ -26,7 +26,7 @@
           title="带搜索框"
           describe="展开后可对选项进行搜索。"
         >
-          <v-Select placeholder="请选择人员" notfound="无法找到" type="search" style="width: 120px;" :options="options"
+          <v-Select placeholder="请选择人员" notfound="无法找到" type="search" position="top" style="width: 120px;" :options="options"
                     :value.sync="people"></v-Select>
         </code-box>
       </v-Col>
