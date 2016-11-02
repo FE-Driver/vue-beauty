@@ -5,26 +5,29 @@
 </template>
 
 <script>
-import { defaultProps } from '../../utils'
-import cx from 'classnames'
 
 export default {
   name:'v-icon',
-  props: defaultProps({
-    className: '',
+  data:()=>({
+    prefix: 'anticon'
+  }),
+  props: {
     type: {
       type: String,
       require: true
+    },
+    spin: {
+      type: Boolean,
+      default: false
     }
-  }),
-
+  },
   computed: {
     iconClasses () {
-      return cx({
-        [this.className]: !!this.className,
-        [`anticon`]: 1,
-        [`anticon-${this.type}`]: this.type
-      })
+      return [
+        this.prefix,
+        `${this.prefix}-${this.type}`,
+        {[`${this.prefix}-spin`]: this.spin}
+      ]
     }
   }
 }
