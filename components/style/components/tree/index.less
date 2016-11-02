@@ -3,8 +3,8 @@
 @import "../checkbox/mixin";
 @import "./mixin";
 
-@tree-prefix-cls: ant-tree;
-.antCheckboxFn(@checkbox-prefix-cls: ant-tree-checkbox);
+@tree-prefix-cls: ~"@{ant-prefix}-tree";
+.antCheckboxFn(@checkbox-prefix-cls: ~"@{ant-prefix}-tree-checkbox");
 
 .@{tree-prefix-cls} {
   margin: 0;
@@ -18,9 +18,6 @@
     outline: 0;
     a[draggable],
     a[draggable="true"] {
-      -moz-user-select: none;
-      -khtml-user-select: none;
-      -webkit-user-select: none;
       user-select: none;
       /* Required to make elements draggable in old WebKit */
       -khtml-user-drag: element;

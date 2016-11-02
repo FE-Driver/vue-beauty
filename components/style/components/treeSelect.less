@@ -3,9 +3,10 @@
 @import "./tree/mixin";
 @import "./checkbox/mixin";
 
-@select-tree-prefix-cls: ant-select-tree;
+@select-prefix-cls: ~"@{ant-prefix}-select";
+@select-tree-prefix-cls: ~"@{ant-prefix}-select-tree";
 
-.antCheckboxFn(@checkbox-prefix-cls: ant-select-tree-checkbox);
+.antCheckboxFn(@checkbox-prefix-cls: ~"@{ant-prefix}-select-tree-checkbox");
 
 .@{select-tree-prefix-cls} {
   margin: 0;
@@ -115,16 +116,29 @@
   }
 }
 
-.@{select-tree-prefix-cls}-dropdown .ant-select-dropdown-search + span {
-  padding: 7px 15px;
-  color: #ccc;
-  cursor: not-allowed;
-  display: block;
-}
-
-.ant-select-not-found {
-  cursor: not-allowed;
-  color: #ccc;
-  padding: 7px 15px;
-  display: block;
+.@{select-prefix-cls}-tree-dropdown {
+  .@{select-prefix-cls}-dropdown-search {
+    display: block;
+    padding: 4px;
+    .@{select-prefix-cls}-search__field__wrap {
+      width: 100%;
+    }
+    .@{select-prefix-cls}-search__field {
+      padding: 4px 7px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid @border-color-base;
+      border-radius: 4px;
+      outline: none;
+    }
+    &.@{select-prefix-cls}-search--hide {
+      display: none;
+    }
+  }
+  .@{select-prefix-cls}-not-found {
+    cursor: not-allowed;
+    color: #ccc;
+    padding: 7px 16px;
+    display: block;
+  }
 }
