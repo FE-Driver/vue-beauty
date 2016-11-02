@@ -1,7 +1,7 @@
 @import "../themes/default";
 
-@badge-prefix-cls: ant-badge;
-@number-prefix-cls: ant-scroll-number;
+@badge-prefix-cls: ~"@{ant-prefix}-badge";
+@number-prefix-cls: ~"@{ant-prefix}-scroll-number";
 
 .@{badge-prefix-cls} {
   position: relative;
@@ -11,9 +11,8 @@
 
   &-count {
     position: absolute;
-    transform: translateX(50%);
+    transform: translateX(-50%);
     top: -10px;
-    right: 0;
     height: 20px;
     border-radius: 10px;
     min-width: 20px;
@@ -37,16 +36,48 @@
 
   &-dot {
     position: absolute;
-    transform: translateX(50%);
+    transform: translateX(-50%);
     transform-origin: 0px center;
     top: -4px;
-    right: 0;
     height: 8px;
     width: 8px;
     border-radius: 100%;
     background: @error-color;
     z-index: 10;
     box-shadow: 0 0 0 1px #fff;
+  }
+
+  &-status {
+    line-height: inherit;
+    vertical-align: baseline;
+
+    &-dot {
+      width: 8px;
+      height: 8px;
+      display: inline-block;
+      border-radius: 50%;
+    }
+    &-success {
+      background-color: @success-color;
+    }
+    &-processing {
+      background-color: @primary-color;
+      animation: antStatusProcessing 1.2s infinite ease-in-out;
+    }
+    &-default {
+      background-color: @normal-color;
+    }
+    &-error {
+      background-color: @error-color;
+    }
+    &-warning {
+      background-color: @warning-color;
+    }
+    &-text {
+      color: @text-color;
+      font-size: @font-size-base;
+      margin-left: 8px;
+    }
   }
 
   &-zoom-appear,
@@ -64,7 +95,17 @@
     top: auto;
     display: block;
     position: relative;
-    transform: translateX(0);
+    transform: none!important;
+  }
+}
+
+@keyframes antStatusProcessing {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 
@@ -112,13 +153,4 @@ a & {
     opacity: 0;
     transform: scale(0) translateX(-50%);
   }
-}
-
-.badge-transition {
-  transition: all .3s ease;
-
-}
-
-.badge-enter, .badge-leave {
-  opacity: 0;
 }
