@@ -33,6 +33,13 @@
     >
       <h3>Tree props</h3>
     </api-table>
+    <api-table
+      type="methods"
+      :content='methodContent'
+      title=""
+    >
+      <h3>Tree methods</h3>
+    </api-table>
 
     <api-table
       :apis='apiTreeNode'
@@ -45,10 +52,6 @@
 </template>
 
 <script>
-
-import vTree from '../../components/tree'
-import {vRow, vCol} from '../../components/layout'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -85,6 +88,18 @@ export default {
           '点击树节点触发',
           'function(nodeArray)',
           '-'
+        ]
+      ],
+      methodContent: [
+        [
+          'getCheckedNodes',
+          '获取被勾选的节点',
+          '节点数组'
+        ],
+        [
+          'getSelectedNodes',
+          '获取被选中的节点',
+          '节点数组'
         ]
       ],
       apiTreeNode: [{
@@ -181,10 +196,6 @@ export default {
     }
   },
   components: {
-    vTree,
-    vRow,
-    vCol,
-    vButton,
     codeBox,
     apiTable
   }

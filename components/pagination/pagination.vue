@@ -109,13 +109,13 @@
 	  		<div 
 	  			v-if="showSizeChanger"
 	  			:class="prefixCls + '-options-size-changer'">
-          <v-Select 
+          <v-Select
             :size="!!size ? 'sm' : ''"
             :options="options" 
             :value.sync="pageSize"
-			:allow-clear="false"
-			position="top"
-		  ></v-Select>
+						:allow-clear="false"
+						position="top"
+					></v-Select>
 	  		</div>
         <div 
           v-if="showQuickJumper" 

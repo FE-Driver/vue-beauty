@@ -3,7 +3,7 @@
   <div class="ant-message-notice" v-if="show" transition="message">
     <div class="ant-message-notice-content">
       <div class="ant-message-custom-content ant-message-{{type}}">
-        <i class="anticon anticon-{{icon}}"></i>
+        <i :class="['anticon','anticon-'+icon,{'anticon-spin': icon=='loading'}]"></i>
         <span v-text="content"></span>
       </div>
     </div>

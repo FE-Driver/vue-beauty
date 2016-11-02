@@ -1,26 +1,56 @@
 @import "../themes/default";
 @import "../mixins/index";
 
-/*该less文件非1.8，版本较老*/
-@upload-prefix-cls: ant-upload;
+@upload-prefix-cls: ~"@{ant-prefix}-upload";
+@upload-item: ~"@{ant-prefix}-upload-list-item";
+@upload-pictrue-card-size: 96px;
 
 .@{upload-prefix-cls} {
+  font-size: @font-size-base;
+  outline: 0;
 
-  > span {
+  &-btn {
     display: block;
     width: 100%;
+    outline: none;
   }
 
-  input[type=file] {
+  input[type="file"] {
     cursor: pointer;
   }
 
-  &.@{upload-prefix-cls}-select {
+  &&-select {
     display: inline-block;
   }
 
-  &.@{upload-prefix-cls}-drag {
-    border: 1px dashed #d9d9d9;
+  &&-select-picture-card {
+    border: 1px dashed @border-color-base;
+    width: @upload-pictrue-card-size;
+    height: @upload-pictrue-card-size;
+    border-radius: @border-radius-base;
+    background-color: #fbfbfb;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 8px;
+    margin-bottom: 8px;
+
+    > .@{upload-prefix-cls} {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 20px 0;
+    }
+
+    &:hover {
+      border-color: @primary-color;
+    }
+  }
+
+  &&-drag {
+    border: 1px dashed @border-color-base;
     transition: border-color 0.3s ease;
     cursor: pointer;
     border-radius: @border-radius-base;
@@ -29,11 +59,15 @@
     height: 100%;
     position: relative;
 
-    &.@{upload-prefix-cls}-drag-hover {
+    &.@{upload-prefix-cls}-drag-hover:not(.@{upload-prefix-cls}-disabled) {
       border: 2px dashed tint(@primary-color, 20%);
     }
 
-    > span {
+    &.@{upload-prefix-cls}-disabled {
+      cursor: not-allowed;
+    }
+
+    .@{upload-prefix-cls}-btn {
       display: table;
       height: 100%;
     }
@@ -43,12 +77,12 @@
       vertical-align: middle;
     }
 
-    &:hover {
+    &:not(.@{upload-prefix-cls}-disabled):hover {
       border-color: tint(@primary-color, 20%);
     }
 
     p.@{upload-prefix-cls}-drag-icon {
-      .anticon {
+      .@{iconfont-css-prefix} {
         font-size: 80px;
         margin-top: -5px;
         color: tint(@primary-color, 20%);
@@ -63,37 +97,39 @@
       font-size: 12px;
       color: #999;
     }
-    .anticon-plus {
+    .@{iconfont-css-prefix}-plus {
       font-size: 30px;
       transition: all 0.3s ease;
-      color: #d9d9d9;
+      color: #ccc;
       &:hover {
         color: #999;
       }
     }
-    &:hover .anticon-plus {
+    &:hover .@{iconfont-css-prefix}-plus {
       color: #999;
     }
   }
 }
 
 .@{upload-prefix-cls}-list {
-  .@{upload-prefix-cls}-list-item {
+  overflow: hidden;
+  &-item {
     overflow: hidden;
     margin-top: 8px;
+    font-size: 12px;
 
-    .@{upload-prefix-cls}-list-item-info {
+    &-info {
       height: 22px;
       line-height: 22px;
       padding: 0 4px;
       transition: background-color 0.3s ease;
 
-      .anticon-paper-clip {
+      .@{iconfont-css-prefix}-paper-clip {
         margin-right: 4px;
         font-size: 12px;
         color: #999;
       }
-      .anticon-cross {
+      .@{iconfont-css-prefix}-cross {
         .iconfont-size-under-12px(10px);
         transition: all 0.3s ease;
         opacity: 0;
@@ -105,32 +141,210 @@
           color: #666;
         }
       }
+    }
+
+    &:hover &-info {
+      background-color: tint(@primary-color, 90%);
+    }
+
+    &:hover .@{iconfont-css-prefix}-cross {
+      opacity: 1;
+    }
+
+    &-error,
+    &-error .@{iconfont-css-prefix}-paper-clip {
+      color: @error-color;
+    }
+
+    &-error .@{iconfont-css-prefix}-cross {
+      opacity: 1;
+    }
+
+    &-progress {
+      padding: 0 8px 0 20px;
+      margin-top: -2px;
+      margin-bottom: 1px;
+      font-size: 12px;
+      .@{ant-prefix}-progress-line-inner {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  &-picture,
+  &-picture-card {
+    .@{upload-item} {
+      padding: 8px;
+      border-radius: @border-radius-base;
+      border: 1px solid @border-color-base;
+      height: 66px;
+      position: relative;
       &:hover {
-        background-color: tint(@primary-color, 90%);
-        .anticon.anticon-cross {
+        background: transparent;
+      }
+    }
+
+    .@{upload-item}-info {
+      padding: 0;
+    }
+
+    .@{upload-item}:hover .@{upload-item}-info {
+      background: transparent;
+    }
+
+    .@{upload-item}-uploading {
+      border-style: dashed;
+    }
+
+    .@{upload-item}-thumbnail {
+      width: 48px;
+      height: 48px;
+      position: absolute;
+      top: 8px;
+      left: 8px;
+    }
+
+    .@{upload-item}-thumbnail img {
+      width: 48px;
+      height: 48px;
+      display: block;
+    }
+
+    .@{upload-item}-thumbnail.@{iconfont-css-prefix}:before {
+      line-height: 48px;
+      font-size: 24px;
+      color: #999;
+    }
+
+    .@{upload-item}-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0 0 0 8px;
+      line-height: 42px;
+      transition: all 0.3s ease;
+      padding-left: 48px;
+      padding-right: 8px;
+      max-width: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+    }
+
+    .@{upload-item}-uploading .@{upload-item}-name {
+      line-height: 28px;
+    }
+
+    .@{upload-item}-progress {
+      padding-left: 56px;
+      margin-top: 0;
+    }
+
+    .@{iconfont-css-prefix}-cross {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      line-height: 1;
+    }
+  }
+
+  &-picture-card {
+    display: inline;
+
+    .@{upload-item} {
+      display: inline-block;
+      width: @upload-pictrue-card-size;
+      height: @upload-pictrue-card-size;
+      margin: 0 8px 8px 0;
+    }
+
+    .@{upload-item}-info {
+      height: 100%;
+      position: relative;
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        z-index: 1;
+        background-color: #808080;
+        transition: all 0.3s ease;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .@{iconfont-css-prefix}-eye-o,
+      .@{iconfont-css-prefix}-delete {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 10;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 16px;
+        width: 16px;
+        line-height: 1;
+        color: #eee;
+        opacity: 0;
+        margin-top: -8px;
+        margin-left: -22px;
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      .@{iconfont-css-prefix}-delete {
+        left: 50%;
+        margin-left: 6px;
+      }
+
+      &:hover {
+        &:before {
+          opacity: .8;
+        }
+
+        .@{iconfont-css-prefix}-eye-o,
+        .@{iconfont-css-prefix}-delete {
           opacity: 1;
         }
       }
     }
 
-    .@{upload-prefix-cls}-list-item-progress {
-      padding: 0 8px 0 20px;
-      margin-top: -2px;
-      margin-bottom: 1px;
-      font-size: 12px;
-      .ant-progress-line-inner {
-        vertical-align: middle;
+    .@{upload-item}-thumbnail,
+    .@{upload-item}-thumbnail img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: static;
+    }
+
+    .@{upload-item}-name {
+      display: none;
+    }
+
+    .@{upload-item}-uploading {
+      &.@{upload-item} {
+        background-color: #fbfbfb;
+      }
+
+      .@{upload-item}-info {
+        height: auto;
+        &:before,
+        .@{iconfont-css-prefix}-eye-o,
+        .@{iconfont-css-prefix}-delete {
+          display: none;
+        }
+      }
+
+      &-text {
+        margin-top: 18px;
+        color: #999;
       }
     }
 
-  }
-  .@{upload-prefix-cls}-item-name {
-    font-size: 12px;
-    font-weight: normal;
-  }
-
-  b.@{upload-prefix-cls}-item-name {
-    color: #666;
+    .@{upload-item}-progress {
+      padding-left: 0;
+    }
   }
 
   .@{upload-prefix-cls}-success-icon {
@@ -145,21 +359,18 @@
   .@{upload-prefix-cls}-margin-top-leave {
     animation: uploadMarginTopOut .3s @ease-in-out-circ;
   }
+}
 
-  @keyframes uploadMarginTopIn {
-    from {
-      margin-top: -25px;
-      opacity: 0;
-    }
-  }
-
-  @keyframes uploadMarginTopOut {
-    to {
-      margin-top: -25px;
-      opacity: 0;
-    }
+@keyframes uploadMarginTopIn {
+  from {
+    margin-top: -25px;
+    opacity: 0;
   }
 }
 
-
-@import "./progress";
+@keyframes uploadMarginTopOut {
+  to {
+    margin-top: -25px;
+    opacity: 0;
+  }
+}

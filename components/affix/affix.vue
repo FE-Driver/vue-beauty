@@ -109,9 +109,3 @@
         }
     }
 </script>
-
-<style lang="css">
-    .ant-affix {
-        z-index: 10
-    }
-</style>

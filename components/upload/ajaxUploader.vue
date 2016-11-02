@@ -1,6 +1,7 @@
 <template>
 <span role="button"
   tabIndex="0"
+  class="ant-upload-btn"
   @click="_onClick"
   @keydown="_onKeyDown"
   @drop="_onFileDrop"

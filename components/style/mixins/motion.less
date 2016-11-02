@@ -1,26 +1,26 @@
-.motion-common() {
-  animation-duration: .2s;
+@import '../themes/default';
+
+.motion-common(@duration: @animation-duration-base) {
+  animation-duration: @duration;
   animation-fill-mode: both;
 }
 
-.motion-common-leave() {
-  animation-duration: .2s;
+.motion-common-leave(@duration: @animation-duration-base) {
+  animation-duration: @duration;
   animation-fill-mode: both;
 }
 
-.make-motion(@className, @keyframeName) {
-  .@{className}-transition{
-    .motion-common();
-  }
-
+.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
+    //.motion-common(@duration);
     animation-name: ~"@{keyframeName}In";
-    animation-play-state: running;
+    animation-play-state: paused;
   }
   .@{className}-leave {
+    //.motion-common-leave(@duration);
     animation-name: ~"@{keyframeName}Out";
-    animation-play-state: running;
+    animation-play-state: paused;
   }
   .@{className}-enter.@{className}-enter-active,
   .@{className}-appear.@{className}-appear-active {

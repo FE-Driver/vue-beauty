@@ -4,7 +4,7 @@
       <header class="clearfix">
         <div class="ant-row">
           <div class="ant-col-xs-24 ant-col-sm-7 ant-col-md-6 ant-col-lg-4">
-            <a id="logo" href="/"><img alt="logo" src="./assets/VB-logo.png"><span>Vue Beauty</span></a>
+            <a id="logo" href="https://github.com/FE-Driver/vue-beauty"><img alt="logo" src="./assets/VB-logo.png"><span>Vue Beauty</span></a>
           </div>
         </div>
 

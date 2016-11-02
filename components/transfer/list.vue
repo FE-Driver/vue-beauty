@@ -24,8 +24,8 @@
 	    <span>
 	    {{(checkedKeys.length > 0 ? `${checkedKeys.length}/` : '') + dataSource.length + '条'}}
 	    </span>
+	  	<span :class="prefixCls + '-header-title'">{{titleText}}</span>
 	  </span>
-	  <span :class="prefixCls + '-header-title'">{{titleText}}</span>
 	</div>
 	<div 
 	  :class="[
@@ -43,9 +43,10 @@
 		  	:handle-clear="handleClear"
 	    ></v-search>
 	  </div>
-	  <ul v-if="showItems.length">
+	  <ul class="ant-transfer-list-content" v-if="showItems.length">
 	  	<li 
 	  		v-for="item in showItems" track-by="key"
+				class="ant-transfer-list-content-item"
 	  		:transition="prefixCls + '-highlight'"
 	  		@click="select(item)">
 	  		<v-checkbox :checked="isCheck(item)"></v-checkbox>

@@ -4,37 +4,35 @@
     <section class="markdown">
       <h1>Iconfont</h1>
       <p>
-        有含义的矢量图形，每一个图标打倒一个敌人。
+        语义化的矢量图形。
       </p>
       <h2>图标的命名规范</h2>
       <p>
-        我们为每个图标赋予了语义化的命名。<br/>
-        命名规则如下:
+        我们为每个图标赋予了语义化的命名，命名规则如下:
       </p>
       <ul>
         <li>
           实心和描线图标保持同名，用 -o 来区分，比如 question-circle(实心) 和 question-circle-o(描线)；
         </li>
         <li>
-          命名顺序：[icon名]-[描线与否]-[方向]。
+          命名顺序：[icon名]-[形状可选]-[描线与否]-[方向可选]。
         </li>
       </ul>
 
-      <h2>实现原理</h2>
+      <h2>如何使用</h2>
+      <p>使用 <v-icon></v-icon>标签声明组件，指定图标对应的 type 属性，示例代码如下:</p>
+      <pre><code class="lang-html">&lt;v-icon type="link"&gt;&lt;/v-icon&gt;</code></pre>
 
-      <pre><code class="lang-html">&lt;v-icon type="iconname"&gt;&lt;/v-icon&gt;</code></pre>
+      <p>最终会渲染为：</p>
 
-      <p>所有的 Icon 标签最终会渲染为</p>
-
-      <pre><code class="lang-html">&lt;i class="anticon anticon-iconname"&gt;&lt;/i&gt;</code></pre>
+      <pre><code class="lang-html">&lt;i class="anticon anticon-link"&gt;&lt;/i&gt;</code></pre>
+      <h2>本地部署</h2>
+      <p>图标组件使用 <a href="http://www.iconfont.cn/" target="blank">iconfont.cn</a>，默认公网可访问。如需本地部署，可参考 <a href="https://github.com/ant-design/antd-init/tree/master/examples/local-iconfont" target="blank">示例</a>。</p>
       <p style="color:#ff7800">* 点击下面的图标即可复制标签</p>
 
 
       <h2>图标列表</h2>
-      <h3>一. 方向性图标</h3>
-
-      <!-- <li class="icon-item" v-for="icon in icons1Obj" :item="icon" :inddex="$index" _v-a8c514bc> -->
-      <!-- v-on:click="clickfunc($event)"  index="{{$index}}"  -->
+      <h3>方向性图标</h3>
 
       <ul class="anticons-list">
         <li class="icon-item" v-for="icon in icons1Obj" :class="{copied: Copied}" :data-clipboard-text="_getCopyCode(icon.name)">
@@ -43,7 +41,7 @@
         </li>
       </ul>
 
-      <h3>二. 提示建议性图标</h3>
+      <h3>提示建议性图标</h3>
 
       <ul class="anticons-list">
         <li class="icon-item" v-for="icon in icons2Obj" :class="{copied: Copied}" :data-clipboard-text="_getCopyCode(icon.name)">
@@ -52,7 +50,7 @@
         </li>
       </ul>
 
-      <h3>三. 网站通用图标</h3>
+      <h3>网站通用图标</h3>
 
       <ul class="anticons-list">
         <li class="icon-item" v-for="icon in icons3Obj" :class="{copied: Copied}" :data-clipboard-text="_getCopyCode(icon.name)">
@@ -62,35 +60,44 @@
       </ul>
 
     </section>
+    <api-table
+      :content='content'
+    >
+      <h3>Icon</h3>
+    </api-table>
   </div>
 
 </template>
 <script>
-
-  import vIcon from '../../components/iconfont'
-  import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
-
   import Clipboard from 'clipboard'
 
   export default {
     data: function () {
       return {
-        icons1: ['step-backward', 'step-forward', 'fast-backward', 'fast-forward', 'shrink', 'arrow-salt', 'down', 'up', 'left', 'right', 'caret-down', 'caret-up', 'caret-left', 'caret-right', 'caret-circle-right', 'caret-circle-left', 'caret-circle-o-right', 'caret-circle-o-left', 'circle-right', 'circle-left', 'circle-o-right', 'circle-o-left', 'double-right', 'double-left', 'verticle-right', 'verticle-left', 'forward', 'backward', 'rollback', 'retweet', 'swap', 'swap-left', 'swap-right', 'arrow-right', 'arrow-up', 'arrow-down', 'arrow-left', 'play-circle', 'play-circle-o', 'circle-up', 'circle-down', 'circle-o-up', 'circle-o-down', 'caret-circle-o-up', 'caret-circle-o-down', 'caret-circle-up', 'caret-circle-down'],
-        icons2: ['question', 'question-circle-o', 'question-circle', 'plus', 'plus-circle-o', 'plus-circle', 'pause', 'pause-circle-o', 'pause-circle', 'minus', 'minus-circle-o', 'minus-circle', 'info', 'info-circle-o', 'info-circle', 'exclamation', 'exclamation-circle-o', 'exclamation-circle', 'cross', 'cross-circle-o', 'cross-circle', 'check', 'check-circle-o', 'check-circle', 'clock-circle-o', 'clock-circle'],
-        icons3: ['lock', 'unlock', 'android', 'apple', 'area-chart', 'bar-chart', 'bars', 'book', 'calendar', 'cloud', 'cloud-download', 'code', 'copy', 'credit-card', 'delete', 'desktop', 'download', 'edit', 'ellipsis', 'file', 'file-text', 'folder', 'folder-open', 'github', 'hdd', 'frown', 'meh', 'inbox', 'laptop', 'appstore', 'line-chart', 'link', 'logout', 'mail', 'menu-fold', 'menu-unfold', 'mobile', 'notification', 'paper-clip', 'picture', 'pie-chart', 'poweroff', 'reload', 'search', 'setting', 'share-alt', 'shopping-cart', 'smile', 'tablet', 'tag', 'tags', 'to-top', 'upload', 'user', 'video-camera', 'windows', 'ie', 'chrome', 'home', 'loading', 'smile-circle', 'meh-circle', 'frown-circle', 'tags-o', 'tag-o', 'cloud-upload-o', 'cloud-download-o', 'cloud-upload', 'cloud-o', 'star-o', 'star', 'environment', 'environment-o', 'eye', 'eye-o', 'camera', 'camera-o', 'aliwangwang', 'aliwangwang-o', 'save', 'team', 'solution', 'phone', 'filter', 'exception', 'export', 'customerservice', 'qrcode'],
-        icons1Obj:[],
-        icons2Obj:[],
-        icons3Obj:[],
+        icons1: ['step-backward', 'step-forward', 'fast-backward', 'fast-forward', 'shrink', 'arrow-salt', 'down', 'up', 'left', 'right', 'caret-down', 'caret-up', 'caret-left', 'caret-right', 'up-circle', 'down-circle', 'left-circle', 'right-circle', 'up-circle-o', 'down-circle-o', 'left-circle-o', 'right-circle-o', 'double-right', 'double-left', 'verticle-right', 'verticle-left', 'forward', 'backward', 'rollback', 'enter', 'retweet', 'swap', 'swap-left', 'swap-right', 'arrow-right', 'arrow-up', 'arrow-down', 'arrow-left', 'play-circle', 'play-circle-o', 'up-square', 'down-square', 'left-square', 'right-square', 'up-square-o', 'down-square-o', 'left-square-o', 'right-square-o'],
+        icons2: ['question', 'question-circle-o', 'question-circle', 'plus', 'plus-circle-o', 'plus-circle', 'pause', 'pause-circle-o', 'pause-circle', 'minus', 'minus-circle-o', 'minus-circle', 'plus-square', 'plus-square-o', 'minus-square', 'minus-square-o', 'info', 'info-circle-o', 'info-circle', 'exclamation', 'exclamation-circle-o', 'exclamation-circle', 'close', 'close-circle', 'close-circle-o', 'close-square', 'close-square-o', 'check', 'check-circle', 'check-circle-o', 'check-square', 'check-square-o', 'clock-circle-o', 'clock-circle'],
+        icons3: ['lock', 'unlock', 'android', 'apple', 'apple-o', 'area-chart', 'pie-chart', 'bar-chart', 'dot-chart', 'bars', 'book', 'calendar', 'cloud', 'cloud-download', 'code', 'code-o', 'copy', 'credit-card', 'delete', 'desktop', 'download', 'edit', 'ellipsis', 'file', 'file-text', 'file-unknown', 'file-pdf', 'file-excel', 'file-jpg', 'file-ppt', 'folder', 'folder-open', 'github', 'hdd', 'frown', 'frown-o', 'meh', 'meh-o', 'smile', 'smile-o', 'inbox', 'laptop', 'appstore-o', 'appstore', 'line-chart', 'link', 'logout', 'mail', 'menu-fold', 'menu-unfold', 'mobile', 'notification', 'paper-clip', 'picture', 'poweroff', 'reload', 'search', 'setting', 'share-alt', 'shopping-cart', 'tablet', 'tag','tag-o', 'tags', 'tags-o', 'to-top', 'upload', 'user', 'video-camera', 'windows','windows-o', 'ie', 'chrome', 'home', 'loading', 'cloud-upload-o', 'cloud-download-o', 'cloud-upload', 'cloud-o', 'star-o', 'star', 'heart-o', 'heart', 'environment', 'environment-o', 'eye', 'eye-o', 'camera', 'camera-o', 'aliwangwang', 'aliwangwang-o', 'save', 'team', 'solution', 'phone', 'filter', 'exception', 'export', 'customer-service', 'qrcode', 'scan', 'like', 'like-o', 'dislike', 'dislike-o', 'message', 'pay-circle', 'pay-circle-o', 'calculator', 'pushpin', 'pushpin-o', 'bulb', 'select'],
         Copied:false,
-        type:String
-
+        type:String,
+        content: [
+          [
+            'type',
+            '图标类型',
+            'String',
+            '-'
+          ],
+          [
+            'spin',
+            '是否有旋转动画',
+            'Boolean',
+            'false'
+          ]
+        ]
       }
     },
 
     components: {
-      vIcon,
-      codeBox,
       apiTable
     },
 
@@ -167,7 +174,6 @@
   ul.anticons-list {
     margin: 20px 0;
     list-style: none;
-    width: 120%;
     overflow: hidden;
   }
   ul.anticons-list li {

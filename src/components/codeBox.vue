@@ -160,7 +160,7 @@
 
   .code-box-title:before {
     font-family: anticon;
-    content: "\E658";
+    content: "\E6D2";
     font-size: 16px;
     vertical-align: middle;
     line-height: 22px;

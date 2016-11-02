@@ -69,18 +69,23 @@ export default {
   data: function () {
     return {
       apis: [{
+          parameter: 'type',
+          explain: '表格类型(props,methods,events)',
+          type: 'String',
+          default: "props"
+        },{
           parameter: 'head',
-          explain: '表头数组',
+          explain: '表头数组,根据type字段，head的默认值也不同',
           type: 'Array',
-          default: "['参数','说明','类型','默认值']"
+          default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
         },{
           parameter: 'content',
-          explain: '表格每行的内容数组 [["1","2","3","4"]...',
+          explain: '表格每行的内容数组 [["1","2","3","4"]...]',
           type: 'Array',
           default: '无'
         },{
           parameter: 'apis',
-          explain: '表格每行的内容数组 [{parameter,explain,type,default}],推荐用content',
+          explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
           type: 'Array',
           default: '无'
         },{

@@ -88,7 +88,7 @@ Vue.use(button)
 - NOTICE：可以加入QQ群548062121讨论
 
 ## 开发步骤
-- 到[ant-design1.11](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到components/style/components下
+- 到[ant-design2.2](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到components/style/components下
 - 打开style/components/index.less，导出组件的样式
 - 在components文件夹下开发组件
 - 到components/index.js下导出组件
