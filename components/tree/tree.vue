@@ -82,19 +82,19 @@
         }
       })
       this.$on('childChecked',(ori,key)=>{
-        if(this === ori) return;
         if(!this.parentKey && this.onCheck){
           this.$nextTick( () =>{
             this.onCheck(this.getCheckedNodes());
           })
         }
+        if(this === ori) return;
         for(let [i,item] of this.dataSource.entries()){
           if(item.key == key){
             let temp = this.getChildrenCheckedStatus(item.node);
             if(temp != item.childrenCheckedStatus){
               this.$set(`dataSource[${i}].checked`,temp?true:false);
               this.$set(`dataSource[${i}].childrenCheckedStatus`,temp);
-              this.$dispatch('childChecked',this,this.parentKey);
+              if(this.parentKey) this.$dispatch('childChecked',this,this.parentKey);
             }
           }
         }
