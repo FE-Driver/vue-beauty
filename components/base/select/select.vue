@@ -1,6 +1,6 @@
 <template>
     <div :class="wrapCls" style="width: 120px;" @click.stop="openDropdown" v-el:input-area>
-        <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="true" tabindex="0">
+        <span :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="true" tabindex="0">
             <ul v-if="multiple" class="ant-select-selection__rendered">
                 <li v-for="item in value" unselectable="unselectable" class="ant-select-selection__choice" title="{{item.text}}" style="-webkit-user-select: none;">
                     <span class="ant-select-selection__choice__remove" @click="clearSingle($index)"></span>
@@ -15,10 +15,10 @@
             <div v-else class="ant-select-selection__rendered">
                 <span v-show="value.length" v-text="value.length?value[0].text:''"></span>
             </div>
-            <span class="ant-select-search__field__placeholder" v-show="!value.length">请选择</span>
+            <span class="ant-select-search__field__placeholder" v-show="!value.length" style="padding-left:8px">请选择</span>
             <span v-if="allowClear && value.length" class="ant-select-selection__clear" @click.stop="clearSelected"></span>
             <span class="ant-select-arrow" unselectable="unselectable" style="-webkit-user-select: none;"><b></b></span>
-        </div>
+        </span>
     </div>
     <div :class="dropdownCls" style="left: 0; min-width: 100%; max-height: 300px; overflow: auto" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
         <div>

@@ -1,7 +1,6 @@
 @import "../themes/default";
-@import "../mixins/index";
 
-@breadcrumb-prefix-cls: ant-breadcrumb;
+@breadcrumb-prefix-cls: ~"@{ant-prefix}-breadcrumb";
 
 .@{breadcrumb-prefix-cls} {
   color: #999;
@@ -30,7 +29,7 @@
   }
 
   &-link {
-    > .anticon + span {
+    > .@{iconfont-css-prefix} + span {
       margin-left: 4px;
     }
   }
