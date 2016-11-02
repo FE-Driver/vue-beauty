@@ -23,21 +23,27 @@
 <script>
 export default {
   props:{
-    head: {
-      type: Array,
-      required: false,
-      default(){
-        return ['参数','说明','类型','默认值']
-      }
+    type: {
+      type: String,
+      default: 'props'
     },
+    head: Array,
     content: Array,
     apis: Array,
     title: {
       type: String,
-      required: false,
       default: "API"
     }
   },
+  ready(){
+    if(!this.head){
+      switch(this.type){
+        case 'props': this.$set('head',['参数','说明','类型','默认值']);break;
+        case 'events': this.$set('head',['事件名','说明','参数']);break;
+        case 'methods': this.$set('head',['方法名','说明','参数']);break;
+      }
+    }
+  }
 }
 </script>
 

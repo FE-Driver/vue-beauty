@@ -107,12 +107,13 @@
                 }
             },
             setCheck(key){
-                let route = key.split('-');
+                let route = key.split('.');
                 let node = this.$refs.tree;
-                for(let i=0;i<route.length;i++){
+                for(var i=0;i<route.length-1;i++){
                     node = node.$children[route[i]];
                 }
-                node.setCheck();
+                let item = node.dataSource[route[i]];
+                node.setCheck(item.disabled,route[i],key);
             }
         },
         components:{baseSelect,vTree}
