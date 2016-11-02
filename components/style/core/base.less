@@ -63,7 +63,6 @@ a {
 
   &:hover {
     color: @link-hover-color;
-    text-decoration: underline;
   }
 
   &:active {
@@ -73,6 +72,7 @@ a {
   &:active,
   &:hover {
     outline: 0;
+    text-decoration: none;
   }
 
   &[disabled] {
@@ -80,6 +80,22 @@ a {
     cursor: not-allowed;
     pointer-events: none;
   }
+}
+
+.@{ant-prefix}-divider {
+  margin: 0 4px;
+  color: #999;
+  display: inline-block;
+  height: 8px;
+  width: 1px;
+  background: #ccc;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: @code-family;
 }
 
 // Utility classes

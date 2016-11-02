@@ -1,6 +1,6 @@
 <template lang="html">
   <button :type="htmlType" :class="['ant-btn', type, size, shape, {'ant-btn-loading': loading}, {'ant-btn-clicked': clicked}]" disabled="{{disabled}}" @click="_click">
-    <i class="anticon anticon-loading" v-if="loading"></i>
+    <i class="anticon anticon-spin anticon-loading" v-if="loading"></i>
     <i class="anticon anticon-{{icon}}" v-if="icon"></i>
     <slot></slot>
   </button>
