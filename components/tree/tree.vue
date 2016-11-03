@@ -2,13 +2,13 @@
   <ul :class="treeCls">
     <li v-for="item in dataSource" :class="[{[prefix+'-treenode-disabled']: item.disabled}]">
       <span :class="[prefix+'-switcher',{[prefix+'-switcher-disabled']: item.disabled,[prefix+'-noline_close']: !item.expand && !item.isLeaf,[prefix+'-noline_open']: item.expand && !item.isLeaf,[prefix+'-switcher-noop']: item.isLeaf}]" @click="setExpand(item.disabled,$index)"></span>
-      <span v-if="checkable" :class="[prefix+'-checkbox',{[prefix+'-checkbox-disabled']: item.disabled || item.disableCheckbox,[prefix+'-checkbox-checked']: item.checked && item.childrenCheckedStatus == 2, [prefix+'-checkbox-indeterminate']: item.checked && item.childrenCheckedStatus == 1}]" @click="setCheck(item.disabled||item.disableCheckbox,$index,item.key)">
+      <span v-if="checkable" :class="[prefix+'-checkbox',{[prefix+'-checkbox-disabled']: item.disabled || item.disableCheckbox,[prefix+'-checkbox-checked']: item.checked && item.childrenCheckedStatus == 2, [prefix+'-checkbox-indeterminate']: item.checked && item.childrenCheckedStatus == 1}]" @click="setCheck(item.disabled||item.disableCheckbox,$index)">
           <span :class="prefix+'-checkbox-inner'"></span>
       </span>
       <a :title="item.title" :class="[{[prefix+'-node-selected']: item.selected}]" @click="setSelect(item.disabled,$index)">
           <span :class="prefix+'-title'" v-html="item.title"></span>
       </a>
-      <v-tree v-if="!item.isLeaf" :data-source.sync="item.node" :parent-key="item.key" :multiple="multiple" :checkable="checkable" :class="{[prefix+'-child-tree-open']: item.expand}"></v-tree>
+      <v-tree v-if="!item.isLeaf" :data-source.sync="item.node" :key="this.key+'.'+$index" :multiple="multiple" :checkable="checkable" :class="{[prefix+'-child-tree-open']: item.expand}"></v-tree>
     </li>
   </ul>
 </template>
@@ -19,7 +19,10 @@
       prefix: 'ant-tree'
     }),
     props: {
-      parentKey: String,
+      key: {
+        type: String,
+        default: '0'
+      },
       dataSource: {
         type: Array,
         default: ()=>[]
@@ -37,19 +40,27 @@
     },
     computed: {
       treeCls(){
-        if(!this.parentKey){
+        if(this.key === '0'){
           return this.prefix
         }else{
           return `${this.prefix}-child-tree`
         }
       }
     },
-    created(){
-      this.preHandle();
+    watch: {
+      dataSource(){
+        if(this.key === '0'){
+          this.setKey();
+          this.preHandle();
+        }
+      }
     },
     ready(){
+      this.setKey();
+      this.preHandle();
+      
       this.$on('nodeSelected',(ori,selected)=>{
-        if(this.parentKey) return true;
+        if(this.key !== '0') return true;
         if(!this.multiple && selected){
           if(this !== ori){
             for(let i=0;i<this.dataSource.length;i++){
@@ -73,7 +84,7 @@
         }
       })
       this.$on('parentChecked',(status,key)=>{
-        if(this.parentKey == key || this.parentKey.startsWith(key+'.')){
+        if(this.key == key || this.key.startsWith(key+'.')){
           for(let i=0;i<this.dataSource.length;i++){
             this.$set(`dataSource[${i}].checked`,status);
             this.$set(`dataSource[${i}].childrenCheckedStatus`,status?2:0);
@@ -82,43 +93,44 @@
         }
       })
       this.$on('childChecked',(ori,key)=>{
-        if(!this.parentKey && this.onCheck){
+        if(this.key === '0' && this.onCheck){
           this.$nextTick( () =>{
             this.onCheck(this.getCheckedNodes());
           })
         }
         if(this === ori) return;
         for(let [i,item] of this.dataSource.entries()){
-          if(item.key == key){
+          if(this.key+'.'+i == key){
             let temp = this.getChildrenCheckedStatus(item.node);
             if(temp != item.childrenCheckedStatus){
               this.$set(`dataSource[${i}].checked`,temp?true:false);
               this.$set(`dataSource[${i}].childrenCheckedStatus`,temp);
-              if(this.parentKey) this.$dispatch('childChecked',this,this.parentKey);
+              if(this.key !== '0') this.$dispatch('childChecked',this,this.key);
             }
           }
         }
       })
     },
     methods: {
+      setKey(){
+        for(let i=0;i<this.dataSource.length;i++){
+          this.dataSource[i].key = this.key+'.'+i;
+        }
+      },
       preHandle(){
         for(let [i,item] of this.dataSource.entries()){
-          if(this.parentKey){
-            item.key = this.parentKey+'.'+i;
-          }else{
-            item.key = i+'';
-          }
           if(!item.node || !item.node.length){
             this.$set(`dataSource[${i}].isLeaf`,true);
             this.$set(`dataSource[${i}].childrenCheckedStatus`,2);
             continue;
           }
-          if(item.checked){
+          if(item.checked && !item.childrenCheckedStatus){
             this.$set(`dataSource[${i}].childrenCheckedStatus`,2);
-            this.$broadcast('parentChecked',true,item.key);
+            this.$broadcast('parentChecked',true,this.key+'.'+i);
           }else{
-            this.$set(`dataSource[${i}].childrenCheckedStatus`,this.getChildrenCheckedStatus(item.node));
-            if(item.childrenCheckedStatus !== 0) this.$set(`dataSource[${i}].checked`,true);
+            let status = this.getChildrenCheckedStatus(item.node);
+            this.$set(`dataSource[${i}].childrenCheckedStatus`,status);
+            if(status !== 0) this.$set(`dataSource[${i}].checked`,true);
           }
         }
       },
@@ -144,13 +156,13 @@
           this.$dispatch('nodeSelected',this,selected);
         }
       },
-      setCheck(disabled,index,key){
+      setCheck(disabled,index){
         if(disabled) return;
         const checked = !this.dataSource[index].checked;
         this.$set(`dataSource[${index}].checked`,checked);
         this.$set(`dataSource[${index}].childrenCheckedStatus`,checked? 2 : 0);
-        this.$dispatch('childChecked',this,this.parentKey);
-        this.$broadcast('parentChecked',checked,key);
+        this.$dispatch('childChecked',this,this.key);
+        this.$broadcast('parentChecked',checked,this.key+'.'+index);
       },
       getNodes(data,opt){
         data = data || this.dataSource

@@ -150,7 +150,7 @@ export default {
           title:'parent 1',
           //key: '0',
           selected: true,
-          expand: true,
+          //expand: true,
           node:[
             {
               title:'parent 1-0',
@@ -172,6 +172,7 @@ export default {
             {
               title:'parent 1-1',
               //key: '0-1',
+              checked: true,
               node: [
                 {
                   title:"<span style='color:#08c'>sss</span>",
