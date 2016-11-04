@@ -94,11 +94,13 @@ export default {
         [
           'getCheckedNodes',
           '获取被勾选的节点',
+          '无',
           '节点数组'
         ],
         [
           'getSelectedNodes',
           '获取被选中的节点',
+          '无',
           '节点数组'
         ]
       ],
@@ -150,7 +152,7 @@ export default {
           title:'parent 1',
           //key: '0',
           selected: true,
-          expand: true,
+          //expand: true,
           node:[
             {
               title:'parent 1-0',
@@ -172,6 +174,7 @@ export default {
             {
               title:'parent 1-1',
               //key: '0-1',
+              checked: true,
               node: [
                 {
                   title:"<span style='color:#08c'>sss</span>",

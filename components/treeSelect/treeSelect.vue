@@ -109,11 +109,11 @@
             setCheck(key){
                 let route = key.split('.');
                 let node = this.$refs.tree;
-                for(var i=0;i<route.length-1;i++){
+                for(var i=1;i<route.length-1;i++){
                     node = node.$children[route[i]];
                 }
                 let item = node.dataSource[route[i]];
-                node.setCheck(item.disabled,route[i],key);
+                node.setCheck(item.disabled,route[i]);
             }
         },
         components:{baseSelect,vTree}

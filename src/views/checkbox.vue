@@ -90,7 +90,7 @@ optionsWithDisabled: [
 ],
 
 <checkbox-group :options="options"
-  :default-value.sync="defaultValue">
+  :value.sync="defaultValue">
 </checkbox-group>
 
 <checkbox-group
@@ -98,7 +98,7 @@ optionsWithDisabled: [
   :on-change="checkGroup">
 </checkbox-group>'
         >
-          <p style="margin-bottom: 16px;"><checkbox-group :options="options" :default-value.sync="defaultValue"></checkbox-group></p>
+          <p style="margin-bottom: 16px;"><checkbox-group :options="options" :value.sync="defaultValue"></checkbox-group></p>
           <checkbox-group
             :options="optionsWithDisabled"
             :on-change="checkGroup">
@@ -173,7 +173,7 @@ export default {
         }
       ],
       apiGroup: [{
-          parameter: 'defaultValue',
+          parameter: 'value',
           explain: '默认选中的选项',
           type: 'array',
           default: '无'

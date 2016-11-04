@@ -62,7 +62,7 @@
         ],
         options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],
         value: '3',
-        people: '-1'
+        people: ''
       }
     },
     components: {
