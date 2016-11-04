@@ -200,10 +200,10 @@
       }
     },
     created: function () {
+      this.origin_placeholder = this.placeholder
       document.addEventListener('click', this.backdrop)
     },
     ready: function () {
-      this.origin_placeholder = this.placeholder
       let that = this
       let styles = window.getComputedStyle(this.$els.select)
       this.height = parseFloat(styles.getPropertyValue('height'))

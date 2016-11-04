@@ -10,10 +10,10 @@
       </thead>
       <tbody>
         <tr v-for="item in content">
-          <td v-for="text in item" v-html="text"></td>
+          <td v-for="text in item" v-html="text" track-by="$index"></td>
         </tr>
         <tr v-for="api in apis">
-          <td v-for="text in api" v-html="text"></td>
+          <td v-for="text in api" v-html="text" track-by="$index"></td>
         </tr>
       </tbody>
     </table>
@@ -40,7 +40,7 @@ export default {
       switch(this.type){
         case 'props': this.$set('head',['参数','说明','类型','默认值']);break;
         case 'events': this.$set('head',['事件名','说明','参数']);break;
-        case 'methods': this.$set('head',['方法名','说明','参数']);break;
+        case 'methods': this.$set('head',['方法名','说明','参数','返回值']);break;
       }
     }
   }

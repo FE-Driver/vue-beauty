@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="ant-checkbox-group" >
     <v-checkbox
+      class = "ant-checkbox-group-item"
       v-for="option in options"
       :disabled='option.disabled'
       :checked.sync="option.checked"
@@ -20,9 +21,10 @@ export default {
   name:'v-checkbox-group',
   props: {
     options: Array,
-    defaultValue: {
+    value: {
       type: Array,
-      twoWay: true
+      twoWay: true,
+      default: ()=>[]
     },
     onChange: {
       type: Function,
@@ -32,29 +34,37 @@ export default {
   data: function () {
     return {
       change: (e) => {
-        this.defaultValue = []
+        let temp = []
         for (let e of this.$children) {
           if (e.checked) {
-            this.defaultValue.push(e.value)
+            temp.push(e.value)
           }
         }
-        this.onChange(this.defaultValue)
+        this.$set('value',temp);
+        this.onChange(temp)
       }
+    }
+  },
+  watch: {
+    value(){
+      this.setChecked();
     }
   },
   created: function () {
-    for (let option of this.options) {
-      if (this.defaultValue) {
-        for (let value of this.defaultValue) {
-          if (option.value === value) {
-            option.checked = true
-          }
-        }
-      }
+    if(this.value.length){
+      this.setChecked();
     }
   },
   methods: {
-
+    setChecked(){
+      for(let i=0;i<this.options.length;i++){
+        if(this.value.includes(this.options[i].value)){
+          this.$set(`options[${i}].checked`,true)
+        }else{
+          this.$set(`options[${i}].checked`,false)
+        }
+      }
+    }
   },
   components: {
     vCheckbox

@@ -94,11 +94,13 @@ export default {
         [
           'getCheckedNodes',
           '获取被勾选的节点',
+          '无',
           '节点数组'
         ],
         [
           'getSelectedNodes',
           '获取被选中的节点',
+          '无',
           '节点数组'
         ]
       ],
