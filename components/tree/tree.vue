@@ -8,7 +8,7 @@
       <a :title="item.title" :class="[{[prefix+'-node-selected']: item.selected}]" @click="setSelect(item.disabled,$index)">
           <span :class="prefix+'-title'" v-html="item.title"></span>
       </a>
-      <v-tree v-if="!item.isLeaf" :data-source.sync="item.node" :key="this.key+'.'+$index" :multiple="multiple" :checkable="checkable" :class="{[prefix+'-child-tree-open']: item.expand}"></v-tree>
+      <v-tree v-if="!item.isLeaf" :data-source.sync="item.node" :key="this.key+'.'+$index" :multiple="multiple" :checkable="checkable" :class="{[prefix+'-child-tree-open']: item.expand}" v-show="item.expand" transition="slide-up"></v-tree>
     </li>
   </ul>
 </template>

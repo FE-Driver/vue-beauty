@@ -7,7 +7,7 @@
         <span>{{title}}</span>
       </span>
     </div>
-    <ul :class="itemCls">
+    <ul :class="itemCls" :transition="mode=='inline'?'slide-up':'fade'" v-show="open">
       <slot></slot>
     </ul>
   </li>
@@ -60,8 +60,7 @@ export default {
       return [
         'ant-menu', 
         `ant-menu-${this.mode}`, 
-        'ant-menu-sub',
-        {['ant-menu-hidden']:!this.open}
+        'ant-menu-sub'
       ]
     },
     titleSty(){

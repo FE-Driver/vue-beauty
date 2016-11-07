@@ -29,7 +29,12 @@
       <h2>本地部署</h2>
       <p>图标组件使用 <a href="http://www.iconfont.cn/" target="blank">iconfont.cn</a>，默认公网可访问。如需本地部署，可参考 <a href="https://github.com/ant-design/antd-init/tree/master/examples/local-iconfont" target="blank">示例</a>。</p>
       <p style="color:#ff7800">* 点击下面的图标即可复制标签</p>
-
+      
+      <api-table
+        :content='content'
+      >
+        <h3>Icon</h3>
+      </api-table>
 
       <h2>图标列表</h2>
       <h3>方向性图标</h3>
@@ -60,11 +65,6 @@
       </ul>
 
     </section>
-    <api-table
-      :content='content'
-    >
-      <h3>Icon</h3>
-    </api-table>
   </div>
 
 </template>

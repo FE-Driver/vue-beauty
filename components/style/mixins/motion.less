@@ -13,22 +13,19 @@
 .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
-    //.motion-common(@duration);
-    animation-name: ~"@{keyframeName}In";
+    .motion-common(@duration);
     animation-play-state: paused;
   }
   .@{className}-leave {
-    //.motion-common-leave(@duration);
-    animation-name: ~"@{keyframeName}Out";
+    .motion-common-leave(@duration);
     animation-play-state: paused;
   }
-  .@{className}-enter.@{className}-enter-active,
-  .@{className}-appear.@{className}-appear-active {
-    animation-name: ~"@{keyframeName}In";
-    animation-play-state: running;
+  .@{className}-enter, .@{className}-appear {
+      animation-name: ~"@{keyframeName}In";
+      animation-play-state: running;
   }
-  .@{className}-leave.@{className}-leave-active {
-    animation-name: ~"@{keyframeName}Out";
-    animation-play-state: running;
+  .@{className}-leave {
+      animation-name: ~"@{keyframeName}Out";
+      animation-play-state: running;
   }
 }

@@ -3,7 +3,7 @@
         <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="timeValue" v-el:time-picker readonly disabled="{{disabled}}">
         <span class="ant-time-picker-icon"></span>
     </span>
-    <time-picker-node v-show="selected" :selected.sync="selected" :stylus.sync="stylus" :time-value.sync="timeValue" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
+    <time-picker-node transition="fade" v-show="selected" :selected.sync="selected" :stylus.sync="stylus" :time-value.sync="timeValue" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
 </template>
 
 <script>

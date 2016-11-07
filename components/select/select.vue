@@ -19,7 +19,7 @@
       <span unselectable="unselectable" class="ant-select-selection__clear" style="-webkit-user-select: none" v-if="allowClear && !multiple && value" @click.stop="clear"></span>
       <span class="ant-select-arrow" style="-webkit-user-select: none;"><b></b></span>
     </div>
-    <X-Option v-if="!disabled" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
+    <X-Option transition="slide-up" v-if="!disabled" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
     :class="clazz" :multiple="multiple" :placeholder="placeholder" :notfound="notfound" :value="value" :position="position" v-el:dropdownlist></X-Option>
   </div>
 </template>
