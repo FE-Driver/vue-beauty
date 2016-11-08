@@ -66,9 +66,6 @@
   ></api-table>
 </template>
 <script>
-  import vButton from '../../components/button'
-  import {vRow, vCol} from '../../components/layout'
-  import vTag from '../../components/tag'
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
   export default{
@@ -114,12 +111,8 @@
       }
     },
     components: {
-      vButton,
-      vTag,
       codeBox,
-      apiTable,
-      vRow,
-      vCol
+      apiTable
     },
     methods: {
       _addTag(){

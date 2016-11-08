@@ -1,6 +1,5 @@
 <template lang="html">
-    <div v-el:opts>
-        <div :class="wrapClasses" :style.sync="styles">
+        <div :class="wrapClasses" :style.sync="styles" v-el:opts>
             <div class="ant-time-picker-panel-inner">
                 <div class="ant-time-picker-panel-input-wrap">
                     <input class="ant-time-picker-panel-input" placeholder="请选择时间" v-el:time-picker-panel v-model="timeValue">
@@ -25,13 +24,23 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
-    import cx from 'classnames'
-
     export default {
+        data: ()=> ({
+            prefix: 'ant-time-picker-panel',
+            H: '00',
+            M: '00',
+            S: '00',
+            hasSeconds: true,
+            startH: 0,
+            startM: 0,
+            startS: 0,
+            endH: 23,
+            endM: 59,
+            endS: 59
+        }),
         props: {
             stylus: {
                 type: Object,
@@ -46,29 +55,12 @@
             disabledM: Array,
             disabledS: Array
         },
-        data: function(){
-            return {
-                prefix: 'ant-time-picker-panel',
-                H: '00',
-                M: '00',
-                S: '00',
-                hasSeconds: true,
-                startH: 0,
-                startM: 0,
-                startS: 0,
-                endH: 23,
-                endM: 59,
-                endS: 59
-            }
-        },
-        created (){
-
-        },
         ready (){
             !this.localFormat && this.$set('localFormat', 'HH:mm:ss');
             !this.startTime && this.$set('startTime', '00:00');
             !this.endTime && this.$set('endTime', '23:59');
             this.timeRange();
+            document.body.appendChild(this.$els.opts);
         },
         computed: {
             styles (){
@@ -81,11 +73,11 @@
                 ]
             },
             wrapClasses (){
-                return cx({
-                    [this.prefix]: 1,
-                    [`${this.prefix}-placement-bottomLeft`]: 1,
-                    [`${this.prefix}-narrow`]: !this.hasSeconds
-                })
+                return [
+                    this.prefix,
+                    `${this.prefix}-placement-bottomLeft`,
+                    {[`${this.prefix}-narrow`]: !this.hasSeconds}
+                ]
             }
         },
         watch: {
@@ -103,7 +95,6 @@
                         tArr[2] && this.$set('S', tArr[2]);
                     }
                     this.$nextTick(function(){
-                        document.body.appendChild(this.$els.opts);
                         let t = document.getElementsByClassName(this.prefix+'-select-option-selected');
                         for(let i in t){
                             this.setScrollTop(t[i]);
