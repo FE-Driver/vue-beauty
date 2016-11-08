@@ -7,7 +7,7 @@
         <v-input type="text" :value.sync="value" :readonly="readonly" @click="show = !show" :readonly="readonly" :size="size" :placeholder="placeholder">
             <v-icon slot="after" type="calendar"></v-icon>
         </v-input>
-        <div class="{{prefix}}-picker-container" v-show="show">
+        <div class="{{prefix}}-picker-container" transition="slide-up" v-show="show">
             <div class="{{prefix}}">
                 <!--<div class="{{prefix}}-input-wrap"></div>-->
                 <div class="{{prefix}}-date-panel">

@@ -1,5 +1,5 @@
 <template>
-  <div data-show="true" :class="wrapClasses" v-if="show">
+  <div v-if="show" :class="wrapClasses" transition="fade">
     <span class="ant-tag-text"><slot></slot></span>
     <i class="anticon anticon-cross" v-if="closable" @click="remove"></i>
   </div>
@@ -17,14 +17,6 @@
       closable: {
         type: Boolean,
         default: false
-      },
-      onClose: {
-        type: Function,
-        default: () => {}
-      },
-      afterClose: {
-        type: Function,
-        default: () => {}
       }
     },
     data(){
@@ -44,6 +36,7 @@
     methods: {
       remove(){
         this.show = false;
+        this.$emit('close');
       }
     }
   }

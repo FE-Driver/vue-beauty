@@ -119,6 +119,12 @@
                         type: 'object',
                         default: ''
                     },
+                    {
+                        parameter: 'ghost',
+                        explain: '如果需要在datatable内使用外部组件，可以在这里自定义，然后在columns.component引用，每个自定义组件会接受3个prop（index，item，value），index是该组件所在行的序号，item是该组件所在行对应的数据，value是该组件所在行field字段对应的数据',
+                        type: 'object',
+                        default: ''
+                    },
                 ],
                 columnsapi:[
                     {
@@ -137,6 +143,12 @@
                         parameter: 'render',
                         explain: '渲染函数,可自定义某列的具体渲染逻辑,参数value, row, index',
                         type: 'function',
+                        default: ''
+                    },
+                    {
+                        parameter: 'component',
+                        explain: '使用ghost里定义的组件',
+                        type: 'String',
                         default: ''
                     },
                     {

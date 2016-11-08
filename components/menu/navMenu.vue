@@ -22,8 +22,8 @@
               <span>{{item.name}}</span>
             </span>
           </div>
-          <v-nav-menu v-if="item.children" :data="item.children" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :class="{[prefix+'-hidden']: !item.open}"></v-nav-menu>
-          <v-nav-menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :class="{[prefix+'-hidden']: !item.open}"></v-nav-menu>
+          <v-nav-menu v-if="item.children" :data="item.children" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :transition="mode=='inline'?'slide-up':'fade'" v-show="item.open"></v-nav-menu>
+          <v-nav-menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :transition="mode=='inline'?'slide-up':'fade'" v-show="item.open"></v-nav-menu>
         </li>
       </template>
     </template>

@@ -1,19 +1,26 @@
 <template lang="html">
     <span :class="wrapClasses">
-        <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="timeValue" v-el:time-picker readonly disabled="{{disabled}}">
+        <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="value" v-el:time-picker readonly disabled="{{disabled}}">
         <span class="ant-time-picker-icon"></span>
     </span>
-    <time-picker-node v-show="selected" :selected.sync="selected" :stylus.sync="stylus" :time-value.sync="timeValue" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
+    <time-picker-node transition="fade" v-show="selected" :selected.sync="selected" :stylus.sync="stylus" :time-value.sync="value" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
 </template>
 
 <script>
-
     import timePickerNode from './timePickerOption'
     import {getOffset, closeByElement} from '../_util/_func'
-    import cx from 'classnames'
 
     export default {
         name: 'v-time-picker',
+        data: ()=> ({
+            prefix: 'ant-time-picker',
+            dropDown: false,
+            selected: false,
+            stylus: {
+                top: 0,
+                left: 0
+            }
+        }),
         props: {
             size: String,
             format: String,
@@ -24,35 +31,15 @@
             disabledMinutes: Array,
             disabledSeconds: Array
         },
-        data: function(){
-            return {
-                prefix: 'ant-time-picker',
-                dropDown: false,
-                selected: false,
-                stylus: {
-                    top: 0,
-                    left: 0
-                },
-                timeValue: '',
-                sizeClass: ''
-            }
-        },
         created (){
             document.addEventListener('click', this.backdrop);
         },
         computed: {
-            sizeClass (){
-                if (this.size === 'large') {
-                    return 'ant-time-picker-large'
-                } else if (this.size === 'small') {
-                    return 'ant-time-picker-small'
-                }
-            },
             wrapClasses (){
-                return cx({
-                    [this.prefix]: 1,
-                    [this.sizeClass]: !!this.size
-                })
+                return [
+                    this.prefix,
+                    `${this.prefix}-${this.size}`
+                ]
             }
         },
         ready (){
@@ -60,7 +47,6 @@
             let styles = window.getComputedStyle(this.$els.timePicker);
             this.height = parseFloat(styles.getPropertyValue('height'));
             let time = null;
-            this.$set('timeValue', this.value);
             window.addEventListener('resize', function () {
                 clearTimeout(time);
                 time = setTimeout(function () {
@@ -69,6 +55,7 @@
                     }
                 }, 200)
             })
+            this.position();
         },
         beforeDestroy (){
             document.removeEventListener('click', this.backdrop);
@@ -78,7 +65,6 @@
         },
         methods: {
             timePicker (){
-                this.position();
                 this.selected = !this.selected;
             },
             position (){

@@ -2,7 +2,7 @@
 
   <div class="ant-collapse-item" :class="{'ant-collapse-item-active': open}">
     <div class="ant-collapse-header" @click="handleOpen"><i class="arrow"></i>{{header}}</div>
-    <div class="ant-collapse-content" :class="[open ? 'ant-collapse-content-active': 'ant-collapse-content-inactive']" :style="{height: h}">
+    <div class="ant-collapse-content" :class="[prefix+'-anim-active',open ? 'ant-collapse-content-active': 'ant-collapse-content-inactive']" :style="{height: h}">
       <div class="ant-collapse-content-box">
         <slot></slot>
       </div>
@@ -13,14 +13,13 @@
 
 <script>
 export default {
+  data: ()=>({
+    prefix: 'ant-collapse',
+    open: false
+  }),
   props: {
     key: String,
     header: String,
-  },
-  data(){
-    return{
-      open: false
-    }
   },
   ready(){
     let keyArray = this.$parent.activeKey
