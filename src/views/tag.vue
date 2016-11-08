@@ -51,10 +51,10 @@
         title="各种类型"
         describe="四种颜色的标签。"
       >
-        <v-tag color="blue" closable>蓝色</v-tag>
-        <v-tag color="green" closable>绿色</v-tag>
-        <v-tag color="yellow" closable>黄色</v-tag>
-        <v-tag color="red" closable>红色</v-tag>
+        <v-tag color="blue" closable @close="close(1)">蓝色</v-tag>
+        <v-tag color="green" closable @close="close(2)">绿色</v-tag>
+        <v-tag color="yellow" closable @close="close(3)">黄色</v-tag>
+        <v-tag color="red" closable @close="close(4)">红色</v-tag>
       </code-box>
 
     </v-Col>
@@ -63,6 +63,11 @@
 
   <api-table
     :apis='apis'
+  ></api-table>
+  <api-table
+    type="events"
+    title=""
+    :content='eventsApi'
   ></api-table>
 </template>
 <script>
@@ -78,21 +83,18 @@
             type: 'boolean',
             default: 'false'
           }, {
-            parameter: 'onClose',
-            explain: '关闭时的回调',
-            type: 'function(event)',
-            default: '-'
-          }, {
-            parameter: 'afterClose',
-            explain: '关闭动画完成后的回调',
-            type: 'function(event)',
-            default: '-'
-          }, {
             parameter: 'color',
             explain: '标签的色彩：blue green yellow red',
             type: 'string',
             default: '-'
           }
+        ],
+        eventsApi: [
+          [
+            'close',
+            '移除标签的时候触发',
+            '无'
+          ]
         ],
         tags: [
           {
@@ -115,6 +117,9 @@
       apiTable
     },
     methods: {
+      close(i){
+        console.log(i)
+      },
       _addTag(){
         //todo
         let tagTmp = {}
