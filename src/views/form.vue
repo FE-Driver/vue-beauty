@@ -105,14 +105,11 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
         </code-box>
 
          <code-box
-          title="校验提示"
-          describe="我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。
-validateStatus: 'success', 'warning', 'error', 'validating'。
-另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。
-注意: 反馈图标只对 <Input /> 有效。"
+          title="表单校验"
+          describe="在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。"
         >
           <v-form direction="horizontal" :model="ruleForm" :rules="rules" v-ref:rule-form>
-            <v-form-item label="活动名称" :label-col="labelCol" :wrapper-col="wrapperCol" prop="name">
+            <v-form-item label="活动名称" :label-col="labelCol" :wrapper-col="wrapperCol" prop="name" has-feedback>
               <v-input size="large" :value.sync="ruleForm.name"></v-input>
             </v-form-item>
             <v-form-item label="活动区域" :label-col="labelCol" :wrapper-col="wrapperCol" prop="region">
@@ -135,6 +132,26 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
             </v-form-item>
             <v-form-item :wrapper-col="{offset:6, span: 14 }">
               <v-button type="primary" style="margin-right:10px" @click.prevent="handleSubmit">立即创建</v-button><v-button type="ghost" @click.prevent="handleReset">重置</v-button>
+            </v-form-item>
+          </v-form>
+        </code-box>
+
+        <code-box
+          title="自定义校验规则"
+          describe="更加灵活的表单校验。"
+        >
+          <v-form direction="horizontal" :model="customForm" :rules="customRules" v-ref:custom-rule-form>
+            <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol" prop="pass" has-feedback>
+              <v-input type="password" size="large" :value.sync="customForm.pass"></v-input>
+            </v-form-item>
+            <v-form-item label="确认密码" :label-col="labelCol" :wrapper-col="wrapperCol" prop="checkPass" has-feedback>
+              <v-input type="password" size="large" :value.sync="customForm.checkPass"></v-input>
+            </v-form-item>
+            <v-form-item label="年龄" :label-col="labelCol" :wrapper-col="wrapperCol" prop="age" has-feedback>
+              <v-input size="large" :value.sync="customForm.age"></v-input>
+            </v-form-item>
+            <v-form-item :wrapper-col="{offset:6, span: 14 }">
+              <v-button type="primary" style="margin-right:10px" @click.prevent="handleSubmit2">提交</v-button><v-button type="ghost" @click.prevent="handleReset2">重置</v-button>
             </v-form-item>
           </v-form>
         </code-box>
@@ -176,6 +193,42 @@ import apiTable from '../components/apiTable'
 
 export default {
   data: function () {
+
+    var checkAge = (rule, value, callback) => {
+      var age = parseInt(value, 10);
+
+      setTimeout(() => {
+        if (!Number.isInteger(age)) {
+          callback(new Error('请输入数字值'));
+        } else{
+          if (age < 18) {
+            callback(new Error('必须年满18岁'));
+          } else {
+            callback();
+          }
+        }
+      }, 1000);
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        if (this.customForm.checkPass !== '') {
+          this.$refs.customRuleForm.validateField('checkPass');
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.customForm.pass) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
+
     return {
       content: [
         [
@@ -296,6 +349,25 @@ export default {
           { required: true, message: '请填写活动形式'}
         ]
       },
+      customForm:{
+        pass: '',
+        checkPass: '',
+        age: ''
+      },
+      customRules:{
+        pass: [
+          { required: true, message: '请输入密码'},
+          { validator: validatePass }
+        ],
+        checkPass: [
+          { required: true, message: '请再次输入密码'},
+          { validator: validatePass2 }
+        ],
+        age: [
+          { required: true, message: '请填写年龄'},
+          { validator: checkAge}
+        ]
+      },
       checkboxOpt: [
         { label: '美食/餐厅线上活动', value: '1' },
         { label: '地推活动', value: '2' },
@@ -319,6 +391,19 @@ export default {
     },
     handleReset() {
       this.$refs.ruleForm.resetFields();
+    },
+    handleReset2() {
+      this.$refs.customRuleForm.resetFields();
+    },
+    handleSubmit2(ev) {
+      this.$refs.customRuleForm.validate(valid => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   },
   components: {

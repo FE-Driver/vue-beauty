@@ -268,6 +268,12 @@ export default {
           '图标',
           'String',
           '无'
+        ],
+        [
+          'selected',
+          '选中效果',
+          'Boolean',
+          'false'
         ]
       ],
       content3: [
