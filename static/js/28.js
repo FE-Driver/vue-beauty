@@ -207,7 +207,7 @@ webpackJsonp([28,49],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\">\n          <slot name=\"preCode\"></slot>\n          {{ code }}\n          <slot name=\"postCode\">\n          </slot>\n        </code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -251,10 +251,6 @@ webpackJsonp([28,49],{
 
 	var _codeBox2 = _interopRequireDefault(_codeBox);
 
-	var _button = __webpack_require__(18);
-
-	var _button2 = _interopRequireDefault(_button);
-
 	var _apiTable = __webpack_require__(7);
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
@@ -264,12 +260,11 @@ webpackJsonp([28,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      content: [['title', '标题', 'string', '无'], ['describe', '对该组件的描述', 'string', '无'], ['slot::default', '组件的插槽，用于演示', 'slot node', '无'], ['code', '组件的示例代码，如果没有将直接使用slot::default的内容', 'string', '无']]
+	      content: [['title', '标题', 'string', '无'], ['describe', '对该组件的描述', 'string', '无'], ['code', '组件的示例代码，如果没有将直接使用slot::default的内容', 'string', '无'], ['slot::default', '组件的插槽，用于演示', 'slot node', '无'], ['preCode', '组件的前置示例代码，显示在组件示例代码前面', 'slot node', '无'], ['postCode', '组件的后置示例代码，显示在组件示例代码后面', 'slot node', '无']]
 	    };
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
-	    vButton: _button2.default,
 	    apiTable: _apiTable2.default
 	  }
 	};

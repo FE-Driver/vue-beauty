@@ -207,7 +207,7 @@ webpackJsonp([1,49],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\">\n          <slot name=\"preCode\"></slot>\n          {{ code }}\n          <slot name=\"postCode\">\n          </slot>\n        </code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -630,7 +630,7 @@ webpackJsonp([1,49],{
 	__webpack_require__(47);
 	__webpack_require__(65);
 	__webpack_require__(362);
-	module.exports = __webpack_require__(19).Promise;
+	module.exports = __webpack_require__(18).Promise;
 
 /***/ },
 
@@ -790,7 +790,7 @@ webpackJsonp([1,49],{
 
 	'use strict';
 	var global      = __webpack_require__(24)
-	  , core        = __webpack_require__(19)
+	  , core        = __webpack_require__(18)
 	  , dP          = __webpack_require__(32)
 	  , DESCRIPTORS = __webpack_require__(29)
 	  , SPECIES     = __webpack_require__(23)('species');
@@ -1061,7 +1061,7 @@ webpackJsonp([1,49],{
 	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
 	__webpack_require__(60)($Promise, PROMISE);
 	__webpack_require__(348)(PROMISE);
-	Wrapper = __webpack_require__(19)[PROMISE];
+	Wrapper = __webpack_require__(18)[PROMISE];
 
 	// statics
 	$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
