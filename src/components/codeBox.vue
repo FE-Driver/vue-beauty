@@ -11,7 +11,9 @@
     </section>
     <section class="highlight-wrapper" :class="{'highlight-wrapper-expand': open}">
       <div class="highlight">
-        <pre><code class="html">{{ code }}</code></pre>
+        <pre>
+          <code class="html"><slot name="preCode"></slot>{{ code }}<slot name="postCode"></slot></code>
+        </pre>
       </div>
     </section>
   </section>

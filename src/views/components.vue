@@ -87,9 +87,6 @@
             <menu-item v-link="{ name: 'collapse', activeClass: 'ant-menu-item-selected' }">
               Collapse 折叠面板
             </menu-item>
-            <menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
-              Dropdown 下拉菜单
-            </menu-item>
             <menu-item v-link="{ name: 'notification', activeClass: 'ant-menu-item-selected' }">
               Notification 通知提醒框
             </menu-item>

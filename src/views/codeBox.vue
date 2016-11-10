@@ -60,7 +60,6 @@
 
 <script>
 import codeBox from '../components/codeBox'
-import vButton from '../../components/button'
 import apiTable from '../components/apiTable'
 
 export default {
@@ -80,23 +79,34 @@ export default {
           '无'
         ],
         [
+          'code',
+          '组件的示例代码，如果没有将直接使用slot::default的内容',
+          'string',
+          '无'
+        ],
+        [
           'slot::default',
           '组件的插槽，用于演示',
           'slot node',
           '无'
         ],
         [
-          'code',
-          '组件的示例代码，如果没有将直接使用slot::default的内容',
-          'string',
+          'preCode',
+          '组件的前置示例代码，显示在组件示例代码前面',
+          'slot node',
           '无'
         ],
+        [
+          'postCode',
+          '组件的后置示例代码，显示在组件示例代码后面',
+          'slot node',
+          '无'
+        ]
       ]
     }
   },
   components: {
     codeBox,
-    vButton,
     apiTable
   }
 }
