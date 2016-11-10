@@ -1,1 +1,1210 @@
-webpackJsonp([1,49],{3:function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t["default"]={props:{type:{type:String,"default":"props"},head:Array,content:Array,apis:Array,title:{type:String,"default":"API"}},ready:function(){if(!this.head)switch(this.type){case"props":this.$set("head",["参数","说明","类型","默认值"]);break;case"events":this.$set("head",["事件名","说明","参数"]);break;case"methods":this.$set("head",["方法名","说明","参数","返回值"])}}}},4:function(e,t,o){t=e.exports=o(1)(),t.push([e.id,".markdown>table{border-collapse:collapse;border-spacing:0;empty-cells:show;border:1px solid #e9e9e9;width:100%;margin-bottom:24px}.markdown>table th{white-space:nowrap;color:#5c6b77;font-weight:600;background:#f7f7f7}.markdown>table td,.markdown>table th{border:1px solid #e9e9e9;padding:8px 16px;text-align:left}.markdown.api-container table{font-family:Consolas,Menlo,Courier,monospace;font-size:13px}",""])},5:function(e,t,o){var n=o(4);"string"==typeof n&&(n=[[e.id,n,""]]);o(2)(n,{});n.locals&&(e.exports=n.locals)},6:function(e,t){e.exports=' <section class="markdown api-container"> <h2>{{ title }}</h2> <slot></slot> <table> <thead> <tr> <th v-for="text in head" v-html=text></th> </tr> </thead> <tbody> <tr v-for="item in content"> <td v-for="text in item" v-html=text track-by=$index></td> </tr> <tr v-for="api in apis"> <td v-for="text in api" v-html=text track-by=$index></td> </tr> </tbody> </table> </section> '},7:function(e,t,o){var n,i,r={};o(5),n=o(3),i=o(6),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports["default"]);var a="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;i&&(a.template=i),a.computed||(a.computed={}),Object.keys(r).forEach(function(e){var t=r[e];a.computed[e]=function(){return t}})},8:function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t["default"]={props:{title:String,describe:String,code:String},data:function(){return{open:!1}},ready:function(){var e=this,t=this._slotContents["default"].childNodes;t=Array.prototype.filter.call(t,function(e){return 1===e.nodeType}),this.code||(this.code=t.map(function(e){return e.outerHTML.replace(/\t| {4}/g,"")}).join("<br>"),console.log(this.code)),this.$nextTick(function(){hljs.highlightBlock(e.$el.querySelector("pre code"))})},methods:{handleOpen:function(){this.open=!this.open}}}},9:function(e,t,o){t=e.exports=o(1)(),t.push([e.id,'.code-box{border:1px solid #e9e9e9;border-radius:6px;display:inline-block;width:100%;position:relative;margin:0 0 16px;-webkit-transition:all .2s ease;transition:all .2s ease}.code-box .collapse{position:absolute;right:16px;bottom:16px;cursor:pointer;width:18px;height:18px;font-size:18px;line-height:18px;opacity:.5;text-align:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);-webkit-transition:all .3s ease;transition:all .3s ease;color:#999;background:#fff;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border-radius:100%}.code-box .collapse:hover{opacity:1}.code-box:hover{box-shadow:0 0 6px rgba(0,0,0,.15);position:relative;z-index:10;background:#fff}.code-box:hover .code-box-title{background:#fbfbfb;box-shadow:0 -1.2px 0 #e9e9e9}.code-box:hover .code-box-meta{background:#fbfbfb}.code-box .code-box-demo{border-bottom:1px solid #e9e9e9;padding:42px 20px 50px}.code-box .highlight-wrapper{max-height:0;opacity:0;overflow:auto;-webkit-transition:all .4s ease;transition:all .4s ease;border-radius:0 0 6px 6px}.code-box .highlight-wrapper-expand{max-height:500px;opacity:1}.code-box.expand .collapse{-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}.code-box.expand .code-box-meta{border-radius:0;border-bottom:1px dashed #e9e9e9}.code-box-meta{position:relative;padding:16px;border-radius:0 0 6px 6px;-webkit-transition:background-color .4s ease;transition:background-color .4s ease;width:100%;font-size:12px}.code-box-meta p{margin:0}.code-box-title{position:absolute;top:-14px;padding:1px 1.1em;color:#777;border-radius:6px;background:#fff;-webkit-transition:all .4s ease;transition:all .4s ease}.code-box-title:before{font-family:anticon;content:"\\E6D2";font-size:16px;vertical-align:middle;line-height:22px;position:relative;margin-right:8px;top:-2px;color:#ccc;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block}.code-box .code-box-title a,.code-box .code-box-title a:hover{color:#666;font-size:14px}.highlight{line-height:1.5}.highlight pre{margin:0;padding:0;background:#fff;width:auto}.highlight pre code{display:block;color:#666;line-height:1.7;border:1px solid #e9e9e9;padding:10px 15px;border-radius:6px;font-size:13px;border:none;background:#fff}.hljs{background:none}',""])},10:function(e,t,o){var n=o(9);"string"==typeof n&&(n=[[e.id,n,""]]);o(2)(n,{});n.locals&&(e.exports=n.locals)},11:function(e,t){e.exports=' <section class=code-box :class="{\'expand\': open}"> <section class=code-box-demo> <slot></slot> </section> <section class="code-box-meta markdown"> <div class=code-box-title><a>{{ title }}</a></div> <div><p>{{ describe }}</p></div> <span class="collapse anticon anticon-circle-o-right" @click=handleOpen></span> </section> <section class=highlight-wrapper :class="{\'highlight-wrapper-expand\': open}"> <div class=highlight> <pre><code class=html>{{ code }}</code></pre> </div> </section> </section> '},12:function(e,t,o){var n,i,r={};o(10),n=o(8),i=o(11),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports["default"]);var a="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;i&&(a.template=i),a.computed||(a.computed={}),Object.keys(r).forEach(function(e){var t=r[e];a.computed[e]=function(){return t}})},112:function(e,t,o){var n,i,r,a=o(36),c=o(333),l=o(103),s=o(58),d=o(24),p=d.process,u=d.setImmediate,f=d.clearImmediate,h=d.MessageChannel,b=0,v={},m="onreadystatechange",x=function(){var e=+this;if(v.hasOwnProperty(e)){var t=v[e];delete v[e],t()}},g=function(e){x.call(e.data)};u&&f||(u=function(e){for(var t=[],o=1;arguments.length>o;)t.push(arguments[o++]);return v[++b]=function(){c("function"==typeof e?e:Function(e),t)},n(b),b},f=function(e){delete v[e]},"process"==o(41)(p)?n=function(e){p.nextTick(a(x,e,1))}:h?(i=new h,r=i.port2,i.port1.onmessage=g,n=a(r.postMessage,r,1)):d.addEventListener&&"function"==typeof postMessage&&!d.importScripts?(n=function(e){d.postMessage(e+"","*")},d.addEventListener("message",g,!1)):n=m in s("script")?function(e){l.appendChild(s("script"))[m]=function(){l.removeChild(this),x.call(e)}}:function(e){setTimeout(a(x,e,1),0)}),e.exports={set:u,clear:f}},285:function(e,t,o){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(t,"__esModule",{value:!0});var i=o(313),r=n(i),a=o(12),c=n(a),l=o(7),s=n(l);t["default"]={data:function(){return{modalText:"对话框的内容",confirmLoading:!1,visible:!1,visible2:!1,visible3:!1,visible4:!1,visible5:!1,visible51:!1,visible6:!1,confirmLoading2:!1,confirmLoading6:!1,modalStyle:{top:"20px"},wrapClassName:"vertical-center-modal",confirmApis:[{parameter:"title",explain:"标题",type:"React.Element or String","default":"无"},{parameter:"content",explain:"内容",type:"React.Element or String","default":"无"},{parameter:"onOk",explain:"点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",type:"function","default":"无"},{parameter:"onCancel",explain:"取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",type:"function","default":"无"},{parameter:"width",explain:"宽度",type:"String or Number","default":"416"},{parameter:"iconType",explain:"图标 Icon 类型",type:"String","default":"question-circle"},{parameter:"okText",explain:"确认按钮文字",type:"String","default":"确定"},{parameter:"cancelText",explain:"取消按钮文字",type:"String","default":"取消"}],modalApis:[{parameter:"visible",explain:"对话框是否可见",type:"Boolean","default":"无"},{parameter:"confirmLoading",explain:"确定按钮 loading",type:"Boolean","default":"无"},{parameter:"title",explain:"标题",type:"React.Element","default":"无"},{parameter:"closable",explain:"是否显示右上角的关闭按钮",type:"Boolean","default":"true"},{parameter:"onOk",explain:"点击确定回调",type:"function","default":"无"},{parameter:"onCancel",explain:"点击遮罩层或右上角叉或取消按钮的回调",type:"function(e)","default":"无"},{parameter:"width",explain:"宽度",type:"String or Number","default":"520"},{parameter:"footer",explain:"底部内容",type:"React.Element","default":"确定取消按钮"},{parameter:"okText",explain:"确认按钮文字",type:"String","default":"确定"},{parameter:"cancelText",explain:"取消按钮文字",type:"String","default":"取消"},{parameter:"maskClosable",explain:"点击蒙层是否允许关闭",type:"Boolean","default":"true"},{parameter:"style",explain:"可用于设置浮层的样式，调整浮层位置等",type:"Object","default":"-"},{parameter:"wrapClassName",explain:"对话框外层容器的类名",type:"String","default":"-"}]}},components:{codeBox:c["default"],apiTable:s["default"]},methods:{_showModal:function(){this.visible=!0},_handleOk:function(){this.confirmLoading=!1,this.visible=!1},_handleCancel:function(){this.visible=!1},_showModal2:function(){this.visible2=!0},_handleOk2:function(){var e=this;this.modalText="对话框将在两秒后关闭",this.confirmLoading2=!0,setTimeout(function(){e.visible2=!1,e.confirmLoading2=!1},2e3)},_handleCancel2:function(){this.visible2=!1},_showModal3:function(){this.visible3=!0},_handleOk3:function(){this.visible3=!1},_handleCancel3:function(){this.visible3=!1},_showModal4:function(){this.visible4=!0},_handleOk4:function(){this.modalText="对话框将在两秒后关闭",this.visible4=!1},_handleCancel4:function(){this.visible4=!1},_showModal5:function(){this.visible5=!0},_handleOk5:function(){this.visible5=!1},_handleCancel5:function(){this.visible5=!1},_showModal51:function(){this.visible51=!0},_handleOk51:function(){this.visible51=!1},_handleCancel51:function(){this.visible51=!1},_showModal6:function(){this.visible6=!0},_handleOk6:function(){var e=this;this.modalText="对话框将在两秒后关闭",this.confirmLoading6=!0,setTimeout(function(){e.visible6=!1,e.confirmLoading6=!1},2e3)},_handleCancel6:function(){this.visible6=!1},_confirmNation:function(){Vue.$modal.confirm({title:"Confirm",content:"Bla bla ...",okText:"OK",cancelText:"Cancel"})},_showConfirm:function(){Vue.$modal.confirm({title:"您是否确认要删除这项内容",content:"一些解释",onOk:function(){console.log("确定")},onCancel:function(){}})},_showConfirm2:function(){Vue.$modal.confirm({title:"您是否确认要删除这项内容",content:"点确认 1 秒后关闭",onOk:function(){return new r["default"](function(e){setTimeout(e,1e3)})},onCancel:function(){}})},info:function(){Vue.$modal.info({title:"这是一条通知信息",content:"一些附加信息一些附加信息一些附加信息",onOk:function(){}})},success:function(){Vue.$modal.success({title:"这是一条通知信息",content:"一些附加信息一些附加信息一些附加信息"})},error:function(){this.$modal.error({title:"这是一条通知信息",content:"一些附加信息一些附加信息一些附加信息"})},_confirmDestroy:function(){var e=this.$modal.success({title:"这是一条通知信息",content:"一秒后自动移除"});setTimeout(function(){return e.destroy()},1e3)}}}},313:function(e,t,o){e.exports={"default":o(326),__esModule:!0}},326:function(e,t,o){o(361),o(47),o(65),o(362),e.exports=o(19).Promise},328:function(e,t){e.exports=function(e,t,o,n){if(!(e instanceof t)||void 0!==n&&n in e)throw TypeError(o+": incorrect invocation!");return e}},331:function(e,t,o){var n=o(36),i=o(106),r=o(105),a=o(27),c=o(63),l=o(64),s={},d={},t=e.exports=function(e,t,o,p,u){var f,h,b,v,m=u?function(){return e}:l(e),x=n(o,p,t?2:1),g=0;if("function"!=typeof m)throw TypeError(e+" is not iterable!");if(r(m)){for(f=c(e.length);f>g;g++)if(v=t?x(a(h=e[g])[0],h[1]):x(e[g]),v===s||v===d)return v}else for(b=m.call(e);!(h=b.next()).done;)if(v=i(b,x,h.value,t),v===s||v===d)return v};t.BREAK=s,t.RETURN=d},333:function(e,t){e.exports=function(e,t,o){var n=void 0===o;switch(t.length){case 0:return n?e():e.call(o);case 1:return n?e(t[0]):e.call(o,t[0]);case 2:return n?e(t[0],t[1]):e.call(o,t[0],t[1]);case 3:return n?e(t[0],t[1],t[2]):e.call(o,t[0],t[1],t[2]);case 4:return n?e(t[0],t[1],t[2],t[3]):e.call(o,t[0],t[1],t[2],t[3])}return e.apply(o,t)}},337:function(e,t,o){var n=o(24),i=o(112).set,r=n.MutationObserver||n.WebKitMutationObserver,a=n.process,c=n.Promise,l="process"==o(41)(a);e.exports=function(){var e,t,o,s=function(){var n,i;for(l&&(n=a.domain)&&n.exit();e;){i=e.fn,e=e.next;try{i()}catch(r){throw e?o():t=void 0,r}}t=void 0,n&&n.enter()};if(l)o=function(){a.nextTick(s)};else if(r){var d=!0,p=document.createTextNode("");new r(s).observe(p,{characterData:!0}),o=function(){p.data=d=!d}}else if(c&&c.resolve){var u=c.resolve();o=function(){u.then(s)}}else o=function(){i.call(n,s)};return function(n){var i={fn:n,next:void 0};t&&(t.next=i),e||(e=i,o()),t=i}}},346:function(e,t,o){var n=o(30);e.exports=function(e,t,o){for(var i in t)o&&e[i]?e[i]=t[i]:n(e,i,t[i]);return e}},348:function(e,t,o){"use strict";var n=o(24),i=o(19),r=o(32),a=o(29),c=o(23)("species");e.exports=function(e){var t="function"==typeof i[e]?i[e]:n[e];a&&t&&!t[c]&&r.f(t,c,{configurable:!0,get:function(){return this}})}},349:function(e,t,o){var n=o(27),i=o(55),r=o(23)("species");e.exports=function(e,t){var o,a=n(e).constructor;return void 0===a||void 0==(o=n(a)[r])?t:i(o)}},361:function(e,t){},362:function(e,t,o){"use strict";var n,i,r,a=o(109),c=o(24),l=o(36),s=o(56),d=o(26),p=o(37),u=o(55),f=o(328),h=o(331),b=o(349),v=o(112).set,m=o(337)(),x="Promise",g=c.TypeError,y=c.process,_=c[x],y=c.process,k="process"==s(y),w=function(){},M=!!function(){try{var e=_.resolve(1),t=(e.constructor={})[o(23)("species")]=function(e){e(w,w)};return(k||"function"==typeof PromiseRejectionEvent)&&e.then(w)instanceof t}catch(n){}}(),C=function(e,t){return e===t||e===_&&t===r},O=function(e){var t;return!(!p(e)||"function"!=typeof(t=e.then))&&t},T=function(e){return C(_,e)?new j(e):new i(e)},j=i=function(e){var t,o;this.promise=new e(function(e,n){if(void 0!==t||void 0!==o)throw g("Bad Promise constructor");t=e,o=n}),this.resolve=u(t),this.reject=u(o)},S=function(e){try{e()}catch(t){return{error:t}}},E=function(e,t){if(!e._n){e._n=!0;var o=e._c;m(function(){for(var n=e._v,i=1==e._s,r=0,a=function(t){var o,r,a=i?t.ok:t.fail,c=t.resolve,l=t.reject,s=t.domain;try{a?(i||(2==e._h&&P(e),e._h=1),a===!0?o=n:(s&&s.enter(),o=a(n),s&&s.exit()),o===t.promise?l(g("Promise-chain cycle")):(r=O(o))?r.call(o,c,l):c(o)):l(n)}catch(d){l(d)}};o.length>r;)a(o[r++]);e._c=[],e._n=!1,t&&!e._h&&L(e)})}},L=function(e){v.call(c,function(){var t,o,n,i=e._v;if($(e)&&(t=S(function(){k?y.emit("unhandledRejection",i,e):(o=c.onunhandledrejection)?o({promise:e,reason:i}):(n=c.console)&&n.error&&n.error("Unhandled promise rejection",i)}),e._h=k||$(e)?2:1),e._a=void 0,t)throw t.error})},$=function(e){if(1==e._h)return!1;for(var t,o=e._a||e._c,n=0;o.length>n;)if(t=o[n++],t.fail||!$(t.promise))return!1;return!0},P=function(e){v.call(c,function(){var t;k?y.emit("rejectionHandled",e):(t=c.onrejectionhandled)&&t({promise:e,reason:e._v})})},z=function(e){var t=this;t._d||(t._d=!0,t=t._w||t,t._v=e,t._s=2,t._a||(t._a=t._c.slice()),E(t,!0))},A=function(e){var t,o=this;if(!o._d){o._d=!0,o=o._w||o;try{if(o===e)throw g("Promise can't be resolved itself");(t=O(e))?m(function(){var n={_w:o,_d:!1};try{t.call(e,l(A,n,1),l(z,n,1))}catch(i){z.call(n,i)}}):(o._v=e,o._s=1,E(o,!1))}catch(n){z.call({_w:o,_d:!1},n)}}};M||(_=function(e){f(this,_,x,"_h"),u(e),n.call(this);try{e(l(A,this,1),l(z,this,1))}catch(t){z.call(this,t)}},n=function(e){this._c=[],this._a=void 0,this._s=0,this._d=!1,this._v=void 0,this._h=0,this._n=!1},n.prototype=o(346)(_.prototype,{then:function(e,t){var o=T(b(this,_));return o.ok="function"!=typeof e||e,o.fail="function"==typeof t&&t,o.domain=k?y.domain:void 0,this._c.push(o),this._a&&this._a.push(o),this._s&&E(this,!1),o.promise},"catch":function(e){return this.then(void 0,e)}}),j=function(){var e=new n;this.promise=e,this.resolve=l(A,e,1),this.reject=l(z,e,1)}),d(d.G+d.W+d.F*!M,{Promise:_}),o(60)(_,x),o(348)(x),r=o(19)[x],d(d.S+d.F*!M,x,{reject:function(e){var t=T(this),o=t.reject;return o(e),t.promise}}),d(d.S+d.F*(a||!M),x,{resolve:function(e){if(e instanceof _&&C(e.constructor,this))return e;var t=T(this),o=t.resolve;return o(e),t.promise}}),d(d.S+d.F*!(M&&o(108)(function(e){_.all(e)["catch"](w)})),x,{all:function(e){var t=this,o=T(t),n=o.resolve,i=o.reject,r=S(function(){var o=[],r=0,a=1;h(e,!1,function(e){var c=r++,l=!1;o.push(void 0),a++,t.resolve(e).then(function(e){l||(l=!0,o[c]=e,--a||n(o))},i)}),--a||n(o)});return r&&i(r.error),o.promise},race:function(e){var t=this,o=T(t),n=o.reject,i=S(function(){h(e,!1,function(e){t.resolve(e).then(o.resolve,n)})});return i&&n(i.error),o.promise}})},397:function(e,t,o){t=e.exports=o(1)(),t.push([e.id,".vertical-center-modal{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.vertical-center-modal .ant-modal{top:0}",""])},457:function(e,t,o){var n=o(397);"string"==typeof n&&(n=[[e.id,n,""]]);o(2)(n,{});n.locals&&(e.exports=n.locals)},572:function(e,t){e.exports=' <div> <section class=markdown> <h1>Modal对话框</h1> <p> 模态对话框。 </p> <h2>何时使用</h2> <ul> <li>需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。</li> <li>另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 ant.Modal.confirm() 等方法。</li> </ul> <h2>组件演示</h2> </section> <div class="ant-col-lg-12 code-boxes-col-2-1"> <code-box title=基本 describe=第一个对话框。 code=""> <v-button type=primary @click=_showModal>显示对话框</v-button> <v-modal title="第一个 Modal" :visible=visible :on-ok=_handleOk :on-cancel=_handleCancel> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> </v-modal> </code-box> <code-box title=自定义页脚 describe="更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。" code=""> <v-button type=primary @click=_showModal2>显示对话框</v-button> <v-modal title=Modal :visible=visible2 :on-cancel=_handleCancel2> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> <div slot=footer> <v-button key=cancel type=ghost size=large @click=_handleCancel2>返 回</v-button> <v-button key=confirm type=primary size=large :loading=confirmLoading2 @click=_handleOk2>提 交</v-button> </div> </v-modal> </code-box> <code-box title=自定义页脚 describe="更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。" code=""> <v-button type=primary @click=_showModal3>显示对话框</v-button> <v-modal title="第一个 Modal" :visible=visible3 :on-ok=_handleOk3 :on-cancel=_handleCancel3> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> </v-modal> </code-box> <code-box title=国际化 describe="设置 okText 与 cancelText 以自定义按钮文字。" code=""> <v-button type=primary @click=_showModal4>show Modal</v-button> <v-modal title=Modal :visible=visible4 :on-ok=_handleOk4 :on-cancel=_handleCancel4 ok-text=ok cancel-text=Cancel> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> </v-modal> <br/> <v-button @click=_confirmNation>confirm</v-button> </code-box> <code-box title=自定义位置 describe="1.0 之后，Modal 的 align 属性被移除，您可以直接使用 style.top 或配合其他样式来设置对话框位置。" code=""> <v-button type=primary @click=_showModal5>显示距离顶部 20px 的对话框</v-button> <v-button type=primary @click=_showModal51>显示垂直居中的对话框</v-button> <v-modal title=Modal :visible=visible5 :on-ok=_handleOk5 :on-cancel=_handleCancel5 :modal-style=modalStyle> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> </v-modal> <v-modal title=Modal :visible=visible51 :on-ok=_handleOk51 :on-cancel=_handleCancel51 wrap-class-name=vertical-center-modal> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> </v-modal> </code-box> </div> <div class="ant-col-lg-12 code-boxes-col-2-1"> <code-box title=异步关闭 describe=点击确定后异步关闭对话框，例如提交表单。 code=""> <v-button type=primary @click=_showModal6>显示对话框</v-button> <v-modal title="第一个 Modal" :visible=visible6 :on-ok=_handleOk6 :on-cancel=_handleCancel6 :confirm-loading=confirmLoading6> <p>对话框的内容</p> <p>对话框的内容</p> <p>对话框的内容</p> </v-modal> </code-box> <code-box title=自定义页脚 describe="更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。" code=""> <v-button @click=_showConfirm2>确认对话框</v-button> </code-box> <code-box title=信息提示 describe=各种类型的信息提示，只提供一个按钮用于关闭。 code=""> <v-button @click=info>信息提示</v-button> <v-button @click=success>成功提示</v-button> <v-button @click=error>失败提示</v-button> <v-button @click=error>警告提示</v-button> </code-box> <code-box title=手动移除 describe=手动关闭modal。 code=""> <v-button @click=_confirmDestroy>成功提示</v-button> </code-box> </div> <api-table :apis=modalApis></api-table> <api-table :apis=confirmApis , title=Modal.xxx()> <p>包括：</p> <ul><li><p><code>Modal.info</code></p></li><li><p><code>Modal.success</code></p></li><li><p><code>Modal.error</code></p></li><li><p><code>Modal.warning</code></p></li><li><p><code>Modal.confirm</code></p></li></ul> <p>以上均为一个函数，参数为 object，具体属性如下：</p> </api-table> </div> '},690:function(e,t,o){var n,i,r={};o(457),n=o(285),i=o(572),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports["default"]);var a="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;i&&(a.template=i),a.computed||(a.computed={}),Object.keys(r).forEach(function(e){var t=r[e];a.computed[e]=function(){return t}})}});
+webpackJsonp([1,49],{
+
+/***/ 3:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: {
+	    type: {
+	      type: String,
+	      default: 'props'
+	    },
+	    head: Array,
+	    content: Array,
+	    apis: Array,
+	    title: {
+	      type: String,
+	      default: "API"
+	    }
+	  },
+	  ready: function ready() {
+	    if (!this.head) {
+	      switch (this.type) {
+	        case 'props':
+	          this.$set('head', ['参数', '说明', '类型', '默认值']);break;
+	        case 'events':
+	          this.$set('head', ['事件名', '说明', '参数']);break;
+	        case 'methods':
+	          this.$set('head', ['方法名', '说明', '参数', '返回值']);break;
+	      }
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 4:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".markdown > table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  empty-cells: show;\n  border: 1px solid #e9e9e9;\n  width: 100%;\n  margin-bottom: 24px;\n}\n.markdown > table th {\n  white-space: nowrap;\n  color: #5c6b77;\n  font-weight: 600;\n  background: #f7f7f7;\n}\n.markdown > table td,\n.markdown > table th {\n  border: 1px solid #e9e9e9;\n  padding: 8px 16px;\n  text-align: left;\n}\n.markdown.api-container table {\n  font-family: Consolas,Menlo,Courier,monospace;\n  font-size: 13px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 5:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(4);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 6:
+/***/ function(module, exports) {
+
+	module.exports = "\n<section class=\"markdown api-container\">\n  <h2>{{ title }}</h2>\n  <slot></slot>\n  <table>\n    <thead>\n      <tr>\n        <th v-for=\"text in head\" v-html=\"text\"></th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"item in content\">\n        <td v-for=\"text in item\" v-html=\"text\" track-by=\"$index\"></td>\n      </tr>\n      <tr v-for=\"api in apis\">\n        <td v-for=\"text in api\" v-html=\"text\" track-by=\"$index\"></td>\n      </tr>\n    </tbody>\n  </table>\n</section>\n";
+
+/***/ },
+
+/***/ 7:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(5)
+	__vue_script__ = __webpack_require__(3)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\apiTable.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(6)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ },
+
+/***/ 8:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: {
+	    title: String,
+	    describe: String,
+	    code: String
+	  },
+	  data: function data() {
+	    return {
+	      open: false
+	    };
+	  },
+	  ready: function ready() {
+	    var _this = this;
+
+	    var children = this._slotContents.default.childNodes;
+
+	    children = Array.prototype.filter.call(children, function (node) {
+	      return node.nodeType === 1;
+	    });
+
+	    if (!this.code) {
+	      this.code = children.map(function (dom) {
+	        return dom.outerHTML.replace(/\t| {4}/g, '');
+	      }).join('\n');
+	    }
+
+	    this.$nextTick(function () {
+	      hljs.highlightBlock(_this.$el.querySelector('pre code'));
+	    });
+	  },
+
+	  methods: {
+	    handleOpen: function handleOpen() {
+	      this.open = !this.open;
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 9:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.highlight {\n  line-height: 1.5;\n}\n.highlight pre {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  width: auto;\n}\n.highlight pre code {\n  display: block;\n  color: #666;\n  line-height: 1.7;\n  border: 1px solid #e9e9e9;\n  padding: 10px 15px;\n  border-radius: 6px;\n  font-size: 13px;\n  border: none;\n  background: #fff;\n}\n.hljs {\n  background: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 10:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(9);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 11:
+/***/ function(module, exports) {
+
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\">\n          <slot name=\"preCode\"></slot>\n          {{ code }}\n          <slot name=\"postCode\">\n          </slot>\n        </code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+
+/***/ },
+
+/***/ 12:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(10)
+	__vue_script__ = __webpack_require__(8)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\codeBox.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(11)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ },
+
+/***/ 112:
+/***/ function(module, exports, __webpack_require__) {
+
+	var ctx                = __webpack_require__(36)
+	  , invoke             = __webpack_require__(333)
+	  , html               = __webpack_require__(103)
+	  , cel                = __webpack_require__(58)
+	  , global             = __webpack_require__(24)
+	  , process            = global.process
+	  , setTask            = global.setImmediate
+	  , clearTask          = global.clearImmediate
+	  , MessageChannel     = global.MessageChannel
+	  , counter            = 0
+	  , queue              = {}
+	  , ONREADYSTATECHANGE = 'onreadystatechange'
+	  , defer, channel, port;
+	var run = function(){
+	  var id = +this;
+	  if(queue.hasOwnProperty(id)){
+	    var fn = queue[id];
+	    delete queue[id];
+	    fn();
+	  }
+	};
+	var listener = function(event){
+	  run.call(event.data);
+	};
+	// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
+	if(!setTask || !clearTask){
+	  setTask = function setImmediate(fn){
+	    var args = [], i = 1;
+	    while(arguments.length > i)args.push(arguments[i++]);
+	    queue[++counter] = function(){
+	      invoke(typeof fn == 'function' ? fn : Function(fn), args);
+	    };
+	    defer(counter);
+	    return counter;
+	  };
+	  clearTask = function clearImmediate(id){
+	    delete queue[id];
+	  };
+	  // Node.js 0.8-
+	  if(__webpack_require__(41)(process) == 'process'){
+	    defer = function(id){
+	      process.nextTick(ctx(run, id, 1));
+	    };
+	  // Browsers with MessageChannel, includes WebWorkers
+	  } else if(MessageChannel){
+	    channel = new MessageChannel;
+	    port    = channel.port2;
+	    channel.port1.onmessage = listener;
+	    defer = ctx(port.postMessage, port, 1);
+	  // Browsers with postMessage, skip WebWorkers
+	  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
+	  } else if(global.addEventListener && typeof postMessage == 'function' && !global.importScripts){
+	    defer = function(id){
+	      global.postMessage(id + '', '*');
+	    };
+	    global.addEventListener('message', listener, false);
+	  // IE8-
+	  } else if(ONREADYSTATECHANGE in cel('script')){
+	    defer = function(id){
+	      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function(){
+	        html.removeChild(this);
+	        run.call(id);
+	      };
+	    };
+	  // Rest old browsers
+	  } else {
+	    defer = function(id){
+	      setTimeout(ctx(run, id, 1), 0);
+	    };
+	  }
+	}
+	module.exports = {
+	  set:   setTask,
+	  clear: clearTask
+	};
+
+/***/ },
+
+/***/ 285:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _promise = __webpack_require__(313);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	var _codeBox = __webpack_require__(12);
+
+	var _codeBox2 = _interopRequireDefault(_codeBox);
+
+	var _apiTable = __webpack_require__(7);
+
+	var _apiTable2 = _interopRequireDefault(_apiTable);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	  data: function data() {
+	    return {
+	      modalText: '对话框的内容',
+	      confirmLoading: false,
+	      visible: false,
+	      visible2: false,
+	      visible3: false,
+	      visible4: false,
+	      visible5: false,
+	      visible51: false,
+	      visible6: false,
+	      confirmLoading2: false,
+	      confirmLoading6: false,
+	      modalStyle: {
+	        top: '20px'
+	      },
+	      wrapClassName: 'vertical-center-modal',
+	      confirmApis: [{
+	        "parameter": "title",
+	        "explain": "标题",
+	        "type": "React.Element or String",
+	        "default": "无"
+	      }, {
+	        "parameter": "content",
+	        "explain": "内容",
+	        "type": "React.Element or String",
+	        "default": "无"
+	      }, {
+	        "parameter": "onOk",
+	        "explain": "点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",
+	        "type": "function",
+	        "default": "无"
+	      }, {
+	        "parameter": "onCancel",
+	        "explain": "取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",
+	        "type": "function",
+	        "default": "无"
+	      }, {
+	        "parameter": "width",
+	        "explain": "宽度",
+	        "type": "String or Number",
+	        "default": "416"
+	      }, {
+	        "parameter": "iconType",
+	        "explain": "图标 Icon 类型",
+	        "type": "String",
+	        "default": "question-circle"
+	      }, {
+	        "parameter": "okText",
+	        "explain": "确认按钮文字",
+	        "type": "String",
+	        "default": "确定"
+	      }, {
+	        "parameter": "cancelText",
+	        "explain": "取消按钮文字",
+	        "type": "String",
+	        "default": "取消"
+	      }],
+	      modalApis: [{
+	        "parameter": "visible",
+	        "explain": "对话框是否可见",
+	        "type": "Boolean",
+	        "default": "无"
+	      }, {
+	        "parameter": "confirmLoading",
+	        "explain": "确定按钮 loading",
+	        "type": "Boolean",
+	        "default": "无"
+	      }, {
+	        "parameter": "title",
+	        "explain": "标题",
+	        "type": "React.Element",
+	        "default": "无"
+	      }, {
+	        "parameter": "closable",
+	        "explain": "是否显示右上角的关闭按钮",
+	        "type": "Boolean",
+	        "default": "true"
+	      }, {
+	        "parameter": "onOk",
+	        "explain": "点击确定回调",
+	        "type": "function",
+	        "default": "无"
+	      }, {
+	        "parameter": "onCancel",
+	        "explain": "点击遮罩层或右上角叉或取消按钮的回调",
+	        "type": "function(e)",
+	        "default": "无"
+	      }, {
+	        "parameter": "width",
+	        "explain": "宽度",
+	        "type": "String or Number",
+	        "default": "520"
+	      }, {
+	        "parameter": "footer",
+	        "explain": "底部内容",
+	        "type": "React.Element",
+	        "default": "确定取消按钮"
+	      }, {
+	        "parameter": "okText",
+	        "explain": "确认按钮文字",
+	        "type": "String",
+	        "default": "确定"
+	      }, {
+	        "parameter": "cancelText",
+	        "explain": "取消按钮文字",
+	        "type": "String",
+	        "default": "取消"
+	      }, {
+	        "parameter": "maskClosable",
+	        "explain": "点击蒙层是否允许关闭",
+	        "type": "Boolean",
+	        "default": "true"
+	      }, {
+	        "parameter": "style",
+	        "explain": "可用于设置浮层的样式，调整浮层位置等",
+	        "type": "Object",
+	        "default": "-"
+	      }, {
+	        "parameter": "wrapClassName",
+	        "explain": "对话框外层容器的类名",
+	        "type": "String",
+	        "default": "-"
+	      }]
+	    };
+	  },
+
+
+	  components: { codeBox: _codeBox2.default, apiTable: _apiTable2.default },
+
+	  methods: {
+	    _showModal: function _showModal() {
+	      this.visible = true;
+	    },
+	    _handleOk: function _handleOk() {
+	      this.confirmLoading = false;
+	      this.visible = false;
+	    },
+	    _handleCancel: function _handleCancel() {
+	      this.visible = false;
+	    },
+	    _showModal2: function _showModal2() {
+	      this.visible2 = true;
+	    },
+	    _handleOk2: function _handleOk2() {
+	      var _this = this;
+
+	      this.modalText = '对话框将在两秒后关闭';
+	      this.confirmLoading2 = true;
+	      setTimeout(function () {
+	        _this.visible2 = false;
+	        _this.confirmLoading2 = false;
+	      }, 2000);
+	    },
+	    _handleCancel2: function _handleCancel2() {
+	      this.visible2 = false;
+	    },
+	    _showModal3: function _showModal3() {
+	      this.visible3 = true;
+	    },
+	    _handleOk3: function _handleOk3() {
+	      this.visible3 = false;
+	    },
+	    _handleCancel3: function _handleCancel3() {
+	      this.visible3 = false;
+	    },
+	    _showModal4: function _showModal4() {
+	      this.visible4 = true;
+	    },
+	    _handleOk4: function _handleOk4() {
+	      this.modalText = '对话框将在两秒后关闭';
+	      this.visible4 = false;
+	    },
+	    _handleCancel4: function _handleCancel4() {
+	      this.visible4 = false;
+	    },
+	    _showModal5: function _showModal5() {
+	      this.visible5 = true;
+	    },
+	    _handleOk5: function _handleOk5() {
+	      this.visible5 = false;
+	    },
+	    _handleCancel5: function _handleCancel5() {
+	      this.visible5 = false;
+	    },
+	    _showModal51: function _showModal51() {
+	      this.visible51 = true;
+	    },
+	    _handleOk51: function _handleOk51() {
+	      this.visible51 = false;
+	    },
+	    _handleCancel51: function _handleCancel51() {
+	      this.visible51 = false;
+	    },
+	    _showModal6: function _showModal6() {
+	      this.visible6 = true;
+	    },
+	    _handleOk6: function _handleOk6() {
+	      var _this2 = this;
+
+	      this.modalText = '对话框将在两秒后关闭';
+	      this.confirmLoading6 = true;
+	      setTimeout(function () {
+	        _this2.visible6 = false;
+	        _this2.confirmLoading6 = false;
+	      }, 2000);
+	    },
+	    _handleCancel6: function _handleCancel6() {
+	      this.visible6 = false;
+	    },
+	    _confirmNation: function _confirmNation() {
+	      Vue.$modal.confirm({
+	        title: 'Confirm',
+	        content: 'Bla bla ...',
+	        okText: 'OK',
+	        cancelText: 'Cancel'
+	      });
+	    },
+	    _showConfirm: function _showConfirm() {
+	      Vue.$modal.confirm({
+	        title: '您是否确认要删除这项内容',
+	        content: '一些解释',
+	        onOk: function onOk() {
+	          console.log('确定');
+	        },
+	        onCancel: function onCancel() {}
+	      });
+	    },
+	    _showConfirm2: function _showConfirm2() {
+	      Vue.$modal.confirm({
+	        title: '您是否确认要删除这项内容',
+	        content: '点确认 1 秒后关闭',
+	        onOk: function onOk() {
+	          return new _promise2.default(function (resolve) {
+	            setTimeout(resolve, 1000);
+	          });
+	        },
+	        onCancel: function onCancel() {}
+	      });
+	    },
+	    info: function info() {
+	      Vue.$modal.info({
+	        title: '这是一条通知信息',
+	        content: '一些附加信息一些附加信息一些附加信息',
+	        onOk: function onOk() {}
+	      });
+	    },
+	    success: function success() {
+	      Vue.$modal.success({
+	        title: '这是一条通知信息',
+	        content: '一些附加信息一些附加信息一些附加信息'
+	      });
+	    },
+	    error: function error() {
+	      this.$modal.error({
+	        title: '这是一条通知信息',
+	        content: '一些附加信息一些附加信息一些附加信息'
+	      });
+	    },
+	    _confirmDestroy: function _confirmDestroy() {
+	      var modal = this.$modal.success({
+	        title: '这是一条通知信息',
+	        content: '一秒后自动移除'
+	      });
+	      setTimeout(function () {
+	        return modal.destroy();
+	      }, 1000);
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 313:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(326), __esModule: true };
+
+/***/ },
+
+/***/ 326:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(361);
+	__webpack_require__(47);
+	__webpack_require__(65);
+	__webpack_require__(362);
+	module.exports = __webpack_require__(19).Promise;
+
+/***/ },
+
+/***/ 328:
+/***/ function(module, exports) {
+
+	module.exports = function(it, Constructor, name, forbiddenField){
+	  if(!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)){
+	    throw TypeError(name + ': incorrect invocation!');
+	  } return it;
+	};
+
+/***/ },
+
+/***/ 331:
+/***/ function(module, exports, __webpack_require__) {
+
+	var ctx         = __webpack_require__(36)
+	  , call        = __webpack_require__(106)
+	  , isArrayIter = __webpack_require__(105)
+	  , anObject    = __webpack_require__(27)
+	  , toLength    = __webpack_require__(63)
+	  , getIterFn   = __webpack_require__(64)
+	  , BREAK       = {}
+	  , RETURN      = {};
+	var exports = module.exports = function(iterable, entries, fn, that, ITERATOR){
+	  var iterFn = ITERATOR ? function(){ return iterable; } : getIterFn(iterable)
+	    , f      = ctx(fn, that, entries ? 2 : 1)
+	    , index  = 0
+	    , length, step, iterator, result;
+	  if(typeof iterFn != 'function')throw TypeError(iterable + ' is not iterable!');
+	  // fast case for arrays with default iterator
+	  if(isArrayIter(iterFn))for(length = toLength(iterable.length); length > index; index++){
+	    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+	    if(result === BREAK || result === RETURN)return result;
+	  } else for(iterator = iterFn.call(iterable); !(step = iterator.next()).done; ){
+	    result = call(iterator, f, step.value, entries);
+	    if(result === BREAK || result === RETURN)return result;
+	  }
+	};
+	exports.BREAK  = BREAK;
+	exports.RETURN = RETURN;
+
+/***/ },
+
+/***/ 333:
+/***/ function(module, exports) {
+
+	// fast apply, http://jsperf.lnkit.com/fast-apply/5
+	module.exports = function(fn, args, that){
+	  var un = that === undefined;
+	  switch(args.length){
+	    case 0: return un ? fn()
+	                      : fn.call(that);
+	    case 1: return un ? fn(args[0])
+	                      : fn.call(that, args[0]);
+	    case 2: return un ? fn(args[0], args[1])
+	                      : fn.call(that, args[0], args[1]);
+	    case 3: return un ? fn(args[0], args[1], args[2])
+	                      : fn.call(that, args[0], args[1], args[2]);
+	    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+	                      : fn.call(that, args[0], args[1], args[2], args[3]);
+	  } return              fn.apply(that, args);
+	};
+
+/***/ },
+
+/***/ 337:
+/***/ function(module, exports, __webpack_require__) {
+
+	var global    = __webpack_require__(24)
+	  , macrotask = __webpack_require__(112).set
+	  , Observer  = global.MutationObserver || global.WebKitMutationObserver
+	  , process   = global.process
+	  , Promise   = global.Promise
+	  , isNode    = __webpack_require__(41)(process) == 'process';
+
+	module.exports = function(){
+	  var head, last, notify;
+
+	  var flush = function(){
+	    var parent, fn;
+	    if(isNode && (parent = process.domain))parent.exit();
+	    while(head){
+	      fn   = head.fn;
+	      head = head.next;
+	      try {
+	        fn();
+	      } catch(e){
+	        if(head)notify();
+	        else last = undefined;
+	        throw e;
+	      }
+	    } last = undefined;
+	    if(parent)parent.enter();
+	  };
+
+	  // Node.js
+	  if(isNode){
+	    notify = function(){
+	      process.nextTick(flush);
+	    };
+	  // browsers with MutationObserver
+	  } else if(Observer){
+	    var toggle = true
+	      , node   = document.createTextNode('');
+	    new Observer(flush).observe(node, {characterData: true}); // eslint-disable-line no-new
+	    notify = function(){
+	      node.data = toggle = !toggle;
+	    };
+	  // environments with maybe non-completely correct, but existent Promise
+	  } else if(Promise && Promise.resolve){
+	    var promise = Promise.resolve();
+	    notify = function(){
+	      promise.then(flush);
+	    };
+	  // for other environments - macrotask based on:
+	  // - setImmediate
+	  // - MessageChannel
+	  // - window.postMessag
+	  // - onreadystatechange
+	  // - setTimeout
+	  } else {
+	    notify = function(){
+	      // strange IE + webpack dev server bug - use .call(global)
+	      macrotask.call(global, flush);
+	    };
+	  }
+
+	  return function(fn){
+	    var task = {fn: fn, next: undefined};
+	    if(last)last.next = task;
+	    if(!head){
+	      head = task;
+	      notify();
+	    } last = task;
+	  };
+	};
+
+/***/ },
+
+/***/ 346:
+/***/ function(module, exports, __webpack_require__) {
+
+	var hide = __webpack_require__(30);
+	module.exports = function(target, src, safe){
+	  for(var key in src){
+	    if(safe && target[key])target[key] = src[key];
+	    else hide(target, key, src[key]);
+	  } return target;
+	};
+
+/***/ },
+
+/***/ 348:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var global      = __webpack_require__(24)
+	  , core        = __webpack_require__(19)
+	  , dP          = __webpack_require__(32)
+	  , DESCRIPTORS = __webpack_require__(29)
+	  , SPECIES     = __webpack_require__(23)('species');
+
+	module.exports = function(KEY){
+	  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
+	  if(DESCRIPTORS && C && !C[SPECIES])dP.f(C, SPECIES, {
+	    configurable: true,
+	    get: function(){ return this; }
+	  });
+	};
+
+/***/ },
+
+/***/ 349:
+/***/ function(module, exports, __webpack_require__) {
+
+	// 7.3.20 SpeciesConstructor(O, defaultConstructor)
+	var anObject  = __webpack_require__(27)
+	  , aFunction = __webpack_require__(55)
+	  , SPECIES   = __webpack_require__(23)('species');
+	module.exports = function(O, D){
+	  var C = anObject(O).constructor, S;
+	  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+	};
+
+/***/ },
+
+/***/ 361:
+/***/ function(module, exports) {
+
+	
+
+/***/ },
+
+/***/ 362:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var LIBRARY            = __webpack_require__(109)
+	  , global             = __webpack_require__(24)
+	  , ctx                = __webpack_require__(36)
+	  , classof            = __webpack_require__(56)
+	  , $export            = __webpack_require__(26)
+	  , isObject           = __webpack_require__(37)
+	  , aFunction          = __webpack_require__(55)
+	  , anInstance         = __webpack_require__(328)
+	  , forOf              = __webpack_require__(331)
+	  , speciesConstructor = __webpack_require__(349)
+	  , task               = __webpack_require__(112).set
+	  , microtask          = __webpack_require__(337)()
+	  , PROMISE            = 'Promise'
+	  , TypeError          = global.TypeError
+	  , process            = global.process
+	  , $Promise           = global[PROMISE]
+	  , process            = global.process
+	  , isNode             = classof(process) == 'process'
+	  , empty              = function(){ /* empty */ }
+	  , Internal, GenericPromiseCapability, Wrapper;
+
+	var USE_NATIVE = !!function(){
+	  try {
+	    // correct subclassing with @@species support
+	    var promise     = $Promise.resolve(1)
+	      , FakePromise = (promise.constructor = {})[__webpack_require__(23)('species')] = function(exec){ exec(empty, empty); };
+	    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+	    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
+	  } catch(e){ /* empty */ }
+	}();
+
+	// helpers
+	var sameConstructor = function(a, b){
+	  // with library wrapper special case
+	  return a === b || a === $Promise && b === Wrapper;
+	};
+	var isThenable = function(it){
+	  var then;
+	  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+	};
+	var newPromiseCapability = function(C){
+	  return sameConstructor($Promise, C)
+	    ? new PromiseCapability(C)
+	    : new GenericPromiseCapability(C);
+	};
+	var PromiseCapability = GenericPromiseCapability = function(C){
+	  var resolve, reject;
+	  this.promise = new C(function($$resolve, $$reject){
+	    if(resolve !== undefined || reject !== undefined)throw TypeError('Bad Promise constructor');
+	    resolve = $$resolve;
+	    reject  = $$reject;
+	  });
+	  this.resolve = aFunction(resolve);
+	  this.reject  = aFunction(reject);
+	};
+	var perform = function(exec){
+	  try {
+	    exec();
+	  } catch(e){
+	    return {error: e};
+	  }
+	};
+	var notify = function(promise, isReject){
+	  if(promise._n)return;
+	  promise._n = true;
+	  var chain = promise._c;
+	  microtask(function(){
+	    var value = promise._v
+	      , ok    = promise._s == 1
+	      , i     = 0;
+	    var run = function(reaction){
+	      var handler = ok ? reaction.ok : reaction.fail
+	        , resolve = reaction.resolve
+	        , reject  = reaction.reject
+	        , domain  = reaction.domain
+	        , result, then;
+	      try {
+	        if(handler){
+	          if(!ok){
+	            if(promise._h == 2)onHandleUnhandled(promise);
+	            promise._h = 1;
+	          }
+	          if(handler === true)result = value;
+	          else {
+	            if(domain)domain.enter();
+	            result = handler(value);
+	            if(domain)domain.exit();
+	          }
+	          if(result === reaction.promise){
+	            reject(TypeError('Promise-chain cycle'));
+	          } else if(then = isThenable(result)){
+	            then.call(result, resolve, reject);
+	          } else resolve(result);
+	        } else reject(value);
+	      } catch(e){
+	        reject(e);
+	      }
+	    };
+	    while(chain.length > i)run(chain[i++]); // variable length - can't use forEach
+	    promise._c = [];
+	    promise._n = false;
+	    if(isReject && !promise._h)onUnhandled(promise);
+	  });
+	};
+	var onUnhandled = function(promise){
+	  task.call(global, function(){
+	    var value = promise._v
+	      , abrupt, handler, console;
+	    if(isUnhandled(promise)){
+	      abrupt = perform(function(){
+	        if(isNode){
+	          process.emit('unhandledRejection', value, promise);
+	        } else if(handler = global.onunhandledrejection){
+	          handler({promise: promise, reason: value});
+	        } else if((console = global.console) && console.error){
+	          console.error('Unhandled promise rejection', value);
+	        }
+	      });
+	      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+	      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+	    } promise._a = undefined;
+	    if(abrupt)throw abrupt.error;
+	  });
+	};
+	var isUnhandled = function(promise){
+	  if(promise._h == 1)return false;
+	  var chain = promise._a || promise._c
+	    , i     = 0
+	    , reaction;
+	  while(chain.length > i){
+	    reaction = chain[i++];
+	    if(reaction.fail || !isUnhandled(reaction.promise))return false;
+	  } return true;
+	};
+	var onHandleUnhandled = function(promise){
+	  task.call(global, function(){
+	    var handler;
+	    if(isNode){
+	      process.emit('rejectionHandled', promise);
+	    } else if(handler = global.onrejectionhandled){
+	      handler({promise: promise, reason: promise._v});
+	    }
+	  });
+	};
+	var $reject = function(value){
+	  var promise = this;
+	  if(promise._d)return;
+	  promise._d = true;
+	  promise = promise._w || promise; // unwrap
+	  promise._v = value;
+	  promise._s = 2;
+	  if(!promise._a)promise._a = promise._c.slice();
+	  notify(promise, true);
+	};
+	var $resolve = function(value){
+	  var promise = this
+	    , then;
+	  if(promise._d)return;
+	  promise._d = true;
+	  promise = promise._w || promise; // unwrap
+	  try {
+	    if(promise === value)throw TypeError("Promise can't be resolved itself");
+	    if(then = isThenable(value)){
+	      microtask(function(){
+	        var wrapper = {_w: promise, _d: false}; // wrap
+	        try {
+	          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+	        } catch(e){
+	          $reject.call(wrapper, e);
+	        }
+	      });
+	    } else {
+	      promise._v = value;
+	      promise._s = 1;
+	      notify(promise, false);
+	    }
+	  } catch(e){
+	    $reject.call({_w: promise, _d: false}, e); // wrap
+	  }
+	};
+
+	// constructor polyfill
+	if(!USE_NATIVE){
+	  // 25.4.3.1 Promise(executor)
+	  $Promise = function Promise(executor){
+	    anInstance(this, $Promise, PROMISE, '_h');
+	    aFunction(executor);
+	    Internal.call(this);
+	    try {
+	      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+	    } catch(err){
+	      $reject.call(this, err);
+	    }
+	  };
+	  Internal = function Promise(executor){
+	    this._c = [];             // <- awaiting reactions
+	    this._a = undefined;      // <- checked in isUnhandled reactions
+	    this._s = 0;              // <- state
+	    this._d = false;          // <- done
+	    this._v = undefined;      // <- value
+	    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+	    this._n = false;          // <- notify
+	  };
+	  Internal.prototype = __webpack_require__(346)($Promise.prototype, {
+	    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+	    then: function then(onFulfilled, onRejected){
+	      var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
+	      reaction.ok     = typeof onFulfilled == 'function' ? onFulfilled : true;
+	      reaction.fail   = typeof onRejected == 'function' && onRejected;
+	      reaction.domain = isNode ? process.domain : undefined;
+	      this._c.push(reaction);
+	      if(this._a)this._a.push(reaction);
+	      if(this._s)notify(this, false);
+	      return reaction.promise;
+	    },
+	    // 25.4.5.1 Promise.prototype.catch(onRejected)
+	    'catch': function(onRejected){
+	      return this.then(undefined, onRejected);
+	    }
+	  });
+	  PromiseCapability = function(){
+	    var promise  = new Internal;
+	    this.promise = promise;
+	    this.resolve = ctx($resolve, promise, 1);
+	    this.reject  = ctx($reject, promise, 1);
+	  };
+	}
+
+	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
+	__webpack_require__(60)($Promise, PROMISE);
+	__webpack_require__(348)(PROMISE);
+	Wrapper = __webpack_require__(19)[PROMISE];
+
+	// statics
+	$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+	  // 25.4.4.5 Promise.reject(r)
+	  reject: function reject(r){
+	    var capability = newPromiseCapability(this)
+	      , $$reject   = capability.reject;
+	    $$reject(r);
+	    return capability.promise;
+	  }
+	});
+	$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+	  // 25.4.4.6 Promise.resolve(x)
+	  resolve: function resolve(x){
+	    // instanceof instead of internal slot check because we should fix it without replacement native Promise core
+	    if(x instanceof $Promise && sameConstructor(x.constructor, this))return x;
+	    var capability = newPromiseCapability(this)
+	      , $$resolve  = capability.resolve;
+	    $$resolve(x);
+	    return capability.promise;
+	  }
+	});
+	$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(108)(function(iter){
+	  $Promise.all(iter)['catch'](empty);
+	})), PROMISE, {
+	  // 25.4.4.1 Promise.all(iterable)
+	  all: function all(iterable){
+	    var C          = this
+	      , capability = newPromiseCapability(C)
+	      , resolve    = capability.resolve
+	      , reject     = capability.reject;
+	    var abrupt = perform(function(){
+	      var values    = []
+	        , index     = 0
+	        , remaining = 1;
+	      forOf(iterable, false, function(promise){
+	        var $index        = index++
+	          , alreadyCalled = false;
+	        values.push(undefined);
+	        remaining++;
+	        C.resolve(promise).then(function(value){
+	          if(alreadyCalled)return;
+	          alreadyCalled  = true;
+	          values[$index] = value;
+	          --remaining || resolve(values);
+	        }, reject);
+	      });
+	      --remaining || resolve(values);
+	    });
+	    if(abrupt)reject(abrupt.error);
+	    return capability.promise;
+	  },
+	  // 25.4.4.4 Promise.race(iterable)
+	  race: function race(iterable){
+	    var C          = this
+	      , capability = newPromiseCapability(C)
+	      , reject     = capability.reject;
+	    var abrupt = perform(function(){
+	      forOf(iterable, false, function(promise){
+	        C.resolve(promise).then(capability.resolve, reject);
+	      });
+	    });
+	    if(abrupt)reject(abrupt.error);
+	    return capability.promise;
+	  }
+	});
+
+/***/ },
+
+/***/ 397:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vertical-center-modal {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.vertical-center-modal .ant-modal {\n  top: 0;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 457:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(397);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./modal.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./modal.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 572:
+/***/ function(module, exports) {
+
+	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Modal对话框</h1>\n    <p>\n      模态对话框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。</li>\n      <li>另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 ant.Modal.confirm() 等方法。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n  <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n    <code-box\n      title=\"基本\"\n      describe=\"第一个对话框。\"\n      code=''> \n      <v-button type=\"primary\" @click=\"_showModal\">显示对话框</v-button>\n      <v-modal title=\"第一个 Modal\"\n        :visible=\"visible\"\n        :on-ok=\"_handleOk\"\n        :on-cancel=\"_handleCancel\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"自定义页脚\"\n      describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal2\">显示对话框</v-button>\n      <v-modal title=\"Modal\"\n        :visible=\"visible2\"\n        :on-cancel=\"_handleCancel2\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <div slot=\"footer\">\n          <v-button key=\"cancel\" type=\"ghost\" size=\"large\" @click=\"_handleCancel2\">返 回</v-button>\n          <v-button key=\"confirm\" type=\"primary\" size=\"large\" :loading=\"confirmLoading2\" @click=\"_handleOk2\">提 交</v-button>\n        </div>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"自定义页脚\"\n      describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal3\">显示对话框</v-button>\n      <v-modal title=\"第一个 Modal\"\n        :visible=\"visible3\"\n        :on-ok=\"_handleOk3\"\n        :on-cancel=\"_handleCancel3\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"国际化\"\n      describe=\"设置 okText 与 cancelText 以自定义按钮文字。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal4\">show Modal</v-button>\n      <v-modal title=\"Modal\"\n        :visible=\"visible4\"\n        :on-ok=\"_handleOk4\"\n        :on-cancel=\"_handleCancel4\"\n        ok-text=\"ok\"\n        cancel-text=\"Cancel\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n      <br/>\n      <v-button @click=\"_confirmNation\">confirm</v-button>\n    </code-box>\n\n    <code-box\n      title=\"自定义位置\"\n      describe=\"1.0 之后，Modal 的 align 属性被移除，您可以直接使用 style.top 或配合其他样式来设置对话框位置。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal5\">显示距离顶部 20px 的对话框</v-button>\n      <v-button type=\"primary\" @click=\"_showModal51\">显示垂直居中的对话框</v-button>\n      <v-modal \n        title=\"Modal\"\n        :visible=\"visible5\"\n        :on-ok=\"_handleOk5\"\n        :on-cancel=\"_handleCancel5\"\n        :modal-style=\"modalStyle\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n      <v-modal \n        title=\"Modal\"\n        :visible=\"visible51\"\n        :on-ok=\"_handleOk51\"\n        :on-cancel=\"_handleCancel51\"\n        wrap-class-name=\"vertical-center-modal\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n  </div>\n  <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n    <code-box\n      title=\"异步关闭\"\n      describe=\"点击确定后异步关闭对话框，例如提交表单。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal6\">显示对话框</v-button>\n      <v-modal title=\"第一个 Modal\"\n        :visible=\"visible6\"\n        :on-ok=\"_handleOk6\"\n        :on-cancel=\"_handleCancel6\"\n        :confirm-loading=\"confirmLoading6\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"自定义页脚\"\n      describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\"\n      code=\"\"> \n      <v-button @click=\"_showConfirm2\">确认对话框</v-button>\n    </code-box>\n\n    <code-box\n      title=\"信息提示\"\n      describe=\"各种类型的信息提示，只提供一个按钮用于关闭。\"\n      code=\"\"> \n      <v-button @click=\"info\">信息提示</v-button>\n      <v-button @click=\"success\">成功提示</v-button>\n      <v-button @click=\"error\">失败提示</v-button>\n      <v-button @click=\"error\">警告提示</v-button>\n    </code-box>\n\n    <code-box\n      title=\"手动移除\"\n      describe=\"手动关闭modal。\"\n      code=\"\"> \n      <v-button @click=\"_confirmDestroy\">成功提示</v-button>\n    </code-box>\n  </div>\n  <api-table\n    :apis='modalApis'\n  ></api-table>\n  <api-table\n    :apis='confirmApis',\n    title=\"Modal.xxx()\"\n  >\n    <p>包括：</p>\n    <ul><li><p><code>Modal.info</code></p></li><li><p><code>Modal.success</code></p></li><li><p><code>Modal.error</code></p></li><li><p><code>Modal.warning</code></p></li><li><p><code>Modal.confirm</code></p></li></ul>\n    <p>以上均为一个函数，参数为 object，具体属性如下：</p>\n  </api-table>\n</div>\n";
+
+/***/ },
+
+/***/ 690:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(457)
+	__vue_script__ = __webpack_require__(285)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\views\\modal.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(572)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ }
+
+});

@@ -1,1 +1,403 @@
-webpackJsonp([42,49],{3:function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t["default"]={props:{type:{type:String,"default":"props"},head:Array,content:Array,apis:Array,title:{type:String,"default":"API"}},ready:function(){if(!this.head)switch(this.type){case"props":this.$set("head",["参数","说明","类型","默认值"]);break;case"events":this.$set("head",["事件名","说明","参数"]);break;case"methods":this.$set("head",["方法名","说明","参数","返回值"])}}}},4:function(e,t,o){t=e.exports=o(1)(),t.push([e.id,".markdown>table{border-collapse:collapse;border-spacing:0;empty-cells:show;border:1px solid #e9e9e9;width:100%;margin-bottom:24px}.markdown>table th{white-space:nowrap;color:#5c6b77;font-weight:600;background:#f7f7f7}.markdown>table td,.markdown>table th{border:1px solid #e9e9e9;padding:8px 16px;text-align:left}.markdown.api-container table{font-family:Consolas,Menlo,Courier,monospace;font-size:13px}",""])},5:function(e,t,o){var r=o(4);"string"==typeof r&&(r=[[e.id,r,""]]);o(2)(r,{});r.locals&&(e.exports=r.locals)},6:function(e,t){e.exports=' <section class="markdown api-container"> <h2>{{ title }}</h2> <slot></slot> <table> <thead> <tr> <th v-for="text in head" v-html=text></th> </tr> </thead> <tbody> <tr v-for="item in content"> <td v-for="text in item" v-html=text track-by=$index></td> </tr> <tr v-for="api in apis"> <td v-for="text in api" v-html=text track-by=$index></td> </tr> </tbody> </table> </section> '},7:function(e,t,o){var r,i,s={};o(5),r=o(3),i=o(6),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]);var n="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;i&&(n.template=i),n.computed||(n.computed={}),Object.keys(s).forEach(function(e){var t=s[e];n.computed[e]=function(){return t}})},8:function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t["default"]={props:{title:String,describe:String,code:String},data:function(){return{open:!1}},ready:function(){var e=this,t=this._slotContents["default"].childNodes;t=Array.prototype.filter.call(t,function(e){return 1===e.nodeType}),this.code||(this.code=t.map(function(e){return e.outerHTML.replace(/\t| {4}/g,"")}).join("<br>"),console.log(this.code)),this.$nextTick(function(){hljs.highlightBlock(e.$el.querySelector("pre code"))})},methods:{handleOpen:function(){this.open=!this.open}}}},9:function(e,t,o){t=e.exports=o(1)(),t.push([e.id,'.code-box{border:1px solid #e9e9e9;border-radius:6px;display:inline-block;width:100%;position:relative;margin:0 0 16px;-webkit-transition:all .2s ease;transition:all .2s ease}.code-box .collapse{position:absolute;right:16px;bottom:16px;cursor:pointer;width:18px;height:18px;font-size:18px;line-height:18px;opacity:.5;text-align:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);-webkit-transition:all .3s ease;transition:all .3s ease;color:#999;background:#fff;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border-radius:100%}.code-box .collapse:hover{opacity:1}.code-box:hover{box-shadow:0 0 6px rgba(0,0,0,.15);position:relative;z-index:10;background:#fff}.code-box:hover .code-box-title{background:#fbfbfb;box-shadow:0 -1.2px 0 #e9e9e9}.code-box:hover .code-box-meta{background:#fbfbfb}.code-box .code-box-demo{border-bottom:1px solid #e9e9e9;padding:42px 20px 50px}.code-box .highlight-wrapper{max-height:0;opacity:0;overflow:auto;-webkit-transition:all .4s ease;transition:all .4s ease;border-radius:0 0 6px 6px}.code-box .highlight-wrapper-expand{max-height:500px;opacity:1}.code-box.expand .collapse{-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}.code-box.expand .code-box-meta{border-radius:0;border-bottom:1px dashed #e9e9e9}.code-box-meta{position:relative;padding:16px;border-radius:0 0 6px 6px;-webkit-transition:background-color .4s ease;transition:background-color .4s ease;width:100%;font-size:12px}.code-box-meta p{margin:0}.code-box-title{position:absolute;top:-14px;padding:1px 1.1em;color:#777;border-radius:6px;background:#fff;-webkit-transition:all .4s ease;transition:all .4s ease}.code-box-title:before{font-family:anticon;content:"\\E6D2";font-size:16px;vertical-align:middle;line-height:22px;position:relative;margin-right:8px;top:-2px;color:#ccc;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block}.code-box .code-box-title a,.code-box .code-box-title a:hover{color:#666;font-size:14px}.highlight{line-height:1.5}.highlight pre{margin:0;padding:0;background:#fff;width:auto}.highlight pre code{display:block;color:#666;line-height:1.7;border:1px solid #e9e9e9;padding:10px 15px;border-radius:6px;font-size:13px;border:none;background:#fff}.hljs{background:none}',""])},10:function(e,t,o){var r=o(9);"string"==typeof r&&(r=[[e.id,r,""]]);o(2)(r,{});r.locals&&(e.exports=r.locals)},11:function(e,t){e.exports=' <section class=code-box :class="{\'expand\': open}"> <section class=code-box-demo> <slot></slot> </section> <section class="code-box-meta markdown"> <div class=code-box-title><a>{{ title }}</a></div> <div><p>{{ describe }}</p></div> <span class="collapse anticon anticon-circle-o-right" @click=handleOpen></span> </section> <section class=highlight-wrapper :class="{\'highlight-wrapper-expand\': open}"> <div class=highlight> <pre><code class=html>{{ code }}</code></pre> </div> </section> </section> '},12:function(e,t,o){var r,i,s={};o(10),r=o(8),i=o(11),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]);var n="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;i&&(n.template=i),n.computed||(n.computed={}),Object.keys(s).forEach(function(e){var t=s[e];n.computed[e]=function(){return t}})},291:function(e,t,o){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(t,"__esModule",{value:!0});var i=o(85),s=o(117),n=r(s),c=o(118),p=r(c),a=o(22),l=r(a),d=o(12),u=r(d),x=o(7),b=r(x);t["default"]={data:function(){return{percentLine:10,percentCircle:10,progressBarApis:[{parameter:"percent",explain:"百分比",type:"Number","default":0},{parameter:"status",explain:"状态，有normal、exception、active、success四个状态值",type:"String","default":"normal"},{parameter:"strokeWidth",explain:"进度条线的宽度，单位是px",type:"Number","default":1},{parameter:"showInfo",explain:"是否显示进度数值和状态图标",type:"Boolean","default":!0}],progressCircleApis:[{parameter:"percent",explain:"百分比",type:"Number","default":0},{parameter:"status",explain:"状态，有normal、exception、success三个状态值",type:"String","default":"normal"},{parameter:"strokeWidth",explain:"进度圈线的宽度，单位是进度圈画布宽度的百分比",type:"Number","default":1},{parameter:"width",explain:"必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width",type:"Number","default":"null"}]}},components:{vProgressLine:i.vProgressLine,vProgressCircle:i.vProgressCircle,vButtonGroup:p["default"],vButton:n["default"],vIcon:l["default"],codeBox:u["default"],apiTable:b["default"]},methods:{_declineLine:function(){var e=this.percentLine-10;e<0&&(e=0),this.percentLine=e},_increaseLine:function(){var e=this.percentLine+10;e>100&&(e=100),this.percentLine=e},_declineCircle:function(){var e=this.percentCircle-10;e<0&&(e=0),this.percentCircle=e},_increaseCircle:function(){var e=this.percentCircle+10;e>100&&(e=100),this.percentCircle=e}}}},578:function(e,t){e.exports=' <div> <section class=markdown> <h1>Progress 进度条</h1> <p> 进度条，展示操作的当前进度。 </p> <h2>何时使用</h2> <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p> <ul> <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li> <li>当需要显示一个操作完成的百分比时。</li> </ul> <h2>组件演示</h2> </section> <div class=ant-row style="margin-left: -8px; margin-right: -8px"> <div class="ant-col-lg-12 code-boxes-col-2-1"> <code-box title=进度条 describe=有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success> <v-progress-line :percent=30 description=普通的进度条></v-progress-line> <v-progress-line :percent=50 status=active></v-progress-line> <v-progress-line :percent=70 status=exception></v-progress-line> <v-progress-line :percent=100></v-progress-line> <v-progress-line :percent=50 :show-info=false></v-progress-line> </code-box> <code-box title=小型进度条 describe=通过设置strokeWidth,可以更灵活地使用进度条> <v-progress-line :percent=30 :stroke-width=5></v-progress-line> <v-progress-line :percent=50 :stroke-width=5 status=active></v-progress-line> <v-progress-line :percent=70 :stroke-width=5 status=exception></v-progress-line> <v-progress-line :percent=100 :stroke-width=5></v-progress-line> </code-box> <code-box title=动态展示 describe=通过动态的改变进度,可以让进度条更有趣> <v-progress-line :percent=percentLine></v-progress-line> <v-button-group> <v-button type=ghost @click=_declineLine> <v-icon type=minus></v-icon> </v-button> <v-button type=ghost @click=_increaseLine> <v-icon type=plus></v-icon> </v-button> </v-button-group> </code-box> </div> <div class="ant-col-lg-12 code-boxes-col-2-1"> <code-box title=进度圈 describe=有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success> <v-progress-circle :percent=30></v-progress-circle> <v-progress-circle :percent=70 status=exception></v-progress-circle> <v-progress-circle :percent=100></v-progress-circle> </code-box> <code-box title=小型进度圈 describe=通过设置width,可以更灵活地使用进度圈> <v-progress-circle :percent=30 :width=80></v-progress-circle> <v-progress-circle :percent=70 :width=80 status=exception></v-progress-circle> <v-progress-circle :percent=100 :width=80></v-progress-circle> </code-box> <code-box title=进度圈动态展示 describe=通过动态的改变进度,可以让进度圈更有趣> <v-progress-circle :percent=percentCircle></v-progress-circle> <v-button-group> <v-button type=ghost @click=_declineCircle> <v-icon type=minus></v-icon> </v-button> <v-button type=ghost @click=_increaseCircle> <v-icon type=plus></v-icon> </v-button> </v-button-group> </code-box> </div> </div> <api-table title="Progress Bar API" :apis=progressBarApis></api-table> <api-table title="Progress Circle API" :apis=progressCircleApis></api-table> </div> '},696:function(e,t,o){var r,i,s={};r=o(291),i=o(578),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]);var n="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;i&&(n.template=i),n.computed||(n.computed={}),Object.keys(s).forEach(function(e){var t=s[e];n.computed[e]=function(){return t}})}});
+webpackJsonp([42,49],{
+
+/***/ 3:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: {
+	    type: {
+	      type: String,
+	      default: 'props'
+	    },
+	    head: Array,
+	    content: Array,
+	    apis: Array,
+	    title: {
+	      type: String,
+	      default: "API"
+	    }
+	  },
+	  ready: function ready() {
+	    if (!this.head) {
+	      switch (this.type) {
+	        case 'props':
+	          this.$set('head', ['参数', '说明', '类型', '默认值']);break;
+	        case 'events':
+	          this.$set('head', ['事件名', '说明', '参数']);break;
+	        case 'methods':
+	          this.$set('head', ['方法名', '说明', '参数', '返回值']);break;
+	      }
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 4:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".markdown > table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  empty-cells: show;\n  border: 1px solid #e9e9e9;\n  width: 100%;\n  margin-bottom: 24px;\n}\n.markdown > table th {\n  white-space: nowrap;\n  color: #5c6b77;\n  font-weight: 600;\n  background: #f7f7f7;\n}\n.markdown > table td,\n.markdown > table th {\n  border: 1px solid #e9e9e9;\n  padding: 8px 16px;\n  text-align: left;\n}\n.markdown.api-container table {\n  font-family: Consolas,Menlo,Courier,monospace;\n  font-size: 13px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 5:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(4);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 6:
+/***/ function(module, exports) {
+
+	module.exports = "\n<section class=\"markdown api-container\">\n  <h2>{{ title }}</h2>\n  <slot></slot>\n  <table>\n    <thead>\n      <tr>\n        <th v-for=\"text in head\" v-html=\"text\"></th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"item in content\">\n        <td v-for=\"text in item\" v-html=\"text\" track-by=\"$index\"></td>\n      </tr>\n      <tr v-for=\"api in apis\">\n        <td v-for=\"text in api\" v-html=\"text\" track-by=\"$index\"></td>\n      </tr>\n    </tbody>\n  </table>\n</section>\n";
+
+/***/ },
+
+/***/ 7:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(5)
+	__vue_script__ = __webpack_require__(3)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\apiTable.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(6)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ },
+
+/***/ 8:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: {
+	    title: String,
+	    describe: String,
+	    code: String
+	  },
+	  data: function data() {
+	    return {
+	      open: false
+	    };
+	  },
+	  ready: function ready() {
+	    var _this = this;
+
+	    var children = this._slotContents.default.childNodes;
+
+	    children = Array.prototype.filter.call(children, function (node) {
+	      return node.nodeType === 1;
+	    });
+
+	    if (!this.code) {
+	      this.code = children.map(function (dom) {
+	        return dom.outerHTML.replace(/\t| {4}/g, '');
+	      }).join('\n');
+	    }
+
+	    this.$nextTick(function () {
+	      hljs.highlightBlock(_this.$el.querySelector('pre code'));
+	    });
+	  },
+
+	  methods: {
+	    handleOpen: function handleOpen() {
+	      this.open = !this.open;
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 9:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.highlight {\n  line-height: 1.5;\n}\n.highlight pre {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  width: auto;\n}\n.highlight pre code {\n  display: block;\n  color: #666;\n  line-height: 1.7;\n  border: 1px solid #e9e9e9;\n  padding: 10px 15px;\n  border-radius: 6px;\n  font-size: 13px;\n  border: none;\n  background: #fff;\n}\n.hljs {\n  background: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 10:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(9);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 11:
+/***/ function(module, exports) {
+
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\">\n          <slot name=\"preCode\"></slot>\n          {{ code }}\n          <slot name=\"postCode\">\n          </slot>\n        </code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+
+/***/ },
+
+/***/ 12:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(10)
+	__vue_script__ = __webpack_require__(8)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\codeBox.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(11)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ },
+
+/***/ 291:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _progress = __webpack_require__(85);
+
+	var _button = __webpack_require__(117);
+
+	var _button2 = _interopRequireDefault(_button);
+
+	var _buttonGroup = __webpack_require__(118);
+
+	var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
+
+	var _iconfont = __webpack_require__(22);
+
+	var _iconfont2 = _interopRequireDefault(_iconfont);
+
+	var _codeBox = __webpack_require__(12);
+
+	var _codeBox2 = _interopRequireDefault(_codeBox);
+
+	var _apiTable = __webpack_require__(7);
+
+	var _apiTable2 = _interopRequireDefault(_apiTable);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	  data: function data() {
+	    return {
+	      percentLine: 10,
+	      percentCircle: 10,
+	      progressBarApis: [{
+	        parameter: 'percent',
+	        explain: '百分比',
+	        type: 'Number',
+	        default: 0
+	      }, {
+	        parameter: 'status',
+	        explain: '状态，有normal、exception、active、success四个状态值',
+	        type: 'String',
+	        default: 'normal'
+	      }, {
+	        parameter: 'strokeWidth',
+	        explain: '进度条线的宽度，单位是px',
+	        type: 'Number',
+	        default: 1
+	      }, {
+	        parameter: 'showInfo',
+	        explain: '是否显示进度数值和状态图标',
+	        type: 'Boolean',
+	        default: true
+	      }],
+	      progressCircleApis: [{
+	        parameter: 'percent',
+	        explain: '百分比',
+	        type: 'Number',
+	        default: 0
+	      }, {
+	        parameter: 'status',
+	        explain: '状态，有normal、exception、success三个状态值',
+	        type: 'String',
+	        default: 'normal'
+	      }, {
+	        parameter: 'strokeWidth',
+	        explain: '进度圈线的宽度，单位是进度圈画布宽度的百分比',
+	        type: 'Number',
+	        default: 1
+	      }, {
+	        parameter: 'width',
+	        explain: '必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width',
+	        type: 'Number',
+	        default: 'null'
+	      }]
+	    };
+	  },
+
+
+	  components: {
+	    vProgressLine: _progress.vProgressLine,
+	    vProgressCircle: _progress.vProgressCircle,
+	    vButtonGroup: _buttonGroup2.default,
+	    vButton: _button2.default,
+	    vIcon: _iconfont2.default,
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  },
+
+	  methods: {
+	    _declineLine: function _declineLine() {
+	      var percent = this.percentLine - 10;
+	      if (percent < 0) {
+	        percent = 0;
+	      }
+	      this.percentLine = percent;
+	    },
+	    _increaseLine: function _increaseLine() {
+	      var percent = this.percentLine + 10;
+	      if (percent > 100) {
+	        percent = 100;
+	      }
+	      this.percentLine = percent;
+	    },
+	    _declineCircle: function _declineCircle() {
+	      var percent = this.percentCircle - 10;
+	      if (percent < 0) {
+	        percent = 0;
+	      }
+	      this.percentCircle = percent;
+	    },
+	    _increaseCircle: function _increaseCircle() {
+	      var percent = this.percentCircle + 10;
+	      if (percent > 100) {
+	        percent = 100;
+	      }
+	      this.percentCircle = percent;
+	    }
+	  }
+
+	};
+
+/***/ },
+
+/***/ 578:
+/***/ function(module, exports) {
+
+	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Progress 进度条</h1>\n    <p>\n      进度条，展示操作的当前进度。\n    </p>\n    <h2>何时使用</h2>\n    <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p>\n    <ul>\n      <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li>\n      <li>当需要显示一个操作完成的百分比时。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box title=\"进度条\" describe=\"有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-line :percent=\"30\" description=\"普通的进度条\"></v-progress-line>\n        <v-progress-line :percent=\"50\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\"></v-progress-line>\n        <v-progress-line :percent=\"50\" :show-info=\"false\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"小型进度条\" describe=\"通过设置strokeWidth,可以更灵活地使用进度条\">\n        <v-progress-line :percent=\"30\"  :stroke-width=\"5\"></v-progress-line>\n        <v-progress-line :percent=\"50\"  :stroke-width=\"5\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\"  :stroke-width=\"5\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\" :stroke-width=\"5\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"动态展示\" describe=\"通过动态的改变进度,可以让进度条更有趣\">\n        <v-progress-line :percent=\"percentLine\"></v-progress-line>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineLine\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseLine\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box title=\"进度圈\" describe=\"有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-circle :percent=\"30\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"小型进度圈\" describe=\"通过设置width,可以更灵活地使用进度圈\">\n        <v-progress-circle :percent=\"30\"  :width=\"80\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\"  :width=\"80\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\" :width=\"80\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"进度圈动态展示\" describe=\"通过动态的改变进度,可以让进度圈更有趣\">\n        <v-progress-circle :percent=\"percentCircle\"></v-progress-circle>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineCircle\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseCircle\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n  <api-table\n    title=\"Progress Bar API\"\n    :apis='progressBarApis'\n  ></api-table>\n\n  <api-table\n    title=\"Progress Circle API\"\n    :apis='progressCircleApis'\n  ></api-table>\n</div>\n";
+
+/***/ },
+
+/***/ 696:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(291)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\views\\progress.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(578)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ }
+
+});

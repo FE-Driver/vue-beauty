@@ -1,1 +1,402 @@
-webpackJsonp([19,49],{3:function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={props:{type:{type:String,"default":"props"},head:Array,content:Array,apis:Array,title:{type:String,"default":"API"}},ready:function(){if(!this.head)switch(this.type){case"props":this.$set("head",["参数","说明","类型","默认值"]);break;case"events":this.$set("head",["事件名","说明","参数"]);break;case"methods":this.$set("head",["方法名","说明","参数","返回值"])}}}},4:function(t,e,o){e=t.exports=o(1)(),e.push([t.id,".markdown>table{border-collapse:collapse;border-spacing:0;empty-cells:show;border:1px solid #e9e9e9;width:100%;margin-bottom:24px}.markdown>table th{white-space:nowrap;color:#5c6b77;font-weight:600;background:#f7f7f7}.markdown>table td,.markdown>table th{border:1px solid #e9e9e9;padding:8px 16px;text-align:left}.markdown.api-container table{font-family:Consolas,Menlo,Courier,monospace;font-size:13px}",""])},5:function(t,e,o){var n=o(4);"string"==typeof n&&(n=[[t.id,n,""]]);o(2)(n,{});n.locals&&(t.exports=n.locals)},6:function(t,e){t.exports=' <section class="markdown api-container"> <h2>{{ title }}</h2> <slot></slot> <table> <thead> <tr> <th v-for="text in head" v-html=text></th> </tr> </thead> <tbody> <tr v-for="item in content"> <td v-for="text in item" v-html=text track-by=$index></td> </tr> <tr v-for="api in apis"> <td v-for="text in api" v-html=text track-by=$index></td> </tr> </tbody> </table> </section> '},7:function(t,e,o){var n,s,a={};o(5),n=o(3),s=o(6),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]);var i="function"==typeof t.exports?t.exports.options||(t.exports.options={}):t.exports;s&&(i.template=s),i.computed||(i.computed={}),Object.keys(a).forEach(function(t){var e=a[t];i.computed[t]=function(){return e}})},8:function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={props:{title:String,describe:String,code:String},data:function(){return{open:!1}},ready:function(){var t=this,e=this._slotContents["default"].childNodes;e=Array.prototype.filter.call(e,function(t){return 1===t.nodeType}),this.code||(this.code=e.map(function(t){return t.outerHTML.replace(/\t| {4}/g,"")}).join("<br>"),console.log(this.code)),this.$nextTick(function(){hljs.highlightBlock(t.$el.querySelector("pre code"))})},methods:{handleOpen:function(){this.open=!this.open}}}},9:function(t,e,o){e=t.exports=o(1)(),e.push([t.id,'.code-box{border:1px solid #e9e9e9;border-radius:6px;display:inline-block;width:100%;position:relative;margin:0 0 16px;-webkit-transition:all .2s ease;transition:all .2s ease}.code-box .collapse{position:absolute;right:16px;bottom:16px;cursor:pointer;width:18px;height:18px;font-size:18px;line-height:18px;opacity:.5;text-align:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);-webkit-transition:all .3s ease;transition:all .3s ease;color:#999;background:#fff;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border-radius:100%}.code-box .collapse:hover{opacity:1}.code-box:hover{box-shadow:0 0 6px rgba(0,0,0,.15);position:relative;z-index:10;background:#fff}.code-box:hover .code-box-title{background:#fbfbfb;box-shadow:0 -1.2px 0 #e9e9e9}.code-box:hover .code-box-meta{background:#fbfbfb}.code-box .code-box-demo{border-bottom:1px solid #e9e9e9;padding:42px 20px 50px}.code-box .highlight-wrapper{max-height:0;opacity:0;overflow:auto;-webkit-transition:all .4s ease;transition:all .4s ease;border-radius:0 0 6px 6px}.code-box .highlight-wrapper-expand{max-height:500px;opacity:1}.code-box.expand .collapse{-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}.code-box.expand .code-box-meta{border-radius:0;border-bottom:1px dashed #e9e9e9}.code-box-meta{position:relative;padding:16px;border-radius:0 0 6px 6px;-webkit-transition:background-color .4s ease;transition:background-color .4s ease;width:100%;font-size:12px}.code-box-meta p{margin:0}.code-box-title{position:absolute;top:-14px;padding:1px 1.1em;color:#777;border-radius:6px;background:#fff;-webkit-transition:all .4s ease;transition:all .4s ease}.code-box-title:before{font-family:anticon;content:"\\E6D2";font-size:16px;vertical-align:middle;line-height:22px;position:relative;margin-right:8px;top:-2px;color:#ccc;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block}.code-box .code-box-title a,.code-box .code-box-title a:hover{color:#666;font-size:14px}.highlight{line-height:1.5}.highlight pre{margin:0;padding:0;background:#fff;width:auto}.highlight pre code{display:block;color:#666;line-height:1.7;border:1px solid #e9e9e9;padding:10px 15px;border-radius:6px;font-size:13px;border:none;background:#fff}.hljs{background:none}',""])},10:function(t,e,o){var n=o(9);"string"==typeof n&&(n=[[t.id,n,""]]);o(2)(n,{});n.locals&&(t.exports=n.locals)},11:function(t,e){t.exports=' <section class=code-box :class="{\'expand\': open}"> <section class=code-box-demo> <slot></slot> </section> <section class="code-box-meta markdown"> <div class=code-box-title><a>{{ title }}</a></div> <div><p>{{ describe }}</p></div> <span class="collapse anticon anticon-circle-o-right" @click=handleOpen></span> </section> <section class=highlight-wrapper :class="{\'highlight-wrapper-expand\': open}"> <div class=highlight> <pre><code class=html>{{ code }}</code></pre> </div> </section> </section> '},12:function(t,e,o){var n,s,a={};o(10),n=o(8),s=o(11),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]);var i="function"==typeof t.exports?t.exports.options||(t.exports.options={}):t.exports;s&&(i.template=s),i.computed||(i.computed={}),Object.keys(a).forEach(function(t){var e=a[t];i.computed[t]=function(){return e}})},284:function(t,e,o){"use strict";function n(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0});var s=o(12),a=n(s),i=o(7),r=n(i),c=o(34),p=n(c);e["default"]={data:function(){return{apis:[{parameter:"content",explain:"提示内容",type:"Sring","default":"无"},{parameter:"duration",explain:"默认 1.5 秒后自动关闭，配置为 0 则不自动关闭",type:"Number","default":"1.5"}],config:[{parameter:"top",explain:"消息距离顶部的位置",type:"Number","default":"24"},{parameter:"duration",explain:"默认自动关闭延时，单位秒",type:"Number","default":"1.5"}]}},methods:{openMessage:function(){p["default"].info("这是一条普通的提醒")},success:function(){p["default"].success("这是一条成功提示")},error:function(){p["default"].error("这是一条失败提示")},warning:function(){p["default"].warning("这是一条警告提示")},time:function(){p["default"].success("这是一条成功的提示,并将于10秒后消失",10)},loading:function(){var t=p["default"].loading("正在执行中...",0);setTimeout(t.remove,2500)},openNotificationWithIcon:function(t){notification[t]({message:"这是标题",description:"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案"})}},components:{codeBox:a["default"],apiTable:r["default"]}}},381:function(t,e,o){e=t.exports=o(1)(),e.push([t.id,"",""])},438:function(t,e,o){var n=o(381);"string"==typeof n&&(n=[[t.id,n,""]]);o(2)(n,{});n.locals&&(t.exports=n.locals)},571:function(t,e){t.exports=' <div> <section class=markdown> <h1>Message 全局提示</h1> <p> 全局展示操作反馈信息。 </p> <h2>何时使用</h2> <ul> <li>可提供成功、警告和错误等反馈信息。</li> <li>顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</li> </ul> <h2>组件演示</h2> </section> <div class=ant-row style="margin-left: -8px; margin-right: -8px"> <div class="ant-col-lg-12 code-boxes-col-2-1"> <code-box title=普通提示 describe=信息提醒反馈。 code=\'openMessage() {\n  message.info("这是一条普通的提醒");\n},\n\n<button type="button" class="ant-btn ant-btn-primary" @click="openMessage"><span>显示普通提醒</span></button>\'> <button type=button class="ant-btn ant-btn-primary" @click=openMessage><span>显示普通提醒</span></button> </code-box> <code-box title=修改延时 describe="自定义时长 10s，默认时长为 1.5s" code=\'time(){\n  message.success("这是一条成功的提示,并将于10秒后消失", 10);\n},\n\n<button type="button" class="ant-btn" @click="time"><span>自定义时长提示</span></button>\'> <button type=button class=ant-btn @click=time><span>自定义时长提示</span></button> </code-box> </div> <div class="ant-col-lg-12 code-boxes-col-2-1"> <code-box title=其他提示类型 describe=包括成功、失败、警告。 code=\'success() {\n  message.success("这是一条成功提示");\n},\nerror() {\n  message.error("这是一条失败提示");\n},\nwarning() {\n  message.warning("这是一条警告提示");\n},\n\n<button type="button" class="ant-btn" @click="success("success")"><span>显示成功信息</span></button>\n<button type="button" class="ant-btn" @click="error("error")"><span>显示失败信息</span></button>\n<button type="button" class="ant-btn" @click="warning("warning")"><span>显示警告信息</span></button>\'> <button type=button class=ant-btn @click="success(\'success\')"><span>显示成功信息</span></button> <button type=button class=ant-btn @click="error(\'error\')"><span>显示失败信息</span></button> <button type=button class=ant-btn @click="warning(\'warning\')"><span>显示警告信息</span></button> </code-box> <code-box title=加载中 describe="进行全局 loading，异步自行移除。" code=\'loading() {\n  const instance = message.loading("正在执行中...", 0);\n  setTimeout(instance.remove, 2500);\n},\n\n<button type="button" class="ant-btn" @click="loading"><span>显示加载中...</span></button>\'> <button type=button class=ant-btn @click=loading><span>显示加载中...</span></button> </code-box> </div> </div> <api-table :apis=apis> <ul> <li><button type=button class=ant-btn>message.success(content, duration)</button></li> <li><button type=button class=ant-btn>message.error(content, duration)</button></li> <li><button type=button class=ant-btn>message.warning(content, duration)</button></li> <li><button type=button class=ant-btn>message.loading(content, duration)</button></li> </ul> <p> 参数如下： </p> </api-table> <api-table :apis=config> <p> 还提供了一个全局配置方法，在调用前提前配置，全局一次生效。 </p> <p> <button type=button class=ant-btn>message.config({ top: 100, duration: 3, })</button> </p> </api-table> </div> '},689:function(t,e,o){var n,s,a={};o(438),n=o(284),s=o(571),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]);var i="function"==typeof t.exports?t.exports.options||(t.exports.options={}):t.exports;s&&(i.template=s),i.computed||(i.computed={}),Object.keys(a).forEach(function(t){var e=a[t];i.computed[t]=function(){return e}})}});
+webpackJsonp([19,49],{
+
+/***/ 3:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: {
+	    type: {
+	      type: String,
+	      default: 'props'
+	    },
+	    head: Array,
+	    content: Array,
+	    apis: Array,
+	    title: {
+	      type: String,
+	      default: "API"
+	    }
+	  },
+	  ready: function ready() {
+	    if (!this.head) {
+	      switch (this.type) {
+	        case 'props':
+	          this.$set('head', ['参数', '说明', '类型', '默认值']);break;
+	        case 'events':
+	          this.$set('head', ['事件名', '说明', '参数']);break;
+	        case 'methods':
+	          this.$set('head', ['方法名', '说明', '参数', '返回值']);break;
+	      }
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 4:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".markdown > table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  empty-cells: show;\n  border: 1px solid #e9e9e9;\n  width: 100%;\n  margin-bottom: 24px;\n}\n.markdown > table th {\n  white-space: nowrap;\n  color: #5c6b77;\n  font-weight: 600;\n  background: #f7f7f7;\n}\n.markdown > table td,\n.markdown > table th {\n  border: 1px solid #e9e9e9;\n  padding: 8px 16px;\n  text-align: left;\n}\n.markdown.api-container table {\n  font-family: Consolas,Menlo,Courier,monospace;\n  font-size: 13px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 5:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(4);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 6:
+/***/ function(module, exports) {
+
+	module.exports = "\n<section class=\"markdown api-container\">\n  <h2>{{ title }}</h2>\n  <slot></slot>\n  <table>\n    <thead>\n      <tr>\n        <th v-for=\"text in head\" v-html=\"text\"></th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"item in content\">\n        <td v-for=\"text in item\" v-html=\"text\" track-by=\"$index\"></td>\n      </tr>\n      <tr v-for=\"api in apis\">\n        <td v-for=\"text in api\" v-html=\"text\" track-by=\"$index\"></td>\n      </tr>\n    </tbody>\n  </table>\n</section>\n";
+
+/***/ },
+
+/***/ 7:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(5)
+	__vue_script__ = __webpack_require__(3)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\apiTable.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(6)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ },
+
+/***/ 8:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: {
+	    title: String,
+	    describe: String,
+	    code: String
+	  },
+	  data: function data() {
+	    return {
+	      open: false
+	    };
+	  },
+	  ready: function ready() {
+	    var _this = this;
+
+	    var children = this._slotContents.default.childNodes;
+
+	    children = Array.prototype.filter.call(children, function (node) {
+	      return node.nodeType === 1;
+	    });
+
+	    if (!this.code) {
+	      this.code = children.map(function (dom) {
+	        return dom.outerHTML.replace(/\t| {4}/g, '');
+	      }).join('\n');
+	    }
+
+	    this.$nextTick(function () {
+	      hljs.highlightBlock(_this.$el.querySelector('pre code'));
+	    });
+	  },
+
+	  methods: {
+	    handleOpen: function handleOpen() {
+	      this.open = !this.open;
+	    }
+	  }
+	};
+
+/***/ },
+
+/***/ 9:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.highlight {\n  line-height: 1.5;\n}\n.highlight pre {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  width: auto;\n}\n.highlight pre code {\n  display: block;\n  color: #666;\n  line-height: 1.7;\n  border: 1px solid #e9e9e9;\n  padding: 10px 15px;\n  border-radius: 6px;\n  font-size: 13px;\n  border: none;\n  background: #fff;\n}\n.hljs {\n  background: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 10:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(9);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 11:
+/***/ function(module, exports) {
+
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\">\n          <slot name=\"preCode\"></slot>\n          {{ code }}\n          <slot name=\"postCode\">\n          </slot>\n        </code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+
+/***/ },
+
+/***/ 12:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(10)
+	__vue_script__ = __webpack_require__(8)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\codeBox.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(11)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ },
+
+/***/ 284:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _codeBox = __webpack_require__(12);
+
+	var _codeBox2 = _interopRequireDefault(_codeBox);
+
+	var _apiTable = __webpack_require__(7);
+
+	var _apiTable2 = _interopRequireDefault(_apiTable);
+
+	var _message = __webpack_require__(34);
+
+	var _message2 = _interopRequireDefault(_message);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	  data: function data() {
+	    return {
+	      apis: [{
+	        parameter: 'content',
+	        explain: '提示内容',
+	        type: 'Sring',
+	        default: '无'
+	      }, {
+	        parameter: 'duration',
+	        explain: '默认 1.5 秒后自动关闭，配置为 0 则不自动关闭',
+	        type: 'Number',
+	        default: '1.5'
+	      }],
+	      config: [{
+	        parameter: 'top',
+	        explain: '消息距离顶部的位置',
+	        type: 'Number',
+	        default: '24'
+	      }, {
+	        parameter: 'duration',
+	        explain: '默认自动关闭延时，单位秒',
+	        type: 'Number',
+	        default: '1.5'
+	      }]
+	    };
+	  },
+	  methods: {
+	    openMessage: function openMessage() {
+	      _message2.default.info("这是一条普通的提醒");
+	    },
+	    success: function success() {
+	      _message2.default.success("这是一条成功提示");
+	    },
+	    error: function error() {
+	      _message2.default.error("这是一条失败提示");
+	    },
+	    warning: function warning() {
+	      _message2.default.warning("这是一条警告提示");
+	    },
+	    time: function time() {
+	      _message2.default.success("这是一条成功的提示,并将于10秒后消失", 10);
+	    },
+	    loading: function loading() {
+	      var instance = _message2.default.loading("正在执行中...", 0);
+	      setTimeout(instance.remove, 2500);
+	    },
+	    openNotificationWithIcon: function openNotificationWithIcon(type) {
+	      notification[type]({
+	        message: '这是标题',
+	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
+	      });
+	    }
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  }
+	};
+
+/***/ },
+
+/***/ 381:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
+
+	// exports
+
+
+/***/ },
+
+/***/ 438:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(381);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./message.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./message.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 571:
+/***/ function(module, exports) {
+
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Message 全局提示</h1>\n      <p>\n        全局展示操作反馈信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>可提供成功、警告和错误等反馈信息。</li>\n        <li>顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"普通提示\"\n          describe=\"信息提醒反馈。\"\n          code='openMessage() {\n  message.info(\"这是一条普通的提醒\");\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"修改延时\"\n          describe=\"自定义时长 10s，默认时长为 1.5s\"\n          code='time(){\n  message.success(\"这是一条成功的提示,并将于10秒后消失\", 10);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"其他提示类型\"\n          describe=\"包括成功、失败、警告。\"\n          code='success() {\n  message.success(\"这是一条成功提示\");\n},\nerror() {\n  message.error(\"这是一条失败提示\");\n},\nwarning() {\n  message.warning(\"这是一条警告提示\");\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"success(\"success\")\"><span>显示成功信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"error(\"error\")\"><span>显示失败信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"warning(\"warning\")\"><span>显示警告信息</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"success('success')\"><span>显示成功信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"error('error')\"><span>显示失败信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"warning('warning')\"><span>显示警告信息</span></button>\n        </code-box>\n\n        <code-box\n          title=\"加载中\"\n          describe=\"进行全局 loading，异步自行移除。\"\n          code='loading() {\n  const instance = message.loading(\"正在执行中...\", 0);\n  setTimeout(instance.remove, 2500);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li><button type=\"button\" class=\"ant-btn\">message.success(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.error(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.warning(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.loading(content, duration)</button></li>\n      </ul>\n      <p>\n        参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          <button type=\"button\" class=\"ant-btn\">message.config({\n            top: 100,\n            duration: 3,\n          })</button>\n      </p>\n    </api-table>\n\n  </div>\n\n";
+
+/***/ },
+
+/***/ 689:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(438)
+	__vue_script__ = __webpack_require__(284)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\views\\message.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(571)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+
+
+/***/ }
+
+});
