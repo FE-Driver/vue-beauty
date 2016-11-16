@@ -43,19 +43,19 @@
             }
         },
         ready (){
-            let self = this;
             let styles = window.getComputedStyle(this.$els.timePicker);
             this.height = parseFloat(styles.getPropertyValue('height'));
+
+            this.position();
             let time = null;
-            window.addEventListener('resize', function () {
+            window.addEventListener('resize', ()=> {
                 clearTimeout(time);
-                time = setTimeout(function () {
-                    if (!self.disabled && self.selected) {
-                        self.position()
+                time = setTimeout(()=> {
+                    if (!this.disabled) {
+                        this.position()
                     }
                 }, 200)
             })
-            this.position();
         },
         beforeDestroy (){
             document.removeEventListener('click', this.backdrop);
