@@ -41,6 +41,7 @@ Beautiful  UI components build with vue and ant design
 - Carousel 走马灯
 - Menu 菜单
 - DataTable 数据表格
+- MorePanel 更多条件面板
 
 **(持续更新中。。。)**
 

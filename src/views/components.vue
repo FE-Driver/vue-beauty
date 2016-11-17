@@ -114,6 +114,9 @@
             <menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
               Datatable 数据表格
             </menu-item>
+            <menu-item v-link="{ name: 'morePanel', activeClass: 'ant-menu-item-selected' }">
+              MorePanel 更多条件面板
+            </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">
             <menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">

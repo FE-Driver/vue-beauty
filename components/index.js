@@ -42,6 +42,7 @@ import treeSelect from './treeSelect'
 import upload from './upload'
 import message from './message'
 import notification from './notification'
+import morePanel from './morePanel'
 
 let compnents = {
     affix,
@@ -100,7 +101,8 @@ let compnents = {
     treeSelect,
     upload,
     message,
-    notification
+    notification,
+    morePanel
 };
 
 message.install = function(Vue){
