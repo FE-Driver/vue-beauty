@@ -46,13 +46,15 @@
             let styles = window.getComputedStyle(this.$els.timePicker);
             this.height = parseFloat(styles.getPropertyValue('height'));
 
-            this.position();
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
             let timer = null;
             window.addEventListener('resize', ()=> {
                 clearTimeout(timer);
                 timer = setTimeout(()=> {
                     if (!this.disabled) {
-                        this.position()
+                        this.setPosition()
                     }
                 }, 200)
             })
@@ -67,7 +69,7 @@
             timePicker (){
                 this.selected = !this.selected;
             },
-            position (){
+            setPosition (){
                 let p = getOffset(this.$els.timePicker);
                 this.stylus = {
                     top: p.top,

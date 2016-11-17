@@ -45,10 +45,11 @@
         }),
         ready(){
             this.$els.dropdown.style.position = this.position;
-            this.$els.dropdown.style.minWidth = getComputedStyle(this.$els.inputArea, false).width
             document.body.appendChild(this.$els.dropdown);
             
-            this.setPosition();
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
 
             window.addEventListener('resize',()=> {
                 clearTimeout(this.resizeTimer);
@@ -96,8 +97,9 @@
                 let p = getOffset(this.$els.inputArea);
 
                 this.$set('style',{
-                    top: p.top + parseInt(getComputedStyle(this.$els.inputArea, false).height) + 4 + 'px',
-                    left: p.left + 'px'
+                    top: p.bottom + 4 + 'px',
+                    left: p.left + 'px',
+                    minWidth: p.right - p.left + 'px'
                 })
             },
             openDropdown(){

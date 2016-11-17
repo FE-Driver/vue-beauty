@@ -124,6 +124,12 @@ export default {
           default: 'default'
         },
         {
+          parameter: 'position',
+          explain: '下拉框的定位方式（absolute,fixed）',
+          type: 'Sring',
+          default: 'absolute'
+        },
+        {
           parameter: 'placeholder',
           explain: '占位说明文字',
           type: 'Sring',

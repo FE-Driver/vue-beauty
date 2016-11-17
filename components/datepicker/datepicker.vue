@@ -119,7 +119,7 @@
                 let p = getOffset(this.$el);
 
                 this.$set('style',{
-                    top: p.top + parseInt(getComputedStyle(this.$el, false).height) + 'px',
+                    top: p.bottom + 'px',
                     left: p.left + 'px'
                 })
             },
