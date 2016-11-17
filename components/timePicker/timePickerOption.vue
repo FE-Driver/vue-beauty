@@ -8,17 +8,17 @@
                 <div class="ant-time-picker-panel-combobox">
                     <div class="ant-time-picker-panel-select">
                         <ul @mouseover="createSelection($els.timePickerPanel, 0, 2)">
-                            <li v-for="$index in 24" @click="timePicker('H', $event)" v-if="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
+                            <li v-for="$index in 24" @click="timePicker('H', $event)" v-show="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
                         </ul>
                     </div>
                     <div class="ant-time-picker-panel-select">
                         <ul @mouseover="createSelection($els.timePickerPanel, 3, 5)">
-                            <li v-for="$index in 60" @click="timePicker('M', $event)" v-if="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
+                            <li v-for="$index in 60" @click="timePicker('M', $event)" v-show="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
                         </ul>
                     </div>
                     <div class="ant-time-picker-panel-select" v-if="hasSeconds">
                         <ul @mouseover="createSelection($els.timePickerPanel, 6, 8)">
-                            <li v-for="$index in 60" @click="timePicker('S', $event)" v-if="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
+                            <li v-for="$index in 60" @click="timePicker('S', $event)" v-show="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
                         </ul>
                     </div>
                 </div>
@@ -109,6 +109,7 @@
         },
         methods: {
             timePicker (type, e){
+                if(e.target.classList.contains(this.prefix+'-select-option-disabled')) return;
                 this.setScrollTop(e.target);
                 this.$set(type, e.target.textContent);
                 if(this.hasSeconds){

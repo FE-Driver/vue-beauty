@@ -33,7 +33,7 @@
 
             <code-box
             title="只显示部分选项"
-            describe="通过 hideDisabledOptions 将不可选的选项隐藏。"
+            describe="通过 disabledMinutes和disabledSeconds 将不可选的选项隐藏。"
             >
                 <v-time-picker :disabled-minutes="minutes" :disabled-seconds="seconds"></v-time-picker>
             </code-box>
