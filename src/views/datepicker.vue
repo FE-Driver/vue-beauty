@@ -87,7 +87,6 @@
 
 <script>
 
-import vDatepicker from '../../components/datepicker'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -140,7 +139,6 @@ export default {
     }
   },
   components: {
-    vDatepicker,
     codeBox,
     apiTable
   }

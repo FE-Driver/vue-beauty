@@ -22,6 +22,7 @@ export function getOffset(element) {
   var clientLeft = element.clientLeft || body.clientLeft || 0
   var scrollTop = getScroll(true)
   var scrollLeft = getScroll()
+  
   return {
     top: rect.top + scrollTop - clientTop,
     left: rect.left + scrollLeft - clientLeft,

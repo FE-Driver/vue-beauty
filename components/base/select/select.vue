@@ -51,8 +51,8 @@
             this.setPosition();
 
             window.addEventListener('resize',()=> {
-                clearTimeout(this.resizeTime);
-                this.resizeTime = setTimeout(()=> {
+                clearTimeout(this.resizeTimer);
+                this.resizeTimer = setTimeout(()=> {
                     this.setPosition();
                 }, 200)
             })

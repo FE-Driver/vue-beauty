@@ -1,13 +1,9 @@
-<style scoped>
-
-</style>
-
 <template>
     <div class="{{prefix}}-box">
         <v-input type="text" :value.sync="value" :readonly="readonly" @click="show = !show" :readonly="readonly" :size="size" :placeholder="placeholder">
             <v-icon slot="after" type="calendar"></v-icon>
         </v-input>
-        <div class="{{prefix}}-picker-container" transition="slide-up" v-show="show">
+        <div class="{{prefix}}-picker-container" transition="slide-up" :style="style" v-show="show" v-el:container>
             <div class="{{prefix}}">
                 <!--<div class="{{prefix}}-input-wrap"></div>-->
                 <div class="{{prefix}}-date-panel">
@@ -58,11 +54,22 @@
 </template>
 
 <script lang="babel">
+    import {getOffset} from '../_util/_func'
     import vInput from '../input'
     import vIcon from '../iconfont'
 
     export default {
         name: 'v-datepicker',
+        data: ()=>({
+            show: false,
+            style: {},
+            days: ['一', '二', '三', '四', '五', '六', '日'],
+            months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一', '十二'],
+            date: [],
+            now: new Date(),
+            prefix: 'ant-calendar',
+            cellClass:'ant-calendar-cell'
+        }),
         props: {
             readonly: { type: Boolean, default: false }, //暂时无效
             value: { type: String, default: '' },
@@ -71,18 +78,8 @@
             size: {type: String, default: 'default'},
             placeholder: {type: String, default: '请选择日期'},
             disabledDateFn: {type: Function},
+            position: {type:String, default:'absolute'},
             lang: { type: String, default: 'zh' }
-        },
-        data () {
-            return {
-                show: false,
-                days: ['一', '二', '三', '四', '五', '六', '日'],
-                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一', '十二'],
-                date: [],
-                now: new Date(),
-                prefix: 'ant-calendar',
-                cellClass:'ant-calendar-cell'
-            };
         },
         watch: {
             now () {
@@ -92,7 +89,40 @@
                 this.update();
             }
         },
+        init(){
+
+        },
+        ready () {
+            this.now = this.parse(this.value) || new Date();
+            this.$els.container.style.position = this.position;
+            document.body.appendChild(this.$els.container);
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
+
+            window.addEventListener('resize',()=> {
+                clearTimeout(this.resizeTimer);
+                this.resizeTimer = setTimeout(()=> {
+                    this.setPosition();
+                }, 200)
+            })
+            document.addEventListener('click', this.leave, false);
+        },
+        beforeDestroy () {
+            document.removeEventListener('click', this.leave, false);
+        },
         methods: {
+            setPosition(){
+                if(!this.$el){
+                    return
+                }
+                let p = getOffset(this.$el);
+
+                this.$set('style',{
+                    top: p.top + parseInt(getComputedStyle(this.$el, false).height) + 'px',
+                    left: p.left + 'px'
+                })
+            },
             close () {
                 this.show = false;
             },
@@ -197,13 +227,6 @@
                     this.close();
                 }
             }
-        },
-        ready () {
-            this.now = this.parse(this.value) || new Date();
-            document.addEventListener('click', this.leave, false);
-        },
-        beforeDestroy () {
-            document.removeEventListener('click', this.leave, false);
         },
         components: {
             vInput,

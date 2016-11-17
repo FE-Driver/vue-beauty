@@ -47,10 +47,10 @@
             this.height = parseFloat(styles.getPropertyValue('height'));
 
             this.position();
-            let time = null;
+            let timer = null;
             window.addEventListener('resize', ()=> {
-                clearTimeout(time);
-                time = setTimeout(()=> {
+                clearTimeout(timer);
+                timer = setTimeout(()=> {
                     if (!this.disabled) {
                         this.position()
                     }
