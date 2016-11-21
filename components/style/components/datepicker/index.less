@@ -1,5 +1,10 @@
-@calendar-prefix-cls: ant-calendar;
-@timepicker-prefix-cls: ant-time-picker;
+@import "../../themes/default";
+@import "../../mixins/index";
+@import "../input/mixin";
+@import "../button/mixin";
+
+@calendar-prefix-cls: ~"@{ant-prefix}-calendar";
+@calendar-timepicker-prefix-cls: ~"@{ant-prefix}-calendar-time-picker";
 
 @import "Picker";
 @import "Calendar";
