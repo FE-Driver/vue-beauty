@@ -1,4 +1,4 @@
-webpackJsonp([36,49],{
+webpackJsonp([36,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,22 +238,234 @@ webpackJsonp([36,49],{
 
 /***/ },
 
-/***/ 179:
+/***/ 152:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = {
+		data1: {
+			children: [{
+				value: 'zhejiang',
+				text: '浙江',
+				children: [{
+					value: 'hangzhou',
+					text: '杭州',
+					children: [{
+						value: 'xihu',
+						text: '西湖'
+					}]
+				}]
+			}, {
+				value: 'jiangsu',
+				text: '江苏',
+				children: [{
+					value: 'nanjing',
+					text: '南京',
+					children: [{
+						value: 'zhonghuamen',
+						text: '中华门'
+					}]
+				}]
+			}, {
+				value: 'sichuan',
+				text: '四川',
+				children: [{
+					value: 'chengdu',
+					text: '成都',
+					children: [{
+						value: 'qingyangqu',
+						text: '青羊区'
+					}, {
+						value: 'wuhouqu',
+						text: '武侯区'
+					}, {
+						value: 'jinjiang',
+						text: '锦江区'
+					}, {
+						value: 'chenghuaqu',
+						text: '成华区'
+					}, {
+						value: 'jinniuqu',
+						text: '金牛区'
+					}]
+				}, {
+					value: 'mianyang',
+					text: '绵阳'
+				}, {
+					value: 'panzhihua',
+					text: '攀枝花'
+				}]
+			}]
+		},
+		data2: {
+			placeholder: '请选择城市',
+			children: [{
+				value: 'zhejiang',
+				text: '浙江',
+				children: [{
+					value: 'hangzhou',
+					text: '杭州',
+					children: [{
+						value: 'xihu',
+						text: '西湖'
+					}]
+				}]
+			}, {
+				value: 'jiangsu',
+				text: '江苏',
+				children: [{
+					value: 'nanjing',
+					text: '南京',
+					children: [{
+						value: 'zhonghuamen',
+						text: '中华门'
+					}]
+				}]
+			}, {
+				value: 'sichuan',
+				text: '四川',
+				children: [{
+					value: 'chengdu',
+					text: '成都',
+					children: [{
+						value: 'qingyangqu',
+						text: '青羊区'
+					}, {
+						value: 'wuhouqu',
+						text: '武侯区'
+					}, {
+						value: 'jinjiang',
+						text: '锦江区'
+					}, {
+						value: 'chenghuaqu',
+						text: '成华区'
+					}, {
+						value: 'jinniuqu',
+						text: '金牛区'
+					}]
+				}, {
+					value: 'mianyang',
+					text: '绵阳'
+				}, {
+					value: 'panzhihua',
+					text: '攀枝花'
+				}]
+			}]
+		},
+		data3: {
+			placeholder: '请选择城市',
+			children: [{
+				value: 'zhejiang',
+				text: '浙江',
+				children: [{
+					value: 'hangzhou',
+					text: '杭州',
+					children: [{
+						value: 'xihu',
+						text: '西湖'
+					}]
+				}]
+			}, {
+				value: 'jiangsu',
+				text: '江苏',
+				children: [{
+					value: 'nanjing',
+					text: '南京',
+					children: [{
+						value: 'zhonghuamen',
+						text: '中华门'
+					}]
+				}]
+			}, {
+				value: 'sichuan',
+				text: '四川',
+				select: true,
+				children: [{
+					value: 'chengdu',
+					text: '成都',
+					select: true,
+					children: [{
+						value: 'qingyangqu',
+						text: '青羊区',
+						select: true
+					}, {
+						value: 'wuhouqu',
+						text: '武侯区'
+					}, {
+						value: 'jinjiang',
+						text: '锦江区'
+					}, {
+						value: 'chenghuaqu',
+						text: '成华区'
+					}, {
+						value: 'jinniuqu',
+						text: '金牛区'
+					}]
+				}, {
+					value: 'mianyang',
+					text: '绵阳'
+				}, {
+					value: 'panzhihua',
+					text: '攀枝花'
+				}]
+			}]
+		},
+		data4: {
+			placeholder: '请选择机构',
+			children: [{
+				value: 'zgs',
+				text: '总公司',
+				children: [{
+					value: 'sh_dep',
+					text: '上海分部',
+					children: [{
+						value: 'xihu',
+						text: '技术部'
+					}]
+				}, {
+					value: 'bg_dep',
+					text: '北京分部',
+					children: [{
+						value: 'hr',
+						text: '人事部'
+					}, {
+						value: 'yy',
+						text: '运营部'
+					}]
+				}, {
+					value: 'bg_dep',
+					text: '广州分部',
+					children: [{
+						value: 'xs',
+						text: '销售部'
+					}]
+				}]
+			}]
+		}
+	};
+
+/***/ },
+
+/***/ 272:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 
-	var _timeline = __webpack_require__(91);
+	var _cascader = __webpack_require__(74);
 
-	var _timeline2 = _interopRequireDefault(_timeline);
+	var _cascader2 = _interopRequireDefault(_cascader);
 
-	var _iconfont = __webpack_require__(22);
+	var _data2 = __webpack_require__(152);
 
-	var _iconfont2 = _interopRequireDefault(_iconfont);
+	var _data3 = _interopRequireDefault(_data2);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -265,87 +477,48 @@ webpackJsonp([36,49],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var vTimelineItem = _timeline2.default.Item;
-
 	exports.default = {
-	    data: function data() {
-	        return {
-	            content: [['pending', '指定最后一个幽灵节点是否存在或内容', 'boolean or Vue.Element', 'false']],
-	            itemcontent: [['color', '指定圆圈颜色<code>blue, red, green</code>，或自定义的色值', 'string', 'blue'], ['dot', '自定义时间轴点', 'Vue.Element', '无']]
-	        };
-	    },
-	    methods: {},
-	    components: {
-	        vTimeline: _timeline2.default,
-	        vTimelineItem: vTimelineItem,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+		data: function data() {
+			return {
+				data1: _data3.default.data1,
+				data2: _data3.default.data2,
+				data3: _data3.default.data3,
+				data4: _data3.default.data4,
+				apis: [{
+					parameter: 'data',
+					explain: '数据',
+					type: 'Json',
+					default: ''
+				}]
+			};
+		},
+		components: {
+			codeBox: _codeBox2.default,
+			apiTable: _apiTable2.default,
+			vCascader: _cascader2.default
+		}
 	};
 
 /***/ },
 
-/***/ 391:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 448:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(391);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./timeline.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./timeline.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 589:
+/***/ 561:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Timeline 时间轴</h1>\n        <p>\n            垂直展示的时间流信息\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li><p>当有一系列信息需要从上至下按时间排列时；</p></li>\n            <li><p>需要有一条时间轴进行视觉上的串联时；</p></li>\n        </ul>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"基本用法\"\n                describe=\"基本的时间轴。。\"\n            >\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"最后一个\"\n                describe=\"在最后位置添加一个幽灵节点，表示时间轴未完成，还在记录过程中。可以指定 pending={true} 或者 pending={一个 Vue 元素}。\"\n            >\n                <v-timeline pending=\"<a href='#'>查看更多</a>\">\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item>技术测试异常 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"圆圈颜色\"\n                describe=\"圆圈颜色，绿色用于已完成、成功状态，红色表示告警或错误状态，蓝色可表示正在进行或其他默认状态。\"\n            >\n                <v-timeline>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"red\">\n                        <p>初步排除网络异常1</p>\n                        <p>初步排除网络异常2</p>\n                        <p>初步排除网络异常3 2015-09-01</p>\n                    </v-timeline-item>\n                    <v-timeline-item>\n                        <p>技术测试异常1</p>\n                        <p>技术测试异常2</p>\n                        <p>技术测试异常3 2015-09-01</p>\n                    </v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"自定义时间轴点\"\n                describe=\"可以设置为图标或其他自定义元素。\"\n            >\n\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item dot=\"<i class='anticon anticon-clock-circle-o' style='font-size: 16px;'></i>\"\n                                     color=\"red\">\n                        技术测试异常 2015-09-01\n                    </v-timeline-item>\n                    <v-timeline-item>网络异常正在修复 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n        :content='content'\n    >\n  <pre>\n      <code class=\"html\">\n        &lt;v-timeline&gt;\n          &lt;v-timeline-item&gt;创建服务现场 2015-09-01&lt;/v-timeline-item&gt;\n          &lt;v-timeline-item&gt;初步排除网络异常 2015-09-01&lt;/v-timeline-item&gt;\n        &lt;/v-timeline&gt;\n      </code>\n    </pre>\n\n        <h3>Timeline</h3>\n    </api-table>\n\n    <api-table\n        :content='itemcontent'\n    >\n        <h3>TimelineItem</h3>\n    </api-table>\n\n\n</div>\n\n";
+	module.exports = "\r\n<div>\r\n\t<section class=\"markdown\">\r\n      <h1>Cascader 级联选择</h1>\r\n      <p>\r\n        级联选择控件。\r\n      </p>\r\n      <h2>何时使用</h2>\r\n      <ul>\r\n        <p>展示多级嵌套的父子关系数据，例如省市区，各级机构等。</p>\r\n      </ul>\r\n      <h2>组件演示</h2>\r\n    </section>\r\n\r\n\t<div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"典型级联\" describe=\"只包含级联数据。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data1'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带placeholder级联\" describe=\"级联、placehoder。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data2'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带默认值的级联\" describe=\"级联、placehoder、默认值。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data3'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带placeholder级联\" describe=\"级联、placehoder。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data4'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<api-table\r\n      :apis='apis'\r\n    ></api-table>\r\n</div>\r\n";
 
 /***/ },
 
-/***/ 708:
+/***/ 680:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(448)
-	__vue_script__ = __webpack_require__(179)
+	__vue_script__ = __webpack_require__(272)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\timeline.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(589)
+	  console.warn("[vue-loader] src\\views\\cascader.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(561)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -1,4 +1,4 @@
-webpackJsonp([25,49],{
+webpackJsonp([25,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([25,49],{
 
 /***/ },
 
-/***/ 275:
+/***/ 277:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([25,49],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _getIterator2 = __webpack_require__(20);
-
-	var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-	var _datatable = __webpack_require__(76);
-
-	var _datatable2 = _interopRequireDefault(_datatable);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -268,177 +260,18 @@ webpackJsonp([25,49],{
 	exports.default = {
 	    data: function data() {
 	        return {
-	            apis: [{
-	                parameter: 'data-source(必须)',
-	                explain: '数据源,服务端数据接口对应的url地址',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'columns(必须)',
-	                explain: '列配置（请见下表）',
-	                type: 'object',
-	                default: ''
-	            }, {
-	                parameter: 'size',
-	                explain: '表格尺寸,支持large,middle,small',
-	                type: 'string',
-	                default: 'middle'
-	            }, {
-	                parameter: 'pageSize',
-	                explain: '分页大小',
-	                type: 'number',
-	                default: '10'
-	            }, {
-	                parameter: 'pageSizeOptions',
-	                explain: '分页大小配置项',
-	                type: 'array',
-	                default: '[10,20,30,40,50]'
-	            }, {
-	                parameter: 'paramsName',
-	                explain: '接口请求参数名称配置项,后续完善文档',
-	                type: 'object',
-	                default: ''
-	            }, {
-	                parameter: 'otherParams',
-	                explain: '发送请求时需要额外附带的参数,后续完善文档',
-	                type: 'object',
-	                default: '{}'
-	            }, {
-	                parameter: 'formatter',
-	                explain: '数据格式化函数,参数data,数据加载成功table渲染之前调用',
-	                type: 'function',
-	                default: ''
-	            }, {
-	                parameter: 'rowSelection',
-	                explain: '行选择配置（请见下表）',
-	                type: 'object',
-	                default: ''
-	            }, {
-	                parameter: 'ghost',
-	                explain: '如果需要在datatable内使用外部组件，可以在这里自定义，然后在columns.component引用，每个自定义组件会接受3个prop（index，item，value），index是该组件所在行的序号，item是该组件所在行对应的数据，value是该组件所在行field字段对应的数据',
-	                type: 'object',
-	                default: ''
-	            }],
-	            columnsapi: [{
-	                parameter: 'title(必须)',
-	                explain: '列名',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'field(必须)',
-	                explain: '对应的数据字段',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'render',
-	                explain: '渲染函数,可自定义某列的具体渲染逻辑,参数value, row, index',
-	                type: 'function',
-	                default: ''
-	            }, {
-	                parameter: 'component',
-	                explain: '使用ghost里定义的组件',
-	                type: 'String',
-	                default: ''
-	            }, {
-	                parameter: 'width',
-	                explain: '列的宽度,支持任意css尺寸值',
-	                type: 'string',
-	                default: 'auto'
-	            }, {
-	                parameter: 'className',
-	                explain: '列的自定义class,多个class之间使用空格分割',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'sort',
-	                explain: '是否启用列排序,true表示启用排序功能,asc和desc表示启用默认排序',
-	                type: 'true | "asc" | "desc"',
-	                default: 'false'
-	            }],
-	            rowSelectionApi: [{
-	                parameter: 'type(必须)',
-	                explain: '选择模式,',
-	                type: 'checkbox | radio',
-	                default: 'checkbox'
-	            }, {
-	                parameter: 'onSelect',
-	                explain: '行选择之后的回调函数,参数index,state,item',
-	                type: 'function',
-	                default: ''
-	            }, {
-	                parameter: 'onSelectAll',
-	                explain: '全选操作的回掉函数,参数state,items',
-	                type: 'function',
-	                default: ''
-	            }],
-	            url: "/truck/search",
-	            columns: [{ title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true, width: "200px" }, { title: "姓名", field: 'name', sort: true }, { title: "姓名姓名姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "性别", field: 'sex', render: this.cellrender }, { title: "性别", field: 'sex', render: this.cellrender }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }],
-	            msg: {},
-	            formatter: function formatter(data) {
-	                console.log(data);
-	                var _iteratorNormalCompletion = true;
-	                var _didIteratorError = false;
-	                var _iteratorError = undefined;
-
-	                try {
-	                    for (var _iterator = (0, _getIterator3.default)(data), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                        var obj = _step.value;
-
-	                        obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
-	                    }
-	                } catch (err) {
-	                    _didIteratorError = true;
-	                    _iteratorError = err;
-	                } finally {
-	                    try {
-	                        if (!_iteratorNormalCompletion && _iterator.return) {
-	                            _iterator.return();
-	                        }
-	                    } finally {
-	                        if (_didIteratorError) {
-	                            throw _iteratorError;
-	                        }
-	                    }
-	                }
-
-	                return data;
-	            },
-	            rowSelection: {
-	                type: "checkbox",
-	                onSelect: function onSelect(index, state, item) {
-	                    console.log(index);
-	                    console.log(state);
-	                    console.log(item);
-	                },
-	                onSelectAll: function onSelectAll(state, items) {
-	                    console.log(state);
-	                    console.log(items);
-	                }
-	            }
+	            apis: []
 	        };
 	    },
 	    components: {
-	        vDatatable: _datatable2.default,
 	        codeBox: _codeBox2.default,
 	        apiTable: _apiTable2.default
-	    },
-	    methods: {
-	        handleIt: function handleIt(msg) {
-	            console.log(msg);
-	            this.msg = msg;
-	        },
-	        cellrender: function cellrender(value, row, index) {
-	            return '<strong>' + value + '</strong>';
-	        },
-	        clickCheck: function clickCheck() {
-	            alert(0);
-	        }
 	    }
 	};
 
 /***/ },
 
-/***/ 374:
+/***/ 378:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -453,13 +286,13 @@ webpackJsonp([25,49],{
 
 /***/ },
 
-/***/ 431:
+/***/ 434:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(374);
+	var content = __webpack_require__(378);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -468,8 +301,8 @@ webpackJsonp([25,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datatable.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datatable.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./css.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./css.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -480,25 +313,25 @@ webpackJsonp([25,49],{
 
 /***/ },
 
-/***/ 563:
+/***/ 566:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n    <section class=\"markdown\">\n        <h1>Datatable</h1>\n\n        <p>\n            依赖服务端加载的数据表格\n        </p>\n\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                展示大量结构化数据时使用.\n            </p>\n        </ul>\n\n        <v-datatable\n                :data-source='url'\n                :columns='columns'\n                :formatter='formatter'\n                :row-selection='rowSelection'\n                :bottom-gap=\"100\"\n                :left-fix=\"3\"\n        >\n        </v-datatable>\n\n        <br>\n\n        <v-datatable\n                :data-source='url'\n                :columns='columns'\n                :formatter='formatter'\n                :row-selection='rowSelection'\n                :height='400'\n        >\n        </v-datatable>\n\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n            <code-box title=\"表格-自定义事件\" describe=\"自定义事件\">\n                <v-datatable :data-source='url' :columns='columns' :formatter='formatter' :row-selection='rowSelection'></v-datatable>\n            </code-box>\n        </div>\n    </div>\n\n    <api-table :apis='apis'>datatable参数</api-table>\n    <api-table :apis='columnsapi'>columns参数</api-table>\n    <api-table :apis='rowSelectionApi'>rowSelection参数</api-table>\n\n</div>\n\n\n";
+	module.exports = "\n\n  <div>\n\n      <section class=\"markdown\">\n          <h1>全局CSS样式</h1>\n          <p>\n              和Bootstrap一样，为了增强跨浏览器表现的一致性，Vue Beauty也对浏览器默认样式做了重置和全局设置。同时我们也提供了很多有助于Web开发的工具类，你可以在需要的时候直接使用。\n          </p>\n\n          <h2>概览</h2>\n          <p>深入了解 Bootstrap 底层结构的关键部分，包括我们让 web 开发变得更好、更快、更强壮的最佳实践。</p>\n\n          <h4>HTML5 文档类型</h4>\n          <p>Bootstrap 使用到的某些 HTML 元素和 CSS 属性需要将页面设置为 HTML5 文档类型。在你项目中的每个页面都要参照下面的格式进行设置。</p>\n          <div class=\"highlight\">\n<pre>\n  <span class=\"cp\">&lt;!DOCTYPE html&gt;</span>\n  <span class=\"nt\">&lt;html</span> <span class=\"na\">lang=</span><span class=\"s\">\"zh-CN\"</span><span\n        class=\"nt\">&gt;</span>\n    ...\n  <span class=\"nt\">&lt;/html&gt;</span>\n</pre>\n          </div>\n\n          <h4>基本样式</h4>\n          <p>Vue Beauty设置了基本的全局样式。分别是<a href=\"#\">dsd</a>：</p>\n          <ul>\n              <li>为 <code>body</code> 元素设置 <code>background-color: #fff;</code></li>\n              <li>使用 <code>@font-family</code>、<code>@text-color</code>、<code>@font-size-base</code> 和 <code>@line-height-base</code>变量作为排版的基本参数\n              </li>\n              <li><code>@font-family</code>变量的默认值为<code>-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto,\n                  \"Helvetica Neue\", Helvetica, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", SimSun,\n                  sans-serif</code></li>\n              <li><code>@text-color</code>变量的默认值为<code>#444</code></li>\n              <li><code>@font-size-base</code>变量的默认值为<code>12px</code></li>\n              <li><code>@line-height-base</code>变量的默认值为<code>1.5</code></li>\n              <li>为所有链接设置了基本颜色 <code>#369BE9</code> ，并且当链接处于 <code>:hover</code> 状态时才添加下划线</li>\n          </ul>\n\n          <h4>Normalize.css</h4>\n          <p>为了增强跨浏览器表现的一致性，我们使用了 <a href=\"http://necolas.github.io/normalize.css/\" target=\"_blank\">Normalize.css</a>，这是由\n              <a href=\"https://twitter.com/necolas\" target=\"_blank\">Nicolas Gallagher</a> 和 <a\n                      href=\"https://twitter.com/jon_neal\" target=\"_blank\">Jonathan Neal</a> 维护的一个CSS 重置样式库。</p>\n\n          <h4>布局容器</h4>\n          <p>Vue Beauty提供了两种<code>.container</code> 容器，可作为页面内容的顶层容器。具体说明如下：</p>\n          <p><code>.container</code> 类用于固定宽度并支持响应式布局的容器。其宽度有3种：720px、940px、1140px，根据视口宽度响应式匹配。</p>\n          <p><code>.container-fluid</code> 类用于 100% 宽度，占据全部视口（viewport）的容器。</p>\n\n\n          <h2>排版</h2>\n\n          <h4>标题</h4>\n          <p>HTML 中的所有标题标签，<code>&lt;h1&gt;</code> 到 <code>&lt;h6&gt;</code> 均可使用。在标题内还可以包含 <code>&lt;small&gt;</code>\n              标签，可以用来标记副标题。</p>\n\n          <h4>内联文本元素</h4>\n          <p>高亮文本使用<code>&lt;mark&gt;</code>标签：\n              <mark>高亮文本</mark>\n          </p>\n          <p>删除文本使用<code>&lt;del&gt;</code>标签：\n              <del>删除文本</del>\n          </p>\n          <p>带下划线的文本使用<code>&lt;u&gt;</code>标签：<u>下划线文本</u></p>\n          <p>小号文本使用<code>&lt;small&gt;</code>标签：\n              <small>小号文本</small>\n          </p>\n          <p>着重文本使用<code>&lt;strong&gt;</code>标签：<strong>着重文本</strong></p>\n\n          <h4>对齐及换行</h4>\n          <p class=\"text-left\">左对齐：<code>.text-left</code></p>\n          <p class=\"text-right\">右对齐：<code>.text-right</code></p>\n          <p class=\"text-center\">居中对齐：<code>.text-center</code></p>\n          <p class=\"text-nowrap\">禁止换行：<code>.text-nowrap</code></p>\n\n          <h4>文本颜色</h4>\n          <p class=\"text-muted\">.text-muted</p>\n          <p class=\"text-dark\">.text-dark</p>\n          <p class=\"text-primary\">.text-primary</p>\n          <p class=\"text-success\">.text-success</p>\n          <p class=\"text-info\">.text-info</p>\n          <p class=\"text-warning\">.text-warning</p>\n          <p class=\"text-error\">.text-error</p>\n\n          <h4>文本大小</h4>\n          <p class=\"text-md\">.text-md(14px)</p>\n          <p class=\"text-lg\">.text-lg(16px)</p>\n          <p class=\"text-xl\">.text-xl(18px)</p>\n          <p class=\"text-xxl\">.text-xxl(20px)</p>\n\n          <h4>背景区块</h4>\n          <p class=\"bg-primary\">.bg-primary</p>\n          <p class=\"bg-success\">.bg-success</p>\n          <p class=\"bg-info\">.bg-info</p>\n          <p class=\"bg-warning\">.bg-warning</p>\n          <p class=\"bg-error\">.bg-error</p>\n          <p class=\"bg-muted\">.bg-muted</p>\n\n          <h4>margin和padding</h4>\n          <p>为了开发方便，Vue Beauty提供了一组常用的margin和padding类，具体尺寸有：5px、10px、15px、20px、25px。使用方法如下：</p>\n          <p>margin-{size}类表示4个方向都有同样大小的外边距，如<code>margin-10</code>。</p>\n          <p>padding-{size}类表示4个方向都有同样大小的内边距，如<code>padding-15</code>。</p>\n          <p>margin-{side}-{size}类表示某个方向有设定大小的外边距，如<code>margin-top-25</code>。</p>\n          <p>padding-{side}-{size}类表示某个方向有设定大小的内边距，如<code>padding-right-5</code>。</p>\n\n\n          <h2>工具类</h2>\n\n          <h4>浮动</h4>\n          <p class=\"pull-left\">左浮动:<code>.pull-left</code></p>\n          <p class=\"pull-right\">右浮动:<code>.pull-right</code></p>\n          <h4>clearfix</h4>\n          <p class=\"clearfix\">清除浮动:<code>.clearfix</code></p>\n          <h4>显示隐藏</h4>\n          <p>显示:<code>.show</code></p>\n          <p>隐藏:<code>.hide</code></p>\n          <p>不可见:<code>.invisible</code>（使用visibility控制）</p>\n\n      </section>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 680:
+/***/ 684:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(431)
-	__vue_script__ = __webpack_require__(275)
+	__webpack_require__(434)
+	__vue_script__ = __webpack_require__(277)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\datatable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(563)
+	  console.warn("[vue-loader] src\\views\\css.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(566)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

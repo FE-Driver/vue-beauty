@@ -1,4 +1,4 @@
-webpackJsonp([32,49],{
+webpackJsonp([32,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([32,49],{
 
 /***/ },
 
-/***/ 264:
+/***/ 265:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([32,49],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _badge = __webpack_require__(70);
-
-	var _badge2 = _interopRequireDefault(_badge);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,51 +260,42 @@ webpackJsonp([32,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      onClose: function onClose() {
-	        console.log(this);
-	      },
-	      show: true,
-	      num: 5,
 	      apis: [{
-	        parameter: 'count',
-	        explain: '展示的数字，大于 overflowCount 时显示为 {{overflowCount}}+，为 0 时隐藏',
-	        type: 'Number',
-	        default: ''
+	        parameter: 'type',
+	        explain: '表格类型(props,methods,events)',
+	        type: 'String',
+	        default: "props"
 	      }, {
-	        parameter: 'overflowCount',
-	        explain: '展示封顶的数字值',
-	        type: 'Number',
-	        default: '99'
+	        parameter: 'head',
+	        explain: '表头数组,根据type字段，head的默认值也不同',
+	        type: 'Array',
+	        default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
 	      }, {
-	        parameter: 'dot',
-	        explain: '不展示数字，只有一个小红点',
-	        type: 'boolean',
-	        default: 'false'
+	        parameter: 'content',
+	        explain: '表格每行的内容数组 [["1","2","3","4"]...]',
+	        type: 'Array',
+	        default: '无'
 	      }, {
-	        parameter: 'show',
-	        explain: '是否显示',
-	        type: 'boolean',
-	        default: 'false'
-	      }]
+	        parameter: 'apis',
+	        explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
+	        type: 'Array',
+	        default: '无'
+	      }, {
+	        parameter: 'title',
+	        explain: '设置表格的标题',
+	        type: 'string',
+	        default: 'API'
+	      }, {
+	        parameter: 'slot::default',
+	        explain: 'title和table之间的slot',
+	        type: 'slot node',
+	        default: '无'
+	      }],
+	      head: ['title1', 'title2'],
+	      content: [['1-1', '1-2'], ['2-1', '2-2'], ['3-1', '3-2']]
 	    };
 	  },
-	  computed: {
-	    code: function code() {
-	      var str = ["<v-badge :count=\"25\"></v-badge>", "<v-badge :count=\"4\" :styles=\"{ backgroundColor: \'#fff\', color: \'#999\', borderColor: \'#d9d9d9\' }\"></v-badge>", "<v-badge :count=\"109\" :styles=\"{ backgroundColor: \'#87d068\' }\"></v-badge>"].join("");
-	      return str;
-	    }
-	  },
-	  methods: {
-	    reduce: function reduce() {
-	      if (this.num < 0) {
-	        this.num = 0;
-	      } else {
-	        this.num--;
-	      }
-	    }
-	  },
 	  components: {
-	    vBadge: _badge2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -316,7 +303,7 @@ webpackJsonp([32,49],{
 
 /***/ },
 
-/***/ 367:
+/***/ 371:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -324,20 +311,20 @@ webpackJsonp([32,49],{
 
 
 	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n", ""]);
+	exports.push([module.id, "", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 424:
+/***/ 427:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(367);
+	var content = __webpack_require__(371);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -346,8 +333,8 @@ webpackJsonp([32,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./badge.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./badge.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -358,25 +345,25 @@ webpackJsonp([32,49],{
 
 /***/ },
 
-/***/ 552:
+/***/ 554:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Badge 徽标数</h1>\n      <p>\n        图标右上角的圆形徽标数字。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"简单的徽章展示。\"\n          code='<v-badge :count=\"5\"><a href=\"#\" class=\"head-example\"></a></v-badge>'\n        >\n          <v-badge :count=\"5\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n        </code-box>\n\n        <code-box\n          title=\"讨嫌的小红点\"\n          describe=\"没有具体的数字。\"\n          code='<v-badge :count=\"30\"><a href=\"#\" class=\"head-example\"></a></v-badge>'\n        >\n          <v-badge dot>\n            <i class=\"anticon anticon-notification\"></i>\n          </v-badge>\n          <v-badge dot>\n            <a >一个链接</a>\n          </v-badge>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"大数字\"\n          describe=\"超过 overflowCount 的会显示为 {overflowCount}+。\"\n          code='<v-badge :count=\"11\" :overflow-count=\"10\">\n  <a class=\"head-example\"></a>\n</v-badge>\n<v-badge :count=\"1000\" :overflow-count=\"999\">\n  <a class=\"head-example\"></a>\n</v-badge>'\n        >\n          <v-badge :count=\"11\" :overflow-count=\"10\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n\n          <v-badge :count=\"1000\" :overflow-count=\"999\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n        </code-box>\n\n        <code-box\n          title=\"动态\"\n          describe=\"展示动态变化的效果。\"\n          code='<v-badge :count=\"num\">\n  <a class=\"head-example\"></a>\n</v-badge>\n<v-badge dot :show=\"show\">\n  <a class=\"head-example\"></a>\n</v-badge>\n<div style=\"margin-top: 10px;\">\n  <div class=\"ant-btn-group\">\n    <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"num--\"><i class=\"anticon anticon-minus\" ></i></button>\n    <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"num++\"><i class=\"anticon anticon-plus\"></i></button>\n  </div>\n  <button type=\"button\" class=\"ant-btn ant-btn-ghost\" style=\"margin-left: 8px;\" @click=\"show = !show\"><span>切换红点显隐</span></button>\n</div>'\n        >\n          <v-badge :count=\"num\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n          <v-badge dot :show=\"show\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n          <div style=\"margin-top: 10px;\">\n            <div class=\"ant-btn-group\">\n              <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"reduce\"><i class=\"anticon anticon-minus\" ></i></button>\n              <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"num++\"><i class=\"anticon anticon-plus\"></i></button>\n            </div>\n            <button type=\"button\" class=\"ant-btn ant-btn-ghost\" style=\"margin-left: 8px;\" @click=\"show = !show\"><span>切换红点显隐</span></button>\n          </div>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"独立使用\"\n          describe=\"不包裹任何元素即是独立使用\"\n          :code=\"code\"\n        >\n          <v-badge :count=\"25\"></v-badge>\n          <v-badge :count=\"4\" :styles=\"{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }\"></v-badge>\n          <v-badge :count=\"109\" :styles=\"{ backgroundColor: '#87d068' }\"></v-badge>\n        </code-box>\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>ApiTable Api表格</h1>\n    <p>\n      用于描述组件的api\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的api说明。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n       >\n        <api-table\n          :apis='apis'\n        >\n          <div>这是一个slot</div>\n        </api-table>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"使用head和content\"\n        describe=\"不推荐使用apis\"\n       >\n        <api-table\n          :head='head'\n          :content=\"content\"\n          title=\"使用head和content\"\n        >\n        </api-table>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 670:
+/***/ 673:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(424)
-	__vue_script__ = __webpack_require__(264)
+	__webpack_require__(427)
+	__vue_script__ = __webpack_require__(265)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\badge.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(552)
+	  console.warn("[vue-loader] src\\views\\apiTable.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(554)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

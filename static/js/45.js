@@ -1,4 +1,4 @@
-webpackJsonp([45,49],{
+webpackJsonp([45,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([45,49],{
 
 /***/ },
 
-/***/ 283:
+/***/ 286:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -263,6 +263,7 @@ webpackJsonp([45,49],{
 	      menuData: [{
 	        name: "首页",
 	        icon: 'home',
+	        selected: true,
 	        link: {
 	          name: 'card'
 	        }
@@ -271,7 +272,7 @@ webpackJsonp([45,49],{
 	        icon: 'mail',
 	        children: [{
 	          link: {
-	            name: 'alert',
+	            name: 'menu',
 	            query: {
 	              src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
 	            }
@@ -315,24 +316,24 @@ webpackJsonp([45,49],{
 
 /***/ },
 
-/***/ 570:
+/***/ 574:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Menu 导航菜单</h1>\n    <p>\n      为页面和功能提供导航的菜单列表。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        导航菜单是一个网站的灵魂，用户依赖导航在各个页面中进行跳转。一般分为顶部导航和侧边导航，顶部导航提供全局性的类目和功能，侧边导航提供多级结构来收纳和排列网站架构。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col>\n      <code-box\n              title=\"顶部导航\"\n              describe=\"水平的顶部导航菜单。\"\n      >\n        <v-menu mode=\"horizontal\">\n          <v-menu-item><v-icon type='mail'></v-icon>导航一</v-menu-item>\n          <v-menu-item disabled><v-icon type='appstore'></v-icon>导航二</v-menu-item>\n          <v-sub-menu title=\"导航 - 子菜单\" icon=\"setting\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n           <v-menu-item><a href=\"http://www.alipay.com/\" target=\"_blank\">导航四 - 链接</a></v-menu-item>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"内嵌菜单\"\n              describe=\"垂直菜单，子菜单内嵌在菜单区域。\"\n      >\n        <v-menu mode=\"inline\" style=\"width:240px\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\" disabled>\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"垂直菜单\"\n              describe=\"子菜单是弹出的形式。\"\n      >\n        <v-menu style=\"width:240px\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\" disabled>\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"主题\"\n              describe=\"内建了两套主题 light|dark，默认 light。\"\n      >\n        <v-menu style=\"width:240px\" theme=\"dark\" mode=\"inline\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item>选项1</v-menu-item>\n            <v-menu-item>选项2</v-menu-item>\n            <v-menu-item>选项3</v-menu-item>\n            <v-menu-item>选项4</v-menu-item>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\">\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"从数据直接生成\"\n              describe=\"使用data从json数据直接生成menu\"\n      >\n        <v-nav-menu style=\"width:240px\" :data=\"menuData\"></v-nav-menu>\n\n      </code-box>\n\n    </v-Col>\n\n  </v-Row>\n\n  <api-table\n    :content='content'\n  >\n    <h3>Menu props</h3>\n  </api-table>\n\n  <api-table\n    :content='content2'\n    title=\"\"\n  >\n    <h3>Menu.Item props</h3>\n  </api-table>\n\n  <api-table\n    :content='content3'\n    title=\"\"\n  >\n    <h3>Menu.SubMenu props</h3>\n  </api-table>\n\n  <api-table\n    :content='content4'\n    title=\"\"\n  >\n    <h3>Menu.ItemGroup props</h3>\n  </api-table>\n  <api-table\n    :content='content5'\n    title=\"\"\n  >\n    <h3>NavMenu props</h3>\n  </api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 688:
+/***/ 693:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(283)
+	__vue_script__ = __webpack_require__(286)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\menu.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(570)
+	__vue_template__ = __webpack_require__(574)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

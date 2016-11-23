@@ -1,4 +1,4 @@
-webpackJsonp([26,49],{
+webpackJsonp([26,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,14 +238,22 @@ webpackJsonp([26,49],{
 
 /***/ },
 
-/***/ 274:
+/***/ 275:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
+
+	var _collapse = __webpack_require__(118);
+
+	var _collapse2 = _interopRequireDefault(_collapse);
+
+	var _panel = __webpack_require__(119);
+
+	var _panel2 = _interopRequireDefault(_panel);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -258,20 +266,44 @@ webpackJsonp([26,49],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    data: function data() {
-	        return {
-	            apis: []
-	        };
-	    },
-	    components: {
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+	  data: function data() {
+	    return {
+	      show: true,
+	      num: 5,
+	      apis: [{
+	        parameter: 'activeKey',
+	        explain: '当前激活 tab 面板的 key',
+	        type: 'Array',
+	        default: '默认第一个元素'
+	      }, {
+	        parameter: 'defaultActiveKey',
+	        explain: '初始化选中面板的 key',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'accordion',
+	        explain: '开启手风琴模式',
+	        type: 'Boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'onChange',
+	        explain: '切换面板的回调',
+	        type: 'function',
+	        default: '无'
+	      }]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default,
+	    vCollapse: _collapse2.default,
+	    vPanel: _panel2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 373:
+/***/ 376:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -279,20 +311,20 @@ webpackJsonp([26,49],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 430:
+/***/ 432:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(373);
+	var content = __webpack_require__(376);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -301,8 +333,8 @@ webpackJsonp([26,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./css.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./css.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -313,25 +345,25 @@ webpackJsonp([26,49],{
 
 /***/ },
 
-/***/ 562:
+/***/ 564:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n      <section class=\"markdown\">\n          <h1>全局CSS样式</h1>\n          <p>\n              和Bootstrap一样，为了增强跨浏览器表现的一致性，Vue Beauty也对浏览器默认样式做了重置和全局设置。同时我们也提供了很多有助于Web开发的工具类，你可以在需要的时候直接使用。\n          </p>\n\n          <h2>概览</h2>\n          <p>深入了解 Bootstrap 底层结构的关键部分，包括我们让 web 开发变得更好、更快、更强壮的最佳实践。</p>\n\n          <h4>HTML5 文档类型</h4>\n          <p>Bootstrap 使用到的某些 HTML 元素和 CSS 属性需要将页面设置为 HTML5 文档类型。在你项目中的每个页面都要参照下面的格式进行设置。</p>\n          <div class=\"highlight\">\n<pre>\n  <span class=\"cp\">&lt;!DOCTYPE html&gt;</span>\n  <span class=\"nt\">&lt;html</span> <span class=\"na\">lang=</span><span class=\"s\">\"zh-CN\"</span><span\n        class=\"nt\">&gt;</span>\n    ...\n  <span class=\"nt\">&lt;/html&gt;</span>\n</pre>\n          </div>\n\n          <h4>基本样式</h4>\n          <p>Vue Beauty设置了基本的全局样式。分别是<a href=\"#\">dsd</a>：</p>\n          <ul>\n              <li>为 <code>body</code> 元素设置 <code>background-color: #fff;</code></li>\n              <li>使用 <code>@font-family</code>、<code>@text-color</code>、<code>@font-size-base</code> 和 <code>@line-height-base</code>变量作为排版的基本参数\n              </li>\n              <li><code>@font-family</code>变量的默认值为<code>-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto,\n                  \"Helvetica Neue\", Helvetica, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", SimSun,\n                  sans-serif</code></li>\n              <li><code>@text-color</code>变量的默认值为<code>#444</code></li>\n              <li><code>@font-size-base</code>变量的默认值为<code>12px</code></li>\n              <li><code>@line-height-base</code>变量的默认值为<code>1.5</code></li>\n              <li>为所有链接设置了基本颜色 <code>#369BE9</code> ，并且当链接处于 <code>:hover</code> 状态时才添加下划线</li>\n          </ul>\n\n          <h4>Normalize.css</h4>\n          <p>为了增强跨浏览器表现的一致性，我们使用了 <a href=\"http://necolas.github.io/normalize.css/\" target=\"_blank\">Normalize.css</a>，这是由\n              <a href=\"https://twitter.com/necolas\" target=\"_blank\">Nicolas Gallagher</a> 和 <a\n                      href=\"https://twitter.com/jon_neal\" target=\"_blank\">Jonathan Neal</a> 维护的一个CSS 重置样式库。</p>\n\n          <h4>布局容器</h4>\n          <p>Vue Beauty提供了两种<code>.container</code> 容器，可作为页面内容的顶层容器。具体说明如下：</p>\n          <p><code>.container</code> 类用于固定宽度并支持响应式布局的容器。其宽度有3种：720px、940px、1140px，根据视口宽度响应式匹配。</p>\n          <p><code>.container-fluid</code> 类用于 100% 宽度，占据全部视口（viewport）的容器。</p>\n\n\n          <h2>排版</h2>\n\n          <h4>标题</h4>\n          <p>HTML 中的所有标题标签，<code>&lt;h1&gt;</code> 到 <code>&lt;h6&gt;</code> 均可使用。在标题内还可以包含 <code>&lt;small&gt;</code>\n              标签，可以用来标记副标题。</p>\n\n          <h4>内联文本元素</h4>\n          <p>高亮文本使用<code>&lt;mark&gt;</code>标签：\n              <mark>高亮文本</mark>\n          </p>\n          <p>删除文本使用<code>&lt;del&gt;</code>标签：\n              <del>删除文本</del>\n          </p>\n          <p>带下划线的文本使用<code>&lt;u&gt;</code>标签：<u>下划线文本</u></p>\n          <p>小号文本使用<code>&lt;small&gt;</code>标签：\n              <small>小号文本</small>\n          </p>\n          <p>着重文本使用<code>&lt;strong&gt;</code>标签：<strong>着重文本</strong></p>\n\n          <h4>对齐及换行</h4>\n          <p class=\"text-left\">左对齐：<code>.text-left</code></p>\n          <p class=\"text-right\">右对齐：<code>.text-right</code></p>\n          <p class=\"text-center\">居中对齐：<code>.text-center</code></p>\n          <p class=\"text-nowrap\">禁止换行：<code>.text-nowrap</code></p>\n\n          <h4>文本颜色</h4>\n          <p class=\"text-muted\">.text-muted</p>\n          <p class=\"text-dark\">.text-dark</p>\n          <p class=\"text-primary\">.text-primary</p>\n          <p class=\"text-success\">.text-success</p>\n          <p class=\"text-info\">.text-info</p>\n          <p class=\"text-warning\">.text-warning</p>\n          <p class=\"text-error\">.text-error</p>\n\n          <h4>文本大小</h4>\n          <p class=\"text-md\">.text-md(14px)</p>\n          <p class=\"text-lg\">.text-lg(16px)</p>\n          <p class=\"text-xl\">.text-xl(18px)</p>\n          <p class=\"text-xxl\">.text-xxl(20px)</p>\n\n          <h4>背景区块</h4>\n          <p class=\"bg-primary\">.bg-primary</p>\n          <p class=\"bg-success\">.bg-success</p>\n          <p class=\"bg-info\">.bg-info</p>\n          <p class=\"bg-warning\">.bg-warning</p>\n          <p class=\"bg-error\">.bg-error</p>\n          <p class=\"bg-muted\">.bg-muted</p>\n\n          <h4>margin和padding</h4>\n          <p>为了开发方便，Vue Beauty提供了一组常用的margin和padding类，具体尺寸有：5px、10px、15px、20px、25px。使用方法如下：</p>\n          <p>margin-{size}类表示4个方向都有同样大小的外边距，如<code>margin-10</code>。</p>\n          <p>padding-{size}类表示4个方向都有同样大小的内边距，如<code>padding-15</code>。</p>\n          <p>margin-{side}-{size}类表示某个方向有设定大小的外边距，如<code>margin-top-25</code>。</p>\n          <p>padding-{side}-{size}类表示某个方向有设定大小的内边距，如<code>padding-right-5</code>。</p>\n\n\n          <h2>工具类</h2>\n\n          <h4>浮动</h4>\n          <p class=\"pull-left\">左浮动:<code>.pull-left</code></p>\n          <p class=\"pull-right\">右浮动:<code>.pull-right</code></p>\n          <h4>clearfix</h4>\n          <p class=\"clearfix\">清除浮动:<code>.clearfix</code></p>\n          <h4>显示隐藏</h4>\n          <p>显示:<code>.show</code></p>\n          <p>隐藏:<code>.hide</code></p>\n          <p>不可见:<code>.invisible</code>（使用visibility控制）</p>\n\n      </section>\n\n  </div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Collapse 折叠面板</h1>\n    <p>\n      可以折叠/展开的内容区域。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>对复杂区域进行分组和隐藏，保持页面的整洁。</li>\n      <li>手风琴 是一种特殊的折叠面板，只允许单个内容区域展开。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"折叠面板\"\n        describe=\"可以同时展开多个面板，这个例子默认展开了第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1'>\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n      <code-box\n        title=\"多选\"\n        describe=\"默认同时展开多个面板\"\n        code=\"<v-collapse :active-key='[1,2]'>\"\n      >\n        <v-collapse :active-key=\"['1','2']\">\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"手风琴\"\n        describe=\"手风琴，每次只打开一个tab。默认打开第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1' accordion>\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 679:
+/***/ 683:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(430)
-	__vue_script__ = __webpack_require__(274)
+	__webpack_require__(432)
+	__vue_script__ = __webpack_require__(275)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\css.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(562)
+	  console.warn("[vue-loader] src\\views\\collapse.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(564)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

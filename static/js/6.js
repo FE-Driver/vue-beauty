@@ -1,4 +1,4 @@
-webpackJsonp([6,49],{
+webpackJsonp([6,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([6,49],{
 
 /***/ },
 
-/***/ 305:
+/***/ 309:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -345,7 +345,7 @@ webpackJsonp([6,49],{
 
 /***/ },
 
-/***/ 393:
+/***/ 397:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -360,13 +360,13 @@ webpackJsonp([6,49],{
 
 /***/ },
 
-/***/ 450:
+/***/ 453:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(393);
+	var content = __webpack_require__(397);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -387,25 +387,25 @@ webpackJsonp([6,49],{
 
 /***/ },
 
-/***/ 592:
+/***/ 597:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Tree 树形控件</h1>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。\"\n      >\n        <v-tree :data-source.sync=\"treedata\" checkable multiple :on-select=\"selectFn\" :on-check=\"checkFn\"></v-tree>\n        <v-button @click=\"getTreeData\" type=\"primary\">tree数据</v-button>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n\n  <api-table\n    :content='content'\n  >\n    <h3>Tree props</h3>\n  </api-table>\n  <api-table\n    type=\"methods\"\n    :content='methodContent'\n    title=\"\"\n  >\n    <h3>Tree methods</h3>\n  </api-table>\n\n  <api-table\n    :apis='apiTreeNode'\n    title=\"\"\n  >\n    <h3>TreeNode props</h3>\n  </api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 711:
+/***/ 717:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(450)
-	__vue_script__ = __webpack_require__(305)
+	__webpack_require__(453)
+	__vue_script__ = __webpack_require__(309)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\tree.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(592)
+	__vue_template__ = __webpack_require__(597)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

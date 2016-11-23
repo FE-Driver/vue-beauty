@@ -1,4 +1,4 @@
-webpackJsonp([17,49],{
+webpackJsonp([17,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([17,49],{
 
 /***/ },
 
-/***/ 287:
+/***/ 291:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -255,7 +255,7 @@ webpackJsonp([17,49],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _notification = __webpack_require__(82);
+	var _notification = __webpack_require__(80);
 
 	var _notification2 = _interopRequireDefault(_notification);
 
@@ -322,7 +322,7 @@ webpackJsonp([17,49],{
 
 /***/ },
 
-/***/ 383:
+/***/ 387:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -337,13 +337,13 @@ webpackJsonp([17,49],{
 
 /***/ },
 
-/***/ 440:
+/***/ 443:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(383);
+	var content = __webpack_require__(387);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -364,25 +364,25 @@ webpackJsonp([17,49],{
 
 /***/ },
 
-/***/ 574:
+/***/ 579:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Notification通知提醒框</h1>\n      <p>\n        全局展示通知提醒信息。\n      </p>\n      <h2>何时使用</h2>\n      <p>在系统右上角显示通知提醒信息。经常用于以下情况：</p>\n      <ul>\n        <li>较为复杂的通知内容。</li>\n        <li>带有交互的通知，给出用户下一步的行动点。</li>\n        <li>系统主动推送。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法，4.5 秒后自动关闭。\"\n          code='openNotification() {\n  notification.open({\n    message: \"这是标题\",\n    description: \"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案\",\n  });\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification\"><span>打开通知提醒框</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification\"><span>打开通知提醒框</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"带有Icon的通知提醒框\"\n          describe=\"通知提醒框左侧有图标。\"\n          code='openNotificationWithIcon(type) {\n  notification[type]({\n    message: \"这是标题\",\n    description: \"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案\"\n  });\n}\n\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"success\")\"><span>成 功</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"info\")\"><span>消 息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"warning\")\"><span>警 告</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"error\")\"><span>错 误</span></button>\n'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('success')\"><span>成 功</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('info')\"><span>消 息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('warning')\"><span>警 告</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('error')\"><span>错 误</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"自动关闭的延时\"\n          describe=\"自定义通知框自动关闭的延时，默认4.5s，取消自动关闭只要将该值设为 0 即可。\"\n          code='openNotification() {\n  notification.open({\n    message: \"这是标题\",\n    description: \"我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭\",\n    duration: 0,\n  });\n}\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification2\"><span>打开通知提醒框</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotificationInfinite\"><span>打开通知提醒框</span></button>\n        </code-box>\n\n        <!-- <code-box\n          title=\"自定义\"\n          describe=\"自定义关闭按钮的样式和文字。\"\n          code=\"\"\n        >\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>打开通知提醒框</span></button>\n        </code-box> -->\n\n      </div>\n\n    </div>\n\n\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li>notification.success(config)</li>\n        <li>notification.error(config)</li>\n        <li>notification.info(config)</li>\n        <li>notification.warning(config)</li>\n      </ul>\n      <p>\n        config 参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          notification.config({\n            top: 100,\n            duration: 3,\n          });\n      </p>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 692:
+/***/ 698:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(440)
-	__vue_script__ = __webpack_require__(287)
+	__webpack_require__(443)
+	__vue_script__ = __webpack_require__(291)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\notification.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(574)
+	__vue_template__ = __webpack_require__(579)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

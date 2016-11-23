@@ -1,4 +1,4 @@
-webpackJsonp([34,49],{
+webpackJsonp([34,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([34,49],{
 
 /***/ },
 
-/***/ 261:
+/***/ 263:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,6 +246,10 @@ webpackJsonp([34,49],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _affix = __webpack_require__(69);
+
+	var _affix2 = _interopRequireDefault(_affix);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -260,48 +264,29 @@ webpackJsonp([34,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      onClose: function onClose() {
-	        console.log(this);
+	      onChange: function onChange(affixed) {
+	        return console.log(affixed);
 	      },
 	      apis: [{
-	        parameter: 'type',
-	        explain: '必选参数，指定警告提示的样式，有四种选择 success、info、warning、error',
-	        type: 'String',
-	        default: 'info'
+	        parameter: 'offsetTop',
+	        explain: '距离窗口顶部达到指定偏移量后触发',
+	        type: 'Number',
+	        default: ''
 	      }, {
-	        parameter: 'closable',
-	        explain: '可选参数，默认不显示关闭按钮',
-	        type: 'Boolean',
-	        default: 'false'
+	        parameter: 'offsetBottom',
+	        explain: '距离窗口底部达到指定偏移量后触发',
+	        type: 'Number',
+	        default: ''
 	      }, {
-	        parameter: 'closeText',
-	        explain: '可选参数，自定义关闭按钮',
-	        type: 'String',
+	        parameter: 'onChange',
+	        explain: '固定状态改变时触发的回调函数',
+	        type: 'Function( Boolean )',
 	        default: '无'
-	      }, {
-	        parameter: 'message',
-	        explain: '必选参数，警告提示内容',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'description',
-	        explain: '可选参数，警告提示的辅助性文字介绍',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'onClose',
-	        explain: '可选参数，关闭时触发的回调函数',
-	        type: 'Function',
-	        default: '无'
-	      }, {
-	        parameter: 'showIcon',
-	        explain: '可选参数，是否显示辅助图标',
-	        type: 'Boolean',
-	        default: 'false'
 	      }]
 	    };
 	  },
 	  components: {
+	    vAffix: _affix2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -309,7 +294,7 @@ webpackJsonp([34,49],{
 
 /***/ },
 
-/***/ 365:
+/***/ 369:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -324,13 +309,13 @@ webpackJsonp([34,49],{
 
 /***/ },
 
-/***/ 422:
+/***/ 425:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(365);
+	var content = __webpack_require__(369);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -339,8 +324,8 @@ webpackJsonp([34,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./alert.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./alert.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./affix.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./affix.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -351,25 +336,25 @@ webpackJsonp([34,49],{
 
 /***/ },
 
-/***/ 549:
+/***/ 552:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Alert 警告提示</h1>\n      <p>\n        警告提示，展现需要关注的信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当某个页面需要向用户显示警告的信息时。</li>\n        <li>非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法，适用于简短的警告提示。\"\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"可关闭的警告提示\"\n          describe=\"显示关闭按钮，点击可关闭警告提示。\"\n          code='<v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\"\ndescription=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\nclosable></v-alert>'\n        >\n          <v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n          <v-alert\n            type=\"error\"\n            message=\"错误提示的文案\"\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n            closable></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"图标\"\n          describe=\"可口的图标让信息类型更加醒目。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\" show-icon></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\" show-icon></v-alert>\n<v-alert type=\"warning\" message=\"警告提示的文案\" show-icon></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\" show-icon></v-alert>\n<v-alert type=\"success\" message=\"成功提示的文案\" show-icon\n  description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\" show-icon\n  description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"warning\" message=\"警告提示的文案\" show-icon\n  description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"error\" message=\"错误提示的文案\" show-icon\n  description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\" show-icon></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\" show-icon></v-alert>\n          <v-alert type=\"warning\" message=\"警告提示的文案\" show-icon></v-alert>\n          <v-alert type=\"error\" message=\"错误提示的文案\" show-icon></v-alert>\n          <v-alert type=\"success\" message=\"成功提示的文案\" show-icon\n            description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\" show-icon\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"warning\" message=\"警告提示的文案\" show-icon\n            description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"error\" message=\"错误提示的文案\" show-icon\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n          ></v-alert>\n        </code-box>\n\n      </div>\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n          title=\"四种样式\"\n          describe=\"共有四种样式 success、info、warning、error。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\"></v-alert>\n<v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\"></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\"></v-alert>\n          <v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n          <v-alert type=\"error\" message=\"错误提示的文案\"></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"含有辅助性文字介绍\"\n          describe=\"含有辅助性文字介绍的警告提示。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\"\n  description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\"\n  description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"warning\" message=\"警告提示的文案\"\n  description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"error\" message=\"错误提示的文案\"\n  description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"\n            description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"warning\" message=\"警告提示的文案\"\n            description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"error\" message=\"错误提示的文案\"\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n          ></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"自定义关闭\"\n          describe=\"可以自定义关闭，自定义的文字会替换原先的关闭 Icon。\"\n          code='<v-alert type=\"info\" message=\"消息提示的文案\" close-text=\"不再提醒\"  closable :on-close=\"onClose\" ></v-alert>'\n        >\n          <v-alert type=\"info\" message=\"消息提示的文案\" close-text=\"不再提醒\"  closable\n            :on-close=\"onClose\"\n          ></v-alert>\n        </code-box>\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Affix 固钉</h1>\n      <p>\n        将页面元素钉在可视范围。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。</li>\n        <li>页面可视范围过小时，慎用此功能以免遮挡页面内容。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法。\"\n          code='<v-affix :offset-top=\"0\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"0\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"下方固定\"\n          describe=\"固定在屏幕下方\"\n          code='<v-affix :offset-bottom=\"200\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-bottom=\"200\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"偏移\"\n          describe=\"达到一定的偏移量才触发。\"\n          code='<v-affix :offset-top=\"75\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"75\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"固定状态改变的回调\"\n          describe=\"可以获得是否固定的状态。\"\n          code='onChange: affixed => console.log(affixed)\n\n<v-affix :offset-top=\"120\" :on-change=\"onChange\">\n  <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"120\" :on-change='onChange'>\n            <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n    <div class=\"\" style=\"height: 400px\">\n\n    </div>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 667:
+/***/ 671:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(422)
-	__vue_script__ = __webpack_require__(261)
+	__webpack_require__(425)
+	__vue_script__ = __webpack_require__(263)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\alert.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(549)
+	  console.warn("[vue-loader] src\\views\\affix.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(552)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

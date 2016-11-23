@@ -1,4 +1,4 @@
-webpackJsonp([42,49],{
+webpackJsonp([42,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,28 +238,28 @@ webpackJsonp([42,49],{
 
 /***/ },
 
-/***/ 291:
+/***/ 294:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
-	var _progress = __webpack_require__(85);
+	var _layout = __webpack_require__(25);
 
-	var _button = __webpack_require__(117);
+	var _switch = __webpack_require__(36);
 
-	var _button2 = _interopRequireDefault(_button);
+	var _switch2 = _interopRequireDefault(_switch);
 
-	var _buttonGroup = __webpack_require__(118);
+	var _message = __webpack_require__(35);
 
-	var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
+	var _message2 = _interopRequireDefault(_message);
 
-	var _iconfont = __webpack_require__(22);
+	var _popover = __webpack_require__(82);
 
-	var _iconfont2 = _interopRequireDefault(_iconfont);
+	var _popover2 = _interopRequireDefault(_popover);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -272,119 +272,111 @@ webpackJsonp([42,49],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      percentLine: 10,
-	      percentCircle: 10,
-	      progressBarApis: [{
-	        parameter: 'percent',
-	        explain: '百分比',
-	        type: 'Number',
-	        default: 0
-	      }, {
-	        parameter: 'status',
-	        explain: '状态，有normal、exception、active、success四个状态值',
-	        type: 'String',
-	        default: 'normal'
-	      }, {
-	        parameter: 'strokeWidth',
-	        explain: '进度条线的宽度，单位是px',
-	        type: 'Number',
-	        default: 1
-	      }, {
-	        parameter: 'showInfo',
-	        explain: '是否显示进度数值和状态图标',
-	        type: 'Boolean',
-	        default: true
-	      }],
-	      progressCircleApis: [{
-	        parameter: 'percent',
-	        explain: '百分比',
-	        type: 'Number',
-	        default: 0
-	      }, {
-	        parameter: 'status',
-	        explain: '状态，有normal、exception、success三个状态值',
-	        type: 'String',
-	        default: 'normal'
-	      }, {
-	        parameter: 'strokeWidth',
-	        explain: '进度圈线的宽度，单位是进度圈画布宽度的百分比',
-	        type: 'Number',
-	        default: 1
-	      }, {
-	        parameter: 'width',
-	        explain: '必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width',
-	        type: 'Number',
-	        default: 'null'
-	      }]
-	    };
-	  },
+	    data: function data() {
+	        return {
+	            apis: [{
+	                parameter: 'slot::trigger',
+	                explain: '触发目标(必选)',
+	                type: 'slot node',
+	                default: '无'
+	            }, {
+	                parameter: 'slot::content',
+	                explain: '卡片内容(可选,与content属性互斥)',
+	                type: 'slot node',
+	                default: '无'
+	            }, {
+	                parameter: 'trigger',
+	                explain: '触发行为，可选 hover/focus/click,默认click',
+	                type: 'string',
+	                default: 'click'
+	            }, {
+	                parameter: 'placement',
+	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
+	                type: 'string',
+	                default: 'bottom'
+	            }, {
+	                parameter: 'title',
+	                explain: '卡片标题',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'content',
+	                explain: '卡片内容',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'visible',
+	                explain: '用于手动控制浮层显隐',
+	                type: 'boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'onVisibleChange',
+	                explain: '显示或隐藏发生改变的回调',
+	                type: 'function(boolean:改变后卡片的可见性)',
+	                default: '无'
+	            }, {
+	                parameter: 'openClassName',
+	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'disabled',
+	                explain: '临时禁用气泡卡片弹出',
+	                type: 'boolean',
+	                default: 'false'
+	            }],
 
+	            outer_control_visible: true,
+	            default_is_disabled: false,
+	            popover_is_disabled: false
+	        };
+	    },
 
-	  components: {
-	    vProgressLine: _progress.vProgressLine,
-	    vProgressCircle: _progress.vProgressCircle,
-	    vButtonGroup: _buttonGroup2.default,
-	    vButton: _button2.default,
-	    vIcon: _iconfont2.default,
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  },
-
-	  methods: {
-	    _declineLine: function _declineLine() {
-	      var percent = this.percentLine - 10;
-	      if (percent < 0) {
-	        percent = 0;
-	      }
-	      this.percentLine = percent;
+	    components: {
+	        vRow: _layout.vRow,
+	        vCol: _layout.vCol,
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default,
+	        vPopover: _popover2.default,
+	        vSwitch: _switch2.default,
+	        message: _message2.default
 	    },
-	    _increaseLine: function _increaseLine() {
-	      var percent = this.percentLine + 10;
-	      if (percent > 100) {
-	        percent = 100;
-	      }
-	      this.percentLine = percent;
-	    },
-	    _declineCircle: function _declineCircle() {
-	      var percent = this.percentCircle - 10;
-	      if (percent < 0) {
-	        percent = 0;
-	      }
-	      this.percentCircle = percent;
-	    },
-	    _increaseCircle: function _increaseCircle() {
-	      var percent = this.percentCircle + 10;
-	      if (percent > 100) {
-	        percent = 100;
-	      }
-	      this.percentCircle = percent;
+	    methods: {
+	        clickClose: function clickClose() {
+	            this.outer_control_visible = false;
+	        },
+	        to_disabled: function to_disabled(val) {
+	            this.popover_is_disabled = val;
+	        },
+	        outerVisibleChange: function outerVisibleChange(val) {
+	            this.outer_control_visible = val;
+	        },
+	        visibleChange: function visibleChange(val) {
+	            _message2.default.info(val ? '卡片显示了' : '卡片隐藏了');
+	        }
 	    }
-	  }
-
 	};
 
 /***/ },
 
-/***/ 578:
+/***/ 582:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Progress 进度条</h1>\n    <p>\n      进度条，展示操作的当前进度。\n    </p>\n    <h2>何时使用</h2>\n    <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p>\n    <ul>\n      <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li>\n      <li>当需要显示一个操作完成的百分比时。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box title=\"进度条\" describe=\"有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-line :percent=\"30\" description=\"普通的进度条\"></v-progress-line>\n        <v-progress-line :percent=\"50\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\"></v-progress-line>\n        <v-progress-line :percent=\"50\" :show-info=\"false\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"小型进度条\" describe=\"通过设置strokeWidth,可以更灵活地使用进度条\">\n        <v-progress-line :percent=\"30\"  :stroke-width=\"5\"></v-progress-line>\n        <v-progress-line :percent=\"50\"  :stroke-width=\"5\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\"  :stroke-width=\"5\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\" :stroke-width=\"5\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"动态展示\" describe=\"通过动态的改变进度,可以让进度条更有趣\">\n        <v-progress-line :percent=\"percentLine\"></v-progress-line>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineLine\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseLine\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box title=\"进度圈\" describe=\"有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-circle :percent=\"30\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"小型进度圈\" describe=\"通过设置width,可以更灵活地使用进度圈\">\n        <v-progress-circle :percent=\"30\"  :width=\"80\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\"  :width=\"80\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\" :width=\"80\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"进度圈动态展示\" describe=\"通过动态的改变进度,可以让进度圈更有趣\">\n        <v-progress-circle :percent=\"percentCircle\"></v-progress-circle>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineCircle\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseCircle\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n  <api-table\n    title=\"Progress Bar API\"\n    :apis='progressBarApis'\n  ></api-table>\n\n  <api-table\n    title=\"Progress Circle API\"\n    :apis='progressCircleApis'\n  ></api-table>\n</div>\n";
+	module.exports = "\n<section class=\"markdown\">\n    <h1>Popover 气泡卡片</h1>\n    <p>\n        点击/鼠标移入元素，弹出气泡式的卡片浮层。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>当目标元素有进一步的描述和相关操作时，可以收纳到卡片中，根据用户的操作行为进行展现。</p>\n        <p>和 Tooltip 的区别是，用户可以对浮层上的元素进行操作，因此它可以承载更复杂的内容，比如链接或按钮等。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popover placement=\"top\" title=\"简单标题\">\n                <div slot=\"content\">\n                    我是普通文本内容\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"快速设置简单的内容\" describe=\"使用content属性设置简单内容\">\n            <v-popover placement=\"top\" title=\"简单标题\" content=\"我的优先级更高\">\n                <div slot=\"content\">\n                    我会被忽略\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"触发行为\" describe=\"点击、聚集、鼠标移入。\">\n            <v-popover placement=\"left\" title=\"简单标题\" content=\"点击\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n\n            <span style=\"display:inline-block;width:80px;\">\n                <v-popover placement=\"top\" title=\"简单标题\" trigger=\"focus\" content=\"focus\">\n                    <input class=\"ant-input ant-input-lg\" slot=\"trigger\" placeholder=\"focus\">\n                </v-popover>\n            </span>\n\n            <v-popover placement=\"right\" title=\"简单标题\" content=\"hover\" trigger=\"hover\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">hover</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n\n\n    <v-col span=\"12\">\n        <code-box title=\"从卡片内关闭\" describe=\"使用visible控制显示。\">\n            <v-popover placement=\"top\" title=\"标题\" :visible=\"outer_control_visible\" :on-visible-change=\"outerVisibleChange\">\n                <div slot=\"content\">\n                    <a href=\"javascript:;\" @click=\"clickClose\">关闭</a>\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"临时禁用卡片弹出\" describe=\"使用disabled禁用卡片弹出。\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :disabled=\"popover_is_disabled\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否禁用卡片弹出\n            <v-switch :on-change=\"to_disabled\" :checked=\"default_is_disabled\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n    <v-col span=\"12\">\n        <code-box title=\"卡片显示/隐藏的回调\" describe=\"onVisibleChange\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :on-visible-change=\"visibleChange\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"8\">\n    <v-col span=\"12\">\n        <code-box title=\"滚动区域内\" describe=\"滚动区域内的卡片\">\n            <div style=\"height:100px;background:#D7E6F3;overflow:auto;\">\n                <div style=\"width:1000px;\">\n                    按钮在右下角\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <v-popover placement=\"top\" title=\"标题\" content=\"滚动区域内的定位\">\n                        <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\" style=\"float:right;\">点击弹出</button>\n                    </v-popover>\n                </div>\n            </div>\n        </code-box>\n    </v-col>\n</v-row>\n<api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 696:
+/***/ 701:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(291)
+	__vue_script__ = __webpack_require__(294)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\progress.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(578)
+	  console.warn("[vue-loader] src\\views\\popover.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(582)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -1,4 +1,4 @@
-webpackJsonp([47,49],{
+webpackJsonp([47,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,18 +238,18 @@ webpackJsonp([47,49],{
 
 /***/ },
 
-/***/ 265:
+/***/ 269:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
-	var _breadcrumb = __webpack_require__(71);
+	var _button = __webpack_require__(19);
 
-	var _breadcrumb2 = _interopRequireDefault(_breadcrumb);
+	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -261,62 +261,80 @@ webpackJsonp([47,49],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var vBreadcrumb = _breadcrumb2.default.Breadcrumb;
-
 	exports.default = {
-	    data: function data() {
-	        return {
-	            apis: [{
-	                parameter: 'name',
-	                explain: '名称',
-	                type: 'String',
-	                default: ''
-	            }, {
-	                parameter: 'href',
-	                explain: '跳转地址',
-	                type: 'String',
-	                default: ''
-	            }, {
-	                parameter: 'separator',
-	                explain: '分隔符自定义',
-	                type: 'String',
-	                default: '/'
-	            }, {
-	                parameter: 'icon',
-	                explain: '图标',
-	                type: 'String',
-	                default: ''
-	            }]
-	        };
-	    },
-	    components: {
-	        vBreadcrumbs: _breadcrumb2.default,
-	        vBreadcrumb: vBreadcrumb,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+	  data: function data() {
+	    return {
+	      apis: [{
+	        parameter: 'type',
+	        explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'htmlType',
+	        explain: '设置 button 原生的 type 值，可选值请参考 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type" target="_blank">HTML 标准<a/>',
+	        type: 'string',
+	        default: 'button'
+	      }, {
+	        parameter: 'icon',
+	        explain: '设置按钮的图标类型',
+	        type: 'string',
+	        default: '无'
+	      }, {
+	        parameter: 'shape',
+	        explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'size',
+	        explain: '设置按钮大小，可选值为 small large 或者不设',
+	        type: 'String',
+	        default: 'default'
+	      }, {
+	        parameter: 'description',
+	        explain: '可选参数，警告提示的辅助性文字介绍',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'loading',
+	        explain: '设置按钮载入状态',
+	        type: 'boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'onClick',
+	        explain: 'click 事件的 handler',
+	        type: 'function',
+	        default: ''
+	      }]
+	    };
+	  },
+	  components: {
+	    vButton: _button2.default,
+	    vButtonGroup: _button2.default.Group,
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 553:
+/***/ 558:
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div>\n        <section class=\"markdown\">\n            <h1>Breadcrumb 面包屑</h1>\n\n            <p>\n                显示当前页面在系统层级结构中的位置，并能向上返回。\n            </p>\n\n            <h2>何时使用</h2>\n            <ul>\n                <li>当系统拥有超过两级以上的层级结构时；</li>\n                <li>当需要告知用户『你在哪里』时；</li>\n                <li>当需要向上导航的功能时。</li>\n            </ul>\n            <h2>组件演示</h2>\n        </section>\n\n        <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"基本\"\n                        describe=\"最简单的用法。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"路由\"\n                        describe=\"和 vue-router 进行结合使用。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n暂且放一放'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"带有图标的\"\n                        describe=\"图标放在文字前面。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"分隔符\"\n                        describe='使用 separator=\">\" 可以自定义分隔符。'\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n        </div>\n\n        <api-table\n                :apis='apis'\n                >\n        </api-table>\n    </div>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Button 按钮</h1>\n    <p>\n      按钮用于开始一个即时操作。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"按钮类型\"\n        describe=\"按钮有四种类型：主按钮、次按钮、幽灵按钮、虚线按钮。通过设置 type 为 primary ghost dashed 可分别创建主按钮、幽灵按钮、虚线按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。主按钮和次按钮可独立使用，幽灵按钮用于和主按钮组合。需要强引导用主按钮，切记主按钮在同一个操作区域最多出现一次。\"\n      >\n        <v-button type='primary'>Primary</v-button>\n        <v-button type='success'>success</v-button>\n        <v-button type='error'>error</v-button>\n        <v-button type='warning'>warning</v-button>\n        <v-button>default</v-button>\n        <v-button type='ghost'>Ghost</v-button>\n        <v-button type='dashed'>Dashed</v-button>\n      </code-box>\n\n      <code-box\n        title=\"按钮尺寸\"\n        describe=\"按钮有大、中、小三种尺寸。通过设置 size 为 large small 分别把按钮设为大、小尺寸。若不设置 size，则尺寸为中。\"\n      >\n        <v-button type='primary' size='large'>Large</v-button>\n        <v-button type='primary'>Default</v-button>\n        <v-button type='primary' size='small'>Small</v-button>\n      </code-box>\n\n      <code-box\n        title=\"加载中状态\"\n        describe=\"添加 loading 属性即可让按钮处于加载状态，最后两个按钮演示点击后进入加载状态。\"\n      >\n        <v-button type='primary' loading>Loading</v-button>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"图标按钮\"\n        describe=\"当需要在 Button 内嵌入 Icon 时，可以设置 icon 属性，或者直接在 Button 内使用 Icon 组件。如果想控制 Icon 具体的位置，只能直接使用 Icon 组件，而非 icon 属性。\"\n      >\n        <v-button type='primary' shape=\"circle\" icon=\"search\"></v-button>\n        <v-button type=\"primary\" icon=\"search\"><span>搜索</span></v-button>\n        <br />\n        <br />\n        <v-button type=\"ghost\" shape=\"circle-outline\" icon=\"search\"></v-button>\n        <v-button type=\"ghost\" icon=\"search\"><span>搜索</span></v-button>\n      </code-box>\n\n      <code-box\n        title=\"不可用状态\"\n        describe=\"添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。\"\n      >\n        <v-button type='primary'>Primary</v-button>\n        <v-button type='primary' disabled>Primary</v-button>\n      </code-box>\n\n      <code-box\n        title=\"按钮组合\"\n        describe=\"可以将多个 Button 放入 Button.Group 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。\"\n      >\n        <v-button-group size=\"large\">\n           <v-button>Large</v-button><v-button>Large</v-button>\n        </v-button-group>\n        <v-button-group>\n           <v-button>Default</v-button><v-button>Default</v-button>\n        </v-button-group>\n        <v-button-group size=\"small\">\n           <v-button>Small</v-button><v-button>Small</v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 671:
+/***/ 677:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(265)
+	__vue_script__ = __webpack_require__(269)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\breadcrumb.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(553)
+	  console.warn("[vue-loader] src\\views\\button.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(558)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

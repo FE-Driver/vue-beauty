@@ -1,4 +1,4 @@
-webpackJsonp([48,49],{
+webpackJsonp([48,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,14 +238,18 @@ webpackJsonp([48,49],{
 
 /***/ },
 
-/***/ 263:
+/***/ 268:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+
+	var _breadcrumb = __webpack_require__(71);
+
+	var _breadcrumb2 = _interopRequireDefault(_breadcrumb);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -257,63 +261,62 @@ webpackJsonp([48,49],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var vBreadcrumb = _breadcrumb2.default.Breadcrumb;
+
 	exports.default = {
-	  data: function data() {
-	    return {
-	      apis: [{
-	        parameter: 'visibilityHeight',
-	        explain: '滚动高度达到此参数值才出现 BackTop',
-	        type: 'Number',
-	        default: '400'
-	      }, {
-	        parameter: 'onClick',
-	        explain: '	点击按钮的回调函数',
-	        type: 'Function',
-	        default: '无'
-	      }],
-	      styleObject: {
-	        height: '40px',
-	        width: '40px',
-	        lineHeight: '40px',
-	        borderRadius: '4px',
-	        color: 'rgb(255, 255, 255)',
-	        textAlign: 'center',
-	        fontSize: '20px',
-	        backgroundColor: 'rgb(87, 197, 247)'
-	      }
-	    };
-	  },
-	  methods: {
-	    handler: function handler() {
-	      console.log('噢');
+	    data: function data() {
+	        return {
+	            apis: [{
+	                parameter: 'name',
+	                explain: '名称',
+	                type: 'String',
+	                default: ''
+	            }, {
+	                parameter: 'href',
+	                explain: '跳转地址',
+	                type: 'String',
+	                default: ''
+	            }, {
+	                parameter: 'separator',
+	                explain: '分隔符自定义',
+	                type: 'String',
+	                default: '/'
+	            }, {
+	                parameter: 'icon',
+	                explain: '图标',
+	                type: 'String',
+	                default: ''
+	            }]
+	        };
+	    },
+	    components: {
+	        vBreadcrumbs: _breadcrumb2.default,
+	        vBreadcrumb: vBreadcrumb,
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
 	    }
-	  },
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
 	};
 
 /***/ },
 
-/***/ 551:
+/***/ 557:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div style=\"height:2000px\">\n\n    <section class=\"markdown\">\n      <h1>BackTop 回到顶部</h1>\n      <p>\n        返回页面顶部的操作按钮。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          当页面内容区域比较长时；\n        </p>\n        <p>\n          当用户需要频繁返回顶部查看相关内容时。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-back-top></v-back-top>\"\n        >\n          向下滚动后，见右下角灰色按钮\n         <v-back-top></v-back-top>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"自定义样式\"\n          describe=\"可以自定义回到顶部按钮的样式，限制宽高：40px * 40px。\"\n          code=\"<v-back-top style='bottom: 100px;' :visibility-height='500'  :on-click='handler'>\n  <div :style='styleObject'>UP</div>\n</v-back-top>\"\n        >\n        向下滚动后，见右下角蓝色按钮\n        <v-back-top style=\"bottom: 100px;\" :visibility-height=\"500\"  :on-click=\"handler\">\n          <div :style=\"styleObject\">UP</div>\n        </v-back-top>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n    <div>\n        <section class=\"markdown\">\n            <h1>Breadcrumb 面包屑</h1>\n\n            <p>\n                显示当前页面在系统层级结构中的位置，并能向上返回。\n            </p>\n\n            <h2>何时使用</h2>\n            <ul>\n                <li>当系统拥有超过两级以上的层级结构时；</li>\n                <li>当需要告知用户『你在哪里』时；</li>\n                <li>当需要向上导航的功能时。</li>\n            </ul>\n            <h2>组件演示</h2>\n        </section>\n\n        <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"基本\"\n                        describe=\"最简单的用法。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"路由\"\n                        describe=\"和 vue-router 进行结合使用。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n暂且放一放'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"带有图标的\"\n                        describe=\"图标放在文字前面。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"分隔符\"\n                        describe='使用 separator=\">\" 可以自定义分隔符。'\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n        </div>\n\n        <api-table\n                :apis='apis'\n                >\n        </api-table>\n    </div>\n";
 
 /***/ },
 
-/***/ 669:
+/***/ 676:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(263)
+	__vue_script__ = __webpack_require__(268)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\backTop.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(551)
+	  console.warn("[vue-loader] src\\views\\breadcrumb.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(557)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -1,4 +1,4 @@
-webpackJsonp([18,49],{
+webpackJsonp([18,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([18,49],{
 
 /***/ },
 
-/***/ 286:
+/***/ 290:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([18,49],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _multiselect = __webpack_require__(81);
-
-	var _multiselect2 = _interopRequireDefault(_multiselect);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -267,22 +263,7 @@ webpackJsonp([18,49],{
 	      onClose: function onClose() {
 	        console.log(this);
 	      },
-	      apis: [{
-	        parameter: 'value',
-	        explain: '默认值',
-	        type: 'Sring',
-	        default: ''
-	      }, {
-	        parameter: 'format',
-	        explain: '日期显示格式',
-	        type: 'Sring',
-	        default: 'YYYY-MM-DD'
-	      }, {
-	        parameter: 'size',
-	        explain: '输入框尺寸',
-	        type: 'Sring',
-	        default: 'default'
-	      }],
+	      content: [['position', '下拉框的定位方式（absolute,fixed）', 'string', 'absolute']],
 	      selected: null,
 	      options: ['list', 'of', 'options'],
 	      multiValue: null,
@@ -313,7 +294,6 @@ webpackJsonp([18,49],{
 	    }
 	  },
 	  components: {
-	    multiselect: _multiselect2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -321,7 +301,7 @@ webpackJsonp([18,49],{
 
 /***/ },
 
-/***/ 382:
+/***/ 386:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -336,13 +316,13 @@ webpackJsonp([18,49],{
 
 /***/ },
 
-/***/ 439:
+/***/ 442:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(382);
+	var content = __webpack_require__(386);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -363,25 +343,25 @@ webpackJsonp([18,49],{
 
 /***/ },
 
-/***/ 573:
+/***/ 578:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>日期选择器</h1>\n    <p>\n      日期选择器\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>日期选择器</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-24 code-boxes-col-2-2\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法\">\n        <multiselect :selected=\"selected\" :options=\"options\" @update=\"updateSelected\"></multiselect>\n      </code-box>\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法\">\n        <multiselect  \n          :options=\"source\" \n          :selected=\"multiValue\"\n          :multiple=\"true\"\n          :searchable=\"true\"\n          :close-on-select=\"false\"\n          :clear-on-select=\"false\"\n          :limit=\"2\"\n          @update=\"updateMultiValue\"\n          placeholder=\"Pick some\"\n          label=\"name\"\n          key=\"name\">\n        </multiselect>\n      </code-box>\n\n\n    </div>\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n    </div>\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>MultiSelect 选择器</h1>\n    <p>\n      类似 Select2 的选择器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>\n      <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法\">\n        <v-multiselect :selected=\"selected\" :options=\"options\" @update=\"updateSelected\"></v-multiselect>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"更复杂的用法\"\n        describe=\"该组件在vue-multiselect的基础上进行了少量的改动，除了列在下面的api，其它api均可在vue-multiselect官网查询\">\n        <v-multiselect  \n          :options=\"source\" \n          :selected=\"multiValue\"\n          :multiple=\"true\"\n          :searchable=\"true\"\n          :close-on-select=\"false\"\n          :clear-on-select=\"false\"\n          :limit=\"2\"\n          @update=\"updateMultiValue\"\n          placeholder=\"Pick some\"\n          label=\"name\"\n          key=\"name\">\n        </v-multiselect>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n  其它Api请参考：<a href=\"http://monterail.github.io/vue-multiselect/\" target=\"_blank\">vue-multiselect</a>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 691:
+/***/ 697:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(439)
-	__vue_script__ = __webpack_require__(286)
+	__webpack_require__(442)
+	__vue_script__ = __webpack_require__(290)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\multiselect.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(573)
+	__vue_template__ = __webpack_require__(578)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

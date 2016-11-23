@@ -1,4 +1,4 @@
-webpackJsonp([7,49],{
+webpackJsonp([7,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([7,49],{
 
 /***/ },
 
-/***/ 303:
+/***/ 307:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -259,7 +259,7 @@ webpackJsonp([7,49],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _tooltip = __webpack_require__(95);
+	var _tooltip = __webpack_require__(93);
 
 	var _tooltip2 = _interopRequireDefault(_tooltip);
 
@@ -296,7 +296,7 @@ webpackJsonp([7,49],{
 
 /***/ },
 
-/***/ 392:
+/***/ 396:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -311,13 +311,13 @@ webpackJsonp([7,49],{
 
 /***/ },
 
-/***/ 449:
+/***/ 452:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(392);
+	var content = __webpack_require__(396);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -338,25 +338,25 @@ webpackJsonp([7,49],{
 
 /***/ },
 
-/***/ 590:
+/***/ 595:
 /***/ function(module, exports) {
 
 	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>tooltip指令</h1>\n        <p>\n            显示简单的提示文字或HTML内容。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                需要给用户提示一些辅助信息时。\n            </p>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip\"\n                    describe=\"tooltip指令使用很简单,v-tooltip='msg'即可.\">\n                <v-button type='success' v-tooltip='msg'>默认</v-button>\n            </code-box>\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip-触发事件\"\n                    describe=\"如果需要指定触发事件,使用v-tooltip:hover='msg'或者v-tooltip:focus='msg'\">\n                <v-button type='success' v-tooltip:hover.top='msg'>hover触发</v-button>\n                <input type=\"text\" v-tooltip:focus.top='msg1' placeholder=\"focus触发\">\n            </code-box>\n        </div>\n\n        <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip-显示位置\"\n                    describe=\"可以使用修饰符指定显示位置,如v-tooltip:hover.right='msg1',支持8种位置\">\n                <v-button type='success' v-tooltip:hover.left='msg'>left</v-button>\n                <a href=\"###\" v-tooltip:hover.right='msg1'>right</a>\n                <v-button type='success' v-tooltip:hover.top='msg'>top</v-button>\n                <a href=\"###\" v-tooltip:hover.bottom='msg1'>bottom</a>\n                <v-button type='success' v-tooltip:hover.topLeft='msg'>topLeft</v-button>\n                <a href=\"###\" v-tooltip:hover.topRight='msg1'>topRight</a>\n                <v-button type='success' v-tooltip:hover.bottomLeft='msg'>bottomLeft</v-button>\n                <a href=\"###\" v-tooltip:hover.bottomRight='msg1'>bottomRight</a>\n            </code-box>\n        </div>\n    </div>\n\n    <api-table\n            :apis='apis'\n    ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 709:
+/***/ 715:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(449)
-	__vue_script__ = __webpack_require__(303)
+	__webpack_require__(452)
+	__vue_script__ = __webpack_require__(307)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\tooltip.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(590)
+	__vue_template__ = __webpack_require__(595)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

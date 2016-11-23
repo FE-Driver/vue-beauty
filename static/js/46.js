@@ -1,4 +1,4 @@
-webpackJsonp([46,49],{
+webpackJsonp([46,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([46,49],{
 
 /***/ },
 
-/***/ 266:
+/***/ 279:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([46,49],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,52 +260,10 @@ webpackJsonp([46,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      apis: [{
-	        parameter: 'type',
-	        explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'htmlType',
-	        explain: '设置 button 原生的 type 值，可选值请参考 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type" target="_blank">HTML 标准<a/>',
-	        type: 'string',
-	        default: 'button'
-	      }, {
-	        parameter: 'icon',
-	        explain: '设置按钮的图标类型',
-	        type: 'string',
-	        default: '无'
-	      }, {
-	        parameter: 'shape',
-	        explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'size',
-	        explain: '设置按钮大小，可选值为 small large 或者不设',
-	        type: 'String',
-	        default: 'default'
-	      }, {
-	        parameter: 'description',
-	        explain: '可选参数，警告提示的辅助性文字介绍',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'loading',
-	        explain: '设置按钮载入状态',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'onClick',
-	        explain: 'click 事件的 handler',
-	        type: 'function',
-	        default: ''
-	      }]
+	      content: [['style', '自定义输入框样式', 'object', '-'], ['size', '输入框大小，large 高度为 32px，small 为 22px，默认是 28px', 'string', '-'], ['placeholder', '占位提示符', 'string', '请选择日期'], ['position', '下拉框的定位方式(absolute、fixed)', 'string', 'absolute'], ['range', '能否进行范围选择', 'boolean', 'false'], ['showTime', '增加时间选择功能', 'boolean', 'false'], ['time', '默认日期', 'string', '-'], ['startTime', '开始时间', 'string', '-'], ['endTime', '结束时间', 'string', '-'], ['maxRange', '选择最大范围限制,以天为单位（只有range为true的时候才起作用）', 'number string', 'false'], ['clearable', '是否显示清除按钮', 'boolean', 'false'], ['format', '展示的日期格式', 'string', 'yyyy-MM-dd'], ['disabled', '禁用', 'boolean', 'false'], ['confirm', '是否需要点击确认', 'boolean', 'false'], ['en', '是否使用英文', 'boolean', 'false'], ['onConfirm', '点击确认后的回调', 'function(startTime, endTime)', '-']]
 	    };
 	  },
 	  components: {
-	    vButton: _button2.default,
-	    vButtonGroup: _button2.default.Group,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -317,24 +271,24 @@ webpackJsonp([46,49],{
 
 /***/ },
 
-/***/ 554:
+/***/ 568:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Button 按钮</h1>\n    <p>\n      按钮用于开始一个即时操作。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"按钮类型\"\n        describe=\"按钮有四种类型：主按钮、次按钮、幽灵按钮、虚线按钮。通过设置 type 为 primary ghost dashed 可分别创建主按钮、幽灵按钮、虚线按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。主按钮和次按钮可独立使用，幽灵按钮用于和主按钮组合。需要强引导用主按钮，切记主按钮在同一个操作区域最多出现一次。\"\n      >\n        <v-button type='primary'>Primary</v-button>\n        <v-button type='success'>success</v-button>\n        <v-button type='error'>error</v-button>\n        <v-button type='warning'>warning</v-button>\n        <v-button>default</v-button>\n        <v-button type='ghost'>Ghost</v-button>\n        <v-button type='dashed'>Dashed</v-button>\n      </code-box>\n\n      <code-box\n        title=\"按钮尺寸\"\n        describe=\"按钮有大、中、小三种尺寸。通过设置 size 为 large small 分别把按钮设为大、小尺寸。若不设置 size，则尺寸为中。\"\n      >\n        <v-button type='primary' size='large'>Large</v-button>\n        <v-button type='primary'>Default</v-button>\n        <v-button type='primary' size='small'>Small</v-button>\n      </code-box>\n\n      <code-box\n        title=\"加载中状态\"\n        describe=\"添加 loading 属性即可让按钮处于加载状态，最后两个按钮演示点击后进入加载状态。\"\n      >\n        <v-button type='primary' loading>Loading</v-button>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"图标按钮\"\n        describe=\"当需要在 Button 内嵌入 Icon 时，可以设置 icon 属性，或者直接在 Button 内使用 Icon 组件。如果想控制 Icon 具体的位置，只能直接使用 Icon 组件，而非 icon 属性。\"\n      >\n        <v-button type='primary' shape=\"circle\" icon=\"search\"></v-button>\n        <v-button type=\"primary\" icon=\"search\"><span>搜索</span></v-button>\n        <br />\n        <br />\n        <v-button type=\"ghost\" shape=\"circle-outline\" icon=\"search\"></v-button>\n        <v-button type=\"ghost\" icon=\"search\"><span>搜索</span></v-button>\n      </code-box>\n\n      <code-box\n        title=\"不可用状态\"\n        describe=\"添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。\"\n      >\n        <v-button type='primary'>Primary</v-button>\n        <v-button type='primary' disabled>Primary</v-button>\n      </code-box>\n\n      <code-box\n        title=\"按钮组合\"\n        describe=\"可以将多个 Button 放入 Button.Group 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。\"\n      >\n        <v-button-group size=\"large\">\n           <v-button>Large</v-button>\n           <v-button>Large</v-button>\n        </v-button-group>\n        <v-button-group>\n           <v-button>Default</v-button>\n           <v-button>Default</v-button>\n        </v-button-group>\n        <v-button-group size=\"small\">\n           <v-button>Small</v-button>\n           <v-button>Small</v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>DatePicker 日期选择框</h1>\n    <p>\n      输入或选择日期的控件。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法，在浮层中可以选择或者输入日期\">\n        <v-datepicker clearable></v-datepicker><br><br>\n        <v-datepicker range clearable></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的输入框，若不设置，则为 default。\">\n        <v-datepicker size=\"small\"></v-datepicker><br><br>\n        <v-datepicker></v-datepicker><br><br>\n        <v-datepicker range size=\"large\"></v-datepicker>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"日期格式\"\n        describe=\"使用 format 属性，可以自定义日期显示格式。\">\n        <v-datepicker time='2015-12-06' format=\"yyyy/MM/dd\"></v-datepicker><br><br>\n        <v-datepicker range start-time='2015-12-06' end-time='2016-12-06' format=\"yyyy/MM/dd\"></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"日期时间选择\"\n        describe=\"增加选择时间功能\">\n        <v-datepicker clearable :show-time=\"true\" time='2015-12-06 23:12'></v-datepicker><br><br>\n        <v-datepicker range :show-time=\"true\" start-time='2015-12-06 23:12' end-time='2016-12-06 23:12' clearable></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"禁用\"\n        describe=\"选择框的不可用状态。\">\n        <v-datepicker disabled></v-datepicker>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 672:
+/***/ 686:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(266)
+	__vue_script__ = __webpack_require__(279)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\button.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(554)
+	  console.warn("[vue-loader] src\\views\\datepicker.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(568)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

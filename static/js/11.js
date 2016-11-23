@@ -1,4 +1,4 @@
-webpackJsonp([11,49],{
+webpackJsonp([11,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([11,49],{
 
 /***/ },
 
-/***/ 296:
+/***/ 300:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,7 +247,7 @@ webpackJsonp([11,49],{
 	    value: true
 	});
 
-	var _slider = __webpack_require__(88);
+	var _slider = __webpack_require__(86);
 
 	var _slider2 = _interopRequireDefault(_slider);
 
@@ -342,7 +342,7 @@ webpackJsonp([11,49],{
 
 /***/ },
 
-/***/ 387:
+/***/ 391:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -357,13 +357,13 @@ webpackJsonp([11,49],{
 
 /***/ },
 
-/***/ 444:
+/***/ 447:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(387);
+	var content = __webpack_require__(391);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -384,25 +384,25 @@ webpackJsonp([11,49],{
 
 /***/ },
 
-/***/ 582:
+/***/ 587:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Slider 滑动输入条</h1>\n        <p>\n            滑动型输入器，展示当前值和可选范围。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。\n            </p>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                    title=\"基本\"\n                    describe=\"基本滑动条。当 range 为 true 时，渲染为双滑块。当 disabled 为 true 时，滑块处于不可用状态。\"\n            >\n                <v-slider :default-value=\"30\"></v-slider>\n                <v-slider :range=\"true\" :default-value=\"[20, 50]\"></v-slider>\n                <v-slider :range=\"true\" :default-value=\"[20, 50]\" disabled></v-slider>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n            :apis='apis'\n    ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 701:
+/***/ 707:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(444)
-	__vue_script__ = __webpack_require__(296)
+	__webpack_require__(447)
+	__vue_script__ = __webpack_require__(300)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\slider.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(582)
+	__vue_template__ = __webpack_require__(587)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -1,4 +1,4 @@
-webpackJsonp([29,49],{
+webpackJsonp([29,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,18 +238,18 @@ webpackJsonp([29,49],{
 
 /***/ },
 
-/***/ 270:
+/***/ 271:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
-	var _checkbox = __webpack_require__(38);
+	var _carousel = __webpack_require__(72);
 
-	var _checkbox2 = _interopRequireDefault(_checkbox);
+	var _carousel2 = _interopRequireDefault(_carousel);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -259,69 +259,68 @@ webpackJsonp([29,49],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
+	var _message = __webpack_require__(35);
+
+	var _message2 = _interopRequireDefault(_message);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    var _this = this;
-
-	    return {
-	      checked: false,
-	      disabled: false,
-	      onChange: function onChange(e) {
-	        _this.checked = e.checked;
-	      },
-	      checkGroup: function checkGroup(values) {
-	        console.log(values);
-	      },
-	      defaultValue: ['Apple', 'Orange'],
-	      options: [{ label: '苹果', value: 'Apple' }, { label: '梨', value: 'Pear' }, { label: '橘', value: 'Orange' }],
-	      optionsWithDisabled: [{ label: '苹果', value: 'Apple' }, { label: '梨', value: 'Pear' }, { label: '橘', value: 'Orange', disabled: true }],
-	      apis: [{
-	        parameter: 'checked',
-	        explain: '指定当前是否选中',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'disabled',
-	        explain: '只读，无法进行交互',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '变化时回调函数',
-	        type: 'Function',
-	        default: '无'
-	      }],
-	      apiGroup: [{
-	        parameter: 'value',
-	        explain: '默认选中的选项',
-	        type: 'array',
-	        default: '无'
-	      }, {
-	        parameter: 'options[ { label,value,disabled } ]',
-	        explain: '指定可选项',
-	        type: 'array',
-	        default: '无'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '变化时回调函数',
-	        type: 'Function(checkedValue)',
-	        default: '无'
-	      }]
-	    };
-	  },
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    vCheckbox: _checkbox2.default,
-	    CheckboxGroup: _checkbox2.default.Group
-	  }
+	    components: {
+	        vCarousel: _carousel2.default,
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    },
+	    data: function data() {
+	        return {
+	            onClose: function onClose() {
+	                console.log(this);
+	            },
+	            show: true,
+	            num: 6,
+	            apis: [{
+	                parameter: 'fade',
+	                explain: '是否采用渐显模式,为true采用fade,为false采用scrollx',
+	                type: 'Boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'dots',
+	                explain: '是否显示面板指示点',
+	                type: 'Boolean',
+	                default: 'true'
+	            }, {
+	                parameter: 'vertical',
+	                explain: '是否垂直显示dots',
+	                type: 'boolean',
+	                default: 'true'
+	            }, {
+	                parameter: 'autoplay',
+	                explain: '是否自动切换',
+	                type: 'Boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'easing',
+	                explain: '动画效果',
+	                type: 'String',
+	                default: 'linear'
+	            }, {
+	                parameter: 'onChange',
+	                explain: '切换面板的回调',
+	                type: 'Function',
+	                default: '无'
+	            }]
+	        };
+	    },
+	    methods: {
+	        onChange: function onChange(current) {
+	            _message2.default.info(current);
+	        }
+	    }
 	};
 
 /***/ },
 
-/***/ 369:
+/***/ 400:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -329,20 +328,20 @@ webpackJsonp([29,49],{
 
 
 	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody{\n    background-color:#fff;\n}\n.ant-carousel .slick-slide h3{\n    text-align: center;\n    height: 100px;\n    line-height: 100px;\n    background: #71B5DE;\n    color: #fff;\n    overflow: hidden;\n    margin: 0;\n}\n#components-carousel-demo-vertical .ant-carousel {\n    margin-right: 35px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 426:
+/***/ 459:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(369);
+	var content = __webpack_require__(400);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -351,8 +350,8 @@ webpackJsonp([29,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./checkbox.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./checkbox.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -363,25 +362,25 @@ webpackJsonp([29,49],{
 
 /***/ },
 
-/***/ 558:
+/***/ 560:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Checkbox多选框</h1>\n      <p>\n        多选框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>在一组可选项中进行多项选择时；</li>\n        <li>单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的 checkbox。\"\n          code=\"<v-checkbox>checkbox</v-checkbox>\"\n        >\n          <v-checkbox>checkbox</v-checkbox>\n\n        </code-box>\n\n        <code-box\n          title=\"和外部组件通信\"\n          describe=\"联动 checkbox。\"\n          code='onChange: (e) => {\n  this.checked = e.checked\n},\n\n<v-checkbox\n  :checked=\"checked\"\n  :disabled=\"disabled\"\n  :on-change=\"onChange\">\n  <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n  <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n</v-checkbox>\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>'\n        >\n          <p style=\"margin-bottom: 16px;\">\n            <v-checkbox\n              :checked=\"checked\"\n              :disabled=\"disabled\"\n              :on-change=\"onChange\">\n              <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n              <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n            </v-checkbox>\n          </p>\n          <p>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>\n          </p>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"checkbox不可用\"\n          code=\"<v-checkbox disabled='true'></v-checkbox>\n<v-checkbox checked='true' disabled='true'></v-checkbox>\"\n        >\n          <v-checkbox disabled='true'></v-checkbox>\n          <v-checkbox checked='true' disabled='true'></v-checkbox>\n        </code-box>\n\n        <code-box\n          title=\"Checkbox 组\"\n          describe=\"方便的从数组生成 Checkbox 组。\"\n          code='defaultValue: [\"Apple\", \"Orange\"],\noptions: [\n  { label: \"苹果\", value: \"Apple\" },\n  { label: \"梨\", value: \"Pear\" },\n  { label: \"橘\", value: \"Orange\" },\n],\noptionsWithDisabled: [\n{ label: \"苹果\", value: \"Apple\" },\n{ label: \"梨\", value: \"Pear\" },\n{ label: \"橘\", value: \"Orange\", disabled； true },\n],\n\n<checkbox-group :options=\"options\"\n  :value.sync=\"defaultValue\">\n</checkbox-group>\n\n<checkbox-group\n  :options=\"optionsWithDisabled\"\n  :on-change=\"checkGroup\">\n</checkbox-group>'\n        >\n          <p style=\"margin-bottom: 16px;\"><checkbox-group :options=\"options\" :value.sync=\"defaultValue\"></checkbox-group></p>\n          <checkbox-group\n            :options=\"optionsWithDisabled\"\n            :on-change=\"checkGroup\">\n          </checkbox-group>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Checkbox</h3>\n    </api-table>\n\n\n    <api-table\n      :apis='apiGroup'\n    >\n      <h3>Checkbox Group</h3>\n    </api-table>\n\n  </div>\n\n";
+	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>Carousel 走马灯</h1>\n        <p>\n            旋转木马，一组轮播的区域。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li>当有一组平级的内容。</li>\n            <li>当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。</li>\n            <li>常用于一组图片或卡片轮播。</li>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"基本\"\n                describe=\"最典型的用法\"\n                code=\"\"\n            >\n                <v-carousel :after-change=\"onChange\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"渐显\"\n                describe=\"切换效果为渐显\"\n                code=\"\"\n            >\n                <v-carousel :fade=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"垂直\"\n                describe=\"垂直显示\"\n                code=\"\"\n                id=\"components-carousel-demo-vertical\"\n            >\n                <v-carousel :vertical=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"自动切换\"\n                describe=\"自动切换下一张\"\n                code=\"\"\n            >\n                <v-carousel :autoplay=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n    </div>\n    <api-table\n        :apis='apis'\n    ></api-table>\n</div>\n";
 
 /***/ },
 
-/***/ 676:
+/***/ 679:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(426)
-	__vue_script__ = __webpack_require__(270)
+	__webpack_require__(459)
+	__vue_script__ = __webpack_require__(271)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\checkbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(558)
+	  console.warn("[vue-loader] src\\views\\carousel.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(560)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

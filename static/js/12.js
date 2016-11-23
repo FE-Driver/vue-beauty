@@ -1,4 +1,4 @@
-webpackJsonp([12,49],{
+webpackJsonp([12,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([12,49],{
 
 /***/ },
 
-/***/ 295:
+/***/ 299:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -249,7 +249,7 @@ webpackJsonp([12,49],{
 
 	var _layout = __webpack_require__(25);
 
-	var _select = __webpack_require__(52);
+	var _select = __webpack_require__(54);
 
 	var _select2 = _interopRequireDefault(_select);
 
@@ -289,7 +289,7 @@ webpackJsonp([12,49],{
 
 /***/ },
 
-/***/ 386:
+/***/ 390:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -304,13 +304,13 @@ webpackJsonp([12,49],{
 
 /***/ },
 
-/***/ 443:
+/***/ 446:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(386);
+	var content = __webpack_require__(390);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -331,25 +331,25 @@ webpackJsonp([12,49],{
 
 /***/ },
 
-/***/ 581:
+/***/ 586:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Select 选择器</h1>\n    <p>\n      类似 Select2 的选择器。\n    </p>\n    <h2>何时使用</h2>\n    <p>\n      弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。\n    </p>\n    <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n      <code-box\n        title=\"简单\"\n        describe=\"最简单的用法。\"\n      >\n        <v-Select placeholder=\"请选择人员\" style=\"width: 120px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select disabled style=\"width: 120px;\" value=\"1\">lady</v-Select>\n      </code-box>\n      <code-box\n        title=\"带搜索框\"\n        describe=\"展开后可对选项进行搜索。\"\n      >\n        <v-Select placeholder=\"请选择人员\" notfound=\"无法找到\" type=\"search\" position=\"top\" style=\"width: 120px;\" :options=\"options\"\n                  :value.sync=\"people\"></v-Select>\n      </code-box>\n    </v-Col>\n    <v-Col span=\"12\">\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n      >\n        <v-Select class=\"select-demo\" size=\"lg\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select class=\"select-demo\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select class=\"select-demo\" size=\"sm\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n      </code-box>\n    </v-Col>\n  </v-Row>\n\n\n  <api-table :apis='apis'></api-table>\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Select 选择器</h1>\n    <p>\n      一个简单的select选择器\n    </p>\n    <h2>何时使用</h2>\n    <p>\n      弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。\n    </p>\n    <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n      <code-box\n        title=\"简单\"\n        describe=\"最简单的用法。\"\n      >\n        <v-Select placeholder=\"请选择人员\" style=\"width: 120px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select disabled style=\"width: 120px;\" value=\"1\">lady</v-Select>\n      </code-box>\n      <code-box\n        title=\"带搜索框\"\n        describe=\"展开后可对选项进行搜索。\"\n      >\n        <v-Select placeholder=\"请选择人员\" notfound=\"无法找到\" type=\"search\" position=\"top\" style=\"width: 120px;\" :options=\"options\"\n                  :value.sync=\"people\"></v-Select>\n      </code-box>\n    </v-Col>\n    <v-Col span=\"12\">\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n      >\n        <v-Select class=\"select-demo\" size=\"lg\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select class=\"select-demo\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select class=\"select-demo\" size=\"sm\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n      </code-box>\n    </v-Col>\n  </v-Row>\n\n\n  <api-table :apis='apis'></api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 700:
+/***/ 706:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(443)
-	__vue_script__ = __webpack_require__(295)
+	__webpack_require__(446)
+	__vue_script__ = __webpack_require__(299)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(581)
+	__vue_template__ = __webpack_require__(586)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

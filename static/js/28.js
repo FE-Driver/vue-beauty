@@ -1,4 +1,4 @@
-webpackJsonp([28,49],{
+webpackJsonp([28,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([28,49],{
 
 /***/ },
 
-/***/ 271:
+/***/ 273:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,6 +246,10 @@ webpackJsonp([28,49],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _checkbox = __webpack_require__(39);
+
+	var _checkbox2 = _interopRequireDefault(_checkbox);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -259,19 +263,65 @@ webpackJsonp([28,49],{
 
 	exports.default = {
 	  data: function data() {
+	    var _this = this;
+
 	    return {
-	      content: [['title', '标题', 'string', '无'], ['describe', '对该组件的描述', 'string', '无'], ['code', '组件的示例代码，如果没有将直接使用slot::default的内容', 'string', '无'], ['slot::default', '组件的插槽，用于演示', 'slot node', '无'], ['preCode', '组件的前置示例代码，显示在组件示例代码前面', 'slot node', '无'], ['postCode', '组件的后置示例代码，显示在组件示例代码后面', 'slot node', '无']]
+	      checked: false,
+	      disabled: false,
+	      onChange: function onChange(e) {
+	        _this.checked = e.checked;
+	      },
+	      checkGroup: function checkGroup(values) {
+	        console.log(values);
+	      },
+	      defaultValue: ['Apple', 'Orange'],
+	      options: [{ label: '苹果', value: 'Apple' }, { label: '梨', value: 'Pear' }, { label: '橘', value: 'Orange' }],
+	      optionsWithDisabled: [{ label: '苹果', value: 'Apple' }, { label: '梨', value: 'Pear' }, { label: '橘', value: 'Orange', disabled: true }],
+	      apis: [{
+	        parameter: 'checked',
+	        explain: '指定当前是否选中',
+	        type: 'boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'disabled',
+	        explain: '只读，无法进行交互',
+	        type: 'boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'onChange',
+	        explain: '变化时回调函数',
+	        type: 'Function',
+	        default: '无'
+	      }],
+	      apiGroup: [{
+	        parameter: 'value',
+	        explain: '默认选中的选项',
+	        type: 'array',
+	        default: '无'
+	      }, {
+	        parameter: 'options[ { label,value,disabled } ]',
+	        explain: '指定可选项',
+	        type: 'array',
+	        default: '无'
+	      }, {
+	        parameter: 'onChange',
+	        explain: '变化时回调函数',
+	        type: 'Function(checkedValue)',
+	        default: '无'
+	      }]
 	    };
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
+	    apiTable: _apiTable2.default,
+	    vCheckbox: _checkbox2.default,
+	    CheckboxGroup: _checkbox2.default.Group
 	  }
 	};
 
 /***/ },
 
-/***/ 370:
+/***/ 374:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -279,20 +329,20 @@ webpackJsonp([28,49],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 427:
+/***/ 430:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(370);
+	var content = __webpack_require__(374);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -301,8 +351,8 @@ webpackJsonp([28,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./checkbox.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./checkbox.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -313,25 +363,25 @@ webpackJsonp([28,49],{
 
 /***/ },
 
-/***/ 559:
+/***/ 562:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>CodeBox 代码示例</h1>\n    <p>\n      用于展示组件代码。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的代码展示。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n      >\n        <code-box\n          title=\"基本\"\n          describe=\"button基本用法\"\n        >\n          <v-button>Default</v-button>\n        </code-box>\n      </code-box>\n\n      <code-box\n        title=\"code\"\n        describe=\"自定义示例代码\"\n      >\n        <code-box\n          title=\"基本\"\n          describe=\"button基本用法\"\n          code=\"自定义<v-button>Default</v-button>自定义\"\n        >\n          <v-button>Default</v-button>\n        </code-box>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Checkbox多选框</h1>\n      <p>\n        多选框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>在一组可选项中进行多项选择时；</li>\n        <li>单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的 checkbox。\"\n          code=\"<v-checkbox>checkbox</v-checkbox>\"\n        >\n          <v-checkbox>checkbox</v-checkbox>\n\n        </code-box>\n\n        <code-box\n          title=\"和外部组件通信\"\n          describe=\"联动 checkbox。\"\n          code='onChange: (e) => {\n  this.checked = e.checked\n},\n\n<v-checkbox\n  :checked=\"checked\"\n  :disabled=\"disabled\"\n  :on-change=\"onChange\">\n  <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n  <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n</v-checkbox>\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>'\n        >\n          <p style=\"margin-bottom: 16px;\">\n            <v-checkbox\n              :checked=\"checked\"\n              :disabled=\"disabled\"\n              :on-change=\"onChange\">\n              <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n              <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n            </v-checkbox>\n          </p>\n          <p>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>\n          </p>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"checkbox不可用\"\n          code=\"<v-checkbox disabled='true'></v-checkbox>\n<v-checkbox checked='true' disabled='true'></v-checkbox>\"\n        >\n          <v-checkbox disabled='true'></v-checkbox>\n          <v-checkbox checked='true' disabled='true'></v-checkbox>\n        </code-box>\n\n        <code-box\n          title=\"Checkbox 组\"\n          describe=\"方便的从数组生成 Checkbox 组。\"\n          code='defaultValue: [\"Apple\", \"Orange\"],\noptions: [\n  { label: \"苹果\", value: \"Apple\" },\n  { label: \"梨\", value: \"Pear\" },\n  { label: \"橘\", value: \"Orange\" },\n],\noptionsWithDisabled: [\n{ label: \"苹果\", value: \"Apple\" },\n{ label: \"梨\", value: \"Pear\" },\n{ label: \"橘\", value: \"Orange\", disabled； true },\n],\n\n<checkbox-group :options=\"options\"\n  :value.sync=\"defaultValue\">\n</checkbox-group>\n\n<checkbox-group\n  :options=\"optionsWithDisabled\"\n  :on-change=\"checkGroup\">\n</checkbox-group>'\n        >\n          <p style=\"margin-bottom: 16px;\"><checkbox-group :options=\"options\" :value.sync=\"defaultValue\"></checkbox-group></p>\n          <checkbox-group\n            :options=\"optionsWithDisabled\"\n            :on-change=\"checkGroup\">\n          </checkbox-group>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Checkbox</h3>\n    </api-table>\n\n\n    <api-table\n      :apis='apiGroup'\n    >\n      <h3>Checkbox Group</h3>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 677:
+/***/ 681:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(427)
-	__vue_script__ = __webpack_require__(271)
+	__webpack_require__(430)
+	__vue_script__ = __webpack_require__(273)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\codeBox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(559)
+	  console.warn("[vue-loader] src\\views\\checkbox.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(562)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

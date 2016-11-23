@@ -1,4 +1,4 @@
-webpackJsonp([44,49],{
+webpackJsonp([44,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -244,22 +244,8 @@ webpackJsonp([44,49],{
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-
-	var _popconfirm = __webpack_require__(83);
-
-	var _popconfirm2 = _interopRequireDefault(_popconfirm);
-
-	var _switch = __webpack_require__(35);
-
-	var _switch2 = _interopRequireDefault(_switch);
-
-	var _message = __webpack_require__(34);
-
-	var _message2 = _interopRequireDefault(_message);
-
-	var _layout = __webpack_require__(25);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -272,77 +258,27 @@ webpackJsonp([44,49],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    name: 'popconfirm-doc',
-	    data: function data() {
-	        return {
-	            apis: [{
-	                parameter: 'placement',
-	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
-	                type: 'string',
-	                default: 'top'
-	            }, {
-	                parameter: 'title',
-	                explain: '询问内容',
-	                type: 'string',
-	                default: '无'
-	            }, {
-	                parameter: 'on-confirm',
-	                explain: '确定回调',
-	                type: 'function',
-	                default: '无'
-	            }, {
-	                parameter: 'on-cancel',
-	                explain: '取消回调',
-	                type: 'function',
-	                default: '无'
-	            }, {
-	                parameter: 'openClassName',
-	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
-	                type: 'string',
-	                default: '无'
-	            }, {
-	                parameter: 'skip',
-	                explain: '是否跳过询问,直接执行confirm回调',
-	                type: 'boolean',
-	                default: 'false'
-	            }],
-	            is_skip: false,
-	            default_is_skip: false
-	        };
-	    },
-
-	    methods: {
-	        confirm: function confirm() {
-	            _message2.default.info('点击了确定');
-	        },
-	        cancel: function cancel() {
-	            _message2.default.info('点击了取消');
-	        },
-	        to_skip_confirm: function to_skip_confirm(val) {
-	            this.is_skip = val;
-	        }
-	    },
-	    components: {
-	        vRow: _layout.vRow,
-	        vCol: _layout.vCol,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default,
-	        vPopconfirm: _popconfirm2.default,
-	        vSwitch: _switch2.default,
-	        message: _message2.default
-	    }
+	  data: function data() {
+	    return {
+	      content: [['originalHeight', '收起时morepanel的高度', 'Number,String', '34'], ['controlStyle', '控制control slot包裹div的样式', 'Object', '无'], ['slot:default', '默认的slot会位于面板的右侧', 'slot node', '无'], ['slot:form', 'form slot会位于面板的左侧，一般是搜索的表单区域', 'slot node', '无'], ['slot:control', 'control slot会跟在form slot后面，一般可以放置一些按钮，比如查询之类', 'slot node', '无']]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 576:
+/***/ 577:
 /***/ function(module, exports) {
 
-	module.exports = "\n<section class=\"markdown\">\n    <h1>Popconfirm 气泡确认框</h1>\n    <p>\n        点击元素，弹出气泡式的确认框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。</p>\n        <p>更轻量的询问。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"国际化\" describe=\"自定义按钮文字\">\n            <v-popconfirm  title=\"Do you want to do something?\" ok-text=\"Ok\" cancel-text=\"Cancel\" >\n                <a href=\"javascript:;\">Delete</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"跳过询问\" describe=\"跳过询问立刻执行confirm回调\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\" :skip=\"is_skip\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否跳过询问\n            <v-switch :on-change=\"to_skip_confirm\" :checked=\"default_is_skip\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n</v-row>\n\n<api-table :apis=\"apis\"></api-table>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>MorePanel 更多条件面板</h1>\n    <p>\n      响应式地显示筛选条件。\n    </p>\n    <h2>何时使用</h2>\n    <p>\n      筛选条件太多需要隐藏时。\n    </ul>\n    <p>组件演示</p>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col>\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法，试着缩放窗口大小。\">\n          <v-more-panel>\n            <v-form slot=\"form\">\n                <v-form-item label=\"用户名\">\n                    <v-input placeholder=\"请输入用户名\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"密码\">\n                    <v-input type=\"password\" placeholder=\"请输入密码\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"机构编码\">\n                    <v-input placeholder=\"请输入机构编码\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"年龄\">\n                    <v-input placeholder=\"请输入年龄\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"手机\">\n                    <v-input placeholder=\"请输入手机号码\"></v-input>\n                </v-form-item>\n            </v-form>\n            <v-button slot=\"control\" type=\"primary\" html-type=\"button\" icon=\"search\">查询</v-button>\n        </v-more-panel>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 694:
+/***/ 696:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
@@ -351,8 +287,8 @@ webpackJsonp([44,49],{
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\popconfirm.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(576)
+	  console.warn("[vue-loader] src\\views\\morePanel.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(577)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

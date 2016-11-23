@@ -1,4 +1,4 @@
-webpackJsonp([41,49],{
+webpackJsonp([41,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([41,49],{
 
 /***/ },
 
-/***/ 297:
+/***/ 295:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,17 +247,19 @@ webpackJsonp([41,49],{
 	  value: true
 	});
 
-	var _spin = __webpack_require__(53);
+	var _progress = __webpack_require__(83);
 
-	var _spin2 = _interopRequireDefault(_spin);
+	var _button = __webpack_require__(115);
 
-	var _alert = __webpack_require__(49);
+	var _button2 = _interopRequireDefault(_button);
 
-	var _alert2 = _interopRequireDefault(_alert);
+	var _buttonGroup = __webpack_require__(116);
 
-	var _switch = __webpack_require__(35);
+	var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
 
-	var _switch2 = _interopRequireDefault(_switch);
+	var _iconfont = __webpack_require__(23);
+
+	var _iconfont2 = _interopRequireDefault(_iconfont);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -272,37 +274,95 @@ webpackJsonp([41,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      apis: [{
-	        parameter: 'size',
-	        explain: 'spin组件中点的大小，可选值为 small default large',
-	        type: 'string',
-	        default: 'default'
+	      percentLine: 10,
+	      percentCircle: 10,
+	      progressBarApis: [{
+	        parameter: 'percent',
+	        explain: '百分比',
+	        type: 'Number',
+	        default: 0
 	      }, {
-	        parameter: 'spinning',
-	        explain: '用于内嵌其他组件的模式，可以关闭 loading 效果',
-	        type: 'boolean',
-	        default: 'true'
+	        parameter: 'status',
+	        explain: '状态，有normal、exception、active、success四个状态值',
+	        type: 'String',
+	        default: 'normal'
 	      }, {
-	        parameter: 'tip',
-	        explain: '自定义描述文案',
-	        type: 'string',
-	        default: '无'
+	        parameter: 'strokeWidth',
+	        explain: '进度条线的宽度，单位是px',
+	        type: 'Number',
+	        default: 1
+	      }, {
+	        parameter: 'showInfo',
+	        explain: '是否显示进度数值和状态图标',
+	        type: 'Boolean',
+	        default: true
 	      }],
-	      spinning: false
+	      progressCircleApis: [{
+	        parameter: 'percent',
+	        explain: '百分比',
+	        type: 'Number',
+	        default: 0
+	      }, {
+	        parameter: 'status',
+	        explain: '状态，有normal、exception、success三个状态值',
+	        type: 'String',
+	        default: 'normal'
+	      }, {
+	        parameter: 'strokeWidth',
+	        explain: '进度圈线的宽度，单位是进度圈画布宽度的百分比',
+	        type: 'Number',
+	        default: 1
+	      }, {
+	        parameter: 'width',
+	        explain: '必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width',
+	        type: 'Number',
+	        default: 'null'
+	      }]
 	    };
 	  },
+
+
 	  components: {
-	    vSpin: _spin2.default,
-	    vAlert: _alert2.default,
-	    vSwitch: _switch2.default,
+	    vProgressLine: _progress.vProgressLine,
+	    vProgressCircle: _progress.vProgressCircle,
+	    vButtonGroup: _buttonGroup2.default,
+	    vButton: _button2.default,
+	    vIcon: _iconfont2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  },
+
 	  methods: {
-	    _toogle: function _toogle() {
-	      this.spinning = !this.spinning;
+	    _declineLine: function _declineLine() {
+	      var percent = this.percentLine - 10;
+	      if (percent < 0) {
+	        percent = 0;
+	      }
+	      this.percentLine = percent;
+	    },
+	    _increaseLine: function _increaseLine() {
+	      var percent = this.percentLine + 10;
+	      if (percent > 100) {
+	        percent = 100;
+	      }
+	      this.percentLine = percent;
+	    },
+	    _declineCircle: function _declineCircle() {
+	      var percent = this.percentCircle - 10;
+	      if (percent < 0) {
+	        percent = 0;
+	      }
+	      this.percentCircle = percent;
+	    },
+	    _increaseCircle: function _increaseCircle() {
+	      var percent = this.percentCircle + 10;
+	      if (percent > 100) {
+	        percent = 100;
+	      }
+	      this.percentCircle = percent;
 	    }
 	  }
+
 	};
 
 /***/ },
@@ -310,7 +370,7 @@ webpackJsonp([41,49],{
 /***/ 583:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Spin 加载中</h1>\n    <p>\n      用于页面和区块的加载中状态。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本用法\"\n        describe=\"一个简单的 loading 状态。\"\n      >\n        <v-spin></v-spin>\n      </code-box>\n\n      <code-box\n        title=\"自定义描述文案\"\n        describe=\"自定义描述文案，指定的 tip 文案会直接代替 ...。\"\n      >\n        <v-spin tip=\"正在读取数据.\">\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n        </v-spin>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"各种大小\"\n        describe=\"小的用于文本加载，默认用于卡片容器级加载，大的用于页面级加载。\"\n      >\n        <v-spin size=\"small\"></v-spin>\n        <v-spin></v-spin>\n        <v-spin size=\"large\"></v-spin>\n      </code-box>\n\n      <code-box\n        title=\"卡片加载中\"\n        describe=\"可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。\"\n      >\n        <v-spin :spinning=\"spinning\">\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n        </v-spin>\n        切换加载状态：<v-switch @click=\"_toogle\"></v-switch>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Progress 进度条</h1>\n    <p>\n      进度条，展示操作的当前进度。\n    </p>\n    <h2>何时使用</h2>\n    <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p>\n    <ul>\n      <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li>\n      <li>当需要显示一个操作完成的百分比时。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box title=\"进度条\" describe=\"有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-line :percent=\"30\" description=\"普通的进度条\"></v-progress-line>\n        <v-progress-line :percent=\"50\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\"></v-progress-line>\n        <v-progress-line :percent=\"50\" :show-info=\"false\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"小型进度条\" describe=\"通过设置strokeWidth,可以更灵活地使用进度条\">\n        <v-progress-line :percent=\"30\"  :stroke-width=\"5\"></v-progress-line>\n        <v-progress-line :percent=\"50\"  :stroke-width=\"5\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\"  :stroke-width=\"5\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\" :stroke-width=\"5\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"动态展示\" describe=\"通过动态的改变进度,可以让进度条更有趣\">\n        <v-progress-line :percent=\"percentLine\"></v-progress-line>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineLine\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseLine\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box title=\"进度圈\" describe=\"有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-circle :percent=\"30\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"小型进度圈\" describe=\"通过设置width,可以更灵活地使用进度圈\">\n        <v-progress-circle :percent=\"30\"  :width=\"80\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\"  :width=\"80\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\" :width=\"80\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"进度圈动态展示\" describe=\"通过动态的改变进度,可以让进度圈更有趣\">\n        <v-progress-circle :percent=\"percentCircle\"></v-progress-circle>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineCircle\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseCircle\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n  <api-table\n    title=\"Progress Bar API\"\n    :apis='progressBarApis'\n  ></api-table>\n\n  <api-table\n    title=\"Progress Circle API\"\n    :apis='progressCircleApis'\n  ></api-table>\n</div>\n";
 
 /***/ },
 
@@ -319,11 +379,11 @@ webpackJsonp([41,49],{
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(297)
+	__vue_script__ = __webpack_require__(295)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\spin.vue: named exports in *.vue files are ignored.")}
+	  console.warn("[vue-loader] src\\views\\progress.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(583)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default

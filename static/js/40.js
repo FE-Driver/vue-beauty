@@ -1,4 +1,4 @@
-webpackJsonp([40,49],{
+webpackJsonp([40,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -247,6 +247,18 @@ webpackJsonp([40,49],{
 	  value: true
 	});
 
+	var _spin = __webpack_require__(55);
+
+	var _spin2 = _interopRequireDefault(_spin);
+
+	var _alert = __webpack_require__(51);
+
+	var _alert2 = _interopRequireDefault(_alert);
+
+	var _switch = __webpack_require__(36);
+
+	var _switch2 = _interopRequireDefault(_switch);
+
 	var _codeBox = __webpack_require__(12);
 
 	var _codeBox2 = _interopRequireDefault(_codeBox);
@@ -261,56 +273,48 @@ webpackJsonp([40,49],{
 	  data: function data() {
 	    return {
 	      apis: [{
-	        parameter: 'closable',
-	        explain: '标签是否可以关闭',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'color',
-	        explain: '标签的色彩：blue green yellow red',
+	        parameter: 'size',
+	        explain: 'spin组件中点的大小，可选值为 small default large',
 	        type: 'string',
-	        default: '-'
+	        default: 'default'
+	      }, {
+	        parameter: 'spinning',
+	        explain: '用于内嵌其他组件的模式，可以关闭 loading 效果',
+	        type: 'boolean',
+	        default: 'true'
+	      }, {
+	        parameter: 'tip',
+	        explain: '自定义描述文案',
+	        type: 'string',
+	        default: '无'
 	      }],
-	      eventsApi: [['close', '移除标签的时候触发', '无']],
-	      tags: [{
-	        title: '不可移除',
-	        closable: false
-	      }, {
-	        title: '标签一',
-	        closable: true
-	      }, {
-	        title: '标签二',
-	        closable: true
-	      }]
+	      spinning: false
 	    };
 	  },
 	  components: {
+	    vSpin: _spin2.default,
+	    vAlert: _alert2.default,
+	    vSwitch: _switch2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  },
 	  methods: {
-	    close: function close(i) {
-	      console.log(i);
-	    },
-	    _addTag: function _addTag() {
-	      var tagTmp = {};
-	      tagTmp.title = '新标签' + (this.tags.length + 1);
-	      tagTmp.closable = true;
-	      this.tags.push(tagTmp);
+	    _toogle: function _toogle() {
+	      this.spinning = !this.spinning;
 	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 587:
+/***/ 588:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"markdown\">\n  <h1>Tag标签</h1>\n  <p>\n    进行标记和分类的小标签。\n  </p>\n  <h2>何时使用#</h2>\n  <ul>\n    <li>\n      <p>\n        用于标记事物的属性和维度。\n      </p>\n    </li>\n    <li>\n      <p>\n        进行分类。\n      </p>\n    </li>\n  </ul>\n  <h2>组件演示</h2>\n</section>\n\n<v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n    <code-box\n      title=\"基本\"\n      describe=\"简单的标签展示，添加 closable 表示可关闭。\"\n    >\n      <v-tag>标签一</v-tag>\n      <v-tag>标签一</v-tag>\n      <v-tag closable>标签一</v-tag>\n    </code-box>\n\n    <code-box\n      title=\"动态添加和删除\"\n      describe=\"用数组生成一组标签，可以动态添加和删除。\"\n    >\n\n      <v-tag v-for=\"tag in tags\" :color=\"tag.color\" :closable=\"tag.closable\">{{tag.title}}</v-tag>\n      <v-button type=\"dashed\" size=\"small\" @click=\"_addTag($event)\">+ 添加标签</v-button>\n    </code-box>\n\n\n  </v-Col>\n\n  <v-Col span=\"12\">\n\n    <code-box\n      title=\"各种类型\"\n      describe=\"四种颜色的标签。\"\n    >\n      <v-tag color=\"blue\" closable @close=\"close(1)\">蓝色</v-tag>\n      <v-tag color=\"green\" closable @close=\"close(2)\">绿色</v-tag>\n      <v-tag color=\"yellow\" closable @close=\"close(3)\">黄色</v-tag>\n      <v-tag color=\"red\" closable @close=\"close(4)\">红色</v-tag>\n    </code-box>\n\n  </v-Col>\n</v-Row>\n\n\n<api-table\n  :apis='apis'\n></api-table>\n<api-table\n  type=\"events\"\n  title=\"\"\n  :content='eventsApi'\n></api-table>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Spin 加载中</h1>\n    <p>\n      用于页面和区块的加载中状态。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本用法\"\n        describe=\"一个简单的 loading 状态。\"\n      >\n        <v-spin></v-spin>\n      </code-box>\n\n      <code-box\n        title=\"自定义描述文案\"\n        describe=\"自定义描述文案，指定的 tip 文案会直接代替 ...。\"\n      >\n        <v-spin tip=\"正在读取数据.\">\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n        </v-spin>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"各种大小\"\n        describe=\"小的用于文本加载，默认用于卡片容器级加载，大的用于页面级加载。\"\n      >\n        <v-spin size=\"small\"></v-spin>\n        <v-spin></v-spin>\n        <v-spin size=\"large\"></v-spin>\n      </code-box>\n\n      <code-box\n        title=\"卡片加载中\"\n        describe=\"可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。\"\n      >\n        <v-spin :spinning=\"spinning\">\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n        </v-spin>\n        切换加载状态：<v-switch @click=\"_toogle\"></v-switch>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 706:
+/***/ 708:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
@@ -319,8 +323,8 @@ webpackJsonp([40,49],{
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\tag.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(587)
+	  console.warn("[vue-loader] src\\views\\spin.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(588)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -1,4 +1,4 @@
-webpackJsonp([14,49],{
+webpackJsonp([14,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([14,49],{
 
 /***/ },
 
-/***/ 293:
+/***/ 297:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,7 +247,7 @@ webpackJsonp([14,49],{
 	  value: true
 	});
 
-	var _radio = __webpack_require__(39);
+	var _radio = __webpack_require__(40);
 
 	var _radio2 = _interopRequireDefault(_radio);
 
@@ -357,7 +357,7 @@ webpackJsonp([14,49],{
 
 /***/ },
 
-/***/ 384:
+/***/ 388:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -372,13 +372,13 @@ webpackJsonp([14,49],{
 
 /***/ },
 
-/***/ 441:
+/***/ 444:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(384);
+	var content = __webpack_require__(388);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -399,25 +399,25 @@ webpackJsonp([14,49],{
 
 /***/ },
 
-/***/ 579:
+/***/ 584:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Radio 单选框</h1>\n      <p>\n        单选框\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          用于在多个备选项中选中单个状态。\n        </p>\n        <p>\n          和 Select 的区别是，Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-radio><span>Radio</span></v-radio>\"\n        >\n          <v-radio><span>Radio</span></v-radio>\n        </code-box>\n\n        <code-box\n          title=\"按钮尺寸\"\n          describe=\"RadioGroup组合\"\n        >\n          <v-radio-group\n            :on-change=\"_onGroupChange\"\n            default-value='a'\n            :radios=\"[{value: 'a', name: 'A'},{value: 'b', name: 'B'},{value: 'c', name: 'C'},{value: 'd', name: 'D'}]\">\n          </v-radio-group>\n        </code-box>\n\n        <code-box\n          title=\"按钮样式\"\n          describe=\"按钮样式的单选组合。\"\n          code=\" <v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  disabled\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\"\n        >\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n           <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            disabled\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"Radio 不可用。\"\n          code=\"<v-radio :default-checked='false' :disabled='disabled'><span>不可用</span></v-radio>\n<v-radio :default-checked='true' :disabled='disabled'><span>不可用</span></v-radio>\n<v-button :type='primary' @click='_toggleDisabled'>Toggle disabled</v-button>\"\n        >\n          <v-radio :default-checked=\"false\" :disabled=\"disabled\"><span>不可用</span></v-radio>\n          <br>\n          <v-radio :default-checked=\"true\" :disabled=\"disabled\"><span>不可用</span></v-radio>\n          <br>\n          <br>\n          <v-button :type=\"primary\" @click=\"_toggleDisabled\">Toggle disabled</v-button>\n        </code-box>\n\n        <code-box\n          title=\"大小\"\n          describe=\"大中小三种组合，可以和表单输入框进行对应配合。\"\n          code=\"<v-radio-group\n  size='large'\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<br><br>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<br><br>\n<v-radio-group\n  size='small'\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\"\n        >\n          <v-radio-group\n            size=\"large\"\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            size=\"small\"\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Radio</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      :apis='apiGroup'\n    >\n      <h3>RadioGroup</h3>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 698:
+/***/ 704:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(441)
-	__vue_script__ = __webpack_require__(293)
+	__webpack_require__(444)
+	__vue_script__ = __webpack_require__(297)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\radio.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(579)
+	__vue_template__ = __webpack_require__(584)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

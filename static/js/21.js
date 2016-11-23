@@ -1,4 +1,4 @@
-webpackJsonp([21,49],{
+webpackJsonp([21,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([21,49],{
 
 /***/ },
 
-/***/ 281:
+/***/ 284:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,7 +247,7 @@ webpackJsonp([21,49],{
 	  value: true
 	});
 
-	var _inputNumber = __webpack_require__(79);
+	var _inputNumber = __webpack_require__(77);
 
 	var _inputNumber2 = _interopRequireDefault(_inputNumber);
 
@@ -330,7 +330,7 @@ webpackJsonp([21,49],{
 
 /***/ },
 
-/***/ 379:
+/***/ 383:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -345,13 +345,13 @@ webpackJsonp([21,49],{
 
 /***/ },
 
-/***/ 436:
+/***/ 439:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(379);
+	var content = __webpack_require__(383);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -372,25 +372,25 @@ webpackJsonp([21,49],{
 
 /***/ },
 
-/***/ 568:
+/***/ 572:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>InputNumber 数字输入框</h1>\n      <p>\n        通过鼠标或键盘，输入范围内的数值。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          当需要获取标准数值时。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"数字输入框。\"\n          code=\"<v-input-number min='1'' max='10'' default-value='3'' :on-change='_handleChange'></v-input-number>\"\n        >\n        <v-input-number min=\"1\" max=\"10\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n        </code-box>\n\n        <code-box\n          title=\"不可用\"\n          describe=\"点击按钮切换可用状态。\"\n          code=\"<v-input-number min='1' max='10'' :disabled='disabled'' default-value='3'></v-input-number>\n<v-button @click='_toggle'' type='primary'>Toggle disabled</v-button>\"\n        >\n          <v-input-number min=\"1\" max=\"10\" :disabled=\"disabled\" default-value=\"3\"></v-input-number>\n          <br><br>\n          <v-button @click=\"_toggle\" type=\"primary\">Toggle disabled</v-button>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"三种大小\"\n          describe=\"三种大小的数字输入框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n          code=\"<v-input-number size='large' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\n<v-input-number min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\n<v-input-number size='small' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\"\n        >\n          <v-input-number size=\"large\" min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n          <v-input-number min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n          <v-input-number size=\"small\" min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n        </code-box>\n\n        <code-box\n          title=\"小数\"\n          describe=\"和原生的数字输入框一样，value 的精度由 step 的小数位数决定。\"\n          code=\"<v-button type='primary'>Primary</v-button>\n<v-button type='primary' disabled>Primary</v-button>\"\n        >\n          <v-input-number min=\"1\" max=\"10\" step=\"0.1\"></v-input-number>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 686:
+/***/ 691:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(436)
-	__vue_script__ = __webpack_require__(281)
+	__webpack_require__(439)
+	__vue_script__ = __webpack_require__(284)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\inputNumber.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(568)
+	__vue_template__ = __webpack_require__(572)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

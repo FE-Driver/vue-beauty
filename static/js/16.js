@@ -1,4 +1,4 @@
-webpackJsonp([16,49],{
+webpackJsonp([16,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([16,49],{
 
 /***/ },
 
-/***/ 288:
+/***/ 292:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,7 +247,7 @@ webpackJsonp([16,49],{
 	  value: true
 	});
 
-	var _pagination = __webpack_require__(51);
+	var _pagination = __webpack_require__(53);
 
 	var _pagination2 = _interopRequireDefault(_pagination);
 
@@ -294,7 +294,7 @@ webpackJsonp([16,49],{
 
 /***/ },
 
-/***/ 398:
+/***/ 402:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -309,13 +309,13 @@ webpackJsonp([16,49],{
 
 /***/ },
 
-/***/ 458:
+/***/ 461:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(398);
+	var content = __webpack_require__(402);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -336,25 +336,25 @@ webpackJsonp([16,49],{
 
 /***/ },
 
-/***/ 575:
+/***/ 580:
 /***/ function(module, exports) {
 
 	module.exports = "\r\n<div>\r\n\t\t<section class=\"markdown\">\r\n      <h1>Pagination 分页</h1>\r\n      <p>\r\n        采用分页的形式分隔长列表，每次只加载一个页面。\r\n      </p>\r\n      <h2>何时使用</h2>\r\n      <ul>\r\n        <li>当加载/渲染所有数据将花费很多时间时；</li>\r\n        <li>可切换页码浏览数据。</li>\r\n      </ul>\r\n      <h2>组件演示</h2>\r\n    </section>\r\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n    \t<code-box\r\n        title=\"基本\"\r\n        describe=\"基础分页。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"改变\"\r\n        describe=\"改变每页显示条目数。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-size-changer=\"true\"\r\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"改变\"\r\n        describe=\"改变每页显示条目数。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t        size=\"small\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n\t\t\t  <br>\r\n        <v-pagination \r\n\t\t\t  \t:current.sync=\"current\" \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"100\"\r\n\t\t\t  \t:default-page-size=\"5\"\r\n\t\t\t  \t:page-size=\"10\"\r\n\t\t\t  \t:on-change=\"loadPage\"\r\n\t\t\t  \t:show-size-changer=\"true\"\r\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t\t\t  \t:show-quick-jumper=\"true\"\r\n\t\t\t  \tsize=\"small\"\r\n\t\t\t  \t:simple=\"false\"></v-pagination>\r\n\t\t\t  <br>\r\n\t\t  \t<v-pagination \r\n\t\t\t  \t:current.sync=\"current\" \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"50\"\r\n\t\t\t  \t:default-page-size=\"5\"\r\n\t\t\t  \t:page-size=\"10\"\r\n\t\t\t  \t:on-change=\"loadPage\"\r\n\t\t\t  \tsize=\"small\"\r\n\t\t\t  \t:simple=\"false\"\r\n\t\t\t  \t:show-total=\"showTotal\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"受控\"\r\n        describe=\"受控制的页码。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"3\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n    </div>\r\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n    \t<code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-quick-jumper=\"true\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:simple=\"true\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"总数\"\r\n        describe=\"通过设置 showTotal 展示总共有多少数据。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-total=\"showTotal\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n    </div>\r\n\t  <!-- <v-pagination \r\n\t  \t:current.sync=\"current\" \r\n\t  \t:default-current=\"1\"\r\n\t  \t:total=\"100\"\r\n\t  \t:default-page-size=\"5\"\r\n\t  \t:page-size=\"10\"\r\n\t  \t:on-change=\"loadPage\"\r\n\t  \t:show-size-changer=\"true\"\r\n\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t  \t:show-quick-jumper=\"false\"\r\n\t  \tsize=\"\"\r\n\t  \t:simple=\"false\"\r\n\t  \t:show-total=\"showTotal\"></v-pagination> -->\r\n\t  <api-table :apis=\"apis\"></api-table>\r\n</div>\r\n";
 
 /***/ },
 
-/***/ 693:
+/***/ 699:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(458)
-	__vue_script__ = __webpack_require__(288)
+	__webpack_require__(461)
+	__vue_script__ = __webpack_require__(292)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\pagination.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(575)
+	__vue_template__ = __webpack_require__(580)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

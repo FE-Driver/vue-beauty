@@ -1,4 +1,4 @@
-webpackJsonp([35,49],{
+webpackJsonp([35,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,18 +238,22 @@ webpackJsonp([35,49],{
 
 /***/ },
 
-/***/ 260:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
-	var _affix = __webpack_require__(69);
+	var _timeline = __webpack_require__(89);
 
-	var _affix2 = _interopRequireDefault(_affix);
+	var _timeline2 = _interopRequireDefault(_timeline);
+
+	var _iconfont = __webpack_require__(23);
+
+	var _iconfont2 = _interopRequireDefault(_iconfont);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -261,40 +265,27 @@ webpackJsonp([35,49],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var vTimelineItem = _timeline2.default.Item;
+
 	exports.default = {
-	  data: function data() {
-	    return {
-	      onChange: function onChange(affixed) {
-	        return console.log(affixed);
-	      },
-	      apis: [{
-	        parameter: 'offsetTop',
-	        explain: '距离窗口顶部达到指定偏移量后触发',
-	        type: 'Number',
-	        default: ''
-	      }, {
-	        parameter: 'offsetBottom',
-	        explain: '距离窗口底部达到指定偏移量后触发',
-	        type: 'Number',
-	        default: ''
-	      }, {
-	        parameter: 'onChange',
-	        explain: '固定状态改变时触发的回调函数',
-	        type: 'Function( Boolean )',
-	        default: '无'
-	      }]
-	    };
-	  },
-	  components: {
-	    vAffix: _affix2.default,
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
+	    data: function data() {
+	        return {
+	            content: [['pending', '指定最后一个幽灵节点是否存在或内容', 'boolean or Vue.Element', 'false']],
+	            itemcontent: [['color', '指定圆圈颜色<code>blue, red, green</code>，或自定义的色值', 'string', 'blue'], ['dot', '自定义时间轴点', 'Vue.Element', '无']]
+	        };
+	    },
+	    methods: {},
+	    components: {
+	        vTimeline: _timeline2.default,
+	        vTimelineItem: vTimelineItem,
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    }
 	};
 
 /***/ },
 
-/***/ 364:
+/***/ 395:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -309,13 +300,13 @@ webpackJsonp([35,49],{
 
 /***/ },
 
-/***/ 421:
+/***/ 451:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(364);
+	var content = __webpack_require__(395);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -324,8 +315,8 @@ webpackJsonp([35,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./affix.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./affix.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./timeline.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./timeline.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -336,25 +327,25 @@ webpackJsonp([35,49],{
 
 /***/ },
 
-/***/ 548:
+/***/ 594:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Affix 固钉</h1>\n      <p>\n        将页面元素钉在可视范围。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。</li>\n        <li>页面可视范围过小时，慎用此功能以免遮挡页面内容。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法。\"\n          code='<v-affix :offset-top=\"0\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"0\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"下方固定\"\n          describe=\"固定在屏幕下方\"\n          code='<v-affix :offset-bottom=\"200\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-bottom=\"200\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"偏移\"\n          describe=\"达到一定的偏移量才触发。\"\n          code='<v-affix :offset-top=\"75\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"75\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"固定状态改变的回调\"\n          describe=\"可以获得是否固定的状态。\"\n          code='onChange: affixed => console.log(affixed)\n\n<v-affix :offset-top=\"120\" :on-change=\"onChange\">\n  <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"120\" :on-change='onChange'>\n            <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n    <div class=\"\" style=\"height: 400px\">\n\n    </div>\n\n  </div>\n\n";
+	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Timeline 时间轴</h1>\n        <p>\n            垂直展示的时间流信息\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li><p>当有一系列信息需要从上至下按时间排列时；</p></li>\n            <li><p>需要有一条时间轴进行视觉上的串联时；</p></li>\n        </ul>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"基本用法\"\n                describe=\"基本的时间轴。。\"\n            >\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"最后一个\"\n                describe=\"在最后位置添加一个幽灵节点，表示时间轴未完成，还在记录过程中。可以指定 pending={true} 或者 pending={一个 Vue 元素}。\"\n            >\n                <v-timeline pending=\"<a href='#'>查看更多</a>\">\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item>技术测试异常 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"圆圈颜色\"\n                describe=\"圆圈颜色，绿色用于已完成、成功状态，红色表示告警或错误状态，蓝色可表示正在进行或其他默认状态。\"\n            >\n                <v-timeline>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"red\">\n                        <p>初步排除网络异常1</p>\n                        <p>初步排除网络异常2</p>\n                        <p>初步排除网络异常3 2015-09-01</p>\n                    </v-timeline-item>\n                    <v-timeline-item>\n                        <p>技术测试异常1</p>\n                        <p>技术测试异常2</p>\n                        <p>技术测试异常3 2015-09-01</p>\n                    </v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"自定义时间轴点\"\n                describe=\"可以设置为图标或其他自定义元素。\"\n            >\n\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item dot=\"<i class='anticon anticon-clock-circle-o' style='font-size: 16px;'></i>\"\n                                     color=\"red\">\n                        技术测试异常 2015-09-01\n                    </v-timeline-item>\n                    <v-timeline-item>网络异常正在修复 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n        :content='content'\n    >\n  <pre>\n      <code class=\"html\">\n        &lt;v-timeline&gt;\n          &lt;v-timeline-item&gt;创建服务现场 2015-09-01&lt;/v-timeline-item&gt;\n          &lt;v-timeline-item&gt;初步排除网络异常 2015-09-01&lt;/v-timeline-item&gt;\n        &lt;/v-timeline&gt;\n      </code>\n    </pre>\n\n        <h3>Timeline</h3>\n    </api-table>\n\n    <api-table\n        :content='itemcontent'\n    >\n        <h3>TimelineItem</h3>\n    </api-table>\n\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 666:
+/***/ 714:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(421)
-	__vue_script__ = __webpack_require__(260)
+	__webpack_require__(451)
+	__vue_script__ = __webpack_require__(182)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\affix.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(548)
+	  console.warn("[vue-loader] src\\views\\timeline.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(594)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

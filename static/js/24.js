@@ -1,4 +1,4 @@
-webpackJsonp([24,49],{
+webpackJsonp([24,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,18 +238,22 @@ webpackJsonp([24,49],{
 
 /***/ },
 
-/***/ 276:
+/***/ 278:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
-	var _datepicker = __webpack_require__(77);
+	var _getIterator2 = __webpack_require__(20);
 
-	var _datepicker2 = _interopRequireDefault(_datepicker);
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+	var _datatable = __webpack_require__(75);
+
+	var _datatable2 = _interopRequireDefault(_datatable);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -262,57 +266,179 @@ webpackJsonp([24,49],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      onClose: function onClose() {
-	        console.log(this);
-	      },
-	      regdate: "2016-09-12",
-	      disabledDateFn: function disabledDateFn(date) {
-	        console.log(date);
-	        if (date.getTime() - new Date().getTime() > 7 * 24 * 60 * 60 * 1000) {
-	          return true;
+	    data: function data() {
+	        return {
+	            apis: [{
+	                parameter: 'data-source(必须)',
+	                explain: '数据源,服务端数据接口对应的url地址',
+	                type: 'string',
+	                default: ''
+	            }, {
+	                parameter: 'columns(必须)',
+	                explain: '列配置（请见下表）',
+	                type: 'object',
+	                default: ''
+	            }, {
+	                parameter: 'size',
+	                explain: '表格尺寸,支持large,middle,small',
+	                type: 'string',
+	                default: 'middle'
+	            }, {
+	                parameter: 'pageSize',
+	                explain: '分页大小',
+	                type: 'number',
+	                default: '10'
+	            }, {
+	                parameter: 'pageSizeOptions',
+	                explain: '分页大小配置项',
+	                type: 'array',
+	                default: '[10,20,30,40,50]'
+	            }, {
+	                parameter: 'paramsName',
+	                explain: '接口请求参数名称配置项,后续完善文档',
+	                type: 'object',
+	                default: ''
+	            }, {
+	                parameter: 'otherParams',
+	                explain: '发送请求时需要额外附带的参数,后续完善文档',
+	                type: 'object',
+	                default: '{}'
+	            }, {
+	                parameter: 'formatter',
+	                explain: '数据格式化函数,参数data,数据加载成功table渲染之前调用',
+	                type: 'function',
+	                default: ''
+	            }, {
+	                parameter: 'rowSelection',
+	                explain: '行选择配置（请见下表）',
+	                type: 'object',
+	                default: ''
+	            }, {
+	                parameter: 'ghost',
+	                explain: '如果需要在datatable内使用外部组件，可以在这里自定义，然后在columns.component引用，每个自定义组件会接受3个prop（index，item，value），index是该组件所在行的序号，item是该组件所在行对应的数据，value是该组件所在行field字段对应的数据',
+	                type: 'object',
+	                default: ''
+	            }],
+	            columnsapi: [{
+	                parameter: 'title(必须)',
+	                explain: '列名',
+	                type: 'string',
+	                default: ''
+	            }, {
+	                parameter: 'field(必须)',
+	                explain: '对应的数据字段',
+	                type: 'string',
+	                default: ''
+	            }, {
+	                parameter: 'render',
+	                explain: '渲染函数,可自定义某列的具体渲染逻辑,参数value, row, index',
+	                type: 'function',
+	                default: ''
+	            }, {
+	                parameter: 'component',
+	                explain: '使用ghost里定义的组件',
+	                type: 'String',
+	                default: ''
+	            }, {
+	                parameter: 'width',
+	                explain: '列的宽度,支持任意css尺寸值',
+	                type: 'string',
+	                default: 'auto'
+	            }, {
+	                parameter: 'className',
+	                explain: '列的自定义class,多个class之间使用空格分割',
+	                type: 'string',
+	                default: ''
+	            }, {
+	                parameter: 'sort',
+	                explain: '是否启用列排序,true表示启用排序功能,asc和desc表示启用默认排序',
+	                type: 'true | "asc" | "desc"',
+	                default: 'false'
+	            }],
+	            rowSelectionApi: [{
+	                parameter: 'type(必须)',
+	                explain: '选择模式,',
+	                type: 'checkbox | radio',
+	                default: 'checkbox'
+	            }, {
+	                parameter: 'onSelect',
+	                explain: '行选择之后的回调函数,参数index,state,item',
+	                type: 'function',
+	                default: ''
+	            }, {
+	                parameter: 'onSelectAll',
+	                explain: '全选操作的回掉函数,参数state,items',
+	                type: 'function',
+	                default: ''
+	            }],
+	            url: "/truck/search",
+	            columns: [{ title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true, width: "200px" }, { title: "姓名", field: 'name', sort: true }, { title: "姓名姓名姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "性别", field: 'sex', render: this.cellrender }, { title: "性别", field: 'sex', render: this.cellrender }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }],
+	            msg: {},
+	            formatter: function formatter(data) {
+	                console.log(data);
+	                var _iteratorNormalCompletion = true;
+	                var _didIteratorError = false;
+	                var _iteratorError = undefined;
+
+	                try {
+	                    for (var _iterator = (0, _getIterator3.default)(data), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                        var obj = _step.value;
+
+	                        obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
+	                    }
+	                } catch (err) {
+	                    _didIteratorError = true;
+	                    _iteratorError = err;
+	                } finally {
+	                    try {
+	                        if (!_iteratorNormalCompletion && _iterator.return) {
+	                            _iterator.return();
+	                        }
+	                    } finally {
+	                        if (_didIteratorError) {
+	                            throw _iteratorError;
+	                        }
+	                    }
+	                }
+
+	                return data;
+	            },
+	            rowSelection: {
+	                type: "checkbox",
+	                onSelect: function onSelect(index, state, item) {
+	                    console.log(index);
+	                    console.log(state);
+	                    console.log(item);
+	                },
+	                onSelectAll: function onSelectAll(state, items) {
+	                    console.log(state);
+	                    console.log(items);
+	                }
+	            }
+	        };
+	    },
+	    components: {
+	        vDatatable: _datatable2.default,
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    },
+	    methods: {
+	        handleIt: function handleIt(msg) {
+	            console.log(msg);
+	            this.msg = msg;
+	        },
+	        cellrender: function cellrender(value, row, index) {
+	            return '<strong>' + value + '</strong>';
+	        },
+	        clickCheck: function clickCheck() {
+	            alert(0);
 	        }
-	        return false;
-	      },
-	      apis: [{
-	        parameter: 'value',
-	        explain: '默认值',
-	        type: 'Sring',
-	        default: ''
-	      }, {
-	        parameter: 'format',
-	        explain: '日期显示格式',
-	        type: 'Sring',
-	        default: 'YYYY-MM-DD'
-	      }, {
-	        parameter: 'size',
-	        explain: '输入框尺寸(large、small)',
-	        type: 'Sring',
-	        default: 'default'
-	      }, {
-	        parameter: 'placeholder',
-	        explain: '占位说明文字',
-	        type: 'Sring',
-	        default: '请选择日期'
-	      }, {
-	        parameter: 'disabledDateFn',
-	        explain: '设置不可选日期的判定函数，执行时自动传入当前遍历的Date对象作为参数',
-	        type: 'Function',
-	        default: ''
-	      }]
-	    };
-	  },
-	  components: {
-	    vDatepicker: _datepicker2.default,
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
+	    }
 	};
 
 /***/ },
 
-/***/ 375:
+/***/ 379:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -327,13 +453,13 @@ webpackJsonp([24,49],{
 
 /***/ },
 
-/***/ 432:
+/***/ 435:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(375);
+	var content = __webpack_require__(379);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -342,8 +468,8 @@ webpackJsonp([24,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datepicker.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datepicker.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datatable.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datatable.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -354,25 +480,25 @@ webpackJsonp([24,49],{
 
 /***/ },
 
-/***/ 564:
+/***/ 567:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>日期选择器</h1>\n    <p>\n      日期选择器\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>日期选择器</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-2\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法\">\n        <v-datepicker format=\"YYYY-MM-DD\"></v-datepicker>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box\n              title=\"不同尺寸\"\n              describe=\"large、small\">\n        <v-datepicker size=\"large\"></v-datepicker>\n        <v-datepicker size=\"small\"></v-datepicker>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"placeholder\"\n              describe=\"placeholder\">\n        <v-datepicker placeholder=\"请选择注册日期\"></v-datepicker>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-2\">\n\n      <code-box\n              title=\"format\"\n              describe=\"日期格式\">\n        <v-datepicker format=\"YYYY/MM/DD\"></v-datepicker>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"默认值\"\n              describe=\"使用value设置初始默认值\">\n        <v-datepicker :value.sync=\"regdate\"></v-datepicker>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-2\">\n\n      <code-box\n              title=\"设定不可选择日期\"\n              describe=\"使用disabledDateFn来设定不可选择的日期，该函数执行时会自动传入当前遍历的日期对象，使用者根据业务需要判断该日期是否可选。返回true表示不可选，返回false表示可选。\">\n        <v-datepicker :disabled-date-fn=\"disabledDateFn\"></v-datepicker>\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n    <section class=\"markdown\">\n        <h1>Datatable</h1>\n\n        <p>\n            依赖服务端加载的数据表格\n        </p>\n\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                展示大量结构化数据时使用.\n            </p>\n        </ul>\n\n        <v-datatable\n                :data-source='url'\n                :columns='columns'\n                :formatter='formatter'\n                :row-selection='rowSelection'\n                :bottom-gap=\"100\"\n                :left-fix=\"3\"\n        >\n        </v-datatable>\n\n        <br>\n\n        <v-datatable\n                :data-source='url'\n                :columns='columns'\n                :formatter='formatter'\n                :row-selection='rowSelection'\n                :height='400'\n        >\n        </v-datatable>\n\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n            <code-box title=\"表格-自定义事件\" describe=\"自定义事件\">\n                <v-datatable :data-source='url' :columns='columns' :formatter='formatter' :row-selection='rowSelection'></v-datatable>\n            </code-box>\n        </div>\n    </div>\n\n    <api-table :apis='apis'>datatable参数</api-table>\n    <api-table :apis='columnsapi'>columns参数</api-table>\n    <api-table :apis='rowSelectionApi'>rowSelection参数</api-table>\n\n</div>\n\n\n";
 
 /***/ },
 
-/***/ 681:
+/***/ 685:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(432)
-	__vue_script__ = __webpack_require__(276)
+	__webpack_require__(435)
+	__vue_script__ = __webpack_require__(278)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\datepicker.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(564)
+	  console.warn("[vue-loader] src\\views\\datatable.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(567)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -1,4 +1,4 @@
-webpackJsonp([9,50],{
+webpackJsonp([49,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([9,50],{
 
 /***/ },
 
-/***/ 303:
+/***/ 266:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([9,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _switch = __webpack_require__(36);
-
-	var _switch2 = _interopRequireDefault(_switch);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -269,118 +261,59 @@ webpackJsonp([9,50],{
 	  data: function data() {
 	    return {
 	      apis: [{
-	        parameter: 'checked',
-	        explain: '指定当前是否选中',
-	        type: 'boolean',
-	        default: 'false'
+	        parameter: 'visibilityHeight',
+	        explain: '滚动高度达到此参数值才出现 BackTop',
+	        type: 'Number',
+	        default: '400'
 	      }, {
-	        parameter: 'disabeled',
-	        explain: '指定当前是否被禁用',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '变化时回调函数',
-	        type: 'Function(checked:boolean)',
+	        parameter: 'onClick',
+	        explain: '	点击按钮的回调函数',
+	        type: 'Function',
 	        default: '无'
-	      }, {
-	        parameter: 'slot::checkedChildren',
-	        explain: '选中时的内容',
-	        type: 'slot node',
-	        default: '无'
-	      }, {
-	        parameter: 'slot::unCheckedChildren',
-	        explain: '非选中时的内容',
-	        type: 'slot node',
-	        default: '无'
-	      }, {
-	        parameter: 'size',
-	        explain: '开关大小（"default" or "small"）',
-	        type: 'string',
-	        default: 'default'
 	      }],
-	      disabled: true
+	      styleObject: {
+	        height: '40px',
+	        width: '40px',
+	        lineHeight: '40px',
+	        borderRadius: '4px',
+	        color: 'rgb(255, 255, 255)',
+	        textAlign: 'center',
+	        fontSize: '20px',
+	        backgroundColor: 'rgb(87, 197, 247)'
+	      }
 	    };
 	  },
+	  methods: {
+	    handler: function handler() {
+	      console.log('噢');
+	    }
+	  },
 	  components: {
-	    vSwitch: _switch2.default,
-	    vButton: _button2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
-	  },
-	  methods: {
-	    _change: function _change(val) {
-	      return console.log('current value:' + val);
-	    },
-	    _toogle: function _toogle() {
-	      this.disabled = !this.disabled;
-	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 393:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 449:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(393);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./switch.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./switch.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 590:
+/***/ 555:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Switch开关</h1>\n      <p>\n        开关选择器。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          需要表示开关状态/两种状态之间的切换时；\n        </p>\n        <p>\n          和 checkbox的区别是，切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"简单\"\n          describe=\"最简单的用法。\"\n          code=\"<v-switch :on-change='_change'></v-switch>\"\n        >\n          <v-switch :on-change=\"_change\"></v-switch>\n        </code-box>\n\n        <code-box\n          title=\"文字和图标\"\n          describe=\"带有文字和图标。\"\n          code=\"<v-switch>\n  <span slot='checkedChildren'>开</span>\n  <span slot='unCheckedChildren'>关</span>\n</v-switch>\n<v-switch>\n  <span slot='checkedChildren'>\n    <i class='anticon anticon-check'></i>\n  </span>\n  <span slot='unCheckedChildren'>\n    <i class='anticon anticon-cross'></i>\n  </span>\n</v-switch>\"\n        >\n          <v-switch>\n            <span slot=\"checkedChildren\">开</span>\n            <span slot=\"unCheckedChildren\">关</span>\n          </v-switch>\n          <br>\n          <br>\n          <v-switch>\n            <span slot=\"checkedChildren\">\n              <i class=\"anticon anticon-check\"></i>\n            </span>\n            <span slot=\"unCheckedChildren\">\n              <i class=\"anticon anticon-cross\"></i>\n            </span>\n          </v-switch>\n        </code-box>\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"Switch 失效状态。\"\n          code=\"<v-switch disabled></v-switch>\n<v-button type='primary' @click='_toogle'>Toggle disabled</v-button>\"\n        >\n          <v-switch :disabled=\"disabled\"></v-switch>\n          <br>\n          <br>\n          <v-button type=\"primary\" @click=\"_toogle\">Toggle disabled</v-button>\n        </code-box>\n\n        <code-box\n          title=\"两种大小\"\n          describe=\"size='small' 表示小号开关。\"\n          code=\"<v-switch></v-switch>\n<v-switch size='small'></v-switch>\"\n        >\n          <v-switch></v-switch>\n          <br>\n          <v-switch size=\"small\"></v-switch>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div style=\"height:2000px\">\n\n    <section class=\"markdown\">\n      <h1>BackTop 回到顶部</h1>\n      <p>\n        返回页面顶部的操作按钮。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          当页面内容区域比较长时；\n        </p>\n        <p>\n          当用户需要频繁返回顶部查看相关内容时。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-back-top></v-back-top>\"\n        >\n          向下滚动后，见右下角灰色按钮\n         <v-back-top></v-back-top>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"自定义样式\"\n          describe=\"可以自定义回到顶部按钮的样式，限制宽高：40px * 40px。\"\n          code=\"<v-back-top style='bottom: 100px;' :visibility-height='500'  :on-click='handler'>\n  <div :style='styleObject'>UP</div>\n</v-back-top>\"\n        >\n        向下滚动后，见右下角蓝色按钮\n        <v-back-top style=\"bottom: 100px;\" :visibility-height=\"500\"  :on-click=\"handler\">\n          <div :style=\"styleObject\">UP</div>\n        </v-back-top>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 710:
+/***/ 674:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(449)
-	__vue_script__ = __webpack_require__(303)
+	__vue_script__ = __webpack_require__(266)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\switch.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(590)
+	  console.warn("[vue-loader] src\\views\\backTop.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(555)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

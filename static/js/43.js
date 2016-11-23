@@ -1,4 +1,4 @@
-webpackJsonp([43,49],{
+webpackJsonp([43,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([43,49],{
 
 /***/ },
 
-/***/ 290:
+/***/ 293:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,19 +247,19 @@ webpackJsonp([43,49],{
 	    value: true
 	});
 
-	var _layout = __webpack_require__(25);
+	var _popconfirm = __webpack_require__(81);
 
-	var _switch = __webpack_require__(35);
+	var _popconfirm2 = _interopRequireDefault(_popconfirm);
+
+	var _switch = __webpack_require__(36);
 
 	var _switch2 = _interopRequireDefault(_switch);
 
-	var _message = __webpack_require__(34);
+	var _message = __webpack_require__(35);
 
 	var _message2 = _interopRequireDefault(_message);
 
-	var _popover = __webpack_require__(84);
-
-	var _popover2 = _interopRequireDefault(_popover);
+	var _layout = __webpack_require__(25);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -272,47 +272,28 @@ webpackJsonp([43,49],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
+	    name: 'popconfirm-doc',
 	    data: function data() {
 	        return {
 	            apis: [{
-	                parameter: 'slot::trigger',
-	                explain: '触发目标(必选)',
-	                type: 'slot node',
-	                default: '无'
-	            }, {
-	                parameter: 'slot::content',
-	                explain: '卡片内容(可选,与content属性互斥)',
-	                type: 'slot node',
-	                default: '无'
-	            }, {
-	                parameter: 'trigger',
-	                explain: '触发行为，可选 hover/focus/click,默认click',
-	                type: 'string',
-	                default: 'click'
-	            }, {
 	                parameter: 'placement',
 	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
 	                type: 'string',
-	                default: 'bottom'
+	                default: 'top'
 	            }, {
 	                parameter: 'title',
-	                explain: '卡片标题',
+	                explain: '询问内容',
 	                type: 'string',
 	                default: '无'
 	            }, {
-	                parameter: 'content',
-	                explain: '卡片内容',
-	                type: 'string',
+	                parameter: 'on-confirm',
+	                explain: '确定回调',
+	                type: 'function',
 	                default: '无'
 	            }, {
-	                parameter: 'visible',
-	                explain: '用于手动控制浮层显隐',
-	                type: 'boolean',
-	                default: 'false'
-	            }, {
-	                parameter: 'onVisibleChange',
-	                explain: '显示或隐藏发生改变的回调',
-	                type: 'function(boolean:改变后卡片的可见性)',
+	                parameter: 'on-cancel',
+	                explain: '取消回调',
+	                type: 'function',
 	                default: '无'
 	            }, {
 	                parameter: 'openClassName',
@@ -320,63 +301,58 @@ webpackJsonp([43,49],{
 	                type: 'string',
 	                default: '无'
 	            }, {
-	                parameter: 'disabled',
-	                explain: '临时禁用气泡卡片弹出',
+	                parameter: 'skip',
+	                explain: '是否跳过询问,直接执行confirm回调',
 	                type: 'boolean',
 	                default: 'false'
 	            }],
-
-	            outer_control_visible: true,
-	            default_is_disabled: false,
-	            popover_is_disabled: false
+	            is_skip: false,
+	            default_is_skip: false
 	        };
 	    },
 
+	    methods: {
+	        confirm: function confirm() {
+	            _message2.default.info('点击了确定');
+	        },
+	        cancel: function cancel() {
+	            _message2.default.info('点击了取消');
+	        },
+	        to_skip_confirm: function to_skip_confirm(val) {
+	            this.is_skip = val;
+	        }
+	    },
 	    components: {
 	        vRow: _layout.vRow,
 	        vCol: _layout.vCol,
 	        codeBox: _codeBox2.default,
 	        apiTable: _apiTable2.default,
-	        vPopover: _popover2.default,
+	        vPopconfirm: _popconfirm2.default,
 	        vSwitch: _switch2.default,
 	        message: _message2.default
-	    },
-	    methods: {
-	        clickClose: function clickClose() {
-	            this.outer_control_visible = false;
-	        },
-	        to_disabled: function to_disabled(val) {
-	            this.popover_is_disabled = val;
-	        },
-	        outerVisibleChange: function outerVisibleChange(val) {
-	            this.outer_control_visible = val;
-	        },
-	        visibleChange: function visibleChange(val) {
-	            _message2.default.info(val ? '卡片显示了' : '卡片隐藏了');
-	        }
 	    }
 	};
 
 /***/ },
 
-/***/ 577:
+/***/ 581:
 /***/ function(module, exports) {
 
-	module.exports = "\n<section class=\"markdown\">\n    <h1>Popover 气泡卡片</h1>\n    <p>\n        点击/鼠标移入元素，弹出气泡式的卡片浮层。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>当目标元素有进一步的描述和相关操作时，可以收纳到卡片中，根据用户的操作行为进行展现。</p>\n        <p>和 Tooltip 的区别是，用户可以对浮层上的元素进行操作，因此它可以承载更复杂的内容，比如链接或按钮等。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popover placement=\"top\" title=\"简单标题\">\n                <div slot=\"content\">\n                    我是普通文本内容\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"快速设置简单的内容\" describe=\"使用content属性设置简单内容\">\n            <v-popover placement=\"top\" title=\"简单标题\" content=\"我的优先级更高\">\n                <div slot=\"content\">\n                    我会被忽略\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"触发行为\" describe=\"点击、聚集、鼠标移入。\">\n            <v-popover placement=\"left\" title=\"简单标题\" content=\"点击\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n\n            <span style=\"display:inline-block;width:80px;\">\n                <v-popover placement=\"top\" title=\"简单标题\" trigger=\"focus\" content=\"focus\">\n                    <input class=\"ant-input ant-input-lg\" slot=\"trigger\" placeholder=\"focus\">\n                </v-popover>\n            </span>\n\n            <v-popover placement=\"right\" title=\"简单标题\" content=\"hover\" trigger=\"hover\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">hover</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n\n\n    <v-col span=\"12\">\n        <code-box title=\"从卡片内关闭\" describe=\"使用visible控制显示。\">\n            <v-popover placement=\"top\" title=\"标题\" :visible=\"outer_control_visible\" :on-visible-change=\"outerVisibleChange\">\n                <div slot=\"content\">\n                    <a href=\"javascript:;\" @click=\"clickClose\">关闭</a>\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"临时禁用卡片弹出\" describe=\"使用disabled禁用卡片弹出。\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :disabled=\"popover_is_disabled\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否禁用卡片弹出\n            <v-switch :on-change=\"to_disabled\" :checked=\"default_is_disabled\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n    <v-col span=\"12\">\n        <code-box title=\"卡片显示/隐藏的回调\" describe=\"onVisibleChange\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :on-visible-change=\"visibleChange\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"8\">\n    <v-col span=\"12\">\n        <code-box title=\"滚动区域内\" describe=\"滚动区域内的卡片\">\n            <div style=\"height:100px;background:#D7E6F3;overflow:auto;\">\n                <div style=\"width:1000px;\">\n                    按钮在右下角\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <v-popover placement=\"top\" title=\"标题\" content=\"滚动区域内的定位\">\n                        <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\" style=\"float:right;\">点击弹出</button>\n                    </v-popover>\n                </div>\n            </div>\n        </code-box>\n    </v-col>\n</v-row>\n<api-table :apis=\"apis\"></api-table>\n";
+	module.exports = "\n<section class=\"markdown\">\n    <h1>Popconfirm 气泡确认框</h1>\n    <p>\n        点击元素，弹出气泡式的确认框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。</p>\n        <p>更轻量的询问。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"国际化\" describe=\"自定义按钮文字\">\n            <v-popconfirm  title=\"Do you want to do something?\" ok-text=\"Ok\" cancel-text=\"Cancel\" >\n                <a href=\"javascript:;\">Delete</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"跳过询问\" describe=\"跳过询问立刻执行confirm回调\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\" :skip=\"is_skip\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否跳过询问\n            <v-switch :on-change=\"to_skip_confirm\" :checked=\"default_is_skip\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n</v-row>\n\n<api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 695:
+/***/ 700:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(290)
+	__vue_script__ = __webpack_require__(293)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\popover.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(577)
+	  console.warn("[vue-loader] src\\views\\popconfirm.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(581)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

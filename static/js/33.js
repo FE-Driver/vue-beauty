@@ -1,4 +1,4 @@
-webpackJsonp([33,49],{
+webpackJsonp([33,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([33,49],{
 
 /***/ },
 
-/***/ 262:
+/***/ 264:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,39 +260,45 @@ webpackJsonp([33,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
+	      onClose: function onClose() {
+	        console.log(this);
+	      },
 	      apis: [{
 	        parameter: 'type',
-	        explain: '表格类型(props,methods,events)',
+	        explain: '必选参数，指定警告提示的样式，有四种选择 success、info、warning、error',
 	        type: 'String',
-	        default: "props"
+	        default: 'info'
 	      }, {
-	        parameter: 'head',
-	        explain: '表头数组,根据type字段，head的默认值也不同',
-	        type: 'Array',
-	        default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
+	        parameter: 'closable',
+	        explain: '可选参数，默认不显示关闭按钮',
+	        type: 'Boolean',
+	        default: 'false'
 	      }, {
-	        parameter: 'content',
-	        explain: '表格每行的内容数组 [["1","2","3","4"]...]',
-	        type: 'Array',
+	        parameter: 'closeText',
+	        explain: '可选参数，自定义关闭按钮',
+	        type: 'String',
 	        default: '无'
 	      }, {
-	        parameter: 'apis',
-	        explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
-	        type: 'Array',
+	        parameter: 'message',
+	        explain: '必选参数，警告提示内容',
+	        type: 'String',
 	        default: '无'
 	      }, {
-	        parameter: 'title',
-	        explain: '设置表格的标题',
-	        type: 'string',
-	        default: 'API'
-	      }, {
-	        parameter: 'slot::default',
-	        explain: 'title和table之间的slot',
-	        type: 'slot node',
+	        parameter: 'description',
+	        explain: '可选参数，警告提示的辅助性文字介绍',
+	        type: 'String',
 	        default: '无'
-	      }],
-	      head: ['title1', 'title2'],
-	      content: [['1-1', '1-2'], ['2-1', '2-2'], ['3-1', '3-2']]
+	      }, {
+	        parameter: 'onClose',
+	        explain: '可选参数，关闭时触发的回调函数',
+	        type: 'Function',
+	        default: '无'
+	      }, {
+	        parameter: 'showIcon',
+	        explain: '可选参数，是否显示辅助图标',
+	        type: 'Boolean',
+	        default: 'false'
+	      }]
 	    };
 	  },
 	  components: {
@@ -303,7 +309,7 @@ webpackJsonp([33,49],{
 
 /***/ },
 
-/***/ 366:
+/***/ 370:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -318,13 +324,13 @@ webpackJsonp([33,49],{
 
 /***/ },
 
-/***/ 423:
+/***/ 426:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(366);
+	var content = __webpack_require__(370);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -333,8 +339,8 @@ webpackJsonp([33,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./alert.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./alert.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -345,25 +351,25 @@ webpackJsonp([33,49],{
 
 /***/ },
 
-/***/ 550:
+/***/ 553:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>ApiTable Api表格</h1>\n    <p>\n      用于描述组件的api\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的api说明。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n       >\n        <api-table\n          :apis='apis'\n        >\n          <div>这是一个slot</div>\n        </api-table>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"使用head和content\"\n        describe=\"不推荐使用apis\"\n       >\n        <api-table\n          :head='head'\n          :content=\"content\"\n          title=\"使用head和content\"\n        >\n        </api-table>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Alert 警告提示</h1>\n      <p>\n        警告提示，展现需要关注的信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当某个页面需要向用户显示警告的信息时。</li>\n        <li>非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法，适用于简短的警告提示。\"\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"可关闭的警告提示\"\n          describe=\"显示关闭按钮，点击可关闭警告提示。\"\n          code='<v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\"\ndescription=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\nclosable></v-alert>'\n        >\n          <v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n          <v-alert\n            type=\"error\"\n            message=\"错误提示的文案\"\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n            closable></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"图标\"\n          describe=\"可口的图标让信息类型更加醒目。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\" show-icon></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\" show-icon></v-alert>\n<v-alert type=\"warning\" message=\"警告提示的文案\" show-icon></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\" show-icon></v-alert>\n<v-alert type=\"success\" message=\"成功提示的文案\" show-icon\n  description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\" show-icon\n  description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"warning\" message=\"警告提示的文案\" show-icon\n  description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"error\" message=\"错误提示的文案\" show-icon\n  description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\" show-icon></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\" show-icon></v-alert>\n          <v-alert type=\"warning\" message=\"警告提示的文案\" show-icon></v-alert>\n          <v-alert type=\"error\" message=\"错误提示的文案\" show-icon></v-alert>\n          <v-alert type=\"success\" message=\"成功提示的文案\" show-icon\n            description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\" show-icon\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"warning\" message=\"警告提示的文案\" show-icon\n            description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"error\" message=\"错误提示的文案\" show-icon\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n          ></v-alert>\n        </code-box>\n\n      </div>\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n          title=\"四种样式\"\n          describe=\"共有四种样式 success、info、warning、error。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\"></v-alert>\n<v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\"></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\"></v-alert>\n          <v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n          <v-alert type=\"error\" message=\"错误提示的文案\"></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"含有辅助性文字介绍\"\n          describe=\"含有辅助性文字介绍的警告提示。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\"\n  description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\"\n  description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"warning\" message=\"警告提示的文案\"\n  description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"error\" message=\"错误提示的文案\"\n  description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"\n            description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"warning\" message=\"警告提示的文案\"\n            description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"error\" message=\"错误提示的文案\"\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n          ></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"自定义关闭\"\n          describe=\"可以自定义关闭，自定义的文字会替换原先的关闭 Icon。\"\n          code='<v-alert type=\"info\" message=\"消息提示的文案\" close-text=\"不再提醒\"  closable :on-close=\"onClose\" ></v-alert>'\n        >\n          <v-alert type=\"info\" message=\"消息提示的文案\" close-text=\"不再提醒\"  closable\n            :on-close=\"onClose\"\n          ></v-alert>\n        </code-box>\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 668:
+/***/ 672:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(423)
-	__vue_script__ = __webpack_require__(262)
+	__webpack_require__(426)
+	__vue_script__ = __webpack_require__(264)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\apiTable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(550)
+	  console.warn("[vue-loader] src\\views\\alert.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(553)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

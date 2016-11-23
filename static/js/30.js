@@ -1,4 +1,4 @@
-webpackJsonp([30,49],{
+webpackJsonp([30,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,18 +238,18 @@ webpackJsonp([30,49],{
 
 /***/ },
 
-/***/ 268:
+/***/ 270:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
-	var _carousel = __webpack_require__(73);
+	var _card = __webpack_require__(52);
 
-	var _carousel2 = _interopRequireDefault(_carousel);
+	var _card2 = _interopRequireDefault(_card);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -259,68 +259,49 @@ webpackJsonp([30,49],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _message = __webpack_require__(34);
-
-	var _message2 = _interopRequireDefault(_message);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    components: {
-	        vCarousel: _carousel2.default,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    },
-	    data: function data() {
-	        return {
-	            onClose: function onClose() {
-	                console.log(this);
-	            },
-	            show: true,
-	            num: 6,
-	            apis: [{
-	                parameter: 'fade',
-	                explain: '是否采用渐显模式,为true采用fade,为false采用scrollx',
-	                type: 'Boolean',
-	                default: 'false'
-	            }, {
-	                parameter: 'dots',
-	                explain: '是否显示面板指示点',
-	                type: 'Boolean',
-	                default: 'true'
-	            }, {
-	                parameter: 'vertical',
-	                explain: '是否垂直显示dots',
-	                type: 'boolean',
-	                default: 'true'
-	            }, {
-	                parameter: 'autoplay',
-	                explain: '是否自动切换',
-	                type: 'Boolean',
-	                default: 'false'
-	            }, {
-	                parameter: 'easing',
-	                explain: '动画效果',
-	                type: 'String',
-	                default: 'linear'
-	            }, {
-	                parameter: 'onChange',
-	                explain: '切换面板的回调',
-	                type: 'Function',
-	                default: '无'
-	            }]
-	        };
-	    },
-	    methods: {
-	        onChange: function onChange(current) {
-	            _message2.default.info(current);
-	        }
-	    }
+	  data: function data() {
+	    return {
+	      onClose: function onClose() {
+	        console.log(this);
+	      },
+	      show: true,
+	      num: 5,
+	      apis: [{
+	        parameter: 'title',
+	        explain: '卡片标题',
+	        type: 'Sring',
+	        default: ''
+	      }, {
+	        parameter: 'slot::extra',
+	        explain: '卡片右上角的操作区域',
+	        type: 'slot node',
+	        default: '无'
+	      }, {
+	        parameter: 'bordered',
+	        explain: '是否有边框',
+	        type: 'boolean',
+	        default: 'true'
+	      }, {
+	        parameter: 'bodyStyle',
+	        explain: '内容区域自定义样式',
+	        type: 'Object',
+	        default: ''
+	      }]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default,
+	    vCard: _card2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 396:
+/***/ 373:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -328,20 +309,20 @@ webpackJsonp([30,49],{
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody{\n    background-color:#fff;\n}\n.ant-carousel .slick-slide h3{\n    text-align: center;\n    height: 100px;\n    line-height: 100px;\n    background: #71B5DE;\n    color: #fff;\n    overflow: hidden;\n    margin: 0;\n}\n#components-carousel-demo-vertical .ant-carousel {\n    margin-right: 35px;\n}\n", ""]);
+	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 456:
+/***/ 429:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(396);
+	var content = __webpack_require__(373);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -350,8 +331,8 @@ webpackJsonp([30,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./card.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./card.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -362,25 +343,25 @@ webpackJsonp([30,49],{
 
 /***/ },
 
-/***/ 556:
+/***/ 559:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>Carousel 走马灯</h1>\n        <p>\n            旋转木马，一组轮播的区域。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li>当有一组平级的内容。</li>\n            <li>当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。</li>\n            <li>常用于一组图片或卡片轮播。</li>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"基本\"\n                describe=\"最典型的用法\"\n                code=\"\"\n            >\n                <v-carousel :after-change=\"onChange\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"渐显\"\n                describe=\"切换效果为渐显\"\n                code=\"\"\n            >\n                <v-carousel :fade=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"垂直\"\n                describe=\"垂直显示\"\n                code=\"\"\n                id=\"components-carousel-demo-vertical\"\n            >\n                <v-carousel :vertical=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"自动切换\"\n                describe=\"自动切换下一张\"\n                code=\"\"\n            >\n                <v-carousel :autoplay=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n    </div>\n    <api-table\n        :apis='apis'\n    ></api-table>\n</div>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Card 卡片</h1>\n    <p>\n      通用卡片容器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>最基础的卡片容器，可承载文字、列表、图片、段落，常用于后台概览页面。</p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"典型卡片\"\n        describe=\"包含标题、内容、操作区域。\"\n        code=\"\"\n      >\n        <v-card title=\"Card title\">\n          <a href=\"/#!/components/card\" slot=\"extra\">More</a>\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n      <code-box\n        title=\"简洁卡片\"\n        describe=\"只包含内容区域。\"\n        code=\"\"\n      >\n        <v-card>\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"无边框\"\n        describe=\"在灰色背景上使用无边框的卡片。\"\n        code=\"\"\n      >\n        <v-card title=\"Card title\" :bordered=\"false\">\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n      <code-box\n        title=\"更灵活的内容展示\"\n        describe=\"可以调整默认边距，设定宽度。\"\n        code=\"\"\n      >\n        <v-card :body-style=\"{ padding: 0 }\" style=\"width:240px;\">\n          <div class=\"custom-image\">\n            <img alt=\"example\" width=\"100%\" src=\"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png\">\n          </div>\n          <div class=\"custom-card\">\n            <h3>Europe Street beat</h3>\n            <p>www.instagram.com</p>\n          </div>\n        </v-card>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"栅格卡片\"\n        describe=\"在系统概览页面常常和栅格进行配合。\"\n        code=\"\"\n      >\n        <div class=\"ant-row-flex ant-row-flex-space-around\">\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n        </div>\n\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 674:
+/***/ 678:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(456)
-	__vue_script__ = __webpack_require__(268)
+	__webpack_require__(429)
+	__vue_script__ = __webpack_require__(270)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\carousel.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(556)
+	  console.warn("[vue-loader] src\\views\\card.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(559)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

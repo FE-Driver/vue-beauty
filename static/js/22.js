@@ -1,4 +1,4 @@
-webpackJsonp([22,49],{
+webpackJsonp([22,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([22,49],{
 
 /***/ },
 
-/***/ 280:
+/***/ 283:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -321,7 +321,7 @@ webpackJsonp([22,49],{
 
 /***/ },
 
-/***/ 378:
+/***/ 382:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -336,13 +336,13 @@ webpackJsonp([22,49],{
 
 /***/ },
 
-/***/ 435:
+/***/ 438:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(378);
+	var content = __webpack_require__(382);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -363,25 +363,25 @@ webpackJsonp([22,49],{
 
 /***/ },
 
-/***/ 567:
+/***/ 571:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Input 输入框</h1>\n      <p>\n        通过鼠标或键盘输入内容，是最基础的表单域的包装。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          需要用户输入表单域内容时。\n        </p>\n         <p>\n          提供组合型输入框，带搜索的输入框，还可以进行大小选择。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本使用\"\n          describe=\"基本使用。\"\n          code=\"<v-input placeholder='基本使用'></v-input>\"\n        >\n          <v-input placeholder=\"基本使用\" @blur=\"blur\"></v-input>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n        title=\"前后缀修饰添加\"\n          describe=\"带有前缀后缀修饰\"\n          code='\n          <v-input placeholder=\"基本使用\">\n            <span slot=\"before\">http://</span>\n            <span slot=\"after\">.com</span>\n          </v-input>\n          <v-input placeholder=\"基本使用\">\n            <v-Select placeholder=\"请选择\" style=\"width: 80px;\" slot=\"before\" :options=\"options\" :value.sync=\"value\"></v-Select>\n            <v-Select style=\"width: 80px;\" slot=\"after\" :options=\"options2\" :value.sync=\"value\"></v-Select>\n          </v-input>'>\n          <v-input placeholder=\"基本使用\">\n            <span slot=\"before\">http://</span>\n            <span slot=\"after\">.com</span>\n          </v-input>\n          <br/>\n          <v-input placeholder=\"基本使用\">\n            <v-Select placeholder=\"请选择\" style=\"width: 80px;\" slot=\"before\" :options=\"options\" :value.sync=\"value\"></v-Select>\n            <v-Select style=\"width: 80px;\" slot=\"after\" :options=\"options2\" :value.sync=\"value\"></v-Select>\n          </v-input>\n\n        </code-box>\n      </div>\n\n    </div>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n          title=\"文本域\"\n          describe=\"用于多行输入，指定 type 为一个特殊的 textarea。\"\n          code=\"<v-input type='textarea'></v-input>\"\n        >\n         <v-input type=\"textarea\" value=\"这是一个textarea\"></v-input>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"三种大小\"\n          describe=\"我们为 <Input /> 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。\"\n          code=\"<v-input size='large' placeholder='大尺寸' style='width:200px;display:inline-block' disabled></v-input>\n<v-input placeholder='基本尺寸' style='width:200px;display:inline-block'></v-input>\n<v-input size='small' placeholder='小尺寸' style='width:200px;display:inline-block'></v-input>\"\n        >\n          <v-input size=\"large\" placeholder=\"大尺寸\" style=\"width:200px;display:inline-block\" disabled></v-input>\n          <v-input placeholder=\"基本尺寸\" style=\"width:200px;display:inline-block\"></v-input>\n          <br/><br/>\n          <v-input size=\"small\" placeholder=\"小尺寸\" style=\"width:200px;display:inline-block\"></v-input>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 685:
+/***/ 690:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(435)
-	__vue_script__ = __webpack_require__(280)
+	__webpack_require__(438)
+	__vue_script__ = __webpack_require__(283)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\input.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(567)
+	__vue_template__ = __webpack_require__(571)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

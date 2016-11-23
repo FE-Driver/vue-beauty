@@ -1,4 +1,4 @@
-webpackJsonp([4,49],{
+webpackJsonp([4,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([4,49],{
 
 /***/ },
 
-/***/ 307:
+/***/ 311:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,11 +247,11 @@ webpackJsonp([4,49],{
 	  value: true
 	});
 
-	var _upload = __webpack_require__(94);
+	var _upload = __webpack_require__(92);
 
 	var _upload2 = _interopRequireDefault(_upload);
 
-	var _iconfont = __webpack_require__(22);
+	var _iconfont = __webpack_require__(23);
 
 	var _iconfont2 = _interopRequireDefault(_iconfont);
 
@@ -341,7 +341,7 @@ webpackJsonp([4,49],{
 
 /***/ },
 
-/***/ 395:
+/***/ 399:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -356,13 +356,13 @@ webpackJsonp([4,49],{
 
 /***/ },
 
-/***/ 452:
+/***/ 455:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(395);
+	var content = __webpack_require__(399);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -383,25 +383,25 @@ webpackJsonp([4,49],{
 
 /***/ },
 
-/***/ 594:
+/***/ 599:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Upload 上传</h1>\n      <p>\n        文件选择上传和拖拽上传控件。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。\n        </p>\n        <ul>\n          <li>当需要上传一个或一些文件时。</li>\n          <li>当需要展现上传的进度时。</li>\n          <li>当需要使用拖拽交互时。</li>\n        </ul>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"点击上传\"\n          describe=\"经典款式，用户点击按钮弹出文件选择框。\"\n          code=\"<v-upload :name='name' :action='action' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" :on-change=\"onChange\">\n            <v-button type=\"ghost\">\n              <v-icon type=\"upload\"></v-icon> 点击上传\n            </v-button>\n          </v-upload>\n        </code-box>\n\n        <code-box\n          title=\"拖拽上传1\"\n          describe=\"可以把文件拖入指定区域，完成上传，同样支持点击上传。\"\n          code=\"<v-upload :name='name' :action='action' type='drag' :on-change='onChange'>\n  <p class='ant-upload-drag-icon'>\n    <v-icon type='inbox'></v-icon>\n  </p>\n  <p class='ant-upload-text'>点击或将文件拖拽到此区域上传</p>\n  <p class='ant-upload-hint'>支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" type=\"drag\" :on-change=\"onChange\">\n            <p class=\"ant-upload-drag-icon\">\n              <v-icon type=\"inbox\"></v-icon>\n            </p>\n            <p class=\"ant-upload-text\">点击或将文件拖拽到此区域上传</p>\n            <p class=\"ant-upload-hint\">支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>\n          </v-upload>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"传入已上传的文件\"\n          describe=\"对已上传的文件进行编辑。\"\n          code=\"<v-upload :name='name' :action='action' :default-file-list='defaultFileList' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n         <v-upload :name=\"name\" :action=\"action\" :default-file-list=\"defaultFileList\" :on-change=\"onChange\">\n          <v-button type=\"ghost\">\n            <v-icon type=\"upload\"></v-icon> 点击上传\n          </v-button>\n        </v-upload>\n        </code-box>\n\n        <code-box\n          title=\"拖拽上传2\"\n          describe=\"可以把文件拖入指定区域，完成上传，同样支持点击上传。\"\n          code=\"<div style='width: 246px; height: 146px'>\n  <v-upload :name='name' :action='action' type='drag' :on-change='onChange'>\n    <v-icon type='plus'></v-icon>\n  </v-upload>\n</div>\"\n        >\n          <div style=\"width: 246px; height: 146px\">\n            <v-upload :name=\"name\" :action=\"action\" type=\"drag\" :on-change=\"onChange\">\n              <v-icon type=\"plus\"></v-icon>\n            </v-upload>\n          </div>\n        </code-box>\n\n        <code-box\n          title=\"多文件上传\"\n          describe=\"可以选择多个文件上传。\"\n          code=\"<v-upload :name='name' :action='action' :multiple='true' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" :multiple=\"true\" :on-change=\"onChange\">\n            <v-button type=\"ghost\">\n              <v-icon type=\"upload\"></v-icon> 点击上传\n            </v-button>\n          </v-upload>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n    <section class=\"markdown\">\n      <h3>onChange</h3>\n      <p>文件状态改变的回调，返回为：</p>\n      <pre>\n        <code>\n          {\n            file: { ... },\n            fileList: [ ... ],\n            event: { ... }\n          }\n        </code>\n      </pre>\n      <ol>\n        <li><p><code>file</code> 当前操作的文件对象。</p>\n        <pre><code>{\n          uid: 'uid',      // 文件唯一标识，建议设置为负数，防止和内部产生的 id 冲突\n          name: 'xx.png'   // 文件名\n          status: 'done',  // 状态有：uploading done error removed\n          response: '{\"status\":\"success\"}'  // 服务端响应内容\n        }\n        </code></pre>\n        <p>如果上传控件是 multiple 时，此参数将为一个对象数组 <code>[file, ...]</code>。</p>\n        </li>\n        <li><p><code>fileList</code> 当前的文件列表。</p>\n        </li>\n        <li><code>event</code> 上传中的服务端响应内容，包含了上传进度等信息，高级浏览器支持。</li>\n      </ol>\n      <h2 id=\"-\">显示下载链接</h2>\n      <p>请使用 fileList 属性设置数组项的 url 属性进行展示控制。</p>\n      <h2 id=\"ie-note\">IE note</h2>\n      <ul>\n        <li><a href=\"https://github.com/react-component/upload#ie89-note\">https://github.com/react-component/upload#ie89-note</a></li>\n      </ul>\n    </section>\n  </div>\n\n";
 
 /***/ },
 
-/***/ 713:
+/***/ 719:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(452)
-	__vue_script__ = __webpack_require__(307)
+	__webpack_require__(455)
+	__vue_script__ = __webpack_require__(311)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\upload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(594)
+	__vue_template__ = __webpack_require__(599)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

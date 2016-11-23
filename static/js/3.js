@@ -1,4 +1,4 @@
-webpackJsonp([3,49],{
+webpackJsonp([3,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([3,49],{
 
 /***/ },
 
-/***/ 279:
+/***/ 282:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,7 +247,7 @@ webpackJsonp([3,49],{
 	  value: true
 	});
 
-	var _isInteger = __webpack_require__(311);
+	var _isInteger = __webpack_require__(315);
 
 	var _isInteger2 = _interopRequireDefault(_isInteger);
 
@@ -372,26 +372,26 @@ webpackJsonp([3,49],{
 
 /***/ },
 
-/***/ 311:
+/***/ 315:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(321), __esModule: true };
+	module.exports = { "default": __webpack_require__(326), __esModule: true };
 
 /***/ },
 
-/***/ 321:
+/***/ 326:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(357);
+	__webpack_require__(362);
 	module.exports = __webpack_require__(18).Number.isInteger;
 
 /***/ },
 
-/***/ 334:
+/***/ 339:
 /***/ function(module, exports, __webpack_require__) {
 
 	// 20.1.2.3 Number.isInteger(number)
-	var isObject = __webpack_require__(37)
+	var isObject = __webpack_require__(38)
 	  , floor    = Math.floor;
 	module.exports = function isInteger(it){
 	  return !isObject(it) && isFinite(it) && floor(it) === it;
@@ -399,17 +399,17 @@ webpackJsonp([3,49],{
 
 /***/ },
 
-/***/ 357:
+/***/ 362:
 /***/ function(module, exports, __webpack_require__) {
 
 	// 20.1.2.3 Number.isInteger(number)
 	var $export = __webpack_require__(26);
 
-	$export($export.S, 'Number', {isInteger: __webpack_require__(334)});
+	$export($export.S, 'Number', {isInteger: __webpack_require__(339)});
 
 /***/ },
 
-/***/ 377:
+/***/ 381:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -424,13 +424,13 @@ webpackJsonp([3,49],{
 
 /***/ },
 
-/***/ 434:
+/***/ 437:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(377);
+	var content = __webpack_require__(381);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -451,25 +451,25 @@ webpackJsonp([3,49],{
 
 /***/ },
 
-/***/ 566:
+/***/ 570:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Form 表单</h1>\n      <p>\n        具有数据收集、校验和提交功能的表单，包含复选框、单选框、输入框、下拉选择框等元素。\n      </p>\n      <h2>表单</h2>\n      <ul>\n        <p>\n          我们为 form 提供了以下两种排列方式：\n        </p>\n        <li>水平排列：可以实现 label 标签和表单控件的水平排列；</li>\n        <li>行内排列：使其表现为 inline-block 级别的控件。</li>\n      </ul>\n      <h2>表单域</h2>\n      <ul>\n        <p>\n          表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。<br>这里我们封装了表单域 <code>&lt;Form.Item /&gt;</code 。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <v-row>\n\n      <v-col>\n\n        <code-box\n          title=\"平行排列\"\n          describe=\"行内排列，常用于登录界面。\"\n        >\n          <v-form>\n            <v-form-item label=\"账户\">\n              <v-input value=\"请输入账户名\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"密码\">\n              <v-input value=\"请输入密码\"></v-input>\n            </v-form-item>\n            <v-form-item>\n              <v-checkbox>记住我</v-checkbox>\n            </v-form-item>\n            <v-button type='primary' html-type=\"submit\">登录</v-button>\n          </v-form>\n        </code-box>\n\n       <code-box\n          title=\"典型排列\"\n          describe=\"竖直排列的表单。\"\n        >\n          <v-form direction=\"horizontal\">\n            <v-form-item label=\"用户名\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <p className=\"ant-form-text\" id=\"userName\" name=\"userName\">大眼萌 minion</p>\n            </v-form-item>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" required>\n              <v-input type=\"password\" placeholder=\"请输入密码\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"您的性别\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-radio-group\n                default-value='female'\n                :radios=\"[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]\">\n              </v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"备注\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-input type='textarea' placeholder=\"随便写\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"卖身华府\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-checkbox>同意</v-checkbox>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{span:16,offset:6}\" style=\"margin-top:24px\">\n              <v-button type='primary' html-type=\"submit\">确定</v-button>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n        <code-box\n          title=\"校验提示\"\n          describe=\"我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。\nvalidateStatus: 'success', 'warning', 'error', 'validating'。\n另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。\n注意: 反馈图标只对 <Input /> 有效。\"\n        >\n          <v-form direction=\"horizontal\">\n            <v-form-item label=\"失败校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"请输入数字和字母的组合\" validate-status=\"error\">\n              <v-input value=\"无效选择\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"警告校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" validate-status=\"warning\">\n              <v-input value=\"前方高能预警\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"校验中\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"信息审核中...\" has-feedback validate-status=\"validating\">\n              <v-input value=\"我是被校验的内容\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"成功校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" has-feedback validate-status=\"success\">\n              <v-input value=\"我是正文\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"警告校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" has-feedback validate-status=\"warning\">\n              <v-input value=\"前方高能预警\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"失败校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"请输入数字和字母的组合\" has-feedback validate-status=\"error\">\n              <v-input value=\"无效选择\" size=\"large\"></v-input>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n         <code-box\n          title=\"表单校验\"\n          describe=\"在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。\"\n        >\n          <v-form direction=\"horizontal\" :model=\"ruleForm\" :rules=\"rules\" v-ref:rule-form>\n            <v-form-item label=\"活动名称\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"name\" has-feedback>\n              <v-input size=\"large\" :value.sync=\"ruleForm.name\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"活动区域\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"region\">\n               <v-Select :value.sync=\"ruleForm.region\" placeholder=\"请选择活动区域\" notfound=\"无法找到\" :options=\"[{value: '1', text: '区域1'}, {value: '2', text: '区域2'}]\"></v-Select>\n            </v-form-item>\n            <v-form-item label=\"活动时间\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"date\">\n              <v-datepicker :value.sync=\"ruleForm.date\"></v-datepicker>\n            </v-form-item>\n            <v-form-item label=\"即时配送\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-switch :value.sync=\"ruleForm.delivery\"></v-switch>\n            </v-form-item>\n            <v-form-item label=\"活动性质\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"type\">\n              <v-checkbox-group :value.sync=\"ruleForm.type\" :options=\"checkboxOpt\"></v-checkbox-group>\n            </v-form-item>\n            <v-form-item label=\"特殊资源\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"resource\">\n              <v-radio-group :value.sync=\"ruleForm.resource\" :radios=\"[{value: '1', name: '线上品牌商赞助'},{value: '2', name: '线下场地免费'}]\"></v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"活动形式\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"desc\">\n              <v-input :value.sync=\"ruleForm.desc\" type='textarea'></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{offset:6, span: 14 }\">\n              <v-button type=\"primary\" style=\"margin-right:10px\" @click.prevent=\"handleSubmit\">立即创建</v-button><v-button type=\"ghost\" @click.prevent=\"handleReset\">重置</v-button>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n        <code-box\n          title=\"自定义校验规则\"\n          describe=\"更加灵活的表单校验。\"\n        >\n          <v-form direction=\"horizontal\" :model=\"customForm\" :rules=\"customRules\" v-ref:custom-rule-form>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"pass\" has-feedback>\n              <v-input type=\"password\" size=\"large\" :value.sync=\"customForm.pass\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"确认密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"checkPass\" has-feedback>\n              <v-input type=\"password\" size=\"large\" :value.sync=\"customForm.checkPass\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"年龄\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"age\" has-feedback>\n              <v-input size=\"large\" :value.sync=\"customForm.age\"></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{offset:6, span: 14 }\">\n              <v-button type=\"primary\" style=\"margin-right:10px\" @click.prevent=\"handleSubmit2\">提交</v-button><v-button type=\"ghost\" @click.prevent=\"handleReset2\">重置</v-button>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n      </v-col>\n\n    </v-row>\n\n\n    <api-table\n      :content='content'\n    >\n      <h3>Form</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      type=\"methods\"\n      :content='methodsCont'\n    >\n      <h3>Form methods</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      :content='itemCont'\n    >\n      <h3>Form.Item</h3>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 684:
+/***/ 689:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(434)
-	__vue_script__ = __webpack_require__(279)
+	__webpack_require__(437)
+	__vue_script__ = __webpack_require__(282)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\form.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(566)
+	__vue_template__ = __webpack_require__(570)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

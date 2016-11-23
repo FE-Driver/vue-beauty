@@ -1,4 +1,4 @@
-webpackJsonp([27,49],{
+webpackJsonp([27,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([27,49],{
 
 /***/ },
 
-/***/ 272:
+/***/ 274:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([27,49],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _collapse = __webpack_require__(120);
-
-	var _collapse2 = _interopRequireDefault(_collapse);
-
-	var _panel = __webpack_require__(121);
-
-	var _panel2 = _interopRequireDefault(_panel);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -268,42 +260,18 @@ webpackJsonp([27,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      show: true,
-	      num: 5,
-	      apis: [{
-	        parameter: 'activeKey',
-	        explain: '当前激活 tab 面板的 key',
-	        type: 'Array',
-	        default: '默认第一个元素'
-	      }, {
-	        parameter: 'defaultActiveKey',
-	        explain: '初始化选中面板的 key',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'accordion',
-	        explain: '开启手风琴模式',
-	        type: 'Boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '切换面板的回调',
-	        type: 'function',
-	        default: '无'
-	      }]
+	      content: [['title', '标题', 'string', '无'], ['describe', '对该组件的描述', 'string', '无'], ['code', '组件的示例代码，如果没有将直接使用slot::default的内容', 'string', '无'], ['slot::default', '组件的插槽，用于演示', 'slot node', '无'], ['preCode', '组件的前置示例代码，显示在组件示例代码前面', 'slot node', '无'], ['postCode', '组件的后置示例代码，显示在组件示例代码后面', 'slot node', '无']]
 	    };
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    vCollapse: _collapse2.default,
-	    vPanel: _panel2.default
+	    apiTable: _apiTable2.default
 	  }
 	};
 
 /***/ },
 
-/***/ 371:
+/***/ 375:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -311,20 +279,20 @@ webpackJsonp([27,49],{
 
 
 	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
+	exports.push([module.id, "", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 428:
+/***/ 431:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(371);
+	var content = __webpack_require__(375);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -333,8 +301,8 @@ webpackJsonp([27,49],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./codeBox.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -345,25 +313,25 @@ webpackJsonp([27,49],{
 
 /***/ },
 
-/***/ 560:
+/***/ 563:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Collapse 折叠面板</h1>\n    <p>\n      可以折叠/展开的内容区域。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>对复杂区域进行分组和隐藏，保持页面的整洁。</li>\n      <li>手风琴 是一种特殊的折叠面板，只允许单个内容区域展开。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"折叠面板\"\n        describe=\"可以同时展开多个面板，这个例子默认展开了第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1'>\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n      <code-box\n        title=\"多选\"\n        describe=\"默认同时展开多个面板\"\n        code=\"<v-collapse :active-key='[1,2]'>\"\n      >\n        <v-collapse :active-key=\"['1','2']\">\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"手风琴\"\n        describe=\"手风琴，每次只打开一个tab。默认打开第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1' accordion>\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>CodeBox 代码示例</h1>\n    <p>\n      用于展示组件代码。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的代码展示。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n      >\n        <code-box\n          title=\"基本\"\n          describe=\"button基本用法\"\n        >\n          <v-button>Default</v-button>\n        </code-box>\n      </code-box>\n\n      <code-box\n        title=\"code\"\n        describe=\"自定义示例代码\"\n      >\n        <code-box\n          title=\"基本\"\n          describe=\"button基本用法\"\n          code=\"自定义<v-button>Default</v-button>自定义\"\n        >\n          <v-button>Default</v-button>\n        </code-box>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 678:
+/***/ 682:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(428)
-	__vue_script__ = __webpack_require__(272)
+	__webpack_require__(431)
+	__vue_script__ = __webpack_require__(274)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\collapse.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(560)
+	  console.warn("[vue-loader] src\\views\\codeBox.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(563)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

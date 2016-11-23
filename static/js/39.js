@@ -1,4 +1,4 @@
-webpackJsonp([39,49],{
+webpackJsonp([39,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,13 +238,13 @@ webpackJsonp([39,49],{
 
 /***/ },
 
-/***/ 302:
+/***/ 305:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _codeBox = __webpack_require__(12);
@@ -258,64 +258,69 @@ webpackJsonp([39,49],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    data: function data() {
-	        return {
-	            content: [['value', '默认时间', 'string', '无'], ['format', '展示的时间格式', 'string', '"HH:mm:ss"、"HH:mm"、"mm:ss"'], ['startTime', '限制时间段开始时间', 'String', '"HH:mm:ss"、"HH:mm"、"mm:ss"'], ['endTime', '限制时间段结束时间', 'String', '"HH:mm:ss"、"HH:mm"、"mm:ss"'], ['size', '控件大小（large、small）', 'String', '无'], ['disabled', '禁用全部操作', 'boolean', 'false'], ['disabledMinutes', '禁止选择部分分钟选项', 'array', '无'], ['disabledSeconds', '禁止选择部分秒选项', 'array', '无']],
-	            minutes: [],
-	            seconds: [],
-	            value: '08:30:00'
-	        };
+	  data: function data() {
+	    return {
+	      apis: [{
+	        parameter: 'closable',
+	        explain: '标签是否可以关闭',
+	        type: 'boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'color',
+	        explain: '标签的色彩：blue green yellow red',
+	        type: 'string',
+	        default: '-'
+	      }],
+	      eventsApi: [['close', '移除标签的时候触发', '无']],
+	      tags: [{
+	        title: '不可移除',
+	        closable: false
+	      }, {
+	        title: '标签一',
+	        closable: true
+	      }, {
+	        title: '标签二',
+	        closable: true
+	      }]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  },
+	  methods: {
+	    close: function close(i) {
+	      console.log(i);
 	    },
-	    created: function created() {
-	        this.$set('minutes', this.disabledMinutes());
-	        this.$set('seconds', this.disabledSeconds());
-	    },
-
-	    methods: {
-	        newArray: function newArray(start, end) {
-	            var result = [];
-	            for (var i = start; i < end; i++) {
-	                result.push(i);
-	            }
-	            return result;
-	        },
-	        disabledMinutes: function disabledMinutes() {
-	            return this.newArray(0, 60).filter(function (value) {
-	                return value % 10 !== 0;
-	            });
-	        },
-	        disabledSeconds: function disabledSeconds() {
-	            return this.newArray(0, 60).filter(function (value) {
-	                return value % 30 !== 0;
-	            });
-	        }
-	    },
-	    components: {
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
+	    _addTag: function _addTag() {
+	      var tagTmp = {};
+	      tagTmp.title = '新标签' + (this.tags.length + 1);
+	      tagTmp.closable = true;
+	      this.tags.push(tagTmp);
 	    }
+	  }
 	};
 
 /***/ },
 
-/***/ 588:
+/***/ 592:
 /***/ function(module, exports) {
 
-	module.exports = "\n  <section class=\"markdown\">\n      <h1>TimePicker 时间选择框</h1>\n      <p>\n          当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。\n      </p>\n      <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n      <v-Col span=\"12\">\n          <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          >\n              <v-time-picker></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"三种大小\"\n          describe=\"三种大小的输入框，大的用在表单中，中的为默认。\"\n          >\n              <v-time-picker size=\"large\"></v-time-picker>\n              <v-time-picker></v-time-picker>\n              <v-time-picker size=\"small\"></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"禁用\"\n          describe=\"禁用时间选择。\"\n          >\n              <v-time-picker disabled></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"只显示部分选项\"\n          describe=\"通过 hideDisabledOptions 将不可选的选项隐藏。\"\n          >\n              <v-time-picker :disabled-minutes=\"minutes\" :disabled-seconds=\"seconds\"></v-time-picker>\n          </code-box>\n      </v-Col>\n\n      <v-Col span=\"12\">\n          <code-box\n          title=\"受控组件\"\n          describe=\"value 和 onChange 需要配合使用。\"\n          >\n              <v-time-picker :value.sync=\"value\"></v-time-picker>\n          </code-box>\n          <code-box\n          title=\"不展示秒\"\n          describe=\"不展示秒，也不允许选择。\"\n          >\n              <v-time-picker format=\"HH:mm\"></v-time-picker>\n          </code-box>\n          <code-box\n          title=\"禁止选项\"\n          describe=\"限制选择 20:30 到 23:30 这个时间段。\"\n          >\n              <v-time-picker start-time=\"20:30\" end-time=\"23:30\"></v-time-picker>\n          </code-box>\n      </v-Col>\n  </v-Row>\n\n  <api-table\n  :content='content'\n></api-table>\n";
+	module.exports = "\n\n<section class=\"markdown\">\n  <h1>Tag标签</h1>\n  <p>\n    进行标记和分类的小标签。\n  </p>\n  <h2>何时使用#</h2>\n  <ul>\n    <li>\n      <p>\n        用于标记事物的属性和维度。\n      </p>\n    </li>\n    <li>\n      <p>\n        进行分类。\n      </p>\n    </li>\n  </ul>\n  <h2>组件演示</h2>\n</section>\n\n<v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n    <code-box\n      title=\"基本\"\n      describe=\"简单的标签展示，添加 closable 表示可关闭。\"\n    >\n      <v-tag>标签一</v-tag>\n      <v-tag>标签一</v-tag>\n      <v-tag closable>标签一</v-tag>\n    </code-box>\n\n    <code-box\n      title=\"动态添加和删除\"\n      describe=\"用数组生成一组标签，可以动态添加和删除。\"\n    >\n\n      <v-tag v-for=\"tag in tags\" :color=\"tag.color\" :closable=\"tag.closable\">{{tag.title}}</v-tag>\n      <v-button type=\"dashed\" size=\"small\" @click=\"_addTag($event)\">+ 添加标签</v-button>\n    </code-box>\n\n\n  </v-Col>\n\n  <v-Col span=\"12\">\n\n    <code-box\n      title=\"各种类型\"\n      describe=\"四种颜色的标签。\"\n    >\n      <v-tag color=\"blue\" closable @close=\"close(1)\">蓝色</v-tag>\n      <v-tag color=\"green\" closable @close=\"close(2)\">绿色</v-tag>\n      <v-tag color=\"yellow\" closable @close=\"close(3)\">黄色</v-tag>\n      <v-tag color=\"red\" closable @close=\"close(4)\">红色</v-tag>\n    </code-box>\n\n  </v-Col>\n</v-Row>\n\n\n<api-table\n  :apis='apis'\n></api-table>\n<api-table\n  type=\"events\"\n  title=\"\"\n  :content='eventsApi'\n></api-table>\n";
 
 /***/ },
 
-/***/ 707:
+/***/ 712:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(302)
+	__vue_script__ = __webpack_require__(305)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\timePicker.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(588)
+	  console.warn("[vue-loader] src\\views\\tag.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(592)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

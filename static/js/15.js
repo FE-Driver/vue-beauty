@@ -1,4 +1,4 @@
-webpackJsonp([15,49],{
+webpackJsonp([15,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([15,49],{
 
 /***/ },
 
-/***/ 292:
+/***/ 296:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -247,19 +247,19 @@ webpackJsonp([15,49],{
 	  value: true
 	});
 
-	var _queueAnim = __webpack_require__(86);
+	var _queueAnim = __webpack_require__(84);
 
 	var _queueAnim2 = _interopRequireDefault(_queueAnim);
 
-	var _form = __webpack_require__(78);
+	var _form = __webpack_require__(76);
 
 	var _form2 = _interopRequireDefault(_form);
 
-	var _input = __webpack_require__(50);
+	var _input = __webpack_require__(78);
 
 	var _input2 = _interopRequireDefault(_input);
 
-	var _radio = __webpack_require__(39);
+	var _radio = __webpack_require__(40);
 
 	var _radio2 = _interopRequireDefault(_radio);
 
@@ -317,7 +317,7 @@ webpackJsonp([15,49],{
 
 /***/ },
 
-/***/ 400:
+/***/ 404:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -332,13 +332,13 @@ webpackJsonp([15,49],{
 
 /***/ },
 
-/***/ 461:
+/***/ 463:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(400);
+	var content = __webpack_require__(404);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -359,25 +359,25 @@ webpackJsonp([15,49],{
 
 /***/ },
 
-/***/ 597:
+/***/ 601:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div _v-2b2316f6=\"\">\n\n  <section class=\"markdown\" _v-2b2316f6=\"\">\n    <h1 _v-2b2316f6=\"\">QueueAnim 进出场动画</h1>\n    <p _v-2b2316f6=\"\">\n      通过简单的配置对一组元素添加串行的进场动画效果。\n    </p>\n    <h2 _v-2b2316f6=\"\">何时使用</h2>\n    <ul _v-2b2316f6=\"\">\n      <li _v-2b2316f6=\"\">从内容A到内容B的转变过程时能有效的吸引用户注意力，突出视觉中心，提高整体视觉效果。</li>\n      <li _v-2b2316f6=\"\">小的信息元素排布或块状较多的情况下，根据一定的路径层次依次进场，区分维度层级，来凸显量级，使页面转场更加流畅和舒适，提高整体视觉效果和产品的质感。</li>\n      <li _v-2b2316f6=\"\">特别适合首页和需要视觉展示效果的宣传页，以及单页应用的切换页面动效。</li>\n    </ul>\n    <h2 _v-2b2316f6=\"\">组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\" _v-2b2316f6=\"\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\" _v-2b2316f6=\"\">\n\n      <code-box title=\"默认\" describe=\"最简单的进场例子。\" _v-2b2316f6=\"\">\n        <v-queue-anim :delay=\"1000\" _v-2b2316f6=\"\">\n          <div key=\"a\" _v-2b2316f6=\"\">依次进场</div>\n          <div key=\"b\" _v-2b2316f6=\"\">依次进场</div>\n          <div key=\"c\" _v-2b2316f6=\"\">依次进场</div>\n          <div key=\"d\" _v-2b2316f6=\"\">依次进场</div>\n          <div key=\"e\" _v-2b2316f6=\"\">依次进场</div>\n          <div key=\"f\" _v-2b2316f6=\"\">依次进场</div>\n        </v-queue-anim>\n      </code-box>\n\n      <code-box title=\"进场和离场\" describe=\"通过把属性设置一个数组来分别表示进出场的效果，type、animConfig、delay、duration、interval、ease 等属性均支持配置为数组。\" _v-2b2316f6=\"\">\n        <v-queue-anim class=\"demo-content\" key=\"demo\" :show=\"show\" :type=\"['right', 'left']\" :ease=\"['easeOutQuart', 'easeInOutQuart']\" _v-2b2316f6=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-2b2316f6=\"\">\n            <ul _v-2b2316f6=\"\">\n              <li _v-2b2316f6=\"\"></li>\n              <li _v-2b2316f6=\"\"></li>\n              <li _v-2b2316f6=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-2b2316f6=\"\">\n            <div class=\"demo-list\" _v-2b2316f6=\"\">\n              <div class=\"title\" _v-2b2316f6=\"\"></div>\n              <ul _v-2b2316f6=\"\">\n                <li _v-2b2316f6=\"\"></li>\n                <li _v-2b2316f6=\"\"></li>\n                <li _v-2b2316f6=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-2b2316f6=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-2b2316f6=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"表单动画进出场\" describe=\"表单组合的进场与出场动画。\" _v-2b2316f6=\"\">\n        <v-queue-anim class=\"ant-form-horizontal\" type=\"bottom\" :leave-reverse=\"true\" :show=\"show\" _v-2b2316f6=\"\">\n          <v-form direction=\"horizontal\" _v-2b2316f6=\"\">\n            <v-form-item label=\"用户名\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"name\" _v-2b2316f6=\"\">\n              <p classname=\"ant-form-text\" id=\"userName\" name=\"userName\" _v-2b2316f6=\"\">大眼萌 minion</p>\n            </v-form-item>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"password\" _v-2b2316f6=\"\">\n              <v-input type=\"password\" placeholder=\"请输入密码\" size=\"large\" _v-2b2316f6=\"\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"您的性别\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"sex\" _v-2b2316f6=\"\">\n              <v-radio-group default-value=\"female\" :radios=\"[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]\" _v-2b2316f6=\"\">\n              </v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"备注\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"remark\" _v-2b2316f6=\"\">\n              <v-input type=\"textarea\" placeholder=\"随便写\" _v-2b2316f6=\"\"></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{span:16,offset:6}\" style=\"margin-top:24px\" key=\"btn\" _v-2b2316f6=\"\">\n              <v-button type=\"primary\" html-type=\"submit\" _v-2b2316f6=\"\">确定</v-button>\n            </v-form-item>\n          </v-form>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-2b2316f6=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-2b2316f6=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"一个复杂些的例子\" describe=\"模拟一个完整的页面。\" _v-2b2316f6=\"\">\n        <v-queue-anim :show=\"show\" :type=\"['right', 'left']\" _v-2b2316f6=\"\">\n          <div class=\"demo-header\" key=\"header\" _v-2b2316f6=\"\">\n            <div class=\"logo\" _v-2b2316f6=\"\">\n              <img width=\"30\" src=\"https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg\" _v-2b2316f6=\"\">\n              <span _v-2b2316f6=\"\">logo</span>\n            </div>\n            <v-queue-anim _v-2b2316f6=\"\">\n              <ul _v-2b2316f6=\"\">\n                <li key=\"0\" _v-2b2316f6=\"\"></li>\n                <li key=\"1\" _v-2b2316f6=\"\"></li>\n                <li key=\"2\" _v-2b2316f6=\"\"></li>\n                <li key=\"3\" _v-2b2316f6=\"\"></li>\n                <li key=\"4\" _v-2b2316f6=\"\"></li>\n              </ul>\n            </v-queue-anim>\n          </div>\n          <v-queue-anim class=\"demo-content\" key=\"content\" :delay=\"300\" _v-2b2316f6=\"\">\n            <div class=\"demo-title\" key=\"title\" _v-2b2316f6=\"\">我是标题</div>\n            <v-queue-anim class=\"demo-kp\" key=\"b\" _v-2b2316f6=\"\">\n              <v-queue-anim _v-2b2316f6=\"\">\n                <ul _v-2b2316f6=\"\">\n                  <li key=\"0\" _v-2b2316f6=\"\"></li>\n                  <li key=\"1\" _v-2b2316f6=\"\"></li>\n                  <li key=\"2\" _v-2b2316f6=\"\"></li>\n                </ul>\n              </v-queue-anim>\n            </v-queue-anim>\n            <div class=\"demo-title\" key=\"title2\" _v-2b2316f6=\"\">我是标题</div>\n            <div class=\"demo-listBox\" _v-2b2316f6=\"\">\n              <v-queue-anim class=\"demo-list\" :delay=\"500\" _v-2b2316f6=\"\">\n                <div class=\"title\" key=\"title3\" _v-2b2316f6=\"\"></div>\n                <v-queue-anim type=\"bottom\" key=\"li\" _v-2b2316f6=\"\">\n                  <ul _v-2b2316f6=\"\">\n                    <li key=\"0\" _v-2b2316f6=\"\"></li>\n                    <li key=\"1\" _v-2b2316f6=\"\"></li>\n                    <li key=\"2\" _v-2b2316f6=\"\"></li>\n                    <li key=\"3\" _v-2b2316f6=\"\"></li>\n                    <li key=\"4\" _v-2b2316f6=\"\"></li>\n                  </ul>\n                </v-queue-anim>\n              </v-queue-anim>\n            </div>\n          </v-queue-anim>\n          <v-queue-anim type=\"bottom\" :delay=\"1000\" key=\"footerBox\" _v-2b2316f6=\"\">\n            <div class=\"demo-footer\" key=\"footer\" _v-2b2316f6=\"\"></div>\n          </v-queue-anim>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-2b2316f6=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-2b2316f6=\"\">切换</v-button>\n        </p>\n      </code-box>\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\" _v-2b2316f6=\"\">\n\n      <code-box title=\"进场和离场\" describe=\"同时支持进场和离场动画。\" _v-2b2316f6=\"\">\n        <v-queue-anim :show=\"show\" class=\"demo-content\" _v-2b2316f6=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-2b2316f6=\"\">\n            <ul _v-2b2316f6=\"\">\n              <li _v-2b2316f6=\"\"></li>\n              <li _v-2b2316f6=\"\"></li>\n              <li _v-2b2316f6=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-2b2316f6=\"\">\n            <div class=\"demo-list\" _v-2b2316f6=\"\">\n              <div class=\"title\" _v-2b2316f6=\"\"></div>\n              <ul _v-2b2316f6=\"\">\n                <li _v-2b2316f6=\"\"></li>\n                <li _v-2b2316f6=\"\"></li>\n                <li _v-2b2316f6=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-2b2316f6=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-2b2316f6=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"自定义动画进出场\" describe=\"通过 animConfig 来自定义动画进出场。\" _v-2b2316f6=\"\">\n        <v-queue-anim class=\"demo-content\" :show=\"show\" :anim-config=\"[{ opacity: [1, 0], translateY: [0, 50] },{ opacity: [1, 0], translateY: [0, -50] }]\" _v-2b2316f6=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-2b2316f6=\"\">\n            <ul _v-2b2316f6=\"\">\n              <li _v-2b2316f6=\"\"></li>\n              <li _v-2b2316f6=\"\"></li>\n              <li _v-2b2316f6=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-2b2316f6=\"\">\n            <div class=\"demo-list\" _v-2b2316f6=\"\">\n              <div class=\"title\" _v-2b2316f6=\"\"></div>\n              <ul _v-2b2316f6=\"\">\n                <li _v-2b2316f6=\"\"></li>\n                <li _v-2b2316f6=\"\"></li>\n                <li _v-2b2316f6=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-2b2316f6=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-2b2316f6=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"添加与删除\" describe=\"场景里有增加或删除条目时也会触发动画。\" _v-2b2316f6=\"\">\n        <div class=\"demo-content\" _v-2b2316f6=\"\">\n            <div class=\"demo-listBox\" key=\"b\" _v-2b2316f6=\"\">\n              <div class=\"demo-list\" _v-2b2316f6=\"\">\n                <div class=\"title\" _v-2b2316f6=\"\"></div>\n                <v-queue-anim :type=\"['right', 'left']\" :watch-value=\"items\" :show=\"show\" _v-2b2316f6=\"\">\n                  <ul _v-2b2316f6=\"\">\n                    <li v-for=\"item in items\" :key=\"Date.now()\" _v-2b2316f6=\"\"></li>\n                  </ul>\n                </v-queue-anim>\n              </div>\n            </div>\n        </div>\n        <p class=\"buttons\" _v-2b2316f6=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-2b2316f6=\"\">切换</v-button>\n          <v-button @click=\"_handleAdd\" style=\"margin-left: 10px\" _v-2b2316f6=\"\">添加</v-button>\n          <v-button @click=\"_handleRemove\" style=\"margin-left: 10px\" _v-2b2316f6=\"\">删除</v-button>\n        </p>\n      </code-box>\n\n    </div>\n  </div>\n  <section class=\"markdown\" _v-2b2316f6=\"\">\n      <h3 _v-2b2316f6=\"\">API</h3>\n      <p _v-2b2316f6=\"\">元素依次进场</p>\n      <pre _v-2b2316f6=\"\">        <code class=\"html\" _v-2b2316f6=\"\">&lt;v-queue-anim&gt;\n            &lt;div key='demo1'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo2'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo3'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo4'&gt;依次进场&lt;/div&gt;\n          &lt;/v-queue-anim&gt;</code>\n      </pre>\n      <blockquote _v-2b2316f6=\"\">\n        <p _v-2b2316f6=\"\">每个子标签必须带 key，如果未设置 key 将不执行动画。</p>\n      </blockquote>\n   </section>\n  <api-table :content=\"content\" _v-2b2316f6=\"\"></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 697:
+/***/ 703:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(461)
-	__vue_script__ = __webpack_require__(292)
+	__webpack_require__(463)
+	__vue_script__ = __webpack_require__(296)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\queueAnim.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(597)
+	__vue_template__ = __webpack_require__(601)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

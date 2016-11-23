@@ -1,4 +1,4 @@
-webpackJsonp([5,49],{
+webpackJsonp([5,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([5,49],{
 
 /***/ },
 
-/***/ 306:
+/***/ 310:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -266,7 +266,7 @@ webpackJsonp([5,49],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      content: [['data', '可嵌套的节点属性的数组，生成tree的数据', 'array', '无'], ['open', '下拉选择框是否显示', 'bool', 'false'], ['multiple', '支持多选', 'bool', 'false'], ['allowClear', '显示清除按钮', 'bool', 'false'], ['onSelect', '被选中时调用，参数为选中项的 value 值', 'function(valueArray)', '无']],
+	      content: [['data', '可嵌套的节点属性的数组，生成tree的数据', 'array', '无'], ['open', '下拉选择框是否显示', 'bool', 'false'], ['multiple', '支持多选', 'bool', 'false'], ['allowClear', '显示清除按钮', 'bool', 'false'], ['position', '下拉框的定位方式（absolute,fixed）', 'string', 'absolute'], ['onSelect', '被选中时调用，参数为选中项的 value 值', 'function(valueArray)', '无']],
 	      apiTreeNode: [{
 	        parameter: 'disabled',
 	        explain: '禁掉响应',
@@ -348,7 +348,7 @@ webpackJsonp([5,49],{
 
 /***/ },
 
-/***/ 394:
+/***/ 398:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -363,13 +363,13 @@ webpackJsonp([5,49],{
 
 /***/ },
 
-/***/ 451:
+/***/ 454:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(394);
+	var content = __webpack_require__(398);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -390,25 +390,25 @@ webpackJsonp([5,49],{
 
 /***/ },
 
-/***/ 593:
+/***/ 598:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Tree 树形控件</h1>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。\"\n      >\n        <v-tree-select :data=\"treedata1\" allow-clear></v-tree-select>\n      </code-box>\n\n      <code-box\n        title=\"基本\"\n        describe=\"最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。\"\n      >\n        <v-tree-select :data=\"treedata2\" multiple allow-clear></v-tree-select>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n\n  <api-table\n    :content='content'\n  >\n    <h3>TreeSelect props</h3>\n  </api-table>\n\n  <api-table\n    :content='content'\n    title=\"\"\n  >\n    <h3>TreeNode props</h3>\n  </api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 712:
+/***/ 718:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(451)
-	__vue_script__ = __webpack_require__(306)
+	__webpack_require__(454)
+	__vue_script__ = __webpack_require__(310)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\treeSelect.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(593)
+	__vue_template__ = __webpack_require__(598)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

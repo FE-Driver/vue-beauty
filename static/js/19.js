@@ -1,4 +1,4 @@
-webpackJsonp([19,49],{
+webpackJsonp([19,50],{
 
 /***/ 3:
 /***/ function(module, exports) {
@@ -238,7 +238,7 @@ webpackJsonp([19,49],{
 
 /***/ },
 
-/***/ 284:
+/***/ 287:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -255,7 +255,7 @@ webpackJsonp([19,49],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _message = __webpack_require__(34);
+	var _message = __webpack_require__(35);
 
 	var _message2 = _interopRequireDefault(_message);
 
@@ -323,7 +323,7 @@ webpackJsonp([19,49],{
 
 /***/ },
 
-/***/ 381:
+/***/ 385:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -338,13 +338,13 @@ webpackJsonp([19,49],{
 
 /***/ },
 
-/***/ 438:
+/***/ 441:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(381);
+	var content = __webpack_require__(385);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -365,25 +365,25 @@ webpackJsonp([19,49],{
 
 /***/ },
 
-/***/ 571:
+/***/ 575:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Message 全局提示</h1>\n      <p>\n        全局展示操作反馈信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>可提供成功、警告和错误等反馈信息。</li>\n        <li>顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"普通提示\"\n          describe=\"信息提醒反馈。\"\n          code='openMessage() {\n  message.info(\"这是一条普通的提醒\");\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"修改延时\"\n          describe=\"自定义时长 10s，默认时长为 1.5s\"\n          code='time(){\n  message.success(\"这是一条成功的提示,并将于10秒后消失\", 10);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"其他提示类型\"\n          describe=\"包括成功、失败、警告。\"\n          code='success() {\n  message.success(\"这是一条成功提示\");\n},\nerror() {\n  message.error(\"这是一条失败提示\");\n},\nwarning() {\n  message.warning(\"这是一条警告提示\");\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"success(\"success\")\"><span>显示成功信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"error(\"error\")\"><span>显示失败信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"warning(\"warning\")\"><span>显示警告信息</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"success('success')\"><span>显示成功信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"error('error')\"><span>显示失败信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"warning('warning')\"><span>显示警告信息</span></button>\n        </code-box>\n\n        <code-box\n          title=\"加载中\"\n          describe=\"进行全局 loading，异步自行移除。\"\n          code='loading() {\n  const instance = message.loading(\"正在执行中...\", 0);\n  setTimeout(instance.remove, 2500);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li><button type=\"button\" class=\"ant-btn\">message.success(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.error(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.warning(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.loading(content, duration)</button></li>\n      </ul>\n      <p>\n        参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          <button type=\"button\" class=\"ant-btn\">message.config({\n            top: 100,\n            duration: 3,\n          })</button>\n      </p>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 689:
+/***/ 694:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(438)
-	__vue_script__ = __webpack_require__(284)
+	__webpack_require__(441)
+	__vue_script__ = __webpack_require__(287)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\message.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(571)
+	__vue_template__ = __webpack_require__(575)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
