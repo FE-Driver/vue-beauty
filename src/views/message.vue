@@ -22,7 +22,7 @@
           title="普通提示"
           describe="信息提醒反馈。"
           code='openMessage() {
-  message.info("这是一条普通的提醒");
+  this.$message.info("这是一条普通的提醒");
 },
 
 <button type="button" class="ant-btn ant-btn-primary" @click="openMessage"><span>显示普通提醒</span></button>'
@@ -36,7 +36,7 @@
           title="修改延时"
           describe="自定义时长 10s，默认时长为 1.5s"
           code='time(){
-  message.success("这是一条成功的提示,并将于10秒后消失", 10);
+  this.$message.success("这是一条成功的提示,并将于10秒后消失", 10);
 },
 
 <button type="button" class="ant-btn" @click="time"><span>自定义时长提示</span></button>'
@@ -53,13 +53,13 @@
           title="其他提示类型"
           describe="包括成功、失败、警告。"
           code='success() {
-  message.success("这是一条成功提示");
+  this.$message.success("这是一条成功提示");
 },
 error() {
-  message.error("这是一条失败提示");
+  this.$message.error("这是一条失败提示");
 },
 warning() {
-  message.warning("这是一条警告提示");
+  this.$message.warning("这是一条警告提示");
 },
 
 <button type="button" class="ant-btn" @click="success("success")"><span>显示成功信息</span></button>
@@ -75,7 +75,7 @@ warning() {
           title="加载中"
           describe="进行全局 loading，异步自行移除。"
           code='loading() {
-  const instance = message.loading("正在执行中...", 0);
+  const instance = this.$message.loading("正在执行中...", 0);
   setTimeout(instance.remove, 2500);
 },
 
@@ -87,8 +87,6 @@ warning() {
       </div>
 
     </div>
-
-
 
     <api-table
       :apis='apis'
@@ -123,10 +121,8 @@ warning() {
 </template>
 
 <script>
-
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-import message from '../../components/message'
 
 export default {
   data: function () {
@@ -159,26 +155,26 @@ export default {
   },
   methods: {
     openMessage() {
-      message.info("这是一条普通的提醒");
+      this.$message.info("这是一条普通的提醒");
     },
     success() {
-      message.success("这是一条成功提示");
+      this.$message.success("这是一条成功提示");
     },
     error() {
-      message.error("这是一条失败提示");
+      this.$message.error("这是一条失败提示");
     },
     warning() {
-      message.warning("这是一条警告提示");
+      this.$message.warning("这是一条警告提示");
     },
     time(){
-      message.success("这是一条成功的提示,并将于10秒后消失", 10);
+      this.$message.success("这是一条成功的提示,并将于10秒后消失", 10);
     },
     loading() {
-      const instance = message.loading("正在执行中...", 0);
+      const instance = this.$message.loading("正在执行中...", 0);
       setTimeout(instance.remove, 2500);
     },
     openNotificationWithIcon(type) {
-      notification[type]({
+      this.$notification[type]({
         message: '这是标题',
         description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
       });
@@ -190,9 +186,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-
-
-
-</style>

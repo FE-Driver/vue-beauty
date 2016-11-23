@@ -43,9 +43,6 @@
 </template>
 
 <script>
-
-    import vSlider from '../../components/slider'
-    import vButton from '../../components/button'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
 
@@ -118,13 +115,8 @@
             }
         },
         components: {
-            vSlider,
-            vButton,
             codeBox,
             apiTable
         }
     }
 </script>
-
-<style lang="less">
-</style>

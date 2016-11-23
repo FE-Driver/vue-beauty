@@ -102,7 +102,6 @@
 
 <script>
 
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -154,8 +153,6 @@ export default {
     }
   },
   components: {
-    vButton,
-    vButtonGroup: vButton.Group,
     codeBox,
     apiTable
   }

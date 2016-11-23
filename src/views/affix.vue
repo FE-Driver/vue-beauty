@@ -89,8 +89,6 @@
 </template>
 
 <script>
-
-import vAffix from '../../components/affix'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -118,12 +116,8 @@ export default {
     }
   },
   components: {
-    vAffix,
     codeBox,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

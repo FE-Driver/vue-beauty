@@ -76,10 +76,9 @@
   <api-table :apis="apis"></api-table>
 </template>
 <script>
-	import vTransfer from '../../components/transfer'
-	import vButton from '../../components/button'
 	import codeBox from '../components/codeBox'
 	import apiTable from '../components/apiTable'
+
 	export default {
 		data() {
 			return {
@@ -144,8 +143,6 @@
 			}
 		},
 		components: {
-			vTransfer,
-			vButton,
 			codeBox,
 			apiTable
 		}

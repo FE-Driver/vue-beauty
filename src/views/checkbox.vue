@@ -89,20 +89,20 @@ optionsWithDisabled: [
 { label: "橘", value: "Orange", disabled； true },
 ],
 
-<checkbox-group :options="options"
+<v-checkbox-group :options="options"
   :value.sync="defaultValue">
-</checkbox-group>
+</v-checkbox-group>
 
-<checkbox-group
+<v-checkbox-group
   :options="optionsWithDisabled"
   :on-change="checkGroup">
-</checkbox-group>'
+</v-checkbox-group>'
         >
-          <p style="margin-bottom: 16px;"><checkbox-group :options="options" :value.sync="defaultValue"></checkbox-group></p>
-          <checkbox-group
+          <p style="margin-bottom: 16px;"><v-checkbox-group :options="options" :value.sync="defaultValue"></v-checkbox-group></p>
+          <v-checkbox-group
             :options="optionsWithDisabled"
             :on-change="checkGroup">
-          </checkbox-group>
+          </v-checkbox-group>
         </code-box>
 
       </div>
@@ -129,7 +129,6 @@ optionsWithDisabled: [
 
 <script>
 
-import vCheckbox from '../../components/checkbox'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -193,9 +192,7 @@ export default {
   },
   components: {
     codeBox,
-    apiTable,
-    vCheckbox,
-    CheckboxGroup: vCheckbox.Group
+    apiTable
   }
 }
 </script>

@@ -51,9 +51,6 @@
 </template>
 
 <script>
-
-import {vRow, vCol} from '../../components/layout'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -194,14 +191,8 @@ export default {
     }
   },
   components: {
-    vRow,
-    vCol,
-    vButton,
     codeBox,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

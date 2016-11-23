@@ -48,8 +48,8 @@ Beautiful  UI components build with vue and ant design
 ## 引入
 ```
 import Vue from 'vue'
-import '../components/style/index.less'
-import vue_beauty from '../components'
+import 'vue-beauty/vb/style/index.less'(这个看你自己放在哪儿)
+import vue_beauty from 'vue-beauty/vb'
 
 Vue.use(vue_beauty)
 
@@ -68,15 +68,18 @@ Vue.use(button)
 <pre>
     VUE-BEAUTY/
     |-- build               存放webpack的配置
-    |-- components          存放组件
-    |   |-- xxx             xxx组件
+    |-- vb                  组件库的位置
+    |   |-- components      存放组件
+    |   |   |-- base        基础组件，可复用的公共组件
+    |   |   `-- _util       公共方法
     |   |-- style           组件的公共样式
-    |    `-- components     存放组件的样式
-    |-- src                 存放文档
-    |   |-- components      一些文档组件
-    |   |-- views           组件的说明文档
-    |   `-- routers.js      路由
-    `-- utils               一些工具方法
+    |   |-- directive       vue指令
+    |   |
+    |   `-- utils           工具方法
+    `-- src                 存放文档
+        |-- components      文档组件、业务组件
+        |-- views           组件的说明文档
+        `-- routers.js      路由
 </pre>
 
 ## 参与流程
@@ -89,10 +92,10 @@ Vue.use(button)
 - NOTICE：可以加入QQ群548062121讨论
 
 ## 开发步骤
-- 到[ant-design2.4.3](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到components/style/components下
-- 打开style/components/index.less，导出组件的样式
-- 在components文件夹下开发组件
-- 到components/index.js下导出组件
+- 到[ant-design2.4.3](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到vb/style/components下
+- 打开vb/style/components/index.less，导出组件的样式
+- 在vb/components文件夹下开发组件
+- 到vb/index.js下导出组件
 - 到src/views下编写组件的使用文档
 - 修改以下文件：src/routers.js、src/views/components.vue添加文档的路由和链接
 - NOTICE：如果你需要增加样式，可以在组件对应的样式目录中增加xxx_vb.less（如button_vb.less），并在index.less中import该样式文件
@@ -104,4 +107,3 @@ Vue.use(button)
 ## 感谢
 - 感谢为这个项目做过贡献的所有朋友。
 - 感谢vue和ant design的开发者。
-- 感谢[okoala](https://github.com/okoala)的[vue-antd](https://github.com/okoala/vue-antd)。

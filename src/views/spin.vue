@@ -76,10 +76,6 @@
 </template>
 
 <script>
-
-import vSpin from '../../components/spin'
-import vAlert from '../../components/alert'
-import vSwitch from '../../components/switch'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -107,9 +103,6 @@ export default {
     }
   },
   components: {
-    vSpin,
-    vAlert,
-    vSwitch,
     codeBox,
     apiTable
   },

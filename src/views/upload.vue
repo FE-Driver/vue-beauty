@@ -159,10 +159,6 @@
 </template>
 
 <script>
-
-import vUpload from '../../components/upload'
-import vIcon from '../../components/iconfont'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -227,15 +223,8 @@ export default {
     }
   },
   components: {
-    vUpload,
-    vIcon,
-    vButton,
-    vButtonGroup: vButton.Group,
     codeBox,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

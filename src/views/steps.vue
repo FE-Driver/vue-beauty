@@ -227,11 +227,8 @@ const v-step = v-steps.vStep
 </template>
 
 <script>
-
-import vSteps from '../../components/steps'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-const vStep = vSteps.Step
 
 export default {
   data: function () {
@@ -307,13 +304,8 @@ export default {
     }
   },
   components: {
-    vSteps,
-    vStep,
     codeBox,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

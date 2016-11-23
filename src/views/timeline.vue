@@ -112,13 +112,8 @@
 </template>
 
 <script lang="babel">
-    import vTimeline from '../../components/timeline'
-    import vIcon from '../../components/iconfont'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-
-    const vTimelineItem = vTimeline.Item
-
 
     export default {
         data: function () {
@@ -147,15 +142,9 @@
                 ]
             }
         },
-        methods: {},
         components: {
-            vTimeline,
-            vTimelineItem,
             codeBox,
             apiTable
         }
     }
 </script>
-
-<style lang="less">
-</style>

@@ -101,11 +101,8 @@
     </div>
 </template>
 <script>
-    import vBreadcrumbs from '../../components/breadcrumb'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-
-    const vBreadcrumb = vBreadcrumbs.Breadcrumb;
 
     export default {
         data: function (){
@@ -134,8 +131,6 @@
             }
         },
         components: {
-            vBreadcrumbs,
-            vBreadcrumb,
             codeBox,
             apiTable
         }

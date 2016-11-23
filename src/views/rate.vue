@@ -74,8 +74,6 @@
 </template>
 
 <script>
-
-import vRate from '../../components/rate'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -113,7 +111,6 @@ export default {
     }
   },
   components: {
-    vRate,
     codeBox,
     apiTable
   },
@@ -122,6 +119,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>

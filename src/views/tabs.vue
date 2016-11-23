@@ -75,8 +75,6 @@
 </template>
 
 <script>
-import {vRow, vCol} from '../../components/layout'
-import vTabs from '../../components/tabs'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -128,15 +126,8 @@ export default {
     }
   },
   components: {
-    vTabs,
-    vTabPane: vTabs.TabPane,
     codeBox,
-    apiTable,
-    vRow,
-    vCol
+    apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

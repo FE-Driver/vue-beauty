@@ -179,9 +179,6 @@
 </template>
 
 <script>
-
-import vRadio from '../../components/radio'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -271,14 +268,8 @@ export default {
     }
   },
   components: {
-    vRadio,
-    vRadioGroup:vRadio.Group,
-    vButton,
     codeBox,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

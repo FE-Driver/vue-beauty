@@ -102,9 +102,6 @@
 </template>
 
 <script>
-
-import vSwitch from '../../components/switch'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -147,8 +144,6 @@ export default {
     }
   },
   components: {
-    vSwitch,
-    vButton,
     codeBox,
     apiTable
   },
@@ -160,6 +155,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>

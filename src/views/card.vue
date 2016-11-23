@@ -121,7 +121,6 @@
 
 <script>
 
-import vCard from '../../components/card'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -159,8 +158,7 @@ export default {
   },
   components: {
     codeBox,
-    apiTable,
-    vCard
+    apiTable
   }
 }
 </script>

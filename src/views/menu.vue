@@ -187,7 +187,6 @@
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
-
 export default {
   data: function () {
     return {

@@ -24,15 +24,15 @@
           code=""
         >
           <v-collapse default-active-key='1'>
-            <v-panel header="This is panel header 1" key="1">
+            <v-collapse-item header="This is panel header 1" key="1">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 2" key="2">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 2" key="2">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 3" key="3">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 3" key="3">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
+            </v-collapse-item>
           </v-collapse>
         </code-box>
 
@@ -42,15 +42,15 @@
           code="<v-collapse :active-key='[1,2]'>"
         >
           <v-collapse :active-key="['1','2']">
-            <v-panel header="This is panel header 1" key="1">
+            <v-collapse-item header="This is panel header 1" key="1">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 2" key="2">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 2" key="2">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 3" key="3">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 3" key="3">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
+            </v-collapse-item>
           </v-collapse>
         </code-box>
 
@@ -64,15 +64,15 @@
           code=""
         >
           <v-collapse default-active-key='1' accordion>
-            <v-panel header="This is panel header 1" key="1">
+            <v-collapse-item header="This is panel header 1" key="1">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 2" key="2">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 2" key="2">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 3" key="3">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 3" key="3">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
+            </v-collapse-item>
           </v-collapse>
         </code-box>
 
@@ -90,8 +90,6 @@
 
 <script>
 
-import vCollapse from '../../components/collapse/collapse'
-import vPanel from '../../components/collapse/panel'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -126,9 +124,7 @@ export default {
   },
   components: {
     codeBox,
-    apiTable,
-    vCollapse,
-    vPanel
+    apiTable
   }
 }
 </script>

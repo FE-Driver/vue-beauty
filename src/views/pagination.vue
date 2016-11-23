@@ -116,26 +116,13 @@
 			  	:total="50"></v-pagination>
       </code-box>
     </div>
-	  <!-- <v-pagination 
-	  	:current.sync="current" 
-	  	:default-current="1"
-	  	:total="100"
-	  	:default-page-size="5"
-	  	:page-size="10"
-	  	:on-change="loadPage"
-	  	:show-size-changer="true"
-	  	:on-show-size-change="pageSizeChange"
-	  	:show-quick-jumper="false"
-	  	size=""
-	  	:simple="false"
-	  	:show-total="showTotal"></v-pagination> -->
 	  <api-table :apis="apis"></api-table>
 </div>
 </template>
 <script>
-import vPagination from '../../components/pagination'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
+
 export default {
   data() {
   	return {
@@ -160,12 +147,8 @@ export default {
   	}
   },
   components: {
-  	vPagination,
   	codeBox,
   	apiTable
   }
 }
 </script>
-<style>
-	
-</style>
