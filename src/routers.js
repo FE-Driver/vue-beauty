@@ -293,6 +293,12 @@ export default function(router) {
             require(['./views/datepicker.vue'], resolve);
           }
         },
+        '/morePanel': {
+          name: 'morePanel',
+          component: function index(resolve) {
+            require(['./views/morePanel.vue'], resolve);
+          }
+        },
         '/css': {
           name: 'css',
           component: function index(resolve) {

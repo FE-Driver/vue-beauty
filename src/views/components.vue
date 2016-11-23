@@ -87,9 +87,6 @@
             <menu-item v-link="{ name: 'collapse', activeClass: 'ant-menu-item-selected' }">
               Collapse 折叠面板
             </menu-item>
-            <menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
-              Dropdown 下拉菜单
-            </menu-item>
             <menu-item v-link="{ name: 'notification', activeClass: 'ant-menu-item-selected' }">
               Notification 通知提醒框
             </menu-item>
@@ -116,6 +113,9 @@
             </menu-item>
             <menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
               Datatable 数据表格
+            </menu-item>
+            <menu-item v-link="{ name: 'morePanel', activeClass: 'ant-menu-item-selected' }">
+              MorePanel 更多条件面板
             </menu-item>
           </sub-menu>
           <sub-menu title="Navigation">

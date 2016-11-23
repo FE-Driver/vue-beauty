@@ -56,7 +56,7 @@
       </div>
       <ul
         transition="multiselect"
-        :style="{ maxHeight: maxHeight + 'px' }"
+        :style="listSty"
         v-el:list
         v-show="isOpen"
         @mousedown.stop.prevent=""
@@ -96,11 +96,19 @@
 <script>
   import multiselectMixin from './multiselectMixin'
   import pointerMixin from './pointerMixin'
+  import {getOffset} from '../_util/_func'
 
   export default {
     name: 'v-multiselect',
     mixins: [multiselectMixin, pointerMixin],
+    data: ()=>({
+      style: {}
+    }),
     props: {
+      position: {
+        type: String, 
+        default: 'absolute'
+      },
       /**
        * Name of the registered custom option partial
        * @default 'multiselectBasicOptionPartial'
@@ -190,12 +198,44 @@
         return this.multiple
           ? this.value.slice(0, this.limit)
           : []
+      },
+      listSty () {
+        return {
+          maxHeight: this.maxHeight+'px',
+          ...this.style
+        }
       }
     },
     ready () {
       /* istanbul ignore else */
       if (!this.showLabels) {
         this.deselectLabel = this.selectedLabel = this.selectLabel = ''
+      }
+      this.$els.list.style.position = this.position;
+      document.body.appendChild(this.$els.list);
+      this.$nextTick(()=>{
+          this.setPosition();
+      })
+
+      window.addEventListener('resize',()=> {
+          clearTimeout(this.resizeTimer);
+          this.resizeTimer = setTimeout(()=> {
+              this.setPosition();
+          }, 200)
+      })
+    },
+    methods: {
+      setPosition(){
+          if(!this.$el){
+              return
+          }
+          let p = getOffset(this.$el);
+
+          this.$set('style',{
+              top: p.bottom + 'px',
+              left: p.left + 'px',
+              width: p.right - p.left + 'px'
+          })
       }
     }
   }

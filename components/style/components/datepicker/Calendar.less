@@ -4,7 +4,6 @@
   text-align: center;
   user-select: none;
   border-bottom: 1px solid @border-color-split;
-  position: relative;
 
   a:hover {
     color: @link-hover-color;
@@ -17,7 +16,7 @@
     padding: 0 2px;
     font-weight: bold;
     display: inline-block;
-    color: #666;
+    color: @text-color;
     line-height: 34px;
   }
 
@@ -36,20 +35,58 @@
   .@{calendar-prefix-cls}-next-month-btn,
   .@{calendar-prefix-cls}-prev-year-btn,
   .@{calendar-prefix-cls}-next-year-btn {
+    position: absolute;
+    top: 0;
+    color: @text-color-secondary;
+    font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif", sans-serif;
+    padding: 0 5px;
     font-size: 16px;
     display: inline-block;
     line-height: 34px;
-    cursor: pointer;
-    padding: 0 5px;
   }
 
+  .@{calendar-prefix-cls}-prev-century-btn,
+  .@{calendar-prefix-cls}-prev-decade-btn,
+  .@{calendar-prefix-cls}-prev-year-btn {
+    left: 7px;
+
+    &:after {
+      content: '«';
+    }
+  }
+
+  .@{calendar-prefix-cls}-next-century-btn,
+  .@{calendar-prefix-cls}-next-decade-btn,
+  .@{calendar-prefix-cls}-next-year-btn {
+    right: 7px;
+
+    &:after {
+      content: '»';
+    }
+  }
+
+  .@{calendar-prefix-cls}-prev-month-btn {
+    left: 29px;
+
+    &:after {
+      content: '‹';
+    }
+  }
+
+  .@{calendar-prefix-cls}-next-month-btn {
+    right: 29px;
+
+    &:after {
+      content: '›';
+    }
+  }
 }
 
 .@{calendar-prefix-cls} {
   position: relative;
   outline: none;
   width: 231px;
-  border: 1px solid @border-color-base;
+  border: 1px solid #fff;
   list-style: none;
   font-size: @font-size-base;
   text-align: left;
@@ -85,7 +122,7 @@
     .calendarPanelHeader(@calendar-prefix-cls);
   }
 
-  &-calendar-body {
+  &-body {
     padding: 4px 8px;
   }
 
@@ -131,7 +168,7 @@
   &-date {
     display: block;
     margin: 0 auto;
-    color: #666;
+    color: @text-color;
     border-radius: @border-radius-sm;
     width: 20px;
     height: 20px;
@@ -141,6 +178,10 @@
     background: transparent;
     text-align: center;
     transition: background 0.3s ease;
+
+    &-panel {
+      position: relative;
+    }
 
     &:hover {
       background: tint(@primary-color, 90%);
@@ -155,6 +196,7 @@
 
   &-today &-date {
     border-color: @primary-color;
+    font-weight: bold;
     color: @primary-color;
   }
 
@@ -179,6 +221,7 @@
     background: #f3f3f3;
     border-radius: 0;
     width: auto;
+    border: 1px solid transparent;
 
     &:hover {
       background: #f3f3f3;
@@ -196,9 +239,6 @@
   }
 
   &-footer {
-    padding: 0 15px;
-    height: 38px;
-    line-height: 38px;
     border-top: 1px solid @border-color-split;
   }
 
@@ -238,8 +278,8 @@
   }
 
   .@{calendar-prefix-cls}-clear-btn:after {
-    .iconfont-font("\e631");
-    font-size: 12px;
+    .iconfont-font("\e62e");
+    font-size: @font-size-base;
     color: #ccc;
     display: inline-block;
     line-height: 1;
@@ -249,7 +289,7 @@
   }
 
   .@{calendar-prefix-cls}-clear-btn:hover:after {
-    color: #999;
+    color: @text-color-secondary;
   }
 
   .@{calendar-prefix-cls}-ok-btn {
@@ -263,6 +303,9 @@
     &-disabled {
       .button-color(@btn-disable-color; @btn-disable-bg; @btn-disable-border);
       cursor: not-allowed;
+      &:hover {
+        .button-color(@btn-disable-color; @btn-disable-bg; @btn-disable-border);
+      }
     }
   }
 }

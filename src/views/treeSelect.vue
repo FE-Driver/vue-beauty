@@ -86,6 +86,12 @@ export default {
           'false'   
         ],
         [
+          'position',
+          '下拉框的定位方式（absolute,fixed）',
+          'string',
+          'absolute'   
+        ],
+        [
           'onSelect',
           '被选中时调用，参数为选中项的 value 值',
           'function(valueArray)',

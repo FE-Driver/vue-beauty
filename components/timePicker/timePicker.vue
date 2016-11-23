@@ -3,7 +3,7 @@
         <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="value" v-el:time-picker readonly disabled="{{disabled}}">
         <span class="ant-time-picker-icon"></span>
     </span>
-    <time-picker-node transition="fade" v-show="selected" :selected.sync="selected" :stylus.sync="stylus" :time-value.sync="value" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
+    <time-picker-node transition="fade" v-show="selected" :selected.sync="selected" :style="style" :time-value.sync="value" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
 </template>
 
 <script>
@@ -14,14 +14,15 @@
         name: 'v-time-picker',
         data: ()=> ({
             prefix: 'ant-time-picker',
+            style: {},
             dropDown: false,
-            selected: false,
-            stylus: {
-                top: 0,
-                left: 0
-            }
+            selected: false
         }),
         props: {
+            position: {
+                type: String,
+                default: 'absolute'
+            },
             size: String,
             format: String,
             disabled: Boolean,
@@ -43,19 +44,21 @@
             }
         },
         ready (){
-            let self = this;
-            let styles = window.getComputedStyle(this.$els.timePicker);
-            this.height = parseFloat(styles.getPropertyValue('height'));
-            let time = null;
-            window.addEventListener('resize', function () {
-                clearTimeout(time);
-                time = setTimeout(function () {
-                    if (!self.disabled && self.selected) {
-                        self.position()
+            this.$els.timePickerOption.style.position = this.position;
+            document.body.appendChild(this.$els.timePickerOption);
+
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
+            let timer = null;
+            window.addEventListener('resize', ()=> {
+                clearTimeout(timer);
+                timer = setTimeout(()=> {
+                    if (!this.disabled) {
+                        this.setPosition()
                     }
                 }, 200)
             })
-            this.position();
         },
         beforeDestroy (){
             document.removeEventListener('click', this.backdrop);
@@ -67,12 +70,16 @@
             timePicker (){
                 this.selected = !this.selected;
             },
-            position (){
-                let p = getOffset(this.$els.timePicker);
-                this.stylus = {
-                    top: p.top,
-                    left: p.left
+            setPosition (){
+                if(!this.$el){
+                    return
                 }
+                let p = getOffset(this.$els.timePicker);
+
+                this.$set('style',{
+                    top: p.top + 'px',
+                    left: p.left + 'px'
+                })
             },
             backdrop (e){
                 if (!closeByElement(e.target, [this.$els.timePicker, this.$els.timePickerOption])) {

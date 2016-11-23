@@ -3,30 +3,35 @@
   <div>
 
     <section class="markdown">
-      <h1>日期选择器</h1>
+      <h1>MultiSelect 选择器</h1>
       <p>
-        日期选择器
+        类似 Select2 的选择器。
       </p>
       <h2>何时使用</h2>
       <ul>
-        <li>日期选择器</li>
+        <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>
+        <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>
       </ul>
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-24 code-boxes-col-2-2">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基础"
           describe="最简单的用法">
-          <multiselect :selected="selected" :options="options" @update="updateSelected"></multiselect>
+          <v-multiselect :selected="selected" :options="options" @update="updateSelected"></v-multiselect>
         </code-box>
 
+      </v-Col>
+
+      <v-Col span="12">
+
         <code-box
-          title="基础"
-          describe="最简单的用法">
-          <multiselect  
+          title="更复杂的用法"
+          describe="该组件在vue-multiselect的基础上进行了少量的改动，除了列在下面的api，其它api均可在vue-multiselect官网查询">
+          <v-multiselect  
             :options="source" 
             :selected="multiValue"
             :multiple="true"
@@ -38,19 +43,16 @@
             placeholder="Pick some"
             label="name"
             key="name">
-          </multiselect>
+          </v-multiselect>
         </code-box>
 
-
-      </div>
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
-
-      </div>
-    </div>
+      </v-Col>
+    </v-Row>
 
     <api-table
-      :apis='apis'
+      :content='content'
     ></api-table>
+    其它Api请参考：<a href="http://monterail.github.io/vue-multiselect/" target="_blank">vue-multiselect</a>
 
   </div>
 
@@ -58,7 +60,6 @@
 
 <script>
 
-import multiselect from '../../components/multiselect'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -68,25 +69,13 @@ export default {
       onClose: function() {
           console.log(this);
       },
-      apis: [
-        {
-          parameter: 'value',
-          explain: '默认值',
-          type: 'Sring',
-          default: ''
-        },
-        {
-          parameter: 'format',
-          explain: '日期显示格式',
-          type: 'Sring',
-          default: 'YYYY-MM-DD'
-        },
-        {
-          parameter: 'size',
-          explain: '输入框尺寸',
-          type: 'Sring',
-          default: 'default'
-        }
+      content: [
+        [
+          'position',
+          '下拉框的定位方式（absolute,fixed）',
+          'string',
+          'absolute'   
+        ]
       ],
       selected: null,
       options: ['list', 'of', 'options'],
@@ -124,7 +113,6 @@ export default {
     }
   },
   components: {
-    multiselect,
     codeBox,
     apiTable
   }

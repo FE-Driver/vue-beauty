@@ -71,14 +71,15 @@
     ready(){
       this.$on('nodeSelected',ori=>{
         if(this.type !== 'root') return true;
+        if(this !== ori){
+          this.setAllSelected(false)
+        }
         this.$broadcast('cancelSelected',ori);
       })
       this.$on('cancelSelected',ori=>{
         this.$broadcast('cancelSelected',ori);
         if(this !== ori){
-          for(let i=0;i<this.data.length;i++){
-            this.$set(`data[${i}].selected`,false);
-          }
+          this.setAllSelected(false)
         }
       })
     },
@@ -111,6 +112,11 @@
       }
     },
     methods: {
+      setAllSelected(status){
+        for(let i=0;i<this.data.length;i++){
+          this.$set(`data[${i}].selected`,status);
+        }
+      },
       clickTriggerOpen(disabled,index){
         if(!disabled && this.mode == 'inline'){
           this.setOpen(index,!this.data[index].open);

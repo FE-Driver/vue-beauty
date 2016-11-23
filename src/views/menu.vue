@@ -195,6 +195,7 @@ export default {
         {
           name: "首页",
           icon: 'home',
+          selected: true,
           link: {
             name: 'card'
           }
@@ -204,7 +205,7 @@ export default {
           icon: 'mail',
           children: [{
             link: {
-              name: 'alert',
+              name: 'menu',
               query:{
                 src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
               }

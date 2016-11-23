@@ -33,7 +33,7 @@
 
             <code-box
             title="只显示部分选项"
-            describe="通过 hideDisabledOptions 将不可选的选项隐藏。"
+            describe="通过 disabledMinutes和disabledSeconds 将不可选的选项隐藏。"
             >
                 <v-time-picker :disabled-minutes="minutes" :disabled-seconds="seconds"></v-time-picker>
             </code-box>
@@ -84,19 +84,25 @@
                         'format',
                         '展示的时间格式',
                         'string',
-                        '"HH:mm:ss"、"HH:mm"、"mm:ss"'
+                        'HH:mm:ss'
+                    ],
+                    [
+                        'position',
+                        '下拉框的定位方式(absolute、fixed)',
+                        'string',
+                        'absolute'
                     ],
                     [
                         'startTime',
                         '限制时间段开始时间',
                         'String',
-                        '"HH:mm:ss"、"HH:mm"、"mm:ss"'
+                        '00:00'
                     ],
                     [
                         'endTime',
                         '限制时间段结束时间',
                         'String',
-                        '"HH:mm:ss"、"HH:mm"、"mm:ss"'
+                        '23:59'
                     ],
                     [
                         'size',

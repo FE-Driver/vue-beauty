@@ -5,7 +5,7 @@
     <section class="markdown">
       <h1>Select 选择器</h1>
       <p>
-        类似 Select2 的选择器。
+        一个简单的select选择器
       </p>
       <h2>何时使用</h2>
       <p>

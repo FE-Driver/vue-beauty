@@ -20,7 +20,7 @@
             <span class="ant-select-arrow" unselectable="unselectable" style="-webkit-user-select: none;"><b></b></span>
         </span>
     </div>
-    <div :class="dropdownCls" style="left: 0; min-width: 100%; max-height: 300px; overflow: auto" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
+    <div :class="dropdownCls" style="max-height: 300px; overflow: auto" :style="style" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
         <div>
             <slot></slot>
         </div>
@@ -28,12 +28,15 @@
 </template>
 <script>
     import { defaultProps } from '../../../utils'
+    import {getOffset} from '../../_util/_func'
 
     export default {
         data:()=>({
-            prefix: 'ant-select'
+            prefix: 'ant-select',
+            style: {}
         }),
         props: defaultProps({
+            position: 'absolute',
             multiple: false,
             allowClear: false,
             open: false,
@@ -41,7 +44,19 @@
             value: []
         }),
         ready(){
-            this.$els.dropdown.style.top = parseInt(getComputedStyle(this.$els.inputArea, false).height) + 4 + 'px';
+            this.$els.dropdown.style.position = this.position;
+            document.body.appendChild(this.$els.dropdown);
+            
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
+
+            window.addEventListener('resize',()=> {
+                clearTimeout(this.resizeTimer);
+                this.resizeTimer = setTimeout(()=> {
+                    this.setPosition();
+                }, 200)
+            })
         },
         computed: {
             wrapCls(){
@@ -75,6 +90,18 @@
             }
         },
         methods: {
+            setPosition(){
+                if(!this.$el){
+                    return
+                }
+                let p = getOffset(this.$els.inputArea);
+
+                this.$set('style',{
+                    top: p.bottom + 4 + 'px',
+                    left: p.left + 'px',
+                    minWidth: p.right - p.left + 'px'
+                })
+            },
             openDropdown(){
                 this.open = !this.open;
             },
