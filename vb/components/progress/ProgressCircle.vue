@@ -23,11 +23,8 @@
 </template>
 
 <script>
-  import { defaultProps, cx, oneOf, addEventListener } from '../../utils'
+  import { defaultProps, oneOf } from '../../utils'
   import vIcon from '../iconfont'
-//  import { defaultProps, oneOf } from '../../utils'
-//  import cx from 'classnames'
-
 
 const statusColorMap = {
   'normal': '#2db7f5',

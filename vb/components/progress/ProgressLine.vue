@@ -11,19 +11,15 @@
 
   <div :class="prefixCls + '-line-outer'">
     <div :class="prefixCls + '-line-inner'">
-      <div
-        :class="prefixCls + '-line-bg'"
-        :style="{width: percent + '%', height: strokeWidth + 'px'}"></div>
+      <div :class="prefixCls + '-line-bg'" :style="{width: percent + '%', height: strokeWidth + 'px'}"></div>
     </div>
   </div>
 </div>
 </template>
 
 <script>
-  import { defaultProps, cx, oneOf, addEventListener } from '../../utils'
+  import { defaultProps, oneOf } from '../../utils'
   import vIcon from '../iconfont'
-//  import { defaultProps, oneOf } from '../../utils'
-//import cx from 'classnames'
 
 export default {
   name: 'v-progress-line',
@@ -41,12 +37,12 @@ export default {
 
   computed: {
     wrapClasses () {
-      return cx({
-        [`${this.prefixCls}-line-wrap`]: 1,
-        [`clearfix`]: 1,
-        [`status-${this.progressStatus}`]: this.progressStatus,
-        [`${this.prefixCls}-line-wrap-full`]: !this.showInfo
-      })
+      return [
+        `${this.prefixCls}-line-wrap`,
+        'clearfix',
+        {[`status-${this.progressStatus}`]: this.progressStatus},
+        {[`${this.prefixCls}-line-wrap-full`]: !this.showInfo}
+      ]
     }
   },
 
@@ -72,6 +68,3 @@ export default {
 }
 
 </script>
-
-<style lang="less">
-</style>

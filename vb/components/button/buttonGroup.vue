@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import cx from 'classnames'
 
 export default {
   name: 'v-button-group',
@@ -21,10 +20,10 @@ export default {
     wrapClasses () {
       const size = {small:'sm',large:'lg'}[this.size];
       
-      return cx({
-        [this.prefix]: true,
-        [`${this.prefix}-${size}`]: size
-      })
+      return[
+        this.prefix,
+        {[`${this.prefix}-${size}`]: size}
+      ]
     }
   },
 }

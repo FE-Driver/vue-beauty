@@ -74,7 +74,6 @@ Vue.use(button)
     |   |   `-- _util       公共方法
     |   |-- style           组件的公共样式
     |   |-- directive       vue指令
-    |   |
     |   `-- utils           工具方法
     `-- src                 存放文档
         |-- components      文档组件、业务组件

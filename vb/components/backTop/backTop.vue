@@ -10,7 +10,6 @@
 
 <script>
 import {defaultProps} from '../../utils'
-import cx from 'classnames'
 
 export default {
     name: 'v-back-top',

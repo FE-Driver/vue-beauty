@@ -4,15 +4,12 @@
     </div>
 </template>
 <script>
-    import cx from 'classnames'
 
     export default {
         name: 'v-breadcrumbs',
         computed: {
             wrapClasses () {
-                return cx({
-                    ['ant-breadcrumb']: 1
-                })
+                return ['ant-breadcrumb']
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <span :class="[wrapClasses,{'ant-input-group':hasslot}]">
+    <span :class="wrapClasses">
       <span v-if="hasbefore" class="ant-input-group-addon"><slot name="before"><slot></span>
       <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="value" :debounce="debounce" @blur="blur"></textarea>
       <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="value" autocomplete="off" @blur="blur" :debounce="debounce"/>
@@ -9,7 +9,6 @@
 
 <script>
 import { defaultProps, oneOfType } from '../../utils'
-import cx from 'classnames'
 
 export default {
   name:'v-input',
@@ -33,17 +32,18 @@ export default {
   }),
   computed: {
     wrapClasses () {
-      return cx({
-        [`${this.prefix}-wrapper`]: true
-      })
+      return [
+        `${this.prefix}-wrapper`,
+        {[`${this.prefix}-group`]: this.hasslot}
+      ]
     },
     inpClasses () {
       const size = {small:'sm',large:'lg'}[this.size];
 
-      return cx({
-        [this.prefix]: true,
-        [`${this.prefix}-${size}`]: size
-      })
+      return [
+        this.prefix,
+        {[`${this.prefix}-${size}`]: size}
+      ]
     }
   },
   ready(){

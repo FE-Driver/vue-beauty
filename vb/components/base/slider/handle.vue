@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { cx } from '../../../utils'
 import vTooltip from '../../../directive/tooltip.js'
 
 export default {

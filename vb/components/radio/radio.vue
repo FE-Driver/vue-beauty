@@ -16,7 +16,6 @@
 
 <script>
 import { defaultProps, oneOfType } from '../../utils'
-import cx from 'classnames'
 
 export default {
   name: 'v-radio',
@@ -36,20 +35,20 @@ export default {
 
   computed: {
     wrapClasses () {
-      return cx({
-        [this.className]: !!this.className,
-        [`${this.className}-checked`]: this.checked,
-        [`${this.className}-disabled`]: this.disabled
-      })
+      return [
+        this.className,
+        {[`${this.className}-checked`]: this.checked},
+        {[`${this.className}-disabled`]: this.disabled}
+      ]
     },
 
     radioClasses () {
-      return cx({
-        [this.prefixCls]: true,
-        [`${this.prefixCls}-checked`]: this.checked,
-        [`${this.prefixCls}-checked-${this.checked ? 1 : 0}`]: !!this.checked,
-        [`${this.prefixCls}-disabled`]: this.disabled
-      })
+      return [
+        this.prefixCls,
+        {[`${this.prefixCls}-checked`]: this.checked},
+        {[`${this.prefixCls}-checked-${this.checked ? 1 : 0}`]: !!this.checked},
+        {[`${this.prefixCls}-disabled`]: this.disabled}
+      ]
     }
   },
 
