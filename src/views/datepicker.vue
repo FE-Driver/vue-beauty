@@ -21,7 +21,7 @@
           title="基础"
           describe="最简单的用法，在浮层中可以选择或者输入日期">
           <v-datepicker clearable></v-datepicker><br><br>
-          <v-datepicker range></v-datepicker>
+          <v-datepicker range clearable></v-datepicker>
         </code-box>
 
         <code-box
@@ -40,7 +40,14 @@
           title="日期格式"
           describe="使用 format 属性，可以自定义日期显示格式。">
           <v-datepicker time='2015-12-06' format="yyyy/MM/dd"></v-datepicker><br><br>
-          <v-datepicker range  start-time='2015-12-06' end-time='2016-12-06' format="yyyy/MM/dd"></v-datepicker>
+          <v-datepicker range start-time='2015-12-06' end-time='2016-12-06' format="yyyy/MM/dd"></v-datepicker>
+        </code-box>
+
+        <code-box
+          title="日期时间选择"
+          describe="增加选择时间功能">
+          <v-datepicker clearable :show-time="true" time='2015-12-06 23:12'></v-datepicker><br><br>
+          <v-datepicker range :show-time="true" start-time='2015-12-06 23:12' end-time='2016-12-06 23:12' clearable></v-datepicker>
         </code-box>
 
         <code-box
@@ -81,6 +88,12 @@ export default {
           '-'
         ],
         [
+          'placeholder',
+          '占位提示符',
+          'string',
+          '请选择日期'
+        ],
+        [
           'position',
           '下拉框的定位方式(absolute、fixed)',
           'string',
@@ -93,10 +106,16 @@ export default {
           'false'
         ],
         [
-          'time',
-          '能否进行范围选择',
+          'showTime',
+          '增加时间选择功能',
           'boolean',
           'false'
+        ],
+        [
+          'time',
+          '默认日期',
+          'string',
+          '-'
         ],
         [
           'startTime',

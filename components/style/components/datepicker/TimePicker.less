@@ -16,12 +16,16 @@
     position: relative;
     outline: none;
     list-style: none;
-    font-size: 12px;
+    font-size: @font-size-base;
     text-align: left;
     background-color: #fff;
     background-clip: padding-box;
     line-height: 1.5;
     overflow: hidden;
+    width: 100%;
+  }
+  &-combobox {
+    width: 100%;
   }
 
   &-1-column,
@@ -29,7 +33,7 @@
     width: 100%;
   }
   &-2-columns &-select {
-    width: 115px;
+    width: 50%;
   }
   &-1-column &-select,
   &-2-columns &-select {
@@ -45,12 +49,12 @@
 
   &-select {
     float: left;
-    font-size: 12px;
+    font-size: @font-size-base;
     border: 1px solid @border-color-split;
     border-width: 0 1px;
     margin-left: -1px;
     box-sizing: border-box;
-    width: 77px;
+    width: 33.6%;
     overflow: hidden;
     position: relative; // Fix chrome weird render bug
 
@@ -108,7 +112,7 @@
       color: @btn-disable-color;
       &:hover {
         background: transparent;
-        cursor: @cursor-disabled;
+        cursor: not-allowed;
       }
     }
   }
@@ -119,19 +123,19 @@
     padding: 0 2px;
     font-weight: bold;
     display: inline-block;
-    color: #666;
+    color: @text-color;
     line-height: 34px;
   }
 
   .@{calendar-prefix-cls}-footer {
     border-top: 1px solid @border-color-split;
-    padding: 10px 0;
     text-align: right;
     position: relative;
     height: auto;
     line-height: auto;
 
     &-btn {
+      padding: 10px 0;
       line-height: 1.5;
       text-align: right;
     }

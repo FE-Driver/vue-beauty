@@ -1,12 +1,12 @@
 <template>
-    <div :class="prefix+'-picker'" :style="style">
+    <span :class="prefix+'-picker'" :style="style">
         <span>
-            <input :value="value" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size},{focus:show}]" @click="click" @mousedown="$event.preventDefault()">
+            <input :value="value" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size},{focus:show}]" @click="click" @mousedown="$event.preventDefault()">
             <i v-if="clearable&&value" @click.stop="clear" class="anticon anticon-cross-circle ant-calendar-picker-clear"></i>
             <span class="ant-calendar-picker-icon"></span>
         </span>
         <div class="ant-calendar-picker-container" :class="{'ant-calendar-picker-container-placement-bottomLeft':left}" v-show="show" transition="slide-up" tabindex="-1" @blur="show = false" @mousedown="$event.preventDefault()" @keyup.up="changeMonth(-1,1)" @keyup.down="changeMonth(1,1)" @keyup.left="changeYear(-1,1)" @keyup.right="changeYear(1,1)" :style="containerStyle" v-el:container>
-            <div :class="[prefix,{[prefix+'-range']:range}]">
+            <div :class="[prefix,{[prefix+'-range']:range},{[prefix+'-time']:showTime}]">
                 <div class="ant-calendar-top" v-if="range&&!en">
                     <template v-for="item in ranges">
                         <i v-if="$index"></i><a v-text="item.name" :class="item.active?'on':''" @click="selectRange($index)"></a>
@@ -47,6 +47,9 @@
                                     </template>
                                 </table>
                             </div>
+                            <div v-if="showTime" v-show="timeSelected" transition="fade" :class="prefix+'-time-picker'">
+                                <time-picker-panel prefix="ant-calendar-time-picker" :time-value.sync="timeVal[no]" :selected.sync="timeSelected" local-format="HH:mm"></time-picker-panel>
+                            </div>
                             <div class="ant-calendar-year-panel" transition="fade" v-if="this['showYear'+(no+1)]">
                                 <span class="ant-calendar-year-panel-prev"  @click="changeYearRange(no+1,-1)"><a class="anticon anticon-up"></a></span>
                                 <span class="ant-calendar-year-panel-cell" v-for="item in this['years'+(no+1)]" :class="item.status" @click="selectYear($index,no+1)" style="width:33.33%; display:inline-block;padding:9px 0">
@@ -70,27 +73,39 @@
                         </div>
                     </template>
                 </div>
-                <div :class="[prefix+'-footer',{[prefix+'-range-bottom']:range}]" v-if="range">
-                    <a class="ant-calendar-today-btn ok" @click="ok">{{okTitle}}</a>
+                <div v-if="range || showTime" :class="[prefix+'-footer',{[prefix+'-range-bottom']:range}]">
+                    <div class="ant-calendar-footer-btn">
+                        <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">选择时间</a>
+                        <a :class="{[prefix+'-ok-btn']: showTime}" role="button" @click="ok">{{okTitle}}</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </span>
 </template>
 
 <script lang="babel">
     import {getOffset} from '../_util/_func'
+    import timePickerPanel from '../timePicker/timePickerOption.vue'
 
     export default {
         name: 'v-datepicker',
+        components: {timePickerPanel},
         props: {
+            placeholder: {
+                type: String, 
+                default:'请选择日期'
+            },
             //是否显示范围
             range: {
                 type: Boolean,
                 default: false
             },
             //显示宽度
-            style: Object,
+            style: {
+                type: Object,
+                default: ()=>({})
+            },
             size: {
                 type: String,
                 coerce(val) {
@@ -104,6 +119,10 @@
             position: {
                 type:String, 
                 default:'absolute'
+            },
+            showTime: {
+                type: Boolean, 
+                default: false
             },
             //输入的开始时间
             startTime: {
@@ -150,6 +169,8 @@
         data: function() {
             return {
                 prefix: 'ant-calendar',
+                timeSelected: false,
+                timeBtnEnable: false,
                 containerStyle: {},
                 show: false,
                 showYear1: false,
@@ -178,6 +199,7 @@
                 time2: this.parse(this.endTime, true),
                 now1: this.parse(new Date(), false),
                 now2: this.parse(new Date(), true),
+                timeVal: ['00:00','00:00'],
                 count: this.range ? 2 : 1 //日历数量
             };
         },
@@ -185,12 +207,24 @@
             value() {
                 if (this.range) {
                     if (this.startTime && this.endTime) {
-                        return this.stringify(this.parse(this.startTime, false)) + ' ~ ' + this.stringify(this.parse(this.endTime, false));
+                        if(this.showTime){
+                            return this.stringify(this.parse(this.startTime, false)) + ' ' + this.timeVal[0] + ' ~ ' + this.stringify(this.parse(this.endTime, false)) + ' ' + this.timeVal[1];
+                        }else{
+                            return this.stringify(this.parse(this.startTime, false)) + ' ~ ' + this.stringify(this.parse(this.endTime, false));
+                        }
                     } else {
                         return '';
                     }
                 } else {
-                    return this.stringify(this.parse(this.time, false));
+                    if(this.time){
+                        if(this.showTime){
+                            return this.stringify(this.parse(this.time, false)) + ' ' + this.timeVal[0];
+                        }else{
+                            return this.stringify(this.parse(this.time, false));
+                        }
+                    }else{
+                        return '';
+                    }
                 }
             }
         },
@@ -207,20 +241,49 @@
                     this.setPosition();
                 }, 200)
             })
+            if(this.range && !this.style.width){
+                this.$set('style.width','240px')
+            }
+            if(this.showTime){
+                let temp = ['00:00','00:00'];
+                if(this.range){
+                    if(this.startTime){
+                        let start = this.startTime.split(' ')[1];
+                        if(start) temp[0] = start;
+                    }
+                    if(this.endTime){
+                        let end = this.endTime.split(' ')[1];
+                        if(end) temp[1] = end;
+                    }
+                }else{
+                    if(this.time){
+                        let time = this.time.split(' ')[1];
+                        if(time) temp[0] = time;
+                    }
+                }
+                this.$set('timeVal',temp);
+            }
         },
         watch: {
-            show: function(val) {
+            show(val) {
                 this.hidePanel();
                 val && this.$els.container.focus();
             },
-            now1: function() {
+            now1() {
                 this.updateAll();
             },
-            now2: function() {
+            now2() {
                 this.updateAll();
+            },
+            value(val) {
+                this.timeBtnEnable = val?true:false;
             }
         },
         methods: {
+            selectTime(){
+                if(!this.timeBtnEnable) return;
+                this.timeSelected = !this.timeSelected;
+            },
             setPosition(){
                 if(!this.$el){
                     return
@@ -233,7 +296,7 @@
                 })
             },
             //转换输入的时间
-            parse: function(time, isLast) {
+            parse(time, isLast) {
                 if (time) {
                     var tmpTime = new Date(time);
                     if (isLast === undefined) {
@@ -247,7 +310,7 @@
                 return null;
             },
             //初始化时间范围
-            initRanges: function() {
+            initRanges() {
                 var time = new Date(),
                     ranges = [];
                 ranges.push({
@@ -300,12 +363,12 @@
                 this.ranges = ranges;
             },
             //更新所有的日历
-            updateAll: function() {
+            updateAll() {
                 this.update(new Date(this.now1), 1);
                 this.range && this.update(new Date(this.now2), 2);
             },
             //点击时间输入框的时候触发
-            click: function() {
+            click() {
                 var self = this;
                 self.time1 = self.parse(self.startTime) || self.parse(self.time);
                 self.now1 = self.parse(self.startTime) || self.parse(self.time) || new Date();
@@ -320,23 +383,25 @@
                 self.show = !self.show;
             },
             //选择时间
-            select: function(item, no) {
-                var self = this;
-                self.hidePanel();
+            select(item, no) {
+                this.hidePanel();
+
                 if (item.status.indexOf('ant-calendar-disabled-cell') !== -1) {
                     return;
                 }
-                self['now' + no] = new Date(item.time);
-                self['time' + no] = new Date(item.time);
-                if (!self.range) {
-                    self.time = self.getOutTime(item.time);
-                    self.show = false;
-                } else if (!self.confirm) {
-                    self[no === 1 ? 'startTime' : 'endTime'] = self.getOutTime(item.time);
+                this['now' + no] = new Date(item.time);
+                this['time' + no] = new Date(item.time);
+
+                if (!this.range) {
+                    this.time = this.getOutTime(item.time);
+
+                    if(!this.showTime) this.show = false;
+                } else if (!this.confirm) {
+                    this[no === 1 ? 'startTime' : 'endTime'] = this.getOutTime(item.time);
                 }
             },
             //确认
-            ok: function() {
+            ok() {
                 this.show = false;
                 if (this.range && this.confirm) {
                     this.startTime = this.getOutTime(this.time1);
@@ -345,7 +410,7 @@
                 }
             },
             //选择范围
-            selectRange: function(index) {
+            selectRange(index) {
                 let item = this.ranges[index];
 
                 for(let i=0;i<this.ranges.length;i++){
@@ -361,7 +426,7 @@
                 this.hidePanel();
             },
             //根据输出类型，获取输出的时间
-            getOutTime: function(time) {
+            getOutTime(time) {
                 var type = this.time ? typeof(this.time) : typeof(this.startTime);
                 if (type === 'number') {
                     return time.getTime();
@@ -372,7 +437,7 @@
                 }
             },
             //更新时间
-            update: function(time, no) {
+            update(time, no) {
                 var i, tmpTime, curFirstDay, lastDay, curDay, day, arr = [];
                 time.setDate(0); //切换到上个月最后一天
                 curFirstDay = time.getDay(); //星期几
@@ -415,7 +480,7 @@
                 this['date' + no] = arr;
             },
             //获取时间状态
-            getTimeStatus: function(time, no, format) {
+            getTimeStatus(time, no, format) {
                 var status = '',
                     curTime = new Date(),
                     selTime = this['time' + no],
@@ -428,7 +493,7 @@
                     status = this.prefix+'-today';
                 }
                 if (this.time1 && this.time2 && time >= this.time1 && time <= this.time2) {
-                    status += 'ant-calendar-inrange';
+                    status += ' ant-calendar-inrange';
                 }
                 if (no == 1 && this.time2) {
                     var minTime = new Date(this.time2);
@@ -470,7 +535,7 @@
                 return status;
             },
             //将Date转化为指定格式的String
-            stringify: function(time, format) {
+            stringify(time, format) {
                 if (!time) {
                     return '';
                 }
@@ -504,7 +569,7 @@
                 });
             },
             //显示年份选择器
-            showYear: function(no) {
+            showYear(no) {
                 var name = 'showYear' + no;
                 this.hidePanel(name);
                 this[name] = !this[name];
@@ -526,7 +591,7 @@
                 this['years' + no] = arr;
             },
             //显示月份选择器
-            showMonth: function(no) {
+            showMonth(no) {
                 var name = 'showMonth' + no;
                 this.hidePanel(name);
                 this[name] = !this[name];
@@ -545,7 +610,7 @@
                 this['months' + no] = arr;
             },
             //切换年份选择器
-            changeYearRange: function(no, flag) {
+            changeYearRange(no, flag) {
                 var arr = this['years' + no],
                     time = new Date(this['time' + no] || new Date());
                 for (var i in arr) {
@@ -559,7 +624,7 @@
                 }
             },
             //改变年份
-            changeYear: function(flag, no) {
+            changeYear(flag, no) {
                 var now = this['now' + no];
                 now.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
                 now.setFullYear(now.getFullYear() + flag);
@@ -568,7 +633,7 @@
                 this.hidePanel();
             },
             //改变月份
-            changeMonth: function(flag, no) {
+            changeMonth(flag, no) {
                 var now = this['now' + no];
                 now.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
                 now.setMonth(now.getMonth() + flag);
@@ -577,7 +642,7 @@
                 this.hidePanel();
             },
             //选择年份
-            selectYear: function(index, no) {
+            selectYear(index, no) {
                 if (this['years'+no][index].status.indexOf('ant-calendar-disabled-cell') !== -1) {
                     return;
                 }
@@ -593,7 +658,7 @@
                 this.hidePanel();
             },
             //选择月份
-            selectMonth: function(index, no) {
+            selectMonth(index, no) {
                 if (this['months'+no][index].status.indexOf('ant-calendar-disabled-cell') !== -1) {
                     return;
                 }
@@ -609,7 +674,7 @@
                 this.hidePanel();
             },
             //隐藏所有面板
-            hidePanel: function(name) {
+            hidePanel(name) {
                 ['showYear1', 'showYear2', 'showMonth1', 'showMonth2'].map(function(item) {
                     if (item !== name) {
                         this[item] = false;
@@ -617,11 +682,12 @@
                 }.bind(this));
             },
             //清除时间
-            clear: function() {
-                var self = this;
-                self.time1 = self.time2 = self.startTime = self.endTime = self.time = null;
-                self.now1 = new Date();
-                self.now2 = new Date();
+            clear() {
+                this.time1 = this.time2 = this.startTime = this.endTime = this.time = null;
+                this.timeVal = ["00:00","00:00"];
+                this.timeSelected = false;
+                this.now1 = new Date();
+                this.now2 = new Date();
             }
         }
     }
@@ -634,6 +700,9 @@
         .ant-calendar-month-panel-table{
             height:208px;
         }
+    }
+    .ant-calendar-range.ant-calendar-time .ant-calendar-time-picker{
+        top: 34px;
     }
     .ant-calendar-top {
         color: #616161;

@@ -6,6 +6,7 @@
 @info-color             : #369BE9;
 @success-color          : #16C294;
 @error-color            : #E95471;
+@highlight-color        : #f50;
 @warning-color          : #FA9E33;
 @normal-color           : #d9d9d9;
 @dark-color             : #000000;
@@ -16,25 +17,25 @@
 @code-family            : Consolas,Menlo,Courier,monospace;
 @text-color             : #666;
 @heading-color          : #404040;
+@text-color-secondary   : #999;
 @font-size-base         : 12px;
+@font-size-lg           : @font-size-base + 2px;
 @line-height-base       : 1.5;
-@line-height-computed   : floor((@font-size-base * @line-height-base));
-@border-radius-base     : 3px;
-@border-radius-sm       : 3px;
+@border-radius-base     : 4px;
+@border-radius-sm       : 2px;
 
 // ICONFONT
 @iconfont-css-prefix    : anticon;
 @icon-url               : "https://at.alicdn.com/t/font_uzv8nkw1nabgldi";
 
 // LINK
-@link-color             : #2db7f5;
+@link-color             : #108ee9;
 @link-hover-color       : tint(@link-color, 20%);
 @link-active-color      : shade(@link-color, 5%);
 @link-hover-decoration  : none;
 
 // Disabled cursor for form controls and buttons.
 @cursor-disabled        : not-allowed;
-
 // Animation
 @ease-out            : cubic-bezier(0.215, 0.61, 0.355, 1);
 @ease-in             : cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -92,10 +93,8 @@
 @btn-disable-border     : @border-color-base;
 
 @btn-padding-base       : 4px 15px;
-
-@btn-font-size-lg       : 14px;
+@btn-font-size-lg       : @font-size-lg;
 @btn-padding-lg         : 4px 15px 5px 15px;
-
 @btn-padding-sm         : 1px 7px;
 
 @btn-circle-size        : 28px;
@@ -153,7 +152,7 @@
 // ---
 @legend-color                : #999;
 @legend-border-color         : @border-color-base;
-@label-required-color        : #f50;
+@label-required-color        : @highlight-color;
 @label-color                 : @text-color;
 @form-item-margin-bottom     : 24px;
 
@@ -203,12 +202,13 @@
 //** Popover outer arrow color
 @popover-arrow-outer-color: fadeout(@border-color-base, 30%);
 
-@form-item-margin-bottom     : 24px;
+// Progress
+// --
+@process-default-color: @primary-color;
 
-@font-size-md                : 14px;
-@font-size-lg                : 16px;
-@font-size-xl                : 18px;
-@font-size-xxl               : 20px;
+@font-size-md                : @font-size-base;
+@font-size-xl                : @font-size-base + 4px;
+@font-size-xxl               : @font-size-base + 6px;
 
 @margin-size-xs               : 2px;
 @margin-size-sm               : 5px;

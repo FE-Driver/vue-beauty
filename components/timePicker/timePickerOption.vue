@@ -1,35 +1,34 @@
 <template lang="html">
-        <div :class="wrapClasses" :style.sync="styles" v-el:opts>
-            <div class="ant-time-picker-panel-inner">
-                <div class="ant-time-picker-panel-input-wrap">
-                    <input class="ant-time-picker-panel-input" placeholder="请选择时间" v-el:time-picker-panel v-model="timeValue">
-                    <a class="ant-time-picker-panel-clear-btn" role="button" title="清除" @click="clearTime"></a>
+    <div :class="wrapClasses">
+        <div :class="[prefix+'-inner',{[prefix+'-2-columns']: !hasSeconds}]">
+            <div :class="prefix+'-input-wrap'">
+                <input :class="prefix+'-input'" placeholder="请选择时间" v-el:time-picker-panel v-model="timeValue">
+                <a :class="prefix+'-clear-btn'" role="button" title="清除" @click="clearTime"></a>
+            </div>
+            <div :class="prefix+'-combobox'">
+                <div :class="prefix+'-select'">
+                    <ul @mouseover="createSelection($els.timePickerPanel, 0, 2)">
+                        <li v-for="$index in 24" @click="timePicker('H', $event)" v-show="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
+                    </ul>
                 </div>
-                <div class="ant-time-picker-panel-combobox">
-                    <div class="ant-time-picker-panel-select">
-                        <ul @mouseover="createSelection($els.timePickerPanel, 0, 2)">
-                            <li v-for="$index in 24" @click="timePicker('H', $event)" v-show="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
-                        </ul>
-                    </div>
-                    <div class="ant-time-picker-panel-select">
-                        <ul @mouseover="createSelection($els.timePickerPanel, 3, 5)">
-                            <li v-for="$index in 60" @click="timePicker('M', $event)" v-show="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
-                        </ul>
-                    </div>
-                    <div class="ant-time-picker-panel-select" v-if="hasSeconds">
-                        <ul @mouseover="createSelection($els.timePickerPanel, 6, 8)">
-                            <li v-for="$index in 60" @click="timePicker('S', $event)" v-show="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
-                        </ul>
-                    </div>
+                <div :class="prefix+'-select'">
+                    <ul @mouseover="createSelection($els.timePickerPanel, 3, 5)">
+                        <li v-for="$index in 60" @click="timePicker('M', $event)" v-show="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
+                    </ul>
+                </div>
+                <div :class="prefix+'-select'" v-if="hasSeconds">
+                    <ul @mouseover="createSelection($els.timePickerPanel, 6, 8)">
+                        <li v-for="$index in 60" @click="timePicker('S', $event)" v-show="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
     export default {
         data: ()=> ({
-            prefix: 'ant-time-picker-panel',
             H: '00',
             M: '00',
             S: '00',
@@ -42,39 +41,35 @@
             endS: 59
         }),
         props: {
-            stylus: {
-                type: Object,
-                twoWay: true
+            prefix: {
+                type: String,
+                default: 'ant-time-picker-panel'
             },
             selected: Boolean,
-            localFormat: String,
-            startTime: String,
-            endTime: String,
+            localFormat: {
+                type: String,
+                default: 'HH:mm:ss'
+            },
+            startTime: {
+                type: String,
+                default: '00:00'
+            },
+            endTime: {
+                type: String,
+                default: '23:59'
+            },
             value: String,
             timeValue: String,
             disabledM: Array,
             disabledS: Array
         },
         ready (){
-            !this.localFormat && this.$set('localFormat', 'HH:mm:ss');
-            !this.startTime && this.$set('startTime', '00:00');
-            !this.endTime && this.$set('endTime', '23:59');
             this.timeRange();
-            document.body.appendChild(this.$els.opts);
         },
         computed: {
-            styles (){
-                return [
-                    {
-                        top: this.stylus.top + 'px' || 0,
-                        left: this.stylus.left + 'px' || 0,
-                        width: this.stylus.width + 'px'
-                    }
-                ]
-            },
             wrapClasses (){
                 return [
-                    this.prefix,
+                    `${this.prefix}${this.prefix.includes('-panel')?'':'-panel'}`,
                     `${this.prefix}-placement-bottomLeft`,
                     {[`${this.prefix}-narrow`]: !this.hasSeconds}
                 ]

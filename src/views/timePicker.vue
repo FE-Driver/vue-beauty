@@ -84,19 +84,25 @@
                         'format',
                         '展示的时间格式',
                         'string',
-                        '"HH:mm:ss"、"HH:mm"、"mm:ss"'
+                        'HH:mm:ss'
+                    ],
+                    [
+                        'position',
+                        '下拉框的定位方式(absolute、fixed)',
+                        'string',
+                        'absolute'
                     ],
                     [
                         'startTime',
                         '限制时间段开始时间',
                         'String',
-                        '"HH:mm:ss"、"HH:mm"、"mm:ss"'
+                        '00:00'
                     ],
                     [
                         'endTime',
                         '限制时间段结束时间',
                         'String',
-                        '"HH:mm:ss"、"HH:mm"、"mm:ss"'
+                        '23:59'
                     ],
                     [
                         'size',
