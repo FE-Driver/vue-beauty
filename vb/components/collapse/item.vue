@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name:'v-collapse-item',
   data: ()=>({
     prefix: 'ant-collapse',
     open: false

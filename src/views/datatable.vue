@@ -57,7 +57,6 @@
 </template>
 
 <script>
-    import vDatatable from '../../components/datatable'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
 
@@ -248,7 +247,6 @@
             }
         },
         components: {
-            vDatatable,
             codeBox,
             apiTable
         },
@@ -267,6 +265,3 @@
         }
     }
 </script>
-
-<style lang="less">
-</style>

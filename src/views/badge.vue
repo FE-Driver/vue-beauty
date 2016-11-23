@@ -123,8 +123,6 @@
 </template>
 
 <script>
-
-import vBadge from '../../components/badge'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -178,7 +176,6 @@ export default {
     }
   },
   components: {
-    vBadge,
     codeBox,
     apiTable
   }

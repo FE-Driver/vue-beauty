@@ -160,12 +160,6 @@ export default {
           'false'
         ],
         [
-          'en',
-          '是否使用英文',
-          'boolean',
-          'false'
-        ],
-        [
           'onConfirm',
           '点击确认后的回调',
           'function(startTime, endTime)',

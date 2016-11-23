@@ -110,14 +110,8 @@
 </template>
 
 <script>
-
-  import vAlert from '../../components/alert'
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
-
-  import menu from '../../components/menu/menu'
-  import subMenu from '../../components/menu/subMenu.vue'
-  import menuItem from '../../components/menu/menuItem.vue'
 
   export default {
     data: function () {
@@ -167,15 +161,8 @@
       }
     },
     components: {
-      vAlert,
       codeBox,
-      apiTable,
-      menu,
-      subMenu,
-      menuItem
+      apiTable
     }
   }
 </script>
-
-<style lang="less">
-</style>

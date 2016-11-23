@@ -54,7 +54,6 @@
 </template>
 
 <script>
-
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 

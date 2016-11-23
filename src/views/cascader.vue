@@ -44,9 +44,7 @@
 </template>
 
 <script>
-
-import vCascader from '../../components/cascader'
-import data from '../../components/cascader/data.js'
+import data from '../data/cascader.js'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -67,8 +65,7 @@ export default{
 	},
 	components:{
 		codeBox,
-    	apiTable,
-		vCascader
+    	apiTable
 	}
 }
 </script>

@@ -77,9 +77,6 @@
 </template>
 
 <script>
-
-import vInputNumber from '../../components/inputNumber'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -132,8 +129,6 @@ export default {
     }
   },
   components: {
-    vInputNumber,
-    vButton,
     codeBox,
     apiTable
   },
@@ -147,6 +142,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>

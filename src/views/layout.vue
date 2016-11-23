@@ -372,8 +372,6 @@
 
 </template>
 <script>
-
-import { vRow, vCol } from '../../components/layout'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -426,7 +424,7 @@ export default {
       ]
     }
   },
-  components: { vRow, vCol, codeBox,apiTable}
+  components: {codeBox,apiTable}
 }
 </script>
 <style lang="less">

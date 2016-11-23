@@ -7,8 +7,7 @@
 </template>
 
 <script>
-
-import panel from './panel'
+import item from './item'
 
 export default {
   name:'v-collapse',
@@ -28,11 +27,11 @@ export default {
   events: {
     'child-open': function (key) {
       if (this.accordion) {
-        for (var panel of this.$children) {
-          if (panel.key===key) {
-            panel.open = true
+        for (let item of this.$children) {
+          if (item.key===key) {
+            item.open = true
           }else {
-            panel.open = false
+            item.open = false
           }
         }
       }

@@ -369,18 +369,17 @@
             },
             //点击时间输入框的时候触发
             click() {
-                var self = this;
-                self.time1 = self.parse(self.startTime) || self.parse(self.time);
-                self.now1 = self.parse(self.startTime) || self.parse(self.time) || new Date();
-                if (self.range) {
-                    self.initRanges();
-                    self.time2 = self.parse(self.endTime);
-                    self.now2 = self.parse(self.endTime) || new Date();
+                this.time1 = this.parse(this.startTime) || this.parse(this.time);
+                this.now1 = this.parse(this.startTime) || this.parse(this.time) || new Date();
+                if (this.range) {
+                    this.initRanges();
+                    this.time2 = this.parse(this.endTime);
+                    this.now2 = this.parse(this.endTime) || new Date();
                 }
                 var rect = this.$el.getBoundingClientRect(),
                     right = document.documentElement.clientWidth - rect.left;
-                (right < (self.range ? 441 : 214) && right < rect.left) ? (self.left = true) : (self.left = false);
-                self.show = !self.show;
+                (right < (this.range ? 441 : 214) && right < rect.left) ? (this.left = true) : (this.left = false);
+                this.show = !this.show;
             },
             //选择时间
             select(item, no) {

@@ -57,11 +57,9 @@
 </template>
 
 <script>
-
-    import vButton from '../../components/button'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-    import tooltip from '../../directive/tooltip'
+    import tooltip from '../../vb/directive/tooltip'
 
     export default {
         data: function () {
@@ -85,8 +83,6 @@
             }
         },
         components: {
-            vButton,
-            vButtonGroup: vButton.Group,
             codeBox,
             apiTable
         },

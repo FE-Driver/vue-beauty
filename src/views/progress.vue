@@ -85,12 +85,7 @@
   </div>
 </template>
 
-<script>
-import { vProgressLine, vProgressCircle } from '../../components/progress'
-import vButton from '../../components/button/button.vue'
-import vButtonGroup from '../../components/button/buttonGroup.vue'
-import vIcon from '../../components/iconfont'
-
+<script> 
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -145,11 +140,6 @@ export default {
   },
 
   components: {
-    vProgressLine,
-    vProgressCircle,
-    vButtonGroup,
-    vButton,
-    vIcon,
     codeBox,
     apiTable
   },

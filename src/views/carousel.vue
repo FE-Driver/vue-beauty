@@ -76,14 +76,11 @@
     </div>
 </template>
 <script>
-  import vCarousel from '../../components/carousel'
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
-  import message from '../../components/message'
 
   export default {
      components: {
-         vCarousel,
          codeBox,
          apiTable
      },
@@ -133,7 +130,7 @@
       },
       methods: {
           onChange (current) {
-              message.info(current);
+              this.$message.info(current);
           }
       }
   }

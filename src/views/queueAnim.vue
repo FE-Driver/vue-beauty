@@ -268,16 +268,8 @@
 </template>
 
 <script>
-
-import vQueueAnim from '../../components/queueAnim'
-import vForm from '../../components/form'
-import vInput from '../../components/input'
-import vRadio from '../../components/radio'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-let vFormItem = vForm.Item
-let vRadioGroup = vRadio.Group
 
 export default {
   data: function () {
@@ -345,13 +337,6 @@ export default {
     }
   },
   components: {
-    vQueueAnim,
-    vForm,
-    vRadio,
-    vRadioGroup,
-    vFormItem,
-    vInput,
-    vButton,
     codeBox,
     apiTable
   },

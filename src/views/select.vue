@@ -49,9 +49,6 @@
 </template>
 
 <script>
-
-  import {vRow, vCol} from '../../components/layout'
-  import vSelect from '../../components/select'
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
 
@@ -66,11 +63,8 @@
       }
     },
     components: {
-      vSelect,
       codeBox,
-      apiTable,
-      vRow,
-      vCol
+      apiTable
     },
     events: {
       'select-change': function (obj) {

@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import routerMap from './routers'
-import '../components/style/index.less'
-import vue_beauty from '../components'
+import '../vb/style/index.less'
+import vue_beauty from '../vb'
 import App from './App'
 
 window.Vue = Vue;

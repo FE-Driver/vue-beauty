@@ -24,7 +24,7 @@
           title="基本"
           describe="最简单的用法，4.5 秒后自动关闭。"
           code='openNotification() {
-  notification.open({
+  this.$notification.open({
     message: "这是标题",
     description: "这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案",
   });
@@ -41,7 +41,7 @@
           title="带有Icon的通知提醒框"
           describe="通知提醒框左侧有图标。"
           code='openNotificationWithIcon(type) {
-  notification[type]({
+  this.$notification[type]({
     message: "这是标题",
     description: "这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案"
   });
@@ -68,7 +68,7 @@
           title="自动关闭的延时"
           describe="自定义通知框自动关闭的延时，默认4.5s，取消自动关闭只要将该值设为 0 即可。"
           code='openNotification() {
-  notification.open({
+  this.$notification.open({
     message: "这是标题",
     description: "我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭",
     duration: 0,
@@ -79,14 +79,6 @@
         >
           <button type="button" class="ant-btn ant-btn-primary" @click="openNotificationInfinite"><span>打开通知提醒框</span></button>
         </code-box>
-
-        <!-- <code-box
-          title="自定义"
-          describe="自定义关闭按钮的样式和文字。"
-          code=""
-        >
-          <button type="button" class="ant-btn ant-btn-primary"><span>打开通知提醒框</span></button>
-        </code-box> -->
 
       </div>
 
@@ -130,7 +122,6 @@
 
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-import notification from '../../components/notification'
 
 export default {
   data: function () {
@@ -168,20 +159,20 @@ export default {
   },
   methods: {
     openNotification() {
-      notification.open({
+      this.$notification.open({
         message: '这是标题',
         description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
       });
     },
     openNotificationInfinite() {
-      notification.open({
+      this.$notification.open({
         message: '这是标题',
         description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
         duration: 0,
       });
     },
     openNotificationWithIcon(type) {
-      notification[type]({
+      this.$notification[type]({
         message: '这是标题',
         description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
       });
@@ -193,9 +184,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-
-
-
-</style>

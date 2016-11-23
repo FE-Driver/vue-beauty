@@ -122,10 +122,6 @@
 </template>
 
 <script>
-import {vRow, vCol} from '../../components/layout'
-import vSwitch from '../../components/switch'
-import message from '../../components/message'
-import vPopover from '../../components/popover'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -190,13 +186,8 @@ export  default {
         }
     },
     components: {
-        vRow,
-        vCol,
         codeBox,
-        apiTable,
-        vPopover,
-        vSwitch,
-        message
+        apiTable
     },
     methods: {
         clickClose: function(){
@@ -209,11 +200,8 @@ export  default {
             this.outer_control_visible = val;
         },
         visibleChange: function (val) {
-            message.info(val ? '卡片显示了' : '卡片隐藏了');
+            this.$message.info(val ? '卡片显示了' : '卡片隐藏了');
         }
     }
 }
-
-
-
 </script>
