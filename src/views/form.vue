@@ -116,7 +116,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
                <v-Select :value.sync="ruleForm.region" placeholder="请选择活动区域" notfound="无法找到" :options="[{value: '1', text: '区域1'}, {value: '2', text: '区域2'}]"></v-Select>
             </v-form-item>
             <v-form-item label="活动时间" :label-col="labelCol" :wrapper-col="wrapperCol" prop="date">
-              <v-datepicker :value.sync="ruleForm.date"></v-datepicker>
+              <v-datepicker :time.sync="ruleForm.date"></v-datepicker>
             </v-form-item>
             <v-form-item label="即时配送" :label-col="labelCol" :wrapper-col="wrapperCol">
               <v-switch :value.sync="ruleForm.delivery"></v-switch>

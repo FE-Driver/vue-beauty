@@ -75,7 +75,7 @@
                 </div>
                 <div v-if="range || showTime" :class="[prefix+'-footer',{[prefix+'-range-bottom']:range}]">
                     <div class="ant-calendar-footer-btn">
-                        <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">选择时间</a>
+                        <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">{{timeSelected?'选择日期':'选择时间'}}</a>
                         <a :class="{[prefix+'-ok-btn']: showTime}" role="button" @click="ok">{{okTitle}}</a>
                     </div>
                 </div>
