@@ -207,7 +207,7 @@ webpackJsonp([37,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,22 +238,14 @@ webpackJsonp([37,50],{
 
 /***/ },
 
-/***/ 308:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
-
-	var _transfer = __webpack_require__(90);
-
-	var _transfer2 = _interopRequireDefault(_transfer);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -266,97 +258,87 @@ webpackJsonp([37,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-		data: function data() {
-			return {
-				dataSource1: [],
-				targetKeys1: [],
-				dataSource2: [],
-				targetKeys2: [],
-				dataSource3: [],
-				targetKeys3: [],
-				dataSource4: [],
-				targetKeys4: [],
-				apis: [{ "parameter": "dataSource", "explain": "数据源", "type": "Array", "default": "[]" }, { "parameter": "render", "explain": "每行数据渲染函数", "type": "Function(record)", "default": "" }, { "parameter": "targetKeys", "explain": "显示在右侧框数据的key集合", "type": "Array", "default": "[]" }, { "parameter": "onChange", "explain": "变化时回调函数", "type": "Function(targetKeys, direction, moveKeys)", "default": "" }, { "parameter": "listStyle", "explain": "两个穿梭框的自定义样式", "type": "Object", "default": "" }, { "parameter": "className", "explain": "自定义类", "type": "String", "default": "" }, { "parameter": "titles", "explain": "标题集合,顺序从左至右", "type": "Array", "default": "['源列表', '目的列表']" }, { "parameter": "operations", "explain": "操作文案集合,顺序从上至下", "type": "Array", "default": "[]" }, { "parameter": "showSearch", "explain": "是否显示搜索框", "type": "Boolean", "default": "false" }, { "parameter": "filterOption", "explain": "接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。", "type": "Function(inputValue, option)", "default": "" }, { "parameter": "searchPlaceholder", "explain": "搜索框的默认值", "type": "String", "default": "'请输入搜索内容'" }, { "parameter": "notFoundContent", "explain": "当列表为空时显示的内容", "type": "React.node", "default": "'列表为空'" }, { "parameter": "footer", "explain": "组件底部挂载点(例3)", "type": "slot", "default": "" }]
-			};
-		},
-		created: function created() {
-			this.getMock();
-		},
-
-		methods: {
-			getMock: function getMock() {
-				for (var num = 0; num < 4; num++) {
-					var targetKeys = [];
-					var mockData = [];
-					for (var i = 0; i < 20; i++) {
-						var data = {
-							key: i,
-							title: '内容' + (i + 1),
-							description: '内容' + (i + 1) + '的描述',
-							chosen: Math.random() * 2 > 1
-						};
-						if (data.chosen) {
-							targetKeys.push(data.key);
-						}
-						mockData.push(data);
-					}
-					this['dataSource' + (num + 1)] = mockData;
-					this['targetKeys' + (num + 1)] = targetKeys;
-				}
-			},
-			render: function render(recoder) {
-				return recoder.title;
-			},
-			render2: function render2(recoder) {
-				return {
-					label: recoder.title + ' - ' + recoder.description,
-					value: recoder.title
-				};
-			},
-			handleChange1: function handleChange1(targetKeys, direction, moveKeys) {
-				this.targetKeys1 = targetKeys;
-			},
-			handleChange2: function handleChange2(targetKeys, direction, moveKeys) {
-				this.targetKeys2 = targetKeys;
-			},
-			handleChange3: function handleChange3(targetKeys, direction, moveKeys) {
-				this.targetKeys3 = targetKeys;
-			},
-			handleChange4: function handleChange4(targetKeys, direction, moveKeys) {
-				this.targetKeys4 = targetKeys;
-			},
-			filterOption: function filterOption(inputValue, option) {
-				return option.description.indexOf(inputValue) > -1;
-			}
-		},
-		components: {
-			vTransfer: _transfer2.default,
-			vButton: _button2.default,
-			codeBox: _codeBox2.default,
-			apiTable: _apiTable2.default
-		}
+	  data: function data() {
+	    return {
+	      url: '<span type="success" message="成功提示的文案"></span>',
+	      options: [{ value: '1', text: 'lady' }, { value: '2', text: '小强', disabled: true }, { value: '3', text: '小明' }],
+	      options2: [{ value: '1', text: 'lady' }, { value: '2', text: '小强' }, { value: '3', text: '小明' }],
+	      value: '3',
+	      apis: [{
+	        parameter: 'type',
+	        explain: '【必须】声明 input 类型，同原生 input 标签的 type 属性。另外提供 type="textarea"。',
+	        type: 'String',
+	        default: 'text'
+	      }, {
+	        parameter: 'value',
+	        explain: 'value 值',
+	        type: 'any',
+	        default: '无'
+	      }, {
+	        parameter: 'size',
+	        explain: '控件大小，默认值为 default 。{"large","default","small"}注：标准表单内的输入框大小限制为 large。',
+	        type: 'String',
+	        default: 'default'
+	      }, {
+	        parameter: 'disabled',
+	        explain: '是否禁用状态，默认为 false',
+	        type: 'Bool',
+	        default: 'false'
+	      }, {
+	        parameter: 'debounce',
+	        explain: '每次敲击之后同步输入框的值与数据的延时时间',
+	        type: 'Number',
+	        default: '0'
+	      }, {
+	        parameter: 'slot::before',
+	        explain: 'input前面加前缀修饰',
+	        type: 'slot node',
+	        default: '无'
+	      }, {
+	        parameter: 'slot::after',
+	        explain: 'input后面加后缀修饰',
+	        type: 'slot node',
+	        default: '无'
+	      }, {
+	        parameter: 'blur(val)',
+	        explain: 'blur事件',
+	        type: 'event',
+	        default: '无'
+	      }],
+	      disabled: true
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  },
+	  methods: {
+	    blur: function blur(val) {
+	      console.log(val);
+	    }
+	  }
 	};
 
 /***/ },
 
-/***/ 596:
+/***/ 438:
 /***/ function(module, exports) {
 
-	module.exports = "\n\t<section class=\"markdown\">\n      <h1>Transfer  穿梭框</h1>\n      <p>\n        双栏穿梭选择框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>用直观的方式在两栏中移动元素，完成选择行为。</li>\n      </ul>\n      <h2>组件演示</h2>\n  </section>\n\t<div class=\"ant-col-24 code-boxes-col-1-1\">\n    \t<code-box\n        title=\"基本用法\"\n        describe=\"最基本的用法。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource1\"\n\t\t\t\t :target-keys=\"targetKeys1\"\n\t\t\t\t :on-change=\"handleChange1\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"带搜索框\"\n        describe=\"带搜索框的穿梭框，可以自定义搜索函数。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource2\"\n\t\t\t\t :target-keys=\"targetKeys2\"\n\t\t\t\t :on-change=\"handleChange2\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"高级用法\"\n        describe=\"穿梭框高级用法，可配置操作文案，可定制宽高，可对底部进行自定义渲染。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource3\"\n\t\t\t\t :target-keys=\"targetKeys3\"\n\t\t\t\t :on-change=\"handleChange3\"\n\t\t\t\t :list-style=\"{width: '250px', height: '300px'}\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :operations=\"['向右操作文案', '向左操作文案']\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t \t<div :style=\"{float: 'right', margin: '5px'}\">\n\t\t\t\t \t\t<v-button \n\t\t\t\t \t\ttype=\"ghost\" \n\t\t\t\t \t\tsize=\"small\"\n\t\t\t\t \t\t@click=\"getMock\"\n\t\t\t\t \t\t>刷新</v-button>\n\t\t\t\t \t</div>\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"自定义渲染行数据\"\n        describe=\"自定义渲染每一个 Transfer Item，可用于渲染复杂数据。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource4\"\n\t\t\t\t :target-keys=\"targetKeys4\"\n\t\t\t\t :on-change=\"handleChange4\"\n\t\t\t\t :list-style=\"{width: '300px', height: '300px'}\"\n\t\t\t\t :render=\"render2\">\n\t\t\t\t </v-transfer>\n      </code-box>\n  </div>\n  <api-table :apis=\"apis\"></api-table>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Input 输入框</h1>\n    <p>\n      通过鼠标或键盘输入内容，是最基础的表单域的包装。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        需要用户输入表单域内容时。\n      </p>\n       <p>\n        提供组合型输入框，带搜索的输入框，还可以进行大小选择。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本使用\"\n        describe=\"基本使用。\"\n      >\n        <v-input placeholder=\"基本使用\" @blur=\"blur\"></v-input>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box\n      title=\"前后缀修饰添加\"\n        describe=\"带有前缀后缀修饰\">\n        <v-input placeholder=\"基本使用\">\n          <span slot=\"before\">http://</span>\n          <span slot=\"after\">.com</span>\n        </v-input>\n        <br/>\n        <v-input placeholder=\"基本使用\">\n          <v-Select placeholder=\"请选择\" style=\"width: 80px;\" slot=\"before\" :options=\"options\" :value.sync=\"value\"></v-Select>\n          <v-Select style=\"width: 80px;\" slot=\"after\" :options=\"options2\" :value.sync=\"value\"></v-Select>\n        </v-input>\n\n      </code-box>\n    </div>\n\n  </div>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box\n        title=\"文本域\"\n        describe=\"用于多行输入，指定 type 为一个特殊的 textarea。\"\n      >\n       <v-input type=\"textarea\" value=\"这是一个textarea\"></v-input>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"三种大小\"\n        describe=\"我们为 &lt; v-input &gt; 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。\"\n      >\n        <v-input size=\"large\" placeholder=\"大尺寸\" style=\"width:200px;display:inline-block\" disabled></v-input>\n        <v-input placeholder=\"基本尺寸\" style=\"width:200px;display:inline-block\"></v-input>\n        <br/><br/>\n        <v-input size=\"small\" placeholder=\"小尺寸\" style=\"width:200px;display:inline-block\"></v-input>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 716:
+/***/ 569:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(308)
+	__vue_script__ = __webpack_require__(206)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\transfer.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(596)
+	  console.warn("[vue-loader] src\\views\\input.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(438)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

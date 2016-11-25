@@ -207,7 +207,7 @@ webpackJsonp([21,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([21,50],{
 
 /***/ },
 
-/***/ 284:
+/***/ 226:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([21,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _inputNumber = __webpack_require__(77);
-
-	var _inputNumber2 = _interopRequireDefault(_inputNumber);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -269,60 +261,48 @@ webpackJsonp([21,50],{
 	  data: function data() {
 	    return {
 	      apis: [{
-	        parameter: 'min',
-	        explain: '最小值',
-	        type: 'Number',
-	        default: '-Infinity'
-	      }, {
-	        parameter: 'max',
-	        explain: '最大值',
-	        type: 'Number',
-	        default: 'Infinity'
-	      }, {
-	        parameter: 'value',
-	        explain: '当前值',
-	        type: 'Number',
-	        default: '无'
-	      }, {
-	        parameter: 'step',
-	        explain: '每次改变步数，可以为小数',
-	        type: 'Number',
-	        default: '1'
-	      }, {
-	        parameter: 'defaultValue',
-	        explain: '初始值',
-	        type: 'Number',
-	        default: '无'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '变化回调',
-	        type: 'Function',
-	        default: '无'
-	      }, {
-	        parameter: 'disabled',
-	        explain: '禁用',
-	        type: 'Boolean',
+	        parameter: 'checked',
+	        explain: '指定当前是否选中',
+	        type: 'boolean',
 	        default: 'false'
 	      }, {
-	        parameter: 'size',
-	        explain: '输入框大小',
-	        type: 'String',
+	        parameter: 'disabeled',
+	        explain: '指定当前是否被禁用',
+	        type: 'boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'onChange',
+	        explain: '变化时回调函数',
+	        type: 'Function(checked:boolean)',
 	        default: '无'
+	      }, {
+	        parameter: 'slot::checkedChildren',
+	        explain: '选中时的内容',
+	        type: 'slot node',
+	        default: '无'
+	      }, {
+	        parameter: 'slot::unCheckedChildren',
+	        explain: '非选中时的内容',
+	        type: 'slot node',
+	        default: '无'
+	      }, {
+	        parameter: 'size',
+	        explain: '开关大小（"default" or "small"）',
+	        type: 'string',
+	        default: 'default'
 	      }],
 	      disabled: true
 	    };
 	  },
 	  components: {
-	    vInputNumber: _inputNumber2.default,
-	    vButton: _button2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  },
 	  methods: {
-	    _handleChange: function _handleChange(value) {
-	      console.log('changed ', value);
+	    _change: function _change(val) {
+	      return console.log('current value:' + val);
 	    },
-	    _toggle: function _toggle() {
+	    _toogle: function _toogle() {
 	      this.disabled = !this.disabled;
 	    }
 	  }
@@ -330,67 +310,24 @@ webpackJsonp([21,50],{
 
 /***/ },
 
-/***/ 383:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 439:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(383);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./inputNumber.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./inputNumber.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 572:
+/***/ 457:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>InputNumber 数字输入框</h1>\n      <p>\n        通过鼠标或键盘，输入范围内的数值。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          当需要获取标准数值时。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"数字输入框。\"\n          code=\"<v-input-number min='1'' max='10'' default-value='3'' :on-change='_handleChange'></v-input-number>\"\n        >\n        <v-input-number min=\"1\" max=\"10\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n        </code-box>\n\n        <code-box\n          title=\"不可用\"\n          describe=\"点击按钮切换可用状态。\"\n          code=\"<v-input-number min='1' max='10'' :disabled='disabled'' default-value='3'></v-input-number>\n<v-button @click='_toggle'' type='primary'>Toggle disabled</v-button>\"\n        >\n          <v-input-number min=\"1\" max=\"10\" :disabled=\"disabled\" default-value=\"3\"></v-input-number>\n          <br><br>\n          <v-button @click=\"_toggle\" type=\"primary\">Toggle disabled</v-button>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"三种大小\"\n          describe=\"三种大小的数字输入框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n          code=\"<v-input-number size='large' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\n<v-input-number min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\n<v-input-number size='small' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\"\n        >\n          <v-input-number size=\"large\" min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n          <v-input-number min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n          <v-input-number size=\"small\" min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n        </code-box>\n\n        <code-box\n          title=\"小数\"\n          describe=\"和原生的数字输入框一样，value 的精度由 step 的小数位数决定。\"\n          code=\"<v-button type='primary'>Primary</v-button>\n<v-button type='primary' disabled>Primary</v-button>\"\n        >\n          <v-input-number min=\"1\" max=\"10\" step=\"0.1\"></v-input-number>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Switch开关</h1>\n      <p>\n        开关选择器。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          需要表示开关状态/两种状态之间的切换时；\n        </p>\n        <p>\n          和 checkbox的区别是，切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"简单\"\n          describe=\"最简单的用法。\"\n          code=\"<v-switch :on-change='_change'></v-switch>\"\n        >\n          <v-switch :on-change=\"_change\"></v-switch>\n        </code-box>\n\n        <code-box\n          title=\"文字和图标\"\n          describe=\"带有文字和图标。\"\n          code=\"<v-switch>\n  <span slot='checkedChildren'>开</span>\n  <span slot='unCheckedChildren'>关</span>\n</v-switch>\n<v-switch>\n  <span slot='checkedChildren'>\n    <i class='anticon anticon-check'></i>\n  </span>\n  <span slot='unCheckedChildren'>\n    <i class='anticon anticon-cross'></i>\n  </span>\n</v-switch>\"\n        >\n          <v-switch>\n            <span slot=\"checkedChildren\">开</span>\n            <span slot=\"unCheckedChildren\">关</span>\n          </v-switch>\n          <br>\n          <br>\n          <v-switch>\n            <span slot=\"checkedChildren\">\n              <i class=\"anticon anticon-check\"></i>\n            </span>\n            <span slot=\"unCheckedChildren\">\n              <i class=\"anticon anticon-cross\"></i>\n            </span>\n          </v-switch>\n        </code-box>\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"Switch 失效状态。\"\n          code=\"<v-switch disabled></v-switch>\n<v-button type='primary' @click='_toogle'>Toggle disabled</v-button>\"\n        >\n          <v-switch :disabled=\"disabled\"></v-switch>\n          <br>\n          <br>\n          <v-button type=\"primary\" @click=\"_toogle\">Toggle disabled</v-button>\n        </code-box>\n\n        <code-box\n          title=\"两种大小\"\n          describe=\"size='small' 表示小号开关。\"\n          code=\"<v-switch></v-switch>\n<v-switch size='small'></v-switch>\"\n        >\n          <v-switch></v-switch>\n          <br>\n          <v-switch size=\"small\"></v-switch>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 691:
+/***/ 589:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(439)
-	__vue_script__ = __webpack_require__(284)
+	__vue_script__ = __webpack_require__(226)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\inputNumber.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(572)
+	  console.warn("[vue-loader] src\\views\\switch.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(457)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

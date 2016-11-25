@@ -207,7 +207,7 @@ webpackJsonp([22,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([22,50],{
 
 /***/ },
 
-/***/ 283:
+/***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,128 +260,95 @@ webpackJsonp([22,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      url: '<span type="success" message="成功提示的文案"></span>',
-	      options: [{ value: '1', text: 'lady' }, { value: '2', text: '小强', disabled: true }, { value: '3', text: '小明' }],
-	      options2: [{ value: '1', text: 'lady' }, { value: '2', text: '小强' }, { value: '3', text: '小明' }],
-	      value: '3',
-	      apis: [{
-	        parameter: 'type',
-	        explain: '【必须】声明 input 类型，同原生 input 标签的 type 属性。另外提供 type="textarea"。',
-	        type: 'String',
-	        default: 'text'
+	      current: 1,
+	      steps: [{
+	        title: "步骤1"
 	      }, {
-	        parameter: 'value',
-	        explain: 'value 值',
-	        type: 'any',
-	        default: '无'
+	        title: "步骤2"
 	      }, {
-	        parameter: 'size',
-	        explain: '控件大小，默认值为 default 。{"large","default","small"}注：标准表单内的输入框大小限制为 large。',
-	        type: 'String',
-	        default: 'default'
+	        title: "步骤3"
 	      }, {
-	        parameter: 'disabled',
-	        explain: '是否禁用状态，默认为 false',
-	        type: 'Bool',
-	        default: 'false'
-	      }, {
-	        parameter: 'debounce',
-	        explain: '每次敲击之后同步输入框的值与数据的延时时间',
+	        title: "步骤4"
+	      }],
+	      apiSteps: [{
+	        parameter: 'current',
+	        explain: '指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 status 属性覆盖状态',
 	        type: 'Number',
 	        default: '0'
 	      }, {
-	        parameter: 'slot::before',
-	        explain: 'input前面加前缀修饰',
-	        type: 'slot node',
-	        default: '无'
+	        parameter: 'status',
+	        explain: '指定当前步骤的状态，可选 wait process finish error',
+	        type: 'String',
+	        default: 'process'
 	      }, {
-	        parameter: 'slot::after',
-	        explain: 'input后面加后缀修饰',
-	        type: 'slot node',
-	        default: '无'
+	        parameter: 'size',
+	        explain: '指定大小，目前支持普通（default）和迷你（small）',
+	        type: 'String',
+	        default: 'default'
 	      }, {
-	        parameter: 'blur(val)',
-	        explain: 'blur事件',
-	        type: 'event',
+	        parameter: 'direction',
+	        explain: '指定步骤条方向。目前支持水平和竖直（vertical）两种方向，默认水平方向）',
+	        type: 'String',
 	        default: '无'
 	      }],
-	      disabled: true
+	      apiStep: [{
+	        parameter: 'status',
+	        explain: '指定状态。当不配置该属性时，会使用 Steps 的 current 来自动指定状态。可选：wait process finish error',
+	        type: 'String',
+	        default: 'wait'
+	      }, {
+	        parameter: 'title',
+	        explain: '标题',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'description',
+	        explain: '步骤的详情描述，可选',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'icon',
+	        explain: '步骤图标，可选',
+	        type: 'String',
+	        default: '无'
+	      }]
 	    };
+	  },
+	  methods: {
+	    next: function next() {
+	      if (this.current < this.steps.length) {
+	        this.current++;
+	      } else {
+	        this.current = 1;
+	      }
+	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
-	  },
-	  methods: {
-	    blur: function blur(val) {
-	      console.log(val);
-	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 382:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 438:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(382);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./input.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./input.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 571:
+/***/ 456:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Input 输入框</h1>\n      <p>\n        通过鼠标或键盘输入内容，是最基础的表单域的包装。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          需要用户输入表单域内容时。\n        </p>\n         <p>\n          提供组合型输入框，带搜索的输入框，还可以进行大小选择。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本使用\"\n          describe=\"基本使用。\"\n          code=\"<v-input placeholder='基本使用'></v-input>\"\n        >\n          <v-input placeholder=\"基本使用\" @blur=\"blur\"></v-input>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n        title=\"前后缀修饰添加\"\n          describe=\"带有前缀后缀修饰\"\n          code='\n          <v-input placeholder=\"基本使用\">\n            <span slot=\"before\">http://</span>\n            <span slot=\"after\">.com</span>\n          </v-input>\n          <v-input placeholder=\"基本使用\">\n            <v-Select placeholder=\"请选择\" style=\"width: 80px;\" slot=\"before\" :options=\"options\" :value.sync=\"value\"></v-Select>\n            <v-Select style=\"width: 80px;\" slot=\"after\" :options=\"options2\" :value.sync=\"value\"></v-Select>\n          </v-input>'>\n          <v-input placeholder=\"基本使用\">\n            <span slot=\"before\">http://</span>\n            <span slot=\"after\">.com</span>\n          </v-input>\n          <br/>\n          <v-input placeholder=\"基本使用\">\n            <v-Select placeholder=\"请选择\" style=\"width: 80px;\" slot=\"before\" :options=\"options\" :value.sync=\"value\"></v-Select>\n            <v-Select style=\"width: 80px;\" slot=\"after\" :options=\"options2\" :value.sync=\"value\"></v-Select>\n          </v-input>\n\n        </code-box>\n      </div>\n\n    </div>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n          title=\"文本域\"\n          describe=\"用于多行输入，指定 type 为一个特殊的 textarea。\"\n          code=\"<v-input type='textarea'></v-input>\"\n        >\n         <v-input type=\"textarea\" value=\"这是一个textarea\"></v-input>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"三种大小\"\n          describe=\"我们为 <Input /> 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。\"\n          code=\"<v-input size='large' placeholder='大尺寸' style='width:200px;display:inline-block' disabled></v-input>\n<v-input placeholder='基本尺寸' style='width:200px;display:inline-block'></v-input>\n<v-input size='small' placeholder='小尺寸' style='width:200px;display:inline-block'></v-input>\"\n        >\n          <v-input size=\"large\" placeholder=\"大尺寸\" style=\"width:200px;display:inline-block\" disabled></v-input>\n          <v-input placeholder=\"基本尺寸\" style=\"width:200px;display:inline-block\"></v-input>\n          <br/><br/>\n          <v-input size=\"small\" placeholder=\"小尺寸\" style=\"width:200px;display:inline-block\"></v-input>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>v-steps 步骤条</h1>\n      <p>\n        引导用户按照流程完成任务的导航条。\n      </p>\n      <h2>何时使用</h2>\n      <p>\n        当任务复杂或者存在先后关系时，将其分解成一系列步骤，从而简化任务。\n      </p>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"迷你版\"\n          describe=\"迷你版的步骤条，通过设置 <v-steps size='small'> 启用.\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps size=\"small\" :current=\"1\">\n  <v-step title=\"已完成\" ></v-step>\n  <v-step title=\"进行中\" ></v-step>\n  <v-step title=\"待运行\" ></v-step>\n  <v-step title=\"待运行\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps size=\"small\" :current=\"1\">\n            <v-step title=\"已完成\" ></v-step>\n            <v-step title=\"进行中\" ></v-step>\n            <v-step title=\"待运行\" ></v-step>\n            <v-step title=\"待运行\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"带图标的步骤条\"\n          describe=\"通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps>\n  <v-step status=\"finish\" title=\"步骤1\" icon=\"cloud\" ></v-step>\n  <v-step status=\"process\" title=\"步骤2\" icon=\"apple\" ></v-step>\n  <v-step status=\"wait\" title=\"步骤3\" icon=\"github\" ></v-step>\n</v-steps>'\n        >\n          <v-steps>\n            <v-step status=\"finish\" title=\"步骤1\" icon=\"cloud\" ></v-step>\n            <v-step status=\"process\" title=\"步骤2\" icon=\"apple\" ></v-step>\n            <v-step status=\"wait\" title=\"步骤3\" icon=\"github\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"带图标的步骤条\"\n          describe=\"通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\ncurrent: 1,\nv-steps: [\n  {\n    title: \"步骤1\",\n  },\n  {\n    title: \"步骤2\",\n  },\n  {\n    title: \"步骤3\",\n  },\n  {\n    title: \"步骤4\",\n  }\n],\n\nnext() {\n  if (this.current < this.v-steps.length) {\n    this.current ++\n  }else{\n    this.current = 1\n  }\n}\n\n<div>\n  <div style=\"margin-bottom: 24px\">当前正在执行第 {{current}} 步</div>\n  <v-steps :current=\"current - 1\">\n    <v-step :key=\"$index\" :title=\"s.title\" v-for=\"s in v-steps\" ></v-step>\n  </v-steps>\n  <div style=\"margin-top: 24px\">\n    <button type=\"button\" name=\"button\" class=\"ant-btn\" @click=\"next\">下一步</button>\n  </div>\n</div>\n'\n        >\n          <div>\n            <div style=\"margin-bottom: 24px\">当前正在执行第 {{current}} 步</div>\n            <v-steps :current=\"current - 1\">\n              <v-step :key=\"$index\" :title=\"s.title\" v-for=\"s in steps\" ></v-step>\n            </v-steps>\n            <div style=\"margin-top: 24px\">\n              <button type=\"button\" name=\"button\" class=\"ant-btn\" @click=\"next\">下一步</button>\n            </div>\n          </div>\n        </code-box>\n\n        <code-box\n          title=\"竖直方向的步骤条\"\n          describe=\"简单的竖直方向的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" direction=\"vertical\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" direction=\"vertical\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"竖直方向的步骤条\"\n          describe=\"简单的竖直方向的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" direction=\"vertical\" size=\"small\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" direction=\"vertical\" size=\"small\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"步骤运行错误\"\n          describe=\"使用 v-steps 的 status 属性来指定当前步骤的状态。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" status=\"error\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" status=\"error\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n      </div>\n\n    </div>\n\n    <api-table\n      :apis='apiSteps'\n    >\n      <h3>Steps</h3>\n\n      <span>整体步骤条。</span>\n    </api-table>\n\n    <api-table\n      :apis='apiStep'\n    >\n      <h3>Steps.Step</h3>\n\n      <span>步骤条内的每一个步骤。</span>\n    </api-table>\n\n    <div class=\"\" style=\"height: 400px\">\n\n    </div>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 690:
+/***/ 588:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(438)
-	__vue_script__ = __webpack_require__(283)
+	__vue_script__ = __webpack_require__(225)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\input.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(571)
+	  console.warn("[vue-loader] src\\views\\steps.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(456)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

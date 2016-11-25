@@ -207,7 +207,7 @@ webpackJsonp([7,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,18 +238,14 @@ webpackJsonp([7,50],{
 
 /***/ },
 
-/***/ 307:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -259,44 +255,60 @@ webpackJsonp([7,50],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _tooltip = __webpack_require__(93);
-
-	var _tooltip2 = _interopRequireDefault(_tooltip);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    data: function data() {
-	        return {
-	            apis: [{
-	                parameter: ':事件',
-	                explain: '显示或关闭tip的触发事件,支持hover或focus',
-	                type: 'String',
-	                default: 'hover'
-	            }, {
-	                parameter: '.位置',
-	                explain: '显示tip的位置,支持8种:left,right,top,bottom,topleft,topright,bottomleft,bottomright',
-	                type: 'String',
-	                default: 'top'
-	            }],
-	            msg: '<em>hello world</em>',
-	            msg1: '明月几时有'
-	        };
-	    },
-	    components: {
-	        vButton: _button2.default,
-	        vButtonGroup: _button2.default.Group,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    },
-	    directive: {
-	        tooltip: _tooltip2.default
-	    }
+	  data: function data() {
+	    return {
+	      apis: [{
+	        parameter: 'span',
+	        explain: '栅格系统（列）元素，row的直接元素，其值1到24来表示其跨越row的范围。例如，三个等宽d的列可以使用.col-8来创建，将一行整分割成3份同样大小的区域',
+	        type: 'String,Number',
+	        default: '无'
+	      }, {
+	        parameter: 'push',
+	        explain: '栅格系统内子元素默认是左浮动，push的作用设置子元素基于自己原来浮动的位置的向右移动的距离',
+	        type: 'String,Number',
+	        default: '无'
+	      }, {
+	        parameter: 'pull',
+	        explain: '栅格系统内子元素默认是左浮动，pull的作用设置子元素基于自己原来浮动的位置的向左移动的距离',
+	        type: 'String,Number',
+	        default: '无'
+	      }, {
+	        parameter: 'offset',
+	        explain: '栅格系统内子元素默认是左浮动，offset的作用设置子元素的margin-left的值',
+	        type: 'String,Number',
+	        default: '无'
+	      }, {
+	        parameter: 'display',
+	        explain: '栅格系统（行）区域，规定外层元素应该生成的框的类型，可用值 "flex"',
+	        type: 'String',
+	        default: "block"
+	      }, {
+	        parameter: 'pack',
+	        explain: '栅格系统（行）区域，规定display="flex"类型的外层元素内部元素的排列模式，可选值["start","center","end","space-between","space-around"]，声明该值的时候display="flex"是必须的',
+	        type: 'String',
+	        default: 'start'
+	      }, {
+	        parameter: 'align',
+	        explain: '栅格系统（行）区域，规定display="flex"类型的外层元素内部元素的对齐模式，可选值["top","middle","bottom"]，声明该值的时候display="flex"是必须的',
+	        type: 'Array',
+	        default: '无'
+	      }, {
+	        parameter: 'order',
+	        explain: '栅格化系统支持 Flex 布局，支持使用 order 来定义子元素的排列顺序。',
+	        type: 'String,Number',
+	        default: '无'
+	      }]
+	    };
+	  },
+	  components: { codeBox: _codeBox2.default, apiTable: _apiTable2.default }
 	};
 
 /***/ },
 
-/***/ 396:
+/***/ 369:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -304,20 +316,20 @@ webpackJsonp([7,50],{
 
 
 	// module
-	exports.push([module.id, "p {\n  line-height: 3;\n}\n", ""]);
+	exports.push([module.id, ".global .code-box:hover {\n  box-shadow: none;\n}\n.global .highlight pre code {\n  background: #f7f7f7;\n}\n.global .ant-row .paragraph-14px {\n  font-size: 14px;\n}\n.global .ant-row .paragraph-12px {\n  font-size: 12px;\n}\n.global .demo-row {\n  margin-bottom: 20px;\n}\n.global .demo-ant-row-col .ant-row,\n.global .demo-row {\n  background-image: -webkit-linear-gradient(left, #F5F5F5 4.16666667%, transparent 4.16666667%, transparent 8.33333333%, #F5F5F5 8.33333333%, #F5F5F5 12.5%, transparent 12.5%, transparent 16.66666667%, #F5F5F5 16.66666667%, #F5F5F5 20.83333333%, transparent 20.83333333%, transparent 25%, #F5F5F5 25%, #F5F5F5 29.16666667%, transparent 29.16666667%, transparent 33.33333333%, #F5F5F5 33.33333333%, #F5F5F5 37.5%, transparent 37.5%, transparent 41.66666667%, #F5F5F5 41.66666667%, #F5F5F5 45.83333333%, transparent 45.83333333%, transparent 50%, #F5F5F5 50%, #F5F5F5 54.16666667%, transparent 54.16666667%, transparent 58.33333333%, #F5F5F5 58.33333333%, #F5F5F5 62.5%, transparent 62.5%, transparent 66.66666667%, #F5F5F5 66.66666667%, #F5F5F5 70.83333333%, transparent 70.83333333%, transparent 75%, #F5F5F5 75%, #F5F5F5 79.16666667%, transparent 79.16666667%, transparent 83.33333333%, #F5F5F5 83.33333333%, #F5F5F5 87.5%, transparent 87.5%, transparent 91.66666667%, #F5F5F5 91.66666667%, #F5F5F5 95.83333333%, transparent 95.83333333%);\n  background-image: linear-gradient(90deg, #F5F5F5 4.16666667%, transparent 4.16666667%, transparent 8.33333333%, #F5F5F5 8.33333333%, #F5F5F5 12.5%, transparent 12.5%, transparent 16.66666667%, #F5F5F5 16.66666667%, #F5F5F5 20.83333333%, transparent 20.83333333%, transparent 25%, #F5F5F5 25%, #F5F5F5 29.16666667%, transparent 29.16666667%, transparent 33.33333333%, #F5F5F5 33.33333333%, #F5F5F5 37.5%, transparent 37.5%, transparent 41.66666667%, #F5F5F5 41.66666667%, #F5F5F5 45.83333333%, transparent 45.83333333%, transparent 50%, #F5F5F5 50%, #F5F5F5 54.16666667%, transparent 54.16666667%, transparent 58.33333333%, #F5F5F5 58.33333333%, #F5F5F5 62.5%, transparent 62.5%, transparent 66.66666667%, #F5F5F5 66.66666667%, #F5F5F5 70.83333333%, transparent 70.83333333%, transparent 75%, #F5F5F5 75%, #F5F5F5 79.16666667%, transparent 79.16666667%, transparent 83.33333333%, #F5F5F5 83.33333333%, #F5F5F5 87.5%, transparent 87.5%, transparent 91.66666667%, #F5F5F5 91.66666667%, #F5F5F5 95.83333333%, transparent 95.83333333%);\n  overflow: hidden;\n}\n.global .row-flex {\n  background: #F5F5F5;\n}\n.global .demo-ant-row-col .ant-row div,\n.global .demo-row div,\n.global .row-flex div {\n  padding: 5px 0;\n  background: rgba(24, 115, 216, 0.7);\n  text-align: center;\n  min-height: 28px;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  margin-top: 10px;\n  margin-bottom: 10px;\n  color: #fff;\n}\n.global .demo-row .demo-col {\n  text-align: center;\n  padding: 40px 0;\n  color: #fff;\n  font-size: 18px;\n  border: none;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.global .demo-row .demo-col-1 {\n  background: rgba(24, 115, 216, 0.7);\n}\n.global .demo-row .demo-col-2 {\n  background: rgba(24, 115, 216, 0.5);\n}\n.global .demo-row .demo-col-3 {\n  background: rgba(255, 255, 255, 0.2);\n  color: #999;\n}\n.global .demo-row .demo-col-4 {\n  background: rgba(24, 115, 216, 0.6);\n}\n.global .demo-row .demo-col-5 {\n  background: rgba(255, 255, 255, 0.5);\n  color: #999;\n}\n.global .hight-100 {\n  height: 100px;\n}\n.global .hight-50 {\n  height: 50px;\n}\n.global .hight-120 {\n  height: 120px;\n}\n.global .hight-80 {\n  height: 80px;\n}\n.global .testRowClassName {\n  background: #f0f0f0;\n}\n.global div.testColClassName {\n  background: rgba(24, 115, 216, 0.9);\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 452:
+/***/ 400:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(396);
+	var content = __webpack_require__(369);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -326,8 +338,8 @@ webpackJsonp([7,50],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./tooltip.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./tooltip.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./layout.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./layout.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -338,25 +350,25 @@ webpackJsonp([7,50],{
 
 /***/ },
 
-/***/ 595:
+/***/ 440:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>tooltip指令</h1>\n        <p>\n            显示简单的提示文字或HTML内容。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                需要给用户提示一些辅助信息时。\n            </p>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip\"\n                    describe=\"tooltip指令使用很简单,v-tooltip='msg'即可.\">\n                <v-button type='success' v-tooltip='msg'>默认</v-button>\n            </code-box>\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip-触发事件\"\n                    describe=\"如果需要指定触发事件,使用v-tooltip:hover='msg'或者v-tooltip:focus='msg'\">\n                <v-button type='success' v-tooltip:hover.top='msg'>hover触发</v-button>\n                <input type=\"text\" v-tooltip:focus.top='msg1' placeholder=\"focus触发\">\n            </code-box>\n        </div>\n\n        <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip-显示位置\"\n                    describe=\"可以使用修饰符指定显示位置,如v-tooltip:hover.right='msg1',支持8种位置\">\n                <v-button type='success' v-tooltip:hover.left='msg'>left</v-button>\n                <a href=\"###\" v-tooltip:hover.right='msg1'>right</a>\n                <v-button type='success' v-tooltip:hover.top='msg'>top</v-button>\n                <a href=\"###\" v-tooltip:hover.bottom='msg1'>bottom</a>\n                <v-button type='success' v-tooltip:hover.topLeft='msg'>topLeft</v-button>\n                <a href=\"###\" v-tooltip:hover.topRight='msg1'>topRight</a>\n                <v-button type='success' v-tooltip:hover.bottomLeft='msg'>bottomLeft</v-button>\n                <a href=\"###\" v-tooltip:hover.bottomRight='msg1'>bottomRight</a>\n            </code-box>\n        </div>\n    </div>\n\n    <api-table\n            :apis='apis'\n    ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div class=\"markdown global\">\n\n  <h2>栅格设计理念</h2>\n  <p>在多数业务情况下，Ant Design需要在设计区域内解决大量信息收纳的问题，因此在12栅格系统的基础上，我们将整个设计建议区域按照24等分的原则进行划分。\n划分之后的信息区块我们称之为“盒子”。\n建议横向排列的盒子数量最多四个，最少一个。“盒子”在整个屏幕上占比见下图。\n设计部分基于盒子的单位定制盒子内部的排版规则，以保证视觉层面的舒适感。\n  </p>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-1\" span=\"24\">\n      100%\n    </v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-2\" span=\"6\">25%</v-col>\n    <v-col class=\"demo-col demo-col-3\" span=\"6\">25%</v-col>\n    <v-col class=\"demo-col demo-col-2\" span=\"6\">25%</v-col>\n    <v-col class=\"demo-col demo-col-3\" span=\"6\">25%</v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-4\" span=\"8\">33.33%</v-col>\n    <v-col class=\"demo-col demo-col-5\" span=\"8\">33.33%</v-col>\n    <v-col class=\"demo-col demo-col-4\" span=\"8\">33.33%</v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-1\" span=\"12\">50%</v-col>\n    <v-col class=\"demo-col demo-col-3\" span=\"12\">50%</v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-4\" span=\"16\">66.66%</v-col>\n    <v-col class=\"demo-col demo-col-5\" span=\"8\">33.33%</v-col>\n  </v-row>\n\n  <h2>概述</h2>\n  <p>\n  布局的栅格化系统，我们是基于行（row）和列（col）来定义信息区块的外部框架，以保证页面的每个区域能够稳健地排布起来。下面简单介绍一下它的工作原理：</p>\n  <ul>\n    <li>通过row在水平方向建立一组column（简写col）</li>\n    <li>你的内容应当放置于col内，并且，只有col可以作为row的直接元素</li>\n    <li>栅格系统中的列是指1到24的值来表示其跨越的范围。例如，三个等宽d的列可以使用.ant-col-8来创建</li>\n    <li>如果一个row中的col总和超过24，那么多余的col会作为一个整体另起一行排列</li>\n  </ul>\n\n  <h2>组件演示</h2>\n  <div class=\"ant-row\">\n    <div class=\"ant-col-11\">\n      <code-box\n        title=\"基本布局演示\"\n        describe=\"点击戳开代码\"\n        code='\n          <v-row><v-col span=\"24\">100%</v-col></v-row>\n          <v-row>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\">50%</v-col>\n            <v-col span=\"12\">50%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"16\">66.66%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n          <v-row><v-col span=\"24\">100%</v-col></v-row>\n          <v-row>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\">50%</v-col>\n            <v-col span=\"12\">50%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"16\">66.66%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>\n\n        </div>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-2\">\n\n    </div>\n\n    <div class=\"ant-col-11\">\n      <code-box\n        title=\"可以左右偏移的布局\"\n        describe=\"ant-col-offset-n n为想要margin-left多少个栅格的距离\"\n        code='\n          <v-row>\n            <v-col span=\"8\">.ant-col-8</v-col>\n            <v-col span=\"8\" offset=\"8\">.ant-col-8 ant-col-offset-8</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" offset=\"6\">.ant-col-12 .ant-col-offset-6</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n\n          <v-row>\n            <v-col span=\"8\">.ant-col-8</v-col>\n            <v-col span=\"8\" offset=\"8\">.ant-col-8 ant-col-offset-8</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" offset=\"6\">.ant-col-12 .ant-col-offset-6</v-col>\n          </v-row>\n\n        </div>\n\n      </code-box>\n    </div>\n\n  </div>\n\n  <br/>\n\n  <div class=\"ant-row\">\n    <div class=\"ant-col-11\">\n      <code-box\n        title=\"布局排序\"\n        describe=\"栅格系统内子元素默认是左浮动，push的作用设置子元素基于自己原来浮动的位置的向右移动的距离，pull的作用设置子元素基于自己原来浮动的位置的向左移动的距离\"\n        code='\n          <v-row>\n            <v-col span=\"18\" push=\"6\">.ant-col-18 .ant-col-push-6</v-col>\n            <v-col span=\"6\" pull=\"18\">.ant-col-6 .ant-col-pull-18</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" push=\"12\">.ant-col-push-12 .ant-col-12</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-12 .ant-col-12</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-12 .ant-col-6 1</v-col>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-6 .ant-col-6 2</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-6 .ant-col-12</v-col>\n          </v-row>\n        '>\n        <div class=\"demo-ant-row-col\">\n\n          <v-row>\n            <v-col span=\"18\" push=\"6\">.ant-col-18 .ant-col-push-6</v-col>\n            <v-col span=\"6\" pull=\"18\">.ant-col-6 .ant-col-pull-18</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" push=\"12\">.ant-col-push-12 .ant-col-12</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-12 .ant-col-12</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-12 .ant-col-6 1</v-col>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-6 .ant-col-6 2</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-6 .ant-col-12</v-col>\n          </v-row>\n        </div>\n      </code-box>\n    </div>\n  </div>\n\n  <h2>Flex 布局</h2>\n  <p>\n    我们的栅格化系统支持 Flex 布局，允许子元素在父节点内的水平对齐方式 - 居左、居中、居右、等宽排列、分散排列。子元素与子元素之间，支持顶部对齐、垂直居中对齐、底部对齐的方式。同时，支持使用 order 来定义元素的排列顺序。\n    Flex 布局是基于 24 栅格来定义每一个“盒子”的宽度，但排版则不拘泥于栅格。\n  </p>\n\n  <div class=\"ant-row\">\n    <div class=\"ant-col-11\">\n      <h3>Flex布局</h3>\n      <code-box\n        title=\"Flex布局：排列\"\n        describe=\"点击戳开代码 关键词：start, center, end, space-between, space-around\"\n        code='\n        <p>子元素居左排列（默认）.ant-row-flex-start .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"start\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居中排列 .ant-row-flex-center .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"center\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居右排列 .ant-row-flex-end .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"end\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素等宽排列 .ant-row-flex-space-between .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-between\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素分散对齐 .ant-row-flex-space-around .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-around\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n          <p>子元素居左排列（默认）.ant-row-flex-start .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"start\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居中排列 .ant-row-flex-center .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"center\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居右排列 .ant-row-flex-end .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"end\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素等宽排列 .ant-row-flex-space-between .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-between\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素分散对齐 .ant-row-flex-space-around .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-around\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n        </div>\n      </code-box>\n\n      <h3>Flex排序</h3>\n      <code-box\n        title=\"Flex排序\"\n        describe=\"点击戳开代码 关键词：ant-col-order-n n为想要的顺序\"\n        code='\n          <v-row display=\"flex\">\n            <v-col order=\"4\" span=\"6\">1 ant-col-order-4</v-col>\n            <v-col order=\"3\" span=\"6\">2 ant-col-order-3</v-col>\n            <v-col order=\"2\" span=\"6\">3 ant-col-order-2</v-col>\n            <v-col order=\"1\" span=\"6\">4 ant-col-order-1</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n          <v-row display=\"flex\">\n            <v-col order=\"4\" span=\"6\">1 ant-col-order-4</v-col>\n            <v-col order=\"3\" span=\"6\">2 ant-col-order-3</v-col>\n            <v-col order=\"2\" span=\"6\">3 ant-col-order-2</v-col>\n            <v-col order=\"1\" span=\"6\">4 ant-col-order-1</v-col>\n          </v-row>\n        </div>\n      </code-box>\n\n    </div>\n    <div class=\"ant-col-2\"></div>\n    <div class=\"ant-col-11\">\n      <h3>Flex对齐</h3>\n      <code-box\n        title=\"Flex对齐：配合排列方式的对齐方式\"\n        describe=\"点击戳开代码 关键词：flex-top, flex-middle, flex-bottom\"\n        code='<p>顶部对齐</p>\n        <div class=\"ant-row-flex-center ant-row-flex-top ant-row-flex ant-row\">\n          <div class=\"ant-col-4\"><p style=\"height: 100px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 50px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 120px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 80px\">.ant-col-4</p></div>\n        </div>\n        <p>居中对齐</p>\n        <div class=\"ant-row-flex-space-around ant-row-flex-middle ant-row-flex ant-row\">\n          <div class=\"ant-col-4\"><p style=\"height: 100px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 50px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 120px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 80px\">.ant-col-4</p></div>\n        </div>\n        <p>底部对齐</p>\n        <div class=\"ant-row-flex-space-between ant-row-flex-bottom ant-row-flex ant-row\">\n          <div class=\"ant-col-4\"><p style=\"height: 100px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 50px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 120px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 80px\">.ant-col-4</p></div>\n        </div>\n        '>\n        <div class=\"demo-ant-row-col\">\n          <p>顶部对齐 .ant-row-flex-center .ant-row-flex-top .ant-row-flex .ant-row</p>\n          <v-row pack=\"center\" display=\"flex\" align=\"top\">\n            <v-col span=\"4\"><p style=\"height: 100px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 50px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 120px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 80px\">.ant-col-4</p></v-col>\n          </v-row>\n\n          <p>居中对齐 .ant-row-flex-space-around .ant-row-flex-middle .ant-row-flex .ant-row</p>\n          <v-row pack=\"space-around\" display=\"flex\" align=\"middle\">\n            <v-col span=\"4\"><p style=\"height: 100px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 50px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 120px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 80px\">.ant-col-4</p></v-col>\n          </v-row>\n          <p>底部对齐 .ant-row-flex-space-between .ant-row-flex-bottom .ant-row-flex .ant-row</p>\n          <v-row pack=\"space-between\" display=\"flex\" align=\"bottom\">\n            <v-col span=\"4\"><p style=\"height: 100px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 50px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 120px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 80px\">.ant-col-4</p></v-col>\n          </v-row>\n        </div>\n      </code-box>\n    </div>\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 715:
+/***/ 571:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(452)
-	__vue_script__ = __webpack_require__(307)
+	__webpack_require__(400)
+	__vue_script__ = __webpack_require__(208)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\tooltip.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(595)
+	  console.warn("[vue-loader] src\\views\\layout.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(440)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

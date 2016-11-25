@@ -207,7 +207,7 @@ webpackJsonp([10,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,18 +238,14 @@ webpackJsonp([10,50],{
 
 /***/ },
 
-/***/ 302:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-
-	var _steps = __webpack_require__(87);
-
-	var _steps2 = _interopRequireDefault(_steps);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -261,85 +257,61 @@ webpackJsonp([10,50],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var vStep = _steps2.default.Step;
-
 	exports.default = {
-	  data: function data() {
-	    return {
-	      current: 1,
-	      steps: [{
-	        title: "步骤1"
-	      }, {
-	        title: "步骤2"
-	      }, {
-	        title: "步骤3"
-	      }, {
-	        title: "步骤4"
-	      }],
-	      apiSteps: [{
-	        parameter: 'current',
-	        explain: '指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 status 属性覆盖状态',
-	        type: 'Number',
-	        default: '0'
-	      }, {
-	        parameter: 'status',
-	        explain: '指定当前步骤的状态，可选 wait process finish error',
-	        type: 'String',
-	        default: 'process'
-	      }, {
-	        parameter: 'size',
-	        explain: '指定大小，目前支持普通（default）和迷你（small）',
-	        type: 'String',
-	        default: 'default'
-	      }, {
-	        parameter: 'direction',
-	        explain: '指定步骤条方向。目前支持水平和竖直（vertical）两种方向，默认水平方向）',
-	        type: 'String',
-	        default: '无'
-	      }],
-	      apiStep: [{
-	        parameter: 'status',
-	        explain: '指定状态。当不配置该属性时，会使用 Steps 的 current 来自动指定状态。可选：wait process finish error',
-	        type: 'String',
-	        default: 'wait'
-	      }, {
-	        parameter: 'title',
-	        explain: '标题',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'description',
-	        explain: '步骤的详情描述，可选',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'icon',
-	        explain: '步骤图标，可选',
-	        type: 'String',
-	        default: '无'
-	      }]
-	    };
-	  },
-	  methods: {
-	    next: function next() {
-	      if (this.current < this.steps.length) {
-	        this.current++;
-	      } else {
-	        this.current = 1;
-	      }
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    },
+	    data: function data() {
+	        return {
+	            onClose: function onClose() {
+	                console.log(this);
+	            },
+	            show: true,
+	            num: 6,
+	            apis: [{
+	                parameter: 'fade',
+	                explain: '是否采用渐显模式,为true采用fade,为false采用scrollx',
+	                type: 'Boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'dots',
+	                explain: '是否显示面板指示点',
+	                type: 'Boolean',
+	                default: 'true'
+	            }, {
+	                parameter: 'vertical',
+	                explain: '是否垂直显示dots',
+	                type: 'boolean',
+	                default: 'true'
+	            }, {
+	                parameter: 'autoplay',
+	                explain: '是否自动切换',
+	                type: 'Boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'easing',
+	                explain: '动画效果',
+	                type: 'String',
+	                default: 'linear'
+	            }, {
+	                parameter: 'onChange',
+	                explain: '切换面板的回调',
+	                type: 'Function',
+	                default: '无'
+	            }]
+	        };
+	    },
+	    methods: {
+	        onChange: function onChange(current) {
+	            this.$message.info(current);
+	        }
 	    }
-	  },
-	  components: {
-	    vSteps: _steps2.default,
-	    vStep: vStep,
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
 	};
 
 /***/ },
 
-/***/ 392:
+/***/ 372:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -347,20 +319,20 @@ webpackJsonp([10,50],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody{\n    background-color:#fff;\n}\n.ant-carousel .slick-slide h3{\n    text-align: center;\n    height: 100px;\n    line-height: 100px;\n    background: #71B5DE;\n    color: #fff;\n    overflow: hidden;\n    margin: 0;\n}\n#components-carousel-demo-vertical .ant-carousel {\n    margin-right: 35px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 448:
+/***/ 404:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(392);
+	var content = __webpack_require__(372);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -369,8 +341,8 @@ webpackJsonp([10,50],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./steps.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./steps.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -381,25 +353,25 @@ webpackJsonp([10,50],{
 
 /***/ },
 
-/***/ 589:
+/***/ 427:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>v-steps 步骤条</h1>\n      <p>\n        引导用户按照流程完成任务的导航条。\n      </p>\n      <h2>何时使用</h2>\n      <p>\n        当任务复杂或者存在先后关系时，将其分解成一系列步骤，从而简化任务。\n      </p>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"迷你版\"\n          describe=\"迷你版的步骤条，通过设置 <v-steps size='small'> 启用.\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps size=\"small\" :current=\"1\">\n  <v-step title=\"已完成\" ></v-step>\n  <v-step title=\"进行中\" ></v-step>\n  <v-step title=\"待运行\" ></v-step>\n  <v-step title=\"待运行\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps size=\"small\" :current=\"1\">\n            <v-step title=\"已完成\" ></v-step>\n            <v-step title=\"进行中\" ></v-step>\n            <v-step title=\"待运行\" ></v-step>\n            <v-step title=\"待运行\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"带图标的步骤条\"\n          describe=\"通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps>\n  <v-step status=\"finish\" title=\"步骤1\" icon=\"cloud\" ></v-step>\n  <v-step status=\"process\" title=\"步骤2\" icon=\"apple\" ></v-step>\n  <v-step status=\"wait\" title=\"步骤3\" icon=\"github\" ></v-step>\n</v-steps>'\n        >\n          <v-steps>\n            <v-step status=\"finish\" title=\"步骤1\" icon=\"cloud\" ></v-step>\n            <v-step status=\"process\" title=\"步骤2\" icon=\"apple\" ></v-step>\n            <v-step status=\"wait\" title=\"步骤3\" icon=\"github\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"带图标的步骤条\"\n          describe=\"通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\ncurrent: 1,\nv-steps: [\n  {\n    title: \"步骤1\",\n  },\n  {\n    title: \"步骤2\",\n  },\n  {\n    title: \"步骤3\",\n  },\n  {\n    title: \"步骤4\",\n  }\n],\n\nnext() {\n  if (this.current < this.v-steps.length) {\n    this.current ++\n  }else{\n    this.current = 1\n  }\n}\n\n<div>\n  <div style=\"margin-bottom: 24px\">当前正在执行第 {{current}} 步</div>\n  <v-steps :current=\"current - 1\">\n    <v-step :key=\"$index\" :title=\"s.title\" v-for=\"s in v-steps\" ></v-step>\n  </v-steps>\n  <div style=\"margin-top: 24px\">\n    <button type=\"button\" name=\"button\" class=\"ant-btn\" @click=\"next\">下一步</button>\n  </div>\n</div>\n'\n        >\n          <div>\n            <div style=\"margin-bottom: 24px\">当前正在执行第 {{current}} 步</div>\n            <v-steps :current=\"current - 1\">\n              <v-step :key=\"$index\" :title=\"s.title\" v-for=\"s in steps\" ></v-step>\n            </v-steps>\n            <div style=\"margin-top: 24px\">\n              <button type=\"button\" name=\"button\" class=\"ant-btn\" @click=\"next\">下一步</button>\n            </div>\n          </div>\n        </code-box>\n\n        <code-box\n          title=\"竖直方向的步骤条\"\n          describe=\"简单的竖直方向的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" direction=\"vertical\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" direction=\"vertical\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"竖直方向的步骤条\"\n          describe=\"简单的竖直方向的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" direction=\"vertical\" size=\"small\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" direction=\"vertical\" size=\"small\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"步骤运行错误\"\n          describe=\"使用 v-steps 的 status 属性来指定当前步骤的状态。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" status=\"error\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" status=\"error\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n      </div>\n\n    </div>\n\n    <api-table\n      :apis='apiSteps'\n    >\n      <h3>Steps</h3>\n\n      <span>整体步骤条。</span>\n    </api-table>\n\n    <api-table\n      :apis='apiStep'\n    >\n      <h3>Steps.Step</h3>\n\n      <span>步骤条内的每一个步骤。</span>\n    </api-table>\n\n    <div class=\"\" style=\"height: 400px\">\n\n    </div>\n\n  </div>\n\n";
+	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>Carousel 走马灯</h1>\n        <p>\n            旋转木马，一组轮播的区域。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li>当有一组平级的内容。</li>\n            <li>当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。</li>\n            <li>常用于一组图片或卡片轮播。</li>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"基本\"\n                describe=\"最典型的用法\"\n                code=\"\"\n            >\n                <v-carousel :after-change=\"onChange\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"渐显\"\n                describe=\"切换效果为渐显\"\n                code=\"\"\n            >\n                <v-carousel :fade=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"垂直\"\n                describe=\"垂直显示\"\n                code=\"\"\n                id=\"components-carousel-demo-vertical\"\n            >\n                <v-carousel :vertical=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"自动切换\"\n                describe=\"自动切换下一张\"\n                code=\"\"\n            >\n                <v-carousel :autoplay=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n    </div>\n    <api-table\n        :apis='apis'\n    ></api-table>\n</div>\n";
 
 /***/ },
 
-/***/ 709:
+/***/ 558:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(448)
-	__vue_script__ = __webpack_require__(302)
+	__webpack_require__(404)
+	__vue_script__ = __webpack_require__(194)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\steps.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(589)
+	  console.warn("[vue-loader] src\\views\\carousel.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(427)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

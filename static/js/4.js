@@ -207,7 +207,7 @@ webpackJsonp([4,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,26 +238,14 @@ webpackJsonp([4,50],{
 
 /***/ },
 
-/***/ 311:
+/***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-
-	var _upload = __webpack_require__(92);
-
-	var _upload2 = _interopRequireDefault(_upload);
-
-	var _iconfont = __webpack_require__(23);
-
-	var _iconfont2 = _interopRequireDefault(_iconfont);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -270,78 +258,32 @@ webpackJsonp([4,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      apis: [{
-	        parameter: 'name',
-	        explain: '可选参数, 上传的文件',
-	        type: 'String',
-	        default: 'file'
-	      }, {
-	        parameter: 'action',
-	        explain: '必选参数, 上传的地址',
-	        type: 'string',
-	        default: '无'
-	      }, {
-	        parameter: 'data',
-	        explain: '可选参数, 上传所需参数',
-	        type: 'Object',
-	        default: '无'
-	      }, {
-	        parameter: 'multiple',
-	        explain: '可选参数, 是否支持多选文件，支持 ie10+',
-	        type: 'Boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'accept',
-	        explain: '可选参数, 接受上传的文件类型, 详见 input accept Attribute',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '可选参数, 上传文件改变时的状态，详见 onChange',
-	        type: 'Function',
-	        default: '无'
-	      }],
-	      name: 'file',
-	      action: '/upload',
-	      onChange: function onChange(info) {
-	        if (info.file.status !== 'uploading') {
-	          console.log(info.file, info.fileList);
-	        }
-	        if (info.file.status === 'done') {
-	          console.log(info.file.name + ' 上传成功.');
-	        } else if (info.file.status === 'error') {
-	          console.log(info.file.name + ' 上传失败.');
-	        }
-	      },
-
-	      defaultFileList: [{
-	        uid: -1,
-	        name: 'xxx.png',
-	        status: 'done',
-	        url: 'http://www.baidu.com/xxx.png'
-	      }, {
-	        uid: -2,
-	        name: 'yyy.png',
-	        status: 'done',
-	        url: 'http://www.baidu.com/yyy.png'
-	      }]
-	    };
-	  },
-	  components: {
-	    vUpload: _upload2.default,
-	    vIcon: _iconfont2.default,
-	    vButton: _button2.default,
-	    vButtonGroup: _button2.default.Group,
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
+	    data: function data() {
+	        return {
+	            apis: [{
+	                parameter: ':事件',
+	                explain: '显示或关闭tip的触发事件,支持hover或focus',
+	                type: 'String',
+	                default: 'hover'
+	            }, {
+	                parameter: '.位置',
+	                explain: '显示tip的位置,支持8种:left,right,top,bottom,topleft,topright,bottomleft,bottomright',
+	                type: 'String',
+	                default: 'top'
+	            }],
+	            msg: '<em>hello world</em>',
+	            msg1: '明月几时有'
+	        };
+	    },
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    }
 	};
 
 /***/ },
 
-/***/ 399:
+/***/ 371:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -349,20 +291,20 @@ webpackJsonp([4,50],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "p {\n  line-height: 3;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 455:
+/***/ 402:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(399);
+	var content = __webpack_require__(371);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -371,8 +313,8 @@ webpackJsonp([4,50],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./upload.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./upload.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./tooltip.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./tooltip.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -383,25 +325,25 @@ webpackJsonp([4,50],{
 
 /***/ },
 
-/***/ 599:
+/***/ 462:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Upload 上传</h1>\n      <p>\n        文件选择上传和拖拽上传控件。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。\n        </p>\n        <ul>\n          <li>当需要上传一个或一些文件时。</li>\n          <li>当需要展现上传的进度时。</li>\n          <li>当需要使用拖拽交互时。</li>\n        </ul>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"点击上传\"\n          describe=\"经典款式，用户点击按钮弹出文件选择框。\"\n          code=\"<v-upload :name='name' :action='action' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" :on-change=\"onChange\">\n            <v-button type=\"ghost\">\n              <v-icon type=\"upload\"></v-icon> 点击上传\n            </v-button>\n          </v-upload>\n        </code-box>\n\n        <code-box\n          title=\"拖拽上传1\"\n          describe=\"可以把文件拖入指定区域，完成上传，同样支持点击上传。\"\n          code=\"<v-upload :name='name' :action='action' type='drag' :on-change='onChange'>\n  <p class='ant-upload-drag-icon'>\n    <v-icon type='inbox'></v-icon>\n  </p>\n  <p class='ant-upload-text'>点击或将文件拖拽到此区域上传</p>\n  <p class='ant-upload-hint'>支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" type=\"drag\" :on-change=\"onChange\">\n            <p class=\"ant-upload-drag-icon\">\n              <v-icon type=\"inbox\"></v-icon>\n            </p>\n            <p class=\"ant-upload-text\">点击或将文件拖拽到此区域上传</p>\n            <p class=\"ant-upload-hint\">支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>\n          </v-upload>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"传入已上传的文件\"\n          describe=\"对已上传的文件进行编辑。\"\n          code=\"<v-upload :name='name' :action='action' :default-file-list='defaultFileList' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n         <v-upload :name=\"name\" :action=\"action\" :default-file-list=\"defaultFileList\" :on-change=\"onChange\">\n          <v-button type=\"ghost\">\n            <v-icon type=\"upload\"></v-icon> 点击上传\n          </v-button>\n        </v-upload>\n        </code-box>\n\n        <code-box\n          title=\"拖拽上传2\"\n          describe=\"可以把文件拖入指定区域，完成上传，同样支持点击上传。\"\n          code=\"<div style='width: 246px; height: 146px'>\n  <v-upload :name='name' :action='action' type='drag' :on-change='onChange'>\n    <v-icon type='plus'></v-icon>\n  </v-upload>\n</div>\"\n        >\n          <div style=\"width: 246px; height: 146px\">\n            <v-upload :name=\"name\" :action=\"action\" type=\"drag\" :on-change=\"onChange\">\n              <v-icon type=\"plus\"></v-icon>\n            </v-upload>\n          </div>\n        </code-box>\n\n        <code-box\n          title=\"多文件上传\"\n          describe=\"可以选择多个文件上传。\"\n          code=\"<v-upload :name='name' :action='action' :multiple='true' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" :multiple=\"true\" :on-change=\"onChange\">\n            <v-button type=\"ghost\">\n              <v-icon type=\"upload\"></v-icon> 点击上传\n            </v-button>\n          </v-upload>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n    <section class=\"markdown\">\n      <h3>onChange</h3>\n      <p>文件状态改变的回调，返回为：</p>\n      <pre>\n        <code>\n          {\n            file: { ... },\n            fileList: [ ... ],\n            event: { ... }\n          }\n        </code>\n      </pre>\n      <ol>\n        <li><p><code>file</code> 当前操作的文件对象。</p>\n        <pre><code>{\n          uid: 'uid',      // 文件唯一标识，建议设置为负数，防止和内部产生的 id 冲突\n          name: 'xx.png'   // 文件名\n          status: 'done',  // 状态有：uploading done error removed\n          response: '{\"status\":\"success\"}'  // 服务端响应内容\n        }\n        </code></pre>\n        <p>如果上传控件是 multiple 时，此参数将为一个对象数组 <code>[file, ...]</code>。</p>\n        </li>\n        <li><p><code>fileList</code> 当前的文件列表。</p>\n        </li>\n        <li><code>event</code> 上传中的服务端响应内容，包含了上传进度等信息，高级浏览器支持。</li>\n      </ol>\n      <h2 id=\"-\">显示下载链接</h2>\n      <p>请使用 fileList 属性设置数组项的 url 属性进行展示控制。</p>\n      <h2 id=\"ie-note\">IE note</h2>\n      <ul>\n        <li><a href=\"https://github.com/react-component/upload#ie89-note\">https://github.com/react-component/upload#ie89-note</a></li>\n      </ul>\n    </section>\n  </div>\n\n";
+	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>tooltip指令</h1>\n        <p>\n            显示简单的提示文字或HTML内容。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                需要给用户提示一些辅助信息时。\n            </p>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip\"\n                    describe=\"tooltip指令使用很简单,v-tooltip='msg'即可.\">\n                <v-button type='success' v-tooltip='msg'>默认</v-button>\n            </code-box>\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip-触发事件\"\n                    describe=\"如果需要指定触发事件,使用v-tooltip:hover='msg'或者v-tooltip:focus='msg'\">\n                <v-button type='success' v-tooltip:hover.top='msg'>hover触发</v-button>\n                <input type=\"text\" v-tooltip:focus.top='msg1' placeholder=\"focus触发\">\n            </code-box>\n        </div>\n\n        <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n            <code-box\n                    title=\"tooltip-显示位置\"\n                    describe=\"可以使用修饰符指定显示位置,如v-tooltip:hover.right='msg1',支持8种位置\">\n                <v-button type='success' v-tooltip:hover.left='msg'>left</v-button>\n                <a href=\"###\" v-tooltip:hover.right='msg1'>right</a>\n                <v-button type='success' v-tooltip:hover.top='msg'>top</v-button>\n                <a href=\"###\" v-tooltip:hover.bottom='msg1'>bottom</a>\n                <v-button type='success' v-tooltip:hover.topLeft='msg'>topLeft</v-button>\n                <a href=\"###\" v-tooltip:hover.topRight='msg1'>topRight</a>\n                <v-button type='success' v-tooltip:hover.bottomLeft='msg'>bottomLeft</v-button>\n                <a href=\"###\" v-tooltip:hover.bottomRight='msg1'>bottomRight</a>\n            </code-box>\n        </div>\n    </div>\n\n    <api-table\n            :apis='apis'\n    ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 719:
+/***/ 594:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(455)
-	__vue_script__ = __webpack_require__(311)
+	__webpack_require__(402)
+	__vue_script__ = __webpack_require__(230)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\upload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(599)
+	  console.warn("[vue-loader] src\\views\\tooltip.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(462)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

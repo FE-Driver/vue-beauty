@@ -207,7 +207,7 @@ webpackJsonp([13,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,18 +238,230 @@ webpackJsonp([13,50],{
 
 /***/ },
 
-/***/ 298:
+/***/ 128:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = {
+		data1: {
+			children: [{
+				value: 'zhejiang',
+				text: '浙江',
+				children: [{
+					value: 'hangzhou',
+					text: '杭州',
+					children: [{
+						value: 'xihu',
+						text: '西湖'
+					}]
+				}]
+			}, {
+				value: 'jiangsu',
+				text: '江苏',
+				children: [{
+					value: 'nanjing',
+					text: '南京',
+					children: [{
+						value: 'zhonghuamen',
+						text: '中华门'
+					}]
+				}]
+			}, {
+				value: 'sichuan',
+				text: '四川',
+				children: [{
+					value: 'chengdu',
+					text: '成都',
+					children: [{
+						value: 'qingyangqu',
+						text: '青羊区'
+					}, {
+						value: 'wuhouqu',
+						text: '武侯区'
+					}, {
+						value: 'jinjiang',
+						text: '锦江区'
+					}, {
+						value: 'chenghuaqu',
+						text: '成华区'
+					}, {
+						value: 'jinniuqu',
+						text: '金牛区'
+					}]
+				}, {
+					value: 'mianyang',
+					text: '绵阳'
+				}, {
+					value: 'panzhihua',
+					text: '攀枝花'
+				}]
+			}]
+		},
+		data2: {
+			placeholder: '请选择城市',
+			children: [{
+				value: 'zhejiang',
+				text: '浙江',
+				children: [{
+					value: 'hangzhou',
+					text: '杭州',
+					children: [{
+						value: 'xihu',
+						text: '西湖'
+					}]
+				}]
+			}, {
+				value: 'jiangsu',
+				text: '江苏',
+				children: [{
+					value: 'nanjing',
+					text: '南京',
+					children: [{
+						value: 'zhonghuamen',
+						text: '中华门'
+					}]
+				}]
+			}, {
+				value: 'sichuan',
+				text: '四川',
+				children: [{
+					value: 'chengdu',
+					text: '成都',
+					children: [{
+						value: 'qingyangqu',
+						text: '青羊区'
+					}, {
+						value: 'wuhouqu',
+						text: '武侯区'
+					}, {
+						value: 'jinjiang',
+						text: '锦江区'
+					}, {
+						value: 'chenghuaqu',
+						text: '成华区'
+					}, {
+						value: 'jinniuqu',
+						text: '金牛区'
+					}]
+				}, {
+					value: 'mianyang',
+					text: '绵阳'
+				}, {
+					value: 'panzhihua',
+					text: '攀枝花'
+				}]
+			}]
+		},
+		data3: {
+			placeholder: '请选择城市',
+			children: [{
+				value: 'zhejiang',
+				text: '浙江',
+				children: [{
+					value: 'hangzhou',
+					text: '杭州',
+					children: [{
+						value: 'xihu',
+						text: '西湖'
+					}]
+				}]
+			}, {
+				value: 'jiangsu',
+				text: '江苏',
+				children: [{
+					value: 'nanjing',
+					text: '南京',
+					children: [{
+						value: 'zhonghuamen',
+						text: '中华门'
+					}]
+				}]
+			}, {
+				value: 'sichuan',
+				text: '四川',
+				select: true,
+				children: [{
+					value: 'chengdu',
+					text: '成都',
+					select: true,
+					children: [{
+						value: 'qingyangqu',
+						text: '青羊区',
+						select: true
+					}, {
+						value: 'wuhouqu',
+						text: '武侯区'
+					}, {
+						value: 'jinjiang',
+						text: '锦江区'
+					}, {
+						value: 'chenghuaqu',
+						text: '成华区'
+					}, {
+						value: 'jinniuqu',
+						text: '金牛区'
+					}]
+				}, {
+					value: 'mianyang',
+					text: '绵阳'
+				}, {
+					value: 'panzhihua',
+					text: '攀枝花'
+				}]
+			}]
+		},
+		data4: {
+			placeholder: '请选择机构',
+			children: [{
+				value: 'zgs',
+				text: '总公司',
+				children: [{
+					value: 'sh_dep',
+					text: '上海分部',
+					children: [{
+						value: 'xihu',
+						text: '技术部'
+					}]
+				}, {
+					value: 'bg_dep',
+					text: '北京分部',
+					children: [{
+						value: 'hr',
+						text: '人事部'
+					}, {
+						value: 'yy',
+						text: '运营部'
+					}]
+				}, {
+					value: 'bg_dep',
+					text: '广州分部',
+					children: [{
+						value: 'xs',
+						text: '销售部'
+					}]
+				}]
+			}]
+		}
+	};
+
+/***/ },
+
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
-	var _rate = __webpack_require__(85);
+	var _cascader = __webpack_require__(128);
 
-	var _rate2 = _interopRequireDefault(_rate);
+	var _cascader2 = _interopRequireDefault(_cascader);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -262,112 +474,46 @@ webpackJsonp([13,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      apis: [{
-	        parameter: 'count',
-	        explain: 'star 总数',
-	        type: 'Number',
-	        default: '5'
-	      }, {
-	        parameter: 'defaultValue',
-	        explain: '默认值',
-	        type: 'Number',
-	        default: '0'
-	      }, {
-	        parameter: 'onChange(value: Number)',
-	        explain: '回调',
-	        type: 'Function',
-	        default: '无'
-	      }, {
-	        parameter: 'allowHalf',
-	        explain: '是否允许半选',
-	        type: 'Boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'disabled',
-	        explain: '只读，无法进行交互',
-	        type: 'Boolean',
-	        default: 'false'
-	      }],
-	      value: 3
-	    };
-	  },
-	  components: {
-	    vRate: _rate2.default,
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  },
-	  methods: {
-	    _change: function _change(val) {
-	      return console.log('current value:' + val);
-	    }
-	  }
+		data: function data() {
+			return {
+				data1: _cascader2.default.data1,
+				data2: _cascader2.default.data2,
+				data3: _cascader2.default.data3,
+				data4: _cascader2.default.data4,
+				apis: [{
+					parameter: 'data',
+					explain: '数据',
+					type: 'Json',
+					default: ''
+				}]
+			};
+		},
+		components: {
+			codeBox: _codeBox2.default,
+			apiTable: _apiTable2.default
+		}
 	};
 
 /***/ },
 
-/***/ 389:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 445:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(389);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./rate.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./rate.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 585:
+/***/ 428:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Rate 评分</h1>\n      <p>\n        评分组件。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          对评价进行展示。\n        </p>\n        <p>\n          对事物进行快速的评级操作。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-rate :on-change='_change'></v-rate>\"\n        >\n          <v-rate :on-change=\"_change\"></v-rate>\n        </code-box>\n\n        <code-box\n          title=\"文案展现\"\n          describe=\"给评分组件加上文案展示。\"\n          code=\"<v-rate :default-value.sync='value'></v-rate>\n<span class='ant-rate-text'>{{value}}星</span>\"\n        >\n          <v-rate :default-value.sync=\"value\"></v-rate>\n          <span class=\"ant-rate-text\">{{value}}星</span>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"半星\"\n          describe=\"支持选中半星。\"\n          code=\"<v-rate allow-half :default-value='2.5'></v-rate>\"\n        >\n          <v-rate allow-half :default-value=\"2.5\"></v-rate>\n        </code-box>\n\n        <code-box\n          title=\"只读\"\n          describe=\"只读，无法进行鼠标交互。\"\n          code=\"<v-rate disabled :default-value='2'></v-rate>\"\n        >\n          <v-rate disabled :default-value=\"2\"></v-rate>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\r\n<div>\r\n\t<section class=\"markdown\">\r\n      <h1>Cascader 级联选择</h1>\r\n      <p>\r\n        级联选择控件。\r\n      </p>\r\n      <h2>何时使用</h2>\r\n      <ul>\r\n        <p>展示多级嵌套的父子关系数据，例如省市区，各级机构等。</p>\r\n      </ul>\r\n      <h2>组件演示</h2>\r\n    </section>\r\n\r\n\t<div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"典型级联\" describe=\"只包含级联数据。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data1'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带placeholder级联\" describe=\"级联、placehoder。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data2'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带默认值的级联\" describe=\"级联、placehoder、默认值。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data3'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带placeholder级联\" describe=\"级联、placehoder。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data4'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<api-table\r\n      :apis='apis'\r\n    ></api-table>\r\n</div>\r\n";
 
 /***/ },
 
-/***/ 705:
+/***/ 559:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(445)
-	__vue_script__ = __webpack_require__(298)
+	__vue_script__ = __webpack_require__(195)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\rate.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(585)
+	  console.warn("[vue-loader] src\\views\\cascader.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(428)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

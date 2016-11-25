@@ -207,7 +207,7 @@ webpackJsonp([17,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,13 +238,13 @@ webpackJsonp([17,50],{
 
 /***/ },
 
-/***/ 291:
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
 	var _codeBox = __webpack_require__(12);
@@ -255,134 +255,98 @@ webpackJsonp([17,50],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _notification = __webpack_require__(80);
-
-	var _notification2 = _interopRequireDefault(_notification);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      apis: [{
-	        parameter: 'message',
-	        explain: '通知提醒标题，必选',
-	        type: 'Sring',
-	        default: '无'
-	      }, {
-	        parameter: 'description',
-	        explain: '通知提醒内容，必选',
-	        type: 'Sring',
-	        default: '无'
-	      }, {
-	        parameter: 'duration',
-	        explain: '默认 4.5 秒后自动关闭，配置为 0 则不自动关闭',
-	        type: 'Number',
-	        default: '4.5'
-	      }],
-	      config: [{
-	        parameter: 'top',
-	        explain: '消息距离顶部的位置',
-	        type: 'Number',
-	        default: '24'
-	      }, {
-	        parameter: 'duration',
-	        explain: '默认自动关闭延时，单位秒',
-	        type: 'Number',
-	        default: '4.5'
-	      }]
-	    };
-	  },
-	  methods: {
-	    openNotification: function openNotification() {
-	      _notification2.default.open({
-	        message: '这是标题',
-	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
-	      });
-	    },
-	    openNotificationInfinite: function openNotificationInfinite() {
-	      _notification2.default.open({
-	        message: '这是标题',
-	        description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
-	        duration: 0
-	      });
-	    },
-	    openNotificationWithIcon: function openNotificationWithIcon(type) {
-	      _notification2.default[type]({
-	        message: '这是标题',
-	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
-	      });
-	    }
-	  },
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
+		data: function data() {
+			return {
+				dataSource1: [],
+				targetKeys1: [],
+				dataSource2: [],
+				targetKeys2: [],
+				dataSource3: [],
+				targetKeys3: [],
+				dataSource4: [],
+				targetKeys4: [],
+				apis: [{ "parameter": "dataSource", "explain": "数据源", "type": "Array", "default": "[]" }, { "parameter": "render", "explain": "每行数据渲染函数", "type": "Function(record)", "default": "" }, { "parameter": "targetKeys", "explain": "显示在右侧框数据的key集合", "type": "Array", "default": "[]" }, { "parameter": "onChange", "explain": "变化时回调函数", "type": "Function(targetKeys, direction, moveKeys)", "default": "" }, { "parameter": "listStyle", "explain": "两个穿梭框的自定义样式", "type": "Object", "default": "" }, { "parameter": "className", "explain": "自定义类", "type": "String", "default": "" }, { "parameter": "titles", "explain": "标题集合,顺序从左至右", "type": "Array", "default": "['源列表', '目的列表']" }, { "parameter": "operations", "explain": "操作文案集合,顺序从上至下", "type": "Array", "default": "[]" }, { "parameter": "showSearch", "explain": "是否显示搜索框", "type": "Boolean", "default": "false" }, { "parameter": "filterOption", "explain": "接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。", "type": "Function(inputValue, option)", "default": "" }, { "parameter": "searchPlaceholder", "explain": "搜索框的默认值", "type": "String", "default": "'请输入搜索内容'" }, { "parameter": "notFoundContent", "explain": "当列表为空时显示的内容", "type": "React.node", "default": "'列表为空'" }, { "parameter": "footer", "explain": "组件底部挂载点(例3)", "type": "slot", "default": "" }]
+			};
+		},
+		created: function created() {
+			this.getMock();
+		},
+
+		methods: {
+			getMock: function getMock() {
+				for (var num = 0; num < 4; num++) {
+					var targetKeys = [];
+					var mockData = [];
+					for (var i = 0; i < 20; i++) {
+						var data = {
+							key: i,
+							title: '内容' + (i + 1),
+							description: '内容' + (i + 1) + '的描述',
+							chosen: Math.random() * 2 > 1
+						};
+						if (data.chosen) {
+							targetKeys.push(data.key);
+						}
+						mockData.push(data);
+					}
+					this['dataSource' + (num + 1)] = mockData;
+					this['targetKeys' + (num + 1)] = targetKeys;
+				}
+			},
+			render: function render(recoder) {
+				return recoder.title;
+			},
+			render2: function render2(recoder) {
+				return {
+					label: recoder.title + ' - ' + recoder.description,
+					value: recoder.title
+				};
+			},
+			handleChange1: function handleChange1(targetKeys, direction, moveKeys) {
+				this.targetKeys1 = targetKeys;
+			},
+			handleChange2: function handleChange2(targetKeys, direction, moveKeys) {
+				this.targetKeys2 = targetKeys;
+			},
+			handleChange3: function handleChange3(targetKeys, direction, moveKeys) {
+				this.targetKeys3 = targetKeys;
+			},
+			handleChange4: function handleChange4(targetKeys, direction, moveKeys) {
+				this.targetKeys4 = targetKeys;
+			},
+			filterOption: function filterOption(inputValue, option) {
+				return option.description.indexOf(inputValue) > -1;
+			}
+		},
+		components: {
+			codeBox: _codeBox2.default,
+			apiTable: _apiTable2.default
+		}
 	};
 
 /***/ },
 
-/***/ 387:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 443:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(387);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./notification.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./notification.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 579:
+/***/ 463:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Notification通知提醒框</h1>\n      <p>\n        全局展示通知提醒信息。\n      </p>\n      <h2>何时使用</h2>\n      <p>在系统右上角显示通知提醒信息。经常用于以下情况：</p>\n      <ul>\n        <li>较为复杂的通知内容。</li>\n        <li>带有交互的通知，给出用户下一步的行动点。</li>\n        <li>系统主动推送。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法，4.5 秒后自动关闭。\"\n          code='openNotification() {\n  notification.open({\n    message: \"这是标题\",\n    description: \"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案\",\n  });\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification\"><span>打开通知提醒框</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification\"><span>打开通知提醒框</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"带有Icon的通知提醒框\"\n          describe=\"通知提醒框左侧有图标。\"\n          code='openNotificationWithIcon(type) {\n  notification[type]({\n    message: \"这是标题\",\n    description: \"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案\"\n  });\n}\n\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"success\")\"><span>成 功</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"info\")\"><span>消 息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"warning\")\"><span>警 告</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"error\")\"><span>错 误</span></button>\n'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('success')\"><span>成 功</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('info')\"><span>消 息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('warning')\"><span>警 告</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('error')\"><span>错 误</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"自动关闭的延时\"\n          describe=\"自定义通知框自动关闭的延时，默认4.5s，取消自动关闭只要将该值设为 0 即可。\"\n          code='openNotification() {\n  notification.open({\n    message: \"这是标题\",\n    description: \"我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭\",\n    duration: 0,\n  });\n}\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification2\"><span>打开通知提醒框</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotificationInfinite\"><span>打开通知提醒框</span></button>\n        </code-box>\n\n        <!-- <code-box\n          title=\"自定义\"\n          describe=\"自定义关闭按钮的样式和文字。\"\n          code=\"\"\n        >\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>打开通知提醒框</span></button>\n        </code-box> -->\n\n      </div>\n\n    </div>\n\n\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li>notification.success(config)</li>\n        <li>notification.error(config)</li>\n        <li>notification.info(config)</li>\n        <li>notification.warning(config)</li>\n      </ul>\n      <p>\n        config 参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          notification.config({\n            top: 100,\n            duration: 3,\n          });\n      </p>\n    </api-table>\n\n  </div>\n\n";
+	module.exports = "\n\t<section class=\"markdown\">\n      <h1>Transfer  穿梭框</h1>\n      <p>\n        双栏穿梭选择框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>用直观的方式在两栏中移动元素，完成选择行为。</li>\n      </ul>\n      <h2>组件演示</h2>\n  </section>\n\t<div class=\"ant-col-24 code-boxes-col-1-1\">\n    \t<code-box\n        title=\"基本用法\"\n        describe=\"最基本的用法。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource1\"\n\t\t\t\t :target-keys=\"targetKeys1\"\n\t\t\t\t :on-change=\"handleChange1\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"带搜索框\"\n        describe=\"带搜索框的穿梭框，可以自定义搜索函数。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource2\"\n\t\t\t\t :target-keys=\"targetKeys2\"\n\t\t\t\t :on-change=\"handleChange2\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"高级用法\"\n        describe=\"穿梭框高级用法，可配置操作文案，可定制宽高，可对底部进行自定义渲染。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource3\"\n\t\t\t\t :target-keys=\"targetKeys3\"\n\t\t\t\t :on-change=\"handleChange3\"\n\t\t\t\t :list-style=\"{width: '250px', height: '300px'}\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :operations=\"['向右操作文案', '向左操作文案']\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t \t<div :style=\"{float: 'right', margin: '5px'}\">\n\t\t\t\t \t\t<v-button \n\t\t\t\t \t\ttype=\"ghost\" \n\t\t\t\t \t\tsize=\"small\"\n\t\t\t\t \t\t@click=\"getMock\"\n\t\t\t\t \t\t>刷新</v-button>\n\t\t\t\t \t</div>\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"自定义渲染行数据\"\n        describe=\"自定义渲染每一个 Transfer Item，可用于渲染复杂数据。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource4\"\n\t\t\t\t :target-keys=\"targetKeys4\"\n\t\t\t\t :on-change=\"handleChange4\"\n\t\t\t\t :list-style=\"{width: '300px', height: '300px'}\"\n\t\t\t\t :render=\"render2\">\n\t\t\t\t </v-transfer>\n      </code-box>\n  </div>\n  <api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 698:
+/***/ 595:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(443)
-	__vue_script__ = __webpack_require__(291)
+	__vue_script__ = __webpack_require__(231)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\notification.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(579)
+	  console.warn("[vue-loader] src\\views\\transfer.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(463)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

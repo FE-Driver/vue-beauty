@@ -207,7 +207,7 @@ webpackJsonp([36,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,234 +238,14 @@ webpackJsonp([36,50],{
 
 /***/ },
 
-/***/ 152:
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = {
-		data1: {
-			children: [{
-				value: 'zhejiang',
-				text: '浙江',
-				children: [{
-					value: 'hangzhou',
-					text: '杭州',
-					children: [{
-						value: 'xihu',
-						text: '西湖'
-					}]
-				}]
-			}, {
-				value: 'jiangsu',
-				text: '江苏',
-				children: [{
-					value: 'nanjing',
-					text: '南京',
-					children: [{
-						value: 'zhonghuamen',
-						text: '中华门'
-					}]
-				}]
-			}, {
-				value: 'sichuan',
-				text: '四川',
-				children: [{
-					value: 'chengdu',
-					text: '成都',
-					children: [{
-						value: 'qingyangqu',
-						text: '青羊区'
-					}, {
-						value: 'wuhouqu',
-						text: '武侯区'
-					}, {
-						value: 'jinjiang',
-						text: '锦江区'
-					}, {
-						value: 'chenghuaqu',
-						text: '成华区'
-					}, {
-						value: 'jinniuqu',
-						text: '金牛区'
-					}]
-				}, {
-					value: 'mianyang',
-					text: '绵阳'
-				}, {
-					value: 'panzhihua',
-					text: '攀枝花'
-				}]
-			}]
-		},
-		data2: {
-			placeholder: '请选择城市',
-			children: [{
-				value: 'zhejiang',
-				text: '浙江',
-				children: [{
-					value: 'hangzhou',
-					text: '杭州',
-					children: [{
-						value: 'xihu',
-						text: '西湖'
-					}]
-				}]
-			}, {
-				value: 'jiangsu',
-				text: '江苏',
-				children: [{
-					value: 'nanjing',
-					text: '南京',
-					children: [{
-						value: 'zhonghuamen',
-						text: '中华门'
-					}]
-				}]
-			}, {
-				value: 'sichuan',
-				text: '四川',
-				children: [{
-					value: 'chengdu',
-					text: '成都',
-					children: [{
-						value: 'qingyangqu',
-						text: '青羊区'
-					}, {
-						value: 'wuhouqu',
-						text: '武侯区'
-					}, {
-						value: 'jinjiang',
-						text: '锦江区'
-					}, {
-						value: 'chenghuaqu',
-						text: '成华区'
-					}, {
-						value: 'jinniuqu',
-						text: '金牛区'
-					}]
-				}, {
-					value: 'mianyang',
-					text: '绵阳'
-				}, {
-					value: 'panzhihua',
-					text: '攀枝花'
-				}]
-			}]
-		},
-		data3: {
-			placeholder: '请选择城市',
-			children: [{
-				value: 'zhejiang',
-				text: '浙江',
-				children: [{
-					value: 'hangzhou',
-					text: '杭州',
-					children: [{
-						value: 'xihu',
-						text: '西湖'
-					}]
-				}]
-			}, {
-				value: 'jiangsu',
-				text: '江苏',
-				children: [{
-					value: 'nanjing',
-					text: '南京',
-					children: [{
-						value: 'zhonghuamen',
-						text: '中华门'
-					}]
-				}]
-			}, {
-				value: 'sichuan',
-				text: '四川',
-				select: true,
-				children: [{
-					value: 'chengdu',
-					text: '成都',
-					select: true,
-					children: [{
-						value: 'qingyangqu',
-						text: '青羊区',
-						select: true
-					}, {
-						value: 'wuhouqu',
-						text: '武侯区'
-					}, {
-						value: 'jinjiang',
-						text: '锦江区'
-					}, {
-						value: 'chenghuaqu',
-						text: '成华区'
-					}, {
-						value: 'jinniuqu',
-						text: '金牛区'
-					}]
-				}, {
-					value: 'mianyang',
-					text: '绵阳'
-				}, {
-					value: 'panzhihua',
-					text: '攀枝花'
-				}]
-			}]
-		},
-		data4: {
-			placeholder: '请选择机构',
-			children: [{
-				value: 'zgs',
-				text: '总公司',
-				children: [{
-					value: 'sh_dep',
-					text: '上海分部',
-					children: [{
-						value: 'xihu',
-						text: '技术部'
-					}]
-				}, {
-					value: 'bg_dep',
-					text: '北京分部',
-					children: [{
-						value: 'hr',
-						text: '人事部'
-					}, {
-						value: 'yy',
-						text: '运营部'
-					}]
-				}, {
-					value: 'bg_dep',
-					text: '广州分部',
-					children: [{
-						value: 'xs',
-						text: '销售部'
-					}]
-				}]
-			}]
-		}
-	};
-
-/***/ },
-
-/***/ 272:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
-
-	var _cascader = __webpack_require__(74);
-
-	var _cascader2 = _interopRequireDefault(_cascader);
-
-	var _data2 = __webpack_require__(152);
-
-	var _data3 = _interopRequireDefault(_data2);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -478,47 +258,86 @@ webpackJsonp([36,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-		data: function data() {
-			return {
-				data1: _data3.default.data1,
-				data2: _data3.default.data2,
-				data3: _data3.default.data3,
-				data4: _data3.default.data4,
-				apis: [{
-					parameter: 'data',
-					explain: '数据',
-					type: 'Json',
-					default: ''
-				}]
-			};
-		},
-		components: {
-			codeBox: _codeBox2.default,
-			apiTable: _apiTable2.default,
-			vCascader: _cascader2.default
-		}
+	  data: function data() {
+	    return {
+	      apis: [{
+	        parameter: 'min',
+	        explain: '最小值',
+	        type: 'Number',
+	        default: '-Infinity'
+	      }, {
+	        parameter: 'max',
+	        explain: '最大值',
+	        type: 'Number',
+	        default: 'Infinity'
+	      }, {
+	        parameter: 'value',
+	        explain: '当前值',
+	        type: 'Number',
+	        default: '无'
+	      }, {
+	        parameter: 'step',
+	        explain: '每次改变步数，可以为小数',
+	        type: 'Number',
+	        default: '1'
+	      }, {
+	        parameter: 'defaultValue',
+	        explain: '初始值',
+	        type: 'Number',
+	        default: '无'
+	      }, {
+	        parameter: 'onChange',
+	        explain: '变化回调',
+	        type: 'Function',
+	        default: '无'
+	      }, {
+	        parameter: 'disabled',
+	        explain: '禁用',
+	        type: 'Boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'size',
+	        explain: '输入框大小',
+	        type: 'String',
+	        default: '无'
+	      }],
+	      disabled: true
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  },
+	  methods: {
+	    _handleChange: function _handleChange(value) {
+	      console.log('changed ', value);
+	    },
+	    _toggle: function _toggle() {
+	      this.disabled = !this.disabled;
+	    }
+	  }
 	};
 
 /***/ },
 
-/***/ 561:
+/***/ 439:
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div>\r\n\t<section class=\"markdown\">\r\n      <h1>Cascader 级联选择</h1>\r\n      <p>\r\n        级联选择控件。\r\n      </p>\r\n      <h2>何时使用</h2>\r\n      <ul>\r\n        <p>展示多级嵌套的父子关系数据，例如省市区，各级机构等。</p>\r\n      </ul>\r\n      <h2>组件演示</h2>\r\n    </section>\r\n\r\n\t<div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"典型级联\" describe=\"只包含级联数据。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data1'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带placeholder级联\" describe=\"级联、placehoder。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data2'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带默认值的级联\" describe=\"级联、placehoder、默认值。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data3'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t\t<div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n\t\t\t<code-box title=\"带placeholder级联\" describe=\"级联、placehoder。\" code=\"\">\r\n\t\t\t\t<v-cascader :data='data4'></v-cascader>\r\n\t\t\t</code-box>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<api-table\r\n      :apis='apis'\r\n    ></api-table>\r\n</div>\r\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>InputNumber 数字输入框</h1>\n      <p>\n        通过鼠标或键盘，输入范围内的数值。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          当需要获取标准数值时。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"数字输入框。\"\n          code=\"<v-input-number min='1'' max='10'' default-value='3'' :on-change='_handleChange'></v-input-number>\"\n        >\n        <v-input-number min=\"1\" max=\"10\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n        </code-box>\n\n        <code-box\n          title=\"不可用\"\n          describe=\"点击按钮切换可用状态。\"\n          code=\"<v-input-number min='1' max='10'' :disabled='disabled'' default-value='3'></v-input-number>\n<v-button @click='_toggle'' type='primary'>Toggle disabled</v-button>\"\n        >\n          <v-input-number min=\"1\" max=\"10\" :disabled=\"disabled\" default-value=\"3\"></v-input-number>\n          <br><br>\n          <v-button @click=\"_toggle\" type=\"primary\">Toggle disabled</v-button>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"三种大小\"\n          describe=\"三种大小的数字输入框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n          code=\"<v-input-number size='large' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\n<v-input-number min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\n<v-input-number size='small' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>\"\n        >\n          <v-input-number size=\"large\" min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n          <v-input-number min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n          <v-input-number size=\"small\" min=\"1\" max=\"100000\" default-value=\"3\" :on-change=\"_handleChange\"></v-input-number>\n        </code-box>\n\n        <code-box\n          title=\"小数\"\n          describe=\"和原生的数字输入框一样，value 的精度由 step 的小数位数决定。\"\n          code=\"<v-button type='primary'>Primary</v-button>\n<v-button type='primary' disabled>Primary</v-button>\"\n        >\n          <v-input-number min=\"1\" max=\"10\" step=\"0.1\"></v-input-number>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 680:
+/***/ 570:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(272)
+	__vue_script__ = __webpack_require__(207)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\cascader.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(561)
+	  console.warn("[vue-loader] src\\views\\inputNumber.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(439)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -207,7 +207,7 @@ webpackJsonp([30,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([30,50],{
 
 /***/ },
 
-/***/ 270:
+/***/ 215:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([30,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _card = __webpack_require__(52);
-
-	var _card2 = _interopRequireDefault(_card);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,104 +260,53 @@ webpackJsonp([30,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      onClose: function onClose() {
-	        console.log(this);
-	      },
-	      show: true,
-	      num: 5,
-	      apis: [{
-	        parameter: 'title',
-	        explain: '卡片标题',
-	        type: 'Sring',
-	        default: ''
-	      }, {
-	        parameter: 'slot::extra',
-	        explain: '卡片右上角的操作区域',
-	        type: 'slot node',
-	        default: '无'
-	      }, {
-	        parameter: 'bordered',
-	        explain: '是否有边框',
-	        type: 'boolean',
-	        default: 'true'
-	      }, {
-	        parameter: 'bodyStyle',
-	        explain: '内容区域自定义样式',
-	        type: 'Object',
-	        default: ''
-	      }]
+	      current: 1,
+	      apis: [{ "parameter": "current", "explain": "当前页数", "type": "Number", "default": "无" }, { "parameter": "defaultCurrent", "explain": "默认的当前页数", "type": "Number", "default": "1" }, { "parameter": "total", "explain": "数据总数", "type": "Number", "default": "0" }, { "parameter": "defaultPageSize", "explain": "初始的每页条数", "type": "Number", "default": "10" }, { "parameter": "pageSize", "explain": "每页条数", "type": "Number", "default": "" }, { "parameter": "onChange", "explain": "页码改变的回调，参数是改变后的页码", "type": "Function", "default": "noop" }, { "parameter": "showSizeChanger", "explain": "是否可以改变 pageSize", "type": "Bool", "default": "false" }, { "parameter": "pageSizeOptions", "explain": "指定每页可以显示多少条", "type": "Array", "default": "['10', '20', '30', '40']" }, { "parameter": "onShowSizeChange", "explain": "pageSize 变化的回调", "type": "Function", "default": "noop" }, { "parameter": "showQuickJumper", "explain": "是否可以快速跳转至某页", "type": "Bool", "default": "false" }, { "parameter": "size", "explain": "当为「small」时，是小尺寸分页", "type": "String", "default": "\"\"" }, { "parameter": "simple", "explain": "当添加该属性时，显示为简单分页", "type": "Object", "default": "无" }, { "parameter": "showTotal", "explain": "用于显示总共有多少条数据", "type": "Function", "default": "无" }]
 	    };
+	  },
+
+	  watch: {
+	    current: function current() {
+	      console.log(this.current);
+	    }
+	  },
+	  methods: {
+	    loadPage: function loadPage(i) {
+	      console.log('cb' + i);
+	    },
+	    showTotal: function showTotal(total) {
+	      return '全部 ' + total + ' 条';
+	    },
+	    pageSizeChange: function pageSizeChange(current, size) {
+	      console.log(current, size);
+	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    vCard: _card2.default
+	    apiTable: _apiTable2.default
 	  }
 	};
 
 /***/ },
 
-/***/ 373:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 429:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(373);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./card.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./card.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 559:
+/***/ 447:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Card 卡片</h1>\n    <p>\n      通用卡片容器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>最基础的卡片容器，可承载文字、列表、图片、段落，常用于后台概览页面。</p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"典型卡片\"\n        describe=\"包含标题、内容、操作区域。\"\n        code=\"\"\n      >\n        <v-card title=\"Card title\">\n          <a href=\"/#!/components/card\" slot=\"extra\">More</a>\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n      <code-box\n        title=\"简洁卡片\"\n        describe=\"只包含内容区域。\"\n        code=\"\"\n      >\n        <v-card>\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"无边框\"\n        describe=\"在灰色背景上使用无边框的卡片。\"\n        code=\"\"\n      >\n        <v-card title=\"Card title\" :bordered=\"false\">\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n      <code-box\n        title=\"更灵活的内容展示\"\n        describe=\"可以调整默认边距，设定宽度。\"\n        code=\"\"\n      >\n        <v-card :body-style=\"{ padding: 0 }\" style=\"width:240px;\">\n          <div class=\"custom-image\">\n            <img alt=\"example\" width=\"100%\" src=\"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png\">\n          </div>\n          <div class=\"custom-card\">\n            <h3>Europe Street beat</h3>\n            <p>www.instagram.com</p>\n          </div>\n        </v-card>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"栅格卡片\"\n        describe=\"在系统概览页面常常和栅格进行配合。\"\n        code=\"\"\n      >\n        <div class=\"ant-row-flex ant-row-flex-space-around\">\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n        </div>\n\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\r\n<div>\r\n\t\t<section class=\"markdown\">\r\n      <h1>Pagination 分页</h1>\r\n      <p>\r\n        采用分页的形式分隔长列表，每次只加载一个页面。\r\n      </p>\r\n      <h2>何时使用</h2>\r\n      <ul>\r\n        <li>当加载/渲染所有数据将花费很多时间时；</li>\r\n        <li>可切换页码浏览数据。</li>\r\n      </ul>\r\n      <h2>组件演示</h2>\r\n    </section>\r\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n    \t<code-box\r\n        title=\"基本\"\r\n        describe=\"基础分页。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"改变\"\r\n        describe=\"改变每页显示条目数。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-size-changer=\"true\"\r\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"改变\"\r\n        describe=\"改变每页显示条目数。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t        size=\"small\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n\t\t\t  <br>\r\n        <v-pagination \r\n\t\t\t  \t:current.sync=\"current\" \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"100\"\r\n\t\t\t  \t:default-page-size=\"5\"\r\n\t\t\t  \t:page-size=\"10\"\r\n\t\t\t  \t:on-change=\"loadPage\"\r\n\t\t\t  \t:show-size-changer=\"true\"\r\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t\t\t  \t:show-quick-jumper=\"true\"\r\n\t\t\t  \tsize=\"small\"\r\n\t\t\t  \t:simple=\"false\"></v-pagination>\r\n\t\t\t  <br>\r\n\t\t  \t<v-pagination \r\n\t\t\t  \t:current.sync=\"current\" \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"50\"\r\n\t\t\t  \t:default-page-size=\"5\"\r\n\t\t\t  \t:page-size=\"10\"\r\n\t\t\t  \t:on-change=\"loadPage\"\r\n\t\t\t  \tsize=\"small\"\r\n\t\t\t  \t:simple=\"false\"\r\n\t\t\t  \t:show-total=\"showTotal\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"受控\"\r\n        describe=\"受控制的页码。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"3\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n    </div>\r\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n    \t<code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-quick-jumper=\"true\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:simple=\"true\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"总数\"\r\n        describe=\"通过设置 showTotal 展示总共有多少数据。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-total=\"showTotal\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n    </div>\r\n\t  <api-table :apis=\"apis\"></api-table>\r\n</div>\r\n";
 
 /***/ },
 
-/***/ 678:
+/***/ 578:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(429)
-	__vue_script__ = __webpack_require__(270)
+	__vue_script__ = __webpack_require__(215)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\card.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(559)
+	  console.warn("[vue-loader] src\\views\\pagination.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(447)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

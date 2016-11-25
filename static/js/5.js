@@ -207,7 +207,7 @@ webpackJsonp([5,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([5,50],{
 
 /***/ },
 
-/***/ 310:
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,12 +246,6 @@ webpackJsonp([5,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _layout = __webpack_require__(25);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -266,89 +260,27 @@ webpackJsonp([5,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      content: [['data', '可嵌套的节点属性的数组，生成tree的数据', 'array', '无'], ['open', '下拉选择框是否显示', 'bool', 'false'], ['multiple', '支持多选', 'bool', 'false'], ['allowClear', '显示清除按钮', 'bool', 'false'], ['position', '下拉框的定位方式（absolute,fixed）', 'string', 'absolute'], ['onSelect', '被选中时调用，参数为选中项的 value 值', 'function(valueArray)', '无']],
-	      apiTreeNode: [{
-	        parameter: 'disabled',
-	        explain: '禁掉响应',
-	        type: 'bool',
-	        default: 'false'
-	      }, {
-	        parameter: 'disableCheckbox',
-	        explain: '禁掉 checkbox',
-	        type: 'bool',
-	        default: 'false'
-	      }, {
-	        parameter: 'title',
-	        explain: '标题',
-	        type: 'String/element string',
-	        default: "'---'"
-	      }, {
-	        parameter: 'expand',
-	        explain: '是否展开直子节点',
-	        type: 'bool',
-	        default: 'false'
-	      }, {
-	        parameter: 'checked',
-	        explain: '是否勾选(如果勾选，子节点也会全部勾选)',
-	        type: 'bool',
-	        default: 'false'
-	      }],
-	      treedata1: [{
-	        title: 'parent 1',
-	        selected: true,
-	        expand: true,
-	        node: [{
-	          title: 'parent 1-0',
-	          expand: true,
-	          disabled: true,
-	          node: [{
-	            title: 'leaf',
-	            disableCheckbox: true
-	          }, {
-	            title: 'leaf'
-	          }]
-	        }, {
-	          title: 'parent 1-1',
-	          node: [{
-	            title: "<span style='color:#08c'>sss</span>"
-	          }]
-	        }]
-	      }],
-	      treedata2: [{
-	        title: 'parent 1',
-	        expand: true,
-	        node: [{
-	          title: 'parent 1-0',
-	          expand: true,
-	          disabled: true,
-	          node: [{
-	            title: 'leaf',
-	            disableCheckbox: true
-	          }, {
-	            title: 'leaf',
-	            checked: true
-	          }]
-	        }, {
-	          title: 'parent 1-1',
-	          node: [{
-	            title: "<span style='color:#08c'>sss</span>"
-	          }]
-	        }]
-	      }]
+	      apis: [],
+	      options: [{ value: '1', text: 'lady' }, { value: '2', text: '小强', disabled: true }, { value: '3', text: '小明' }],
+	      value: '3',
+	      people: ''
 	    };
 	  },
 	  components: {
-	    vRow: _layout.vRow,
-	    vCol: _layout.vCol,
-	    vButton: _button2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
-	  }
+	  },
+	  events: {
+	    'select-change': function selectChange(obj) {
+	      console.log(obj.text);
+	    }
+	  },
+	  methods: {}
 	};
 
 /***/ },
 
-/***/ 398:
+/***/ 370:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -356,20 +288,20 @@ webpackJsonp([5,50],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".select-demo {\n  margin: 0 8px 10px 0;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 454:
+/***/ 401:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(398);
+	var content = __webpack_require__(370);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -378,8 +310,8 @@ webpackJsonp([5,50],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./treeSelect.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./treeSelect.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./select.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./select.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -390,25 +322,25 @@ webpackJsonp([5,50],{
 
 /***/ },
 
-/***/ 598:
+/***/ 453:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Tree 树形控件</h1>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。\"\n      >\n        <v-tree-select :data=\"treedata1\" allow-clear></v-tree-select>\n      </code-box>\n\n      <code-box\n        title=\"基本\"\n        describe=\"最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。\"\n      >\n        <v-tree-select :data=\"treedata2\" multiple allow-clear></v-tree-select>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n\n  <api-table\n    :content='content'\n  >\n    <h3>TreeSelect props</h3>\n  </api-table>\n\n  <api-table\n    :content='content'\n    title=\"\"\n  >\n    <h3>TreeNode props</h3>\n  </api-table>\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Select 选择器</h1>\n    <p>\n      一个简单的select选择器\n    </p>\n    <h2>何时使用</h2>\n    <p>\n      弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。\n    </p>\n    <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n      <code-box\n        title=\"简单\"\n        describe=\"最简单的用法。\"\n      >\n        <v-Select placeholder=\"请选择人员\" style=\"width: 120px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select disabled style=\"width: 120px;\" value=\"1\">lady</v-Select>\n      </code-box>\n      <code-box\n        title=\"带搜索框\"\n        describe=\"展开后可对选项进行搜索。\"\n      >\n        <v-Select placeholder=\"请选择人员\" notfound=\"无法找到\" type=\"search\" position=\"top\" style=\"width: 120px;\" :options=\"options\"\n                  :value.sync=\"people\"></v-Select>\n      </code-box>\n    </v-Col>\n    <v-Col span=\"12\">\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n      >\n        <v-Select class=\"select-demo\" size=\"lg\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select class=\"select-demo\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select class=\"select-demo\" size=\"sm\" style=\"width: 150px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n      </code-box>\n    </v-Col>\n  </v-Row>\n\n\n  <api-table :apis='apis'></api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 718:
+/***/ 585:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(454)
-	__vue_script__ = __webpack_require__(310)
+	__webpack_require__(401)
+	__vue_script__ = __webpack_require__(222)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\treeSelect.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(598)
+	  console.warn("[vue-loader] src\\views\\select.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(453)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

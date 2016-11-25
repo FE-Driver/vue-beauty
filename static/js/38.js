@@ -207,7 +207,7 @@ webpackJsonp([38,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,13 +238,13 @@ webpackJsonp([38,50],{
 
 /***/ },
 
-/***/ 306:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _codeBox = __webpack_require__(12);
@@ -258,64 +258,77 @@ webpackJsonp([38,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    data: function data() {
-	        return {
-	            content: [['value', '默认时间', 'string', '无'], ['format', '展示的时间格式', 'string', 'HH:mm:ss'], ['position', '下拉框的定位方式(absolute、fixed)', 'string', 'absolute'], ['startTime', '限制时间段开始时间', 'String', '00:00'], ['endTime', '限制时间段结束时间', 'String', '23:59'], ['size', '控件大小（large、small）', 'String', '无'], ['disabled', '禁用全部操作', 'boolean', 'false'], ['disabledMinutes', '禁止选择部分分钟选项', 'array', '无'], ['disabledSeconds', '禁止选择部分秒选项', 'array', '无']],
-	            minutes: [],
-	            seconds: [],
-	            value: '08:30:00'
-	        };
-	    },
-	    created: function created() {
-	        this.$set('minutes', this.disabledMinutes());
-	        this.$set('seconds', this.disabledSeconds());
-	    },
-
-	    methods: {
-	        newArray: function newArray(start, end) {
-	            var result = [];
-	            for (var i = start; i < end; i++) {
-	                result.push(i);
-	            }
-	            return result;
-	        },
-	        disabledMinutes: function disabledMinutes() {
-	            return this.newArray(0, 60).filter(function (value) {
-	                return value % 10 !== 0;
-	            });
-	        },
-	        disabledSeconds: function disabledSeconds() {
-	            return this.newArray(0, 60).filter(function (value) {
-	                return value % 30 !== 0;
-	            });
-	        }
-	    },
-	    components: {
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+	  data: function data() {
+	    return {
+	      apis: [{
+	        parameter: 'type',
+	        explain: '必选参数，指定警告提示的样式，有四种选择 success、info、warning、error',
+	        type: 'String',
+	        default: 'info'
+	      }, {
+	        parameter: 'closable',
+	        explain: '可选参数，默认不显示关闭按钮',
+	        type: 'Boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'closeText',
+	        explain: '可选参数，自定义关闭按钮',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'message',
+	        explain: '必选参数，警告提示内容',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'description',
+	        explain: '可选参数，警告提示的辅助性文字介绍',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'onClose',
+	        explain: '可选参数，关闭时触发的回调函数',
+	        type: 'Function',
+	        default: '无'
+	      }, {
+	        parameter: 'showIcon',
+	        explain: '可选参数，是否显示辅助图标',
+	        type: 'Boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'closed',
+	        explain: '可选参数，控制组件隐藏显示，默认显示',
+	        type: 'Boolean',
+	        default: 'false'
+	      }]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 593:
+/***/ 436:
 /***/ function(module, exports) {
 
-	module.exports = "\n  <section class=\"markdown\">\n      <h1>TimePicker 时间选择框</h1>\n      <p>\n          当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。\n      </p>\n      <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n      <v-Col span=\"12\">\n          <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          >\n              <v-time-picker></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"三种大小\"\n          describe=\"三种大小的输入框，大的用在表单中，中的为默认。\"\n          >\n              <v-time-picker size=\"large\"></v-time-picker>\n              <v-time-picker></v-time-picker>\n              <v-time-picker size=\"small\"></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"禁用\"\n          describe=\"禁用时间选择。\"\n          >\n              <v-time-picker disabled></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"只显示部分选项\"\n          describe=\"通过 disabledMinutes和disabledSeconds 将不可选的选项隐藏。\"\n          >\n              <v-time-picker :disabled-minutes=\"minutes\" :disabled-seconds=\"seconds\"></v-time-picker>\n          </code-box>\n      </v-Col>\n\n      <v-Col span=\"12\">\n          <code-box\n          title=\"受控组件\"\n          describe=\"value 和 onChange 需要配合使用。\"\n          >\n              <v-time-picker :value.sync=\"value\"></v-time-picker>\n          </code-box>\n          <code-box\n          title=\"不展示秒\"\n          describe=\"不展示秒，也不允许选择。\"\n          >\n              <v-time-picker format=\"HH:mm\"></v-time-picker>\n          </code-box>\n          <code-box\n          title=\"禁止选项\"\n          describe=\"限制选择 20:30 到 23:30 这个时间段。\"\n          >\n              <v-time-picker start-time=\"20:30\" end-time=\"23:30\"></v-time-picker>\n          </code-box>\n      </v-Col>\n  </v-Row>\n\n  <api-table\n  :content='content'\n></api-table>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Dropdown 下拉菜单</h1>\n    <p>\n      向下弹出的列表。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"下拉菜单\"\n              describe=\"\"\n              code=\"\"\n      >\n        <menu>\n          test 0\n          <menu-item>\n            <sub-menu title=\"sub\">\n              <menu-item>\n                sub 1\n              </menu-item>\n              <menu-item>\n                sub 1\n              </menu-item>\n            </sub-menu>\n          </menu-item>\n        </menu>\n\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"下拉菜单\"\n              describe=\"\"\n              code=\"\"\n      >\n        <sub-menu title=\"sub1\">\n          <sub-menu title=\"sub2\">\n            <menu-item>\n              <sub-menu title=\"sub\">\n                <menu-item>\n                  sub 1\n                </menu-item>\n                <menu-item>\n                  sub 1\n                </menu-item>\n              </sub-menu>\n            </menu-item>\n\n          </sub-menu>\n        </sub-menu>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"下拉菜单\"\n              describe=\"\"\n              code=\"\"\n      >\n        <menu>\n\n          <menu-item>item 1</menu-item>\n\n          <sub-menu title=\"sub\">\n\n            <menu-item>item 2</menu-item>\n\n            <sub-menu title=\"sub\">\n\n              <menu-item>item 3</menu-item>\n\n            </sub-menu>\n\n          </sub-menu>\n\n          <menu-item>item 2</menu-item>\n\n        </menu>\n\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n          :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 713:
+/***/ 566:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(306)
+	__vue_script__ = __webpack_require__(203)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\timePicker.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(593)
+	  console.warn("[vue-loader] src\\views\\dropdown.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(436)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

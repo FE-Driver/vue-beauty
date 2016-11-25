@@ -207,7 +207,7 @@ webpackJsonp([28,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,18 +238,14 @@ webpackJsonp([28,50],{
 
 /***/ },
 
-/***/ 273:
+/***/ 217:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-
-	var _checkbox = __webpack_require__(39);
-
-	var _checkbox2 = _interopRequireDefault(_checkbox);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -262,126 +258,106 @@ webpackJsonp([28,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    var _this = this;
+	    data: function data() {
+	        return {
+	            apis: [{
+	                parameter: 'slot::trigger',
+	                explain: '触发目标(必选)',
+	                type: 'slot node',
+	                default: '无'
+	            }, {
+	                parameter: 'slot::content',
+	                explain: '卡片内容(可选,与content属性互斥)',
+	                type: 'slot node',
+	                default: '无'
+	            }, {
+	                parameter: 'trigger',
+	                explain: '触发行为，可选 hover/focus/click,默认click',
+	                type: 'string',
+	                default: 'click'
+	            }, {
+	                parameter: 'placement',
+	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
+	                type: 'string',
+	                default: 'bottom'
+	            }, {
+	                parameter: 'title',
+	                explain: '卡片标题',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'content',
+	                explain: '卡片内容',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'visible',
+	                explain: '用于手动控制浮层显隐',
+	                type: 'boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'onVisibleChange',
+	                explain: '显示或隐藏发生改变的回调',
+	                type: 'function(boolean:改变后卡片的可见性)',
+	                default: '无'
+	            }, {
+	                parameter: 'openClassName',
+	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'disabled',
+	                explain: '临时禁用气泡卡片弹出',
+	                type: 'boolean',
+	                default: 'false'
+	            }],
 
-	    return {
-	      checked: false,
-	      disabled: false,
-	      onChange: function onChange(e) {
-	        _this.checked = e.checked;
-	      },
-	      checkGroup: function checkGroup(values) {
-	        console.log(values);
-	      },
-	      defaultValue: ['Apple', 'Orange'],
-	      options: [{ label: '苹果', value: 'Apple' }, { label: '梨', value: 'Pear' }, { label: '橘', value: 'Orange' }],
-	      optionsWithDisabled: [{ label: '苹果', value: 'Apple' }, { label: '梨', value: 'Pear' }, { label: '橘', value: 'Orange', disabled: true }],
-	      apis: [{
-	        parameter: 'checked',
-	        explain: '指定当前是否选中',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'disabled',
-	        explain: '只读，无法进行交互',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '变化时回调函数',
-	        type: 'Function',
-	        default: '无'
-	      }],
-	      apiGroup: [{
-	        parameter: 'value',
-	        explain: '默认选中的选项',
-	        type: 'array',
-	        default: '无'
-	      }, {
-	        parameter: 'options[ { label,value,disabled } ]',
-	        explain: '指定可选项',
-	        type: 'array',
-	        default: '无'
-	      }, {
-	        parameter: 'onChange',
-	        explain: '变化时回调函数',
-	        type: 'Function(checkedValue)',
-	        default: '无'
-	      }]
-	    };
-	  },
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    vCheckbox: _checkbox2.default,
-	    CheckboxGroup: _checkbox2.default.Group
-	  }
+	            outer_control_visible: true,
+	            default_is_disabled: false,
+	            popover_is_disabled: false
+	        };
+	    },
+
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    },
+	    methods: {
+	        clickClose: function clickClose() {
+	            this.outer_control_visible = false;
+	        },
+	        to_disabled: function to_disabled(val) {
+	            this.popover_is_disabled = val;
+	        },
+	        outerVisibleChange: function outerVisibleChange(val) {
+	            this.outer_control_visible = val;
+	        },
+	        visibleChange: function visibleChange(val) {
+	            this.$message.info(val ? '卡片显示了' : '卡片隐藏了');
+	        }
+	    }
 	};
 
 /***/ },
 
-/***/ 374:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 430:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(374);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./checkbox.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./checkbox.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 562:
+/***/ 449:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Checkbox多选框</h1>\n      <p>\n        多选框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>在一组可选项中进行多项选择时；</li>\n        <li>单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的 checkbox。\"\n          code=\"<v-checkbox>checkbox</v-checkbox>\"\n        >\n          <v-checkbox>checkbox</v-checkbox>\n\n        </code-box>\n\n        <code-box\n          title=\"和外部组件通信\"\n          describe=\"联动 checkbox。\"\n          code='onChange: (e) => {\n  this.checked = e.checked\n},\n\n<v-checkbox\n  :checked=\"checked\"\n  :disabled=\"disabled\"\n  :on-change=\"onChange\">\n  <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n  <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n</v-checkbox>\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>'\n        >\n          <p style=\"margin-bottom: 16px;\">\n            <v-checkbox\n              :checked=\"checked\"\n              :disabled=\"disabled\"\n              :on-change=\"onChange\">\n              <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n              <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n            </v-checkbox>\n          </p>\n          <p>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>\n          </p>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"checkbox不可用\"\n          code=\"<v-checkbox disabled='true'></v-checkbox>\n<v-checkbox checked='true' disabled='true'></v-checkbox>\"\n        >\n          <v-checkbox disabled='true'></v-checkbox>\n          <v-checkbox checked='true' disabled='true'></v-checkbox>\n        </code-box>\n\n        <code-box\n          title=\"Checkbox 组\"\n          describe=\"方便的从数组生成 Checkbox 组。\"\n          code='defaultValue: [\"Apple\", \"Orange\"],\noptions: [\n  { label: \"苹果\", value: \"Apple\" },\n  { label: \"梨\", value: \"Pear\" },\n  { label: \"橘\", value: \"Orange\" },\n],\noptionsWithDisabled: [\n{ label: \"苹果\", value: \"Apple\" },\n{ label: \"梨\", value: \"Pear\" },\n{ label: \"橘\", value: \"Orange\", disabled； true },\n],\n\n<checkbox-group :options=\"options\"\n  :value.sync=\"defaultValue\">\n</checkbox-group>\n\n<checkbox-group\n  :options=\"optionsWithDisabled\"\n  :on-change=\"checkGroup\">\n</checkbox-group>'\n        >\n          <p style=\"margin-bottom: 16px;\"><checkbox-group :options=\"options\" :value.sync=\"defaultValue\"></checkbox-group></p>\n          <checkbox-group\n            :options=\"optionsWithDisabled\"\n            :on-change=\"checkGroup\">\n          </checkbox-group>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Checkbox</h3>\n    </api-table>\n\n\n    <api-table\n      :apis='apiGroup'\n    >\n      <h3>Checkbox Group</h3>\n    </api-table>\n\n  </div>\n\n";
+	module.exports = "\n<section class=\"markdown\">\n    <h1>Popover 气泡卡片</h1>\n    <p>\n        点击/鼠标移入元素，弹出气泡式的卡片浮层。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>当目标元素有进一步的描述和相关操作时，可以收纳到卡片中，根据用户的操作行为进行展现。</p>\n        <p>和 Tooltip 的区别是，用户可以对浮层上的元素进行操作，因此它可以承载更复杂的内容，比如链接或按钮等。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popover placement=\"top\" title=\"简单标题\">\n                <div slot=\"content\">\n                    我是普通文本内容\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"快速设置简单的内容\" describe=\"使用content属性设置简单内容\">\n            <v-popover placement=\"top\" title=\"简单标题\" content=\"我的优先级更高\">\n                <div slot=\"content\">\n                    我会被忽略\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"触发行为\" describe=\"点击、聚集、鼠标移入。\">\n            <v-popover placement=\"left\" title=\"简单标题\" content=\"点击\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n\n            <span style=\"display:inline-block;width:80px;\">\n                <v-popover placement=\"top\" title=\"简单标题\" trigger=\"focus\" content=\"focus\">\n                    <input class=\"ant-input ant-input-lg\" slot=\"trigger\" placeholder=\"focus\">\n                </v-popover>\n            </span>\n\n            <v-popover placement=\"right\" title=\"简单标题\" content=\"hover\" trigger=\"hover\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">hover</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n\n\n    <v-col span=\"12\">\n        <code-box title=\"从卡片内关闭\" describe=\"使用visible控制显示。\">\n            <v-popover placement=\"top\" title=\"标题\" :visible=\"outer_control_visible\" :on-visible-change=\"outerVisibleChange\">\n                <div slot=\"content\">\n                    <a href=\"javascript:;\" @click=\"clickClose\">关闭</a>\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"临时禁用卡片弹出\" describe=\"使用disabled禁用卡片弹出。\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :disabled=\"popover_is_disabled\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否禁用卡片弹出\n            <v-switch :on-change=\"to_disabled\" :checked=\"default_is_disabled\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n    <v-col span=\"12\">\n        <code-box title=\"卡片显示/隐藏的回调\" describe=\"onVisibleChange\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :on-visible-change=\"visibleChange\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"8\">\n    <v-col span=\"12\">\n        <code-box title=\"滚动区域内\" describe=\"滚动区域内的卡片\">\n            <div style=\"height:100px;background:#D7E6F3;overflow:auto;\">\n                <div style=\"width:1000px;\">\n                    按钮在右下角\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <v-popover placement=\"top\" title=\"标题\" content=\"滚动区域内的定位\">\n                        <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\" style=\"float:right;\">点击弹出</button>\n                    </v-popover>\n                </div>\n            </div>\n        </code-box>\n    </v-col>\n</v-row>\n<api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 681:
+/***/ 580:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(430)
-	__vue_script__ = __webpack_require__(273)
+	__vue_script__ = __webpack_require__(217)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\checkbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(562)
+	  console.warn("[vue-loader] src\\views\\popover.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(449)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

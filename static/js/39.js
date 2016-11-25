@@ -207,7 +207,7 @@ webpackJsonp([39,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([39,50],{
 
 /***/ },
 
-/***/ 305:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,67 +260,47 @@ webpackJsonp([39,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      apis: [{
-	        parameter: 'closable',
-	        explain: '标签是否可以关闭',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'color',
-	        explain: '标签的色彩：blue green yellow red',
-	        type: 'string',
-	        default: '-'
-	      }],
-	      eventsApi: [['close', '移除标签的时候触发', '无']],
-	      tags: [{
-	        title: '不可移除',
-	        closable: false
-	      }, {
-	        title: '标签一',
-	        closable: true
-	      }, {
-	        title: '标签二',
-	        closable: true
-	      }]
+	      content: [['style', '自定义输入框样式', 'object', '-'], ['size', '输入框大小，large 高度为 32px，small 为 22px，默认是 28px', 'string', '-'], ['placeholder', '占位提示符', 'string', '请选择日期'], ['position', '下拉框的定位方式(absolute、fixed)', 'string', 'absolute'], ['range', '能否进行范围选择', 'boolean', 'false'], ['showTime', '增加时间选择功能', 'boolean', 'false'], ['time', '默认日期', 'string', '-'], ['startTime', '开始时间', 'string', '-'], ['endTime', '结束时间', 'string', '-'], ['maxRange', '选择最大范围限制,以天为单位（只有range为true的时候才起作用）', 'number string', 'false'], ['clearable', '是否显示清除按钮', 'boolean', 'false'], ['format', '展示的日期格式', 'string', 'yyyy-MM-dd'], ['disabled', '禁用', 'boolean', 'false']],
+	      eventsApi: [['change', '时间发生变化的时候触发', 'function(time) or function(startTime, endTime)'], ['confirm', '点击确定按钮时触发', '-']]
 	    };
+	  },
+	  methods: {
+	    confirm: function confirm() {
+	      console.log('confirm');
+	    },
+	    change: function change(time) {
+	      console.log(time);
+	    },
+	    rangeChange: function rangeChange(startTime, endTime) {
+	      console.log(startTime, endTime);
+	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
-	  },
-	  methods: {
-	    close: function close(i) {
-	      console.log(i);
-	    },
-	    _addTag: function _addTag() {
-	      var tagTmp = {};
-	      tagTmp.title = '新标签' + (this.tags.length + 1);
-	      tagTmp.closable = true;
-	      this.tags.push(tagTmp);
-	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 592:
+/***/ 435:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"markdown\">\n  <h1>Tag标签</h1>\n  <p>\n    进行标记和分类的小标签。\n  </p>\n  <h2>何时使用#</h2>\n  <ul>\n    <li>\n      <p>\n        用于标记事物的属性和维度。\n      </p>\n    </li>\n    <li>\n      <p>\n        进行分类。\n      </p>\n    </li>\n  </ul>\n  <h2>组件演示</h2>\n</section>\n\n<v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n    <code-box\n      title=\"基本\"\n      describe=\"简单的标签展示，添加 closable 表示可关闭。\"\n    >\n      <v-tag>标签一</v-tag>\n      <v-tag>标签一</v-tag>\n      <v-tag closable>标签一</v-tag>\n    </code-box>\n\n    <code-box\n      title=\"动态添加和删除\"\n      describe=\"用数组生成一组标签，可以动态添加和删除。\"\n    >\n\n      <v-tag v-for=\"tag in tags\" :color=\"tag.color\" :closable=\"tag.closable\">{{tag.title}}</v-tag>\n      <v-button type=\"dashed\" size=\"small\" @click=\"_addTag($event)\">+ 添加标签</v-button>\n    </code-box>\n\n\n  </v-Col>\n\n  <v-Col span=\"12\">\n\n    <code-box\n      title=\"各种类型\"\n      describe=\"四种颜色的标签。\"\n    >\n      <v-tag color=\"blue\" closable @close=\"close(1)\">蓝色</v-tag>\n      <v-tag color=\"green\" closable @close=\"close(2)\">绿色</v-tag>\n      <v-tag color=\"yellow\" closable @close=\"close(3)\">黄色</v-tag>\n      <v-tag color=\"red\" closable @close=\"close(4)\">红色</v-tag>\n    </code-box>\n\n  </v-Col>\n</v-Row>\n\n\n<api-table\n  :apis='apis'\n></api-table>\n<api-table\n  type=\"events\"\n  title=\"\"\n  :content='eventsApi'\n></api-table>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>DatePicker 日期选择框</h1>\n    <p>\n      输入或选择日期的控件。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法，在浮层中可以选择或者输入日期\">\n        <v-datepicker clearable></v-datepicker><br><br>\n        <v-datepicker range clearable @confirm=\"confirm\"></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的输入框，若不设置，则为 default。\">\n        <v-datepicker size=\"small\"></v-datepicker><br><br>\n        <v-datepicker></v-datepicker><br><br>\n        <v-datepicker range size=\"large\"></v-datepicker>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"日期格式\"\n        describe=\"使用 format 属性，可以自定义日期显示格式。\">\n        <v-datepicker time='2015-12-06' format=\"yyyy/MM/dd\" @change='change'></v-datepicker><br><br>\n        <v-datepicker range start-time='2015-12-06' end-time='2016-12-06' format=\"yyyy/MM/dd\" @change=\"rangeChange\"></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"日期时间选择\"\n        describe=\"增加选择时间功能\">\n        <v-datepicker clearable :show-time=\"true\" time='2015-12-06 23:12'></v-datepicker><br><br>\n        <v-datepicker range :show-time=\"true\" start-time='2015-12-06 23:12' end-time='2016-12-06 23:12' clearable></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"禁用\"\n        describe=\"选择框的不可用状态。\">\n        <v-datepicker disabled></v-datepicker>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n  <api-table\n    type=\"events\"\n    title=\"\"\n    :content='eventsApi'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 712:
+/***/ 565:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(305)
+	__vue_script__ = __webpack_require__(202)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\tag.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(592)
+	  console.warn("[vue-loader] src\\views\\datepicker.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(435)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

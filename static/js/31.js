@@ -207,7 +207,7 @@ webpackJsonp([31,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([31,50],{
 
 /***/ },
 
-/***/ 267:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([31,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _badge = __webpack_require__(70);
-
-	var _badge2 = _interopRequireDefault(_badge);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,51 +260,57 @@ webpackJsonp([31,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      onClose: function onClose() {
-	        console.log(this);
-	      },
-	      show: true,
-	      num: 5,
 	      apis: [{
-	        parameter: 'count',
-	        explain: '展示的数字，大于 overflowCount 时显示为 {{overflowCount}}+，为 0 时隐藏',
+	        parameter: 'message',
+	        explain: '通知提醒标题，必选',
+	        type: 'Sring',
+	        default: '无'
+	      }, {
+	        parameter: 'description',
+	        explain: '通知提醒内容，必选',
+	        type: 'Sring',
+	        default: '无'
+	      }, {
+	        parameter: 'duration',
+	        explain: '默认 4.5 秒后自动关闭，配置为 0 则不自动关闭',
 	        type: 'Number',
-	        default: ''
-	      }, {
-	        parameter: 'overflowCount',
-	        explain: '展示封顶的数字值',
+	        default: '4.5'
+	      }],
+	      config: [{
+	        parameter: 'top',
+	        explain: '消息距离顶部的位置',
 	        type: 'Number',
-	        default: '99'
+	        default: '24'
 	      }, {
-	        parameter: 'dot',
-	        explain: '不展示数字，只有一个小红点',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'show',
-	        explain: '是否显示',
-	        type: 'boolean',
-	        default: 'false'
+	        parameter: 'duration',
+	        explain: '默认自动关闭延时，单位秒',
+	        type: 'Number',
+	        default: '4.5'
 	      }]
 	    };
 	  },
-	  computed: {
-	    code: function code() {
-	      var str = ["<v-badge :count=\"25\"></v-badge>", "<v-badge :count=\"4\" :styles=\"{ backgroundColor: \'#fff\', color: \'#999\', borderColor: \'#d9d9d9\' }\"></v-badge>", "<v-badge :count=\"109\" :styles=\"{ backgroundColor: \'#87d068\' }\"></v-badge>"].join("");
-	      return str;
-	    }
-	  },
 	  methods: {
-	    reduce: function reduce() {
-	      if (this.num < 0) {
-	        this.num = 0;
-	      } else {
-	        this.num--;
-	      }
+	    openNotification: function openNotification() {
+	      this.$notification.open({
+	        message: '这是标题',
+	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
+	      });
+	    },
+	    openNotificationInfinite: function openNotificationInfinite() {
+	      this.$notification.open({
+	        message: '这是标题',
+	        description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
+	        duration: 0
+	      });
+	    },
+	    openNotificationWithIcon: function openNotificationWithIcon(type) {
+	      this.$notification[type]({
+	        message: '这是标题',
+	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
+	      });
 	    }
 	  },
 	  components: {
-	    vBadge: _badge2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -316,67 +318,24 @@ webpackJsonp([31,50],{
 
 /***/ },
 
-/***/ 372:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 428:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(372);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./badge.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./badge.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 556:
+/***/ 446:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Badge 徽标数</h1>\n      <p>\n        图标右上角的圆形徽标数字。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"简单的徽章展示。\"\n          code='<v-badge :count=\"5\"><a href=\"#\" class=\"head-example\"></a></v-badge>'\n        >\n          <v-badge :count=\"5\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n        </code-box>\n\n        <code-box\n          title=\"讨嫌的小红点\"\n          describe=\"没有具体的数字。\"\n          code='<v-badge :count=\"30\"><a href=\"#\" class=\"head-example\"></a></v-badge>'\n        >\n          <v-badge dot>\n            <i class=\"anticon anticon-notification\"></i>\n          </v-badge>\n          <v-badge dot>\n            <a >一个链接</a>\n          </v-badge>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"大数字\"\n          describe=\"超过 overflowCount 的会显示为 {overflowCount}+。\"\n          code='<v-badge :count=\"11\" :overflow-count=\"10\">\n  <a class=\"head-example\"></a>\n</v-badge>\n<v-badge :count=\"1000\" :overflow-count=\"999\">\n  <a class=\"head-example\"></a>\n</v-badge>'\n        >\n          <v-badge :count=\"11\" :overflow-count=\"10\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n\n          <v-badge :count=\"1000\" :overflow-count=\"999\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n        </code-box>\n\n        <code-box\n          title=\"动态\"\n          describe=\"展示动态变化的效果。\"\n          code='<v-badge :count=\"num\">\n  <a class=\"head-example\"></a>\n</v-badge>\n<v-badge dot :show=\"show\">\n  <a class=\"head-example\"></a>\n</v-badge>\n<div style=\"margin-top: 10px;\">\n  <div class=\"ant-btn-group\">\n    <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"num--\"><i class=\"anticon anticon-minus\" ></i></button>\n    <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"num++\"><i class=\"anticon anticon-plus\"></i></button>\n  </div>\n  <button type=\"button\" class=\"ant-btn ant-btn-ghost\" style=\"margin-left: 8px;\" @click=\"show = !show\"><span>切换红点显隐</span></button>\n</div>'\n        >\n          <v-badge :count=\"num\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n          <v-badge dot :show=\"show\">\n            <a class=\"head-example\"></a>\n          </v-badge>\n          <div style=\"margin-top: 10px;\">\n            <div class=\"ant-btn-group\">\n              <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"reduce\"><i class=\"anticon anticon-minus\" ></i></button>\n              <button type=\"button\" class=\"ant-btn ant-btn-ghost\" @click=\"num++\"><i class=\"anticon anticon-plus\"></i></button>\n            </div>\n            <button type=\"button\" class=\"ant-btn ant-btn-ghost\" style=\"margin-left: 8px;\" @click=\"show = !show\"><span>切换红点显隐</span></button>\n          </div>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"独立使用\"\n          describe=\"不包裹任何元素即是独立使用\"\n          :code=\"code\"\n        >\n          <v-badge :count=\"25\"></v-badge>\n          <v-badge :count=\"4\" :styles=\"{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }\"></v-badge>\n          <v-badge :count=\"109\" :styles=\"{ backgroundColor: '#87d068' }\"></v-badge>\n        </code-box>\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Notification通知提醒框</h1>\n      <p>\n        全局展示通知提醒信息。\n      </p>\n      <h2>何时使用</h2>\n      <p>在系统右上角显示通知提醒信息。经常用于以下情况：</p>\n      <ul>\n        <li>较为复杂的通知内容。</li>\n        <li>带有交互的通知，给出用户下一步的行动点。</li>\n        <li>系统主动推送。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法，4.5 秒后自动关闭。\"\n          code='openNotification() {\n  this.$notification.open({\n    message: \"这是标题\",\n    description: \"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案\",\n  });\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification\"><span>打开通知提醒框</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification\"><span>打开通知提醒框</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"带有Icon的通知提醒框\"\n          describe=\"通知提醒框左侧有图标。\"\n          code='openNotificationWithIcon(type) {\n  this.$notification[type]({\n    message: \"这是标题\",\n    description: \"这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案\"\n  });\n}\n\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"success\")\"><span>成 功</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"info\")\"><span>消 息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"warning\")\"><span>警 告</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon(\"error\")\"><span>错 误</span></button>\n'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('success')\"><span>成 功</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('info')\"><span>消 息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('warning')\"><span>警 告</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"openNotificationWithIcon('error')\"><span>错 误</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"自动关闭的延时\"\n          describe=\"自定义通知框自动关闭的延时，默认4.5s，取消自动关闭只要将该值设为 0 即可。\"\n          code='openNotification() {\n  this.$notification.open({\n    message: \"这是标题\",\n    description: \"我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭\",\n    duration: 0,\n  });\n}\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotification2\"><span>打开通知提醒框</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openNotificationInfinite\"><span>打开通知提醒框</span></button>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li>notification.success(config)</li>\n        <li>notification.error(config)</li>\n        <li>notification.info(config)</li>\n        <li>notification.warning(config)</li>\n      </ul>\n      <p>\n        config 参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          notification.config({\n            top: 100,\n            duration: 3,\n          });\n      </p>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 675:
+/***/ 577:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(428)
-	__vue_script__ = __webpack_require__(267)
+	__vue_script__ = __webpack_require__(214)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\badge.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(556)
+	  console.warn("[vue-loader] src\\views\\notification.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(446)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

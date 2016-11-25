@@ -207,7 +207,7 @@ webpackJsonp([46,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([46,50],{
 
 /***/ },
 
-/***/ 279:
+/***/ 187:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,7 +260,45 @@ webpackJsonp([46,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      content: [['style', '自定义输入框样式', 'object', '-'], ['size', '输入框大小，large 高度为 32px，small 为 22px，默认是 28px', 'string', '-'], ['placeholder', '占位提示符', 'string', '请选择日期'], ['position', '下拉框的定位方式(absolute、fixed)', 'string', 'absolute'], ['range', '能否进行范围选择', 'boolean', 'false'], ['showTime', '增加时间选择功能', 'boolean', 'false'], ['time', '默认日期', 'string', '-'], ['startTime', '开始时间', 'string', '-'], ['endTime', '结束时间', 'string', '-'], ['maxRange', '选择最大范围限制,以天为单位（只有range为true的时候才起作用）', 'number string', 'false'], ['clearable', '是否显示清除按钮', 'boolean', 'false'], ['format', '展示的日期格式', 'string', 'yyyy-MM-dd'], ['disabled', '禁用', 'boolean', 'false'], ['confirm', '是否需要点击确认', 'boolean', 'false'], ['en', '是否使用英文', 'boolean', 'false'], ['onConfirm', '点击确认后的回调', 'function(startTime, endTime)', '-']]
+	      onClose: function onClose() {
+	        console.log(this);
+	      },
+	      apis: [{
+	        parameter: 'type',
+	        explain: '必选参数，指定警告提示的样式，有四种选择 success、info、warning、error',
+	        type: 'String',
+	        default: 'info'
+	      }, {
+	        parameter: 'closable',
+	        explain: '可选参数，默认不显示关闭按钮',
+	        type: 'Boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'closeText',
+	        explain: '可选参数，自定义关闭按钮',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'message',
+	        explain: '必选参数，警告提示内容',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'description',
+	        explain: '可选参数，警告提示的辅助性文字介绍',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'onClose',
+	        explain: '可选参数，关闭时触发的回调函数',
+	        type: 'Function',
+	        default: '无'
+	      }, {
+	        parameter: 'showIcon',
+	        explain: '可选参数，是否显示辅助图标',
+	        type: 'Boolean',
+	        default: 'false'
+	      }]
 	    };
 	  },
 	  components: {
@@ -271,24 +309,24 @@ webpackJsonp([46,50],{
 
 /***/ },
 
-/***/ 568:
+/***/ 420:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>DatePicker 日期选择框</h1>\n    <p>\n      输入或选择日期的控件。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法，在浮层中可以选择或者输入日期\">\n        <v-datepicker clearable></v-datepicker><br><br>\n        <v-datepicker range clearable></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的输入框，若不设置，则为 default。\">\n        <v-datepicker size=\"small\"></v-datepicker><br><br>\n        <v-datepicker></v-datepicker><br><br>\n        <v-datepicker range size=\"large\"></v-datepicker>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"日期格式\"\n        describe=\"使用 format 属性，可以自定义日期显示格式。\">\n        <v-datepicker time='2015-12-06' format=\"yyyy/MM/dd\"></v-datepicker><br><br>\n        <v-datepicker range start-time='2015-12-06' end-time='2016-12-06' format=\"yyyy/MM/dd\"></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"日期时间选择\"\n        describe=\"增加选择时间功能\">\n        <v-datepicker clearable :show-time=\"true\" time='2015-12-06 23:12'></v-datepicker><br><br>\n        <v-datepicker range :show-time=\"true\" start-time='2015-12-06 23:12' end-time='2016-12-06 23:12' clearable></v-datepicker>\n      </code-box>\n\n      <code-box\n        title=\"禁用\"\n        describe=\"选择框的不可用状态。\">\n        <v-datepicker disabled></v-datepicker>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Alert 警告提示</h1>\n      <p>\n        警告提示，展现需要关注的信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当某个页面需要向用户显示警告的信息时。</li>\n        <li>非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法，适用于简短的警告提示。\"\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"可关闭的警告提示\"\n          describe=\"显示关闭按钮，点击可关闭警告提示。\"\n          code='<v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\"\ndescription=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\nclosable></v-alert>'\n        >\n          <v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n          <v-alert\n            type=\"error\"\n            message=\"错误提示的文案\"\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n            closable></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"图标\"\n          describe=\"可口的图标让信息类型更加醒目。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\" show-icon></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\" show-icon></v-alert>\n<v-alert type=\"warning\" message=\"警告提示的文案\" show-icon></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\" show-icon></v-alert>\n<v-alert type=\"success\" message=\"成功提示的文案\" show-icon\n  description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\" show-icon\n  description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"warning\" message=\"警告提示的文案\" show-icon\n  description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"error\" message=\"错误提示的文案\" show-icon\n  description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\" show-icon></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\" show-icon></v-alert>\n          <v-alert type=\"warning\" message=\"警告提示的文案\" show-icon></v-alert>\n          <v-alert type=\"error\" message=\"错误提示的文案\" show-icon></v-alert>\n          <v-alert type=\"success\" message=\"成功提示的文案\" show-icon\n            description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\" show-icon\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"warning\" message=\"警告提示的文案\" show-icon\n            description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"error\" message=\"错误提示的文案\" show-icon\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n          ></v-alert>\n        </code-box>\n\n      </div>\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n        <code-box\n          title=\"四种样式\"\n          describe=\"共有四种样式 success、info、warning、error。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\"></v-alert>\n<v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n<v-alert type=\"error\" message=\"错误提示的文案\"></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\"></v-alert>\n          <v-alert type=\"warning\" message=\"警告提示的文案\"></v-alert>\n          <v-alert type=\"error\" message=\"错误提示的文案\"></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"含有辅助性文字介绍\"\n          describe=\"含有辅助性文字介绍的警告提示。\"\n          code='<v-alert type=\"success\" message=\"成功提示的文案\"\n  description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n></v-alert>\n<v-alert type=\"info\" message=\"消息提示的文案\"\n  description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"warning\" message=\"警告提示的文案\"\n  description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n></v-alert>\n<v-alert\n  type=\"error\" message=\"错误提示的文案\"\n  description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n></v-alert>'\n        >\n          <v-alert type=\"success\" message=\"成功提示的文案\"\n            description=\"成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"warning\" message=\"警告提示的文案\"\n            description=\"警告提示的辅助性文字介绍警告提示的辅助性文字介绍\"\n          ></v-alert>\n          <v-alert\n            type=\"error\" message=\"错误提示的文案\"\n            description=\"错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍\"\n          ></v-alert>\n        </code-box>\n\n        <code-box\n          title=\"自定义关闭\"\n          describe=\"可以自定义关闭，自定义的文字会替换原先的关闭 Icon。\"\n          code='<v-alert type=\"info\" message=\"消息提示的文案\" close-text=\"不再提醒\"  closable :on-close=\"onClose\" ></v-alert>'\n        >\n          <v-alert type=\"info\" message=\"消息提示的文案\" close-text=\"不再提醒\"  closable\n            :on-close=\"onClose\"\n          ></v-alert>\n        </code-box>\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 686:
+/***/ 551:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(279)
+	__vue_script__ = __webpack_require__(187)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\datepicker.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(568)
+	  console.warn("[vue-loader] src\\views\\alert.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(420)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

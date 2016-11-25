@@ -207,7 +207,7 @@ webpackJsonp([45,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([45,50],{
 
 /***/ },
 
-/***/ 286:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,52 +260,39 @@ webpackJsonp([45,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      menuData: [{
-	        name: "首页",
-	        icon: 'home',
-	        selected: true,
-	        link: {
-	          name: 'card'
-	        }
+	      apis: [{
+	        parameter: 'type',
+	        explain: '表格类型(props,methods,events)',
+	        type: 'String',
+	        default: "props"
 	      }, {
-	        name: "安装指南",
-	        icon: 'mail',
-	        children: [{
-	          link: {
-	            name: 'menu',
-	            query: {
-	              src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
-	            }
-	          },
-	          name: "快速上手"
-	        }, {
-	          link: "/development",
-	          name: "开发指南",
-	          disabled: true
-	        }]
+	        parameter: 'head',
+	        explain: '表头数组,根据type字段，head的默认值也不同',
+	        type: 'Array',
+	        default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
 	      }, {
-	        name: "基础组件",
-	        icon: 'folder',
-	        disabled: true,
-	        groups: [{
-	          groupName: "Basic",
-	          list: [{
-	            link: "/layout",
-	            name: "布局 (layout)"
-	          }]
-	        }, {
-	          groupName: "Form",
-	          list: [{
-	            link: "/radio",
-	            name: "按钮 (radio)"
-	          }]
-	        }]
+	        parameter: 'content',
+	        explain: '表格每行的内容数组 [["1","2","3","4"]...]',
+	        type: 'Array',
+	        default: '无'
+	      }, {
+	        parameter: 'apis',
+	        explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
+	        type: 'Array',
+	        default: '无'
+	      }, {
+	        parameter: 'title',
+	        explain: '设置表格的标题',
+	        type: 'string',
+	        default: 'API'
+	      }, {
+	        parameter: 'slot::default',
+	        explain: 'title和table之间的slot',
+	        type: 'slot node',
+	        default: '无'
 	      }],
-	      content: [['theme', '主题颜色', 'String: light dark', 'light'], ['mode', '菜单类型，现在支持垂直、水平、和内嵌模式三种', 'String: vertical horizontal inline', 'vertical']],
-	      content2: [['disabled', '是否禁用', 'Boolean', 'false'], ['icon', '图标', 'String', '无'], ['selected', '选中效果', 'Boolean', 'false']],
-	      content3: [['disabled', '是否禁用', 'Boolean', 'false'], ['title', '子菜单项值', 'String', '无'], ['icon', '图标', 'String', '无']],
-	      content4: [['title', '分组标题', 'String', '无']],
-	      content5: [['data', '可嵌套的节点属性的数组，生成menu的数据', 'array', '无'], ['aTag', '是否使用a标签', 'boolean', 'false'], ['theme', '主题颜色', 'String: light dark', 'light'], ['mode', '菜单类型，现在支持垂直、水平、和内嵌模式三种', 'String: vertical horizontal inline', 'vertical']]
+	      head: ['title1', 'title2'],
+	      content: [['1-1', '1-2'], ['2-1', '2-2'], ['3-1', '3-2']]
 	    };
 	  },
 	  components: {
@@ -316,24 +303,24 @@ webpackJsonp([45,50],{
 
 /***/ },
 
-/***/ 574:
+/***/ 421:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Menu 导航菜单</h1>\n    <p>\n      为页面和功能提供导航的菜单列表。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        导航菜单是一个网站的灵魂，用户依赖导航在各个页面中进行跳转。一般分为顶部导航和侧边导航，顶部导航提供全局性的类目和功能，侧边导航提供多级结构来收纳和排列网站架构。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col>\n      <code-box\n              title=\"顶部导航\"\n              describe=\"水平的顶部导航菜单。\"\n      >\n        <v-menu mode=\"horizontal\">\n          <v-menu-item><v-icon type='mail'></v-icon>导航一</v-menu-item>\n          <v-menu-item disabled><v-icon type='appstore'></v-icon>导航二</v-menu-item>\n          <v-sub-menu title=\"导航 - 子菜单\" icon=\"setting\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n           <v-menu-item><a href=\"http://www.alipay.com/\" target=\"_blank\">导航四 - 链接</a></v-menu-item>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"内嵌菜单\"\n              describe=\"垂直菜单，子菜单内嵌在菜单区域。\"\n      >\n        <v-menu mode=\"inline\" style=\"width:240px\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\" disabled>\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"垂直菜单\"\n              describe=\"子菜单是弹出的形式。\"\n      >\n        <v-menu style=\"width:240px\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\" disabled>\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"主题\"\n              describe=\"内建了两套主题 light|dark，默认 light。\"\n      >\n        <v-menu style=\"width:240px\" theme=\"dark\" mode=\"inline\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item>选项1</v-menu-item>\n            <v-menu-item>选项2</v-menu-item>\n            <v-menu-item>选项3</v-menu-item>\n            <v-menu-item>选项4</v-menu-item>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\">\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"从数据直接生成\"\n              describe=\"使用data从json数据直接生成menu\"\n      >\n        <v-nav-menu style=\"width:240px\" :data=\"menuData\"></v-nav-menu>\n\n      </code-box>\n\n    </v-Col>\n\n  </v-Row>\n\n  <api-table\n    :content='content'\n  >\n    <h3>Menu props</h3>\n  </api-table>\n\n  <api-table\n    :content='content2'\n    title=\"\"\n  >\n    <h3>Menu.Item props</h3>\n  </api-table>\n\n  <api-table\n    :content='content3'\n    title=\"\"\n  >\n    <h3>Menu.SubMenu props</h3>\n  </api-table>\n\n  <api-table\n    :content='content4'\n    title=\"\"\n  >\n    <h3>Menu.ItemGroup props</h3>\n  </api-table>\n  <api-table\n    :content='content5'\n    title=\"\"\n  >\n    <h3>NavMenu props</h3>\n  </api-table>\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>ApiTable Api表格</h1>\n    <p>\n      用于描述组件的api\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的api说明。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n       >\n        <api-table\n          :apis='apis'\n        >\n          <div>这是一个slot</div>\n        </api-table>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"使用head和content\"\n        describe=\"不推荐使用apis\"\n       >\n        <api-table\n          :head='head'\n          :content=\"content\"\n          title=\"使用head和content\"\n        >\n        </api-table>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 693:
+/***/ 552:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(286)
+	__vue_script__ = __webpack_require__(188)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\menu.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(574)
+	  console.warn("[vue-loader] src\\views\\apiTable.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(421)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

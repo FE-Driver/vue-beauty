@@ -207,7 +207,7 @@ webpackJsonp([44,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([44,50],{
 
 /***/ },
 
-/***/ 289:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,8 +260,33 @@ webpackJsonp([44,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      content: [['originalHeight', '收起时morepanel的高度', 'Number,String', '34'], ['controlStyle', '控制control slot包裹div的样式', 'Object', '无'], ['slot:default', '默认的slot会位于面板的右侧', 'slot node', '无'], ['slot:form', 'form slot会位于面板的左侧，一般是搜索的表单区域', 'slot node', '无'], ['slot:control', 'control slot会跟在form slot后面，一般可以放置一些按钮，比如查询之类', 'slot node', '无']]
+	      apis: [{
+	        parameter: 'visibilityHeight',
+	        explain: '滚动高度达到此参数值才出现 BackTop',
+	        type: 'Number',
+	        default: '400'
+	      }, {
+	        parameter: 'onClick',
+	        explain: '	点击按钮的回调函数',
+	        type: 'Function',
+	        default: '无'
+	      }],
+	      styleObject: {
+	        height: '40px',
+	        width: '40px',
+	        lineHeight: '40px',
+	        borderRadius: '4px',
+	        color: 'rgb(255, 255, 255)',
+	        textAlign: 'center',
+	        fontSize: '20px',
+	        backgroundColor: 'rgb(87, 197, 247)'
+	      }
 	    };
+	  },
+	  methods: {
+	    handler: function handler() {
+	      console.log('噢');
+	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
@@ -271,24 +296,24 @@ webpackJsonp([44,50],{
 
 /***/ },
 
-/***/ 577:
+/***/ 422:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>MorePanel 更多条件面板</h1>\n    <p>\n      响应式地显示筛选条件。\n    </p>\n    <h2>何时使用</h2>\n    <p>\n      筛选条件太多需要隐藏时。\n    </ul>\n    <p>组件演示</p>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col>\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法，试着缩放窗口大小。\">\n          <v-more-panel>\n            <v-form slot=\"form\">\n                <v-form-item label=\"用户名\">\n                    <v-input placeholder=\"请输入用户名\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"密码\">\n                    <v-input type=\"password\" placeholder=\"请输入密码\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"机构编码\">\n                    <v-input placeholder=\"请输入机构编码\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"年龄\">\n                    <v-input placeholder=\"请输入年龄\"></v-input>\n                </v-form-item>\n                <v-form-item label=\"手机\">\n                    <v-input placeholder=\"请输入手机号码\"></v-input>\n                </v-form-item>\n            </v-form>\n            <v-button slot=\"control\" type=\"primary\" html-type=\"button\" icon=\"search\">查询</v-button>\n        </v-more-panel>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n  <div style=\"height:2000px\">\n\n    <section class=\"markdown\">\n      <h1>BackTop 回到顶部</h1>\n      <p>\n        返回页面顶部的操作按钮。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          当页面内容区域比较长时；\n        </p>\n        <p>\n          当用户需要频繁返回顶部查看相关内容时。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-back-top></v-back-top>\"\n        >\n          向下滚动后，见右下角灰色按钮\n         <v-back-top></v-back-top>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"自定义样式\"\n          describe=\"可以自定义回到顶部按钮的样式，限制宽高：40px * 40px。\"\n          code=\"<v-back-top style='bottom: 100px;' :visibility-height='500'  :on-click='handler'>\n  <div :style='styleObject'>UP</div>\n</v-back-top>\"\n        >\n        向下滚动后，见右下角蓝色按钮\n        <v-back-top style=\"bottom: 100px;\" :visibility-height=\"500\"  :on-click=\"handler\">\n          <div :style=\"styleObject\">UP</div>\n        </v-back-top>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 696:
+/***/ 553:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(289)
+	__vue_script__ = __webpack_require__(189)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\morePanel.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(577)
+	  console.warn("[vue-loader] src\\views\\backTop.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(422)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

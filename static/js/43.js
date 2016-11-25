@@ -207,7 +207,7 @@ webpackJsonp([43,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([43,50],{
 
 /***/ },
 
-/***/ 293:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,20 +246,6 @@ webpackJsonp([43,50],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _popconfirm = __webpack_require__(81);
-
-	var _popconfirm2 = _interopRequireDefault(_popconfirm);
-
-	var _switch = __webpack_require__(36);
-
-	var _switch2 = _interopRequireDefault(_switch);
-
-	var _message = __webpack_require__(35);
-
-	var _message2 = _interopRequireDefault(_message);
-
-	var _layout = __webpack_require__(25);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -272,87 +258,57 @@ webpackJsonp([43,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    name: 'popconfirm-doc',
 	    data: function data() {
 	        return {
 	            apis: [{
-	                parameter: 'placement',
-	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
-	                type: 'string',
-	                default: 'top'
+	                parameter: 'name',
+	                explain: '名称',
+	                type: 'String',
+	                default: ''
 	            }, {
-	                parameter: 'title',
-	                explain: '询问内容',
-	                type: 'string',
-	                default: '无'
+	                parameter: 'href',
+	                explain: '跳转地址',
+	                type: 'String',
+	                default: ''
 	            }, {
-	                parameter: 'on-confirm',
-	                explain: '确定回调',
-	                type: 'function',
-	                default: '无'
+	                parameter: 'separator',
+	                explain: '分隔符自定义',
+	                type: 'String',
+	                default: '/'
 	            }, {
-	                parameter: 'on-cancel',
-	                explain: '取消回调',
-	                type: 'function',
-	                default: '无'
-	            }, {
-	                parameter: 'openClassName',
-	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
-	                type: 'string',
-	                default: '无'
-	            }, {
-	                parameter: 'skip',
-	                explain: '是否跳过询问,直接执行confirm回调',
-	                type: 'boolean',
-	                default: 'false'
-	            }],
-	            is_skip: false,
-	            default_is_skip: false
+	                parameter: 'icon',
+	                explain: '图标',
+	                type: 'String',
+	                default: ''
+	            }]
 	        };
 	    },
-
-	    methods: {
-	        confirm: function confirm() {
-	            _message2.default.info('点击了确定');
-	        },
-	        cancel: function cancel() {
-	            _message2.default.info('点击了取消');
-	        },
-	        to_skip_confirm: function to_skip_confirm(val) {
-	            this.is_skip = val;
-	        }
-	    },
 	    components: {
-	        vRow: _layout.vRow,
-	        vCol: _layout.vCol,
 	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default,
-	        vPopconfirm: _popconfirm2.default,
-	        vSwitch: _switch2.default,
-	        message: _message2.default
+	        apiTable: _apiTable2.default
 	    }
 	};
 
 /***/ },
 
-/***/ 581:
+/***/ 424:
 /***/ function(module, exports) {
 
-	module.exports = "\n<section class=\"markdown\">\n    <h1>Popconfirm 气泡确认框</h1>\n    <p>\n        点击元素，弹出气泡式的确认框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。</p>\n        <p>更轻量的询问。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"国际化\" describe=\"自定义按钮文字\">\n            <v-popconfirm  title=\"Do you want to do something?\" ok-text=\"Ok\" cancel-text=\"Cancel\" >\n                <a href=\"javascript:;\">Delete</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"跳过询问\" describe=\"跳过询问立刻执行confirm回调\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\" :skip=\"is_skip\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否跳过询问\n            <v-switch :on-change=\"to_skip_confirm\" :checked=\"default_is_skip\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n</v-row>\n\n<api-table :apis=\"apis\"></api-table>\n";
+	module.exports = "\n    <div>\n        <section class=\"markdown\">\n            <h1>Breadcrumb 面包屑</h1>\n\n            <p>\n                显示当前页面在系统层级结构中的位置，并能向上返回。\n            </p>\n\n            <h2>何时使用</h2>\n            <ul>\n                <li>当系统拥有超过两级以上的层级结构时；</li>\n                <li>当需要告知用户『你在哪里』时；</li>\n                <li>当需要向上导航的功能时。</li>\n            </ul>\n            <h2>组件演示</h2>\n        </section>\n\n        <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"基本\"\n                        describe=\"最简单的用法。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"路由\"\n                        describe=\"和 vue-router 进行结合使用。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n暂且放一放'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"带有图标的\"\n                        describe=\"图标放在文字前面。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"分隔符\"\n                        describe='使用 separator=\">\" 可以自定义分隔符。'\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n        </div>\n\n        <api-table\n                :apis='apis'\n                >\n        </api-table>\n    </div>\n";
 
 /***/ },
 
-/***/ 700:
+/***/ 555:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(293)
+	__vue_script__ = __webpack_require__(191)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\popconfirm.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(581)
+	  console.warn("[vue-loader] src\\views\\breadcrumb.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(424)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

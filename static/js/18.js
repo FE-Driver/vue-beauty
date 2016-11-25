@@ -207,7 +207,7 @@ webpackJsonp([18,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,13 +238,13 @@ webpackJsonp([18,50],{
 
 /***/ },
 
-/***/ 290:
+/***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _codeBox = __webpack_require__(12);
@@ -258,110 +258,64 @@ webpackJsonp([18,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      onClose: function onClose() {
-	        console.log(this);
-	      },
-	      content: [['position', '下拉框的定位方式（absolute,fixed）', 'string', 'absolute']],
-	      selected: null,
-	      options: ['list', 'of', 'options'],
-	      multiValue: null,
-	      source: [{
-	        "name": "Vue.js",
-	        "language": "JavaScript"
-	      }, {
-	        "name": "Rails",
-	        "language": "Ruby"
-	      }, {
-	        "name": "Sinatra",
-	        "language": "Ruby"
-	      }, {
-	        "name": "Laravel",
-	        "language": "PHP"
-	      }, {
-	        "name": "Phoenix",
-	        "language": "Elixir"
-	      }]
-	    };
-	  },
-	  methods: {
-	    updateSelected: function updateSelected(newSelected) {
-	      this.selected = newSelected;
+	    data: function data() {
+	        return {
+	            content: [['value', '默认时间', 'string', '无'], ['format', '展示的时间格式', 'string', 'HH:mm:ss'], ['position', '下拉框的定位方式(absolute、fixed)', 'string', 'absolute'], ['startTime', '限制时间段开始时间', 'String', '00:00'], ['endTime', '限制时间段结束时间', 'String', '23:59'], ['size', '控件大小（large、small）', 'String', '无'], ['disabled', '禁用全部操作', 'boolean', 'false'], ['disabledMinutes', '禁止选择部分分钟选项', 'array', '无'], ['disabledSeconds', '禁止选择部分秒选项', 'array', '无']],
+	            minutes: [],
+	            seconds: [],
+	            value: '08:30:00'
+	        };
 	    },
-	    updateMultiValue: function updateMultiValue(value) {
-	      this.multiValue = value;
+	    created: function created() {
+	        this.$set('minutes', this.disabledMinutes());
+	        this.$set('seconds', this.disabledSeconds());
+	    },
+
+	    methods: {
+	        newArray: function newArray(start, end) {
+	            var result = [];
+	            for (var i = start; i < end; i++) {
+	                result.push(i);
+	            }
+	            return result;
+	        },
+	        disabledMinutes: function disabledMinutes() {
+	            return this.newArray(0, 60).filter(function (value) {
+	                return value % 10 !== 0;
+	            });
+	        },
+	        disabledSeconds: function disabledSeconds() {
+	            return this.newArray(0, 60).filter(function (value) {
+	                return value % 30 !== 0;
+	            });
+	        }
+	    },
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
 	    }
-	  },
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  }
 	};
 
 /***/ },
 
-/***/ 386:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 442:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(386);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./multiselect.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./multiselect.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 578:
+/***/ 460:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>MultiSelect 选择器</h1>\n    <p>\n      类似 Select2 的选择器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>\n      <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法\">\n        <v-multiselect :selected=\"selected\" :options=\"options\" @update=\"updateSelected\"></v-multiselect>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"更复杂的用法\"\n        describe=\"该组件在vue-multiselect的基础上进行了少量的改动，除了列在下面的api，其它api均可在vue-multiselect官网查询\">\n        <v-multiselect  \n          :options=\"source\" \n          :selected=\"multiValue\"\n          :multiple=\"true\"\n          :searchable=\"true\"\n          :close-on-select=\"false\"\n          :clear-on-select=\"false\"\n          :limit=\"2\"\n          @update=\"updateMultiValue\"\n          placeholder=\"Pick some\"\n          label=\"name\"\n          key=\"name\">\n        </v-multiselect>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n  其它Api请参考：<a href=\"http://monterail.github.io/vue-multiselect/\" target=\"_blank\">vue-multiselect</a>\n\n</div>\n\n";
+	module.exports = "\n  <section class=\"markdown\">\n      <h1>TimePicker 时间选择框</h1>\n      <p>\n          当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。\n      </p>\n      <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n      <v-Col span=\"12\">\n          <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          >\n              <v-time-picker></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"三种大小\"\n          describe=\"三种大小的输入框，大的用在表单中，中的为默认。\"\n          >\n              <v-time-picker size=\"large\"></v-time-picker>\n              <v-time-picker></v-time-picker>\n              <v-time-picker size=\"small\"></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"禁用\"\n          describe=\"禁用时间选择。\"\n          >\n              <v-time-picker disabled></v-time-picker>\n          </code-box>\n\n          <code-box\n          title=\"只显示部分选项\"\n          describe=\"通过 disabledMinutes和disabledSeconds 将不可选的选项隐藏。\"\n          >\n              <v-time-picker :disabled-minutes=\"minutes\" :disabled-seconds=\"seconds\"></v-time-picker>\n          </code-box>\n      </v-Col>\n\n      <v-Col span=\"12\">\n          <code-box\n          title=\"受控组件\"\n          describe=\"value 和 onChange 需要配合使用。\"\n          >\n              <v-time-picker :value.sync=\"value\"></v-time-picker>\n          </code-box>\n          <code-box\n          title=\"不展示秒\"\n          describe=\"不展示秒，也不允许选择。\"\n          >\n              <v-time-picker format=\"HH:mm\"></v-time-picker>\n          </code-box>\n          <code-box\n          title=\"禁止选项\"\n          describe=\"限制选择 20:30 到 23:30 这个时间段。\"\n          >\n              <v-time-picker start-time=\"20:30\" end-time=\"23:30\"></v-time-picker>\n          </code-box>\n      </v-Col>\n  </v-Row>\n\n  <api-table\n  :content='content'\n></api-table>\n";
 
 /***/ },
 
-/***/ 697:
+/***/ 592:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(442)
-	__vue_script__ = __webpack_require__(290)
+	__vue_script__ = __webpack_require__(229)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\multiselect.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(578)
+	  console.warn("[vue-loader] src\\views\\timePicker.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(460)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

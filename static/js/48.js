@@ -207,7 +207,7 @@ webpackJsonp([48,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([48,50],{
 
 /***/ },
 
-/***/ 268:
+/***/ 118:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([48,50],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _breadcrumb = __webpack_require__(71);
-
-	var _breadcrumb2 = _interopRequireDefault(_breadcrumb);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -261,37 +257,14 @@ webpackJsonp([48,50],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var vBreadcrumb = _breadcrumb2.default.Breadcrumb;
-
 	exports.default = {
 	    data: function data() {
 	        return {
-	            apis: [{
-	                parameter: 'name',
-	                explain: '名称',
-	                type: 'String',
-	                default: ''
-	            }, {
-	                parameter: 'href',
-	                explain: '跳转地址',
-	                type: 'String',
-	                default: ''
-	            }, {
-	                parameter: 'separator',
-	                explain: '分隔符自定义',
-	                type: 'String',
-	                default: '/'
-	            }, {
-	                parameter: 'icon',
-	                explain: '图标',
-	                type: 'String',
-	                default: ''
-	            }]
+	            content: [['pending', '指定最后一个幽灵节点是否存在或内容', 'boolean or Vue.Element', 'false']],
+	            itemcontent: [['color', '指定圆圈颜色<code>blue, red, green</code>，或自定义的色值', 'string', 'blue'], ['dot', '自定义时间轴点', 'Vue.Element', '无']]
 	        };
 	    },
 	    components: {
-	        vBreadcrumbs: _breadcrumb2.default,
-	        vBreadcrumb: vBreadcrumb,
 	        codeBox: _codeBox2.default,
 	        apiTable: _apiTable2.default
 	    }
@@ -299,24 +272,24 @@ webpackJsonp([48,50],{
 
 /***/ },
 
-/***/ 557:
+/***/ 461:
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div>\n        <section class=\"markdown\">\n            <h1>Breadcrumb 面包屑</h1>\n\n            <p>\n                显示当前页面在系统层级结构中的位置，并能向上返回。\n            </p>\n\n            <h2>何时使用</h2>\n            <ul>\n                <li>当系统拥有超过两级以上的层级结构时；</li>\n                <li>当需要告知用户『你在哪里』时；</li>\n                <li>当需要向上导航的功能时。</li>\n            </ul>\n            <h2>组件演示</h2>\n        </section>\n\n        <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"基本\"\n                        describe=\"最简单的用法。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"路由\"\n                        describe=\"和 vue-router 进行结合使用。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n暂且放一放'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" href=\"\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n            <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n                <code-box\n                        title=\"带有图标的\"\n                        describe=\"图标放在文字前面。\"\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" icon=\"home\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" icon=\"user\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n                <code-box\n                        title=\"分隔符\"\n                        describe='使用 separator=\">\" 可以自定义分隔符。'\n                        code='import vBreadcrumbs from \"../../components/breadcrumb\"\n<v-breadcrumbs>\n    <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n    <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n</v-breadcrumbs>'\n                        >\n\n                    <v-breadcrumbs>\n                        <v-breadcrumb name=\"Home\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application Center\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"Application List\" href=\"\" separator=\">\"></v-breadcrumb>\n                        <v-breadcrumb name=\"An Application\" separator=\"/\"></v-breadcrumb>\n                    </v-breadcrumbs>\n\n                </code-box>\n            </div>\n        </div>\n\n        <api-table\n                :apis='apis'\n                >\n        </api-table>\n    </div>\n";
+	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Timeline 时间轴</h1>\n        <p>\n            垂直展示的时间流信息\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li><p>当有一系列信息需要从上至下按时间排列时；</p></li>\n            <li><p>需要有一条时间轴进行视觉上的串联时；</p></li>\n        </ul>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"基本用法\"\n                describe=\"基本的时间轴。。\"\n            >\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"最后一个\"\n                describe=\"在最后位置添加一个幽灵节点，表示时间轴未完成，还在记录过程中。可以指定 pending={true} 或者 pending={一个 Vue 元素}。\"\n            >\n                <v-timeline pending=\"<a href='#'>查看更多</a>\">\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item>技术测试异常 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"圆圈颜色\"\n                describe=\"圆圈颜色，绿色用于已完成、成功状态，红色表示告警或错误状态，蓝色可表示正在进行或其他默认状态。\"\n            >\n                <v-timeline>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"red\">\n                        <p>初步排除网络异常1</p>\n                        <p>初步排除网络异常2</p>\n                        <p>初步排除网络异常3 2015-09-01</p>\n                    </v-timeline-item>\n                    <v-timeline-item>\n                        <p>技术测试异常1</p>\n                        <p>技术测试异常2</p>\n                        <p>技术测试异常3 2015-09-01</p>\n                    </v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"自定义时间轴点\"\n                describe=\"可以设置为图标或其他自定义元素。\"\n            >\n\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item dot=\"<i class='anticon anticon-clock-circle-o' style='font-size: 16px;'></i>\"\n                                     color=\"red\">\n                        技术测试异常 2015-09-01\n                    </v-timeline-item>\n                    <v-timeline-item>网络异常正在修复 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n        :content='content'\n    >\n  <pre>\n      <code class=\"html\">\n        &lt;v-timeline&gt;\n          &lt;v-timeline-item&gt;创建服务现场 2015-09-01&lt;/v-timeline-item&gt;\n          &lt;v-timeline-item&gt;初步排除网络异常 2015-09-01&lt;/v-timeline-item&gt;\n        &lt;/v-timeline&gt;\n      </code>\n    </pre>\n\n        <h3>Timeline</h3>\n    </api-table>\n\n    <api-table\n        :content='itemcontent'\n    >\n        <h3>TimelineItem</h3>\n    </api-table>\n\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 676:
+/***/ 593:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(268)
+	__vue_script__ = __webpack_require__(118)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\breadcrumb.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(557)
+	  console.warn("[vue-loader] src\\views\\timeline.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(461)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

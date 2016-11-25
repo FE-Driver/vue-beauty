@@ -207,7 +207,7 @@ webpackJsonp([11,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,22 +238,14 @@ webpackJsonp([11,50],{
 
 /***/ },
 
-/***/ 300:
+/***/ 193:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-
-	var _slider = __webpack_require__(86);
-
-	var _slider2 = _interopRequireDefault(_slider);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -266,83 +258,45 @@ webpackJsonp([11,50],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    data: function data() {
-	        return {
-	            apis: [{
-	                parameter: 'min',
-	                explain: '最小值',
-	                type: 'Number',
-	                default: '0'
-	            }, {
-	                parameter: 'max',
-	                explain: '最大值',
-	                type: 'Number',
-	                default: '100'
-	            }, {
-	                parameter: 'range',
-	                explain: '双滑块模式',
-	                type: 'Boolean',
-	                default: 'false'
-	            }, {
-	                parameter: 'step',
-	                explain: '步长，取值必须大于 0，并且可被 (max - min) 整除',
-	                type: 'Number',
-	                default: '1'
-	            }, {
-	                parameter: 'value',
-	                explain: '当前取值',
-	                type: 'Number',
-	                default: ''
-	            }, {
-	                parameter: 'defaultValue',
-	                explain: '初始取值',
-	                type: 'Number',
-	                default: '0'
-	            }, {
-	                parameter: 'marks',
-	                explain: '分段标记，标记每一个 step，如果 step 属性没有定义，则 marks 属性会被忽略',
-	                type: 'Array',
-	                default: '[]'
-	            }, {
-	                parameter: 'included',
-	                explain: '分段式滑块，值为 true 时表示值为包含关系，false 表示并列',
-	                type: 'Boolean',
-	                default: 'true'
-	            }, {
-	                parameter: 'index',
-	                explain: '为具备 step 或者 marks 的 slider 提供滑块操作的当前位置',
-	                type: 'Number',
-	                default: ''
-	            }, {
-	                parameter: 'defaultIndex',
-	                explain: '为具备 step 或者 marks 的 slider 提供滑块操作的初始位置',
-	                type: 'Number',
-	                default: '0'
-	            }, {
-	                parameter: 'disabled',
-	                explain: '值为 true 时，滑块为 disable 禁用状态',
-	                type: 'Boolean',
-	                default: 'false'
-	            }],
-	            marks: {
-	                0: '0°C',
-	                26: '26°C',
-	                37: '37°C',
-	                100: '100°C'
-	            }
-	        };
-	    },
-	    components: {
-	        vSlider: _slider2.default,
-	        vButton: _button2.default,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+	  data: function data() {
+	    return {
+	      onClose: function onClose() {
+	        console.log(this);
+	      },
+	      show: true,
+	      num: 5,
+	      apis: [{
+	        parameter: 'title',
+	        explain: '卡片标题',
+	        type: 'Sring',
+	        default: ''
+	      }, {
+	        parameter: 'slot::extra',
+	        explain: '卡片右上角的操作区域',
+	        type: 'slot node',
+	        default: '无'
+	      }, {
+	        parameter: 'bordered',
+	        explain: '是否有边框',
+	        type: 'boolean',
+	        default: 'true'
+	      }, {
+	        parameter: 'bodyStyle',
+	        explain: '内容区域自定义样式',
+	        type: 'Object',
+	        default: ''
+	      }]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 391:
+/***/ 364:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -350,20 +304,20 @@ webpackJsonp([11,50],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 447:
+/***/ 395:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(391);
+	var content = __webpack_require__(364);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -372,8 +326,8 @@ webpackJsonp([11,50],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./slider.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./slider.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./card.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./card.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -384,25 +338,25 @@ webpackJsonp([11,50],{
 
 /***/ },
 
-/***/ 587:
+/***/ 426:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Slider 滑动输入条</h1>\n        <p>\n            滑动型输入器，展示当前值和可选范围。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。\n            </p>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                    title=\"基本\"\n                    describe=\"基本滑动条。当 range 为 true 时，渲染为双滑块。当 disabled 为 true 时，滑块处于不可用状态。\"\n            >\n                <v-slider :default-value=\"30\"></v-slider>\n                <v-slider :range=\"true\" :default-value=\"[20, 50]\"></v-slider>\n                <v-slider :range=\"true\" :default-value=\"[20, 50]\" disabled></v-slider>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n            :apis='apis'\n    ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Card 卡片</h1>\n    <p>\n      通用卡片容器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>最基础的卡片容器，可承载文字、列表、图片、段落，常用于后台概览页面。</p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"典型卡片\"\n        describe=\"包含标题、内容、操作区域。\"\n        code=\"\"\n      >\n        <v-card title=\"Card title\">\n          <a href=\"/#!/components/card\" slot=\"extra\">More</a>\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n      <code-box\n        title=\"简洁卡片\"\n        describe=\"只包含内容区域。\"\n        code=\"\"\n      >\n        <v-card>\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"无边框\"\n        describe=\"在灰色背景上使用无边框的卡片。\"\n        code=\"\"\n      >\n        <v-card title=\"Card title\" :bordered=\"false\">\n          <p>Card content</p>\n          <p>Card content</p>\n          <p>Card content</p>\n        </v-card>\n      </code-box>\n\n      <code-box\n        title=\"更灵活的内容展示\"\n        describe=\"可以调整默认边距，设定宽度。\"\n        code=\"\"\n      >\n        <v-card :body-style=\"{ padding: 0 }\" style=\"width:240px;\">\n          <div class=\"custom-image\">\n            <img alt=\"example\" width=\"100%\" src=\"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png\">\n          </div>\n          <div class=\"custom-card\">\n            <h3>Europe Street beat</h3>\n            <p>www.instagram.com</p>\n          </div>\n        </v-card>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"栅格卡片\"\n        describe=\"在系统概览页面常常和栅格进行配合。\"\n        code=\"\"\n      >\n        <div class=\"ant-row-flex ant-row-flex-space-around\">\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n          <v-card title=\"Card title\" style=\"width:240px\">\n            <p>Card content</p>\n            <p>Card content</p>\n            <p>Card content</p>\n          </v-card>\n\n        </div>\n\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 707:
+/***/ 557:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(447)
-	__vue_script__ = __webpack_require__(300)
+	__webpack_require__(395)
+	__vue_script__ = __webpack_require__(193)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\slider.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(587)
+	  console.warn("[vue-loader] src\\views\\card.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(426)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -207,7 +207,7 @@ webpackJsonp([32,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([32,50],{
 
 /***/ },
 
-/***/ 265:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -260,40 +260,38 @@ webpackJsonp([32,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      apis: [{
-	        parameter: 'type',
-	        explain: '表格类型(props,methods,events)',
-	        type: 'String',
-	        default: "props"
+	      onClose: function onClose() {
+	        console.log(this);
+	      },
+	      content: [['position', '下拉框的定位方式（absolute,fixed）', 'string', 'absolute']],
+	      selected: null,
+	      options: ['list', 'of', 'options'],
+	      multiValue: null,
+	      source: [{
+	        "name": "Vue.js",
+	        "language": "JavaScript"
 	      }, {
-	        parameter: 'head',
-	        explain: '表头数组,根据type字段，head的默认值也不同',
-	        type: 'Array',
-	        default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
+	        "name": "Rails",
+	        "language": "Ruby"
 	      }, {
-	        parameter: 'content',
-	        explain: '表格每行的内容数组 [["1","2","3","4"]...]',
-	        type: 'Array',
-	        default: '无'
+	        "name": "Sinatra",
+	        "language": "Ruby"
 	      }, {
-	        parameter: 'apis',
-	        explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
-	        type: 'Array',
-	        default: '无'
+	        "name": "Laravel",
+	        "language": "PHP"
 	      }, {
-	        parameter: 'title',
-	        explain: '设置表格的标题',
-	        type: 'string',
-	        default: 'API'
-	      }, {
-	        parameter: 'slot::default',
-	        explain: 'title和table之间的slot',
-	        type: 'slot node',
-	        default: '无'
-	      }],
-	      head: ['title1', 'title2'],
-	      content: [['1-1', '1-2'], ['2-1', '2-2'], ['3-1', '3-2']]
+	        "name": "Phoenix",
+	        "language": "Elixir"
+	      }]
 	    };
+	  },
+	  methods: {
+	    updateSelected: function updateSelected(newSelected) {
+	      this.selected = newSelected;
+	    },
+	    updateMultiValue: function updateMultiValue(value) {
+	      this.multiValue = value;
+	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
@@ -303,67 +301,24 @@ webpackJsonp([32,50],{
 
 /***/ },
 
-/***/ 371:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 427:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(371);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./apiTable.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 554:
+/***/ 445:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>ApiTable Api表格</h1>\n    <p>\n      用于描述组件的api\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的api说明。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n       >\n        <api-table\n          :apis='apis'\n        >\n          <div>这是一个slot</div>\n        </api-table>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"使用head和content\"\n        describe=\"不推荐使用apis\"\n       >\n        <api-table\n          :head='head'\n          :content=\"content\"\n          title=\"使用head和content\"\n        >\n        </api-table>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>MultiSelect 选择器</h1>\n    <p>\n      类似 Select2 的选择器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>\n      <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基础\"\n        describe=\"最简单的用法\">\n        <v-multiselect :selected=\"selected\" :options=\"options\" @update=\"updateSelected\"></v-multiselect>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"更复杂的用法\"\n        describe=\"该组件在vue-multiselect的基础上进行了少量的改动，除了列在下面的api，其它api均可在vue-multiselect官网查询\">\n        <v-multiselect  \n          :options=\"source\" \n          :selected=\"multiValue\"\n          :multiple=\"true\"\n          :searchable=\"true\"\n          :close-on-select=\"false\"\n          :clear-on-select=\"false\"\n          :limit=\"2\"\n          @update=\"updateMultiValue\"\n          placeholder=\"Pick some\"\n          label=\"name\"\n          key=\"name\">\n        </v-multiselect>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n  <api-table\n    :content='content'\n  ></api-table>\n  其它Api请参考：<a href=\"http://monterail.github.io/vue-multiselect/\" target=\"_blank\">vue-multiselect</a>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 673:
+/***/ 576:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(427)
-	__vue_script__ = __webpack_require__(265)
+	__vue_script__ = __webpack_require__(213)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\apiTable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(554)
+	  console.warn("[vue-loader] src\\views\\multiselect.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(445)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

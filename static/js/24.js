@@ -207,7 +207,7 @@ webpackJsonp([24,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([24,50],{
 
 /***/ },
 
-/***/ 278:
+/***/ 223:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([24,50],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _getIterator2 = __webpack_require__(20);
-
-	var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-	var _datatable = __webpack_require__(75);
-
-	var _datatable2 = _interopRequireDefault(_datatable);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -269,236 +261,95 @@ webpackJsonp([24,50],{
 	    data: function data() {
 	        return {
 	            apis: [{
-	                parameter: 'data-source(必须)',
-	                explain: '数据源,服务端数据接口对应的url地址',
-	                type: 'string',
+	                parameter: 'min',
+	                explain: '最小值',
+	                type: 'Number',
+	                default: '0'
+	            }, {
+	                parameter: 'max',
+	                explain: '最大值',
+	                type: 'Number',
+	                default: '100'
+	            }, {
+	                parameter: 'range',
+	                explain: '双滑块模式',
+	                type: 'Boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'step',
+	                explain: '步长，取值必须大于 0，并且可被 (max - min) 整除',
+	                type: 'Number',
+	                default: '1'
+	            }, {
+	                parameter: 'value',
+	                explain: '当前取值',
+	                type: 'Number',
 	                default: ''
 	            }, {
-	                parameter: 'columns(必须)',
-	                explain: '列配置（请见下表）',
-	                type: 'object',
+	                parameter: 'defaultValue',
+	                explain: '初始取值',
+	                type: 'Number',
+	                default: '0'
+	            }, {
+	                parameter: 'marks',
+	                explain: '分段标记，标记每一个 step，如果 step 属性没有定义，则 marks 属性会被忽略',
+	                type: 'Array',
+	                default: '[]'
+	            }, {
+	                parameter: 'included',
+	                explain: '分段式滑块，值为 true 时表示值为包含关系，false 表示并列',
+	                type: 'Boolean',
+	                default: 'true'
+	            }, {
+	                parameter: 'index',
+	                explain: '为具备 step 或者 marks 的 slider 提供滑块操作的当前位置',
+	                type: 'Number',
 	                default: ''
 	            }, {
-	                parameter: 'size',
-	                explain: '表格尺寸,支持large,middle,small',
-	                type: 'string',
-	                default: 'middle'
+	                parameter: 'defaultIndex',
+	                explain: '为具备 step 或者 marks 的 slider 提供滑块操作的初始位置',
+	                type: 'Number',
+	                default: '0'
 	            }, {
-	                parameter: 'pageSize',
-	                explain: '分页大小',
-	                type: 'number',
-	                default: '10'
-	            }, {
-	                parameter: 'pageSizeOptions',
-	                explain: '分页大小配置项',
-	                type: 'array',
-	                default: '[10,20,30,40,50]'
-	            }, {
-	                parameter: 'paramsName',
-	                explain: '接口请求参数名称配置项,后续完善文档',
-	                type: 'object',
-	                default: ''
-	            }, {
-	                parameter: 'otherParams',
-	                explain: '发送请求时需要额外附带的参数,后续完善文档',
-	                type: 'object',
-	                default: '{}'
-	            }, {
-	                parameter: 'formatter',
-	                explain: '数据格式化函数,参数data,数据加载成功table渲染之前调用',
-	                type: 'function',
-	                default: ''
-	            }, {
-	                parameter: 'rowSelection',
-	                explain: '行选择配置（请见下表）',
-	                type: 'object',
-	                default: ''
-	            }, {
-	                parameter: 'ghost',
-	                explain: '如果需要在datatable内使用外部组件，可以在这里自定义，然后在columns.component引用，每个自定义组件会接受3个prop（index，item，value），index是该组件所在行的序号，item是该组件所在行对应的数据，value是该组件所在行field字段对应的数据',
-	                type: 'object',
-	                default: ''
-	            }],
-	            columnsapi: [{
-	                parameter: 'title(必须)',
-	                explain: '列名',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'field(必须)',
-	                explain: '对应的数据字段',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'render',
-	                explain: '渲染函数,可自定义某列的具体渲染逻辑,参数value, row, index',
-	                type: 'function',
-	                default: ''
-	            }, {
-	                parameter: 'component',
-	                explain: '使用ghost里定义的组件',
-	                type: 'String',
-	                default: ''
-	            }, {
-	                parameter: 'width',
-	                explain: '列的宽度,支持任意css尺寸值',
-	                type: 'string',
-	                default: 'auto'
-	            }, {
-	                parameter: 'className',
-	                explain: '列的自定义class,多个class之间使用空格分割',
-	                type: 'string',
-	                default: ''
-	            }, {
-	                parameter: 'sort',
-	                explain: '是否启用列排序,true表示启用排序功能,asc和desc表示启用默认排序',
-	                type: 'true | "asc" | "desc"',
+	                parameter: 'disabled',
+	                explain: '值为 true 时，滑块为 disable 禁用状态',
+	                type: 'Boolean',
 	                default: 'false'
 	            }],
-	            rowSelectionApi: [{
-	                parameter: 'type(必须)',
-	                explain: '选择模式,',
-	                type: 'checkbox | radio',
-	                default: 'checkbox'
-	            }, {
-	                parameter: 'onSelect',
-	                explain: '行选择之后的回调函数,参数index,state,item',
-	                type: 'function',
-	                default: ''
-	            }, {
-	                parameter: 'onSelectAll',
-	                explain: '全选操作的回掉函数,参数state,items',
-	                type: 'function',
-	                default: ''
-	            }],
-	            url: "/truck/search",
-	            columns: [{ title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true, width: "200px" }, { title: "姓名", field: 'name', sort: true }, { title: "姓名姓名姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名姓名姓名", field: 'name', sort: true }, { title: "姓名姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "性别", field: 'sex', render: this.cellrender }, { title: "性别", field: 'sex', render: this.cellrender }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }, { title: "id", field: 'id', className: "test dd" }, { title: "姓名", field: 'name', sort: true }, { title: "id", field: 'id', className: "test dd" }],
-	            msg: {},
-	            formatter: function formatter(data) {
-	                console.log(data);
-	                var _iteratorNormalCompletion = true;
-	                var _didIteratorError = false;
-	                var _iteratorError = undefined;
-
-	                try {
-	                    for (var _iterator = (0, _getIterator3.default)(data), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                        var obj = _step.value;
-
-	                        obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
-	                    }
-	                } catch (err) {
-	                    _didIteratorError = true;
-	                    _iteratorError = err;
-	                } finally {
-	                    try {
-	                        if (!_iteratorNormalCompletion && _iterator.return) {
-	                            _iterator.return();
-	                        }
-	                    } finally {
-	                        if (_didIteratorError) {
-	                            throw _iteratorError;
-	                        }
-	                    }
-	                }
-
-	                return data;
-	            },
-	            rowSelection: {
-	                type: "checkbox",
-	                onSelect: function onSelect(index, state, item) {
-	                    console.log(index);
-	                    console.log(state);
-	                    console.log(item);
-	                },
-	                onSelectAll: function onSelectAll(state, items) {
-	                    console.log(state);
-	                    console.log(items);
-	                }
+	            marks: {
+	                0: '0°C',
+	                26: '26°C',
+	                37: '37°C',
+	                100: '100°C'
 	            }
 	        };
 	    },
 	    components: {
-	        vDatatable: _datatable2.default,
 	        codeBox: _codeBox2.default,
 	        apiTable: _apiTable2.default
-	    },
-	    methods: {
-	        handleIt: function handleIt(msg) {
-	            console.log(msg);
-	            this.msg = msg;
-	        },
-	        cellrender: function cellrender(value, row, index) {
-	            return '<strong>' + value + '</strong>';
-	        },
-	        clickCheck: function clickCheck() {
-	            alert(0);
-	        }
 	    }
 	};
 
 /***/ },
 
-/***/ 379:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 435:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(379);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datatable.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./datatable.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 567:
+/***/ 454:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n    <section class=\"markdown\">\n        <h1>Datatable</h1>\n\n        <p>\n            依赖服务端加载的数据表格\n        </p>\n\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                展示大量结构化数据时使用.\n            </p>\n        </ul>\n\n        <v-datatable\n                :data-source='url'\n                :columns='columns'\n                :formatter='formatter'\n                :row-selection='rowSelection'\n                :bottom-gap=\"100\"\n                :left-fix=\"3\"\n        >\n        </v-datatable>\n\n        <br>\n\n        <v-datatable\n                :data-source='url'\n                :columns='columns'\n                :formatter='formatter'\n                :row-selection='rowSelection'\n                :height='400'\n        >\n        </v-datatable>\n\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n            <code-box title=\"表格-自定义事件\" describe=\"自定义事件\">\n                <v-datatable :data-source='url' :columns='columns' :formatter='formatter' :row-selection='rowSelection'></v-datatable>\n            </code-box>\n        </div>\n    </div>\n\n    <api-table :apis='apis'>datatable参数</api-table>\n    <api-table :apis='columnsapi'>columns参数</api-table>\n    <api-table :apis='rowSelectionApi'>rowSelection参数</api-table>\n\n</div>\n\n\n";
+	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Slider 滑动输入条</h1>\n        <p>\n            滑动型输入器，展示当前值和可选范围。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <p>\n                当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。\n            </p>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                    title=\"基本\"\n                    describe=\"基本滑动条。当 range 为 true 时，渲染为双滑块。当 disabled 为 true 时，滑块处于不可用状态。\"\n            >\n                <v-slider :default-value=\"30\"></v-slider>\n                <v-slider :range=\"true\" :default-value=\"[20, 50]\"></v-slider>\n                <v-slider :range=\"true\" :default-value=\"[20, 50]\" disabled></v-slider>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n            :apis='apis'\n    ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 685:
+/***/ 586:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(435)
-	__vue_script__ = __webpack_require__(278)
+	__vue_script__ = __webpack_require__(223)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\datatable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(567)
+	  console.warn("[vue-loader] src\\views\\slider.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(454)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

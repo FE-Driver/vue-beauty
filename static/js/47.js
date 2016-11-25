@@ -207,7 +207,7 @@ webpackJsonp([47,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([47,50],{
 
 /***/ },
 
-/***/ 269:
+/***/ 186:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([47,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,52 +260,28 @@ webpackJsonp([47,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
+	      onChange: function onChange(affixed) {
+	        return console.log(affixed);
+	      },
 	      apis: [{
-	        parameter: 'type',
-	        explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'htmlType',
-	        explain: '设置 button 原生的 type 值，可选值请参考 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type" target="_blank">HTML 标准<a/>',
-	        type: 'string',
-	        default: 'button'
-	      }, {
-	        parameter: 'icon',
-	        explain: '设置按钮的图标类型',
-	        type: 'string',
-	        default: '无'
-	      }, {
-	        parameter: 'shape',
-	        explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'size',
-	        explain: '设置按钮大小，可选值为 small large 或者不设',
-	        type: 'String',
-	        default: 'default'
-	      }, {
-	        parameter: 'description',
-	        explain: '可选参数，警告提示的辅助性文字介绍',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'loading',
-	        explain: '设置按钮载入状态',
-	        type: 'boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'onClick',
-	        explain: 'click 事件的 handler',
-	        type: 'function',
+	        parameter: 'offsetTop',
+	        explain: '距离窗口顶部达到指定偏移量后触发',
+	        type: 'Number',
 	        default: ''
+	      }, {
+	        parameter: 'offsetBottom',
+	        explain: '距离窗口底部达到指定偏移量后触发',
+	        type: 'Number',
+	        default: ''
+	      }, {
+	        parameter: 'onChange',
+	        explain: '固定状态改变时触发的回调函数',
+	        type: 'Function( Boolean )',
+	        default: '无'
 	      }]
 	    };
 	  },
 	  components: {
-	    vButton: _button2.default,
-	    vButtonGroup: _button2.default.Group,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -317,24 +289,24 @@ webpackJsonp([47,50],{
 
 /***/ },
 
-/***/ 558:
+/***/ 419:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Button 按钮</h1>\n    <p>\n      按钮用于开始一个即时操作。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"按钮类型\"\n        describe=\"按钮有四种类型：主按钮、次按钮、幽灵按钮、虚线按钮。通过设置 type 为 primary ghost dashed 可分别创建主按钮、幽灵按钮、虚线按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。主按钮和次按钮可独立使用，幽灵按钮用于和主按钮组合。需要强引导用主按钮，切记主按钮在同一个操作区域最多出现一次。\"\n      >\n        <v-button type='primary'>Primary</v-button>\n        <v-button type='success'>success</v-button>\n        <v-button type='error'>error</v-button>\n        <v-button type='warning'>warning</v-button>\n        <v-button>default</v-button>\n        <v-button type='ghost'>Ghost</v-button>\n        <v-button type='dashed'>Dashed</v-button>\n      </code-box>\n\n      <code-box\n        title=\"按钮尺寸\"\n        describe=\"按钮有大、中、小三种尺寸。通过设置 size 为 large small 分别把按钮设为大、小尺寸。若不设置 size，则尺寸为中。\"\n      >\n        <v-button type='primary' size='large'>Large</v-button>\n        <v-button type='primary'>Default</v-button>\n        <v-button type='primary' size='small'>Small</v-button>\n      </code-box>\n\n      <code-box\n        title=\"加载中状态\"\n        describe=\"添加 loading 属性即可让按钮处于加载状态，最后两个按钮演示点击后进入加载状态。\"\n      >\n        <v-button type='primary' loading>Loading</v-button>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"图标按钮\"\n        describe=\"当需要在 Button 内嵌入 Icon 时，可以设置 icon 属性，或者直接在 Button 内使用 Icon 组件。如果想控制 Icon 具体的位置，只能直接使用 Icon 组件，而非 icon 属性。\"\n      >\n        <v-button type='primary' shape=\"circle\" icon=\"search\"></v-button>\n        <v-button type=\"primary\" icon=\"search\"><span>搜索</span></v-button>\n        <br />\n        <br />\n        <v-button type=\"ghost\" shape=\"circle-outline\" icon=\"search\"></v-button>\n        <v-button type=\"ghost\" icon=\"search\"><span>搜索</span></v-button>\n      </code-box>\n\n      <code-box\n        title=\"不可用状态\"\n        describe=\"添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。\"\n      >\n        <v-button type='primary'>Primary</v-button>\n        <v-button type='primary' disabled>Primary</v-button>\n      </code-box>\n\n      <code-box\n        title=\"按钮组合\"\n        describe=\"可以将多个 Button 放入 Button.Group 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。\"\n      >\n        <v-button-group size=\"large\">\n           <v-button>Large</v-button><v-button>Large</v-button>\n        </v-button-group>\n        <v-button-group>\n           <v-button>Default</v-button><v-button>Default</v-button>\n        </v-button-group>\n        <v-button-group size=\"small\">\n           <v-button>Small</v-button><v-button>Small</v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Affix 固钉</h1>\n      <p>\n        将页面元素钉在可视范围。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。</li>\n        <li>页面可视范围过小时，慎用此功能以免遮挡页面内容。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法。\"\n          code='<v-affix :offset-top=\"0\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"0\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"下方固定\"\n          describe=\"固定在屏幕下方\"\n          code='<v-affix :offset-bottom=\"200\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-bottom=\"200\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"偏移\"\n          describe=\"达到一定的偏移量才触发。\"\n          code='<v-affix :offset-top=\"75\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"75\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"固定状态改变的回调\"\n          describe=\"可以获得是否固定的状态。\"\n          code='onChange: affixed => console.log(affixed)\n\n<v-affix :offset-top=\"120\" :on-change=\"onChange\">\n  <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"120\" :on-change='onChange'>\n            <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n    <div class=\"\" style=\"height: 400px\">\n\n    </div>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 677:
+/***/ 550:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(269)
+	__vue_script__ = __webpack_require__(186)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\button.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(558)
+	  console.warn("[vue-loader] src\\views\\affix.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(419)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -114,7 +114,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 98:
+/***/ 73:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -122,9 +122,9 @@ webpackJsonp([2,50],{
 	 */
 
 	try {
-	  var query = __webpack_require__(99);
+	  var query = __webpack_require__(74);
 	} catch (err) {
-	  var query = __webpack_require__(99);
+	  var query = __webpack_require__(74);
 	}
 
 	/**
@@ -171,7 +171,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 99:
+/***/ 74:
 /***/ function(module, exports) {
 
 	function one(selector, el) {
@@ -199,7 +199,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 281:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -212,7 +212,7 @@ webpackJsonp([2,50],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _clipboard = __webpack_require__(320);
+	var _clipboard = __webpack_require__(314);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -282,12 +282,12 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 319:
+/***/ 313:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(468)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(414)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -514,12 +514,12 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 320:
+/***/ 314:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(319), __webpack_require__(469), __webpack_require__(466)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(313), __webpack_require__(415), __webpack_require__(413)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -679,7 +679,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 321:
+/***/ 315:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -687,9 +687,9 @@ webpackJsonp([2,50],{
 	 */
 
 	try {
-	  var matches = __webpack_require__(98)
+	  var matches = __webpack_require__(73)
 	} catch (err) {
-	  var matches = __webpack_require__(98)
+	  var matches = __webpack_require__(73)
 	}
 
 	/**
@@ -722,7 +722,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 403:
+/***/ 374:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -737,10 +737,10 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 405:
+/***/ 376:
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(321);
+	var closest = __webpack_require__(315);
 
 	/**
 	 * Delegates event to a selector.
@@ -788,13 +788,13 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 462:
+/***/ 409:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(403);
+	var content = __webpack_require__(374);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -815,7 +815,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 465:
+/***/ 412:
 /***/ function(module, exports) {
 
 	/**
@@ -871,11 +871,11 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 466:
+/***/ 413:
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(465);
-	var delegate = __webpack_require__(405);
+	var is = __webpack_require__(412);
+	var delegate = __webpack_require__(376);
 
 	/**
 	 * Validates all params and calls the right
@@ -973,7 +973,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 468:
+/***/ 414:
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -1008,7 +1008,7 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 469:
+/***/ 415:
 /***/ function(module, exports) {
 
 	function E () {
@@ -1081,25 +1081,25 @@ webpackJsonp([2,50],{
 
 /***/ },
 
-/***/ 600:
+/***/ 546:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div _v-022d174b=\"\">\n  <section class=\"markdown\" _v-022d174b=\"\">\n    <h1 _v-022d174b=\"\">Iconfont</h1>\n    <p _v-022d174b=\"\">\n      语义化的矢量图形。\n    </p>\n    <h2 _v-022d174b=\"\">图标的命名规范</h2>\n    <p _v-022d174b=\"\">\n      我们为每个图标赋予了语义化的命名，命名规则如下:\n    </p>\n    <ul _v-022d174b=\"\">\n      <li _v-022d174b=\"\">\n        实心和描线图标保持同名，用 -o 来区分，比如 question-circle(实心) 和 question-circle-o(描线)；\n      </li>\n      <li _v-022d174b=\"\">\n        命名顺序：[icon名]-[形状可选]-[描线与否]-[方向可选]。\n      </li>\n    </ul>\n\n    <h2 _v-022d174b=\"\">如何使用</h2>\n    <p _v-022d174b=\"\">使用 <v-icon _v-022d174b=\"\"></v-icon>标签声明组件，指定图标对应的 type 属性，示例代码如下:</p>\n    <pre _v-022d174b=\"\"><code class=\"lang-html\" _v-022d174b=\"\">&lt;v-icon type=\"link\"&gt;&lt;/v-icon&gt;</code></pre>\n\n    <p _v-022d174b=\"\">最终会渲染为：</p>\n\n    <pre _v-022d174b=\"\"><code class=\"lang-html\" _v-022d174b=\"\">&lt;i class=\"anticon anticon-link\"&gt;&lt;/i&gt;</code></pre>\n    <h2 _v-022d174b=\"\">本地部署</h2>\n    <p _v-022d174b=\"\">图标组件使用 <a href=\"http://www.iconfont.cn/\" target=\"blank\" _v-022d174b=\"\">iconfont.cn</a>，默认公网可访问。如需本地部署，可参考 <a href=\"https://github.com/ant-design/antd-init/tree/master/examples/local-iconfont\" target=\"blank\" _v-022d174b=\"\">示例</a>。</p>\n    <p style=\"color:#ff7800\" _v-022d174b=\"\">* 点击下面的图标即可复制标签</p>\n    \n    <api-table :content=\"content\" _v-022d174b=\"\">\n      <h3 _v-022d174b=\"\">Icon</h3>\n    </api-table>\n\n    <h2 _v-022d174b=\"\">图标列表</h2>\n    <h3 _v-022d174b=\"\">方向性图标</h3>\n\n    <ul class=\"anticons-list\" _v-022d174b=\"\">\n      <li class=\"icon-item\" v-for=\"icon in icons1Obj\" :class=\"{copied: Copied}\" :data-clipboard-text=\"_getCopyCode(icon.name)\" _v-022d174b=\"\">\n        <span class=\"anticon anticon-{{icon.name}}\" _v-022d174b=\"\"></span>\n        <span class=\"anticon-class\" _v-022d174b=\"\">{{icon.name}}</span>\n      </li>\n    </ul>\n\n    <h3 _v-022d174b=\"\">提示建议性图标</h3>\n\n    <ul class=\"anticons-list\" _v-022d174b=\"\">\n      <li class=\"icon-item\" v-for=\"icon in icons2Obj\" :class=\"{copied: Copied}\" :data-clipboard-text=\"_getCopyCode(icon.name)\" _v-022d174b=\"\">\n        <span class=\"anticon anticon-{{icon.name}}\" _v-022d174b=\"\"></span>\n        <span class=\"anticon-class\" _v-022d174b=\"\">{{icon.name}}</span>\n      </li>\n    </ul>\n\n    <h3 _v-022d174b=\"\">网站通用图标</h3>\n\n    <ul class=\"anticons-list\" _v-022d174b=\"\">\n      <li class=\"icon-item\" v-for=\"icon in icons3Obj\" :class=\"{copied: Copied}\" :data-clipboard-text=\"_getCopyCode(icon.name)\" _v-022d174b=\"\">\n        <span class=\"anticon anticon-{{icon.name}}\" _v-022d174b=\"\"></span>\n        <span class=\"anticon-class\" _v-022d174b=\"\">{{icon.name}}</span>\n      </li>\n    </ul>\n\n  </section>\n</div>\n\n";
 
 /***/ },
 
-/***/ 688:
+/***/ 567:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(462)
-	__vue_script__ = __webpack_require__(281)
+	__webpack_require__(409)
+	__vue_script__ = __webpack_require__(204)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\views\\font.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(600)
+	__vue_template__ = __webpack_require__(546)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

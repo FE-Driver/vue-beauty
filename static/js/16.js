@@ -207,7 +207,7 @@ webpackJsonp([16,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([16,50],{
 
 /***/ },
 
-/***/ 292:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([16,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _pagination = __webpack_require__(53);
-
-	var _pagination2 = _interopRequireDefault(_pagination);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,29 +260,84 @@ webpackJsonp([16,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      current: 1,
-	      apis: [{ "parameter": "current", "explain": "当前页数", "type": "Number", "default": "无" }, { "parameter": "defaultCurrent", "explain": "默认的当前页数", "type": "Number", "default": "1" }, { "parameter": "total", "explain": "数据总数", "type": "Number", "default": "0" }, { "parameter": "defaultPageSize", "explain": "初始的每页条数", "type": "Number", "default": "10" }, { "parameter": "pageSize", "explain": "每页条数", "type": "Number", "default": "" }, { "parameter": "onChange", "explain": "页码改变的回调，参数是改变后的页码", "type": "Function", "default": "noop" }, { "parameter": "showSizeChanger", "explain": "是否可以改变 pageSize", "type": "Bool", "default": "false" }, { "parameter": "pageSizeOptions", "explain": "指定每页可以显示多少条", "type": "Array", "default": "['10', '20', '30', '40']" }, { "parameter": "onShowSizeChange", "explain": "pageSize 变化的回调", "type": "Function", "default": "noop" }, { "parameter": "showQuickJumper", "explain": "是否可以快速跳转至某页", "type": "Bool", "default": "false" }, { "parameter": "size", "explain": "当为「small」时，是小尺寸分页", "type": "String", "default": "\"\"" }, { "parameter": "simple", "explain": "当添加该属性时，显示为简单分页", "type": "Object", "default": "无" }, { "parameter": "showTotal", "explain": "用于显示总共有多少条数据", "type": "Function", "default": "无" }]
+	      content: [['dataSource', '可嵌套的节点属性的数组，生成tree的数据', 'array', '无'], ['multiple', '是否支持多选', 'bool', 'false'], ['checkable', '是否支持选中', 'bool', 'false'], ['onCheck', '点击复选框触发', 'function(nodeArray)', '-'], ['onSelect', '点击树节点触发', 'function(nodeArray)', '-']],
+	      methodContent: [['getCheckedNodes', '获取被勾选的节点', '无', '节点数组'], ['getSelectedNodes', '获取被选中的节点', '无', '节点数组']],
+	      apiTreeNode: [{
+	        parameter: 'disabled',
+	        explain: '禁掉响应',
+	        type: 'bool',
+	        default: 'false'
+	      }, {
+	        parameter: 'disableCheckbox',
+	        explain: '禁掉 checkbox',
+	        type: 'bool',
+	        default: 'false'
+	      }, {
+	        parameter: 'title',
+	        explain: '标题',
+	        type: 'String/element string',
+	        default: "'---'"
+	      }, {
+	        parameter: 'expand',
+	        explain: '是否展开直子节点',
+	        type: 'bool',
+	        default: 'false'
+	      }, {
+	        parameter: 'selected',
+	        explain: '是否选中子节点',
+	        type: 'bool',
+	        default: 'false'
+	      }, {
+	        parameter: 'checked',
+	        explain: '是否勾选(如果勾选，子节点也会全部勾选)',
+	        type: 'bool',
+	        default: 'false'
+	      }, {
+	        parameter: 'node',
+	        explain: '子节点属性数组',
+	        type: 'Array',
+	        default: '无'
+	      }],
+	      treedata: [{
+	        title: 'parent 1',
+
+	        selected: true,
+
+	        node: [{
+	          title: 'parent 1-0',
+
+	          expand: true,
+	          disabled: true,
+	          node: [{
+	            title: 'leaf',
+
+	            disableCheckbox: true
+	          }, {
+	            title: 'leaf'
+	          }]
+	        }, {
+	          title: 'parent 1-1',
+
+	          checked: true,
+	          node: [{
+	            title: "<span style='color:#08c'>sss</span>"
+	          }]
+	        }]
+	      }]
 	    };
 	  },
-
-	  watch: {
-	    current: function current() {
-	      console.log(this.current);
-	    }
-	  },
 	  methods: {
-	    loadPage: function loadPage(i) {
-	      console.log('cb' + i);
+	    getTreeData: function getTreeData() {
+	      console.log(this.$get('treedata'));
 	    },
-	    showTotal: function showTotal(total) {
-	      return '全部 ' + total + ' 条';
+	    selectFn: function selectFn(data) {
+	      console.log(data);
 	    },
-	    pageSizeChange: function pageSizeChange(current, size) {
-	      console.log(current, size);
+	    checkFn: function checkFn(data) {
+	      console.log(data);
 	    }
 	  },
 	  components: {
-	    vPagination: _pagination2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -294,67 +345,24 @@ webpackJsonp([16,50],{
 
 /***/ },
 
-/***/ 402:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 461:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(402);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./pagination.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./pagination.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 580:
+/***/ 464:
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div>\r\n\t\t<section class=\"markdown\">\r\n      <h1>Pagination 分页</h1>\r\n      <p>\r\n        采用分页的形式分隔长列表，每次只加载一个页面。\r\n      </p>\r\n      <h2>何时使用</h2>\r\n      <ul>\r\n        <li>当加载/渲染所有数据将花费很多时间时；</li>\r\n        <li>可切换页码浏览数据。</li>\r\n      </ul>\r\n      <h2>组件演示</h2>\r\n    </section>\r\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n    \t<code-box\r\n        title=\"基本\"\r\n        describe=\"基础分页。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"改变\"\r\n        describe=\"改变每页显示条目数。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-size-changer=\"true\"\r\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"改变\"\r\n        describe=\"改变每页显示条目数。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t        size=\"small\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n\t\t\t  <br>\r\n        <v-pagination \r\n\t\t\t  \t:current.sync=\"current\" \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"100\"\r\n\t\t\t  \t:default-page-size=\"5\"\r\n\t\t\t  \t:page-size=\"10\"\r\n\t\t\t  \t:on-change=\"loadPage\"\r\n\t\t\t  \t:show-size-changer=\"true\"\r\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t\t\t  \t:show-quick-jumper=\"true\"\r\n\t\t\t  \tsize=\"small\"\r\n\t\t\t  \t:simple=\"false\"></v-pagination>\r\n\t\t\t  <br>\r\n\t\t  \t<v-pagination \r\n\t\t\t  \t:current.sync=\"current\" \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"50\"\r\n\t\t\t  \t:default-page-size=\"5\"\r\n\t\t\t  \t:page-size=\"10\"\r\n\t\t\t  \t:on-change=\"loadPage\"\r\n\t\t\t  \tsize=\"small\"\r\n\t\t\t  \t:simple=\"false\"\r\n\t\t\t  \t:show-total=\"showTotal\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"受控\"\r\n        describe=\"受控制的页码。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"3\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n    </div>\r\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\r\n    \t<code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-quick-jumper=\"true\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"更多\"\r\n        describe=\"更多分页\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:simple=\"true\"\r\n\t\t\t  \t:total=\"500\"></v-pagination>\r\n      </code-box>\r\n\r\n      <code-box\r\n        title=\"总数\"\r\n        describe=\"通过设置 showTotal 展示总共有多少数据。\"\r\n        code=''> \r\n        <v-pagination \r\n\t\t\t  \t:default-current=\"1\"\r\n\t\t\t  \t:show-total=\"showTotal\"\r\n\t\t\t  \t:total=\"50\"></v-pagination>\r\n      </code-box>\r\n    </div>\r\n\t  <!-- <v-pagination \r\n\t  \t:current.sync=\"current\" \r\n\t  \t:default-current=\"1\"\r\n\t  \t:total=\"100\"\r\n\t  \t:default-page-size=\"5\"\r\n\t  \t:page-size=\"10\"\r\n\t  \t:on-change=\"loadPage\"\r\n\t  \t:show-size-changer=\"true\"\r\n\t  \t:on-show-size-change=\"pageSizeChange\"\r\n\t  \t:show-quick-jumper=\"false\"\r\n\t  \tsize=\"\"\r\n\t  \t:simple=\"false\"\r\n\t  \t:show-total=\"showTotal\"></v-pagination> -->\r\n\t  <api-table :apis=\"apis\"></api-table>\r\n</div>\r\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Tree 树形控件</h1>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。\"\n      >\n        <v-tree :data-source.sync=\"treedata\" checkable multiple :on-select=\"selectFn\" :on-check=\"checkFn\"></v-tree>\n        <v-button @click=\"getTreeData\" type=\"primary\">tree数据</v-button>\n      </code-box>\n\n    </v-Col>\n  </v-Row>\n\n\n  <api-table\n    :content='content'\n  >\n    <h3>Tree props</h3>\n  </api-table>\n  <api-table\n    type=\"methods\"\n    :content='methodContent'\n    title=\"\"\n  >\n    <h3>Tree methods</h3>\n  </api-table>\n\n  <api-table\n    :apis='apiTreeNode'\n    title=\"\"\n  >\n    <h3>TreeNode props</h3>\n  </api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 699:
+/***/ 596:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(461)
-	__vue_script__ = __webpack_require__(292)
+	__vue_script__ = __webpack_require__(232)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\pagination.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(580)
+	  console.warn("[vue-loader] src\\views\\tree.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(464)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

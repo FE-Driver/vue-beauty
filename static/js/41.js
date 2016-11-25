@@ -207,7 +207,7 @@ webpackJsonp([41,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([41,50],{
 
 /***/ },
 
-/***/ 295:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,20 +246,6 @@ webpackJsonp([41,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _progress = __webpack_require__(83);
-
-	var _button = __webpack_require__(115);
-
-	var _button2 = _interopRequireDefault(_button);
-
-	var _buttonGroup = __webpack_require__(116);
-
-	var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
-
-	var _iconfont = __webpack_require__(23);
-
-	var _iconfont2 = _interopRequireDefault(_iconfont);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -274,117 +260,35 @@ webpackJsonp([41,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      percentLine: 10,
-	      percentCircle: 10,
-	      progressBarApis: [{
-	        parameter: 'percent',
-	        explain: '百分比',
-	        type: 'Number',
-	        default: 0
-	      }, {
-	        parameter: 'status',
-	        explain: '状态，有normal、exception、active、success四个状态值',
-	        type: 'String',
-	        default: 'normal'
-	      }, {
-	        parameter: 'strokeWidth',
-	        explain: '进度条线的宽度，单位是px',
-	        type: 'Number',
-	        default: 1
-	      }, {
-	        parameter: 'showInfo',
-	        explain: '是否显示进度数值和状态图标',
-	        type: 'Boolean',
-	        default: true
-	      }],
-	      progressCircleApis: [{
-	        parameter: 'percent',
-	        explain: '百分比',
-	        type: 'Number',
-	        default: 0
-	      }, {
-	        parameter: 'status',
-	        explain: '状态，有normal、exception、success三个状态值',
-	        type: 'String',
-	        default: 'normal'
-	      }, {
-	        parameter: 'strokeWidth',
-	        explain: '进度圈线的宽度，单位是进度圈画布宽度的百分比',
-	        type: 'Number',
-	        default: 1
-	      }, {
-	        parameter: 'width',
-	        explain: '必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width',
-	        type: 'Number',
-	        default: 'null'
-	      }]
+	      content: [['title', '标题', 'string', '无'], ['describe', '对该组件的描述', 'string', '无'], ['code', '组件的示例代码，如果没有将直接使用slot::default的内容', 'string', '无'], ['slot::default', '组件的插槽，用于演示', 'slot node', '无'], ['preCode', '组件的前置示例代码，显示在组件示例代码前面', 'slot node', '无'], ['postCode', '组件的后置示例代码，显示在组件示例代码后面', 'slot node', '无']]
 	    };
 	  },
-
-
 	  components: {
-	    vProgressLine: _progress.vProgressLine,
-	    vProgressCircle: _progress.vProgressCircle,
-	    vButtonGroup: _buttonGroup2.default,
-	    vButton: _button2.default,
-	    vIcon: _iconfont2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
-	  },
-
-	  methods: {
-	    _declineLine: function _declineLine() {
-	      var percent = this.percentLine - 10;
-	      if (percent < 0) {
-	        percent = 0;
-	      }
-	      this.percentLine = percent;
-	    },
-	    _increaseLine: function _increaseLine() {
-	      var percent = this.percentLine + 10;
-	      if (percent > 100) {
-	        percent = 100;
-	      }
-	      this.percentLine = percent;
-	    },
-	    _declineCircle: function _declineCircle() {
-	      var percent = this.percentCircle - 10;
-	      if (percent < 0) {
-	        percent = 0;
-	      }
-	      this.percentCircle = percent;
-	    },
-	    _increaseCircle: function _increaseCircle() {
-	      var percent = this.percentCircle + 10;
-	      if (percent > 100) {
-	        percent = 100;
-	      }
-	      this.percentCircle = percent;
-	    }
 	  }
-
 	};
 
 /***/ },
 
-/***/ 583:
+/***/ 430:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Progress 进度条</h1>\n    <p>\n      进度条，展示操作的当前进度。\n    </p>\n    <h2>何时使用</h2>\n    <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p>\n    <ul>\n      <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li>\n      <li>当需要显示一个操作完成的百分比时。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n      <code-box title=\"进度条\" describe=\"有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-line :percent=\"30\" description=\"普通的进度条\"></v-progress-line>\n        <v-progress-line :percent=\"50\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\"></v-progress-line>\n        <v-progress-line :percent=\"50\" :show-info=\"false\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"小型进度条\" describe=\"通过设置strokeWidth,可以更灵活地使用进度条\">\n        <v-progress-line :percent=\"30\"  :stroke-width=\"5\"></v-progress-line>\n        <v-progress-line :percent=\"50\"  :stroke-width=\"5\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\"  :stroke-width=\"5\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\" :stroke-width=\"5\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"动态展示\" describe=\"通过动态的改变进度,可以让进度条更有趣\">\n        <v-progress-line :percent=\"percentLine\"></v-progress-line>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineLine\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseLine\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box title=\"进度圈\" describe=\"有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-circle :percent=\"30\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"小型进度圈\" describe=\"通过设置width,可以更灵活地使用进度圈\">\n        <v-progress-circle :percent=\"30\"  :width=\"80\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\"  :width=\"80\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\" :width=\"80\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"进度圈动态展示\" describe=\"通过动态的改变进度,可以让进度圈更有趣\">\n        <v-progress-circle :percent=\"percentCircle\"></v-progress-circle>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineCircle\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseCircle\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </div>\n  </div>\n\n  <api-table\n    title=\"Progress Bar API\"\n    :apis='progressBarApis'\n  ></api-table>\n\n  <api-table\n    title=\"Progress Circle API\"\n    :apis='progressCircleApis'\n  ></api-table>\n</div>\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>CodeBox 代码示例</h1>\n    <p>\n      用于展示组件代码。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        组件说明文档的代码展示。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-24 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本\"\n        describe=\"基本用法\"\n      >\n        <code-box\n          title=\"基本\"\n          describe=\"button基本用法\"\n        >\n          <v-button>Default</v-button>\n        </code-box>\n      </code-box>\n\n      <code-box\n        title=\"code\"\n        describe=\"自定义示例代码\"\n      >\n        <code-box\n          title=\"基本\"\n          describe=\"button基本用法\"\n          code=\"自定义<v-button>Default</v-button>自定义\"\n        >\n          <v-button>Default</v-button>\n        </code-box>\n      </code-box>\n\n    </div>\n\n  </div>\n\n\n  <api-table\n    :content='content'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 702:
+/***/ 561:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(295)
+	__vue_script__ = __webpack_require__(197)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\progress.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(583)
+	  console.warn("[vue-loader] src\\views\\codeBox.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(430)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

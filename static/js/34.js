@@ -207,7 +207,7 @@ webpackJsonp([34,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([34,50],{
 
 /***/ },
 
-/***/ 263:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([34,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _affix = __webpack_require__(69);
-
-	var _affix2 = _interopRequireDefault(_affix);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -264,29 +260,58 @@ webpackJsonp([34,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      onChange: function onChange(affixed) {
-	        return console.log(affixed);
-	      },
 	      apis: [{
-	        parameter: 'offsetTop',
-	        explain: '距离窗口顶部达到指定偏移量后触发',
-	        type: 'Number',
-	        default: ''
-	      }, {
-	        parameter: 'offsetBottom',
-	        explain: '距离窗口底部达到指定偏移量后触发',
-	        type: 'Number',
-	        default: ''
-	      }, {
-	        parameter: 'onChange',
-	        explain: '固定状态改变时触发的回调函数',
-	        type: 'Function( Boolean )',
+	        parameter: 'content',
+	        explain: '提示内容',
+	        type: 'Sring',
 	        default: '无'
+	      }, {
+	        parameter: 'duration',
+	        explain: '默认 1.5 秒后自动关闭，配置为 0 则不自动关闭',
+	        type: 'Number',
+	        default: '1.5'
+	      }],
+	      config: [{
+	        parameter: 'top',
+	        explain: '消息距离顶部的位置',
+	        type: 'Number',
+	        default: '24'
+	      }, {
+	        parameter: 'duration',
+	        explain: '默认自动关闭延时，单位秒',
+	        type: 'Number',
+	        default: '1.5'
 	      }]
 	    };
 	  },
+	  methods: {
+	    openMessage: function openMessage() {
+	      this.$message.info("这是一条普通的提醒");
+	    },
+	    success: function success() {
+	      this.$message.success("这是一条成功提示");
+	    },
+	    error: function error() {
+	      this.$message.error("这是一条失败提示");
+	    },
+	    warning: function warning() {
+	      this.$message.warning("这是一条警告提示");
+	    },
+	    time: function time() {
+	      this.$message.success("这是一条成功的提示,并将于10秒后消失", 10);
+	    },
+	    loading: function loading() {
+	      var instance = this.$message.loading("正在执行中...", 0);
+	      setTimeout(instance.remove, 2500);
+	    },
+	    openNotificationWithIcon: function openNotificationWithIcon(type) {
+	      this.$notification[type]({
+	        message: '这是标题',
+	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
+	      });
+	    }
+	  },
 	  components: {
-	    vAffix: _affix2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -294,67 +319,24 @@ webpackJsonp([34,50],{
 
 /***/ },
 
-/***/ 369:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 425:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(369);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./affix.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./affix.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 552:
+/***/ 442:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Affix 固钉</h1>\n      <p>\n        将页面元素钉在可视范围。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。</li>\n        <li>页面可视范围过小时，慎用此功能以免遮挡页面内容。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基础\"\n          describe=\"最简单的用法。\"\n          code='<v-affix :offset-top=\"0\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"0\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在顶部</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"下方固定\"\n          describe=\"固定在屏幕下方\"\n          code='<v-affix :offset-bottom=\"200\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-bottom=\"200\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离底部 200px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"偏移\"\n          describe=\"达到一定的偏移量才触发。\"\n          code='<v-affix :offset-top=\"75\">\n  <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"75\">\n            <button type=\"button\" class=\"ant-btn ant-btn-primary\"><span>固定在距离顶部 75px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n        <code-box\n          title=\"固定状态改变的回调\"\n          describe=\"可以获得是否固定的状态。\"\n          code='onChange: affixed => console.log(affixed)\n\n<v-affix :offset-top=\"120\" :on-change=\"onChange\">\n  <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n</v-affix>'\n        >\n          <v-affix :offset-top=\"120\" :on-change='onChange'>\n            <button type=\"button\" class=\"ant-btn\"><span>固定在距离顶部 120px 的位置</span></button>\n          </v-affix>\n        </code-box>\n\n\n      </div>\n    </div>\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n\n    <div class=\"\" style=\"height: 400px\">\n\n    </div>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Message 全局提示</h1>\n      <p>\n        全局展示操作反馈信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>可提供成功、警告和错误等反馈信息。</li>\n        <li>顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"普通提示\"\n          describe=\"信息提醒反馈。\"\n          code='openMessage() {\n  this.$message.info(\"这是一条普通的提醒\");\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"修改延时\"\n          describe=\"自定义时长 10s，默认时长为 1.5s\"\n          code='time(){\n  this.$message.success(\"这是一条成功的提示,并将于10秒后消失\", 10);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"其他提示类型\"\n          describe=\"包括成功、失败、警告。\"\n          code='success() {\n  this.$message.success(\"这是一条成功提示\");\n},\nerror() {\n  this.$message.error(\"这是一条失败提示\");\n},\nwarning() {\n  this.$message.warning(\"这是一条警告提示\");\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"success(\"success\")\"><span>显示成功信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"error(\"error\")\"><span>显示失败信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"warning(\"warning\")\"><span>显示警告信息</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"success('success')\"><span>显示成功信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"error('error')\"><span>显示失败信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"warning('warning')\"><span>显示警告信息</span></button>\n        </code-box>\n\n        <code-box\n          title=\"加载中\"\n          describe=\"进行全局 loading，异步自行移除。\"\n          code='loading() {\n  const instance = this.$message.loading(\"正在执行中...\", 0);\n  setTimeout(instance.remove, 2500);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>\n        </code-box>\n\n      </div>\n\n    </div>\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li><button type=\"button\" class=\"ant-btn\">message.success(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.error(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.warning(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.loading(content, duration)</button></li>\n      </ul>\n      <p>\n        参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          <button type=\"button\" class=\"ant-btn\">message.config({\n            top: 100,\n            duration: 3,\n          })</button>\n      </p>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 671:
+/***/ 573:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(425)
-	__vue_script__ = __webpack_require__(263)
+	__vue_script__ = __webpack_require__(210)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\affix.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(552)
+	  console.warn("[vue-loader] src\\views\\message.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(442)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

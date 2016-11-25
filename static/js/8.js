@@ -207,7 +207,7 @@ webpackJsonp([8,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([8,50],{
 
 /***/ },
 
-/***/ 304:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,12 +246,6 @@ webpackJsonp([8,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _layout = __webpack_require__(25);
-
-	var _tabs = __webpack_require__(88);
-
-	var _tabs2 = _interopRequireDefault(_tabs);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -266,62 +260,40 @@ webpackJsonp([8,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
+	      show: true,
+	      num: 5,
 	      apis: [{
-	        parameter: 'type',
-	        explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
+	        parameter: 'activeKey',
+	        explain: '当前激活 tab 面板的 key',
+	        type: 'Array',
+	        default: '默认第一个元素'
+	      }, {
+	        parameter: 'defaultActiveKey',
+	        explain: '初始化选中面板的 key',
 	        type: 'String',
 	        default: '无'
 	      }, {
-	        parameter: 'htmlType',
-	        explain: '设置 button 原生的 type 值，可选值请参考 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type" target="_blank">HTML 标准<a/>',
-	        type: 'string',
-	        default: 'button'
-	      }, {
-	        parameter: 'icon',
-	        explain: '设置按钮的图标类型',
-	        type: 'string',
-	        default: '无'
-	      }, {
-	        parameter: 'shape',
-	        explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'size',
-	        explain: '设置按钮大小，可选值为 small large 或者不设',
-	        type: 'String',
-	        default: 'default'
-	      }, {
-	        parameter: 'description',
-	        explain: '可选参数，警告提示的辅助性文字介绍',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'loading',
-	        explain: '设置按钮载入状态',
-	        type: 'boolean',
+	        parameter: 'accordion',
+	        explain: '开启手风琴模式',
+	        type: 'Boolean',
 	        default: 'false'
 	      }, {
-	        parameter: 'onClick',
-	        explain: 'click 事件的 handler',
+	        parameter: 'onChange',
+	        explain: '切换面板的回调',
 	        type: 'function',
-	        default: ''
+	        default: '无'
 	      }]
 	    };
 	  },
 	  components: {
-	    vTabs: _tabs2.default,
-	    vTabPane: _tabs2.default.TabPane,
 	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    vRow: _layout.vRow,
-	    vCol: _layout.vCol
+	    apiTable: _apiTable2.default
 	  }
 	};
 
 /***/ },
 
-/***/ 394:
+/***/ 366:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -329,20 +301,20 @@ webpackJsonp([8,50],{
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 450:
+/***/ 397:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(394);
+	var content = __webpack_require__(366);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -351,8 +323,8 @@ webpackJsonp([8,50],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./tabs.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./tabs.vue");
+			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue", function() {
+				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -363,25 +335,25 @@ webpackJsonp([8,50],{
 
 /***/ },
 
-/***/ 591:
+/***/ 431:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Button 按钮</h1>\n    <p>\n      按钮用于开始一个即时操作。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"图标按钮\"\n        describe=\"\"\n      >\n        <v-tabs active-key=\"2\">\n          <v-tab-pane key=\"1\" tab=\"选项卡一\">选项卡一内容</v-tab-pane>\n          <v-tab-pane key=\"2\" tab=\"选项卡二\">选项卡二内容</v-tab-pane>\n          <v-tab-pane key=\"3\" tab=\"选项卡三\">选项卡三内容</v-tab-pane>\n        </v-tabs>\n      </code-box>\n\n    </v-Col>\n\n    <v-Col span=\"12\">\n\n      <code-box\n        title=\"图标按钮\"\n        describe=\"\"\n      >\n        <v-tabs active-key=\"1\">\n          <v-tab-pane key=\"1\" tab=\"选项卡一\">选项卡一</v-tab-pane>\n          <v-tab-pane key=\"2\" disabled tab=\"选项卡二\">选项卡二</v-tab-pane>\n          <v-tab-pane key=\"3\" tab=\"选项卡三\">选项卡三</v-tab-pane>\n        </v-tabs>\n      </code-box>\n\n      <code-box\n        title=\"图标按钮\"\n        describe=\"\"\n      >\n        <v-tabs active-key=\"1\">\n          <v-tab-pane key=\"1\" tab=\"选项一\">选项卡一</v-tab-pane>\n          <v-tab-pane key=\"2\" tab=\"选项二\">选项卡二</v-tab-pane>\n          <v-tab-pane key=\"3\" tab=\"选项三\">选项卡三</v-tab-pane>\n          <v-tab-pane key=\"4\" tab=\"选项四\">选项卡四</v-tab-pane>\n          <v-tab-pane key=\"5\" tab=\"选项五\">选项卡五</v-tab-pane>\n          <v-tab-pane key=\"6\" tab=\"选项六\">选项卡六</v-tab-pane>\n          <v-tab-pane key=\"7\" tab=\"选项七\">选项卡七</v-tab-pane>\n          <v-tab-pane key=\"8\" tab=\"选项八\">选项卡八</v-tab-pane>\n          <v-tab-pane key=\"9\" tab=\"选项九\">选项卡九</v-tab-pane>\n        </v-tabs>\n      </code-box>\n      \n    </v-Col>\n  </v-Row>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Collapse 折叠面板</h1>\n    <p>\n      可以折叠/展开的内容区域。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>对复杂区域进行分组和隐藏，保持页面的整洁。</li>\n      <li>手风琴 是一种特殊的折叠面板，只允许单个内容区域展开。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"折叠面板\"\n        describe=\"可以同时展开多个面板，这个例子默认展开了第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1'>\n          <v-collapse-item header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n          <v-collapse-item header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n          <v-collapse-item header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n        </v-collapse>\n      </code-box>\n\n      <code-box\n        title=\"多选\"\n        describe=\"默认同时展开多个面板\"\n        code=\"<v-collapse :active-key='[1,2]'>\"\n      >\n        <v-collapse :active-key=\"['1','2']\">\n          <v-collapse-item header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n          <v-collapse-item header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n          <v-collapse-item header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"手风琴\"\n        describe=\"手风琴，每次只打开一个tab。默认打开第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1' accordion>\n          <v-collapse-item header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n          <v-collapse-item header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n          <v-collapse-item header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-collapse-item>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 711:
+/***/ 562:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(450)
-	__vue_script__ = __webpack_require__(304)
+	__webpack_require__(397)
+	__vue_script__ = __webpack_require__(198)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\tabs.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(591)
+	  console.warn("[vue-loader] src\\views\\collapse.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(431)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

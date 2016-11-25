@@ -207,7 +207,7 @@ webpackJsonp([14,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([14,50],{
 
 /***/ },
 
-/***/ 297:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([14,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _radio = __webpack_require__(40);
-
-	var _radio2 = _interopRequireDefault(_radio);
-
-	var _button = __webpack_require__(19);
-
-	var _button2 = _interopRequireDefault(_button);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -269,87 +261,63 @@ webpackJsonp([14,50],{
 	  data: function data() {
 	    return {
 	      apis: [{
-	        parameter: 'disabled',
-	        explain: '禁用',
+	        parameter: 'name',
+	        explain: '可选参数, 上传的文件',
+	        type: 'String',
+	        default: 'file'
+	      }, {
+	        parameter: 'action',
+	        explain: '必选参数, 上传的地址',
+	        type: 'string',
+	        default: '无'
+	      }, {
+	        parameter: 'data',
+	        explain: '可选参数, 上传所需参数',
+	        type: 'Object',
+	        default: '无'
+	      }, {
+	        parameter: 'multiple',
+	        explain: '可选参数, 是否支持多选文件，支持 ie10+',
 	        type: 'Boolean',
 	        default: 'false'
+	      }, {
+	        parameter: 'accept',
+	        explain: '可选参数, 接受上传的文件类型, 详见 input accept Attribute',
+	        type: 'String',
+	        default: '无'
 	      }, {
 	        parameter: 'onChange',
-	        explain: '选项变化时的回调函数',
-	        type: 'Function(e:Event)',
+	        explain: '可选参数, 上传文件改变时的状态，详见 onChange',
+	        type: 'Function',
 	        default: '无'
-	      }, {
-	        parameter: 'value',
-	        explain: '根据 value 进行比较，判断是否选中',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'defaultChecked',
-	        explain: '初始是否选中',
-	        type: 'Boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'checked',
-	        explain: '指定当前是否选中',
-	        type: 'Boolean',
-	        default: 'false'
 	      }],
-	      apiGroup: [{
-	        parameter: 'onChange',
-	        explain: '选项变化时的回调函数',
-	        type: 'Function(e:Event)',
-	        default: '无'
+	      name: 'file',
+	      action: '/upload',
+	      onChange: function onChange(info) {
+	        if (info.file.status !== 'uploading') {
+	          console.log(info.file, info.fileList);
+	        }
+	        if (info.file.status === 'done') {
+	          console.log(info.file.name + ' 上传成功.');
+	        } else if (info.file.status === 'error') {
+	          console.log(info.file.name + ' 上传失败.');
+	        }
+	      },
+
+	      defaultFileList: [{
+	        uid: -1,
+	        name: 'xxx.png',
+	        status: 'done',
+	        url: 'http://www.baidu.com/xxx.png'
 	      }, {
-	        parameter: 'value',
-	        explain: '用于设置当前选中的值',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'defaultValue',
-	        explain: '默认选中的值',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'size',
-	        explain: '大小，只对按钮样式生效large default small',
-	        type: 'String',
-	        default: 'default'
-	      }, {
-	        parameter: 'type',
-	        explain: '外观radio or button',
-	        type: 'String',
-	        default: 'radio'
-	      }, {
-	        parameter: 'radios[ { name,value,disabled } ]',
-	        explain: '指定可选项',
-	        type: 'array',
-	        default: '无'
-	      }, {
-	        parameter: 'disabled',
-	        explain: '禁用',
-	        type: 'Boolean',
-	        default: 'false'
-	      }],
-	      disabled: true
+	        uid: -2,
+	        name: 'yyy.png',
+	        status: 'done',
+	        url: 'http://www.baidu.com/yyy.png'
+	      }]
 	    };
 	  },
-	  methods: {
-	    _toggleDisabled: function _toggleDisabled() {
-	      this.disabled = !this.disabled;
-	    },
-	    _onGroupChange: function _onGroupChange(e) {
-	      console.log('radio checked:' + e.target.value);
-	      this.groupValue = e.target.value;
-	    },
-	    _onCityChange: function _onCityChange(e) {
-	      console.log('当前城市: ' + e.target.name);
-	      this.cityName = e.target.name;
-	    }
-	  },
 	  components: {
-	    vRadio: _radio2.default,
-	    vRadioGroup: _radio2.default.Group,
-	    vButton: _button2.default,
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
 	  }
@@ -357,67 +325,24 @@ webpackJsonp([14,50],{
 
 /***/ },
 
-/***/ 388:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 444:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(388);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./radio.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./radio.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 584:
+/***/ 466:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Radio 单选框</h1>\n      <p>\n        单选框\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          用于在多个备选项中选中单个状态。\n        </p>\n        <p>\n          和 Select 的区别是，Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-radio><span>Radio</span></v-radio>\"\n        >\n          <v-radio><span>Radio</span></v-radio>\n        </code-box>\n\n        <code-box\n          title=\"按钮尺寸\"\n          describe=\"RadioGroup组合\"\n        >\n          <v-radio-group\n            :on-change=\"_onGroupChange\"\n            default-value='a'\n            :radios=\"[{value: 'a', name: 'A'},{value: 'b', name: 'B'},{value: 'c', name: 'C'},{value: 'd', name: 'D'}]\">\n          </v-radio-group>\n        </code-box>\n\n        <code-box\n          title=\"按钮样式\"\n          describe=\"按钮样式的单选组合。\"\n          code=\" <v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  disabled\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\"\n        >\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n           <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            disabled\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"Radio 不可用。\"\n          code=\"<v-radio :default-checked='false' :disabled='disabled'><span>不可用</span></v-radio>\n<v-radio :default-checked='true' :disabled='disabled'><span>不可用</span></v-radio>\n<v-button :type='primary' @click='_toggleDisabled'>Toggle disabled</v-button>\"\n        >\n          <v-radio :default-checked=\"false\" :disabled=\"disabled\"><span>不可用</span></v-radio>\n          <br>\n          <v-radio :default-checked=\"true\" :disabled=\"disabled\"><span>不可用</span></v-radio>\n          <br>\n          <br>\n          <v-button :type=\"primary\" @click=\"_toggleDisabled\">Toggle disabled</v-button>\n        </code-box>\n\n        <code-box\n          title=\"大小\"\n          describe=\"大中小三种组合，可以和表单输入框进行对应配合。\"\n          code=\"<v-radio-group\n  size='large'\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<br><br>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<br><br>\n<v-radio-group\n  size='small'\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\"\n        >\n          <v-radio-group\n            size=\"large\"\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            size=\"small\"\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Radio</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      :apis='apiGroup'\n    >\n      <h3>RadioGroup</h3>\n    </api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Upload 上传</h1>\n      <p>\n        文件选择上传和拖拽上传控件。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。\n        </p>\n        <ul>\n          <li>当需要上传一个或一些文件时。</li>\n          <li>当需要展现上传的进度时。</li>\n          <li>当需要使用拖拽交互时。</li>\n        </ul>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"点击上传\"\n          describe=\"经典款式，用户点击按钮弹出文件选择框。\"\n          code=\"<v-upload :name='name' :action='action' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" :on-change=\"onChange\">\n            <v-button type=\"ghost\">\n              <v-icon type=\"upload\"></v-icon> 点击上传\n            </v-button>\n          </v-upload>\n        </code-box>\n\n        <code-box\n          title=\"拖拽上传1\"\n          describe=\"可以把文件拖入指定区域，完成上传，同样支持点击上传。\"\n          code=\"<v-upload :name='name' :action='action' type='drag' :on-change='onChange'>\n  <p class='ant-upload-drag-icon'>\n    <v-icon type='inbox'></v-icon>\n  </p>\n  <p class='ant-upload-text'>点击或将文件拖拽到此区域上传</p>\n  <p class='ant-upload-hint'>支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" type=\"drag\" :on-change=\"onChange\">\n            <p class=\"ant-upload-drag-icon\">\n              <v-icon type=\"inbox\"></v-icon>\n            </p>\n            <p class=\"ant-upload-text\">点击或将文件拖拽到此区域上传</p>\n            <p class=\"ant-upload-hint\">支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>\n          </v-upload>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"传入已上传的文件\"\n          describe=\"对已上传的文件进行编辑。\"\n          code=\"<v-upload :name='name' :action='action' :default-file-list='defaultFileList' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n         <v-upload :name=\"name\" :action=\"action\" :default-file-list=\"defaultFileList\" :on-change=\"onChange\">\n          <v-button type=\"ghost\">\n            <v-icon type=\"upload\"></v-icon> 点击上传\n          </v-button>\n        </v-upload>\n        </code-box>\n\n        <code-box\n          title=\"拖拽上传2\"\n          describe=\"可以把文件拖入指定区域，完成上传，同样支持点击上传。\"\n          code=\"<div style='width: 246px; height: 146px'>\n  <v-upload :name='name' :action='action' type='drag' :on-change='onChange'>\n    <v-icon type='plus'></v-icon>\n  </v-upload>\n</div>\"\n        >\n          <div style=\"width: 246px; height: 146px\">\n            <v-upload :name=\"name\" :action=\"action\" type=\"drag\" :on-change=\"onChange\">\n              <v-icon type=\"plus\"></v-icon>\n            </v-upload>\n          </div>\n        </code-box>\n\n        <code-box\n          title=\"多文件上传\"\n          describe=\"可以选择多个文件上传。\"\n          code=\"<v-upload :name='name' :action='action' :multiple='true' :on-change='onChange'>\n  <v-button type='ghost'>\n    <v-icon type='upload'></v-icon> 点击上传\n  </v-button>\n</v-upload>\"\n        >\n          <v-upload :name=\"name\" :action=\"action\" :multiple=\"true\" :on-change=\"onChange\">\n            <v-button type=\"ghost\">\n              <v-icon type=\"upload\"></v-icon> 点击上传\n            </v-button>\n          </v-upload>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    ></api-table>\n    <section class=\"markdown\">\n      <h3>onChange</h3>\n      <p>文件状态改变的回调，返回为：</p>\n      <pre>\n        <code>\n          {\n            file: { ... },\n            fileList: [ ... ],\n            event: { ... }\n          }\n        </code>\n      </pre>\n      <ol>\n        <li><p><code>file</code> 当前操作的文件对象。</p>\n        <pre><code>{\n          uid: 'uid',      // 文件唯一标识，建议设置为负数，防止和内部产生的 id 冲突\n          name: 'xx.png'   // 文件名\n          status: 'done',  // 状态有：uploading done error removed\n          response: '{\"status\":\"success\"}'  // 服务端响应内容\n        }\n        </code></pre>\n        <p>如果上传控件是 multiple 时，此参数将为一个对象数组 <code>[file, ...]</code>。</p>\n        </li>\n        <li><p><code>fileList</code> 当前的文件列表。</p>\n        </li>\n        <li><code>event</code> 上传中的服务端响应内容，包含了上传进度等信息，高级浏览器支持。</li>\n      </ol>\n      <h2 id=\"-\">显示下载链接</h2>\n      <p>请使用 fileList 属性设置数组项的 url 属性进行展示控制。</p>\n      <h2 id=\"ie-note\">IE note</h2>\n      <ul>\n        <li><a href=\"https://github.com/react-component/upload#ie89-note\">https://github.com/react-component/upload#ie89-note</a></li>\n      </ul>\n    </section>\n  </div>\n\n";
 
 /***/ },
 
-/***/ 704:
+/***/ 598:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(444)
-	__vue_script__ = __webpack_require__(297)
+	__vue_script__ = __webpack_require__(234)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\radio.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(584)
+	  console.warn("[vue-loader] src\\views\\upload.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(466)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

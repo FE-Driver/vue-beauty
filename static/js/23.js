@@ -207,7 +207,7 @@ webpackJsonp([23,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([23,50],{
 
 /***/ },
 
-/***/ 280:
+/***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([23,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _alert = __webpack_require__(51);
-
-	var _alert2 = _interopRequireDefault(_alert);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -259,139 +255,61 @@ webpackJsonp([23,50],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _menu = __webpack_require__(120);
-
-	var _menu2 = _interopRequireDefault(_menu);
-
-	var _subMenu = __webpack_require__(122);
-
-	var _subMenu2 = _interopRequireDefault(_subMenu);
-
-	var _menuItem = __webpack_require__(121);
-
-	var _menuItem2 = _interopRequireDefault(_menuItem);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	  data: function data() {
 	    return {
 	      apis: [{
-	        parameter: 'type',
-	        explain: '必选参数，指定警告提示的样式，有四种选择 success、info、warning、error',
-	        type: 'String',
-	        default: 'info'
+	        parameter: 'size',
+	        explain: 'spin组件中点的大小，可选值为 small default large',
+	        type: 'string',
+	        default: 'default'
 	      }, {
-	        parameter: 'closable',
-	        explain: '可选参数，默认不显示关闭按钮',
-	        type: 'Boolean',
-	        default: 'false'
+	        parameter: 'spinning',
+	        explain: '用于内嵌其他组件的模式，可以关闭 loading 效果',
+	        type: 'boolean',
+	        default: 'true'
 	      }, {
-	        parameter: 'closeText',
-	        explain: '可选参数，自定义关闭按钮',
-	        type: 'String',
+	        parameter: 'tip',
+	        explain: '自定义描述文案',
+	        type: 'string',
 	        default: '无'
-	      }, {
-	        parameter: 'message',
-	        explain: '必选参数，警告提示内容',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'description',
-	        explain: '可选参数，警告提示的辅助性文字介绍',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'onClose',
-	        explain: '可选参数，关闭时触发的回调函数',
-	        type: 'Function',
-	        default: '无'
-	      }, {
-	        parameter: 'showIcon',
-	        explain: '可选参数，是否显示辅助图标',
-	        type: 'Boolean',
-	        default: 'false'
-	      }, {
-	        parameter: 'closed',
-	        explain: '可选参数，控制组件隐藏显示，默认显示',
-	        type: 'Boolean',
-	        default: 'false'
-	      }]
+	      }],
+	      spinning: false
 	    };
 	  },
 	  components: {
-	    vAlert: _alert2.default,
 	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    menu: _menu2.default,
-	    subMenu: _subMenu2.default,
-	    menuItem: _menuItem2.default
+	    apiTable: _apiTable2.default
+	  },
+	  methods: {
+	    _toogle: function _toogle() {
+	      this.spinning = !this.spinning;
+	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 380:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 436:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(380);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./dropdown.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./dropdown.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 569:
+/***/ 455:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Dropdown 下拉菜单</h1>\n    <p>\n      向下弹出的列表。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"下拉菜单\"\n              describe=\"\"\n              code=\"\"\n      >\n        <menu>\n          test 0\n          <menu-item>\n            <sub-menu title=\"sub\">\n              <menu-item>\n                sub 1\n              </menu-item>\n              <menu-item>\n                sub 1\n              </menu-item>\n            </sub-menu>\n          </menu-item>\n        </menu>\n\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"下拉菜单\"\n              describe=\"\"\n              code=\"\"\n      >\n        <sub-menu title=\"sub1\">\n          <sub-menu title=\"sub2\">\n            <menu-item>\n              <sub-menu title=\"sub\">\n                <menu-item>\n                  sub 1\n                </menu-item>\n                <menu-item>\n                  sub 1\n                </menu-item>\n              </sub-menu>\n            </menu-item>\n\n          </sub-menu>\n        </sub-menu>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n              title=\"下拉菜单\"\n              describe=\"\"\n              code=\"\"\n      >\n        <menu>\n\n          <menu-item>item 1</menu-item>\n\n          <sub-menu title=\"sub\">\n\n            <menu-item>item 2</menu-item>\n\n            <sub-menu title=\"sub\">\n\n              <menu-item>item 3</menu-item>\n\n            </sub-menu>\n\n          </sub-menu>\n\n          <menu-item>item 2</menu-item>\n\n        </menu>\n\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n          :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Spin 加载中</h1>\n    <p>\n      用于页面和区块的加载中状态。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"基本用法\"\n        describe=\"一个简单的 loading 状态。\"\n      >\n        <v-spin></v-spin>\n      </code-box>\n\n      <code-box\n        title=\"自定义描述文案\"\n        describe=\"自定义描述文案，指定的 tip 文案会直接代替 ...。\"\n      >\n        <v-spin tip=\"正在读取数据.\">\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n        </v-spin>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"各种大小\"\n        describe=\"小的用于文本加载，默认用于卡片容器级加载，大的用于页面级加载。\"\n      >\n        <v-spin size=\"small\"></v-spin>\n        <v-spin></v-spin>\n        <v-spin size=\"large\"></v-spin>\n      </code-box>\n\n      <code-box\n        title=\"卡片加载中\"\n        describe=\"可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。\"\n      >\n        <v-spin :spinning=\"spinning\">\n          <v-alert type=\"info\" message=\"消息提示的文案\"\n            description=\"消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍\"\n          ></v-alert>\n        </v-spin>\n        切换加载状态：<v-switch @click=\"_toogle\"></v-switch>\n      </code-box>\n\n    </div>\n  </div>\n\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 687:
+/***/ 587:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(436)
-	__vue_script__ = __webpack_require__(280)
+	__vue_script__ = __webpack_require__(224)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\dropdown.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(569)
+	  console.warn("[vue-loader] src\\views\\spin.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(455)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

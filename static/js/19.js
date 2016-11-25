@@ -207,7 +207,7 @@ webpackJsonp([19,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([19,50],{
 
 /***/ },
 
-/***/ 287:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -255,135 +255,72 @@ webpackJsonp([19,50],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _message = __webpack_require__(35);
-
-	var _message2 = _interopRequireDefault(_message);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	  data: function data() {
 	    return {
 	      apis: [{
-	        parameter: 'content',
-	        explain: '提示内容',
-	        type: 'Sring',
-	        default: '无'
+	        parameter: 'closable',
+	        explain: '标签是否可以关闭',
+	        type: 'boolean',
+	        default: 'false'
 	      }, {
-	        parameter: 'duration',
-	        explain: '默认 1.5 秒后自动关闭，配置为 0 则不自动关闭',
-	        type: 'Number',
-	        default: '1.5'
+	        parameter: 'color',
+	        explain: '标签的色彩：blue green yellow red',
+	        type: 'string',
+	        default: '-'
 	      }],
-	      config: [{
-	        parameter: 'top',
-	        explain: '消息距离顶部的位置',
-	        type: 'Number',
-	        default: '24'
+	      eventsApi: [['close', '移除标签的时候触发', '无']],
+	      tags: [{
+	        title: '不可移除',
+	        closable: false
 	      }, {
-	        parameter: 'duration',
-	        explain: '默认自动关闭延时，单位秒',
-	        type: 'Number',
-	        default: '1.5'
+	        title: '标签一',
+	        closable: true
+	      }, {
+	        title: '标签二',
+	        closable: true
 	      }]
 	    };
-	  },
-	  methods: {
-	    openMessage: function openMessage() {
-	      _message2.default.info("这是一条普通的提醒");
-	    },
-	    success: function success() {
-	      _message2.default.success("这是一条成功提示");
-	    },
-	    error: function error() {
-	      _message2.default.error("这是一条失败提示");
-	    },
-	    warning: function warning() {
-	      _message2.default.warning("这是一条警告提示");
-	    },
-	    time: function time() {
-	      _message2.default.success("这是一条成功的提示,并将于10秒后消失", 10);
-	    },
-	    loading: function loading() {
-	      var instance = _message2.default.loading("正在执行中...", 0);
-	      setTimeout(instance.remove, 2500);
-	    },
-	    openNotificationWithIcon: function openNotificationWithIcon(type) {
-	      notification[type]({
-	        message: '这是标题',
-	        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
-	      });
-	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
+	  },
+	  methods: {
+	    close: function close(i) {
+	      console.log(i);
+	    },
+	    _addTag: function _addTag() {
+	      var tagTmp = {};
+	      tagTmp.title = '新标签' + (this.tags.length + 1);
+	      tagTmp.closable = true;
+	      this.tags.push(tagTmp);
+	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 385:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 441:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(385);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./message.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./message.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 575:
+/***/ 459:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Message 全局提示</h1>\n      <p>\n        全局展示操作反馈信息。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>可提供成功、警告和错误等反馈信息。</li>\n        <li>顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"普通提示\"\n          describe=\"信息提醒反馈。\"\n          code='openMessage() {\n  message.info(\"这是一条普通的提醒\");\n},\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>'\n        >\n\n          <button type=\"button\" class=\"ant-btn ant-btn-primary\" @click=\"openMessage\"><span>显示普通提醒</span></button>\n\n        </code-box>\n\n        <code-box\n          title=\"修改延时\"\n          describe=\"自定义时长 10s，默认时长为 1.5s\"\n          code='time(){\n  message.success(\"这是一条成功的提示,并将于10秒后消失\", 10);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"time\"><span>自定义时长提示</span></button>\n\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"其他提示类型\"\n          describe=\"包括成功、失败、警告。\"\n          code='success() {\n  message.success(\"这是一条成功提示\");\n},\nerror() {\n  message.error(\"这是一条失败提示\");\n},\nwarning() {\n  message.warning(\"这是一条警告提示\");\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"success(\"success\")\"><span>显示成功信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"error(\"error\")\"><span>显示失败信息</span></button>\n<button type=\"button\" class=\"ant-btn\" @click=\"warning(\"warning\")\"><span>显示警告信息</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"success('success')\"><span>显示成功信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"error('error')\"><span>显示失败信息</span></button>\n          <button type=\"button\" class=\"ant-btn\" @click=\"warning('warning')\"><span>显示警告信息</span></button>\n        </code-box>\n\n        <code-box\n          title=\"加载中\"\n          describe=\"进行全局 loading，异步自行移除。\"\n          code='loading() {\n  const instance = message.loading(\"正在执行中...\", 0);\n  setTimeout(instance.remove, 2500);\n},\n\n<button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>'\n        >\n          <button type=\"button\" class=\"ant-btn\" @click=\"loading\"><span>显示加载中...</span></button>\n        </code-box>\n\n      </div>\n\n    </div>\n\n\n\n    <api-table\n      :apis='apis'\n    >\n      <ul>\n        <li><button type=\"button\" class=\"ant-btn\">message.success(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.error(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.warning(content, duration)</button></li>\n        <li><button type=\"button\" class=\"ant-btn\">message.loading(content, duration)</button></li>\n      </ul>\n      <p>\n        参数如下：\n      </p>\n    </api-table>\n\n    <api-table\n      :apis='config'\n    >\n      <p>\n        还提供了一个全局配置方法，在调用前提前配置，全局一次生效。\n      </p>\n      <p>\n          <button type=\"button\" class=\"ant-btn\">message.config({\n            top: 100,\n            duration: 3,\n          })</button>\n      </p>\n    </api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n<section class=\"markdown\">\n  <h1>Tag标签</h1>\n  <p>\n    进行标记和分类的小标签。\n  </p>\n  <h2>何时使用#</h2>\n  <ul>\n    <li>\n      <p>\n        用于标记事物的属性和维度。\n      </p>\n    </li>\n    <li>\n      <p>\n        进行分类。\n      </p>\n    </li>\n  </ul>\n  <h2>组件演示</h2>\n</section>\n\n<v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n\n    <code-box\n      title=\"基本\"\n      describe=\"简单的标签展示，添加 closable 表示可关闭。\"\n    >\n      <v-tag>标签一</v-tag>\n      <v-tag>标签一</v-tag>\n      <v-tag closable>标签一</v-tag>\n    </code-box>\n\n    <code-box\n      title=\"动态添加和删除\"\n      describe=\"用数组生成一组标签，可以动态添加和删除。\"\n    >\n\n      <v-tag v-for=\"tag in tags\" :color=\"tag.color\" :closable=\"tag.closable\">{{tag.title}}</v-tag>\n      <v-button type=\"dashed\" size=\"small\" @click=\"_addTag($event)\">+ 添加标签</v-button>\n    </code-box>\n\n\n  </v-Col>\n\n  <v-Col span=\"12\">\n\n    <code-box\n      title=\"各种类型\"\n      describe=\"四种颜色的标签。\"\n    >\n      <v-tag color=\"blue\" closable @close=\"close(1)\">蓝色</v-tag>\n      <v-tag color=\"green\" closable @close=\"close(2)\">绿色</v-tag>\n      <v-tag color=\"yellow\" closable @close=\"close(3)\">黄色</v-tag>\n      <v-tag color=\"red\" closable @close=\"close(4)\">红色</v-tag>\n    </code-box>\n\n  </v-Col>\n</v-Row>\n\n\n<api-table\n  :apis='apis'\n></api-table>\n<api-table\n  type=\"events\"\n  title=\"\"\n  :content='eventsApi'\n></api-table>\n";
 
 /***/ },
 
-/***/ 694:
+/***/ 591:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(441)
-	__vue_script__ = __webpack_require__(287)
+	__vue_script__ = __webpack_require__(228)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\message.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(575)
+	  console.warn("[vue-loader] src\\views\\tag.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(459)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

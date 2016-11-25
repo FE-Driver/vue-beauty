@@ -207,7 +207,7 @@ webpackJsonp([29,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([29,50],{
 
 /***/ },
 
-/***/ 271:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,10 +246,6 @@ webpackJsonp([29,50],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _carousel = __webpack_require__(72);
-
-	var _carousel2 = _interopRequireDefault(_carousel);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -259,128 +255,85 @@ webpackJsonp([29,50],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _message = __webpack_require__(35);
-
-	var _message2 = _interopRequireDefault(_message);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    components: {
-	        vCarousel: _carousel2.default,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    },
+	    name: 'popconfirm-doc',
 	    data: function data() {
 	        return {
-	            onClose: function onClose() {
-	                console.log(this);
-	            },
-	            show: true,
-	            num: 6,
 	            apis: [{
-	                parameter: 'fade',
-	                explain: '是否采用渐显模式,为true采用fade,为false采用scrollx',
-	                type: 'Boolean',
-	                default: 'false'
+	                parameter: 'placement',
+	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
+	                type: 'string',
+	                default: 'top'
 	            }, {
-	                parameter: 'dots',
-	                explain: '是否显示面板指示点',
-	                type: 'Boolean',
-	                default: 'true'
-	            }, {
-	                parameter: 'vertical',
-	                explain: '是否垂直显示dots',
-	                type: 'boolean',
-	                default: 'true'
-	            }, {
-	                parameter: 'autoplay',
-	                explain: '是否自动切换',
-	                type: 'Boolean',
-	                default: 'false'
-	            }, {
-	                parameter: 'easing',
-	                explain: '动画效果',
-	                type: 'String',
-	                default: 'linear'
-	            }, {
-	                parameter: 'onChange',
-	                explain: '切换面板的回调',
-	                type: 'Function',
+	                parameter: 'title',
+	                explain: '询问内容',
+	                type: 'string',
 	                default: '无'
-	            }]
+	            }, {
+	                parameter: 'on-confirm',
+	                explain: '确定回调',
+	                type: 'function',
+	                default: '无'
+	            }, {
+	                parameter: 'on-cancel',
+	                explain: '取消回调',
+	                type: 'function',
+	                default: '无'
+	            }, {
+	                parameter: 'openClassName',
+	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'skip',
+	                explain: '是否跳过询问,直接执行confirm回调',
+	                type: 'boolean',
+	                default: 'false'
+	            }],
+	            is_skip: false,
+	            default_is_skip: false
 	        };
 	    },
+
 	    methods: {
-	        onChange: function onChange(current) {
-	            _message2.default.info(current);
+	        confirm: function confirm() {
+	            this.$message.info('点击了确定');
+	        },
+	        cancel: function cancel() {
+	            this.$message.info('点击了取消');
+	        },
+	        to_skip_confirm: function to_skip_confirm(val) {
+	            this.is_skip = val;
 	        }
+	    },
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
 	    }
 	};
 
 /***/ },
 
-/***/ 400:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody{\n    background-color:#fff;\n}\n.ant-carousel .slick-slide h3{\n    text-align: center;\n    height: 100px;\n    line-height: 100px;\n    background: #71B5DE;\n    color: #fff;\n    overflow: hidden;\n    margin: 0;\n}\n#components-carousel-demo-vertical .ant-carousel {\n    margin-right: 35px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 459:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(400);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./carousel.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 560:
+/***/ 448:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>Carousel 走马灯</h1>\n        <p>\n            旋转木马，一组轮播的区域。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li>当有一组平级的内容。</li>\n            <li>当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。</li>\n            <li>常用于一组图片或卡片轮播。</li>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"基本\"\n                describe=\"最典型的用法\"\n                code=\"\"\n            >\n                <v-carousel :after-change=\"onChange\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"渐显\"\n                describe=\"切换效果为渐显\"\n                code=\"\"\n            >\n                <v-carousel :fade=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n            <code-box\n                title=\"垂直\"\n                describe=\"垂直显示\"\n                code=\"\"\n                id=\"components-carousel-demo-vertical\"\n            >\n                <v-carousel :vertical=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n\n            <code-box\n                title=\"自动切换\"\n                describe=\"自动切换下一张\"\n                code=\"\"\n            >\n                <v-carousel :autoplay=\"true\">\n                    <div><h3>1</h3></div>\n                    <div><h3>2</h3></div>\n                    <div><h3>3</h3></div>\n                    <div><h3>4</h3></div>\n                </v-carousel>\n            </code-box>\n        </div>\n    </div>\n    <api-table\n        :apis='apis'\n    ></api-table>\n</div>\n";
+	module.exports = "\n<section class=\"markdown\">\n    <h1>Popconfirm 气泡确认框</h1>\n    <p>\n        点击元素，弹出气泡式的确认框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。</p>\n        <p>更轻量的询问。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"国际化\" describe=\"自定义按钮文字\">\n            <v-popconfirm  title=\"Do you want to do something?\" ok-text=\"Ok\" cancel-text=\"Cancel\" >\n                <a href=\"javascript:;\">Delete</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"跳过询问\" describe=\"跳过询问立刻执行confirm回调\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\" :skip=\"is_skip\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否跳过询问\n            <v-switch :on-change=\"to_skip_confirm\" :checked=\"default_is_skip\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n</v-row>\n\n<api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 679:
+/***/ 579:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(459)
-	__vue_script__ = __webpack_require__(271)
+	__vue_script__ = __webpack_require__(216)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\carousel.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(560)
+	  console.warn("[vue-loader] src\\views\\popconfirm.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(448)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -207,7 +207,7 @@ webpackJsonp([26,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,7 +238,7 @@ webpackJsonp([26,50],{
 
 /***/ },
 
-/***/ 275:
+/***/ 220:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -246,14 +246,6 @@ webpackJsonp([26,50],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _collapse = __webpack_require__(118);
-
-	var _collapse2 = _interopRequireDefault(_collapse);
-
-	var _panel = __webpack_require__(119);
-
-	var _panel2 = _interopRequireDefault(_panel);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -268,102 +260,110 @@ webpackJsonp([26,50],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      show: true,
-	      num: 5,
 	      apis: [{
-	        parameter: 'activeKey',
-	        explain: '当前激活 tab 面板的 key',
-	        type: 'Array',
-	        default: '默认第一个元素'
-	      }, {
-	        parameter: 'defaultActiveKey',
-	        explain: '初始化选中面板的 key',
-	        type: 'String',
-	        default: '无'
-	      }, {
-	        parameter: 'accordion',
-	        explain: '开启手风琴模式',
+	        parameter: 'disabled',
+	        explain: '禁用',
 	        type: 'Boolean',
 	        default: 'false'
 	      }, {
 	        parameter: 'onChange',
-	        explain: '切换面板的回调',
-	        type: 'function',
+	        explain: '选项变化时的回调函数',
+	        type: 'Function(e:Event)',
 	        default: '无'
-	      }]
+	      }, {
+	        parameter: 'value',
+	        explain: '根据 value 进行比较，判断是否选中',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'defaultChecked',
+	        explain: '初始是否选中',
+	        type: 'Boolean',
+	        default: 'false'
+	      }, {
+	        parameter: 'checked',
+	        explain: '指定当前是否选中',
+	        type: 'Boolean',
+	        default: 'false'
+	      }],
+	      apiGroup: [{
+	        parameter: 'onChange',
+	        explain: '选项变化时的回调函数',
+	        type: 'Function(e:Event)',
+	        default: '无'
+	      }, {
+	        parameter: 'value',
+	        explain: '用于设置当前选中的值',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'defaultValue',
+	        explain: '默认选中的值',
+	        type: 'String',
+	        default: '无'
+	      }, {
+	        parameter: 'size',
+	        explain: '大小，只对按钮样式生效large default small',
+	        type: 'String',
+	        default: 'default'
+	      }, {
+	        parameter: 'type',
+	        explain: '外观radio or button',
+	        type: 'String',
+	        default: 'radio'
+	      }, {
+	        parameter: 'radios[ { name,value,disabled } ]',
+	        explain: '指定可选项',
+	        type: 'array',
+	        default: '无'
+	      }, {
+	        parameter: 'disabled',
+	        explain: '禁用',
+	        type: 'Boolean',
+	        default: 'false'
+	      }],
+	      disabled: true
 	    };
+	  },
+	  methods: {
+	    _toggleDisabled: function _toggleDisabled() {
+	      this.disabled = !this.disabled;
+	    },
+	    _onGroupChange: function _onGroupChange(e) {
+	      console.log('radio checked:' + e.target.value);
+	      this.groupValue = e.target.value;
+	    },
+	    _onCityChange: function _onCityChange(e) {
+	      console.log('当前城市: ' + e.target.name);
+	      this.cityName = e.target.name;
+	    }
 	  },
 	  components: {
 	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default,
-	    vCollapse: _collapse2.default,
-	    vPanel: _panel2.default
+	    apiTable: _apiTable2.default
 	  }
 	};
 
 /***/ },
 
-/***/ 376:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".head-example {\n  width: 42px;\n  height: 42px;\n  border-radius: 6px;\n  background: #eee;\n  display: inline-block;\n}\n.anticon-notification {\n  width: 16px;\n  height: 16px;\n  line-height: 16px;\n  font-size: 16px;\n}\n.ant-badge {\n  margin-right: 16px;\n}\n.custom-card {\n  padding: 10px 16px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 432:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(376);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./collapse.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 564:
+/***/ 451:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Collapse 折叠面板</h1>\n    <p>\n      可以折叠/展开的内容区域。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>对复杂区域进行分组和隐藏，保持页面的整洁。</li>\n      <li>手风琴 是一种特殊的折叠面板，只允许单个内容区域展开。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"折叠面板\"\n        describe=\"可以同时展开多个面板，这个例子默认展开了第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1'>\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n      <code-box\n        title=\"多选\"\n        describe=\"默认同时展开多个面板\"\n        code=\"<v-collapse :active-key='[1,2]'>\"\n      >\n        <v-collapse :active-key=\"['1','2']\">\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n      <code-box\n        title=\"手风琴\"\n        describe=\"手风琴，每次只打开一个tab。默认打开第一个。\"\n        code=\"\"\n      >\n        <v-collapse default-active-key='1' accordion>\n          <v-panel header=\"This is panel header 1\" key=\"1\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 2\" key=\"2\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n          <v-panel header=\"This is panel header 3\" key=\"3\">\n            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\n          </v-panel>\n        </v-collapse>\n      </code-box>\n\n    </div>\n\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Radio 单选框</h1>\n      <p>\n        单选框\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <p>\n          用于在多个备选项中选中单个状态。\n        </p>\n        <p>\n          和 Select 的区别是，Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"基本\"\n          describe=\"最简单的用法。\"\n          code=\"<v-radio><span>Radio</span></v-radio>\"\n        >\n          <v-radio><span>Radio</span></v-radio>\n        </code-box>\n\n        <code-box\n          title=\"按钮尺寸\"\n          describe=\"RadioGroup组合\"\n        >\n          <v-radio-group\n            :on-change=\"_onGroupChange\"\n            default-value='a'\n            :radios=\"[{value: 'a', name: 'A'},{value: 'b', name: 'B'},{value: 'c', name: 'C'},{value: 'd', name: 'D'}]\">\n          </v-radio-group>\n        </code-box>\n\n        <code-box\n          title=\"按钮样式\"\n          describe=\"按钮样式的单选组合。\"\n          code=\" <v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  disabled\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\"\n        >\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n           <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            disabled\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n        </code-box>\n\n      </div>\n\n      <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"Radio 不可用。\"\n          code=\"<v-radio :default-checked='false' :disabled='disabled'><span>不可用</span></v-radio>\n<v-radio :default-checked='true' :disabled='disabled'><span>不可用</span></v-radio>\n<v-button :type='primary' @click='_toggleDisabled'>Toggle disabled</v-button>\"\n        >\n          <v-radio :default-checked=\"false\" :disabled=\"disabled\"><span>不可用</span></v-radio>\n          <br>\n          <v-radio :default-checked=\"true\" :disabled=\"disabled\"><span>不可用</span></v-radio>\n          <br>\n          <br>\n          <v-button :type=\"primary\" @click=\"_toggleDisabled\">Toggle disabled</v-button>\n        </code-box>\n\n        <code-box\n          title=\"大小\"\n          describe=\"大中小三种组合，可以和表单输入框进行对应配合。\"\n          code=\"<v-radio-group\n  size='large'\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<br><br>\n<v-radio-group\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\n<br><br>\n<v-radio-group\n  size='small'\n  type='button'\n  :on-change='_onCityChange'\n  default-value='hangzhou'\n  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>\n</v-radio-group>\"\n        >\n          <v-radio-group\n            size=\"large\"\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n          <br><br>\n          <v-radio-group\n            size=\"small\"\n            type=\"button\"\n            :on-change=\"_onCityChange\"\n            default-value=\"hangzhou\"\n            :radios=\"[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]\">\n          </v-radio-group>\n        </code-box>\n\n      </div>\n    </div>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Radio</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      :apis='apiGroup'\n    >\n      <h3>RadioGroup</h3>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 683:
+/***/ 583:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(432)
-	__vue_script__ = __webpack_require__(275)
+	__vue_script__ = __webpack_require__(220)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\collapse.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(564)
+	  console.warn("[vue-loader] src\\views\\radio.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(451)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

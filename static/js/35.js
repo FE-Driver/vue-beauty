@@ -207,7 +207,7 @@ webpackJsonp([35,50],{
 /***/ 11:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{ describe }}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
+	module.exports = "\n\n<section class=\"code-box\" :class=\"{'expand': open}\">\n  <section class=\"code-box-demo\">\n    <slot></slot>\n  </section>\n  <section class=\"code-box-meta markdown\">\n    <div class=\"code-box-title\"><a>{{ title }}</a></div>\n    <div><p>{{{ describe }}}</p></div>\n    <span class=\"collapse anticon anticon-circle-o-right\" @click=\"handleOpen\"></span>\n  </section>\n  <section class=\"highlight-wrapper\" :class=\"{'highlight-wrapper-expand': open}\">\n    <div class=\"highlight\">\n      <pre>\n        <code class=\"html\"><slot name=\"preCode\"></slot>{{ code }}<slot name=\"postCode\"></slot></code>\n      </pre>\n    </div>\n  </section>\n</section>\n\n";
 
 /***/ },
 
@@ -238,22 +238,14 @@ webpackJsonp([35,50],{
 
 /***/ },
 
-/***/ 182:
+/***/ 209:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-
-	var _timeline = __webpack_require__(89);
-
-	var _timeline2 = _interopRequireDefault(_timeline);
-
-	var _iconfont = __webpack_require__(23);
-
-	var _iconfont2 = _interopRequireDefault(_iconfont);
 
 	var _codeBox = __webpack_require__(12);
 
@@ -265,87 +257,83 @@ webpackJsonp([35,50],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var vTimelineItem = _timeline2.default.Item;
-
 	exports.default = {
-	    data: function data() {
-	        return {
-	            content: [['pending', '指定最后一个幽灵节点是否存在或内容', 'boolean or Vue.Element', 'false']],
-	            itemcontent: [['color', '指定圆圈颜色<code>blue, red, green</code>，或自定义的色值', 'string', 'blue'], ['dot', '自定义时间轴点', 'Vue.Element', '无']]
-	        };
-	    },
-	    methods: {},
-	    components: {
-	        vTimeline: _timeline2.default,
-	        vTimelineItem: vTimelineItem,
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+	  data: function data() {
+	    return {
+	      menuData: [{
+	        name: "首页",
+	        icon: 'home',
+	        selected: true,
+	        link: {
+	          name: 'card'
+	        }
+	      }, {
+	        name: "安装指南",
+	        icon: 'mail',
+	        children: [{
+	          link: {
+	            name: 'menu',
+	            query: {
+	              src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
+	            }
+	          },
+	          name: "快速上手"
+	        }, {
+	          link: "/development",
+	          name: "开发指南",
+	          disabled: true
+	        }]
+	      }, {
+	        name: "基础组件",
+	        icon: 'folder',
+	        disabled: true,
+	        groups: [{
+	          groupName: "Basic",
+	          list: [{
+	            link: "/layout",
+	            name: "布局 (layout)"
+	          }]
+	        }, {
+	          groupName: "Form",
+	          list: [{
+	            link: "/radio",
+	            name: "按钮 (radio)"
+	          }]
+	        }]
+	      }],
+	      content: [['theme', '主题颜色', 'String: light dark', 'light'], ['mode', '菜单类型，现在支持垂直、水平、和内嵌模式三种', 'String: vertical horizontal inline', 'vertical']],
+	      content2: [['disabled', '是否禁用', 'Boolean', 'false'], ['icon', '图标', 'String', '无'], ['selected', '选中效果', 'Boolean', 'false']],
+	      content3: [['disabled', '是否禁用', 'Boolean', 'false'], ['title', '子菜单项值', 'String', '无'], ['icon', '图标', 'String', '无']],
+	      content4: [['title', '分组标题', 'String', '无']],
+	      content5: [['data', '可嵌套的节点属性的数组，生成menu的数据', 'array', '无'], ['aTag', '是否使用a标签', 'boolean', 'false'], ['theme', '主题颜色', 'String: light dark', 'light'], ['mode', '菜单类型，现在支持垂直、水平、和内嵌模式三种', 'String: vertical horizontal inline', 'vertical']]
+	    };
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
+	  }
 	};
 
 /***/ },
 
-/***/ 395:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(1)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-
-/***/ 451:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(395);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(2)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./timeline.vue", function() {
-				var newContent = require("!!./../../node_modules/.npminstall/css-loader/0.25.0/css-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/style-rewriter.js!./../../node_modules/.npminstall/less-loader/2.2.3/less-loader/index.js!./../../node_modules/.npminstall/vue-loader/8.5.4/vue-loader/lib/selector.js?type=style&index=0!./timeline.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 594:
+/***/ 441:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n    <section class=\"markdown\">\n        <h1>Timeline 时间轴</h1>\n        <p>\n            垂直展示的时间流信息\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li><p>当有一系列信息需要从上至下按时间排列时；</p></li>\n            <li><p>需要有一条时间轴进行视觉上的串联时；</p></li>\n        </ul>\n    </section>\n\n    <div class=\"ant-row\" style=\"margin-left: -8px; margin-right: -8px;\">\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"基本用法\"\n                describe=\"基本的时间轴。。\"\n            >\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"最后一个\"\n                describe=\"在最后位置添加一个幽灵节点，表示时间轴未完成，还在记录过程中。可以指定 pending={true} 或者 pending={一个 Vue 元素}。\"\n            >\n                <v-timeline pending=\"<a href='#'>查看更多</a>\">\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item>技术测试异常 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n        <div class=\"ant-col-lg-12 code-boxes-col-2-1\">\n\n            <code-box\n                title=\"圆圈颜色\"\n                describe=\"圆圈颜色，绿色用于已完成、成功状态，红色表示告警或错误状态，蓝色可表示正在进行或其他默认状态。\"\n            >\n                <v-timeline>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"green\">创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item color=\"red\">\n                        <p>初步排除网络异常1</p>\n                        <p>初步排除网络异常2</p>\n                        <p>初步排除网络异常3 2015-09-01</p>\n                    </v-timeline-item>\n                    <v-timeline-item>\n                        <p>技术测试异常1</p>\n                        <p>技术测试异常2</p>\n                        <p>技术测试异常3 2015-09-01</p>\n                    </v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n            <code-box\n                title=\"自定义时间轴点\"\n                describe=\"可以设置为图标或其他自定义元素。\"\n            >\n\n                <v-timeline>\n                    <v-timeline-item>创建服务现场 2015-09-01</v-timeline-item>\n                    <v-timeline-item>初步排除网络异常 2015-09-01</v-timeline-item>\n                    <v-timeline-item dot=\"<i class='anticon anticon-clock-circle-o' style='font-size: 16px;'></i>\"\n                                     color=\"red\">\n                        技术测试异常 2015-09-01\n                    </v-timeline-item>\n                    <v-timeline-item>网络异常正在修复 2015-09-01</v-timeline-item>\n                </v-timeline>\n            </code-box>\n\n        </div>\n\n    </div>\n\n\n    <api-table\n        :content='content'\n    >\n  <pre>\n      <code class=\"html\">\n        &lt;v-timeline&gt;\n          &lt;v-timeline-item&gt;创建服务现场 2015-09-01&lt;/v-timeline-item&gt;\n          &lt;v-timeline-item&gt;初步排除网络异常 2015-09-01&lt;/v-timeline-item&gt;\n        &lt;/v-timeline&gt;\n      </code>\n    </pre>\n\n        <h3>Timeline</h3>\n    </api-table>\n\n    <api-table\n        :content='itemcontent'\n    >\n        <h3>TimelineItem</h3>\n    </api-table>\n\n\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Menu 导航菜单</h1>\n    <p>\n      为页面和功能提供导航的菜单列表。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <p>\n        导航菜单是一个网站的灵魂，用户依赖导航在各个页面中进行跳转。一般分为顶部导航和侧边导航，顶部导航提供全局性的类目和功能，侧边导航提供多级结构来收纳和排列网站架构。\n      </p>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col>\n      <code-box\n              title=\"顶部导航\"\n              describe=\"水平的顶部导航菜单。\"\n      >\n        <v-menu mode=\"horizontal\">\n          <v-menu-item><v-icon type='mail'></v-icon>导航一</v-menu-item>\n          <v-menu-item disabled><v-icon type='appstore'></v-icon>导航二</v-menu-item>\n          <v-sub-menu title=\"导航 - 子菜单\" icon=\"setting\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n           <v-menu-item><a href=\"http://www.alipay.com/\" target=\"_blank\">导航四 - 链接</a></v-menu-item>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"内嵌菜单\"\n              describe=\"垂直菜单，子菜单内嵌在菜单区域。\"\n      >\n        <v-menu mode=\"inline\" style=\"width:240px\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\" disabled>\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"垂直菜单\"\n              describe=\"子菜单是弹出的形式。\"\n      >\n        <v-menu style=\"width:240px\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item-group title=\"分组1\">\n              <v-menu-item>选项1</v-menu-item>\n              <v-menu-item>选项2</v-menu-item>\n            </v-menu-item-group>\n            <v-menu-item-group title=\"分组2\">\n              <v-menu-item>选项3</v-menu-item>\n              <v-menu-item>选项4</v-menu-item>\n            </v-menu-item-group>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\" disabled>\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"主题\"\n              describe=\"内建了两套主题 light|dark，默认 light。\"\n      >\n        <v-menu style=\"width:240px\" theme=\"dark\" mode=\"inline\">\n          <v-sub-menu title=\"导航一\" icon=\"mail\">\n            <v-menu-item>选项1</v-menu-item>\n            <v-menu-item>选项2</v-menu-item>\n            <v-menu-item>选项3</v-menu-item>\n            <v-menu-item>选项4</v-menu-item>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航二\" icon=\"appstore\">\n            <v-menu-item>选项5</v-menu-item>\n            <v-menu-item>选项6</v-menu-item>\n            <v-sub-menu title=\"三级导航\">\n              <v-menu-item>选项7</v-menu-item>\n              <v-menu-item>选项8</v-menu-item>\n            </v-sub-menu>\n          </v-sub-menu>\n          <v-sub-menu title=\"导航三\" icon=\"setting\">\n            <v-menu-item>选项9</v-menu-item>\n            <v-menu-item>选项10</v-menu-item>\n            <v-menu-item>选项11</v-menu-item>\n            <v-menu-item>选项12</v-menu-item>\n          </v-sub-menu>\n        </v-menu>\n\n      </code-box>\n\n      <code-box\n              title=\"从数据直接生成\"\n              describe=\"使用data从json数据直接生成menu\"\n      >\n        <v-nav-menu style=\"width:240px\" :data=\"menuData\"></v-nav-menu>\n\n      </code-box>\n\n    </v-Col>\n\n  </v-Row>\n\n  <api-table\n    :content='content'\n  >\n    <h3>Menu props</h3>\n  </api-table>\n\n  <api-table\n    :content='content2'\n    title=\"\"\n  >\n    <h3>Menu.Item props</h3>\n  </api-table>\n\n  <api-table\n    :content='content3'\n    title=\"\"\n  >\n    <h3>Menu.SubMenu props</h3>\n  </api-table>\n\n  <api-table\n    :content='content4'\n    title=\"\"\n  >\n    <h3>Menu.ItemGroup props</h3>\n  </api-table>\n  <api-table\n    :content='content5'\n    title=\"\"\n  >\n    <h3>NavMenu props</h3>\n  </api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 714:
+/***/ 572:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(451)
-	__vue_script__ = __webpack_require__(182)
+	__vue_script__ = __webpack_require__(209)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\views\\timeline.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(594)
+	  console.warn("[vue-loader] src\\views\\menu.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(441)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
