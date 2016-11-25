@@ -43,6 +43,7 @@ import upload from './components/upload'
 import message from './components/message'
 import notification from './components/notification'
 import morePanel from './components/morePanel'
+import tooltip from './directive/tooltip'
 
 let compnents = {
     affix,
@@ -103,7 +104,8 @@ let compnents = {
     upload,
     message,
     notification,
-    morePanel
+    morePanel,
+    tooltip
 };
 
 message.install = function(Vue){
