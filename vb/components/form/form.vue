@@ -12,6 +12,7 @@ export default {
   data:()=>({
     prefix: 'ant-form',
     fields: {},
+    initModel: {},
     fieldLength: 0
   }),
   props: {
@@ -32,16 +33,29 @@ export default {
       this.fieldLength--;
     });
   },
+  ready(){
+    if(this.model) this.initModel = JSON.parse(JSON.stringify(this.model));
+  },
   computed: {
     wrapClasses () {
       return `${this.prefix} ${this.prefix}-${this.direction}`
     }
   },
   methods: {
-    resetFields() {
-      for (let prop in this.fields) {
-        let field = this.fields[prop];
-        field.resetField();
+    resetFields(all=true) {
+      if(all){
+        let temp = JSON.parse(JSON.stringify(this.initModel));
+        for(let key in this.model){
+          if(this.fields[key]){
+            this.fields[key].resetField();
+          }else{
+            this.model[key] = temp[key];
+          }
+        }
+      }else{
+        for (let prop in this.fields) {
+          this.fields[prop].resetField();
+        }
       }
     },
     validate(callback) {

@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import { cx } from '../../../utils'
-
 const calcPoints = function (marks, dots, step, min, max) {
   const points = Object.keys(marks).map(parseFloat)
   if (dots) {
@@ -30,10 +28,10 @@ export default {
         res.style = {left: offset}
         res.isActived = (!this.included && point === this.upperBound) ||
                 (this.included && point <= this.upperBound && point >= this.lowerBound)
-        res.pointClass = cx({
-          [`${prefixCls} + '-dot'`]: 1,
-          [`${prefixCls} + '-dot-active'`]: res.isActived
-        })
+        res.pointClass = [
+          `${prefixCls}-dot`,
+          {[`${prefixCls}-dot-active`]: res.isActived}
+        ]
         return res
       })
     }

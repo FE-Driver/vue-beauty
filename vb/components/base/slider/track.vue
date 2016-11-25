@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { cx } from '../../../utils'
 
 export default {
   props: ['offset', 'length', 'included', 'className'],

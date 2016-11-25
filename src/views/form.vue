@@ -80,7 +80,7 @@
           describe="我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。
 validateStatus: 'success', 'warning', 'error', 'validating'。
 另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。
-注意: 反馈图标只对 <Input /> 有效。"
+注意: 反馈图标只对 &lt; v-input &gt; 有效。"
         >
           <v-form direction="horizontal">
             <v-form-item label="失败校验" :label-col="labelCol" :wrapper-col="wrapperCol" help="请输入数字和字母的组合" validate-status="error">
@@ -106,7 +106,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
 
          <code-box
           title="表单校验"
-          describe="在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。"
+          describe="Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并 Form-Item 的 prop 属相设置为需校验的字段名即可。校验规则参见<a href='https://github.com/yiminghe/async-validator' target='_blank'>async-validator</a>"
         >
           <v-form direction="horizontal" :model="ruleForm" :rules="rules" v-ref:rule-form>
             <v-form-item label="活动名称" :label-col="labelCol" :wrapper-col="wrapperCol" prop="name" has-feedback>
@@ -116,7 +116,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
                <v-Select :value.sync="ruleForm.region" placeholder="请选择活动区域" notfound="无法找到" :options="[{value: '1', text: '区域1'}, {value: '2', text: '区域2'}]"></v-Select>
             </v-form-item>
             <v-form-item label="活动时间" :label-col="labelCol" :wrapper-col="wrapperCol" prop="date">
-              <v-datepicker :value.sync="ruleForm.date"></v-datepicker>
+              <v-datepicker :time.sync="ruleForm.date"></v-datepicker>
             </v-form-item>
             <v-form-item label="即时配送" :label-col="labelCol" :wrapper-col="wrapperCol">
               <v-switch :value.sync="ruleForm.delivery"></v-switch>
@@ -265,8 +265,8 @@ export default {
         ],
         [
           'resetFields',
-          '对整个表单进行重置，将所有字段值重置为空并移除校验结果',
-          '无',
+          '对整个表单进行重置，isAll为true将model里所有字段值重置为初始值并移除校验结果，为false则只重置传了prop属性的表单元素',
+          'isAll,默认为true',
           '无'
         ]
       ],

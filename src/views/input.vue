@@ -26,7 +26,6 @@
         <code-box
           title="基本使用"
           describe="基本使用。"
-          code="<v-input placeholder='基本使用'></v-input>"
         >
           <v-input placeholder="基本使用" @blur="blur"></v-input>
         </code-box>
@@ -36,16 +35,7 @@
       <div class="ant-col-lg-12 code-boxes-col-2-1">
         <code-box
         title="前后缀修饰添加"
-          describe="带有前缀后缀修饰"
-          code='
-          <v-input placeholder="基本使用">
-            <span slot="before">http://</span>
-            <span slot="after">.com</span>
-          </v-input>
-          <v-input placeholder="基本使用">
-            <v-Select placeholder="请选择" style="width: 80px;" slot="before" :options="options" :value.sync="value"></v-Select>
-            <v-Select style="width: 80px;" slot="after" :options="options2" :value.sync="value"></v-Select>
-          </v-input>'>
+          describe="带有前缀后缀修饰">
           <v-input placeholder="基本使用">
             <span slot="before">http://</span>
             <span slot="after">.com</span>
@@ -66,7 +56,6 @@
         <code-box
           title="文本域"
           describe="用于多行输入，指定 type 为一个特殊的 textarea。"
-          code="<v-input type='textarea'></v-input>"
         >
          <v-input type="textarea" value="这是一个textarea"></v-input>
         </code-box>
@@ -77,10 +66,7 @@
 
         <code-box
           title="三种大小"
-          describe="我们为 <Input /> 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。"
-          code="<v-input size='large' placeholder='大尺寸' style='width:200px;display:inline-block' disabled></v-input>
-<v-input placeholder='基本尺寸' style='width:200px;display:inline-block'></v-input>
-<v-input size='small' placeholder='小尺寸' style='width:200px;display:inline-block'></v-input>"
+          describe="我们为 &lt; v-input &gt; 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。"
         >
           <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block" disabled></v-input>
           <v-input placeholder="基本尺寸" style="width:200px;display:inline-block"></v-input>

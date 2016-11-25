@@ -20,8 +20,6 @@
 
 <script>
 
-import cx from 'classnames'
-
 export default {
   name: 'v-step',
   props: {
@@ -45,13 +43,13 @@ export default {
       return this.icon ? this.icon : 'check'
     },
     wrapClasses () {
-      return cx({
-        ['ant-steps-item']: 1,
-        ['ant-steps-item-last']: this.stepLast,
-        [`ant-steps-status-${this.status}`]: 1,
-        [`ant-steps-next-${this.rootStatus}`]: this.rootStatus,
-        ['ant-steps-custom']: this.icon
-      })
+      return [
+        'ant-steps-item',
+        `ant-steps-status-${this.status}`,
+        {['ant-steps-item-last']: this.stepLast},
+        {[`ant-steps-next-${this.rootStatus}`]: this.rootStatus},
+        {['ant-steps-custom']: this.icon}
+      ]
     }
   }
 }

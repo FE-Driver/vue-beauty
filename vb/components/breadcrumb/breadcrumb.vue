@@ -6,8 +6,6 @@
     </span>
 </template>
 <script>
-    import cx from 'classnames'
-
     export default {
         name: 'v-breadcrumb',
         props: {
@@ -15,13 +13,6 @@
             href: String,
             separator: String,
             icon: String
-        },
-        computed: {
-            wrapClasses () {
-                return cx({
-                    ['ant-breadcrumb']: 1
-                })
-            }
         }
     }
 </script>

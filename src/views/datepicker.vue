@@ -21,7 +21,7 @@
           title="基础"
           describe="最简单的用法，在浮层中可以选择或者输入日期">
           <v-datepicker clearable></v-datepicker><br><br>
-          <v-datepicker range clearable></v-datepicker>
+          <v-datepicker range clearable @confirm="confirm"></v-datepicker>
         </code-box>
 
         <code-box
@@ -39,8 +39,8 @@
         <code-box
           title="日期格式"
           describe="使用 format 属性，可以自定义日期显示格式。">
-          <v-datepicker time='2015-12-06' format="yyyy/MM/dd"></v-datepicker><br><br>
-          <v-datepicker range start-time='2015-12-06' end-time='2016-12-06' format="yyyy/MM/dd"></v-datepicker>
+          <v-datepicker time='2015-12-06' format="yyyy/MM/dd" @change='change'></v-datepicker><br><br>
+          <v-datepicker range start-time='2015-12-06' end-time='2016-12-06' format="yyyy/MM/dd" @change="rangeChange"></v-datepicker>
         </code-box>
 
         <code-box
@@ -61,6 +61,12 @@
 
     <api-table
       :content='content'
+    ></api-table>
+
+    <api-table
+      type="events"
+      title=""
+      :content='eventsApi'
     ></api-table>
 
   </div>
@@ -152,20 +158,31 @@ export default {
           '禁用',
           'boolean',
           'false'
+        ]
+      ],
+      eventsApi: [
+        [
+          'change',
+          '时间发生变化的时候触发',
+          'function(time) or function(startTime, endTime)'
         ],
         [
           'confirm',
-          '是否需要点击确认',
-          'boolean',
-          'false'
-        ],
-        [
-          'onConfirm',
-          '点击确认后的回调',
-          'function(startTime, endTime)',
+          '点击确定按钮时触发',
           '-'
         ]
       ]
+    }
+  },
+  methods: {
+    confirm(){
+      console.log('confirm')
+    },
+    change(time){
+      console.log(time)
+    },
+    rangeChange(startTime,endTime){
+      console.log(startTime,endTime)
     }
   },
   components: {

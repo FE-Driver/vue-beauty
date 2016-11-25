@@ -20,7 +20,6 @@
 
 <script>
 import { defaultProps } from '../../utils'
-import cx from 'classnames'
 import AjaxUpload from './ajaxUploader.vue'
 import UploadList from './uploadList.vue'
 import getFileItem from './getFileItem'
@@ -67,17 +66,15 @@ export default {
     },
 
     wrapClasses () {
-      return cx({
-        [this.prefixCls]: 1,
-        [`${this.prefixCls}-drag`]: this.isDrag,
-        [`${this.prefixCls}-select`]: !this.isDrag
-      })
+      return [
+        this.prefixCls,
+        {[`${this.prefixCls}-drag`]: this.isDrag},
+        {[`${this.prefixCls}-select`]: !this.isDrag}
+      ]
     },
 
     containerClasses () {
-      return cx({
-        [`${this.prefixCls}-drag-container`]: this.isDrag
-      })
+      return {[`${this.prefixCls}-drag-container`]: this.isDrag}
     }
   },
 

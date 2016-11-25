@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import cx from 'classnames'
 
 export default {
   name: 'v-steps',
@@ -31,11 +30,11 @@ export default {
   },
   computed: {
     wrapClasses () {
-      return cx({
-        ['ant-steps']: 1,
-        ['ant-steps-small']: this.size === 'small',
-        ['ant-steps-vertical']: this.direction === 'vertical'
-      })
+      return [
+        'ant-steps',
+        {['ant-steps-small']: this.size === 'small'},
+        {['ant-steps-vertical']: this.direction === 'vertical'}
+      ]
     }
   },
   watch: {

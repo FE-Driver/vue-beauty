@@ -8,9 +8,7 @@
   </li>
 </template>
 <script>
-  import { defaultProps, oneOfType } from '../../utils'
-  import Vue from 'vue'
-  import cx from 'classnames'
+  import { defaultProps } from '../../utils'
 
   export default {
     name: 'v-timeline-item',
@@ -23,18 +21,18 @@
     }),
     computed: {
       itemClassName () {
-        return cx({
-          [`${this.prefixCls}-item`]: true,
-          [`${this.prefixCls}-item-last`]: this.last,
-          [`${this.prefixCls}-item-pending`]: this.pending
-        })
+        return [
+          `${this.prefixCls}-item`,
+          {[`${this.prefixCls}-item-last`]: this.last},
+          {[`${this.prefixCls}-item-pending`]: this.pending}
+        ]
       },
       dotClassName () {
-        return cx({
-          [`${this.prefixCls}-item-head`]: true,
-          [`${this.prefixCls}-item-head-custom`]: this.dot,
-          [`${this.prefixCls}-item-head-${this.color}`]: true,
-        })
+        return [
+          `${this.prefixCls}-item-head`,
+          `${this.prefixCls}-item-head-${this.color}`,
+          {[`${this.prefixCls}-item-head-custom`]: this.dot}
+        ]
       }
     },
     methods: {

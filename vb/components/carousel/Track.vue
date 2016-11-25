@@ -19,6 +19,7 @@
         let index = spec.index;
         slickCloned = (index < 0) || (index >= spec.slideCount);
         slickActive = (spec.currentSlide <= index) && (index < spec.currentSlide + spec.slidesToShow);
+        
         return cx({
             'slick-slide': true,
             'slick-active': slickActive,

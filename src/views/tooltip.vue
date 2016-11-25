@@ -59,7 +59,6 @@
 <script>
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-    import tooltip from '../../vb/directive/tooltip'
 
     export default {
         data: function () {
@@ -85,9 +84,6 @@
         components: {
             codeBox,
             apiTable
-        },
-        directive:{
-            tooltip:tooltip
         }
     }
 </script>

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { defaultProps, cx, oneOfType, addEventListener } from '../../../utils'
+import { defaultProps, oneOfType, addEventListener } from '../../../utils'
 import Track from './track.vue'
 import Handle from './handle.vue'
 import Dots from './dots.vue'
@@ -140,11 +140,11 @@ export default {
 
   computed: {
     sliderClasses () {
-      return cx({
-        [this.prefixCls]: true,
-        [this.prefixCls + '-disabled']: this.disabled,
-        [this.className]: !!this.className
-      })
+      return [
+        this.prefixCls,
+        {[this.prefixCls + '-disabled']: this.disabled},
+        {[this.className]: !!this.className}
+      ]
     },
 
     isNoTip () {

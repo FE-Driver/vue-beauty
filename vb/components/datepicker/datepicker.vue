@@ -75,8 +75,8 @@
                 </div>
                 <div v-if="range || showTime" :class="[prefix+'-footer',{[prefix+'-range-bottom']:range}]">
                     <div class="ant-calendar-footer-btn">
-                        <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">选择时间</a>
-                        <a :class="{[prefix+'-ok-btn']: showTime}" role="button" @click="ok">{{okTitle}}</a>
+                        <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">{{timeSelected?'选择日期':'选择时间'}}</a>
+                        <a :class="{[prefix+'-ok-btn']: showTime}" role="button" @click="confirm">{{confirmTitle}}</a>
                     </div>
                 </div>
             </div>
@@ -153,18 +153,11 @@
                 type: Boolean,
                 default: false
             },
-            //是否需要点击确认
-            confirm: {
-                type: Boolean,
-                default: false
-            },
             //英文显示
             en: {
                 type: Boolean,
                 default: false
-            },
-            //点击确认触发事件
-            onConfirm: Function
+            }
         },
         data: function() {
             return {
@@ -184,7 +177,7 @@
                 nextMonthTitle: this.en ? 'next month' : '下个月',
                 nextYearTitle: this.en ? 'next year' : '下一年',
                 toTitle: this.en ? 'TO' : '至',
-                okTitle: this.en ? 'OK' : '确定',
+                confirmTitle: this.en ? 'OK' : '确定',
                 left: false,
                 ranges: [], //选择范围
                 days: this.en ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] : ['一', '二', '三', '四', '五', '六', '日'],
@@ -205,27 +198,29 @@
         },
         computed: {
             value() {
+                let val = '';
                 if (this.range) {
+                    let startTime = '',endTime = '';
                     if (this.startTime && this.endTime) {
+                        startTime = this.stringify(this.parse(this.startTime, false));
+                        endTime = this.stringify(this.parse(this.endTime, false));
+
                         if(this.showTime){
-                            return this.stringify(this.parse(this.startTime, false)) + ' ' + this.timeVal[0] + ' ~ ' + this.stringify(this.parse(this.endTime, false)) + ' ' + this.timeVal[1];
-                        }else{
-                            return this.stringify(this.parse(this.startTime, false)) + ' ~ ' + this.stringify(this.parse(this.endTime, false));
+                            startTime = startTime + ' ' + this.timeVal[0];
+                            endTime = endTime + ' ' + this.timeVal[1];
                         }
-                    } else {
-                        return '';
+                        val = startTime + ' ~ ' + endTime;
                     }
                 } else {
                     if(this.time){
+                        val = this.stringify(this.parse(this.time, false));
+
                         if(this.showTime){
-                            return this.stringify(this.parse(this.time, false)) + ' ' + this.timeVal[0];
-                        }else{
-                            return this.stringify(this.parse(this.time, false));
+                            val = val + ' ' + this.timeVal[0];
                         }
-                    }else{
-                        return '';
                     }
                 }
+                return val;
             }
         },
         ready(){
@@ -261,7 +256,6 @@
                         if(time) temp[0] = time;
                     }
                 }
-                this.$set('timeVal',temp);
             }
         },
         watch: {
@@ -277,6 +271,13 @@
             },
             value(val) {
                 this.timeBtnEnable = val?true:false;
+                
+                if(this.range){
+                    let time = val.split(' ~ ');
+                    this.$emit('change',time[0],time[1] || '');
+                }else{
+                    this.$emit('change',val);
+                }
             }
         },
         methods: {
@@ -391,22 +392,18 @@
                 this['now' + no] = new Date(item.time);
                 this['time' + no] = new Date(item.time);
 
-                if (!this.range) {
+                if(this.range){
+                    this[no === 1 ? 'startTime' : 'endTime'] = this.getOutTime(item.time);
+                }else{
                     this.time = this.getOutTime(item.time);
 
                     if(!this.showTime) this.show = false;
-                } else if (!this.confirm) {
-                    this[no === 1 ? 'startTime' : 'endTime'] = this.getOutTime(item.time);
                 }
             },
             //确认
-            ok() {
+            confirm() {
                 this.show = false;
-                if (this.range && this.confirm) {
-                    this.startTime = this.getOutTime(this.time1);
-                    this.endTime = this.getOutTime(this.time2);
-                    this.onConfirm && this.onConfirm(this.startTime, this.endTime);
-                }
+                this.$emit('confirm');
             },
             //选择范围
             selectRange(index) {

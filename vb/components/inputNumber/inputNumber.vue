@@ -42,7 +42,6 @@
 
 <script>
 import { defaultProps, oneOfType } from '../../utils'
-import cx from 'classnames'
 
 function isValueNumber (value) {
   return !isNaN(Number(value))
@@ -110,12 +109,12 @@ export default {
     },
 
     wrapClasses () {
-      return cx({
-        [this.prefixCls]: 1,
-        [this.sizeClass]: !!this.sizeClass,
-        [`${this.prefixCls}-disabled`]: this.disabled,
-        [`${this.prefixCls}-focused`]: this.focused
-      })
+      return [
+        this.prefixCls,
+        {[this.sizeClass]: !!this.sizeClass},
+        {[`${this.prefixCls}-disabled`]: this.disabled},
+        {[`${this.prefixCls}-focused`]: this.focused}
+      ]
     }
   },
 

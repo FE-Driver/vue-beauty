@@ -6,7 +6,6 @@
 <script lang="babel">
     import { defaultProps, oneOfType } from '../../utils'
     import Vue from 'vue'
-    import cx from 'classnames'
     import vTimelineItem from './timelineItem.vue'
 
     export default {
@@ -20,10 +19,10 @@
         },
         computed: {
             wrapClasses () {
-                return cx({
-                    [`${this.prefixCls}`]: true,
-                    [`${this.prefixCls}-pending`]: !!this.pending
-                })
+                return [
+                    `${this.prefixCls}`,
+                    {[`${this.prefixCls}-pending`]: !!this.pending}
+                ]
             }
         },
         methods: {
