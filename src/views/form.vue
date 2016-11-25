@@ -265,8 +265,8 @@ export default {
         ],
         [
           'resetFields',
-          '对整个表单进行重置，将所有字段值重置为空并移除校验结果',
-          '无',
+          '对整个表单进行重置，isAll为true将model里所有字段值重置为初始值并移除校验结果，为false则只重置传了prop属性的表单元素',
+          'isAll,默认为true',
           '无'
         ]
       ],
