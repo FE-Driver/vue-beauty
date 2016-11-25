@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { cx } from '../../../utils'
 
 export default {
   props: ['className', 'marks', 'included', 'upperBound', 'lowerBound', 'max', 'min'],
@@ -26,10 +25,10 @@ export default {
         res.point = point
         res.isActived = (!this.included && point === this.upperBound) ||
             (this.included && point <= this.upperBound && point >= this.lowerBound)
-        res.className = cx({
-          [`${this.className} + '-text'`]: true,
-          [`${this.className} + '-text-active'`]: res.isActived,
-        })
+        res.className = [
+          `${this.className}-text`,
+          {[`${this.className}-text-active`]: res.isActived}
+        ]
         res.style = {width: this.markWidth + '%', left: (point - this.min) / this.range * 100 - this.markWidth / 2 + '%'}
       })
     },
@@ -38,5 +37,4 @@ export default {
     }
   }
 }
-
 </script>
