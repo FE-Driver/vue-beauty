@@ -2,6 +2,7 @@
  * Created by bailey on 16/8/11.
  */
 import { addStyle } from '../utils/dom'
+let tipVm;
 
 export default {
     install(Vue, options){
@@ -17,8 +18,8 @@ export default {
         });
 
         const tooltip = Vue.directive('tooltip', {
-            openTrigger:'mouseover',
-            closeTrigger:'mouseout',
+            openTrigger:'mouseenter',
+            closeTrigger:'mouseleave',
             leftFactor:0.5, // 默认水平位置系数
             topFactor:0.5, // 默认垂直位置系数
             bind: function () {
@@ -80,12 +81,13 @@ export default {
              */
             open: function () {
                 setTimeout(()=> {
+                    if(!this.el) return;
                     const offset = this.getOffset(this.el);
                     const eleWidth = this.el.offsetWidth;
                     const eleHeight = this.el.offsetHeight;
 
                     // 创建一个新的tip组件实例,插入到body中
-                    this.vm = new TipComponent({
+                    tipVm = this.vm = new TipComponent({
                         data : {
                             tip : this.value, // 支持html内容
                             show: true,
@@ -120,7 +122,7 @@ export default {
                     // 延时关闭,给tip本身的鼠标事件留出时间
                     this.closeTimer = setTimeout(() => {
                         // show设置为false,触发view改变
-                        this.vm.show = false;
+                        tipVm.show = false;
                     }, 100);
                 }
             }
