@@ -12,6 +12,11 @@ export default [
                 path: 'test',
                 name: 'test',
                 component: require('./docs/zh-cn/test.md')
+            },
+            {
+                path: 'alert',
+                name: 'alert',
+                component: require('./docs/zh-cn/alert.md')
             }
         ]
     }
