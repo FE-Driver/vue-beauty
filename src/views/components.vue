@@ -4,9 +4,14 @@
     <div class="ant-row">
       <div class="aside-container ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
         <vb-menu mode="inline">
-          <vb-sub-menu title="Navigation1">
+          <vb-sub-menu title="Navigation">
             <vb-menu-item>
               <router-link :to="{ name:'test'}">Menu 导航菜单</router-link>
+            </vb-menu-item>
+          </vb-sub-menu>
+          <vb-sub-menu title="feedback">
+            <vb-menu-item>
+              <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
             </vb-menu-item>
           </vb-sub-menu>
         </vb-menu>
