@@ -7,6 +7,7 @@ Beautiful  UI components build with vue and ant design
 
 ## 已完成组件
 - Alert
+- Card
 
 
 **(持续更新中。。。)**
