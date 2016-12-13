@@ -8,17 +8,23 @@
             <div :class="prefix+'-combobox'">
                 <div :class="prefix+'-select'">
                     <ul @mouseover="createSelection($els.timePickerPanel, 0, 2)">
-                        <li v-for="$index in 24" @click="timePicker('H', $event)" v-show="showLi($index, 'H')" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
+                        <template v-for="$index in 24">
+                            <li v-if="showLi($index, 'H')" @click="timePicker('H', $event)" :class="selectedCls(H, $index, 'H')" v-text="($index<10?'0':'')+$index"></li>
+                        </template>
                     </ul>
                 </div>
                 <div :class="prefix+'-select'">
                     <ul @mouseover="createSelection($els.timePickerPanel, 3, 5)">
-                        <li v-for="$index in 60" @click="timePicker('M', $event)" v-show="showLi($index, 'M')" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
+                        <template v-for="$index in 60">
+                            <li v-if="showLi($index, 'M')" @click="timePicker('M', $event)" :class="selectedCls(M, $index, 'M')" v-text="($index<10?'0':'')+$index"></li>
+                        </template>
                     </ul>
                 </div>
                 <div :class="prefix+'-select'" v-if="hasSeconds">
                     <ul @mouseover="createSelection($els.timePickerPanel, 6, 8)">
-                        <li v-for="$index in 60" @click="timePicker('S', $event)" v-show="showLi($index, 'S')" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
+                        <template v-for="$index in 60">
+                            <li v-if="showLi($index, 'S')" @click="timePicker('S', $event)" :class="selectedCls(S, $index, 'S')" v-text="($index<10?'0':'')+$index"></li>
+                        </template>
                     </ul>
                 </div>
             </div>
@@ -32,13 +38,7 @@
             H: '00',
             M: '00',
             S: '00',
-            hasSeconds: true,
-            startH: 0,
-            startM: 0,
-            startS: 0,
-            endH: 23,
-            endM: 59,
-            endS: 59
+            hasSeconds: true
         }),
         props: {
             prefix: {
@@ -50,21 +50,15 @@
                 type: String,
                 default: 'HH:mm:ss'
             },
-            startTime: {
-                type: String,
-                default: '00:00'
-            },
-            endTime: {
-                type: String,
-                default: '23:59'
-            },
             value: String,
+            hideDisabled: {
+                type: Boolean,
+                default: false
+            },
             timeValue: String,
-            disabledM: Array,
-            disabledS: Array
-        },
-        ready (){
-            this.timeRange();
+            disabledH: Function,
+            disabledM: Function,
+            disabledS: Function
         },
         computed: {
             wrapClasses (){
@@ -118,22 +112,14 @@
                 elem.parentElement && (elem.parentElement.parentElement.scrollTop = top);
             },
             selectedCls (Num, curNum, type){
-                let cls = '';
-                if(curNum < this['start'+type] || curNum > this['end'+type]){
-                    cls += this.prefix+'-select-option-disabled '
+                return {
+                    [`${this.prefix}-select-option-selected`]: curNum*1 === Num*1,
+                    [`${this.prefix}-select-option-disabled`]: this['disabled'+type] && this['disabled'+type](curNum*1)
                 }
-                if(curNum*1 === Num*1){
-                    cls += this.prefix+'-select-option-selected ';
-                }
-                return cls;
             },
             showLi (curNum, type){
-                let hasNum = -1;
                 let show = true;
-                hasNum = this['disabled'+type]?this['disabled'+type].indexOf(curNum):-1;
-                if(hasNum>-1){
-                    show = false;
-                }
+                if(this.hideDisabled && this['disabled'+type] && this['disabled'+type](curNum*1)) show = false;
                 return show;
             },
             clearTime (){
@@ -162,20 +148,6 @@
                     field.selectionStart = start;
                     field.selectionEnd = end;
                     field.focus();
-                }
-            },
-            timeRange (){
-                let sTime = this.startTime;
-                let eTime = this.endTime;
-                if(sTime<eTime){
-                    let sArr = sTime.split(':');
-                    let eArr = eTime.split(':');
-                    let type = 'H';
-                    for(let i=0;i<3;i++){
-                        i == 1 && (type = 'M');
-                        i == 2 && (type = 'S');
-                        sArr[i] && this.$set('start'+type, sArr[i]);
-                    }
                 }
             }
         }

@@ -48,7 +48,7 @@
                                 </table>
                             </div>
                             <div v-if="showTime" v-show="timeSelected" transition="fade" :class="prefix+'-time-picker'">
-                                <time-picker-panel prefix="ant-calendar-time-picker" :time-value.sync="timeVal[no]" :selected.sync="timeSelected" local-format="HH:mm"></time-picker-panel>
+                                <time-picker-panel prefix="ant-calendar-time-picker" :time-value.sync="timeVal[no]" :selected.sync="timeSelected" :disabled-h="disabledTime[no].disabledHours" :disabled-m="disabledTime[no].disabledMinutes" local-format="HH:mm"></time-picker-panel>
                             </div>
                             <div class="ant-calendar-year-panel" transition="fade" v-if="this['showYear'+(no+1)]">
                                 <span class="ant-calendar-year-panel-prev"  @click="changeYearRange(no+1,-1)"><a class="anticon anticon-up"></a></span>
@@ -153,10 +153,15 @@
                 type: Boolean,
                 default: false
             },
+            disabledDate: Function,
             //英文显示
             en: {
                 type: Boolean,
                 default: false
+            },
+            disabledTime: {
+                type: Array,
+                default: ()=>[{},{}]
             }
         },
         data: function() {
@@ -489,7 +494,7 @@
                     status = this.prefix+'-today';
                 }
                 if (this.time1 && this.time2 && time >= this.time1 && time <= this.time2) {
-                    status += ' ant-calendar-inrange';
+                    status += ` ${this.prefix}-inrange`;
                 }
                 if (no == 1 && this.time2) {
                     var minTime = new Date(this.time2);
@@ -502,13 +507,13 @@
                             minTime = new Date(minTime.getFullYear(), 0, 1);
                         }
                         if (time < minTime || time > this.time2) {
-                            status += ' ant-calendar-disabled-cell';
+                            status += ` ${this.prefix}-disabled-cell`;
                         }
                     } else if (time > this.time2) {
-                        status += ' ant-calendar-disabled-cell';
+                        status += ` ${this.prefix}-disabled-cell`;
                     }
                     if (time > this.time2) {
-                        status += ' ant-calendar-disabled-cell';
+                        status += ` ${this.prefix}-disabled-cell`;
                     }
                 }
                 if (no == 2 && this.time1) {
@@ -522,11 +527,14 @@
                             maxTime = new Date(maxTime.getFullYear(), maxTime.getMonth() + 1, 1);
                         }
                         if (time > maxTime || time < this.time1) {
-                            status += ' ant-calendar-disabled-cell';
+                            status += ` ${this.prefix}-disabled-cell`;
                         }
                     } else if (time < this.time1) {
-                        status += ' ant-calendar-disabled-cell';
+                        status += ` ${this.prefix}-disabled-cell`;
                     }
+                }
+                if(this.disabledDate && this.disabledDate(time)){
+                    status += ` ${this.prefix}-disabled-cell`;
                 }
                 return status;
             },

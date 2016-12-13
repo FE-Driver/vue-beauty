@@ -1,49 +1,17 @@
-var path = require('path');
-var webpack = require('webpack');
+var webpack = require('webpack')
+var merge = require('webpack-merge')
+var baseWebpackConfig = require('./webpack.package.config')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var extractLESS = new ExtractTextPlugin('/style/vb.css')
 
-module.exports = {
-    entry: {
-        main: './vb/index.js'
-    },
+module.exports = merge(baseWebpackConfig, {
     output: {
-        path: path.resolve(__dirname, '../package'),
-        publicPath: '/package/',
-        filename: 'vue-beauty.js',
-        library: 'vue-beauty',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
-    },
-    externals: {
-        vue: {
-            root: 'Vue',
-            commonjs: 'vue',
-            commonjs2: 'vue',
-            amd: 'vue'
-        }
-    },
-    resolve: {
-        extensions: ['', '.js', '.vue']
+        filename: '[name].js'
     },
     module: {
         loaders: [{
-            test: /\.vue$/,
-            loader: 'vue'
-        }, {
-            test: /\.js$/,
-            loader: 'babel',
-            exclude: /node_modules/
-        }, {
-            test: /\.css$/,
-            loader: 'style!css!autoprefixer'
-        }, {
-            test: /\.less$/,
-            loader: 'style!css!less'
-        }, {
-            test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-            loader: 'url?limit=8192'
-        }, {
-            test: /\.(html|tpl)$/,
-            loader: 'vue-html'
+            test: /\.less$/i, 
+            loader: extractLESS.extract(['css','less'])
         }]
     },
     plugins: [
@@ -51,6 +19,7 @@ module.exports = {
             'process.env': {
                 NODE_ENV: '"development"'
             }
-        })
+        }),
+        extractLESS
     ]
-}
+})

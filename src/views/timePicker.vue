@@ -25,17 +25,10 @@
             </code-box>
 
             <code-box
-            title="禁用"
-            describe="禁用时间选择。"
+            title="选择时分"
+            describe="TimePicker 浮层中的列会随着 format 变化，当略去 format 中的某部分时，浮层中对应的列也会消失。"
             >
-                <v-time-picker disabled></v-time-picker>
-            </code-box>
-
-            <code-box
-            title="只显示部分选项"
-            describe="通过 disabledMinutes和disabledSeconds 将不可选的选项隐藏。"
-            >
-                <v-time-picker :disabled-minutes="minutes" :disabled-seconds="seconds"></v-time-picker>
+                <v-time-picker format="HH:mm"></v-time-picker>
             </code-box>
         </v-Col>
 
@@ -46,17 +39,20 @@
             >
                 <v-time-picker :value.sync="value"></v-time-picker>
             </code-box>
+
             <code-box
-            title="不展示秒"
-            describe="不展示秒，也不允许选择。"
+            title="禁用"
+            describe="禁用时间选择。"
             >
-                <v-time-picker format="HH:mm"></v-time-picker>
+                <v-time-picker disabled></v-time-picker>
             </code-box>
+
             <code-box
             title="禁止选项"
-            describe="限制选择 20:30 到 23:30 这个时间段。"
+            describe="可以使用 disabledHours disabledMinutes disabledSeconds 组合禁止用户选择某个时间，配合 hideDisabledOptions 可以直接把不可选择的项隐藏。"
             >
-                <v-time-picker start-time="20:30" end-time="23:30"></v-time-picker>
+                <v-time-picker :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds"></v-time-picker>
+                <v-time-picker :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds" hide-disabled-options></v-time-picker>
             </code-box>
         </v-Col>
     </v-Row>
@@ -93,18 +89,6 @@
                         'absolute'
                     ],
                     [
-                        'startTime',
-                        '限制时间段开始时间',
-                        'String',
-                        '00:00'
-                    ],
-                    [
-                        'endTime',
-                        '限制时间段结束时间',
-                        'String',
-                        '23:59'
-                    ],
-                    [
                         'size',
                         '控件大小（large、small）',
                         'String',
@@ -117,40 +101,51 @@
                         'false'
                     ],
                     [
+                        'disabledHours',
+                        '禁止选择部分小时选项',
+                        'function(hour)',
+                        '无'
+                    ],
+                    [
                         'disabledMinutes',
                         '禁止选择部分分钟选项',
-                        'array',
+                        'function(minite)',
                         '无'
                     ],
                     [
                         'disabledSeconds',
                         '禁止选择部分秒选项',
-                        'array',
+                        'function(second)',
                         '无'
+                    ],
+                    [
+                        'hideDisabledOptions',
+                        '隐藏禁止选择的选项',
+                        'boolean',
+                        'false'
                     ]
                 ],
-                minutes: [],
-                seconds: [],
                 value: '08:30:00'
             }
         },
-        created (){
-            this.$set('minutes', this.disabledMinutes());
-            this.$set('seconds', this.disabledSeconds());
-        },
         methods: {
-            newArray (start, end){
+            range (start, end){
                 const result = [];
                 for (let i = start; i < end; i++) {
                     result.push(i);
                 }
                 return result;
             },
-            disabledMinutes (){
-                return this.newArray(0, 60).filter(value => value % 10 !== 0);
+            disabledHours (h){
+                const hours = this.range(0, 60);
+                hours.splice(20, 4);
+                return hours.includes(h);
             },
-            disabledSeconds (){
-                return this.newArray(0, 60).filter(value => value % 30 !== 0);
+            disabledMinutes (m){
+                return this.range(0, 31).includes(m);
+            },
+            disabledSeconds (s){
+                return this.range(30, 60).includes(s);
             }
         },
         components: {
