@@ -18,6 +18,11 @@ export default [
                 name: 'alert',
                 component: require('./docs/zh-cn/alert.md')
             },
+             {
+                path: 'button',
+                name: 'button',
+                component: require('./docs/zh-cn/button.md')
+            },
             {
                 path: 'card',
                 name: 'card',

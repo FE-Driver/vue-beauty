@@ -1,4 +1,5 @@
 import alert from './alert'
+import button from './button'
 import card from './card'
 import rate from './rate'
 import menu from './menu'
@@ -13,7 +14,10 @@ let compnents = {
   menuItem: menu.item,
   rate,
   alert,
+  button,
+  buttonGroup:button.Group,
   card,
+
 
 }
 
