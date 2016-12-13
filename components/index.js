@@ -1,4 +1,5 @@
 import alert from './alert'
+import card from './card'
 import rate from './rate'
 import menu from './menu'
 import {col,row} from './layout'
@@ -12,6 +13,8 @@ let compnents = {
   menuItem: menu.item,
   rate,
   alert,
+  card,
+
 }
 
 for(let item of Object.values(compnents) ){

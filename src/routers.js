@@ -17,6 +17,11 @@ export default [
                 path: 'alert',
                 name: 'alert',
                 component: require('./docs/zh-cn/alert.md')
+            },
+            {
+                path: 'card',
+                name: 'card',
+                component: require('./docs/zh-cn/card.md')
             }
         ]
     }

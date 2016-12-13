@@ -14,6 +14,11 @@
               <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
             </vb-menu-item>
           </vb-sub-menu>
+           <vb-sub-menu title="Data display">
+            <vb-menu-item>
+              <router-link :to="{ name:'card'}">Card 卡片</router-link>
+            </vb-menu-item>
+          </vb-sub-menu>
         </vb-menu>
       </div>
       <div class="main-container ant-col-xs-24 ant-col-sm-24 ant-col-md-18 ant-col-lg-20">
@@ -52,7 +57,7 @@ export default {
 }
 
 .page-container{
-  color: #666;
+  /*color: #666;*/
   font-size: 14px;
   line-height: 1.8;
 
@@ -66,13 +71,13 @@ export default {
       font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   }
 
-  h2 {
+  & > h2 {
     font-size: 24px;
   }
 
-  h3 {
+  /*& > h3 {
     font-size: 22px;
-  }
+  }*/
 
   hr{
     border-radius: 10px;
@@ -88,17 +93,11 @@ export default {
 
   pre{
     padding: 1em;
-    background-color: #F7F7F7;
+    background-color: #F3f3f3;
     border-radius: 6px;
   }
 
-  h2, h3,  h4,  h5,  h6 {
-      color: #404040;
-      font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
-      margin: 1.6em 0 .6em;
-      font-weight: 500;
-      clear: both;
-  }
+  
 
   code,kbd,pre,samp{
     font-family: Consolas, monospace;
@@ -144,6 +143,15 @@ export default {
     }
   }
 }
+
+.main-container > section >  h3 {
+      color: #404040;
+      font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+      margin: 1.6em 0 .6em;
+      font-weight: 500;
+      clear: both;
+  }
+
 
 .code-boxes-col-2-1{
   display: inline-block;
