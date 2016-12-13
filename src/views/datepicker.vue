@@ -32,6 +32,12 @@
           <v-datepicker range size="large"></v-datepicker>
         </code-box>
 
+        <code-box
+          title="禁用"
+          describe="选择框的不可用状态。">
+          <v-datepicker disabled></v-datepicker>
+        </code-box>
+
       </v-Col>
 
       <v-Col span="12">
@@ -46,14 +52,15 @@
         <code-box
           title="日期时间选择"
           describe="增加选择时间功能">
-          <v-datepicker clearable :show-time="true" time='2015-12-06 23:12'></v-datepicker><br><br>
-          <v-datepicker range :show-time="true" start-time='2015-12-06 23:12' end-time='2016-12-06 23:12' clearable></v-datepicker>
+          <v-datepicker clearable show-time time='2015-12-06 23:12'></v-datepicker><br><br>
+          <v-datepicker range show-time start-time='2015-12-06 23:12' end-time='2016-12-06 23:12' clearable></v-datepicker>
         </code-box>
 
         <code-box
-          title="禁用"
-          describe="选择框的不可用状态。">
-          <v-datepicker disabled></v-datepicker>
+          title="不可选用日期和时间"
+          describe="可用 disabledDate 和 disabledTime 分别禁止选择部分日期和时间，其中 disabledTime 需要和 showTime 一起使用。">
+          <v-datepicker show-time :disabled-date="disabledDate" :disabled-time="disabledTime"></v-datepicker><br><br>
+          <v-datepicker range show-time :disabled-date="disabledDate" :disabled-time="disabledRangeTime"></v-datepicker>
         </code-box>
 
       </v-Col>
@@ -175,6 +182,13 @@ export default {
     }
   },
   methods: {
+    range (start, end){
+        const result = [];
+        for (let i = start; i < end; i++) {
+            result.push(i);
+        }
+        return result;
+    },
     confirm(){
       console.log('confirm')
     },
@@ -183,6 +197,27 @@ export default {
     },
     rangeChange(startTime,endTime){
       console.log(startTime,endTime)
+    },
+    disabledDate(current){
+      return current && current.valueOf() < Date.now();
+    }
+  },
+  computed: {
+    
+    disabledTime(){
+      return [{
+        disabledHours: (h) => this.range(0, 24).splice(4, 20).includes(h),
+        disabledMinutes: (m) => this.range(30, 60).includes(m)
+      }]
+    },
+    disabledRangeTime(){
+      return [{ 
+        disabledHours: (h) => this.range(0, 24).splice(4, 20).includes(h),
+        disabledMinutes: (m) => this.range(30, 60).includes(m)
+      },{
+        disabledHours: (h) => this.range(0, 60).splice(20, 4).includes(h),
+        disabledMinutes: (m) => this.range(0, 31).includes(m)
+      }]
     }
   },
   components: {

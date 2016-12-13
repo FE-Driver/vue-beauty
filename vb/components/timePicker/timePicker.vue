@@ -2,8 +2,8 @@
     <span :class="wrapClasses">
         <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="value" v-el:time-picker readonly disabled="{{disabled}}">
         <span class="ant-time-picker-icon"></span>
+        <time-picker-node transition="fade" v-show="selected" :selected.sync="selected" :hide-disabled="hideDisabledOptions" :style="style" :time-value.sync="value" :local-format="format" :disabled-h="disabledHours" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
     </span>
-    <time-picker-node transition="fade" v-show="selected" :selected.sync="selected" :style="style" :time-value.sync="value" :local-format="format" :start-time="startTime" :end-time="endTime" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" v-el:time-picker-option></time-picker-node>
 </template>
 
 <script>
@@ -26,11 +26,14 @@
             size: String,
             format: String,
             disabled: Boolean,
-            startTime: String,
-            endTime: String,
             value: String,
-            disabledMinutes: Array,
-            disabledSeconds: Array
+            hideDisabledOptions: {
+                type: Boolean,
+                default: false
+            },
+            disabledHours: Function,
+            disabledMinutes: Function,
+            disabledSeconds: Function
         },
         created (){
             document.addEventListener('click', this.backdrop);
