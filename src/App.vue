@@ -22,9 +22,6 @@
 <script>
 
 export default {
-  components: {
-
-  }
 }
 
 </script>
@@ -51,7 +48,8 @@ header {
     line-height: 80px;
 
     img{
-      height: 80px;
+      height: 54px;
+      margin-top: 14px;
       margin-right: 8px;
     }
 
@@ -59,8 +57,7 @@ header {
         float: right;
         font-size: 16px;
         font-family: Raleway,Hiragino Sans GB,sans-serif;
-        height: 80px;
-        line-height: 80px;
+        line-height: 94px;
         font-weight: bold;
         color: #666;
     }
