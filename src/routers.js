@@ -304,6 +304,18 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/css.vue'], resolve);
           }
+        },
+        '/start': {
+          name: 'start',
+          component: function index(resolve) {
+            require(['./views/start.vue'], resolve);
+          }
+        },
+        '/contribute': {
+          name: 'contribute',
+          component: function index(resolve) {
+            require(['./views/contribute.vue'], resolve);
+          }
         }
       }
     },
@@ -315,7 +327,7 @@ export default function(router) {
     }
   });
   router.redirect({
-    '/': '/components/css'
+    '/': '/components/start'
   });
 
   router.afterEach(function ({from, to}) {

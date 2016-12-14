@@ -4,6 +4,7 @@ import VueResource from 'vue-resource'
 import routerMap from './routers'
 import '../vb/style/index.less'
 import vue_beauty from '../vb'
+import './assets/markdown.less'
 import App from './App'
 
 window.Vue = Vue;

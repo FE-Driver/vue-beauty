@@ -13,14 +13,15 @@
 
             <h4>HTML5 文档类型</h4>
             <p>Bootstrap 使用到的某些 HTML 元素和 CSS 属性需要将页面设置为 HTML5 文档类型。在你项目中的每个页面都要参照下面的格式进行设置。</p>
-            <div class="highlight">
-  <pre>
-    <span class="cp">&lt;!DOCTYPE html&gt;</span>
-    <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"zh-CN"</span><span
-          class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/html&gt;</span>
-  </pre>
+            <div class="highlight">    
+<pre>
+    <code>
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang="zh-CN"&gt;
+            ...
+        &lt;/html&gt;
+    </code>
+</pre>
             </div>
 
             <h4>基本样式</h4>

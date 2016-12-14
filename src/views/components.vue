@@ -4,9 +4,17 @@
     <div class="ant-row">
       <div class="ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
         <v-menu class="aside-container" mode="inline" expand>
-          <v-menu-item v-link="{ name: 'css', activeClass: 'ant-menu-item-selected' }">
-            全局CSS样式
-          </v-menu-item>
+          <v-sub-menu title="开发指南">
+            <v-menu-item v-link="{ name: 'start', activeClass: 'ant-menu-item-selected' }">
+              起步
+            </v-menu-item>
+            <v-menu-item v-link="{ name: 'css', activeClass: 'ant-menu-item-selected' }">
+              全局CSS样式
+            </v-menu-item>
+            <v-menu-item v-link="{ name: 'contribute', activeClass: 'ant-menu-item-selected' }">
+              参与贡献
+            </v-menu-item>
+          </v-sub-menu>
           <v-sub-menu title="组件">
             <v-menu-item-group title="Basic">
               <v-menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
@@ -196,87 +204,6 @@ export default {
     margin-left: -1px;
     min-height: 500px;
     border-left: 1px solid #e9e9e9;
-}
-
-.markdown{
-  color: #666;
-  font-size: 14px;
-  line-height: 1.8;
-
-  h1 {
-      color: #404040;
-      font-weight: 500;
-      line-height: 40px;
-      margin-bottom: 24px;
-      margin-top: 8px;
-      font-size: 28px;
-      font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
-  }
-
-  hr{
-    border-radius: 10px;
-    height: 3px;
-    border: 0;
-    background: #eee;
-    margin: 20px 0;
-  }
-
-  p, pre {
-      margin: 1em 0;
-  }
-
-  pre{
-    padding: 1em;
-    background-color: #F7F7F7;
-    border-radius: 6px;
-  }
-
-  h2 {
-      font-size: 22px;
-  }
-
-  h2, h3,  h4,  h5,  h6 {
-      color: #404040;
-      font-family: lato,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
-      margin: 1.6em 0 .6em;
-      font-weight: 500;
-      clear: both;
-  }
-
-  code,kbd,pre,samp{
-    font-family: Consolas, monospace;
-  }
-
-  code{
-    margin: 0 3px;
-  }
-
-  & > ul li{
-    list-style: circle;
-    margin-left: 20px;
-  }
-
-  & > ol li{
-    list-style: decimal;
-    margin-left: 20px;
-    padding-left: 8px;
-  }
-}
-
-.code-boxes-col-2-1{
-  display: inline-block;
-  vertical-align: top;
-  padding: 0 8px;
-}
-
-.aside-container {
-    padding-bottom: 50px;
-}
-
-.aside-container .ant-menu-item a, .aside-container .ant-menu-submenu-title span, .aside-container>.ant-menu-item {
-    font-size: 14px;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 
 </style>
