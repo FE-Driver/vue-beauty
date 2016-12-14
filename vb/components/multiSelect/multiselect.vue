@@ -1,7 +1,7 @@
 <template>
   <div
     tabindex="0"
-    :class="{ 'multiselect--active': isOpen, 'multiselect--disabled': disabled }"
+    :class="{ 'multiselect--active': isOpen, 'multiselect--disabled': disabled, ['multiselect-'+size]: size }"
     @focus="activate()"
     @blur="searchable ? false : deactivate()"
     @keydown.self.down.prevent="pointerForward()"
@@ -105,6 +105,7 @@
       style: {}
     }),
     props: {
+      size: String,
       position: {
         type: String, 
         default: 'absolute'

@@ -24,6 +24,14 @@
           <v-multiselect :selected="selected" :options="options" @update="updateSelected"></v-multiselect>
         </code-box>
 
+        <code-box
+          title="三种大小"
+          describe="三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px">
+          <v-multiselect size="large" :options="options"></v-multiselect><br>
+          <v-multiselect :options="options"></v-multiselect><br>
+          <v-multiselect size="small" :options="options"></v-multiselect>
+        </code-box>
+
       </v-Col>
 
       <v-Col span="12">
