@@ -3,16 +3,16 @@
 
 // Color
 @primary-color          : #369BE9;
-@info-color             : #369BE9;
 @success-color          : #16C294;
 @error-color            : #E95471;
 @highlight-color        : #f50;
-@warning-color          : #FA9E33;
+@warning-color          : #fa0;
 @normal-color           : #d9d9d9;
-@dark-color             : #000000;
+@dark-color             : #000;
 
 // ------ Base & Require ------
 @body-background        : #fff;
+@component-background   : #fff;
 @font-family            : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
 @code-family            : Consolas,Menlo,Courier,monospace;
 @text-color             : #333;
@@ -26,7 +26,7 @@
 
 // ICONFONT
 @iconfont-css-prefix    : anticon;
-@icon-url               : "https://at.alicdn.com/t/font_uzv8nkw1nabgldi";
+@icon-url               : "https://at.alicdn.com/t/font_r5u29ls31bgldi";
 
 // LINK
 @link-color             : #108ee9;
@@ -126,11 +126,6 @@
 @grid-columns           : 24;
 @grid-gutter-width      : 0;
 
-// Container sizes
-@container-sm           : (720px + @grid-gutter-width);
-@container-md           : (940px + @grid-gutter-width);
-@container-lg           : (1140px + @grid-gutter-width);
-
 // z-index list
 @zindex-affix           : 10;
 @zindex-back-top        : 10;
@@ -150,8 +145,6 @@
 
 // Form
 // ---
-@legend-color                : #999;
-@legend-border-color         : @border-color-base;
 @label-required-color        : @highlight-color;
 @label-color                 : @text-color;
 @form-item-margin-bottom     : 24px;
@@ -205,15 +198,5 @@
 // Progress
 // --
 @process-default-color: @primary-color;
-
-@font-size-md                : @font-size-base;
-@font-size-xl                : @font-size-base + 4px;
-@font-size-xxl               : @font-size-base + 6px;
-
-@margin-size-xs               : 2px;
-@margin-size-sm               : 5px;
-@margin-size-md               : 10px;
-@margin-size-lg               : 15px;
-@margin-size-xl               : 20px;
 
 @import "./default_vb";
