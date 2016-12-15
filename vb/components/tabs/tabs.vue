@@ -18,10 +18,8 @@
                 </div>
             </div>
         </div>
-        <div class="ant-tabs-content">
-            <div>
-                <slot></slot>
-            </div>
+        <div class="ant-tabs-content ant-tabs-content-animated" :style="contentSty">
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -58,7 +56,7 @@
                 }
             }
             this.$set('tabs',temp_tabs);
-            
+
             this.$nextTick(()=>{
                 let tab = this.$el.querySelector('.ant-tabs-tab');
                 this.tabWidth = tab.offsetWidth;
@@ -92,6 +90,11 @@
                 return {
                     transform: 'translate3d('+(this.tabWidth+this.tabMarginRight)*this.activeIndex+'px, 0px, 0px)',
                     width: this.tabWidth+'px'
+                }
+            },
+            contentSty() {
+                return {
+                    'margin-left': -100 * this.activeIndex + '%'
                 }
             }
         }
