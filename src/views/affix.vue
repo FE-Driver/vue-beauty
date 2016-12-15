@@ -15,70 +15,49 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基础"
           describe="最简单的用法。"
-          code='<v-affix :offset-top="0">
-  <button type="button" class="ant-btn ant-btn-primary"><span>固定在顶部</span></button>
-</v-affix>'
         >
-          <v-affix :offset-top="0">
+          <v-affix>
             <button type="button" class="ant-btn ant-btn-primary"><span>固定在顶部</span></button>
+          </v-affix><br>
+          <v-affix :offset-bottom="0">
+            <button type="button" class="ant-btn ant-btn-primary"><span>固定在底部</span></button>
           </v-affix>
         </code-box>
 
-        <code-box
-          title="下方固定"
-          describe="固定在屏幕下方"
-          code='<v-affix :offset-bottom="200">
-  <button type="button" class="ant-btn ant-btn-primary"><span>固定在距离底部 200px 的位置</span></button>
-</v-affix>'
-        >
-          <v-affix :offset-bottom="200">
-            <button type="button" class="ant-btn ant-btn-primary"><span>固定在距离底部 200px 的位置</span></button>
-          </v-affix>
-        </code-box>
+      </v-Col>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      <v-Col span="12">
 
         <code-box
-          title="偏移"
-          describe="达到一定的偏移量才触发。"
-          code='<v-affix :offset-top="75">
-  <button type="button" class="ant-btn ant-btn-primary"><span>固定在距离顶部 75px 的位置</span></button>
-</v-affix>'
-        >
-          <v-affix :offset-top="75">
-            <button type="button" class="ant-btn ant-btn-primary"><span>固定在距离顶部 75px 的位置</span></button>
-          </v-affix>
-        </code-box>
-
-        <code-box
-          title="固定状态改变的回调"
+          title="固定状态改变的事件"
           describe="可以获得是否固定的状态。"
-          code='onChange: affixed => console.log(affixed)
-
-<v-affix :offset-top="120" :on-change="onChange">
-  <button type="button" class="ant-btn"><span>固定在距离顶部 120px 的位置</span></button>
-</v-affix>'
         >
-          <v-affix :offset-top="120" :on-change='onChange'>
+          <v-affix :offset-top="120" @change='onChange'>
             <button type="button" class="ant-btn"><span>固定在距离顶部 120px 的位置</span></button>
           </v-affix>
+          <span></span>
         </code-box>
 
 
-      </div>
-    </div>
+      </v-Col>
+    </v-row>
 
     <api-table
       :apis='apis'
     ></api-table>
+    <api-table
+      type="events"
+      :content='eventContent'
+      title=""
+    >
+      <h3>Affix methods</h3>
+    </api-table>
 
     <div class="" style="height: 400px">
 
@@ -95,7 +74,6 @@ import apiTable from '../components/apiTable'
 export default {
   data: function () {
     return {
-      onChange: affixed => console.log(affixed),
       apis: [{
           parameter: 'offsetTop',
           explain: '距离窗口顶部达到指定偏移量后触发',
@@ -111,9 +89,18 @@ export default {
           explain: '固定状态改变时触发的回调函数',
           type: 'Function( Boolean )',
           default: '无'
-        }
-      ]
+      }],
+      eventContent: [
+        [
+          'change',
+          '固定状态改变时触发',
+          'affixed'
+        ]
+      ],
     }
+  },
+  methods: {
+    onChange: affixed => console.log(affixed),
   },
   components: {
     codeBox,
