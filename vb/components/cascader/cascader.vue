@@ -1,121 +1,173 @@
-<template lang="html">
-	<span class="ant-cascader-picker" @click.stop="showPane">
-		<span class="ant-input-wrapper">
-			<input type="text" placeholder="{{data.placeholder}}" class="ant-input ant-cascader-input" v-model="result" value="" readonly="">
-		</span>
-		<span class="ant-cascader-picker-label"></span>
-		<i class="ant-cascader-picker-arrow anticon anticon-down"></i>
-	</span>
-	<div id="{{domid}}" class="ant-cascader-menus" @click.stop="nullfunc" v-show="isshow" transition='zoom-big'>
-		<div class="casUlItem">
-			<v-panel :data.sync="data.children" @check="childcheck"></v-panel>
-		</div>
-	</div>
+<template>
+    <span :class="pickerCls">
+        <input type="text" :placeholder="label?'':placeholder" :class="inpCls" value="" readonly="" autocomplete="off" @click.stop="toggleMenu">
+        <span class="ant-cascader-picker-label">{{label}}</span>
+        <i v-if="allowClear && value.length" class="anticon anticon-cross-circle ant-cascader-picker-clear" @click.stop="clear"></i>
+        <i class="anticon anticon-down ant-cascader-picker-arrow"></i>
+        <div v-el:menu v-show="open" transition="slide-up" style="max-height: 300px; overflow: auto" :style="style" class="ant-cascader-menus ant-cascader-menus-placement-bottomLeft">
+            <div>
+                <menu v-for="i in path" :value="i" :data="getMenuData($index)" :key="$index" @change="changeMenuValue" track-by="$index"></menu>
+            </div>
+        </div>
+    </span>
 </template>
 
 <script>
-import vPanel from './panel'
-export default{
-	name:'v-cascader',
-	props:{
-		isshow :Boolean,
-		data : Object,
-		result : {
-			type : String,
-			default :''
-		},
-		domid : String
-	},
-	ready(){
+    import menu from './menu.vue'
+    import {getOffset} from '../_util/_func'
 
-		var self = this;
-		document.body.addEventListener('click',function(e){
-			self.isshow = false;
-		})
+    export default {
+        name:'v-cascader',
+        data: ()=>({
+            prefix: 'ant-cascader',
+            style: {},
+            open: false,
+            label: '',
+            path: [-1]
+        }),
+        props: {
+            position: {
+                type: String,
+                default: 'absolute'
+            },
+            options: Array,
+            value: {
+                type: Array,
+                default: ()=> []
+            },
+            placeholder: {
+                type: String,
+                default: '请选择'
+            },
+            size: String,
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            allowClear: {
+                type: Boolean,
+                default: true
+            }
+        },
+        ready(){
+            this.init();
+            this.$els.menu.style.position = this.position;
+            document.body.appendChild(this.$els.menu);
+            
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
 
-		window.addEventListener('resize',function(){
-			self.setPosition();
-		})
-		this.getDomId()
-	},
-	methods: {
-		showPane(){
-			this.isshow = true;
-			let _el = document.querySelector('#'+this.domid);
+            window.addEventListener('resize',()=> {
+                clearTimeout(this.resizeTimer);
+                this.resizeTimer = setTimeout(()=> {
+                    this.setPosition();
+                }, 200)
+            })
 
-			if(_el){
-				this.setPosition();
-				if(_el.parentNode.tagName != 'BODY'){
-					document.body.appendChild(_el);
-				}
-			}
-		},
-		nullfunc(){
+            this.clickListener = ()=>{
+                this.setOpen(false)
+            }
+            window.addEventListener('click',this.clickListener);
+        },
+        beforeDestroy(){
+            window.removeEventListener('click',this.clickListener);
+        },
+        watch: {
+            path(val){
+                let value = [], label = [], opt = this.options;
 
-		},
-		getDomId : function(){
-			this.domid = 'cascader' + Math.random().toString(36).substr(2);
-		},
-		childcheck(val){
-			this.result = val;
-		},
-		setPosition(){
-			const getElementViewLeft = (element)=>{
-				let actualLeft = element.offsetLeft;
-				let current = element.offsetParent;
-				while (current !== null){
-					actualLeft += current.offsetLeft;
-					current = current.offsetParent;
-				}
+                for(let i of val){
+                    if(i < 0) break;
+                    value.push(opt[i].value);
+                    label.push(opt[i].label);
+                    opt = opt[i].children;
+                }
+                this.$set('value', value);
+                this.$set('label', label.join(' / '));
+            },
+            value(val){
+                this.$emit('change', val);
+            }
+        },
+        computed: {
+            pickerCls(){
+                return [
+                    `${this.prefix}-picker`,
+                    {[`${this.prefix}-picker-disabled`]: this.disabled}
+                ]
+            },
+            inpCls(){
+                const size = {large:'lg',small:'sm'}[this.size];
 
-				// let elementScrollLeft = document.documentElement.scrollLeft == 0 ? document.body.scrollLeft : document.documentElement.scrollLeft;
+                return [
+                    'ant-input', 
+                    'ant-cascader-input',
+                    {['ant-input-'+size]: size}
+                ]
+            }
+        },
+        methods: {
+            init(){
+                let res = [],opt = this.options;
+                for(let val of this.value){
+                    for(let [i,item] of opt.entries()){
+                        if(item.value == val){
+                            res.push(i)
+                            opt = opt[i].children;
+                            break;
+                        }
+                    }
+                }
+                if(opt) res.push(-1)
 
-				return actualLeft;
-			}
-			const getElementViewTop = (element)=>{
-				let actualTop = element.offsetTop;
-				let current = element.offsetParent;
-				while (current !== null){
-					actualTop += current. offsetTop;
-					current = current.offsetParent;
-				}
+                this.$set('path', res);
+            },
+            clear(){
+                this.path = [-1];
+            },
+            setPosition(){
+                if(!this.$el){
+                    return
+                }
+                let p = getOffset(this.$el);
 
-				// let elementScrollTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop; 
-
-				return actualTop;
-			}
-
-			let _input = this.$el.nextElementSibling;
-			let _el = document.querySelector('#'+this.domid);
-
-			let iptWidth = _input.offsetWidth;
-			let iptHeight = _input.offsetHeight;
-			let iptLeft = getElementViewLeft(_input);
-			let iptTop = getElementViewTop(_input);
-
-
-			let w_Height = document.body.clientHeight;//窗口可见区高度
-			let _scrollTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop; //滚动条高度
-
-			let _left = '',_top = '';
-
-			let flag = w_Height - (iptTop - _scrollTop) - iptHeight - 180;
-
-			if (flag > 0) {
-				_left = iptLeft + "px";
-				_top = iptTop + iptHeight + "px";
-			}else{
-				_left = iptLeft + "px";
-				_top = iptTop + "px";
-				_el.className = _el.className + ' ant-cascader-menus-top';
-			}
-
-			_el.style.left = _left;
-			_el.style.top = _top;
-		}
-	},
-	components:{
-		vPanel
-	}
-}
+                this.$set('style',{
+                    top: p.bottom + 4 + 'px',
+                    left: p.left + 'px'
+                })
+            },
+            getMenuData(index){
+                let res = this.options;
+                for(let i=0;i < index;i++){
+                    const s = this.path[i];
+                    if(res[s].children){
+                        res  = res[s].children;
+                    }else{
+                        res = null;
+                        break;
+                    }
+                }
+                return res;
+            },
+            setOpen(status){
+                this.open = status;
+            },
+            toggleMenu(){
+                if(this.disabled) return;
+                this.open = !this.open;
+            },
+            changeMenuValue(key,i){
+                this.path.$set(key, i);
+                if(this.getMenuData(key+1)){
+                    this.path.$set(key+1, -1);
+                    this.path.splice(key+2,this.path.length-1-key-1);
+                }else{
+                    this.path.splice(key+1,this.path.length-1-key);
+                    this.open = false;
+                }
+            }
+        },
+        components: {menu}
+    }
 </script>
