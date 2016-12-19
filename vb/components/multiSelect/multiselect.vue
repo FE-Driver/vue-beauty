@@ -102,9 +102,14 @@
     name: 'v-multiselect',
     mixins: [multiselectMixin, pointerMixin],
     data: ()=>({
-      style: {}
+      style: {},
+      container: null
     }),
     props: {
+      popupContainer: {
+        type: Function,
+        default: ()=> document.body
+      },
       size: String,
       position: {
         type: String, 
@@ -208,12 +213,13 @@
       }
     },
     ready () {
+      this.container = this.popupContainer()
       /* istanbul ignore else */
       if (!this.showLabels) {
         this.deselectLabel = this.selectedLabel = this.selectLabel = ''
       }
       this.$els.list.style.position = this.position;
-      document.body.appendChild(this.$els.list);
+      this.container.appendChild(this.$els.list);
       this.$nextTick(()=>{
           this.setPosition();
       })
@@ -230,7 +236,7 @@
           if(!this.$el){
               return
           }
-          let p = getOffset(this.$el);
+          let p = getOffset(this.$el, this.container);
 
           this.$set('style',{
               top: p.bottom + 'px',
