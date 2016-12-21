@@ -1,6 +1,11 @@
 <template lang="html">
 <div :class="wrapClasses">
-    <span class="{{prefix}}-dot"></span>
+    <span class="{{prefix}}-dot">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+    </span>
     <div class="{{prefix}}-text">{{tip}}</div>
 </div>
 </template>

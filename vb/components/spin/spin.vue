@@ -2,7 +2,7 @@
   <template v-if="hasSlot">
     <div :class="{[`${prefix}-nested-loading`]:spinning}">
       <spin-inner :size="size" :spinning="spinning" :tip="tip" :prefix="prefix"></spin-inner>
-      <div class="{{prefix}}-container">
+      <div :class="containerCls">
         <slot></slot>
       </div>
     </div>
@@ -28,6 +28,14 @@ export default {
   ready(){
     if(this._slotContents && this._slotContents.default){
       this.hasSlot = true;
+    }
+  },
+  computed: {
+    containerCls(){
+      return [
+        `${this.prefix}-container`,
+        {[`${this.prefix}-blur`]: this.spinning}
+      ]
     }
   },
   components:{spinInner}
