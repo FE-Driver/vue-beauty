@@ -114,7 +114,7 @@
             :options="options" 
             :value.sync="pageSize"
 						:allow-clear="false"
-						position="top"
+						placement="top"
 					></v-Select>
 	  		</div>
         <div 

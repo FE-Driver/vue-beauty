@@ -20,24 +20,25 @@
           describe="最简单的用法。"
         >
           <v-Select placeholder="请选择人员" style="width: 120px;" :options="options" :value.sync="value"></v-Select>
-          <v-Select disabled style="width: 120px;" value="1">lady</v-Select>
+          <v-Select placeholder="请选择人员" placement="top" style="width: 120px;" :options="options" :value.sync="value"></v-Select>
+          <v-Select disabled style="width: 120px;"></v-Select>
         </code-box>
         <code-box
           title="带搜索框"
           describe="展开后可对选项进行搜索。"
         >
-          <v-Select placeholder="请选择人员" notfound="无法找到" type="search" position="top" style="width: 120px;" :options="options"
+          <v-Select placeholder="请选择人员" notfound="无法找到" type="search" placement="top" style="width: 120px;" :options="options"
                     :value.sync="people"></v-Select>
         </code-box>
       </v-Col>
       <v-Col span="12">
         <code-box
           title="三种大小"
-          describe="三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px"
+          describe="三种大小的选择框，当 size 分别为 lg 和 sm 时，输入框高度为 32px 和 22px ，默认高度为 28px"
         >
-          <v-Select class="select-demo" size="lg" style="width: 150px;" :options="options" :value.sync="value"></v-Select>
+          <v-Select class="select-demo" size="lg" style="width: 200px;" :options="options" :value.sync="value"></v-Select>
           <v-Select class="select-demo" style="width: 150px;" :options="options" :value.sync="value"></v-Select>
-          <v-Select class="select-demo" size="sm" style="width: 150px;" :options="options" :value.sync="value"></v-Select>
+          <v-Select class="select-demo" size="sm" style="width: 200px;" :options="options" :value.sync="value"></v-Select>
         </code-box>
       </v-Col>
     </v-Row>
