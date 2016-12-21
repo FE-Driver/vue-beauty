@@ -89,6 +89,12 @@
                         'absolute'
                     ],
                     [
+                    'popupContainer',
+                    '下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。',
+                    'Function',
+                    '() => document.body'   
+                    ],
+                    [
                         'size',
                         '控件大小（large、small）',
                         'String',

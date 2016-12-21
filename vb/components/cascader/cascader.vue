@@ -21,11 +21,16 @@
         data: ()=>({
             prefix: 'ant-cascader',
             style: {},
+            container: null,
             open: false,
             label: '',
             path: [-1]
         }),
         props: {
+            popupContainer: {
+                type: Function,
+                default: ()=> document.body
+            },
             position: {
                 type: String,
                 default: 'absolute'
@@ -51,8 +56,9 @@
         },
         ready(){
             this.init();
+            this.container = this.popupContainer()
             this.$els.menu.style.position = this.position;
-            document.body.appendChild(this.$els.menu);
+            this.container.appendChild(this.$els.menu);
             
             this.$nextTick(()=>{
                 this.setPosition();
@@ -130,7 +136,7 @@
                 if(!this.$el){
                     return
                 }
-                let p = getOffset(this.$el);
+                let p = getOffset(this.$el, this.container);
 
                 this.$set('style',{
                     top: p.bottom + 4 + 'px',

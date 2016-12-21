@@ -16,9 +16,14 @@
             prefix: 'ant-time-picker',
             style: {},
             dropDown: false,
+            container: null,
             selected: false
         }),
         props: {
+            popupContainer: {
+                type: Function,
+                default: ()=> document.body
+            },
             position: {
                 type: String,
                 default: 'absolute'
@@ -47,8 +52,9 @@
             }
         },
         ready (){
+            this.container = this.popupContainer()
             this.$els.timePickerOption.style.position = this.position;
-            document.body.appendChild(this.$els.timePickerOption);
+            this.container.appendChild(this.$els.timePickerOption);
 
             this.$nextTick(()=>{
                 this.setPosition();
@@ -77,7 +83,7 @@
                 if(!this.$el){
                     return
                 }
-                let p = getOffset(this.$els.timePicker);
+                let p = getOffset(this.$els.timePicker, this.container);
 
                 this.$set('style',{
                     top: p.top + 'px',

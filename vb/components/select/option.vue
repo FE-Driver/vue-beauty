@@ -73,12 +73,6 @@
           this.$dispatch('select-event', opt)
         }
       }
-    },
-    ready () {
-      if (!this.disabled) {
-        document.body.appendChild(this.$els.opts)
-      }
-
     }
   }
 </script>

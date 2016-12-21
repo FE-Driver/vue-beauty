@@ -19,7 +19,7 @@
       <span unselectable="unselectable" class="ant-select-selection__clear" style="-webkit-user-select: none" v-if="allowClear && !multiple && value" @click.stop="clear"></span>
       <span class="ant-select-arrow" style="-webkit-user-select: none;"><b></b></span>
     </div>
-    <X-Option transition="slide-up" v-if="!disabled" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
+    <X-Option transition="slide-up" :stylus.sync="stylus" :disabled="disabled" :show.sync="selected" :options.sync="options"
     :class="clazz" :multiple="multiple" :placeholder="placeholder" :notfound="notfound" :value="value" :position="position" v-el:dropdownlist></X-Option>
   </div>
 </template>
@@ -36,6 +36,7 @@
           width:null,
           height:null
         },
+        container: null,
         value_opacity: {
           opacity: '1'
         },
@@ -73,6 +74,10 @@
         type: String,
         default: "bottom"
       },
+      popupContainer: {
+        type: Function,
+        default: ()=> document.body
+      }
     },
     computed: {
       classes () {
@@ -155,7 +160,7 @@
         }
       },
       setPosition () {
-        let p = getOffset(this.$els.select)
+        let p = getOffset(this.$els.select, this.container)
         this.stylus = Object.assign({},this.stylus,{
           top: p.top,
           left: p.left,
@@ -199,24 +204,24 @@
         this.options = newlist
       }
     },
-    created: function () {
+    created() {
       this.origin_placeholder = this.placeholder
       document.addEventListener('click', this.backdrop)
     },
-    ready: function () {
-      let that = this
+    ready() {
+      this.container = this.popupContainer()
+      this.container.appendChild(this.$els.dropdownlist);
       let styles = window.getComputedStyle(this.$els.select)
       this.height = parseFloat(styles.getPropertyValue('height'))
       let width = parseFloat(styles.getPropertyValue('width'))
       this.stylus = Object.assign({},this.stylus,{
         width: width
       });
-      let time = null
-      window.addEventListener('resize', function () {
-        clearTimeout(time)
-        time = setTimeout(function () {
-          if (!that.disabled && that.selected) {
-            that.setPosition();
+      window.addEventListener('resize', ()=> {
+        clearTimeout(this.resizeTimer)
+        this.resizeTimer = setTimeout(()=> {
+          if (!this.disabled && this.selected) {
+            this.setPosition();
           }
         }, 200)
       })
