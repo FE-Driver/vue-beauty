@@ -53,6 +53,11 @@
             效果<br>
             <v-button>按钮</v-button>
             <h2>版本</h2>
+            <p> 
+                <a href="https://www.npmjs.com/package/vue-beauty" target="_blank"> 
+                    <img src="http://img.shields.io/npm/v/vue-beauty.svg"> 
+                </a> 
+            </p>
             <h2>
                 浏览器支持
             </h2>

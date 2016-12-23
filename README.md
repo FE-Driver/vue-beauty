@@ -5,7 +5,7 @@
     </a>
 </p>
 
-# vue-beauty
+# vue-beauty [![npm](http://img.shields.io/npm/v/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![NPM downloads](http://img.shields.io/npm/dm/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty)
 Beautiful  UI components build with vue and ant design
 
 - 在本项目release之前，你都不应该在生产环境中使用
@@ -24,7 +24,7 @@ npm install vue-beauty -S
 
 import Vue from 'vue'
 //import css
-import from 'vue-beauty/style/vue-beauty.min.css'
+import 'vue-beauty/package/style/vue-beauty.min.css'
 
 //import components
 import vue-beauty from 'vue-beauty'
@@ -45,7 +45,7 @@ Vue.use(alert)
 chrome、firefox、暂不支持IE(计划支持IE11+)
 
 ## 更新日志
-欢迎查看详细的[更新日志]()。
+欢迎查看详细的[更新日志](https://fe-driver.github.io/vue-beauty/#!/components/changelog)。
 
 ## 参与贡献
 我们欢迎任何形式的贡献，请阅读[贡献指南](https://fe-driver.github.io/vue-beauty/#!/components/contribute)了解详细的情况。

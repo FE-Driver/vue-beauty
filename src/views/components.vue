@@ -11,6 +11,9 @@
             <v-menu-item v-link="{ name: 'css', activeClass: 'ant-menu-item-selected' }">
               全局CSS样式
             </v-menu-item>
+            <v-menu-item v-link="{ name: 'changelog', activeClass: 'ant-menu-item-selected' }">
+              更新日志
+            </v-menu-item>
             <v-menu-item v-link="{ name: 'contribute', activeClass: 'ant-menu-item-selected' }">
               参与贡献
             </v-menu-item>
@@ -72,9 +75,6 @@
               </v-menu-item>
               <v-menu-item v-link="{ name: 'datepicker', activeClass: 'ant-menu-item-selected' }">
                 Datepicker 日期选择框
-              </v-menu-item>
-              <v-menu-item v-link="{ name: 'multiselect', activeClass: 'ant-menu-item-selected' }">
-                Multiselect 多选
               </v-menu-item>
             </v-menu-item-group>
             <v-menu-item-group title="Views">

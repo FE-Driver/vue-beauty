@@ -80,7 +80,6 @@
             <p class="text-dark">.text-dark</p>
             <p class="text-primary">.text-primary</p>
             <p class="text-success">.text-success</p>
-            <p class="text-info">.text-info</p>
             <p class="text-warning">.text-warning</p>
             <p class="text-error">.text-error</p>
 
@@ -93,7 +92,6 @@
             <h4>背景区块</h4>
             <p class="bg-primary">.bg-primary</p>
             <p class="bg-success">.bg-success</p>
-            <p class="bg-info">.bg-info</p>
             <p class="bg-warning">.bg-warning</p>
             <p class="bg-error">.bg-error</p>
             <p class="bg-muted">.bg-muted</p>

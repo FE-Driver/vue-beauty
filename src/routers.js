@@ -316,6 +316,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/contribute.vue'], resolve);
           }
+        },
+        '/changelog': {
+          name: 'changelog',
+          component: function index(resolve) {
+            require(['./views/changelog.vue'], resolve);
+          }
         }
       }
     },
