@@ -254,6 +254,12 @@ export default {
           '菜单类型，现在支持垂直、水平、和内嵌模式三种',
           'String: vertical horizontal inline',
           'vertical'
+        ],
+        [
+          'expand',
+          '定义下面所有子菜单的是否展开',
+          'Boolean',
+          'false'
         ]
       ],
       content2: [
@@ -294,6 +300,12 @@ export default {
           '图标',
           'String',
           '无'
+        ],
+        [
+          'expand',
+          '菜单是否展开',
+          'Boolean',
+          'false'
         ]
       ],
       content4: [

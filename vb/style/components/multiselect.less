@@ -56,7 +56,7 @@ fieldset[disabled] .multiselect {
 .multiselect__input,
 .multiselect__single {
   font-family: inherit;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .multiselect {
@@ -67,6 +67,23 @@ fieldset[disabled] .multiselect {
   width: 100%;
   text-align: left;
   color: #35495E;
+
+  &.multiselect-large {
+    .multiselect__select{
+      height: 32px;
+    }
+    .multiselect__input, .multiselect__single{
+      line-height: 30px;
+    }
+  }
+  &.multiselect-small {
+    .multiselect__select{
+      height: 22px;
+    }
+    .multiselect__input, .multiselect__single{
+      line-height: 20px;
+    }
+  }
 }
 
 .multiselect * {

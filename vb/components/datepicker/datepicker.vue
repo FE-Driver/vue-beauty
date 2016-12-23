@@ -120,6 +120,10 @@
                 type:String, 
                 default:'absolute'
             },
+            popupContainer: {
+                type: Function,
+                default: ()=> document.body
+            },
             showTime: {
                 type: Boolean, 
                 default: false
@@ -167,6 +171,7 @@
         data: function() {
             return {
                 prefix: 'ant-calendar',
+                container: null,
                 timeSelected: false,
                 timeBtnEnable: false,
                 containerStyle: {},
@@ -229,8 +234,9 @@
             }
         },
         ready(){
+            this.container = this.popupContainer()
             this.$els.container.style.position = this.position;
-            document.body.appendChild(this.$els.container);
+            this.container.appendChild(this.$els.container);
             this.$nextTick(()=>{
                 this.setPosition();
             })
@@ -294,7 +300,7 @@
                 if(!this.$el){
                     return
                 }
-                let p = getOffset(this.$el);
+                let p = getOffset(this.$el, this.container);
 
                 this.$set('containerStyle',{
                     top: p.bottom + 'px',

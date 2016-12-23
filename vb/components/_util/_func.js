@@ -15,19 +15,26 @@ export function getScroll(top) {
 }
 
 //获取元素top,left,right,bottom的绝对位置
-export function getOffset(element) {
-  var rect = element.getBoundingClientRect()
-  var body = document.body
-  var clientTop = element.clientTop || body.clientTop || 0
-  var clientLeft = element.clientLeft || body.clientLeft || 0
-  var scrollTop = getScroll(true)
-  var scrollLeft = getScroll()
+export function getOffset(element, container = document.body) {
+  const el_rect = element.getBoundingClientRect();
+  const container_rect = container.getBoundingClientRect();
+  const clientTop = element.clientTop || container.clientTop || 0;
+  const clientLeft = element.clientLeft || container.clientLeft || 0;
+  let top, left;
+
+  if(container === document.body){
+    top = getScroll(true);
+    left = getScroll();
+  }else{
+    top = container.scrollTop - container_rect.top;
+    left = container.scrollLeft - container_rect.left;
+  }
   
   return {
-    top: rect.top + scrollTop - clientTop,
-    left: rect.left + scrollLeft - clientLeft,
-    right: rect.right + scrollLeft - clientLeft,
-    bottom: rect.bottom + scrollTop - clientTop
+    top: el_rect.top + top - clientTop,
+    left: el_rect.left + left - clientLeft,
+    right: el_rect.right + left - clientLeft,
+    bottom: el_rect.bottom + top - clientTop
   }
 }
 

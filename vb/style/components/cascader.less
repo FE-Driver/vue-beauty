@@ -54,7 +54,7 @@
       z-index: 2;
       background: #fff;
       top: 50%;
-      font-size: 12px;
+      font-size: @font-size-base;
       color: #ccc;
       width: 12px;
       height: 12px;
@@ -63,7 +63,7 @@
       cursor: pointer;
       transition: color 0.3s ease, opacity 0.15s ease;
       &:hover {
-        color: #999;
+        color: @text-color-secondary;
       }
     }
 
@@ -81,7 +81,7 @@
       height: 12px;
       margin-top: -6px;
       line-height: 12px;
-      color: #999;
+      color: @text-color-secondary;
       .iconfont-size-under-12px(9px);
       &:before {
         transition: transform 0.2s ease;
@@ -95,7 +95,7 @@
     }
   }
   &-menus {
-    font-size: 12px;
+    font-size: @font-size-base;
     background: #fff;
     position: absolute;
     z-index: @zindex-dropdown;
@@ -173,14 +173,14 @@
       &:after {
         .iconfont-font("\e61f");
         .iconfont-size-under-12px(8px);
-        color: #999;
+        color: @text-color-secondary;
         position: absolute;
         right: 15px;
       }
     }
 
     & &-keyword {
-      color: @error-color;
+      color: @highlight-color;
     }
   }
 }

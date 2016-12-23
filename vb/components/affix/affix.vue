@@ -1,7 +1,7 @@
 <template lang="html">
 
     <div :style="placeholderStyle">
-        <div class="ant-affix" :style="affixStyle" @click='setAffixStyle'>
+        <div :class="{[prefix]: isAffix}" :style="affixStyle">
             <slot></slot>
         </div>
     </div>
@@ -9,25 +9,27 @@
 </template>
 
 <script lang="babel">
+    import {getOffset,getScroll} from "../_util/_func.js"
+
     export default {
         name: 'v-affix',
         props:{
             offsetTop:Number,
-            offsetBottom: Number,
-            onChange: {
-                type: Function,
-                default: () => {}
-            }
+            offsetBottom: Number
         },
-        data:function () {
-            return {
-                placeholderStyle: null,
-                affixStyle: null
-            };
-        },
-        computed: {
-        },
+        data: ()=> ({
+            prefix: 'ant-affix',
+            isTop: true,
+            isAffix: false
+        }),
         ready: function () {
+            if(this.offsetTop === undefined){
+                if( this.offsetBottom === undefined){
+                    this.offsetTop = 0;
+                }else{
+                    this.isTop = false;
+                }
+            }
             document.addEventListener('scroll', this.handleScroll);
             document.addEventListener('resize', this.handleScroll);
         },
@@ -35,77 +37,55 @@
             document.removeEventListener('scroll', this.handleScroll);
             document.removeEventListener('resize', this.handleScroll);
         },
-        methods: {
-            setAffixStyle(){},
-            getScroll(w, top){
-                let ret = w['page' + (top ? 'Y' : 'X') + 'Offset'];
-                let method = 'scroll' + (top ? 'Top' : 'Left');
-                if (typeof ret !== 'number') {
-                    let d = w.document;
-                    //ie6,7,8 standard mode
-                    ret = d.documentElement[method]
-                    if (typeof ret !== 'number') {
-                        //quirks mode
-                        ret = d.body[method]
-                    }
-                }
-                return ret;
+        computed: {
+            placeholderStyle(){
+                return this.isAffix ? {
+                    width: this.$el.offsetWidth + 'px',
+                    height: this.$el.offsetHeight + 'px'
+                } : null
             },
-            getOffset(element){
-                const rect = element.getBoundingClientRect();
-                const body = document.body;
-                const clientTop = element.clientTop || body.clientTop || 0;
-                const clientLeft = element.clientLeft || body.clientLeft || 0;
-                const scrollTop = this.getScroll(window, true);
-                const scrollLeft = this.getScroll(window);
-                return {
-                    top: rect.top + scrollTop - clientTop,
-                    left: rect.left + scrollLeft - clientLeft,
-                };
-            },
-            handleScroll(){
-                let offsetTop = this.offsetTop
-                let offsetBottom = this.offsetBottom
-                const scrollTop = this.getScroll(window, true)
-                const affixNode = this.$el
-                const fixedNode = this.$el.children[0]
-                const elemOffset = this.getOffset(affixNode);
-                const offsetMode = {
-                    top: this.offsetTop,
-                    bottom: this.offsetBottom
-                }
-                if (scrollTop > elemOffset.top - offsetTop && (offsetMode.top || offsetMode.top == 0)) {
-                    this.affixStyle = {
+            affixStyle(){
+                let style = null;
+                if(this.isAffix ){
+                    style = {
                         position: 'fixed',
-                        top: offsetTop + 'px',
-                        left: elemOffset.left + 'px',
-                        width: affixNode.offsetWidth + 'px',
+                        left: getOffset(this.$el).left + 'px',
+                        width: this.$el.offsetWidth + 'px',
                     }
-                    this.placeholderStyle = {
-                        width: affixNode.offsetWidth + 'px',
-                        height: affixNode.offsetHeight + 'px',
+                    if(this.isTop){
+                        style.top = this.offsetTop + 'px';
+                    }else{
+                        style.bottom = this.offsetBottom + 'px';
                     }
-                    this.onChange(true)
-                } else if (scrollTop < elemOffset.top + fixedNode.offsetHeight + offsetBottom - window.innerHeight && offsetMode.bottom) {
-                    this.affixStyle = {
-                        position: 'fixed',
-                        bottom: offsetBottom + 'px',
-                        left: elemOffset.left + 'px',
-                        width: affixNode.offsetWidth + 'px',
-                    }
-                    this.placeholderStyle = {
-                        width: affixNode.offsetWidth + 'px',
-                        height: affixNode.offsetHeight + 'px',
-                    }
-                    this.onChange(true)
-                } else {
-                    this.affixStyle = null,
-                            this.placeholderStyle = null
-                    this.onChange(false)
                 }
-            },
+                return style;
+            }
         },
-        components: {
+        watch: {
+            isAffix(val){
+                this.$emit('change', val);
+            }
+        },
+        methods: {
+            handleScroll(){
+                let isAffix = false;
+                const scrollTop = getScroll(true);
+                const fixedNode = this.$el.children[0];
+                const elemOffset = this.$el.getBoundingClientRect();
+
+                if(this.isTop){
+                    if(elemOffset.top < this.offsetTop){
+                        isAffix = true;
+                    }
+                }else{
+                    const clientH = document.documentElement.clientHeight;
+                    if(clientH - elemOffset.bottom < this.offsetBottom){
+                        isAffix = true;
+                    }
+
+                }
+                this.isAffix  = isAffix;
+            }
         }
     }
 </script>

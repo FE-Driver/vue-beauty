@@ -27,7 +27,8 @@
             wrapCls(){
                 return [
                     this.prefix,
-                    {[`${this.prefix}-hidden`]: !this.selected}
+                    {[`${this.prefix}-active`]: this.selected},
+                    {[`${this.prefix}-inactive`]: !this.selected}
                 ]
             }
         }

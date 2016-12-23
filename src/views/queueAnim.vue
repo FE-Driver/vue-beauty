@@ -16,9 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="默认"
@@ -157,9 +156,8 @@
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
         </code-box>
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="进场和离场"
@@ -242,8 +240,8 @@
           </p>
         </code-box>
 
-      </div>
-    </div>
+      </v-col>
+    </v-row>
     <section class="markdown">
         <h3>API</h3>
         <p>元素依次进场</p>

@@ -19,10 +19,10 @@
             <span v-if="allowClear && value.length" class="ant-select-selection__clear" @click.stop="clearSelected"></span>
             <span class="ant-select-arrow" unselectable="unselectable" style="-webkit-user-select: none;"><b></b></span>
         </span>
-    </div>
-    <div :class="dropdownCls" style="max-height: 300px; overflow: auto" :style="style" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
-        <div>
-            <slot></slot>
+        <div :class="dropdownCls" style="max-height: 300px; overflow: auto" :style="style" transition="slide-up" v-show="open" @click='hide' v-el:dropdown>
+            <div>
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -33,9 +33,11 @@
     export default {
         data:()=>({
             prefix: 'ant-select',
-            style: {}
+            style: {},
+            container: null
         }),
         props: defaultProps({
+            popupContainer: ()=> document.body,
             position: 'absolute',
             multiple: false,
             allowClear: false,
@@ -44,8 +46,9 @@
             value: []
         }),
         ready(){
+            this.container = this.popupContainer()
             this.$els.dropdown.style.position = this.position;
-            document.body.appendChild(this.$els.dropdown);
+            this.container.appendChild(this.$els.dropdown);
             
             this.$nextTick(()=>{
                 this.setPosition();
@@ -94,7 +97,7 @@
                 if(!this.$el){
                     return
                 }
-                let p = getOffset(this.$els.inputArea);
+                let p = getOffset(this.$els.inputArea, this.container);
 
                 this.$set('style',{
                     top: p.bottom + 4 + 'px',

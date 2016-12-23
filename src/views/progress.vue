@@ -14,8 +14,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
         <code-box title="进度条" describe="有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success">
           <v-progress-line :percent="30" description="普通的进度条"></v-progress-line>
           <v-progress-line :percent="50" status="active"></v-progress-line>
@@ -43,8 +43,8 @@
           </v-button-group>
         </code-box>
 
-      </div>
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box title="进度圈" describe="有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success">
           <v-progress-circle :percent="30"></v-progress-circle>
@@ -70,8 +70,8 @@
           </v-button-group>
         </code-box>
 
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
     <api-table
       title="Progress Bar API"

@@ -3,6 +3,35 @@
 @import "../button/mixin";
 @import "./mixin";
 
+.@{ant-prefix}-input-search-wrapper {
+  display: inline-block;
+  position: relative;
+
+  .@{ant-prefix}-input-search {
+    transition: all .3s ease;
+    &-icon {
+      position: absolute;
+      right: 8px;
+      cursor: pointer;
+      transition: all .3s ease;
+      font-size: 14px;
+      height: 20px;
+      line-height: 20px;
+      top: 50%;
+      margin-top: -10px;
+      &:hover {
+        color: @input-hover-border-color;
+      }
+    }
+  }
+
+  &:hover .@{ant-prefix}-input-search:not([disabled]) {
+    border: 1px solid @input-hover-border-color;
+  }
+}
+
+// code blow is keeped for compatibility
+// do not delete until 3.x
 .@{ant-prefix}-search-input-wrapper {
   display: inline-block;
   vertical-align: middle;
@@ -40,7 +69,7 @@
   }
   .@{ant-prefix}-select-combobox {
     .@{ant-prefix}-select-selection__rendered {
-      right: 29px;
+      margin-right: 29px;
     }
   }
 }

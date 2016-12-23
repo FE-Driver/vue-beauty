@@ -24,6 +24,14 @@
           <v-multiselect :selected="selected" :options="options" @update="updateSelected"></v-multiselect>
         </code-box>
 
+        <code-box
+          title="三种大小"
+          describe="三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px">
+          <v-multiselect size="large" :options="options"></v-multiselect><br>
+          <v-multiselect :options="options"></v-multiselect><br>
+          <v-multiselect size="small" :options="options"></v-multiselect>
+        </code-box>
+
       </v-Col>
 
       <v-Col span="12">
@@ -73,8 +81,20 @@ export default {
         [
           'position',
           '下拉框的定位方式（absolute,fixed）',
-          'string',
+          'String',
           'absolute'   
+        ],
+        [
+          'size',
+          '选择框大小，可选 large small',
+          'String',
+          'default'   
+        ],
+        [
+          'popupContainer',
+          '下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。',
+          'Function',
+          '() => document.body'   
         ]
       ],
       selected: null,

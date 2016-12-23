@@ -14,8 +14,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="典型卡片"
@@ -42,9 +42,8 @@
           </v-card>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="无边框"
@@ -74,9 +73,8 @@
           </v-card>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
+      </v-col>
+      <v-Col>
 
         <code-box
           title="栅格卡片"
@@ -107,9 +105,8 @@
 
         </code-box>
 
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'

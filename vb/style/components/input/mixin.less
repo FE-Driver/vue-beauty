@@ -29,7 +29,7 @@
 .disabled() {
   background-color: @input-disabled-bg;
   opacity: 1;
-  cursor: @cursor-disabled;
+  cursor: not-allowed;
   color: #ccc;
   &:hover {
     .hover(@input-border-color);
@@ -52,7 +52,7 @@
   border: 1px solid @input-border-color;
   border-radius: @border-radius-base;
   .placeholder(); // Reset placeholder
-  transition: border .2s @ease-in-out, background .2s @ease-in-out, box-shadow .2s @ease-in-out;
+  transition: all .3s;
 
   &:hover {
     .hover();
@@ -93,7 +93,7 @@
     right: 0;
     z-index: 2;
     .square(@height);
-    font-size: 14px;
+    font-size: @font-size-lg;
     line-height: @height;
     text-align: center;
     pointer-events: none;
@@ -105,6 +105,7 @@
   position: relative;
   display: table;
   border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
 
   // Undo padding and float of grid classes
@@ -157,6 +158,8 @@
     background-color: #eee;
     border: 1px solid @input-border-color;
     border-radius: @border-radius-base;
+    position: relative;
+    transition: all .3s;
 
     // Reset Select's style in addon
     .@{ant-prefix}-select {
@@ -167,14 +170,26 @@
         border: 0;
         margin: -1px;
         border: 1px solid transparent;
+        box-shadow: none;
       }
 
       &-open,
       &-focused {
         .@{ant-prefix}-select-selection {
-          border-color: tint(@primary-color, 20%);
+          color: @primary-color;
         }
       }
+    }
+
+    // Expand addon icon click area
+    // https://github.com/ant-design/ant-design/issues/3714
+    > i:only-child:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
   }
 

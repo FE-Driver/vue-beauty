@@ -1,9 +1,10 @@
 .DS_Store
 node_modules/
 dist/
-package/
 npm-debug.log*
 selenium-debug.log
+package/style.js
+package/style.min.js
 test/unit/coverage
 test/e2e/reports
 .history

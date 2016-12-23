@@ -12,7 +12,8 @@
       </ul>
       <h2>组件演示</h2>
     </section>
-    <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
       <code-box
         title="基本"
         describe="第一个对话框。"
@@ -107,8 +108,8 @@
           <p>对话框的内容</p>
         </v-modal>
       </code-box>
-    </div>
-    <div class="ant-col-lg-12 code-boxes-col-2-1">
+    </v-col>
+    <v-Col span="12">
       <code-box
         title="异步关闭"
         describe="点击确定后异步关闭对话框，例如提交表单。"
@@ -148,7 +149,8 @@
         code=""> 
         <v-button @click="_confirmDestroy">成功提示</v-button>
       </code-box>
-    </div>
+    </v-col>
+  </v-row>
     <api-table
       :apis='modalApis'
     ></api-table>

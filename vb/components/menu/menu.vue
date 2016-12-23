@@ -17,6 +17,10 @@ export default {
       type: String,
       default: 'light'
     },
+    expand: {
+      type: Boolean,
+      default: false
+    }
   },
   ready(){
     this.$on('nodeSelected',ori=>{
@@ -25,7 +29,11 @@ export default {
   },
   watch: {
     mode(){
+      this.expand = false;
       this.$broadcast('modeChange',this.mode);
+    },
+    expand() {
+      this.$broadcast('expandChange',this.expand);
     }
   }
 }

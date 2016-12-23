@@ -14,8 +14,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col>
 
         <code-box
           title="基本用法"
@@ -198,9 +198,8 @@ const v-step = v-steps.vStep
           </v-steps>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
     <api-table
       :apis='apiSteps'
@@ -217,10 +216,6 @@ const v-step = v-steps.vStep
 
       <span>步骤条内的每一个步骤。</span>
     </api-table>
-
-    <div class="" style="height: 400px">
-
-    </div>
 
   </div>
 

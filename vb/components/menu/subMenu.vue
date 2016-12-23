@@ -7,7 +7,7 @@
         <span>{{title}}</span>
       </span>
     </div>
-    <ul :class="itemCls" :transition="mode=='inline'?'slide-up':'fade'" v-show="open">
+    <ul :class="itemCls" :transition="mode=='inline'?'slide-up':'fade'" v-show="expand">
       <slot></slot>
     </ul>
   </li>
@@ -20,26 +20,31 @@ export default {
   props: {
     title: String,
     icon: String,
+    expand: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
     }
   },
   data:()=>({
-    open: false,
     level:0,
     mode: 'vertical',
     timer: null
   }),
   ready(){
-    this.setLevelAndMode();
+    this.initProp();
     this.$on('modeChange',val=>{
-      this.open = false
       this.mode = val
       this.$broadcast('modeChange',val);
     })
     this.$on('cancelSelected',ori=>{
       this.$broadcast('cancelSelected',ori);
+    })
+    this.$on('expandChange',val=>{
+      this.expand = val
     })
   },
   computed:{
@@ -47,7 +52,7 @@ export default {
       return [
         'ant-menu-submenu',
         `ant-menu-submenu-${this.mode}`,
-        {'ant-menu-submenu-open': this.open}
+        {'ant-menu-submenu-open': this.expand}
       ]
     },
     titleCls(){
@@ -70,7 +75,7 @@ export default {
     }
   },
   methods: {
-    setLevelAndMode(){
+    initProp(){
       let index = 1;
       let parent = this.$parent;
 
@@ -78,12 +83,13 @@ export default {
         if(parent.$options.name == 'v-sub-menu') index++;
         parent = parent.$parent;
       }
+      this.expand = parent.expand;
       this.mode = parent.mode;
       this.level = index;
     },
     clickTriggerOpen(){
       if(!this.disabled && this.mode == 'inline'){
-        this.setOpen(!this.open);
+        this.setOpen(!this.expand);
       }
     },
     mouseTriggerOpen(status){
@@ -93,7 +99,7 @@ export default {
       }
     },
     setOpen(status){
-      this.open = status;
+      this.expand = status;
     }
   }
 }

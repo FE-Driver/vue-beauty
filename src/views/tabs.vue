@@ -20,10 +20,10 @@
       <v-Col span="12">
 
         <code-box
-          title="图标按钮"
-          describe=""
+          title="基本"
+          describe="默认选中第一项"
         >
-          <v-tabs active-key="2">
+          <v-tabs active-key="1">
             <v-tab-pane key="1" tab="选项卡一">选项卡一内容</v-tab-pane>
             <v-tab-pane key="2" tab="选项卡二">选项卡二内容</v-tab-pane>
             <v-tab-pane key="3" tab="选项卡三">选项卡三内容</v-tab-pane>
@@ -35,8 +35,8 @@
       <v-Col span="12">
 
         <code-box
-          title="图标按钮"
-          describe=""
+          title="禁用"
+          describe="禁用某一项。"
         >
           <v-tabs active-key="1">
             <v-tab-pane key="1" tab="选项卡一">选项卡一</v-tab-pane>
@@ -61,7 +61,7 @@
             <v-tab-pane key="9" tab="选项九">选项卡九</v-tab-pane>
           </v-tabs>
         </code-box>
-        
+
       </v-Col>
     </v-Row>
 

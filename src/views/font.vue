@@ -152,25 +152,6 @@
 </script>
 <style lang="less" scoped>
 
-  .markdown > ul li {
-    list-style: circle;
-    margin-left: 20px;
-  }
-
-  .markdown pre {
-    background: #F7F7F7;
-    border-radius: 6px;
-  }
-
-  .markdown pre {
-    margin: 1.2em 0;
-    padding: 1em;
-  }
-
-  .markdown code {
-    margin: 0 3px;
-  }
-
   ul.anticons-list {
     margin: 20px 0;
     list-style: none;
