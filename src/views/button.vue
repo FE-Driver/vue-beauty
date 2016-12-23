@@ -16,9 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="按钮类型"
@@ -49,9 +48,8 @@
           <v-button type='primary' loading>Loading</v-button>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="图标按钮"
@@ -88,8 +86,8 @@
           </v-button-group>
         </code-box>
 
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
 
     <api-table

@@ -12,7 +12,8 @@
       </ul>
       <h2>组件演示</h2>
     </section>
-    <div class="ant-col-lg-12 code-boxes-col-2-1">
+  <v-Row :gutter="16">
+    <v-Col span="12">
     	<code-box
         title="基本"
         describe="基础分页。"
@@ -75,8 +76,8 @@
 			  	:default-current="3"
 			  	:total="50"></v-pagination>
       </code-box>
-    </div>
-    <div class="ant-col-lg-12 code-boxes-col-2-1">
+    </v-col>
+    <v-Col span="12">
     	<code-box
         title="更多"
         describe="更多分页"
@@ -115,7 +116,8 @@
 			  	:show-total="showTotal"
 			  	:total="50"></v-pagination>
       </code-box>
-    </div>
+    </v-col>
+  </v-row>
 	  <api-table :apis="apis"></api-table>
 </div>
 </template>

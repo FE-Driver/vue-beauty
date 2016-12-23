@@ -16,8 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基础"
@@ -42,9 +42,19 @@
           </v-badge>
         </code-box>
 
-      </div>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <code-box
+          title="独立使用"
+          describe="不包裹任何元素即是独立使用"
+          :code="code"
+        >
+          <v-badge :count="25"></v-badge>
+          <v-badge :count="4" :styles="{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }"></v-badge>
+          <v-badge :count="109" :styles="{ backgroundColor: '#87d068' }"></v-badge>
+        </code-box>
+
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="大数字"
@@ -97,22 +107,8 @@
           </div>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
-
-        <code-box
-          title="独立使用"
-          describe="不包裹任何元素即是独立使用"
-          :code="code"
-        >
-          <v-badge :count="25"></v-badge>
-          <v-badge :count="4" :styles="{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }"></v-badge>
-          <v-badge :count="109" :styles="{ backgroundColor: '#87d068' }"></v-badge>
-        </code-box>
-
-      </div>
-    </div>
+    </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'

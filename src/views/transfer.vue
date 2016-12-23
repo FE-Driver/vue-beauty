@@ -10,7 +10,8 @@
       </ul>
       <h2>组件演示</h2>
   </section>
-	<div class="ant-col-24 code-boxes-col-1-1">
+	<v-Row :gutter="16">
+		<v-Col>
     	<code-box
         title="基本用法"
         describe="最基本的用法。"
@@ -72,7 +73,8 @@
 				 :render="render2">
 				 </v-transfer>
       </code-box>
-  </div>
+  </v-col>
+</v-row>
   <api-table :apis="apis"></api-table>
 </template>
 <script>

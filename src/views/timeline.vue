@@ -14,8 +14,8 @@
             </ul>
         </section>
 
-        <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <v-Row :gutter="16">
+            <v-Col span="12">
 
                 <code-box
                     title="基本用法"
@@ -40,9 +40,8 @@
                     </v-timeline>
                 </code-box>
 
-            </div>
-
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+            </v-col>
+            <v-Col span="12">
 
                 <code-box
                     title="圆圈颜色"
@@ -80,9 +79,8 @@
                     </v-timeline>
                 </code-box>
 
-            </div>
-
-        </div>
+            </v-col>
+        </v-row>
 
 
         <api-table
@@ -105,7 +103,6 @@
         >
             <h3>TimelineItem</h3>
         </api-table>
-
 
     </div>
 

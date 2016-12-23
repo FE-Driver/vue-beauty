@@ -19,9 +19,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本使用"
@@ -30,9 +29,15 @@
           <v-input placeholder="基本使用" @blur="blur"></v-input>
         </code-box>
 
-      </div>
+        <code-box
+          title="文本域"
+          describe="用于多行输入，指定 type 为一个特殊的 textarea。"
+        >
+         <v-input type="textarea" value="这是一个textarea"></v-input>
+        </code-box>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
         <code-box
         title="前后缀修饰添加"
           describe="带有前缀后缀修饰">
@@ -47,22 +52,6 @@
           </v-input>
 
         </code-box>
-      </div>
-
-    </div>
-
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
-        <code-box
-          title="文本域"
-          describe="用于多行输入，指定 type 为一个特殊的 textarea。"
-        >
-         <v-input type="textarea" value="这是一个textarea"></v-input>
-        </code-box>
-
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
 
         <code-box
           title="三种大小"
@@ -73,10 +62,8 @@
           <br/><br/>
           <v-input size="small" placeholder="小尺寸" style="width:200px;display:inline-block"></v-input>
         </code-box>
-
-      </div>
-    </div>
-
+      </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'

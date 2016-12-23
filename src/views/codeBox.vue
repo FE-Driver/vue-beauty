@@ -16,9 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col>
 
         <code-box
           title="基本"
@@ -45,9 +44,8 @@
           </code-box>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
 
     <api-table

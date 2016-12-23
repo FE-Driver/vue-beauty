@@ -17,8 +17,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本"
@@ -60,9 +60,8 @@
 
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="自动关闭的延时"
@@ -80,9 +79,8 @@
           <button type="button" class="ant-btn ant-btn-primary" @click="openNotificationInfinite"><span>打开通知提醒框</span></button>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
 
 
