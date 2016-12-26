@@ -56,7 +56,7 @@
       :content='eventContent'
       title=""
     >
-      <h3>Affix methods</h3>
+      <h3>Affix Events</h3>
     </api-table>
 
     <div class="" style="height: 400px">
