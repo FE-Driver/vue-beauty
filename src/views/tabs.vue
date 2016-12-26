@@ -3,14 +3,14 @@
   <div>
 
     <section class="markdown">
-      <h1>Button 按钮</h1>
+      <h1>Tabs 标签页</h1>
       <p>
-        按钮用于开始一个即时操作。
+          选项卡切换组件。
       </p>
       <h2>何时使用</h2>
       <ul>
         <p>
-          标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
+            提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
         </p>
       </ul>
       <h2>组件演示</h2>
@@ -44,13 +44,27 @@
             <v-tab-pane key="3" tab="选项卡三">选项卡三</v-tab-pane>
           </v-tabs>
         </code-box>
+      </v-Col>
 
+      <v-Col span="12">
         <code-box
-          title="图标按钮"
-          describe=""
+            title="图标"
+            describe="有图标的标签。"
+        >
+            <v-tabs active-key="1">
+                <v-tab-pane key="1" tab="选项卡一" icon="apple">选项卡一内容</v-tab-pane>
+                <v-tab-pane key="2" tab="选项卡二" icon="android">选项卡二内容</v-tab-pane>
+            </v-tabs>
+        </code-box>
+      </v-Col>
+
+      <v-Col span="12">
+        <code-box
+          title="滑动"
+          describe="可以左右滑动, 容纳更多标签"
         >
           <v-tabs active-key="1">
-            <v-tab-pane key="1" tab="选项一">选项卡一</v-tab-pane>
+            <v-tab-pane key="1" tab="选项一">选项一</v-tab-pane>
             <v-tab-pane key="2" tab="选项二">选项卡二</v-tab-pane>
             <v-tab-pane key="3" tab="选项三">选项卡三</v-tab-pane>
             <v-tab-pane key="4" tab="选项四">选项卡四</v-tab-pane>
@@ -59,9 +73,9 @@
             <v-tab-pane key="7" tab="选项七">选项卡七</v-tab-pane>
             <v-tab-pane key="8" tab="选项八">选项卡八</v-tab-pane>
             <v-tab-pane key="9" tab="选项九">选项卡九</v-tab-pane>
+            <!--<v-tab-pane key="10" tab="选项十">选项卡十</v-tab-pane>-->
           </v-tabs>
         </code-box>
-
       </v-Col>
     </v-Row>
 

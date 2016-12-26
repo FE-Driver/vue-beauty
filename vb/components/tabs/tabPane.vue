@@ -15,6 +15,7 @@
         }),
         props: defaultProps({
             key: String,
+            icon: String,
             disabled: false,
             tab: String
         }),
