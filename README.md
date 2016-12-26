@@ -1,4 +1,3 @@
-![]()
 <p align="center">
     <a href="https://github.com/FE-Driver/vue-beauty">
         <img width="200" src="https://raw.githubusercontent.com/FE-Driver/vue-beauty/master/src/assets/VB-logo.png">

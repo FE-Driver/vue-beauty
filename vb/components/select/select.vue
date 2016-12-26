@@ -3,9 +3,9 @@
         <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true"
         aria-expanded="false" tabindex="0">
             <div class="ant-select-selection__rendered">
-                <template v-if="label">
+                <template v-if="labels">
                     <ul v-if="multiple">
-                        <li v-for="(i,text) in label" unselectable="unselectable" class="ant-select-selection__choice" title="{{text}}" style="user-select: none;">
+                        <li v-for="(i,text) in labels" unselectable="unselectable" class="ant-select-selection__choice" title="{{text}}" style="user-select: none;">
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
                         </li>
@@ -16,9 +16,9 @@
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="ant-select-selection-selected-value" title="Lucy" :style="{opacity: isSearchFocus?0.4:1};">{{label}}</div>
+                    <div v-else class="ant-select-selection-selected-value" title="Lucy" :style="{opacity: isSearchFocus?0.4:1};">{{labels}}</div>
                 </template>
-                <div v-show="((multiple && !label.length) || (!multiple && !label)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
+                <div v-show="((multiple && !labels.length) || (!multiple && !labels)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
                 <div v-if="search && !multiple" class="ant-select-search ant-select-search--inline">
                     <div class="ant-select-search__field__wrap">
                         <input class="ant-select-search__field" v-model="searchVal" @focus="isSearchFocus = true" @blur="searchBlur" v-el:search-input>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <span v-if="allowClear && label && !multiple" unselectable="unselectable" class="ant-select-selection__clear" style="-webkit-user-select: none" @click.stop="clear"></span>
+            <span v-if="allowClear && labels && !multiple" unselectable="unselectable" class="ant-select-selection__clear" style="-webkit-user-select: none" @click.stop="clear"></span>
             <span v-if="!multiple" class="ant-select-arrow" unselectable="unselectable" style="user-select: none;">
                 <b>
                 </b>
@@ -36,25 +36,29 @@
             <div style="overflow: auto;">
                 <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root"
                 role="menu" aria-activedescendant="">
-                    <li v-if="searchVal && !searchFound" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
-                    <template v-for="(i,option) in options">
-                        <template v-if="option.label">
-                            <li v-show="option.show" class=" ant-select-dropdown-menu-item-group">
-                                <div class="ant-select-dropdown-menu-item-group-title">
-                                    {{option.label}}
-                                </div>
-                                <ul v-if="option.data && option.data.length" class="ant-select-dropdown-menu-item-group-list">
-                                    <li v-show="option.show" v-for="item in option.data" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,$index])">
-                                        {{item.text}}
-                                    </li>
-                                </ul>
-                            </li>
-                        </template>
-                        <template v-else>
-                            <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]"
-                            role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
-                                {{option.text}}
-                            </li>
+                    <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
+                    <template v-else>
+                        <li v-if="searchVal && remoteMethod && !options.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
+                        <li v-if="searchVal && !remoteMethod && !searchFound" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
+                        <template v-for="(i,option) in ori_options">
+                            <template v-if="option.label">
+                                <li v-show="option.show" class=" ant-select-dropdown-menu-item-group">
+                                    <div class="ant-select-dropdown-menu-item-group-title">
+                                        {{option.label}}
+                                    </div>
+                                    <ul v-if="option.data && option.data.length" class="ant-select-dropdown-menu-item-group-list">
+                                        <li v-show="option.show" v-for="item in option.data" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,$index])">
+                                            {{item[label]}}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </template>
+                            <template v-else>
+                                <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]"
+                                role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
+                                    {{option[label]}}
+                                </li>
+                            </template>
                         </template>
                     </template>
                 </ul>
@@ -74,12 +78,21 @@
             searchFound: false,
             show: false,
             style: {},
-            label: '',
+            labels: '',
+            ori_options: [],
             isSearchFocus: false,
             dropdownHeight: 0,
             container: null
         }),
         props: {
+            key: {
+                type: String,
+                default: 'value'
+            },
+            label: {
+                type: String,
+                default: 'text'
+            },
             multiple: {
                 type: Boolean,
                 default: false
@@ -110,7 +123,7 @@
             },
             value: {
                 type: [Number, String, Array],
-                required: true
+                default: ''
             },
             placeholder: {
                 type: String,
@@ -129,6 +142,15 @@
                 type: String, 
                 default: 'absolute'
             },
+            loading: {
+                type: Boolean,
+                default: false
+            },
+            loadingText: {
+                type: String,
+                default: '加载中...'
+            },
+            remoteMethod: Function
         },
         ready() {
             this.init();
@@ -149,29 +171,58 @@
             window.removeEventListener('click',this.closeDropdown);
         },
         watch: {
+            value(val){
+                this.$emit('change',val)
+            },
             searchVal(val){
+                if(this.multiple){
+                    this.multipleSearchStyle = val?{width: this.$els.searchMirror.offsetWidth + 'px'}:{}
+                }
+                if(this.remoteMethod) return this.remoteMethod(val);
                 if(val){
                     this.searchFound = false;
                     let show = false;
                     this.mapOptions(([type, path, item])=> {
-                        const isIncluded = item.text.includes(val);
+                        const isIncluded = item[this.label].includes(val);
                         if(isIncluded) this.searchFound = true;
 
                         if(type == 'item'){
-                            this.$set(`options[${path}].show`, isIncluded);
+                            this.$set(`ori_options[${path}].show`, isIncluded);
                         }else{
-                            this.$set(`options[${path[0]}].data[${path[1]}].show`, isIncluded);
+                            this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, isIncluded);
                             if(isIncluded) show = true;
                         }
                     },(i,group)=> {
-                        this.$set(`options[${i}].show`, show);
+                        this.$set(`ori_options[${i}].show`, show);
                         show = false;
                     })
-                    this.multipleSearchStyle = {width: this.$els.searchMirror.offsetWidth + 'px'}
                 }else{
                     this.setOptions({show: true},{show: true});
-                    this.multipleSearchStyle = {};
                 }
+            },
+            options: {
+                handler(val){
+                    this.ori_options = JSON.parse(JSON.stringify(val));
+
+                    this.mapOptions(([type, path, item])=> {
+                        let selected = false;
+                        if(this.multiple && this.value.includes(item[this.key])){
+                            selected = true;
+                        }else if(!this.multiple && this.value === item[this.key]){
+                            selected = true;
+                        }
+                        if(type == 'item'){
+                            this.$set(`ori_options[${path}].selected`, selected);
+                            this.$set(`ori_options[${path}].show`, true);
+                        }else{
+                            this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, selected);
+                            this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, true);
+                        }
+                    },(i,group)=> {
+                        this.$set(`ori_options[${i}].show`, true);
+                    })
+                },
+                deep: true
             }
         },
         computed: {
@@ -200,7 +251,7 @@
         },
         methods: {
             mapOptions(callback,groupCallback){
-                for(let [i,opt] of this.options.entries()){
+                for(let [i,opt] of this.ori_options.entries()){
                     if(opt.label){
                         if(opt.data && opt.data.length){
                             for(let [j,item] of opt.data.entries()){
@@ -216,27 +267,30 @@
                 }
             },
             init(){
-                this.options = JSON.parse(JSON.stringify(this.options));
-                if(this.multiple) this.label = [];
+                if(this.options.length) this.ori_options = JSON.parse(JSON.stringify(this.options));
+                if(this.multiple){
+                    this.labels = [];
+                    if(!this.value) this.value = [];
+                }
 
                 this.mapOptions(([type, path, item])=> {
                     let selected = false;
-                    if(this.multiple && this.value.includes(item.value)){
+                    if(this.multiple && this.value.includes(item[this.key])){
                         selected = true;
-                        this.label.push(item.text);
-                    }else if(!this.multiple && this.value === item.value){
+                        this.labels.push(item[this.label]);
+                    }else if(!this.multiple && this.value === item[this.key]){
                         selected = true;
-                        this.label = item.text;
+                        this.labels = item[this.label];
                     }
                     if(type == 'item'){
-                        this.$set(`options[${path}].selected`, selected);
-                        this.$set(`options[${path}].show`, true);
+                        this.$set(`ori_options[${path}].selected`, selected);
+                        this.$set(`ori_options[${path}].show`, true);
                     }else{
-                        this.$set(`options[${path[0]}].data[${path[1]}].selected`, selected);
-                        this.$set(`options[${path[0]}].data[${path[1]}].show`, true);
+                        this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, selected);
+                        this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, true);
                     }
                 },(i,group)=> {
-                    this.$set(`options[${i}].show`, true);
+                    this.$set(`ori_options[${i}].show`, true);
                 })
             },
             getDropdownHeight(){
@@ -246,17 +300,17 @@
                this.mapOptions(([type, path, item])=> {
                     if(type == 'item'){
                         for(let [key,val] of Object.entries(opt)){
-                            this.$set(`options[${path}].${key}`, val);
+                            this.$set(`ori_options[${path}].${key}`, val);
                         }
                     }else{
                         for(let [key,val] of Object.entries(opt)){
-                            this.$set(`options[${path[0]}].data[${path[1]}].${key}`, val);
+                            this.$set(`ori_options[${path[0]}].data[${path[1]}].${key}`, val);
                         }
                     }
                 },(i,group)=> {
                     if(groupOpt){
                         for(let [key,val] of Object.entries(groupOpt)){
-                            this.$set(`options[${i}].${key}`, val);
+                            this.$set(`ori_options[${i}].${key}`, val);
                         }
                     }
                 }) 
@@ -298,19 +352,19 @@
             },
             clear(){
                 this.value = '';
-                this.label = '';
+                this.labels = '';
                 this.setOptions({selected: false});
             },
             remove(i,text){
-                this.label.splice(i,1);
+                this.labels.splice(i,1);
                 this.value.splice(i,1);
 
                 this.mapOptions(([type, path, item])=> {
-                    if(item.text == text){
+                    if(item[this.label] == text){
                         if(type == 'item'){
-                            this.$set(`options[${path}].selected`, false);
+                            this.$set(`ori_options[${path}].selected`, false);
                         }else{
-                            this.$set(`options[${path[0]}].data[${path[1]}].selected`, false);
+                            this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, false);
                         }
                         return true;
                     }
@@ -319,27 +373,27 @@
             select(path){
                 let opt;
                 if(typeof path == 'number'){
-                    opt = this.options[path]
+                    opt = this.ori_options[path]
                 }else{
-                    opt = this.options[path[0]].data[path[1]]
+                    opt = this.ori_options[path[0]].data[path[1]]
                 }
                 if(opt.disabled) return;
                 this.searchVal = '';
                 if(!this.multiple) this.setOptions({selected: false});
                 if(this.multiple){
                     if(opt.selected){
-                        const j = this.label.indexOf(opt.text);
-                        this.label.splice(j,1);
+                        const j = this.labels.indexOf(opt[this.label]);
+                        this.labels.splice(j,1);
                         this.value.splice(j,1);
                     }else{
-                        this.value.push(opt.value);
-                        this.label.push(opt.text);
+                        this.value.push(opt[this.key]);
+                        this.labels.push(opt[this.label]);
                     }
                     opt.selected = !opt.selected;
                 }else{
                     opt.selected = true;
-                    this.value = opt.value;
-                    this.label = opt.text;
+                    this.value = opt[this.key];
+                    this.labels = opt[this.label];
                 }
             }
         }

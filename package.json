@@ -15,6 +15,7 @@
     "type": "git",
     "url": "https://github.com/FE-Driver/vue-beauty.git"
   },
+  "license": "MIT",
   "keywords": [
     "vue",
     "vue-beauty",

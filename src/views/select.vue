@@ -3,14 +3,15 @@
   <div>
 
     <section class="markdown">
-      <h1>Select 选择器</h1>
+      <h1>Select选择器</h1>
       <p>
-        一个简单的select选择器
+        类似 Select2 的选择器。
       </p>
       <h2>何时使用</h2>
-      <p>
-        弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。
-      </p>
+      <ul>
+        <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>
+        <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>
+      </ul>
       <h2>组件演示</h2>
     </section>
     <v-Row :gutter="16">
@@ -19,7 +20,7 @@
           title="简单"
           describe="最简单的用法。"
         >
-          <v-Select placeholder="请选择人员" style="width: 120px;" :options="options" value=""></v-Select>
+          <v-Select placeholder="请选择人员" style="width: 120px;" :options="options" value="" @change="change"></v-Select>
           <v-Select placement="top" style="width: 120px;" :options="options" :value.sync="value"></v-Select>
           <v-Select disabled style="width: 120px;" value=""></v-Select>
         </code-box>
@@ -29,6 +30,14 @@
         >
           <v-Select search style="width: 120px;" :options="options" value=""></v-Select><br><br>
           <v-Select search multiple style="width: 100%" :options="options" :value="[]"></v-Select>
+        </code-box>
+
+        <code-box
+          title="分组"
+          describe="用嵌套的数据结构进行选项分组。"
+        >
+          <v-Select style="width: 200px" :options="groupOpt" :value="'lp'"></v-Select>
+          <v-Select style="width: 200px" multiple :options="groupOpt" :value="['lp']"></v-Select>
         </code-box>
       </v-Col>
       <v-Col span="12">
@@ -49,17 +58,30 @@
         </code-box>
 
         <code-box
-          title="分组"
-          describe="用嵌套的数据结构进行选项分组。"
+          title="远程搜索"
+          describe="从服务器搜索数据，输入关键字进行查找"
         >
-          <v-Select style="width: 200px" :options="groupOpt" :value="'lp'"></v-Select>
-          <v-Select style="width: 200px" multiple :options="groupOpt" :value="['lp']"></v-Select>
+          <v-Select style="width: 200px" search :loading="loading" :remote-method="remoteMethod" :options="remoteOption"></v-Select><br><br>
+          <v-Select style="width: 100%" search multiple :loading="loading2" :remote-method="remoteMethod2" :options="remoteOption"></v-Select>
         </code-box>
       </v-Col>
     </v-Row>
 
 
-    <api-table :apis='apis'></api-table>
+    <api-table :content='content'></api-table>
+    <api-table
+      title=""
+      type="events"
+      :content='eventContent'
+    >
+      <h3>Select Events</h3>
+    </api-table>
+    <api-table
+      title=""
+      :content='optionCont'
+    >
+      <h3>Options Attributes</h3>
+    </api-table>
   </div>
 
 </template>
@@ -71,8 +93,6 @@
   export default {
     data: function () {
       return {
-        apis: [
-        ],
         options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],
         groupOpt: [
           {
@@ -101,18 +121,205 @@
           }
         ],
         value: '3',
-        people: ''
+        states: ["Alabama", "Alaska", "Arizona",
+        "Arkansas", "California", "Colorado",
+        "Connecticut", "Delaware", "Florida",
+        "Georgia", "Hawaii", "Idaho", "Illinois",
+        "Indiana", "Iowa", "Kansas", "Kentucky",
+        "Louisiana", "Maine", "Maryland",
+        "Massachusetts", "Michigan", "Minnesota",
+        "Mississippi", "Missouri", "Montana",
+        "Nebraska", "Nevada", "New Hampshire",
+        "New Jersey", "New Mexico", "New York",
+        "North Carolina", "North Dakota", "Ohio",
+        "Oklahoma", "Oregon", "Pennsylvania",
+        "Rhode Island", "South Carolina",
+        "South Dakota", "Tennessee", "Texas",
+        "Utah", "Vermont", "Virginia",
+        "Washington", "West Virginia", "Wisconsin",
+        "Wyoming"],
+        list: [],
+        loading: false,
+        loading2: false,
+        remoteOption: [],
+        content: [
+          [
+            'key',
+            '选项的value',
+            'String',
+            'value'
+          ],
+          [
+            'label',
+            '选项显示的文本',
+            'String',
+            'text'
+          ],
+          [
+            'multiple',
+            '是否支持多选',
+            'Boolean',
+            'false'
+          ],
+          [
+            'notFoundContent',
+            '当下拉列表为空时显示的内容',
+            'String',
+            '没有找到'
+          ],
+          [
+            'placement',
+            '下拉框出现的位置(top、bottom)',
+            'String',
+            'bottom'
+          ],
+          [
+            'search',
+            '是否可以搜索',
+            'Boolean',
+            'false'
+          ],
+          [
+            'maxHeight',
+            '下拉框的最大高度',
+            'Number',
+            '300'
+          ],
+          [
+            'disabled',
+            '控件是否禁用',
+            'Boolean',
+            'false'
+          ],
+          [
+            'allowClear',
+            '支持清除, 单选模式有效',
+            'Boolean',
+            'false'
+          ],
+          [
+            'value',
+            '指定默认选中的条目',
+            'String/Array',
+            '-'
+          ],
+          [
+            'placeholder',
+            '选择框默认文字',
+            'String',
+            '请选择'
+          ],
+          [
+            'options',
+            '下拉框的数据',
+            'Array',
+            '[]'
+          ],
+          [
+            'size',
+            '选择框大小，可选 lg sm',
+            'String',
+            '-'
+          ],
+          [
+            'loading',
+            '呈现加载样式（一般用于从远程获取数据）',
+            'Boolean',
+            'false'
+          ],
+          [
+            'loadingText',
+            '加载时显示的文字',
+            'String',
+            '加载中...'
+          ],
+          [
+            'remoteMethod',
+            '远程搜索方法',
+            'Function',
+            '-'
+          ],
+          [
+            'position',
+            '下拉框的定位方式（absolute,fixed）',
+            'String',
+            'absolute'
+          ],
+          [
+            'popupContainer',
+            '下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。',
+            'Function',
+            '() => document.body'
+          ]
+        ],
+        optionCont: [
+          [
+            'label',
+            '组名(有这个字段代表这是个分组数据，只支持一级)',
+            'String',
+            '-'
+          ],
+          [
+            'data',
+            '分组的数据',
+            'Array',
+            '-'
+          ],
+          [
+            'disabled',
+            '是否禁用',
+            'Boolean',
+            'false'
+          ]
+        ],
+        eventContent: [
+          ['change',
+          '选择的值发生变化的时候触发',
+          'value']
+        ]
+      }
+    },
+    ready(){
+      this.list = this.states.map(item => {
+        return { value: item, text: item };
+      });
+    },
+    methods:{
+      change(val){
+        console.log(val)
+      },
+      remoteMethod(query) {
+        if (query !== '') {
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.remoteOption = this.list.filter(item => {
+              return item.text.toLowerCase()
+                .indexOf(query.toLowerCase()) > -1;
+            });
+          }, 200);
+        } else {
+          this.remoteOption = [];
+        }
+      },
+      remoteMethod2(query) {
+        if (query !== '') {
+          this.loading2 = true;
+          setTimeout(() => {
+            this.loading2 = false;
+            this.remoteOption = this.list.filter(item => {
+              return item.text.toLowerCase()
+                .indexOf(query.toLowerCase()) > -1;
+            });
+          }, 200);
+        } else {
+          this.remoteOption = [];
+        }
       }
     },
     components: {
       codeBox,
       apiTable
-    },
-    events: {
-      'select-change': function (obj) {
-        console.log(obj.text)
-      }
-    },
-    methods: {}
+    }
   }
 </script>
