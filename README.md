@@ -7,7 +7,6 @@
 # vue-beauty [![npm](http://img.shields.io/npm/v/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![NPM downloads](http://img.shields.io/npm/dm/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty)
 Beautiful  UI components build with vue and ant design
 
-- 在本项目release之前，你都不应该在生产环境中使用
 - vue2.0版本请关注next分支
 
 ## 特性
