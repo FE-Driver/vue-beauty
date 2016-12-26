@@ -33,7 +33,7 @@
             </p>
             <h2>组件开发步骤</h2>
             <p>
-                <li>到<a href="https://github.com/ant-design/ant-design/tree/master/components" target="blank">ant-design2.5.2</a>官网拷贝组件相应的样式到vb/style/components下</li>
+                <li>到<a href="https://github.com/ant-design/ant-design/tree/master/components" target="blank">ant-design2.5.3</a>官网拷贝组件相应的样式到vb/style/components下</li>
                 <li>打开vb/style/components/index.less，导出组件的样式</li>
                 <li>在vb/components文件夹下开发组件</li>
                 <li>到vb/index.js下导出组件</li>
