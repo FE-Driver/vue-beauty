@@ -1,9 +1,5 @@
 {
-  "presets": ["latest","stage-2",["env", {
-    "targets": {
-      "browsers": ["last 2 versions", "ie >=11"]
-    }
-  }]],
+  "presets": ["latest","stage-2"],
   "plugins": [
     ["transform-runtime", {
       "helpers": false,
