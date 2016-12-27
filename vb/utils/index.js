@@ -1,17 +1,23 @@
-/*export * from './lang'
-export * from './env'*/
-export * from './dom'
-export * from './props'
-export * from './event'
-export * from './guid'
+import * as _dom from './dom'
+import * as _props from './props'
+import * as _event from './event'
+import * as _guid from './guid'
 
-import _cx from 'classnames'
-import _KeyCode from './KeyCode'
-import _slotMixin from './slotMixin'
-export const cx = _cx
-export const KeyCode = _KeyCode
-export const slotMixin = _slotMixin
+import cx from 'classnames'
+import KeyCode from './KeyCode'
+import slotMixin from './slotMixin'
 
-export function getPlainObject (vueObject) {
+function getPlainObject (vueObject) {
   return JSON.parse(JSON.stringify(vueObject))
+}
+//object用export default会将到处这样的形式{default: object} 导致外面解构失败
+module.exports = {
+  ..._dom,
+  ..._props,
+  ..._event,
+  ..._guid,
+  cx,
+  KeyCode,
+  slotMixin,
+  getPlainObject
 }

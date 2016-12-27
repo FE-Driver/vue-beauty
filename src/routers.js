@@ -317,10 +317,10 @@ export default function(router) {
             require(['./views/contribute.vue'], resolve);
           }
         },
-        '/changelog': {
-          name: 'changelog',
+        '/polyfill': {
+          name: 'polyfill',
           component: function index(resolve) {
-            require(['./views/changelog.vue'], resolve);
+            require(['./views/polyfill.vue'], resolve);
           }
         }
       }

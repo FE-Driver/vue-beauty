@@ -1,0 +1,29 @@
+<template>
+  <div class="markdown">
+    <h1>Polyfill</h1>
+    <p>
+        vue-beauty使用了很多ES的最新语法进行开发，以下实例方法您可以直接在项目里使用。
+    </p>
+    <h2>Array</h2>
+    <ul>
+      <li>find</li>
+      <li>findIndex</li>
+      <li>values</li>
+      <li>keys</li>
+      <li>entries</li>
+      <li>includes</li>
+    </ul>
+    <h2>String</h2>
+    <ul>
+      <li>includes</li>
+      <li>startsWith</li>
+      <li>endsWith</li>
+      <li>repeat</li>
+      <li>padStart</li>
+      <li>padEnd</li>
+      <li>trimStart</li>
+      <li>trimEnd</li>
+      <li>at</li>
+    </ul>
+  </div>    
+</template>

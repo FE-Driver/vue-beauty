@@ -1,6 +1,6 @@
 {
   "name": "vue-beauty",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Ant Design components built with Vue.js",
   "author": "G7:FE-driver",
   "main": "package/vue-beauty.min.js",
@@ -32,8 +32,8 @@
   "dependencies": {
     "async-validator": "^1.6.7",
     "classnames": "^2.2.5",
-    "css3transform": "^1.1.2",
     "domtastic": "^0.12.3",
+    "core.js": "^0.4.2",
     "velocity-animate": "^1.4.0",
     "vue-resource": "^0.9.3"
   },
@@ -42,7 +42,7 @@
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "babel-runtime": "^6.20.0",
     "clipboard": "^1.5.16",
@@ -76,7 +76,7 @@
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
-    "webpack-hot-middleware": "^2.13.2",
+    "webpack-hot-middleware": "^2.14.0",
     "webpack-merge": "^2.0.0"
   }
 }

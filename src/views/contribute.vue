@@ -46,6 +46,12 @@
                 <li>文件，目录均以小写开头，驼峰式(如inputNumber)</li>
                 <li>组件的import export 均以v开头，驼峰式(如vInputNumber)</li>
             </p>
+            <h2>ES语法说明</h2>
+            <p>
+                <li>.babelrc配置了preset-latest保证新的语法支持（如const、let）</li>
+                <li>.babelrc配置了transform-runtime保证新的全局对象和全局对象上的方法的支持（如Promise、Object.assign）</li>
+                <li>vb/utils/polyfill.js配置了可以使用的实例方法（如'abc'.includes('a')）</li>
+            </p>
             <h2>开发环境搭建</h2>
             首先你需要安装Node.js 4+
 <pre>
