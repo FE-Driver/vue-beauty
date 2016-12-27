@@ -181,31 +181,7 @@
     font-size: 14px;
   }
 
-  .highlight {
-    line-height: 1.5;
-
-    pre {
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      width: auto;
-
-      code {
-        display: block;
-        background: #fff;
-        color: #666;
-        line-height: 1.7;
-        border: 1px solid #e9e9e9;
-        padding: 10px 15px;
-        border-radius: 6px;
-        font-size: 13px;
-        border: none;
-        background: #fff;
-      }
-    }
-  }
-
-  .hljs {
+  .code-box .hljs {
     background: none;
   }
 
