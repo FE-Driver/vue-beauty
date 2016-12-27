@@ -122,7 +122,7 @@ webpackJsonp([9,53],{
 
 
 	// module
-	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.highlight {\n  line-height: 1.5;\n}\n.highlight pre {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  width: auto;\n}\n.highlight pre code {\n  display: block;\n  color: #666;\n  line-height: 1.7;\n  border: 1px solid #e9e9e9;\n  padding: 10px 15px;\n  border-radius: 6px;\n  font-size: 13px;\n  border: none;\n  background: #fff;\n}\n.hljs {\n  background: none;\n}\n", ""]);
+	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.code-box .hljs {\n  background: none;\n}\n", ""]);
 
 	// exports
 
@@ -164,13 +164,20 @@ webpackJsonp([9,53],{
 /***/ },
 
 /***/ 11:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _highlight = __webpack_require__(13);
+
+	var _highlight2 = _interopRequireDefault(_highlight);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	exports.default = {
 	  props: {
 	    title: String,
@@ -198,7 +205,7 @@ webpackJsonp([9,53],{
 	    }
 
 	    this.$nextTick(function () {
-	      hljs.highlightBlock(_this.$el.querySelector('pre code'));
+	      _highlight2.default.highlightBlock(_this.$el.querySelector('pre code'));
 	    });
 	  },
 
@@ -238,7 +245,7 @@ webpackJsonp([9,53],{
 
 /***/ },
 
-/***/ 92:
+/***/ 144:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(1)();
@@ -253,13 +260,13 @@ webpackJsonp([9,53],{
 
 /***/ },
 
-/***/ 110:
+/***/ 162:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(92);
+	var content = __webpack_require__(144);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -280,14 +287,14 @@ webpackJsonp([9,53],{
 
 /***/ },
 
-/***/ 142:
+/***/ 194:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Checkbox多选框</h1>\n      <p>\n        多选框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>在一组可选项中进行多项选择时；</li>\n        <li>单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <v-Row :gutter=\"16\">\n      <v-Col span=\"12\">\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的 checkbox。\"\n          code=\"<v-checkbox>checkbox</v-checkbox>\"\n        >\n          <v-checkbox>checkbox</v-checkbox>\n\n        </code-box>\n\n        <code-box\n          title=\"和外部组件通信\"\n          describe=\"联动 checkbox。\"\n          code='onChange: (e) => {\n  this.checked = e.checked\n},\n\n<v-checkbox\n  :checked=\"checked\"\n  :disabled=\"disabled\"\n  :on-change=\"onChange\">\n  <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n  <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n</v-checkbox>\n\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n<button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>'\n        >\n          <p style=\"margin-bottom: 16px;\">\n            <v-checkbox\n              :checked=\"checked\"\n              :disabled=\"disabled\"\n              :on-change=\"onChange\">\n              <span v-if=\"!checked\">取消</span><span v-if=\"checked\">选中</span>-\n              <span v-if=\"!disabled\">可用</span><span v-if=\"disabled\">不可用</span>\n            </v-checkbox>\n          </p>\n          <p>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" @click=\"this.checked = !this.checked\"><span v-if=\"checked\">取 消</span><span v-if=\"!checked\">选 中</span></button>\n            <button type=\"button\" class=\"ant-btn ant-btn-primary ant-btn-sm\" style=\"margin-left: 10px;\" @click=\"this.disabled = !this.disabled\"><span v-if=\"disabled\">可用</span><span v-if=\"!disabled\">不可用</span></button>\n          </p>\n        </code-box>\n\n      </v-col>\n      <v-Col span=\"12\">\n\n        <code-box\n          title=\"不可用\"\n          describe=\"checkbox不可用\"\n          code=\"<v-checkbox disabled='true'></v-checkbox>\n<v-checkbox checked='true' disabled='true'></v-checkbox>\"\n        >\n          <v-checkbox disabled='true'></v-checkbox>\n          <v-checkbox checked='true' disabled='true'></v-checkbox>\n        </code-box>\n\n        <code-box\n          title=\"Checkbox 组\"\n          describe=\"方便的从数组生成 Checkbox 组。\"\n          code='defaultValue: [\"Apple\", \"Orange\"],\noptions: [\n  { label: \"苹果\", value: \"Apple\" },\n  { label: \"梨\", value: \"Pear\" },\n  { label: \"橘\", value: \"Orange\" },\n],\noptionsWithDisabled: [\n{ label: \"苹果\", value: \"Apple\" },\n{ label: \"梨\", value: \"Pear\" },\n{ label: \"橘\", value: \"Orange\", disabled； true },\n],\n\n<v-checkbox-group :options=\"options\"\n  :value.sync=\"defaultValue\">\n</v-checkbox-group>\n\n<v-checkbox-group\n  :options=\"optionsWithDisabled\"\n  :on-change=\"checkGroup\">\n</v-checkbox-group>'\n        >\n          <p style=\"margin-bottom: 16px;\"><v-checkbox-group :options=\"options\" :value.sync=\"defaultValue\"></v-checkbox-group></p>\n          <v-checkbox-group\n            :options=\"optionsWithDisabled\"\n            :on-change=\"checkGroup\">\n          </v-checkbox-group>\n        </code-box>\n\n      </v-col>\n    </v-row>\n\n\n    <api-table\n      :apis='apis'\n    >\n      <h3>Checkbox</h3>\n    </api-table>\n\n\n    <api-table\n      :apis='apiGroup'\n    >\n      <h3>Checkbox Group</h3>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 413:
+/***/ 520:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -364,18 +371,18 @@ webpackJsonp([9,53],{
 
 /***/ },
 
-/***/ 540:
+/***/ 646:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(110)
-	__vue_script__ = __webpack_require__(413)
+	__webpack_require__(162)
+	__vue_script__ = __webpack_require__(520)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/views/checkbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(142)
+	__vue_template__ = __webpack_require__(194)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

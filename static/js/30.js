@@ -122,7 +122,7 @@ webpackJsonp([30,53],{
 
 
 	// module
-	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.highlight {\n  line-height: 1.5;\n}\n.highlight pre {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  width: auto;\n}\n.highlight pre code {\n  display: block;\n  color: #666;\n  line-height: 1.7;\n  border: 1px solid #e9e9e9;\n  padding: 10px 15px;\n  border-radius: 6px;\n  font-size: 13px;\n  border: none;\n  background: #fff;\n}\n.hljs {\n  background: none;\n}\n", ""]);
+	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.code-box .hljs {\n  background: none;\n}\n", ""]);
 
 	// exports
 
@@ -164,13 +164,20 @@ webpackJsonp([30,53],{
 /***/ },
 
 /***/ 11:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _highlight = __webpack_require__(13);
+
+	var _highlight2 = _interopRequireDefault(_highlight);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	exports.default = {
 	  props: {
 	    title: String,
@@ -198,7 +205,7 @@ webpackJsonp([30,53],{
 	    }
 
 	    this.$nextTick(function () {
-	      hljs.highlightBlock(_this.$el.querySelector('pre code'));
+	      _highlight2.default.highlightBlock(_this.$el.querySelector('pre code'));
 	    });
 	  },
 
@@ -238,14 +245,14 @@ webpackJsonp([30,53],{
 
 /***/ },
 
-/***/ 161:
+/***/ 213:
 /***/ function(module, exports) {
 
 	module.exports = "\n<div>\n\t\t<section class=\"markdown\">\n      <h1>Pagination 分页</h1>\n      <p>\n        采用分页的形式分隔长列表，每次只加载一个页面。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当加载/渲染所有数据将花费很多时间时；</li>\n        <li>可切换页码浏览数据。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n    \t<code-box\n        title=\"基本\"\n        describe=\"基础分页。\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:total=\"50\"></v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"改变\"\n        describe=\"改变每页显示条目数。\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:show-size-changer=\"true\"\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\n\t\t\t  \t:total=\"50\"></v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"改变\"\n        describe=\"改变每页显示条目数。\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t        size=\"small\"\n\t\t\t  \t:total=\"50\"></v-pagination>\n\t\t\t  <br>\n        <v-pagination \n\t\t\t  \t:current.sync=\"current\" \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:total=\"100\"\n\t\t\t  \t:default-page-size=\"5\"\n\t\t\t  \t:page-size=\"10\"\n\t\t\t  \t:on-change=\"loadPage\"\n\t\t\t  \t:show-size-changer=\"true\"\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\n\t\t\t  \t:show-quick-jumper=\"true\"\n\t\t\t  \tsize=\"small\"\n\t\t\t  \t:simple=\"false\"></v-pagination>\n\t\t\t  <br>\n\t\t  \t<v-pagination \n\t\t\t  \t:current.sync=\"current\" \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:total=\"50\"\n\t\t\t  \t:default-page-size=\"5\"\n\t\t\t  \t:page-size=\"10\"\n\t\t\t  \t:on-change=\"loadPage\"\n\t\t\t  \tsize=\"small\"\n\t\t\t  \t:simple=\"false\"\n\t\t\t  \t:show-total=\"showTotal\"></v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"受控\"\n        describe=\"受控制的页码。\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"3\"\n\t\t\t  \t:total=\"50\"></v-pagination>\n      </code-box>\n    </v-col>\n    <v-Col span=\"12\">\n    \t<code-box\n        title=\"更多\"\n        describe=\"更多分页\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:total=\"500\"></v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"更多\"\n        describe=\"更多分页\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:show-quick-jumper=\"true\"\n\t\t\t  \t:total=\"500\"></v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"更多\"\n        describe=\"更多分页\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:simple=\"true\"\n\t\t\t  \t:total=\"500\"></v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"总数\"\n        describe=\"通过设置 showTotal 展示总共有多少数据。\"\n        code=''> \n        <v-pagination \n\t\t\t  \t:default-current=\"1\"\n\t\t\t  \t:show-total=\"showTotal\"\n\t\t\t  \t:total=\"50\"></v-pagination>\n      </code-box>\n    </v-col>\n  </v-row>\n\t  <api-table :apis=\"apis\"></api-table>\n</div>\n";
 
 /***/ },
 
-/***/ 432:
+/***/ 539:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -296,17 +303,17 @@ webpackJsonp([30,53],{
 
 /***/ },
 
-/***/ 559:
+/***/ 665:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(432)
+	__vue_script__ = __webpack_require__(539)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/views/pagination.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(161)
+	__vue_template__ = __webpack_require__(213)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

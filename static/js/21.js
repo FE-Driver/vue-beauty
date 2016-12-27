@@ -122,7 +122,7 @@ webpackJsonp([21,53],{
 
 
 	// module
-	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.highlight {\n  line-height: 1.5;\n}\n.highlight pre {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  width: auto;\n}\n.highlight pre code {\n  display: block;\n  color: #666;\n  line-height: 1.7;\n  border: 1px solid #e9e9e9;\n  padding: 10px 15px;\n  border-radius: 6px;\n  font-size: 13px;\n  border: none;\n  background: #fff;\n}\n.hljs {\n  background: none;\n}\n", ""]);
+	exports.push([module.id, ".code-box {\n  border: 1px solid #e9e9e9;\n  border-radius: 6px;\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  margin: 0 0 16px;\n  -webkit-transition: all .2s ease;\n  transition: all .2s ease;\n}\n.code-box .collapse {\n  position: absolute;\n  right: 16px;\n  bottom: 16px;\n  cursor: pointer;\n  width: 18px;\n  height: 18px;\n  font-size: 18px;\n  line-height: 18px;\n  opacity: .5;\n  text-align: center;\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n  color: #999;\n  background: #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 100%;\n}\n.code-box .collapse:hover {\n  opacity: 1;\n}\n.code-box:hover {\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);\n  position: relative;\n  z-index: 10;\n  background: #fff;\n}\n.code-box:hover .code-box-title {\n  background: #fbfbfb;\n  box-shadow: 0 -1.2px 0 #e9e9e9;\n}\n.code-box:hover .code-box-meta {\n  background: #fbfbfb;\n}\n.code-box .code-box-demo {\n  border-bottom: 1px solid #e9e9e9;\n  padding: 42px 20px 50px;\n}\n.code-box .highlight-wrapper {\n  max-height: 0;\n  opacity: 0;\n  overflow: auto;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n  border-radius: 0 0 6px 6px;\n}\n.code-box .highlight-wrapper-expand {\n  max-height: 500px;\n  opacity: 1;\n}\n.code-box.expand .collapse {\n  -webkit-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n.code-box.expand .code-box-meta {\n  border-radius: 0;\n  border-bottom: 1px dashed #e9e9e9;\n}\n.code-box-meta {\n  position: relative;\n  padding: 16px;\n  border-radius: 0 0 6px 6px;\n  -webkit-transition: background-color 0.4s ease;\n  transition: background-color 0.4s ease;\n  width: 100%;\n  font-size: 12px;\n}\n.code-box-meta p {\n  margin: 0;\n}\n.code-box-title {\n  position: absolute;\n  top: -14px;\n  padding: 1px 1.1em;\n  color: #777;\n  border-radius: 6px;\n  background: #fff;\n  -webkit-transition: all .4s ease;\n  transition: all .4s ease;\n}\n.code-box-title:before {\n  font-family: anticon;\n  content: \"\\E6D2\";\n  font-size: 16px;\n  vertical-align: middle;\n  line-height: 22px;\n  position: relative;\n  margin-right: 8px;\n  top: -2px;\n  color: #ccc;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  display: inline-block;\n}\n.code-box .code-box-title a,\n.code-box .code-box-title a:hover {\n  color: #666;\n  font-size: 14px;\n}\n.code-box .hljs {\n  background: none;\n}\n", ""]);
 
 	// exports
 
@@ -164,13 +164,20 @@ webpackJsonp([21,53],{
 /***/ },
 
 /***/ 11:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _highlight = __webpack_require__(13);
+
+	var _highlight2 = _interopRequireDefault(_highlight);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	exports.default = {
 	  props: {
 	    title: String,
@@ -198,7 +205,7 @@ webpackJsonp([21,53],{
 	    }
 
 	    this.$nextTick(function () {
-	      hljs.highlightBlock(_this.$el.querySelector('pre code'));
+	      _highlight2.default.highlightBlock(_this.$el.querySelector('pre code'));
 	    });
 	  },
 
@@ -238,14 +245,14 @@ webpackJsonp([21,53],{
 
 /***/ },
 
-/***/ 171:
+/***/ 224:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>v-steps 步骤条</h1>\n      <p>\n        引导用户按照流程完成任务的导航条。\n      </p>\n      <h2>何时使用</h2>\n      <p>\n        当任务复杂或者存在先后关系时，将其分解成一系列步骤，从而简化任务。\n      </p>\n      <h2>组件演示</h2>\n    </section>\n\n    <v-Row :gutter=\"16\">\n      <v-Col>\n\n        <code-box\n          title=\"基本用法\"\n          describe=\"简单的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"迷你版\"\n          describe=\"迷你版的步骤条，通过设置 <v-steps size='small'> 启用.\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps size=\"small\" :current=\"1\">\n  <v-step title=\"已完成\" ></v-step>\n  <v-step title=\"进行中\" ></v-step>\n  <v-step title=\"待运行\" ></v-step>\n  <v-step title=\"待运行\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps size=\"small\" :current=\"1\">\n            <v-step title=\"已完成\" ></v-step>\n            <v-step title=\"进行中\" ></v-step>\n            <v-step title=\"待运行\" ></v-step>\n            <v-step title=\"待运行\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"带图标的步骤条\"\n          describe=\"通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps>\n  <v-step status=\"finish\" title=\"步骤1\" icon=\"cloud\" ></v-step>\n  <v-step status=\"process\" title=\"步骤2\" icon=\"apple\" ></v-step>\n  <v-step status=\"wait\" title=\"步骤3\" icon=\"github\" ></v-step>\n</v-steps>'\n        >\n          <v-steps>\n            <v-step status=\"finish\" title=\"步骤1\" icon=\"cloud\" ></v-step>\n            <v-step status=\"process\" title=\"步骤2\" icon=\"apple\" ></v-step>\n            <v-step status=\"wait\" title=\"步骤3\" icon=\"github\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"带图标的步骤条\"\n          describe=\"通过设置 v-steps.v-step 的 icon 属性，可以启用自定义图标。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\ncurrent: 1,\nv-steps: [\n  {\n    title: \"步骤1\",\n  },\n  {\n    title: \"步骤2\",\n  },\n  {\n    title: \"步骤3\",\n  },\n  {\n    title: \"步骤4\",\n  }\n],\n\nnext() {\n  if (this.current < this.v-steps.length) {\n    this.current ++\n  }else{\n    this.current = 1\n  }\n}\n\n<div>\n  <div style=\"margin-bottom: 24px\">当前正在执行第 {{current}} 步</div>\n  <v-steps :current=\"current - 1\">\n    <v-step :key=\"$index\" :title=\"s.title\" v-for=\"s in v-steps\" ></v-step>\n  </v-steps>\n  <div style=\"margin-top: 24px\">\n    <button type=\"button\" name=\"button\" class=\"ant-btn\" @click=\"next\">下一步</button>\n  </div>\n</div>\n'\n        >\n          <div>\n            <div style=\"margin-bottom: 24px\">当前正在执行第 {{current}} 步</div>\n            <v-steps :current=\"current - 1\">\n              <v-step :key=\"$index\" :title=\"s.title\" v-for=\"s in steps\" ></v-step>\n            </v-steps>\n            <div style=\"margin-top: 24px\">\n              <button type=\"button\" name=\"button\" class=\"ant-btn\" @click=\"next\">下一步</button>\n            </div>\n          </div>\n        </code-box>\n\n        <code-box\n          title=\"竖直方向的步骤条\"\n          describe=\"简单的竖直方向的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" direction=\"vertical\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" direction=\"vertical\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"竖直方向的步骤条\"\n          describe=\"简单的竖直方向的步骤条。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" direction=\"vertical\" size=\"small\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" direction=\"vertical\" size=\"small\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n        <code-box\n          title=\"步骤运行错误\"\n          describe=\"使用 v-steps 的 status 属性来指定当前步骤的状态。\"\n          code='import v-steps from \"../../components/v-steps\"\nconst v-step = v-steps.vStep\n\n<v-steps :current=\"1\" status=\"error\">\n  <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n  <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n</v-steps>\n'\n        >\n          <v-steps :current=\"1\" status=\"error\">\n            <v-step title=\"已完成\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"进行中\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n            <v-step title=\"待运行\" description=\"这里是多信息的描述\" ></v-step>\n          </v-steps>\n        </code-box>\n\n      </v-col>\n    </v-row>\n\n    <api-table\n      :apis='apiSteps'\n    >\n      <h3>Steps</h3>\n\n      <span>整体步骤条。</span>\n    </api-table>\n\n    <api-table\n      :apis='apiStep'\n    >\n      <h3>Steps.Step</h3>\n\n      <span>步骤条内的每一个步骤。</span>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 442:
+/***/ 549:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -338,17 +345,17 @@ webpackJsonp([21,53],{
 
 /***/ },
 
-/***/ 570:
+/***/ 677:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(442)
+	__vue_script__ = __webpack_require__(549)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/views/steps.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(171)
+	__vue_template__ = __webpack_require__(224)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
