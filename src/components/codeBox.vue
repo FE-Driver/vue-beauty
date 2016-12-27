@@ -21,6 +21,7 @@
 </template>
 
 <script lang="babel">
+  import hljs from 'highlight.js'
   export default {
     props: {
       title: String,
@@ -203,10 +204,6 @@
       }
     }
   }
-
-  // .hljs-tag{
-  //   display: block;
-  // }
 
   .hljs {
     background: none;

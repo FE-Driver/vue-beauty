@@ -58,6 +58,7 @@
     "file-loader": "^0.9.0",
     "formidable": "^1.0.17",
     "function-bind": "^1.1.0",
+    "highlight.js": "^9.9.0",
     "html-webpack-plugin": "^2.24.1",
     "http-proxy-middleware": "^0.17.3",
     "json-loader": "^0.5.4",

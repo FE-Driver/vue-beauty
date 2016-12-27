@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div>
+    <div v-highlight>
 
         <section class="markdown">
             <h1>全局CSS样式</h1>

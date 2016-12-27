@@ -335,11 +335,4 @@ export default function(router) {
   router.redirect({
     '/': '/components/start'
   });
-
-  router.afterEach(function ({from, to}) {
-    setTimeout(()=> {
-      hljs.initHighlighting();
-    })
-  });
-
 }
