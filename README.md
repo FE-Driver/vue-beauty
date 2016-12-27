@@ -4,7 +4,7 @@
     </a>
 </p>
 
-# vue-beauty [![npm](http://img.shields.io/npm/v/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![NPM downloads](http://img.shields.io/npm/dm/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty)
+# vue-beauty [![npm](http://img.shields.io/npm/v/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![NPM downloads](http://img.shields.io/npm/dm/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![MIT License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.npmjs.com/package/vue-beauty)
 Beautiful  UI components build with vue and ant design
 
 - vue2.0版本请关注next分支

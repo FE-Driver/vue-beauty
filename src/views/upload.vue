@@ -118,7 +118,7 @@
     <api-table
       :apis='apis'
     ></api-table>
-    <section class="markdown">
+    <section class="markdown" v-highlight>
       <h3>onChange</h3>
       <p>文件状态改变的回调，返回为：</p>
       <pre>
@@ -132,7 +132,8 @@
       </pre>
       <ol>
         <li><p><code>file</code> 当前操作的文件对象。</p>
-        <pre><code>{
+        <pre><code>
+        {
           uid: 'uid',      // 文件唯一标识，建议设置为负数，防止和内部产生的 id 冲突
           name: 'xx.png'   // 文件名
           status: 'done',  // 状态有：uploading done error removed

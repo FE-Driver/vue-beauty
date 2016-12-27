@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div>
+    <div v-highlight>
 
         <section class="markdown">
             <h1>目录结构</h1>

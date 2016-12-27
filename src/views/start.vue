@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div>
+    <div v-highlight>
 
         <section class="markdown">
             <h1>vue-beauty</h1>
@@ -17,7 +17,7 @@
             </p>
             <h2>引入</h2>
             使用npm
-<pre>
+<pre v-highlight="'javascript'">
     <code>
         npm install vue-beauty -S
 
