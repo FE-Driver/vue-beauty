@@ -1,3 +1,5 @@
+import './utils/polyfill'
+
 import affix from './components/affix'
 import alert from './components/alert'
 import backTop from './components/backTop'
@@ -116,10 +118,10 @@ notification.install = function(Vue){
     Vue.$notification = Vue.prototype.$notification = notification
 }
 
-for (let k in compnents) {
-    if (!compnents[k].install && compnents[k].name) {
-        compnents[k].install = function (Vue) {
-            Vue.component(compnents[k].name, compnents[k]);
+for(let component of Object.values(compnents)){
+    if (!component.install && component.name) {
+        component.install = function (Vue) {
+            Vue.component(component.name, component);
         };
     }
 }
@@ -127,9 +129,9 @@ for (let k in compnents) {
 const install = function (Vue) {
     if (install.installed) return;
 
-    for (let k in compnents) {
-        if (compnents[k].install) {
-            Vue.use(compnents[k]);
+    for (let component of Object.values(compnents)) {
+        if (component.install) {
+            Vue.use(component);
         }
     }
 };
