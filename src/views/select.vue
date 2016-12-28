@@ -156,6 +156,12 @@
             'text'
           ],
           [
+            'groupLabel',
+            '分组的title',
+            'String',
+            'label'
+          ],
+          [
             'multiple',
             '是否支持多选',
             'Boolean',
@@ -255,7 +261,7 @@
         optionCont: [
           [
             'label',
-            '组名(有这个字段代表这是个分组数据，只支持一级)',
+            '组名(有这个字段代表这是个分组数据，只支持一级,该字段可通过select的groupLabel属性修改)',
             'String',
             '-'
           ],
@@ -263,6 +269,18 @@
             'data',
             '分组的数据',
             'Array',
+            '-'
+          ],
+          [
+            'value',
+            '选项的值(该字段可通过select的key属性修改)',
+            'String/Number/Object',
+            '-'
+          ],
+          [
+            'text',
+            '选项的标签(该字段可通过select的label属性修改)',
+            'String/Number',
             '-'
           ],
           [

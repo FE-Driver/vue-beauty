@@ -152,7 +152,7 @@ export default {
     },
     onChange: () => {},
     showSizeChanger: false,
-    pageSizeOptions: ['10', '20', '30', '40'],
+    pageSizeOptions: [10, 20, 30, 40],
     onShowSizeChange: () => {},
     showQuickJumper: false,
     size: '',
