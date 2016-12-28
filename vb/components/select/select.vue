@@ -41,10 +41,10 @@
                         <li v-if="searchVal && remoteMethod && !options.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
                         <li v-if="searchVal && !remoteMethod && !searchFound" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
                         <template v-for="(i,option) in ori_options">
-                            <template v-if="option.label">
+                            <template v-if="option[groupLabel]">
                                 <li v-show="option.show" class=" ant-select-dropdown-menu-item-group">
                                     <div class="ant-select-dropdown-menu-item-group-title">
-                                        {{option.label}}
+                                        {{option[groupLabel]}}
                                     </div>
                                     <ul v-if="option.data && option.data.length" class="ant-select-dropdown-menu-item-group-list">
                                         <li v-show="option.show" v-for="item in option.data" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,$index])">
@@ -92,6 +92,10 @@
             label: {
                 type: String,
                 default: 'text'
+            },
+            groupLabel: {
+                type: String,
+                default: 'label'
             },
             multiple: {
                 type: Boolean,
@@ -252,7 +256,7 @@
         methods: {
             mapOptions(callback,groupCallback){
                 for(let [i,opt] of this.ori_options.entries()){
-                    if(opt.label){
+                    if(opt[this.groupLabel]){
                         if(opt.data && opt.data.length){
                             for(let [j,item] of opt.data.entries()){
                                 const res = callback(['groupItem', [i,j], item])
