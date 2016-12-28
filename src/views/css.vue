@@ -116,6 +116,28 @@
             <p>隐藏:<code>.hide</code></p>
             <p>不可见:<code>.invisible</code>（使用visibility控制）</p>
 
+            <h2>动画过渡类</h2>
+            <h4>可用在vue的transition上</h4>
+            <ul>
+                <li>fade</li>
+                <li>move-up</li>
+                <li>move-down</li>
+                <li>move-left</li>
+                <li>move-right</li>
+                <li>slide-up</li>
+                <li>slide-down</li>
+                <li>slide-left</li>
+                <li>slide-right</li>
+                <li>swing</li>
+                <li>zoom</li>
+                <li>zoom-big</li>
+                <li>zoom-big-fast</li>
+                <li>zoom-up</li>
+                <li>zoom-down</li>
+                <li>zoom-left</li>
+                <li>zoom-right</li>
+            </ul>
+
         </section>
 
     </div>
