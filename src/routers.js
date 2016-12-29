@@ -27,6 +27,11 @@ export default [
                 path: 'card',
                 name: 'card',
                 component: require('./docs/zh-cn/card.md')
+            },
+            {
+                path: 'rate',
+                name: 'rate',
+                component: require('./docs/zh-cn/rate.md')
             }
         ]
     }

@@ -17,6 +17,7 @@ let compnents = {
   button,
   buttonGroup:button.Group,
   card,
+  rate,
 
 
 }
