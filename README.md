@@ -6,9 +6,10 @@ Beautiful  UI components build with vue and ant design
 - 本项目采用vue2和ant deisgn2.0进行开发
 
 ## 已完成组件
-- Alert
-- Button
-- Card
+- Alert 警告提示
+- Button 按钮
+- Card 卡片
+- Rate 评分
 
 
 **(持续更新中。。。)**

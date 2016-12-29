@@ -19,6 +19,11 @@
               <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
             </vb-menu-item>
           </vb-sub-menu>
+            <vb-sub-menu title="Data Entry">
+            <vb-menu-item>
+              <router-link :to="{ name:'rate'}">Rate 评分</router-link>
+            </vb-menu-item>
+          </vb-sub-menu>
            <vb-sub-menu title="Data display">
             <vb-menu-item>
               <router-link :to="{ name:'card'}">Card 卡片</router-link>
