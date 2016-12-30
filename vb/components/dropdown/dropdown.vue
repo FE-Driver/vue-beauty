@@ -3,19 +3,24 @@
         <slot></slot>
         <div v-el:content
              :style="style"
-             :class="['ant-dropdown', 'ant-dropdown-placement-bottomLeft', {'ant-dropdown-hidden': !isOpen}]"
+             class="ant-dropdown ant-dropdown-placement-bottomLeft"
+             v-show="isOpen"
              transition="slide-up">
-            <v-dropdown-menu :options="options" :trigger="trigger" :on-click="onClick"></v-dropdown-menu>
+            <v-dropdown-menu :options="options" :trigger="trigger"></v-dropdown-menu>
         </div>
     </div>
 </template>
 
 <script>
+    import vDropdownMenu from './dropdownMenu.vue'
     import {getOffset} from '../_util/_func'
     const Trigger = ['click', 'hover'];
 
     export default {
         name: 'v-dropdown',
+        components: {
+            vDropdownMenu
+        },
         props: {
             popupContainer: {
                 type: Function,
@@ -34,19 +39,13 @@
                     return Trigger.indexOf(value) != -1;
                 },
                 default: 'hover'
-            },
-            onClick: {
-                type: Function,
-                required: false
             }
         },
-        data: function () {
-            return {
-                style: {},
-                container: null,
-                isOpen: false
-            }
-        },
+        data: ()=> ({
+            style: {},
+            container: null,
+            isOpen: false
+        }),
         ready(){
             this.container = this.popupContainer()
             this.$els.content.style.position = this.position;

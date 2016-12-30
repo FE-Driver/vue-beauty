@@ -6,7 +6,6 @@
         transition="slide-up">
         <v-dropdown-item v-for="item in options"
                          :trigger="trigger"
-                         :on-click="onClick"
                          :option="item"
                          :disabled="item.disabled"
                          :divided="item.divided">
@@ -16,8 +15,13 @@
 </template>
 
 <script>
+    import vDropdownItem from './dropdownItem.vue'
+
     export default {
         name: 'v-dropdown-menu',
+        components: {
+           vDropdownItem   
+        },
         props: {
             type: {
                 required: false,
@@ -28,10 +32,6 @@
                 required: false,
                 type: String,
                 default: 'hover'
-            },
-            onClick: {
-                type: Function,
-                required: false
             },
             options: {
                 required: false,

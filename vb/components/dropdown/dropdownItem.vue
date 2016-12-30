@@ -4,7 +4,7 @@
         <div v-el:item class="ant-dropdown-menu-submenu-title" @click="click">
             <slot></slot>
         </div>
-        <v-dropdown-menu :options="option.children" :trigger="trigger" :on-click="onClick" type="sub"></v-dropdown-menu>
+        <v-dropdown-menu :options="option.children" :trigger="trigger" type="sub"></v-dropdown-menu>
     </li>
     <li v-else :class="itemCls" @click="handleClick">
         <slot></slot>
@@ -12,9 +12,14 @@
 </template>
 
 <script>
+    import vDropdownMenu from './dropdownMenu.vue'
+
     const Trigger = ['click', 'hover'];
     export default {
         name: 'v-dropdown-item',
+        components: {
+            vDropdownMenu
+        },
         data: function () {
             return {}
         },
@@ -23,10 +28,6 @@
                 required: false,
                 type: String,
                 default: 'hover'
-            },
-            onClick: {
-                type: Function,
-                required: false
             },
             option: {
                 type: Object,
@@ -87,9 +88,7 @@
                 }
             },
             handleClick(event){
-                if(this.onClick){
-                    this.onClick(this.option);
-                }
+                this.$dispatch('itemclick',this.option)
             }
         },
         events:{

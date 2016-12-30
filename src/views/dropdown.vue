@@ -55,21 +55,23 @@
           </template>
         </code-box>
         <code-box title="触发事件" describe="点击菜单项后会触发事件，用户可以通过相应的菜单项 key 进行不同的操作。">
-          <v-dropdown :options="options" :on-click="onClick">
+          <v-dropdown :options="options2" @itemclick="onClick">
             <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
           </v-dropdown>
           <template slot="js">
             export default {
               data: function () {
                 return {
-                  onClick: function(data){
-                    alert(data.content + ' clicked!')
-                  },
-                  options: [
+                  options2: [
                     {content: '1st item'},
                     {content: '2nd item'},
-                    {content: '3rd item'}
+                    {content: '3rd item (disabled)', disabled: true, divided: true}
                   ]
+                }
+              },
+              methods: {
+                onClick(data){
+                  alert(data.content + ' clicked!')
                 }
               }
             }
@@ -114,7 +116,7 @@
     <api-table title="Options Attributes" :content='optionsApi'>
     </api-table>
 
-    <api-table type="events" title="" :content='eventsApi'>
+    <api-table title="Dropdown Events" type="events" :content='eventsApi'>
     </api-table>
   </div>
 
@@ -127,9 +129,6 @@
   export default{
     data: function(){
       return {
-        onClick: function(data){
-          alert(data.content + ' clicked!')
-        },
         options: [
           {content: '1st item'},
           {content: '2nd item'},
@@ -209,11 +208,16 @@
         ],
         eventsApi: [
           [
-            'onClick',
+            'itemclick',
             '点击菜单项时触发',
             'function(data)'
           ]
         ]
+      }
+    },
+    methods: {
+      onClick(data){
+        alert(data.content + ' clicked!')
       }
     },
     components: {
