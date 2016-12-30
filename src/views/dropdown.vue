@@ -40,21 +40,78 @@
           <v-dropdown :options="options2">
             <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
           </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options2: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item (disabled)', disabled: true, divided: true}
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
         <code-box title="触发事件" describe="点击菜单项后会触发事件，用户可以通过相应的菜单项 key 进行不同的操作。">
           <v-dropdown :options="options" :on-click="onClick">
             <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
           </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  onClick: function(data){
+                    alert(data.content + ' clicked!')
+                  },
+                  options: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item'}
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
-        <code-box title="多级菜单" describe="传入的菜单里有多个层级。">
+
+        <code-box title="多级菜单" describe="传入的菜单里有多个层级。" >
           <v-dropdown :options="options3">
             <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
           </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options3: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {
+                      content: 'sub',
+                      children: [
+                        {content: '3rd item'},
+                        {
+                          content: 'sub-2',
+                          children: [
+                            {content: '4th item'}
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                }
+              }
+            }
+          </template>
         </code-box>
       </v-Col>
     </v-row>
 
-    <api-table :content='content'>
+    <api-table :content='api'>
+    </api-table>
+
+    <api-table title="Options Attributes" :content='optionsApi'>
     </api-table>
 
     <api-table type="events" title="" :content='eventsApi'>
@@ -104,7 +161,7 @@
             ]
           }
         ],
-        content: [
+        api: [
           [
             'options',
             '可选项数据源',
@@ -128,6 +185,26 @@
             '下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。',
             'Function',
             '() => document.body'
+          ]
+        ],
+		optionsApi: [
+          [
+            'content',
+            '可选项数据源',
+            'String',
+            '-'
+          ],
+          [
+            'disabled',
+            '是否禁用',
+            'Boolean',
+            'false'
+          ],
+          [
+            'divided',
+            '是否显示分割线',
+            'Boolean',
+            'false'
           ]
         ],
         eventsApi: [
