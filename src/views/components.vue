@@ -11,13 +11,16 @@
             <v-menu-item v-link="{ name: 'css', activeClass: 'ant-menu-item-selected' }">
               全局CSS样式
             </v-menu-item>
-            <v-menu-item v-link="{ name: 'changelog', activeClass: 'ant-menu-item-selected' }">
-              更新日志
+            <v-menu-item v-link="{ name: 'polyfill', activeClass: 'ant-menu-item-selected' }">
+              Polyfill
             </v-menu-item>
             <v-menu-item v-link="{ name: 'contribute', activeClass: 'ant-menu-item-selected' }">
               参与贡献
             </v-menu-item>
           </v-sub-menu>
+          <v-menu-item>
+            <a href="https://github.com/FE-Driver/vue-beauty/releases" target="_blank">更新日志</a>
+          </v-menu-item>
           <v-sub-menu title="组件">
             <v-menu-item-group title="Basic">
               <v-menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
@@ -130,6 +133,9 @@
             <v-menu-item-group title="Navigation">
               <v-menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
                 Breadcrumb 面包屑
+              </v-menu-item>
+              <v-menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
+                Dropdown 下拉菜单
               </v-menu-item>
               <v-menu-item v-link="{ name: 'menu', activeClass: 'ant-menu-item-selected' }">
                 Menu 导航菜单

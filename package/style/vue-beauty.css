@@ -6091,24 +6091,24 @@ textarea.ant-input-number {
   margin-right: 0;
   padding: 8px 16px;
 }
-.ant-tabs:not(.ant-tabs-vertical) .ant-tabs-content {
+.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content {
   width: 100%;
 }
-.ant-tabs:not(.ant-tabs-vertical) .ant-tabs-content-animated {
-  display: flex;
-  flex-direction: row;
-  will-change: margin-left;
-  transition: margin-left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-.ant-tabs:not(.ant-tabs-vertical) .ant-tabs-tabpane {
+.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content > .ant-tabs-tabpane {
   flex-shrink: 0;
   width: 100%;
   transition: opacity 0.3s;
   opacity: 1;
 }
-.ant-tabs:not(.ant-tabs-vertical) .ant-tabs-tabpane-inactive {
+.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content > .ant-tabs-tabpane-inactive {
   opacity: 0;
   height: 0;
+}
+.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content-animated {
+  display: flex;
+  flex-direction: row;
+  will-change: margin-left;
+  transition: margin-left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .ant-tabs-vertical > .ant-tabs-bar {
   border-bottom: 0;
@@ -6287,14 +6287,14 @@ textarea.ant-input-number {
 .ant-tabs-extra-content .ant-tabs-new-tab:hover {
   color: #404040;
 }
-.no-flex .ant-tabs-content-animated,
-.ant-tabs-no-animation .ant-tabs-content-animated,
-.ant-tabs-vertical .ant-tabs-content-animated {
+ > .no-flex > .ant-tabs-content-animated,
+ > .ant-tabs-no-animation > .ant-tabs-content-animated,
+ > .ant-tabs-vertical > .ant-tabs-content-animated {
   transform: none!important;
 }
-.no-flex .ant-tabs-content > .ant-tabs-tabpane-inactive,
-.ant-tabs-no-animation .ant-tabs-content > .ant-tabs-tabpane-inactive,
-.ant-tabs-vertical .ant-tabs-content > .ant-tabs-tabpane-inactive {
+.no-flex > .ant-tabs-content > .ant-tabs-tabpane-inactive,
+.ant-tabs-no-animation > .ant-tabs-content > .ant-tabs-tabpane-inactive,
+.ant-tabs-vertical > .ant-tabs-content > .ant-tabs-tabpane-inactive {
   display: none;
 }
 .ant-tooltip {

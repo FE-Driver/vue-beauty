@@ -1,3 +1,5 @@
+import './utils/polyfill'
+
 import affix from './components/affix'
 import alert from './components/alert'
 import backTop from './components/backTop'
@@ -11,6 +13,7 @@ import checkbox from './components/checkbox'
 import collapse from './components/collapse'
 import datatable from './components/datatable'
 import datepicker from './components/datePicker'
+import dropdown from './components/dropdown'
 import form from './components/form'
 import icon from './components/iconfont'
 import input from './components/input'
@@ -63,6 +66,9 @@ let compnents = {
     collapseItem: collapse.Item,
     datatable,
     datepicker,
+    dropdown,
+    dropdownMenu: dropdown.Menu,
+    dropdownItem: dropdown.Item,
     form,
     formItem: form.Item,
     icon,
@@ -116,10 +122,10 @@ notification.install = function(Vue){
     Vue.$notification = Vue.prototype.$notification = notification
 }
 
-for (let k in compnents) {
-    if (!compnents[k].install && compnents[k].name) {
-        compnents[k].install = function (Vue) {
-            Vue.component(compnents[k].name, compnents[k]);
+for(let component of Object.values(compnents)){
+    if (!component.install && component.name) {
+        component.install = function (Vue) {
+            Vue.component(component.name, component);
         };
     }
 }
@@ -127,9 +133,9 @@ for (let k in compnents) {
 const install = function (Vue) {
     if (install.installed) return;
 
-    for (let k in compnents) {
-        if (compnents[k].install) {
-            Vue.use(compnents[k]);
+    for (let component of Object.values(compnents)) {
+        if (component.install) {
+            Vue.use(component);
         }
     }
 };

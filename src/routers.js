@@ -239,6 +239,12 @@ export default function(router) {
             require(['./views/breadcrumb.vue'], resolve);
           }
         },
+        '/dropdown': {
+          name: 'dropdown',
+          component: function index(resolve) {
+            require(['./views/dropdown.vue'], resolve);
+          }
+        },
         '/menu': {
           name: 'menu',
           component: function index(resolve) {
@@ -317,10 +323,10 @@ export default function(router) {
             require(['./views/contribute.vue'], resolve);
           }
         },
-        '/changelog': {
-          name: 'changelog',
+        '/polyfill': {
+          name: 'polyfill',
           component: function index(resolve) {
-            require(['./views/changelog.vue'], resolve);
+            require(['./views/polyfill.vue'], resolve);
           }
         }
       }
@@ -335,11 +341,4 @@ export default function(router) {
   router.redirect({
     '/': '/components/start'
   });
-
-  router.afterEach(function ({from, to}) {
-    setTimeout(()=> {
-      hljs.initHighlighting();
-    })
-  });
-
 }

@@ -16,95 +16,106 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
+        <code-box title="基本" describe="最简单的下拉菜单。">
+          <v-dropdown :options="options">
+            <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
+          </v-dropdown>
+        </code-box>
+        <code-box title="触发方式" describe="默认是移入触发菜单，可以点击触发。">
+          <v-dropdown :options="options1" trigger="click">
+            <a href="javascript:void(0)">Click me <v-icon type="down"></v-icon></a>
+          </v-dropdown>
+        </code-box>
+        <code-box title="带下拉框的按钮" describe="可使用按钮触发下拉菜单。">
+          <v-dropdown :options="options">
+            <v-button>default <v-icon type="down"></v-icon></v-button>
+          </v-dropdown>
+        </code-box>
+      </v-Col>
 
-        <code-box
-                title="下拉菜单"
-                describe=""
-                code=""
-        >
-          <menu>
-            test 0
-            <menu-item>
-              <sub-menu title="sub">
-                <menu-item>
-                  sub 1
-                </menu-item>
-                <menu-item>
-                  sub 1
-                </menu-item>
-              </sub-menu>
-            </menu-item>
-          </menu>
-
+      <v-Col span="12">
+        <code-box title="其他元素" describe="分割线和不可用菜单项。">
+          <v-dropdown :options="options2">
+            <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
+          </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options2: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item (disabled)', disabled: true, divided: true}
+                  ]
+                }
+              }
+            }
+          </template>
+        </code-box>
+        <code-box title="触发事件" describe="点击菜单项后会触发事件，用户可以通过相应的菜单项 key 进行不同的操作。">
+          <v-dropdown :options="options" :on-click="onClick">
+            <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
+          </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  onClick: function(data){
+                    alert(data.content + ' clicked!')
+                  },
+                  options: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item'}
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
-
-        <code-box
-                title="下拉菜单"
-                describe=""
-                code=""
-        >
-          <sub-menu title="sub1">
-            <sub-menu title="sub2">
-              <menu-item>
-                <sub-menu title="sub">
-                  <menu-item>
-                    sub 1
-                  </menu-item>
-                  <menu-item>
-                    sub 1
-                  </menu-item>
-                </sub-menu>
-              </menu-item>
-
-            </sub-menu>
-          </sub-menu>
+        <code-box title="多级菜单" describe="传入的菜单里有多个层级。" >
+          <v-dropdown :options="options3">
+            <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
+          </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options3: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {
+                      content: 'sub',
+                      children: [
+                        {content: '3rd item'},
+                        {
+                          content: 'sub-2',
+                          children: [
+                            {content: '4th item'}
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                }
+              }
+            }
+          </template>
         </code-box>
+      </v-Col>
+    </v-row>
 
-      </div>
+    <api-table :content='api'>
+    </api-table>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <api-table title="Options Attributes" :content='optionsApi'>
+    </api-table>
 
-        <code-box
-                title="下拉菜单"
-                describe=""
-                code=""
-        >
-          <menu>
-
-            <menu-item>item 1</menu-item>
-
-            <sub-menu title="sub">
-
-              <menu-item>item 2</menu-item>
-
-              <sub-menu title="sub">
-
-                <menu-item>item 3</menu-item>
-
-              </sub-menu>
-
-            </sub-menu>
-
-            <menu-item>item 2</menu-item>
-
-          </menu>
-
-        </code-box>
-
-      </div>
-
-    </div>
-
-    <api-table
-            :apis='apis'
-    ></api-table>
-
+    <api-table type="events" title="" :content='eventsApi'>
+    </api-table>
   </div>
 
 </template>
@@ -113,50 +124,95 @@
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
 
-  export default {
-    data: function () {
+  export default{
+    data: function(){
       return {
-        apis: [{
-          parameter: 'type',
-          explain: '必选参数，指定警告提示的样式，有四种选择 success、info、warning、error',
-          type: 'String',
-          default: 'info'
-        },{
-          parameter: 'closable',
-          explain: '可选参数，默认不显示关闭按钮',
-          type: 'Boolean',
-          default: 'false'
-        },{
-          parameter: 'closeText',
-          explain: '可选参数，自定义关闭按钮',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'message',
-          explain: '必选参数，警告提示内容',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'description',
-          explain: '可选参数，警告提示的辅助性文字介绍',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'onClose',
-          explain: '可选参数，关闭时触发的回调函数',
-          type: 'Function',
-          default: '无'
-        },{
-          parameter: 'showIcon',
-          explain: '可选参数，是否显示辅助图标',
-          type: 'Boolean',
-          default: 'false'
-        },{
-          parameter: 'closed',
-          explain: '可选参数，控制组件隐藏显示，默认显示',
-          type: 'Boolean',
-          default: 'false'
-        }
+        onClick: function(data){
+          alert(data.content + ' clicked!')
+        },
+        options: [
+          {content: '1st item'},
+          {content: '2nd item'},
+          {content: '3rd item'}
+        ],
+        options1: [
+          {content: '1st item'},
+          {content: '2nd item'},
+          {content: '3rd item', divided: true}
+        ],
+        options2: [
+          {content: '1st item'},
+          {content: '2nd item'},
+          {content: '3rd item (disabled)', disabled: true, divided: true}
+        ],
+        options3: [
+          {content: '1st item'},
+          {content: '2nd item'},
+          {
+            content: 'sub',
+            children: [
+              {content: '3rd item'},
+              {
+                content: 'sub-2',
+                children: [
+                  {content: '4th item'}
+                ]
+              }
+            ]
+          }
+        ],
+        api: [
+          [
+            'options',
+            '可选项数据源',
+            'Array',
+            '-'
+          ],
+          [
+            'trigger',
+            '触发方式（hover,click）',
+            'String',
+            'hover'
+          ],
+          [
+            'position',
+            '下拉框的定位方式（absolute,fixed）',
+            'String',
+            'absolute'
+          ],
+          [
+            'popupContainer',
+            '下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。',
+            'Function',
+            '() => document.body'
+          ]
+        ],
+		optionsApi: [
+          [
+            'content',
+            '可选项数据源',
+            'String',
+            '-'
+          ],
+          [
+            'disabled',
+            '是否禁用',
+            'Boolean',
+            'false'
+          ],
+          [
+            'divided',
+            '是否显示分割线',
+            'Boolean',
+            'false'
+          ]
+        ],
+        eventsApi: [
+          [
+            'onClick',
+            '点击菜单项时触发',
+            'function(data)'
+          ]
         ]
       }
     },

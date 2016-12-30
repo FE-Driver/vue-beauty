@@ -122,7 +122,6 @@
     import vIcon from '../iconfont'
     import vCheckbox from '../checkbox'
     import vRadio from '../radio'
-    import $ from 'domtastic'
 
     export default {
         name:'v-datatable',
@@ -450,14 +449,16 @@
                 this.fixHeaderWidth();
             },
             fixHeaderWidth:function () {
-                var theader_ths = $(this.$el).find("div.ant-table-header table>thead>tr>th");
-                var tbody_ths = $(this.$el).find("div.ant-table-body table>thead>tr>th");
+                var theader_ths = this.$el.querySelectorAll('div.ant-table-header table>thead>tr>th')
+                var tbody_ths = this.$el.querySelectorAll("div.ant-table-body table>thead>tr>th")
+
                 if(theader_ths.length && tbody_ths.length){
-                    theader_ths.each(function (el,index) {
+                    for(let [index,el] of theader_ths.entries()){
+                        console.log(index)
                         if(index != theader_ths.length-1){
-                            $(el).css("width",tbody_ths[index].offsetWidth+'px');
+                            el.style.width = tbody_ths[index].offsetWidth + 'px'
                         }
-                    });
+                    }
                 }
             },
             fixGapHeight:function (footerHeight) {

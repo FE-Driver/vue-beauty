@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div>
+    <div v-highlight>
 
         <section class="markdown">
             <h1>vue-beauty</h1>
@@ -17,7 +17,7 @@
             </p>
             <h2>引入</h2>
             使用npm
-<pre>
+<pre v-highlight="'javascript'">
     <code>
         npm install vue-beauty -S
 
@@ -66,7 +66,7 @@
                 相关链接
             </h2>
             <ul>
-                <li><a href="https://vuefe.cn/" target="blank">vue官方网站</a></li>
+                <li><a href="http://v1-cn.vuejs.org/" target="blank">vue1官方网站</a></li>
                 <li><a href="https://github.com/vuejs/vue-cli" target="blank">vue cli</a></li>
                 <li><a href="https://github.com/vuejs/awesome-vue" target="blank">awesome vue</a></li>
                 <li><a href="http://es6.ruanyifeng.com/" target="blank">ES2015入门</a></li>

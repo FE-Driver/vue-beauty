@@ -12,7 +12,17 @@
     <section class="highlight-wrapper" :class="{'highlight-wrapper-expand': open}">
       <div class="highlight">
         <pre>
-          <code class="html"><slot name="preCode"></slot>{{ code }}<slot name="postCode"></slot></code>
+          <code class="code">{{ code }}</code>
+        </pre>
+      </div>
+      <div v-if="jsCode" class="highlight">
+        <pre>
+          <code class="code">{{ jsCode }}</code>
+        </pre>
+      </div>
+      <div v-if="cssCode" class="highlight">
+        <pre>
+          <code class="code">{{ cssCode }}</code>
         </pre>
       </div>
     </section>
@@ -21,36 +31,52 @@
 </template>
 
 <script lang="babel">
+  import hljs from 'highlight.js'
+  import beautify from 'beautify'
+
   export default {
     props: {
       title: String,
       describe: String,
       code: String
     },
-    data(){
-      return {
-        open: false,
-      }
-    },
+    data: ()=> ({
+      open: false,
+      jsCode: '',
+      cssCode: ''
+    }),
     ready(){
-      let children = this._slotContents.default.childNodes
+      this.jsCode = this.slotHandle('js', 'js');
+      this.cssCode = this.slotHandle('css', 'css');
 
-      children = Array.prototype.filter.call(children, function (node) {
-        return node.nodeType === 1
-      })
-      // fixme 暂时没有处理文本节点
-      if (!this.code) {
-        this.code = children.map(function (dom) {
-          return dom.outerHTML.replace(/\t| {4}/g, '')
-        }).join('\n')
+      if(!this.code){
+        this.code = this.slotHandle();
       }
 
       this.$nextTick(()=> {
-        hljs.highlightBlock(this.$el.querySelector('pre code'))
+        let blocks = this.$el.querySelectorAll('pre code');
+        Array.prototype.forEach.call(blocks, hljs.highlightBlock);
       })
-
     },
     methods: {
+      slotHandle(slot='default', type='html'){
+        if(!this._slotContents[slot]) return false;
+        let children = this._slotContents[slot].childNodes
+
+        children = Array.prototype.filter.call(children, function (node) {
+          return [1,3].includes(node.nodeType)
+        })
+
+        return children.map(function (dom) {
+          let str;
+          if(dom.nodeType === 1){
+            str = dom.outerHTML
+          }else{
+            str = dom.data
+          }
+          return beautify(str, {format: type})
+        }).join('\n')
+      },
       handleOpen() {
         this.open = !this.open
       }
@@ -58,7 +84,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 
   .code-box {
     border: 1px solid #e9e9e9;
@@ -125,15 +151,28 @@
       max-height: 500px;
       opacity: 1;
     }
+    .highlight{
+      &:not(:first-child){
+        border-top: 1px dashed #e9e9e9;
+      }
+      pre{
+        line-height: 0;
+        padding: 8px;
+      }
+      .code {
+        background: none;
+        line-height: 1.8;
+      }
+    }
   }
 
-  .code-box.expand .collapse {
-    transform: rotate(-90deg);
-  }
-
-  .code-box.expand .code-box-meta {
+  .code-box.expand>.code-box-meta {
     border-radius: 0;
     border-bottom: 1px dashed #e9e9e9;
+
+    &>.collapse{
+      transform: rotate(-90deg);
+    }
   }
 
   .code-box-meta {
@@ -178,38 +217,6 @@
   .code-box .code-box-title a:hover {
     color: #666;
     font-size: 14px;
-  }
-
-  .highlight {
-    line-height: 1.5;
-
-    pre {
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      width: auto;
-
-      code {
-        display: block;
-        background: #fff;
-        color: #666;
-        line-height: 1.7;
-        border: 1px solid #e9e9e9;
-        padding: 10px 15px;
-        border-radius: 6px;
-        font-size: 13px;
-        border: none;
-        background: #fff;
-      }
-    }
-  }
-
-  // .hljs-tag{
-  //   display: block;
-  // }
-
-  .hljs {
-    background: none;
   }
 
 </style>
