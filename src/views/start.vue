@@ -66,7 +66,7 @@
                 相关链接
             </h2>
             <ul>
-                <li><a href="https://vuefe.cn/" target="blank">vue官方网站</a></li>
+                <li><a href="http://v1-cn.vuejs.org/" target="blank">vue1官方网站</a></li>
                 <li><a href="https://github.com/vuejs/vue-cli" target="blank">vue cli</a></li>
                 <li><a href="https://github.com/vuejs/awesome-vue" target="blank">awesome vue</a></li>
                 <li><a href="http://es6.ruanyifeng.com/" target="blank">ES2015入门</a></li>
