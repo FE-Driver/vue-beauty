@@ -76,6 +76,24 @@
             <v-tab-pane key="10" tab="选项十">选项卡十</v-tab-pane>
           </v-tabs>
         </code-box>
+
+        <code-box
+          title="迷你型"
+          describe="用在弹出框等较狭窄的容器内。"
+        >
+          <v-tabs active-key="1" size="small">
+            <v-tab-pane key="1" tab="选项一">选项一</v-tab-pane>
+            <v-tab-pane key="2" tab="选项二">选项卡二</v-tab-pane>
+            <v-tab-pane key="3" tab="选项三">选项卡三</v-tab-pane>
+            <v-tab-pane key="4" tab="选项四">选项卡四</v-tab-pane>
+            <v-tab-pane key="5" tab="选项五">选项卡五</v-tab-pane>
+            <v-tab-pane key="6" tab="选项六">选项卡六</v-tab-pane>
+            <v-tab-pane key="7" tab="选项七">选项卡七</v-tab-pane>
+            <v-tab-pane key="8" tab="选项八">选项卡八</v-tab-pane>
+            <v-tab-pane key="9" tab="选项九">选项卡九</v-tab-pane>
+            <v-tab-pane key="10" tab="选项十">选项卡十</v-tab-pane>
+          </v-tabs>
+        </code-box>
       </v-Col>
     </v-Row>
 
@@ -84,8 +102,12 @@
         <h3>Tabs</h3>
     </api-table>
 
-    <api-table :apis='apiTabPane'>
+    <api-table title='' :apis='apiTabPane'>
       <h3>Tabs.TabPane</h3>
+    </api-table>
+
+    <api-table title="" type="events" :content='eventsApi'>
+      <h3>Tabs Events</h3>
     </api-table>
 
   </div>
@@ -105,10 +127,10 @@ export default {
           type: 'String',
           default: '无'
         },{
-          parameter: 'selectTab',
-          explain: 'tab 被点击的回调',
-          type: 'Function',
-          default: '无'
+          parameter: 'size',
+          explain: '大小，提供 default 和 small 两种大小。',
+          type: 'String',
+          default: 'default'
         }],
         apiTabPane: [{
             parameter: 'key',
@@ -125,7 +147,14 @@ export default {
             explain: '选项卡头文字左侧的图标',
             type: 'String',
             default: '无'
-        }]
+        }],
+        eventsApi: [
+          [
+            'tabclick',
+            '点击菜单项时触发',
+            'function(data)'
+          ]
+        ]
     }
   },
   components: {

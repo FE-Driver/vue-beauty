@@ -1,5 +1,5 @@
 <template>
-    <div class="ant-tabs ant-tabs-top ant-tabs-line">
+    <div :class="tabsCls">
         <div role="tablist" class="ant-tabs-bar" tabindex="0">
             <div :class="containerCls">
                 <span v-if="isScroll" unselectable="unselectable" :class="['ant-tabs-tab-prev',{'ant-tabs-tab-btn-disabled': tab_transform == 0}]" @click="before">
@@ -47,7 +47,8 @@
             tab_transform: 0
         }),
         props: defaultProps({
-            activeKey: String
+            activeKey: String,
+            size: String
         }),
         ready(){
             let temp_tabs = [];
@@ -81,7 +82,7 @@
             selectTab(index){
                 this.activeIndex = index;
                 this.activeKey = this.tabs[index].key;
-                this.$broadcast('activeKey',this.activeKey);
+                this.$broadcast('tabclick',this.activeKey);
             },
             before() {
                 if ( this.tab_transform > 0 ) {
@@ -97,6 +98,15 @@
             }
         },
         computed: {
+            tabsCls(){
+                const size = {small: 'mini'}[this.size];
+                return [
+                    this.prefix,
+                    `${this.prefix}-top`,
+                    `${this.prefix}-line`,
+                    {[`${this.prefix}-${size}`]: size}
+                ]
+            },
             containerCls(){
                 return [
                     'ant-tabs-nav-container',

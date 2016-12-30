@@ -20,7 +20,7 @@
     export default {
         name: 'v-dropdown-menu',
         components: {
-           vDropdownItem   
+           vDropdownItem
         },
         props: {
             type: {

@@ -111,12 +111,15 @@
     </v-row>
 
     <api-table :content='api'>
+      <h3>Dropdown</h3>
     </api-table>
 
-    <api-table title="Options Attributes" :content='optionsApi'>
+    <api-table title="" :content='optionsApi'>
+      <h3>Options Attributes</h3>
     </api-table>
 
-    <api-table title="Dropdown Events" type="events" :content='eventsApi'>
+    <api-table title="" type="events" :content='eventsApi'>
+      <h3>Dropdown Events</h3>
     </api-table>
   </div>
 
