@@ -44,6 +44,58 @@
           </code-box>
         </code-box>
 
+        <code-box
+          title="code"
+          describe="js和css"
+        >
+          <code-box
+            title="基本"
+            describe="button基本用法"
+          >
+            <template slot="css">
+              #components-form-demo-normal-login .login-form {
+                max-width: 300px;
+              }
+              #components-form-demo-normal-login .login-form-forgot {
+                float: right;
+              }
+            </template>
+            <v-button>Default</v-button>
+            <v-button>Default</v-button>
+            <div>
+              <div>
+                123123
+              </div>
+              <div>
+                <div>
+                  343fcdfc
+                </div>
+              </div>
+            </div>
+            <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  content: [
+                    aaa: {
+                      aaa:{
+                        asdasd
+                      }
+                    }
+                    [
+                      'title',
+                      '标题',
+                      'string',
+                      '无'
+                    ]
+                  ]
+                }
+              }
+            }
+            </template>
+          </code-box>
+        </code-box>
+
       </v-col>
     </v-row>
 
@@ -78,25 +130,25 @@ export default {
         ],
         [
           'code',
-          '组件的示例代码，如果没有将直接使用slot::default的内容',
+          '组件的HTML示例代码，如果没有将直接使用slot::default的内容',
           'string',
           '无'
         ],
         [
-          'slot::default',
+          'slot:default',
           '组件的插槽，用于演示',
           'slot node',
           '无'
         ],
         [
-          'preCode',
-          '组件的前置示例代码，显示在组件示例代码前面',
+          'slot:js',
+          '组件的JS示例代码',
           'slot node',
           '无'
         ],
         [
-          'postCode',
-          '组件的后置示例代码，显示在组件示例代码后面',
+          'slot:css',
+          '组件的CSS示例代码',
           'slot node',
           '无'
         ]

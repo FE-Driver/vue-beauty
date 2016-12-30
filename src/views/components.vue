@@ -134,6 +134,9 @@
               <v-menu-item v-link="{ name: 'breadcrumb', activeClass: 'ant-menu-item-selected' }">
                 Breadcrumb 面包屑
               </v-menu-item>
+              <v-menu-item v-link="{ name: 'dropdown', activeClass: 'ant-menu-item-selected' }">
+                Dropdown 下拉菜单
+              </v-menu-item>
               <v-menu-item v-link="{ name: 'menu', activeClass: 'ant-menu-item-selected' }">
                 Menu 导航菜单
               </v-menu-item>

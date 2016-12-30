@@ -1,5 +1,5 @@
 <template>
-    <div class="ant-tabs ant-tabs-top ant-tabs-line">
+    <div :class="tabsCls">
         <div role="tablist" class="ant-tabs-bar" tabindex="0">
             <div :class="containerCls">
                 <span v-if="isScroll" unselectable="unselectable" :class="['ant-tabs-tab-prev',{'ant-tabs-tab-btn-disabled': tab_transform == 0}]" @click="before">
@@ -43,10 +43,12 @@
             nav_w:0,
             navScroll_w:0,
             tabWrap: 0,
+            moveWidth: 0,
             tab_transform: 0
         }),
         props: defaultProps({
-            activeKey: String
+            activeKey: String,
+            size: String
         }),
         ready(){
             let temp_tabs = [];
@@ -80,21 +82,31 @@
             selectTab(index){
                 this.activeIndex = index;
                 this.activeKey = this.tabs[index].key;
-                this.$broadcast('activeKey',this.activeKey);
+                this.$broadcast('tabclick',this.activeKey);
             },
             before() {
                 if ( this.tab_transform > 0 ) {
-                    this.tab_transform += -1 * this.tabWrap;
+                    this.tab_transform += -1 * this.moveWidth;
                 }
             },
             next() {
                 this.tabWrap = this.$el.querySelector('.ant-tabs-nav-scroll').offsetWidth;
+                this.moveWidth =  Math.floor( this.tabWrap / ( this.tabWidth + 24 ) ) * ( this.tabWidth + 24 );
                 if ( this.tab_transform + this.tabWrap < this.nav_w ) {
-                    this.tab_transform += this.tabWrap;
+                    this.tab_transform += this.moveWidth;
                 }
             }
         },
         computed: {
+            tabsCls(){
+                const size = {small: 'mini'}[this.size];
+                return [
+                    this.prefix,
+                    `${this.prefix}-top`,
+                    `${this.prefix}-line`,
+                    {[`${this.prefix}-${size}`]: size}
+                ]
+            },
             containerCls(){
                 return [
                     'ant-tabs-nav-container',

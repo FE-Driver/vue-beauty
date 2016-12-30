@@ -52,5 +52,5 @@ chrome、firefox、暂不支持IE(计划支持IE11+)
 我们欢迎任何形式的贡献，请阅读[贡献指南](https://fe-driver.github.io/vue-beauty/#!/components/contribute)了解详细的情况。
 
 ## 链接
-- [Vue官网](http://vuejs.org/)
+- [Vue官网](http://cn.vuejs.org//)
 - [Ant.Design官网](http://ant.design/)

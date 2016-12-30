@@ -13,6 +13,7 @@ import checkbox from './components/checkbox'
 import collapse from './components/collapse'
 import datatable from './components/datatable'
 import datepicker from './components/datePicker'
+import dropdown from './components/dropdown'
 import form from './components/form'
 import icon from './components/iconfont'
 import input from './components/input'
@@ -65,6 +66,9 @@ let compnents = {
     collapseItem: collapse.Item,
     datatable,
     datepicker,
+    dropdown,
+    dropdownMenu: dropdown.Menu,
+    dropdownItem: dropdown.Item,
     form,
     formItem: form.Item,
     icon,

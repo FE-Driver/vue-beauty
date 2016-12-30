@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 
 .markdown>table {
     border-collapse: collapse;
