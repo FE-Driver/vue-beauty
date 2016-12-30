@@ -43,6 +43,7 @@
             nav_w:0,
             navScroll_w:0,
             tabWrap: 0,
+            moveWidth: 0,
             tab_transform: 0
         }),
         props: defaultProps({
@@ -84,13 +85,14 @@
             },
             before() {
                 if ( this.tab_transform > 0 ) {
-                    this.tab_transform += -1 * this.tabWrap;
+                    this.tab_transform += -1 * this.moveWidth;
                 }
             },
             next() {
                 this.tabWrap = this.$el.querySelector('.ant-tabs-nav-scroll').offsetWidth;
+                this.moveWidth =  Math.floor( this.tabWrap / ( this.tabWidth + 24 ) ) * ( this.tabWidth + 24 );
                 if ( this.tab_transform + this.tabWrap < this.nav_w ) {
-                    this.tab_transform += this.tabWrap;
+                    this.tab_transform += this.moveWidth;
                 }
             }
         },
