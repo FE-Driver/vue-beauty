@@ -82,7 +82,8 @@
             selectTab(index){
                 this.activeIndex = index;
                 this.activeKey = this.tabs[index].key;
-                this.$broadcast('tabclick',this.activeKey);
+                this.$broadcast('activeKey',this.activeKey);
+                this.$emit('tabclick',this.activeKey)
             },
             before() {
                 if ( this.tab_transform > 0 ) {

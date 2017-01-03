@@ -147,12 +147,17 @@ export default {
             explain: '选项卡头文字左侧的图标',
             type: 'String',
             default: '无'
+        },{
+            parameter: 'disabled',
+            explain: '禁用',
+            type: 'Boolean',
+            default: 'false'
         }],
         eventsApi: [
           [
             'tabclick',
             '点击菜单项时触发',
-            'function(data)'
+            'function(key)'
           ]
         ]
     }
