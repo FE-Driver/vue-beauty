@@ -32,7 +32,7 @@
   "dependencies": {
     "async-validator": "^1.6.7",
     "classnames": "^2.2.5",
-    "core.js": "^0.4.2",
+    "core-js": "^2.4.1",
     "velocity-animate": "^1.4.0",
     "vue-resource": "^0.9.3"
   },
