@@ -37,7 +37,7 @@ Vue.use(alert)
 <link rel="stylesheet" href="vue-beauty.min.css"> 
 <script type="text/javascript" src="vue-beauty.min.js"></script> 
 ```
-更多说明，请查看我们的[在线文档](https://fe-driver.github.io/vue-beauty "title" target="_blank")。
+更多说明，请查看我们的[在线文档](https://fe-driver.github.io/vue-beauty  "title"  target="_blank")。
 
 ## 浏览器支持
 chrome、firefox、暂不支持IE(计划支持IE11+)
