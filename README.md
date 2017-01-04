@@ -37,20 +37,20 @@ Vue.use(alert)
 <link rel="stylesheet" href="vue-beauty.min.css"> 
 <script type="text/javascript" src="vue-beauty.min.js"></script> 
 ```
-更多说明，请查看我们的[在线文档](https://fe-driver.github.io/vue-beauty  "title"  target="_blank")。
+更多说明，请查看我们的[在线文档](https://fe-driver.github.io/vue-beauty)。
 
 ## 浏览器支持
-chrome、firefox、暂不支持IE(计划支持IE11+)
+chrome、firefox、暂不支持IE(计划支持IE11+)。
 
 ## Polyfill
-本组件库内置了一些es最新实例方法的垫片，请查看[Polyfill](https://fe-driver.github.io/vue-beauty/#!/components/polyfill){:target="_blank"}。
+本组件库内置了一些es最新实例方法的垫片，请查看[Polyfill](https://fe-driver.github.io/vue-beauty/#!/components/polyfill)。
 
 ## 更新日志
-欢迎查看详细的[更新日志](https://github.com/FE-Driver/vue-beauty/releases){:target="_blank"}。
+欢迎查看详细的[更新日志](https://github.com/FE-Driver/vue-beauty/releases)。
 
 ## 参与贡献
-我们欢迎任何形式的贡献，请阅读[贡献指南](https://fe-driver.github.io/vue-beauty/#!/components/contribute){:target="_blank"}了解详细的情况。
+我们欢迎任何形式的贡献，请阅读[贡献指南](https://fe-driver.github.io/vue-beauty/#!/components/contribute)了解详细的情况。
 
 ## 链接
-- [Vue官网](http://cn.vuejs.org//){:target="_blank"}
-- [Ant.Design官网](http://ant.design/){:target="_blank"}
+- [Vue官网](http://cn.vuejs.org//)
+- [Ant.Design官网](http://ant.design/)
