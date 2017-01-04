@@ -60,22 +60,13 @@
     },
     methods: {
       slotHandle(slot='default', type='html'){
-        if(!this._slotContents[slot]) return false;
-        let children = this._slotContents[slot].childNodes
+        const _slot = this._slotContents[slot];
+        if(!_slot) return false;
 
-        children = Array.prototype.filter.call(children, function (node) {
-          return [1,3].includes(node.nodeType)
-        })
+        const container = document.createElement('div')
+        container.appendChild(_slot.cloneNode(true))
 
-        return children.map(function (dom) {
-          let str;
-          if(dom.nodeType === 1){
-            str = dom.outerHTML
-          }else{
-            str = dom.data
-          }
-          return beautify(str, {format: type})
-        }).join('\n')
+        return beautify(container.innerHTML, {format: type})
       },
       handleOpen() {
         this.open = !this.open
