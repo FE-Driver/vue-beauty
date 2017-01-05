@@ -1,70 +1,80 @@
 <template>
-<div :class="wrapClasses">
-  <span v-if="showInfo === true" >
-    <span v-if="progressStatus === 'exception' || progressStatus === 'success'" :class="prefixCls + '-line-text'">
-      <v-icon :type="progressStatus === 'exception' ? 'exclamation-circle' : 'check-circle' "></v-icon>
-    </span>
-    <span v-else :class="prefixCls + '-line-text'">
-      {{ percent }}%
-    </span>
-  </span>
+    <div :class="wrapClasses">
+        <div>
+            <div :class="prefixCls + '-outer'">
+                <div :class="prefixCls + '-inner'">
+                    <div :class="prefixCls + '-bg'" :style="{width: percent + '%', height: strokeWidth + 'px'}"></div>
+                </div>
+            </div>
+            <template v-if="showInfo === true">
+                <span :class="prefixCls + '-text'">
+                    <template v-if="format"> {{ format }} </template>
+                    <template v-else>
+                        <template v-if="progressStatus === 'exception' || progressStatus === 'success'">
+                            <v-icon :type="progressStatusIcon"></v-icon>
+                        </template>
+                        <template v-else> {{ percent }}% </template>
+                    </template>
+                </span>
+            </template>
+        </div>
 
-  <div :class="prefixCls + '-line-outer'">
-    <div :class="prefixCls + '-line-inner'">
-      <div :class="prefixCls + '-line-bg'" :style="{width: percent + '%', height: strokeWidth + 'px'}"></div>
     </div>
-  </div>
-</div>
 </template>
 
-<script>
-  import { defaultProps, oneOf } from '../../utils'
-  import vIcon from '../iconfont'
+<script lang="babel">
+    import {defaultProps, oneOf} from '../../utils'
+    import vIcon from '../iconfont'
 
-export default {
-  name: 'v-progress-line',
-  props: defaultProps({
-    prefixCls: 'ant-progress',
+    export default {
+        name: 'v-progress-line',
+        props: defaultProps({
+            prefixCls: 'ant-progress',
 
-    status: oneOf(['normal', 'exception', 'active', 'success'], 'normal'),
-    progressStatus: 'normal',
-    showInfo: true,
-    percent: 0,
-    strokeWidth: 10
-  }),
+            status: oneOf(['normal', 'exception', 'active', 'success'], 'normal'),
+            progressStatus: 'normal',
+            showInfo: true,
+            percent: 0,
+            format: "",
+            strokeWidth: 10
+        }),
 
-  components: { vIcon },
+        components: {vIcon},
 
-  computed: {
-    wrapClasses () {
-      return [
-        `${this.prefixCls}-line-wrap`,
-        'clearfix',
-        {[`status-${this.progressStatus}`]: this.progressStatus},
-        {[`${this.prefixCls}-line-wrap-full`]: !this.showInfo}
-      ]
+        computed: {
+            wrapClasses () {
+                return [
+                    `${this.prefixCls}`,
+                    `${this.prefixCls}-line`,
+                    {[`${this.prefixCls}-status-${this.progressStatus}`]: this.progressStatus},
+                    {[`${this.prefixCls}-show-info`]: this.showInfo}
+                ]
+            },
+
+            progressStatusIcon () {
+                return this.progressStatus === 'exception' ? "cross-circle" : "check-circle";
+            }
+        },
+
+        compiled () {
+            this._handleStatus()
+        },
+
+        watch: {
+            percent () {
+                this._handleStatus()
+            }
+        },
+
+        methods: {
+            _handleStatus () {
+                if (parseInt(this.percent, 10) === 100) {
+                    this.progressStatus = 'success'
+                } else {
+                    this.progressStatus = this.status || 'normal';
+                }
+            }
+        }
     }
-  },
-
-  compiled () {
-    this._handleStatus()
-  },
-
-  watch: {
-    percent () {
-      this._handleStatus()
-    }
-  },
-
-  methods: {
-    _handleStatus () {
-      if (parseInt(this.percent, 10) === 100) {
-        this.progressStatus = 'success'
-      } else {
-        this.progressStatus = this.status || 'normal';
-      }
-    }
-  }
-}
 
 </script>

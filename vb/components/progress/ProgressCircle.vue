@@ -1,97 +1,118 @@
 <template>
-<div :class="prefixCls + '-circle-wrap status-' + progressStatus" >
-  <div
-    :class="prefixCls + '-circle-inner'"
-    :style="{
-      'width': width + 'px',
-      'height': width + 'px',
-      'fontSize': width * 0.16 + 6 + 'px'
-    }">
+    <div :class="wrapClasses">
+        <div :class="prefixCls + '-inner'"
+            :style="{
+                'width': width + 'px',
+                'height': width + 'px',
+                'fontSize': width * 0.16 + 6 + 'px'
+            }">
 
-    <svg viewBox='0 0 100 100'>
-      <path :d="pathString" :stroke="trailColor"
-        :stroke-width="trailWidth" fill-opacity='0'/>
-      <path :d="pathString" stroke-linecap='round'
-        :stroke="strokeColor" :stroke-width="strokeWidth" fill-opacity='0' :style="pathStyle" />
-    </svg>
+            <svg class="rc-progress-circle" viewBox='0 0 100 100'>
+                <path class="rc-progress-circle-trail"
+                      :d="pathString" :stroke="trailColor"
+                      :stroke-width="trailWidth" fill-opacity='0'/>
+                <path class="rc-progress-circle-path"
+                      :d="pathString" stroke-linecap='round'
+                      :stroke="strokeColor" :stroke-width="strokeWidth" fill-opacity='0' :style="pathStyle"/>
+            </svg>
 
-    <span v-if="progressStatus === 'exception'" :class="prefixCls + '-circle-text'"><v-icon type="exclamation"></v-icon></span>
-    <span v-if="progressStatus === 'success'" :class="prefixCls + '-circle-text'"><v-icon type="check"></v-icon></span>
-    <span v-if="progressStatus !== 'exception' && progressStatus !== 'success'" :class="prefixCls + '-circle-text'">{{ percent }}%</span>
-  </div>
-</div>
+            <span :class="prefixCls + '-text'">
+                <template v-if="format"> {{ format }} </template>
+                <template v-else>
+                    <template v-if="progressStatus === 'exception' || progressStatus === 'success'">
+                        <v-icon :type="progressStatusIcon"></v-icon>
+                    </template>
+                    <template v-else> {{ percent }}% </template>
+                </template>
+            </span>
+        </div>
+    </div>
 </template>
 
-<script>
-  import { defaultProps, oneOf } from '../../utils'
-  import vIcon from '../iconfont'
+<script lang="babel">
+    import {defaultProps, oneOf} from '../../utils'
+    import vIcon from '../iconfont'
 
-const statusColorMap = {
-  'normal': '#2db7f5',
-  'exception': '#ff6600',
-  'success': '#87d068'
-}
+    const statusColorMap = {
+        'normal': '#369BE9',
+        'exception': '#E95471',
+        'success': '#16C294'
+    }
 
-export default {
-  name: 'v-progress-circle',
-  props: defaultProps({
-    prefixCls: 'ant-progress',
+    export default {
+        name: 'v-progress-circle',
+        props: defaultProps({
+            prefixCls: 'ant-progress',
 
-    status: oneOf(['normal', 'exception', 'success'], 'normal'),
-    progressStatus: 'normal',
-    width: 132,
-    percent: 0,
-    trailWidth: 6,
-    strokeWidth: 6,
-    trailColor: '#e9e9e9'
-  }),
+            status: oneOf(['normal', 'exception', 'success'], 'normal'),
+            progressStatus: 'normal',
+            width: 132,
+            percent: 0,
+            format: "",
+            trailWidth: 6,
+            strokeWidth: 6,
+            trailColor: '#e9e9e9'
+        }),
 
-  components: { vIcon },
+        components: {vIcon},
 
-  computed: {
-    strokeColor () {
-      return statusColorMap[this.progressStatus]
-    },
+        computed: {
+            wrapClasses () {
+                return [
+                    `${this.prefixCls}`,
+                    `${this.prefixCls}-circle`,
+                    {[`${this.prefixCls}-status-${this.progressStatus}`]: this.progressStatus},
+                    {[`${this.prefixCls}-show-info`]: this.showInfo}
+                ]
+            },
 
-    radius () {
-      return 50 - this.strokeWidth / 2
-    },
+            strokeColor () {
+                return statusColorMap[this.progressStatus]
+            },
 
-    pathString () {
-      return `M 50,50 m 0,-${this.radius}
+            radius () {
+                return 50 - this.strokeWidth / 2
+            },
+
+            pathString () {
+                return `M 50,50 m 0,-${this.radius}
               a ${this.radius},${this.radius} 0 1 1 0,${2 * this.radius}
               a ${this.radius},${this.radius} 0 1 1 0,-${2 * this.radius}`
-    },
+            },
 
-    pathStyle () {
-      const len = Math.PI * 2 * this.radius
-      return {
-        'strokeDasharray': `${len}px ${len}px`,
-        'strokeDashoffset': `${((100 - this.percent) / 100 * len)}px`,
-        'transition': 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'
-      }
+            pathStyle () {
+                const len = Math.PI * 2 * this.radius
+                return {
+                    'strokeDasharray': `${len}px ${len}px`,
+                    'strokeDashoffset': `${((100 - this.percent) / 100 * len)}px`,
+                    'transition': 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease'
+                }
+            },
+
+            progressStatusIcon () {
+                return this.progressStatus === 'exception' ? "cross" : "check";
+            }
+        },
+
+        compiled () {
+            this._handleStatus()
+        },
+
+        watch: {
+            percent () {
+                this._handleStatus()
+            }
+        },
+
+        methods: {
+            _handleStatus () {
+                if (parseInt(this.percent, 10) === 100) {
+                    this.progressStatus = 'success'
+                } else {
+                    this.progressStatus = this.status || 'normal';
+                }
+            }
+        }
     }
-  },
-
-  compiled () {
-    this._handleStatus()
-  },
-
-  watch: {
-    percent () {
-      this._handleStatus()
-    }
-  },
-
-  methods: {
-    _handleStatus () {
-      if (parseInt(this.percent, 10) === 100) {
-        this.progressStatus = 'success'
-      } else {
-        this.progressStatus = this.status || 'normal';
-      }
-    }
-  }
-}
 
 </script>
