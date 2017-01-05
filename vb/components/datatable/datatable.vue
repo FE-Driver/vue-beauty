@@ -454,7 +454,6 @@
 
                 if(theader_ths.length && tbody_ths.length){
                     for(let [index,el] of theader_ths.entries()){
-                        console.log(index)
                         if(index != theader_ths.length-1){
                             el.style.width = tbody_ths[index].offsetWidth + 'px'
                         }
