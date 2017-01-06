@@ -40,12 +40,8 @@
                 <code-box title="动态展示" describe="通过动态的改变进度,可以让进度条更有趣">
                     <v-progress-line :percent="percentLine" :format="percentLine == 100 ? '完成' : percentLine + '%'"></v-progress-line>
                     <v-button-group size="small">
-                        <v-button @click="_declineLine">
-                            <v-icon type="minus"></v-icon>
-                        </v-button>
-                        <v-button @click="_increaseLine">
-                            <v-icon type="plus"></v-icon>
-                        </v-button>
+                        <v-button icon="minus" @click="_declineLine"></v-button>
+                        <v-button icon="plus" @click="_increaseLine"></v-button>
                     </v-button-group>
                     <template slot="js">
                         export default {
@@ -99,12 +95,8 @@
                 <code-box title="进度圈动态展示" describe="通过动态的改变进度,可以让进度圈更有趣">
                     <v-progress-circle :percent="percentCircle" :format="percentCircle == 100 ? '完成' : percentCircle + '%'"></v-progress-circle>
                     <v-button-group size="small">
-                        <v-button @click="_declineCircle">
-                            <v-icon type="minus"></v-icon>
-                        </v-button>
-                        <v-button @click="_increaseCircle">
-                            <v-icon type="plus"></v-icon>
-                        </v-button>
+                        <v-button icon="minus" @click="_declineCircle"></v-button>
+                        <v-button icon="plus" @click="_increaseCircle"></v-button>
                     </v-button-group>
                     <template slot="js">
                         export default {
