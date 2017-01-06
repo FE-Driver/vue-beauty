@@ -16,7 +16,9 @@ export default {
     type: {
       type: String,
       coerce: function (val) {
-        return `ant-btn-${val}`
+        if(val){
+          return `ant-btn-${val}`
+        }
       }
     },
     htmlType: {
@@ -27,25 +29,19 @@ export default {
     shape: {
       type: String,
       coerce: function (val) {
-        return `ant-btn-${val}`
+        if(val){
+          return `ant-btn-${val}`
+        }
       }
     },
     size: {
       type: String,
       coerce: function (val) {
-        let sizeClass
-        switch(val)
-        {
-          case 'large':
-            sizeClass = 'ant-btn-lg'
-            break;
-          case 'small':
-            sizeClass = 'ant-btn-sm'
-            break;
-          default:
-            sizeClass = ''
+        const size = {large: 'lg', small: 'sm'}[val];
+
+        if(size){
+          return `ant-btn-${size}`
         }
-        return sizeClass
       }
     },
     loading: {
