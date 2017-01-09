@@ -1,0 +1,10 @@
+.*
+index.html
+build/
+config/
+dist/
+node_modules/
+package/style.js
+package/style.min.js
+src/
+static/

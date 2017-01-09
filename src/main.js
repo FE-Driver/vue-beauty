@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import routerMap from './routers'
-import vueBeauty from '../components'
-import '../components/style/index.less'
+import '../vb/style/index.less'
+import vueBeauty from '../vb/components'
 
 Vue.use(VueRouter);
 Vue.use(vueBeauty);
