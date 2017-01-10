@@ -5,7 +5,7 @@ import button from './components/button'
 import card from './components/card'
 import rate from './components/rate'
 import menu from './components/menu'
-import {col,row} from './components/layout'
+import {col,row} from './components/grid'
 
 let compnents = {
   col,
@@ -20,8 +20,6 @@ let compnents = {
   buttonGroup:button.Group,
   card,
   rate,
-
-
 }
 
 for(let item of Object.values(compnents) ){

@@ -49,13 +49,13 @@ export default {
 <style lang="less">
 
 .main-wrapper {
-    width: 96%;
+    background: #fff;
+    width: 92%;
     margin: 0 auto;
-    border-radius: 6px;
+    border-radius: 4px;
+    overflow: hidden;
     padding: 24px 0 0;
     margin-bottom: 24px;
-    background-color: #fff;
-    overflow: hidden;
     position: relative;
 }
 
