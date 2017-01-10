@@ -1,5 +1,5 @@
 {
-  "presets": ["latest","stage-2"],
+  "presets": [["latest",{"modules": false}],"stage-2"],
   "plugins": [
     ["transform-runtime", {
       "helpers": false,

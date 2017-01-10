@@ -1,9 +1,11 @@
-import alert from './alert'
-import button from './button'
-import card from './card'
-import rate from './rate'
-import menu from './menu'
-import {col,row} from './layout'
+import './utils/polyfill'
+
+import alert from './components/alert'
+import button from './components/button'
+import card from './components/card'
+import rate from './components/rate'
+import menu from './components/menu'
+import {col,row} from './components/layout'
 
 let compnents = {
   col,
@@ -41,10 +43,9 @@ const install = function(Vue) {
 }
 
 // auto install
-/*if (typeof window !== 'undefined' && window.Vue) {
+if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 };
-*/
 
 module.exports = {
   version: '2.0.0-alpha.0',

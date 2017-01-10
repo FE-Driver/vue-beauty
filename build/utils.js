@@ -25,14 +25,19 @@ exports.cssLoaders = function (options) {
       return loader + (options.sourceMap ? extraParamChar + 'sourceMap' : '')
     }).join('!')
 
+    // Extract CSS when that option is specified
+    // (which is the case during production build)
     if (options.extract) {
-      return ExtractTextPlugin.extract('vue-style-loader', sourceLoader)
+      return ExtractTextPlugin.extract({
+        fallbackLoader: 'style-loader',
+        loader: sourceLoader
+      })
     } else {
       return ['vue-style-loader', sourceLoader].join('!')
     }
   }
 
-  // http://vuejs.github.io/vue-loader/configurations/extract-css.html
+  // http://vuejs.github.io/vue-loader/en/configurations/extract-css.html
   return {
     css: generateLoaders(['css']),
     postcss: generateLoaders(['css']),

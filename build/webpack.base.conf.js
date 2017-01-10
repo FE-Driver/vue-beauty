@@ -1,53 +1,81 @@
-var path = require('path')
-var config = require('../config')
-var utils = require('./utils')
-var projectRoot = path.resolve(__dirname, '../')
+'use strict'
+
+const path = require('path')
+const webpack = require('webpack')
+const config = require('../config')
+const utils = require('./utils')
+const projectRoot = path.resolve(__dirname, '../')
+const md = require('markdown-it')('default',{
+  html: true,
+  breaks: true
+})
+md.renderer.rules.table_open = function() {
+  return '<table class="table">';
+};
+md.renderer.rules.fence = wrap(md.renderer.rules.fence);
+
+const env = process.env.NODE_ENV
+const isProduction = env === 'production'
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/index.js',
+    vendor: ['vue']
   },
   output: {
     path: config.build.assetsRoot,
-    publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
+    publicPath: isProduction ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    extensions: ['.js', '.vue', '.css', '.json'],
+    mainFields: ['jsnext:main','main'],
     alias: {
-      'vue': 'vue/dist/vue',
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      package: path.resolve(__dirname, '../package.json'),
+      src: path.resolve(__dirname, '../src'),
+      assets: path.resolve(__dirname, '../src/assets'),
+      components: path.resolve(__dirname, '../src/components'),
+      views: path.resolve(__dirname, '../src/views'),
     }
-  },
-  resolveLoader: {
-    fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
     loaders: [
-      {
+      /*{
         test: /\.vue$/,
-        loader: 'vue'
-      },
+        loader: ['eslint-loader'],
+        include: projectRoot,
+        exclude: /node_modules/,
+        enforce: 'pre'
+      },*/
+      /*{
+        test: /\.js$/,
+        loader: ['eslint-loader'],
+        include: projectRoot,
+        exclude: /node_modules/,
+        enforce: 'pre'
+      },*/
       {
         test: /\.md/,
-        loader: 'vue-markdown-loader'
+        loader: 'vue-markdown-loader',
+        options: md
+      },
+      {
+        test: /\.vue$/,
+        loader: ['vue-loader']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: ['babel-loader?cacheDirectory'],
         include: projectRoot,
         exclude: /node_modules/
       },
       {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
@@ -61,37 +89,21 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-    ]
+    ],
   },
-  vueMarkdown: {
-    // markdown-it config 
-    preset: 'default',
-    breaks: true,
- 
-    preprocess: function(markdownIt, source) {
-      markdownIt.renderer.rules.table_open = function() {
-        return '<table class="table">';
-      };
-      markdownIt.renderer.rules.fence = wrap(markdownIt.renderer.rules.fence);
-      return source;
-    },
- 
-    use: [
-      /* markdown-it plugin */
-      require('markdown-it-container')
-    ]
-  },
-  vue: {
-    loaders: utils.cssLoaders(),
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions']
-      })
-    ]
-  }
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      vue: {
+        loaders: utils.cssLoaders({
+          sourceMap: isProduction,
+          extract: isProduction
+        })
+      }
+    })
+  ]
 }
 
-let wrap = function(render) {
+function wrap(render) {
   return function() {
     return render.apply(this, arguments)
       .replace('<code class="', '<code class="hljs ')
