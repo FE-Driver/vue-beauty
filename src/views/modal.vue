@@ -357,13 +357,8 @@
                 </code-box>
             </v-col>
         </v-row>
-        <api-table
-                :apis='modalApis'
-        ></api-table>
-        <api-table
-                :apis='confirmApis' ,
-                title="Modal.xxx()"
-        >
+        <api-table :apis='modalApis'></api-table>
+        <api-table :apis='confirmApis' , title="Modal.xxx()">
             <p>包括：</p>
             <ul>
                 <li><p><code>Modal.info</code></p></li>
