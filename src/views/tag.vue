@@ -102,7 +102,7 @@
 
 
     <api-table :apis='apis'></api-table>
-    <api-table type="events" title="" :content='eventsApi'></api-table>
+    <api-table type="events" :content='eventsApi'></api-table>
 </template>
 <script lang="babel">
     import codeBox from '../components/codeBox'
