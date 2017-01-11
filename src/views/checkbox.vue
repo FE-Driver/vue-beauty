@@ -21,7 +21,6 @@
         <code-box
           title="基本用法"
           describe="简单的 checkbox。"
-          code="<v-checkbox>checkbox</v-checkbox>"
         >
           <v-checkbox>checkbox</v-checkbox>
 
@@ -30,20 +29,6 @@
         <code-box
           title="和外部组件通信"
           describe="联动 checkbox。"
-          code='onChange: (e) => {
-  this.checked = e.checked
-},
-
-<v-checkbox
-  :checked="checked"
-  :disabled="disabled"
-  :on-change="onChange">
-  <span v-if="!checked">取消</span><span v-if="checked">选中</span>-
-  <span v-if="!disabled">可用</span><span v-if="disabled">不可用</span>
-</v-checkbox>
-
-<button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="this.checked = !this.checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
-<button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="this.disabled = !this.disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>'
         >
           <p style="margin-bottom: 16px;">
             <v-checkbox
@@ -58,6 +43,19 @@
             <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="this.checked = !this.checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
             <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="this.disabled = !this.disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>
           </p>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                checked: false,
+                disabled: false,
+                onChange: (e) => {
+                  this.checked = e.checked
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>
@@ -65,43 +63,42 @@
 
         <code-box
           title="不可用"
-          describe="checkbox不可用"
-          code="<v-checkbox disabled='true'></v-checkbox>
-<v-checkbox checked='true' disabled='true'></v-checkbox>"
-        >
-          <v-checkbox disabled='true'></v-checkbox>
-          <v-checkbox checked='true' disabled='true'></v-checkbox>
+          describe="checkbox不可用">
+          <v-checkbox :disabled='true'></v-checkbox>
+          <v-checkbox :checked='true' :disabled='true'></v-checkbox>
         </code-box>
 
         <code-box
           title="Checkbox 组"
           describe="方便的从数组生成 Checkbox 组。"
-          code='defaultValue: ["Apple", "Orange"],
-options: [
-  { label: "苹果", value: "Apple" },
-  { label: "梨", value: "Pear" },
-  { label: "橘", value: "Orange" },
-],
-optionsWithDisabled: [
-{ label: "苹果", value: "Apple" },
-{ label: "梨", value: "Pear" },
-{ label: "橘", value: "Orange", disabled； true },
-],
-
-<v-checkbox-group :options="options"
-  :value.sync="defaultValue">
-</v-checkbox-group>
-
-<v-checkbox-group
-  :options="optionsWithDisabled"
-  :on-change="checkGroup">
-</v-checkbox-group>'
         >
           <p style="margin-bottom: 16px;"><v-checkbox-group :options="options" :value.sync="defaultValue"></v-checkbox-group></p>
           <v-checkbox-group
             :options="optionsWithDisabled"
             :on-change="checkGroup">
           </v-checkbox-group>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                checkGroup: (values) => {
+                  console.log(values);
+                },
+                defaultValue: ['Apple','Orange'],
+                options: [
+                  { label: '苹果', value: 'Apple' },
+                  { label: '梨', value: 'Pear' },
+                  { label: '橘', value: 'Orange' },
+                ],
+                optionsWithDisabled: [
+                  { label: '苹果', value: 'Apple' },
+                  { label: '梨', value: 'Pear' },
+                  { label: '橘', value: 'Orange', disabled: true },
+                ]
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>

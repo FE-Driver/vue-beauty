@@ -53,31 +53,7 @@
       <div class="ant-col-11">
         <code-box
           title="基本布局演示"
-          describe="点击戳开代码"
-          code='
-            <v-row><v-col span="24">100%</v-col></v-row>
-            <v-row>
-              <v-col span="6">25%</v-col>
-              <v-col span="6">25%</v-col>
-              <v-col span="6">25%</v-col>
-              <v-col span="6">25%</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="8">33.33%</v-col>
-              <v-col span="8">33.33%</v-col>
-              <v-col span="8">33.33%</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="12">50%</v-col>
-              <v-col span="12">50%</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="16">66.66%</v-col>
-              <v-col span="8">33.33%</v-col>
-            </v-row>'>
+          describe="点击戳开代码">
           <div class="demo-ant-row-col">
             <v-row><v-col span="24">100%</v-col></v-row>
             <v-row>
@@ -115,21 +91,7 @@
       <div class="ant-col-11">
         <code-box
           title="可以左右偏移的布局"
-          describe="ant-col-offset-n n为想要margin-left多少个栅格的距离"
-          code='
-            <v-row>
-              <v-col span="8">.ant-col-8</v-col>
-              <v-col span="8" offset="8">.ant-col-8 ant-col-offset-8</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="6" offset="6">.ant-col-6 .ant-col-offset-6</v-col>
-              <v-col span="6" offset="6">.ant-col-6 .ant-col-offset-6</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="12" offset="6">.ant-col-12 .ant-col-offset-6</v-col>
-            </v-row>'>
+          describe="ant-col-offset-n n为想要margin-left多少个栅格的距离">
           <div class="demo-ant-row-col">
 
             <v-row>
@@ -159,24 +121,7 @@
       <div class="ant-col-11">
         <code-box
           title="布局排序"
-          describe="栅格系统内子元素默认是左浮动，push的作用设置子元素基于自己原来浮动的位置的向右移动的距离，pull的作用设置子元素基于自己原来浮动的位置的向左移动的距离"
-          code='
-            <v-row>
-              <v-col span="18" push="6">.ant-col-18 .ant-col-push-6</v-col>
-              <v-col span="6" pull="18">.ant-col-6 .ant-col-pull-18</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="12" push="12">.ant-col-push-12 .ant-col-12</v-col>
-              <v-col span="12" pull="12">.ant-col-pull-12 .ant-col-12</v-col>
-            </v-row>
-
-            <v-row>
-              <v-col span="6" push="12">.ant-col-push-12 .ant-col-6 1</v-col>
-              <v-col span="6" push="12">.ant-col-push-6 .ant-col-6 2</v-col>
-              <v-col span="12" pull="12">.ant-col-pull-6 .ant-col-12</v-col>
-            </v-row>
-          '>
+          describe="栅格系统内子元素默认是左浮动，push的作用设置子元素基于自己原来浮动的位置的向右移动的距离，pull的作用设置子元素基于自己原来浮动的位置的向左移动的距离">
           <div class="demo-ant-row-col">
 
             <v-row>
@@ -210,43 +155,7 @@
         <h3>Flex布局</h3>
         <code-box
           title="Flex布局：排列"
-          describe="点击戳开代码 关键词：start, center, end, space-between, space-around"
-          code='
-          <p>子元素居左排列（默认）.ant-row-flex-start .ant-row-flex .ant-row</p>
-            <v-row display="flex" pack="start">
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-            </v-row>
-            <p>子元素居中排列 .ant-row-flex-center .ant-row-flex .ant-row</p>
-            <v-row display="flex" pack="center">
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-            </v-row>
-            <p>子元素居右排列 .ant-row-flex-end .ant-row-flex .ant-row</p>
-            <v-row display="flex" pack="end">
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-            </v-row>
-            <p>子元素等宽排列 .ant-row-flex-space-between .ant-row-flex .ant-row</p>
-            <v-row display="flex" pack="space-between">
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-            </v-row>
-            <p>子元素分散对齐 .ant-row-flex-space-around .ant-row-flex .ant-row</p>
-            <v-row display="flex" pack="space-around">
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-              <v-col span="4">.ant-col-4</v-col>
-            </v-row>'>
+          describe="点击戳开代码 关键词：start, center, end, space-between, space-around">
           <div class="demo-ant-row-col">
             <p>子元素居左排列（默认）.ant-row-flex-start .ant-row-flex .ant-row</p>
             <v-row display="flex" pack="start">
@@ -289,14 +198,7 @@
         <h3>Flex排序</h3>
         <code-box
           title="Flex排序"
-          describe="点击戳开代码 关键词：ant-col-order-n n为想要的顺序"
-          code='
-            <v-row display="flex">
-              <v-col order="4" span="6">1 ant-col-order-4</v-col>
-              <v-col order="3" span="6">2 ant-col-order-3</v-col>
-              <v-col order="2" span="6">3 ant-col-order-2</v-col>
-              <v-col order="1" span="6">4 ant-col-order-1</v-col>
-            </v-row>'>
+          describe="点击戳开代码 关键词：ant-col-order-n n为想要的顺序">
           <div class="demo-ant-row-col">
             <v-row display="flex">
               <v-col order="4" span="6">1 ant-col-order-4</v-col>
@@ -313,29 +215,7 @@
         <h3>Flex对齐</h3>
         <code-box
           title="Flex对齐：配合排列方式的对齐方式"
-          describe="点击戳开代码 关键词：flex-top, flex-middle, flex-bottom"
-          code='<p>顶部对齐</p>
-          <div class="ant-row-flex-center ant-row-flex-top ant-row-flex ant-row">
-            <div class="ant-col-4"><p style="height: 100px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 50px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 120px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 80px">.ant-col-4</p></div>
-          </div>
-          <p>居中对齐</p>
-          <div class="ant-row-flex-space-around ant-row-flex-middle ant-row-flex ant-row">
-            <div class="ant-col-4"><p style="height: 100px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 50px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 120px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 80px">.ant-col-4</p></div>
-          </div>
-          <p>底部对齐</p>
-          <div class="ant-row-flex-space-between ant-row-flex-bottom ant-row-flex ant-row">
-            <div class="ant-col-4"><p style="height: 100px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 50px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 120px">.ant-col-4</p></div>
-            <div class="ant-col-4"><p style="height: 80px">.ant-col-4</p></div>
-          </div>
-          '>
+          describe="点击戳开代码 关键词：flex-top, flex-middle, flex-bottom">
           <div class="demo-ant-row-col">
             <p>顶部对齐 .ant-row-flex-center .ant-row-flex-top .ant-row-flex .ant-row</p>
             <v-row pack="center" display="flex" align="top">

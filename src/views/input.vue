@@ -27,6 +27,15 @@
           describe="基本使用。"
         >
           <v-input placeholder="基本使用" @blur="blur"></v-input>
+          <template slot="js">
+          export default {
+            methods: {
+              blur(val){
+                console.log(val)
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
@@ -39,8 +48,9 @@
       </v-col>
       <v-Col span="12">
         <code-box
-        title="前后缀修饰添加"
-          describe="带有前缀后缀修饰">
+          title="前后缀修饰添加"
+          describe="带有前缀后缀修饰"
+          >
           <v-input placeholder="基本使用">
             <span slot="before">http://</span>
             <span slot="after">.com</span>
@@ -50,7 +60,17 @@
             <v-Select placeholder="请选择" style="width: 80px;" slot="before" :options="options" :value.sync="value"></v-Select>
             <v-Select style="width: 80px;" slot="after" :options="options2" :value.sync="value"></v-Select>
           </v-input>
-
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],
+                options2: [{value: '1', text: 'lady'}, {value: '2', text: '小强'}, {value: '3', text: '小明'}],
+                value: '3'
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box

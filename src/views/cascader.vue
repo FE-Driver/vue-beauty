@@ -18,23 +18,192 @@
 		<v-Col span="12">
 			<code-box title="基本" describe="省市区级联。">
 				<v-cascader :options="options" @change="onchange"></v-cascader>
+				<template slot="js">
+				export default {
+					data: function() {
+						return {
+							options: [{
+								value: 'sc',
+								label: '四川',
+								children: [{
+									value: 'cd',
+									label: '成都',
+									children: [{
+										value: 'jyq',
+										label: '九眼桥'
+									},{
+										value: 'cxl',
+										label: '春熙路'
+									}],
+								},{
+									value: 'nc',
+									label: '南充',
+									children: [{
+										value: 'nbx',
+										label: '南部县'
+									}]
+								}],
+								}, {
+								value: 'cq',
+								label: '重庆',
+								children: [{
+									value: 'lp',
+									label: '梁平',
+									children: [{
+										value: 'sgt',
+										label: '双桂堂'
+									}],
+								}],
+							}]
+						}
+					},
+					methods: {
+						onchange(val){
+							console.log(val)
+						}
+					}
+				}
+				</template>
 			</code-box>
 			<code-box title="大小" describe="不同大小的级联选择器。">
 				<v-cascader size="large" :options="options"></v-cascader><br><br>
 				<v-cascader :options="options"></v-cascader><br><br>
 				<v-cascader size="small" :options="options"></v-cascader>
+				<template slot="js">
+				export default {
+					data: function() {
+						return {
+							options: [{
+								value: 'sc',
+								label: '四川',
+								children: [{
+									value: 'cd',
+									label: '成都',
+									children: [{
+										value: 'jyq',
+										label: '九眼桥'
+									},{
+										value: 'cxl',
+										label: '春熙路'
+									}],
+								},{
+									value: 'nc',
+									label: '南充',
+									children: [{
+										value: 'nbx',
+										label: '南部县'
+									}]
+								}],
+								}, {
+								value: 'cq',
+								label: '重庆',
+								children: [{
+									value: 'lp',
+									label: '梁平',
+									children: [{
+										value: 'sgt',
+										label: '双桂堂'
+									}],
+								}],
+							}]
+						}
+					}
+				}
+				</template>
 			</code-box>
 		</v-Col>
 
 		<v-Col span="12">
 			<code-box title="默认值" describe="默认值通过数组的方式指定。">
 				<v-cascader :value="['cq','lp','sgt']" :options="options"></v-cascader>
+				<template slot="js">
+				export default {
+					data: function() {
+						return {
+							options: [{
+								value: 'sc',
+								label: '四川',
+								children: [{
+									value: 'cd',
+									label: '成都',
+									children: [{
+										value: 'jyq',
+										label: '九眼桥'
+									},{
+										value: 'cxl',
+										label: '春熙路'
+									}],
+								},{
+									value: 'nc',
+									label: '南充',
+									children: [{
+										value: 'nbx',
+										label: '南部县'
+									}]
+								}],
+								}, {
+								value: 'cq',
+								label: '重庆',
+								children: [{
+									value: 'lp',
+									label: '梁平',
+									children: [{
+										value: 'sgt',
+										label: '双桂堂'
+									}],
+								}],
+							}]
+						}
+					}
+				}
+				</template>
 			</code-box>
 			<code-box title="禁用选项" describe="通过指定 options 里的 disabled 字段。">
 				<v-cascader :options="options2"></v-cascader>
 			</code-box>
 			<code-box title="禁用" describe="禁用整个控件">
 				<v-cascader disabled :options="options2"></v-cascader>
+				<template slot="js">
+				export default {
+					data: function() {
+						return {
+							options: [{
+								value: 'sc',
+								label: '四川',
+								children: [{
+									value: 'cd',
+									label: '成都',
+									children: [{
+										value: 'jyq',
+										label: '九眼桥'
+									},{
+										value: 'cxl',
+										label: '春熙路'
+									}],
+								},{
+									value: 'nc',
+									label: '南充',
+									children: [{
+										value: 'nbx',
+										label: '南部县'
+									}]
+								}],
+								}, {
+								value: 'cq',
+								label: '重庆',
+								children: [{
+									value: 'lp',
+									label: '梁平',
+									children: [{
+										value: 'sgt',
+										label: '双桂堂'
+									}],
+								}],
+							}]
+						}
+					}
+				}
+				</template>
 			</code-box>
 		</v-Col>
 	</v-row>

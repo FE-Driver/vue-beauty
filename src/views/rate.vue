@@ -25,19 +25,34 @@
         <code-box
           title="基本"
           describe="最简单的用法。"
-          code="<v-rate :on-change='_change'></v-rate>"
         >
           <v-rate :on-change="_change"></v-rate>
+          <template slot="js">
+          export default {
+            methods: {
+              _change(val){
+                console.log('current value:'+val)
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="文案展现"
           describe="给评分组件加上文案展示。"
-          code="<v-rate :default-value.sync='value'></v-rate>
-<span class='ant-rate-text'>{{value}}星</span>"
         >
           <v-rate :default-value.sync="value"></v-rate>
           <span class="ant-rate-text">{{value}}星</span>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                value: 3
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>
@@ -46,17 +61,15 @@
         <code-box
           title="半星"
           describe="支持选中半星。"
-          code="<v-rate allow-half :default-value='2.5'></v-rate>"
         >
-          <v-rate allow-half :default-value="2.5"></v-rate>
+          <v-rate :allow-half="true" :default-value="2.5"></v-rate>
         </code-box>
 
         <code-box
           title="只读"
           describe="只读，无法进行鼠标交互。"
-          code="<v-rate disabled :default-value='2'></v-rate>"
         >
-          <v-rate disabled :default-value="2"></v-rate>
+          <v-rate :disabled="true" :default-value="2"></v-rate>
         </code-box>
 
       </v-col>
@@ -113,7 +126,9 @@ export default {
     apiTable
   },
    methods:{
-    _change:val=> console.log('current value:'+val)
+    _change(val){
+      console.log('current value:'+val)
+    }
   }
 }
 </script>

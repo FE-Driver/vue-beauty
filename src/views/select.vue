@@ -22,14 +22,38 @@
         >
           <v-Select placeholder="请选择人员" style="width: 120px;" :options="options" value="" @change="change"></v-Select>
           <v-Select placement="top" style="width: 120px;" :options="options" :value.sync="value"></v-Select>
-          <v-Select disabled style="width: 120px;" value=""></v-Select>
+          <v-Select :disabled="true" style="width: 120px;" value=""></v-Select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],
+                value: '3'
+              }
+            },
+            methods:{
+              change(val){
+                console.log(val)
+              }
+            }
+          }
+          </template>
         </code-box>
         <code-box
           title="带搜索框"
           describe="展开后可对选项进行搜索。"
         >
-          <v-Select search style="width: 120px;" :options="options" value=""></v-Select><br><br>
-          <v-Select search multiple style="width: 100%" :options="options" :value="[]"></v-Select>
+          <v-Select :search="true" style="width: 120px;" :options="options" value=""></v-Select><br><br>
+          <v-Select :search="true" :multiple="true" style="width: 100%" :options="options" :value="[]"></v-Select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}]
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
@@ -37,7 +61,41 @@
           describe="用嵌套的数据结构进行选项分组。"
         >
           <v-Select style="width: 200px" :options="groupOpt" :value="'lp'"></v-Select>
-          <v-Select style="width: 200px" multiple :options="groupOpt" :value="['lp']"></v-Select>
+          <v-Select style="width: 200px" :multiple="true" :options="groupOpt" :value="['lp']"></v-Select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                groupOpt: [
+                  {
+                    label: '重庆',
+                    data: [
+                      {
+                        value: 'lp',
+                        text: '梁平'
+                      },
+                      {
+                        value: 'wz',
+                        text: '万州',
+                        disabled: true
+                      }
+                    ]
+                  },
+                  {
+                    label: '四川',
+                    data: [{
+                      value: 'cd',
+                      text: '成都'
+                    },{
+                      value: 'dz',
+                      text: '达州'
+                    }]
+                  }
+                ]
+              }
+            }
+          }
+          </template>
         </code-box>
       </v-Col>
       <v-Col span="12">
@@ -48,21 +106,81 @@
           <v-Select size="lg" style="width: 200px;" :options="options" :value.sync="value"></v-Select>
           <v-Select style="width: 200px;" :options="options" :value.sync="value"></v-Select>
           <v-Select size="sm" style="width: 200px;" :options="options" :value.sync="value"></v-Select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],
+                value: '3'
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="多选"
           describe="多选，从已有条目中选择（scroll the menu）"
         >
-          <v-Select style="width: 100%;" multiple :options="options" :value="['3']"></v-Select>
+          <v-Select style="width: 100%;" :multiple="true" :options="options" :value="['3']"></v-Select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}]
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="远程搜索"
           describe="从服务器搜索数据，输入关键字进行查找"
         >
-          <v-Select style="width: 200px" search :loading="loading" :remote-method="remoteMethod" :options="remoteOption"></v-Select><br><br>
-          <v-Select style="width: 100%" search multiple :loading="loading2" :remote-method="remoteMethod2" :options="remoteOption"></v-Select>
+          <v-Select style="width: 200px" :search="true" :loading="loading" :remote-method="remoteMethod" :options="remoteOption"></v-Select><br><br>
+          <v-Select style="width: 100%" :search="true" :multiple="true" :loading="loading2" :remote-method="remoteMethod2" :options="remoteOption"></v-Select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                loading: false,
+                loading2: false,
+                remoteOption: [],
+              }
+            },
+            methods:{
+              remoteMethod(query) {
+                if (query !== '') {
+                  this.loading = true;
+                  setTimeout(() => {
+                    this.loading = false;
+                    this.remoteOption = this.list.filter(item => {
+                      return item.text.toLowerCase()
+                        .indexOf(query.toLowerCase()) > -1;
+                    });
+                  }, 200);
+                } else {
+                  this.remoteOption = [];
+                }
+              },
+              remoteMethod2(query) {
+                if (query !== '') {
+                  this.loading2 = true;
+                  setTimeout(() => {
+                    this.loading2 = false;
+                    this.remoteOption = this.list.filter(item => {
+                      return item.text.toLowerCase()
+                        .indexOf(query.toLowerCase()) > -1;
+                    });
+                  }, 200);
+                } else {
+                  this.remoteOption = [];
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
       </v-Col>
     </v-Row>

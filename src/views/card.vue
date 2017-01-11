@@ -20,7 +20,6 @@
         <code-box
           title="典型卡片"
           describe="包含标题、内容、操作区域。"
-          code=""
         >
           <v-card title="Card title">
             <a href="/#!/components/card" slot="extra">More</a>
@@ -33,7 +32,6 @@
         <code-box
           title="简洁卡片"
           describe="只包含内容区域。"
-          code=""
         >
           <v-card>
             <p>Card content</p>
@@ -48,7 +46,6 @@
         <code-box
           title="无边框"
           describe="在灰色背景上使用无边框的卡片。"
-          code=""
         >
           <v-card title="Card title" :bordered="false">
             <p>Card content</p>
@@ -60,10 +57,9 @@
         <code-box
           title="更灵活的内容展示"
           describe="可以调整默认边距，设定宽度。"
-          code=""
         >
           <v-card :body-style="{ padding: 0 }" style="width:240px;">
-            <div class="custom-image">
+            <div>
               <img alt="example" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png">
             </div>
             <div class="custom-card">
@@ -71,6 +67,11 @@
               <p>www.instagram.com</p>
             </div>
           </v-card>
+          <template slot="css">
+              .custom-card {
+                padding: 10px 16px;
+              }
+            </template>
         </code-box>
 
       </v-col>
@@ -79,9 +80,8 @@
         <code-box
           title="栅格卡片"
           describe="在系统概览页面常常和栅格进行配合。"
-          code=""
         >
-          <div class="ant-row-flex ant-row-flex-space-around">
+          <v-row display="flex" pack="space-around">
 
             <v-card title="Card title" style="width:240px">
               <p>Card content</p>
@@ -100,8 +100,7 @@
               <p>Card content</p>
               <p>Card content</p>
             </v-card>
-
-          </div>
+          </v-row>
 
         </code-box>
 
@@ -161,25 +160,6 @@ export default {
 </script>
 
 <style lang="less">
-
-.head-example{
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
-  background: #eee;
-  display: inline-block;
-}
-
-.anticon-notification {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    font-size: 16px;
-}
-
-.ant-badge {
-    margin-right: 16px;
-}
 
 .custom-card {
     padding: 10px 16px;

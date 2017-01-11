@@ -16,12 +16,12 @@ export default {
   name:'v-checkbox',
   props: {
     checked: {
-      tyle: Boolean,
+      type: Boolean,
       // twoWay: true,
       default: false
     },
     disabled: {
-      tyle: Boolean,
+      type: Boolean,
       default: false
     },
     onChange: {

@@ -22,20 +22,40 @@
         <code-box
           title="基本"
           describe="数字输入框。"
-          code="<v-input-number min='1'' max='10'' default-value='3'' :on-change='_handleChange'></v-input-number>"
         >
-        <v-input-number min="1" max="10" default-value="3" :on-change="_handleChange"></v-input-number>
+          <v-input-number min="1" max="10" default-value="3" :on-change="_handleChange"></v-input-number>
+          <template slot="js">
+          export default {
+            methods: {
+              _handleChange (value) {
+                console.log('changed ', value)
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="不可用"
           describe="点击按钮切换可用状态。"
-          code="<v-input-number min='1' max='10'' :disabled='disabled'' default-value='3'></v-input-number>
-<v-button @click='_toggle'' type='primary'>Toggle disabled</v-button>"
         >
           <v-input-number min="1" max="10" :disabled="disabled" default-value="3"></v-input-number>
           <br><br>
           <v-button @click="_toggle" type="primary">Toggle disabled</v-button>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                disabled: true
+              }
+            }
+            methods: {
+              _toggle () {
+                this.disabled = !this.disabled
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>
@@ -44,20 +64,24 @@
         <code-box
           title="三种大小"
           describe="三种大小的数字输入框，当 size 分别为 large 和 small 时，输入框高度为 32px 和 22px ，默认高度为 28px"
-          code="<v-input-number size='large' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>
-<v-input-number min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>
-<v-input-number size='small' min='1' max='100000' default-value='3' :on-change='_handleChange'></v-input-number>"
         >
           <v-input-number size="large" min="1" max="100000" default-value="3" :on-change="_handleChange"></v-input-number>
           <v-input-number min="1" max="100000" default-value="3" :on-change="_handleChange"></v-input-number>
           <v-input-number size="small" min="1" max="100000" default-value="3" :on-change="_handleChange"></v-input-number>
+          <template slot="js">
+          export default {
+            methods: {
+              _handleChange (value) {
+                console.log('changed ', value)
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="小数"
           describe="和原生的数字输入框一样，value 的精度由 step 的小数位数决定。"
-          code="<v-button type='primary'>Primary</v-button>
-<v-button type='primary' disabled>Primary</v-button>"
         >
           <v-input-number min="1" max="10" step="0.1"></v-input-number>
         </code-box>
