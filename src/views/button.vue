@@ -68,7 +68,7 @@
           describe="添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。"
         >
           <v-button type='primary'>Primary</v-button>
-          <v-button type='primary' disabled>Primary</v-button>
+          <v-button type='primary' :disabled="true">Primary</v-button>
         </code-box>
 
         <code-box

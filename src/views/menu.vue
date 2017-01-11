@@ -287,8 +287,8 @@ export default {
               groupName: "Basic",
               list: [
                 {
-                  link: "/layout",
-                  name: "布局 (layout)"
+                  link: "/grid",
+                  name: "栅格 (grid)"
                 }
               ]
             },

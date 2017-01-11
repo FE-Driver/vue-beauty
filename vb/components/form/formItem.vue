@@ -14,7 +14,7 @@
 
 <script>
 import AsyncValidator from 'async-validator'
-import {vRow, vCol} from '../layout'
+import {vRow, vCol} from '../grid'
 import { defaultProps, oneOfType } from '../../utils'
 
 export default {
