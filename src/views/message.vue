@@ -170,12 +170,6 @@ export default {
     loading() {
       const instance = this.$message.loading("正在执行中...", 0);
       setTimeout(instance.remove, 2500);
-    },
-    openNotificationWithIcon(type) {
-      this.$notification[type]({
-        message: '这是标题',
-        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
-      });
     }
   },
   components: {
