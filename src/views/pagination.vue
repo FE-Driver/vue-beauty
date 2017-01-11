@@ -35,8 +35,8 @@
       </code-box>
 
       <code-box
-        title="改变"
-        describe="改变每页显示条目数。"
+        title="小尺寸"
+        describe="小尺寸分页。"
         code=''> 
         <v-pagination 
 			  	:default-current="1"
@@ -66,6 +66,15 @@
 			  	size="small"
 			  	:simple="false"
 			  	:show-total="showTotal"></v-pagination>
+			  <template slot="js">
+				  export default {
+					  methods: {
+					  showTotal(total) {
+						return `全部 ${total} 条`;
+						}
+					}
+				  }
+			  </template>
       </code-box>
 
       <code-box
@@ -88,8 +97,8 @@
       </code-box>
 
       <code-box
-        title="更多"
-        describe="更多分页"
+        title="跳至"
+        describe="快速跳转分页"
         code=''> 
         <v-pagination 
 			  	:default-current="1"
@@ -98,8 +107,8 @@
       </code-box>
 
       <code-box
-        title="更多"
-        describe="更多分页"
+        title="简单"
+        describe="简单分页"
         code=''> 
         <v-pagination 
 			  	:default-current="1"
@@ -114,7 +123,17 @@
         <v-pagination 
 			  	:default-current="1"
 			  	:show-total="showTotal"
-			  	:total="50"></v-pagination>
+			  	:total="50">
+		</v-pagination>
+		<template slot="js">
+			export default {
+				methods: {
+					showTotal(total) {
+						return `全部 ${total} 条`;
+					}
+				}
+			}
+		</template>
       </code-box>
     </v-col>
   </v-row>

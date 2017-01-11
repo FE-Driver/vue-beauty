@@ -40,7 +40,7 @@
         >
           <v-tabs active-key="1">
             <v-tab-pane key="1" tab="选项卡一">选项卡一</v-tab-pane>
-            <v-tab-pane key="2" disabled tab="选项卡二">选项卡二</v-tab-pane>
+            <v-tab-pane key="2" disabled="true" tab="选项卡二">选项卡二</v-tab-pane>
             <v-tab-pane key="3" tab="选项卡三">选项卡三</v-tab-pane>
           </v-tabs>
         </code-box>

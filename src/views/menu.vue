@@ -24,7 +24,7 @@
         >
           <v-menu mode="horizontal">
             <v-menu-item><v-icon type='mail'></v-icon>导航一</v-menu-item>
-            <v-menu-item disabled><v-icon type='appstore'></v-icon>导航二</v-menu-item>
+            <v-menu-item disabled="true"><v-icon type='appstore'></v-icon>导航二</v-menu-item>
             <v-sub-menu title="导航 - 子菜单" icon="setting">
               <v-menu-item-group title="分组1">
                 <v-menu-item>选项1</v-menu-item>
@@ -63,7 +63,7 @@
                 <v-menu-item>选项8</v-menu-item>
               </v-sub-menu>
             </v-sub-menu>
-            <v-sub-menu title="导航三" icon="setting" disabled>
+            <v-sub-menu title="导航三" icon="setting" disabled="true">
               <v-menu-item>选项9</v-menu-item>
               <v-menu-item>选项10</v-menu-item>
               <v-menu-item>选项11</v-menu-item>
@@ -96,7 +96,7 @@
                 <v-menu-item>选项8</v-menu-item>
               </v-sub-menu>
             </v-sub-menu>
-            <v-sub-menu title="导航三" icon="setting" disabled>
+            <v-sub-menu title="导航三" icon="setting" disabled="true">
               <v-menu-item>选项9</v-menu-item>
               <v-menu-item>选项10</v-menu-item>
               <v-menu-item>选项11</v-menu-item>
@@ -140,7 +140,69 @@
                 describe="使用data从json数据直接生成menu"
         >
           <v-nav-menu style="width:240px" :data="menuData"></v-nav-menu>
-
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  menuData:[
+                    {
+                      name: "首页",
+                      icon: 'home',
+                      selected: true,
+                      link: {
+                        name: 'card'
+                      }
+                    },
+                    {
+                      name: "安装指南",
+                      icon: 'mail',
+                      children: [
+                        {
+                          link: {
+                            name: 'menu',
+                            query:{
+                              src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
+                              }
+                          },
+                          name: "快速上手"
+                        },
+                        {
+                          link: "/development",
+                          name: "开发指南",
+                          disabled: true
+                        }
+                      ]
+                    },
+                    {
+                      name: "基础组件",
+                      icon: 'folder',
+                      disabled: true,
+                      groups: [
+                        {
+                          groupName: "Basic",
+                          list: [
+                            {
+                              link: "/layout",
+                              name: "布局 (layout)"
+                            }
+                          ]
+                        },
+                        {
+                          groupName: "Form",
+                          list: [
+                            {
+                              link: "/radio",
+                              name: "按钮 (radio)"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
 
       </v-Col>
