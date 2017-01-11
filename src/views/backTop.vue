@@ -45,6 +45,25 @@
         <v-back-top style="bottom: 100px;" :visibility-height="500"  :on-click="handler">
           <div :style="styleObject">UP</div>
         </v-back-top>
+
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  styleObject:{
+                    height: '40px',
+                    width: '40px',
+                    lineHeight: '40px',
+                    borderRadius: '4px',
+                    color: 'rgb(255, 255, 255)',
+                    textAlign: 'center',
+                    fontSize: '20px',
+                    backgroundColor: 'rgb(87, 197, 247)'
+                  }
+                }
+              }
+            }
+          </template>
         </code-box>
 
       </v-col>

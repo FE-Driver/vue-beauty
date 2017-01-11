@@ -20,6 +20,15 @@
                         title="tooltip"
                         describe="tooltip指令使用很简单,v-tooltip='msg'即可.">
                     <v-button type='success' v-tooltip='msg'>默认</v-button>
+                    <template slot="js">
+                        export default{
+                            data :function(){
+                                return {
+                                    msg: '<em>hello world</em>',
+                                }
+                            }
+                        }
+                    </template>
                 </code-box>
             </v-col>
             <v-Col span="12">
@@ -28,6 +37,16 @@
                         describe="如果需要指定触发事件,使用v-tooltip:hover='msg'或者v-tooltip:focus='msg'">
                     <v-button type='success' v-tooltip:hover.top='msg'>hover触发</v-button>
                     <input type="text" v-tooltip:focus.top='msg1' placeholder="focus触发">
+                    <template slot="js">
+                        export default{
+                            data :function(){
+                                return {
+                                    msg: '<em>hello world</em>',
+                                    msg1: '明月几时有'
+                                }
+                            }
+                        }
+                    </template>
                 </code-box>
             </v-col>
             <v-Col>
@@ -42,6 +61,17 @@
                     <a href="###" v-tooltip:hover.topRight='msg1'>topRight</a>
                     <v-button type='success' v-tooltip:hover.bottomLeft='msg'>bottomLeft</v-button>
                     <a href="###" v-tooltip:hover.bottomRight='msg1'>bottomRight</a>
+
+                    <template slot="js">
+                        export default{
+                            data :function(){
+                                return {
+                                    msg: '<em>hello world</em>',
+                                    msg1: '明月几时有'
+                                }
+                            }
+                        }
+                    </template>
                 </code-box>
             </v-col>
         </v-row>
