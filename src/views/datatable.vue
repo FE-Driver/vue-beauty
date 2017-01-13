@@ -35,7 +35,7 @@
                     export default {
                         data() {
                             return {
-                                url:"./static/datatable.json",
+                                url:"static/static/datatable.json",
                                 columns:[
                                     {title:"姓名",field:'name',sort:true},
                                     {title:"姓名",field:'name',sort:true},
@@ -120,7 +120,7 @@
                     export default {
                         data() {
                             return {
-                                url:"./static/datatable.json",
+                                url:"static/static/datatable.json",
                                 columns:[
                                     {title:"姓名",field:'name',sort:true},
                                     {title:"姓名",field:'name',sort:true},
@@ -194,7 +194,7 @@
                     export default {
                         data() {
                             return {
-                                url:"./static/datatable.json",
+                                url:"static/static/datatable.json",
                                 columns:[
                                     {title:"姓名",field:'name',sort:true},
                                     {title:"姓名",field:'name',sort:true},
@@ -405,7 +405,7 @@
                         default: ''
                     }
                 ],
-                url:"static/datatable.json",
+                url:"static/static/datatable.json",
                 columns:[
                     {title:"姓名",field:'name',sort:true},
                     {title:"姓名",field:'name',sort:true},
