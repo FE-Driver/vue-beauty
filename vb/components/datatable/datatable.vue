@@ -94,14 +94,13 @@
             <div class="{{prefix}}-pagination">
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
-                              :default-current="defaultCurrent"
-                              :current="pageNum"
-                              :total="total"
-                              :on-change="pageChange"
-                              :show-size-changer="true"
-                              :on-show-size-change="pageSizeChange"
-                              :page-size-options="pageSizeOptions"
-                              :page-size="pageSize"
+                    :current="pageNum"
+                    :total="total"
+                    :on-change="pageChange"
+                    :show-size-changer="true"
+                    :on-show-size-change="pageSizeChange"
+                    :page-size-options="pageSizeOptions"
+                    :page-size="pageSize"
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
@@ -252,8 +251,6 @@
                 prefix: 'ant-table',
                 borderClass:"ant-table-bordered",
                 contentClass:"ant-table-content",
-                // 默认加载第一页
-                defaultCurrent:1,
                 //加载状态
                 loading:false,
                 sortParams:{},
