@@ -27,29 +27,37 @@
         <code-box
           title="点击上传"
           describe="经典款式，用户点击按钮弹出文件选择框。"
-          code="<v-upload :name='name' :action='action' :on-change='onChange'>
-  <v-button type='ghost'>
-    <v-icon type='upload'></v-icon> 点击上传
-  </v-button>
-</v-upload>"
         >
           <v-upload :name="name" :action="action" :on-change="onChange">
             <v-button type="ghost">
               <v-icon type="upload"></v-icon> 点击上传
             </v-button>
           </v-upload>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                name: 'file',
+                action: '/upload',
+                onChange (info) {
+                  if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList)
+                  }
+                  if (info.file.status === 'done') {
+                    console.log(info.file.name + ' 上传成功.')
+                  } else if (info.file.status === 'error') {
+                    console.log(info.file.name + ' 上传失败.')
+                  }
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="拖拽上传1"
           describe="可以把文件拖入指定区域，完成上传，同样支持点击上传。"
-          code="<v-upload :name='name' :action='action' type='drag' :on-change='onChange'>
-  <p class='ant-upload-drag-icon'>
-    <v-icon type='inbox'></v-icon>
-  </p>
-  <p class='ant-upload-text'>点击或将文件拖拽到此区域上传</p>
-  <p class='ant-upload-hint'>支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>
-</v-upload>"
         >
           <v-upload :name="name" :action="action" type="drag" :on-change="onChange">
             <p class="ant-upload-drag-icon">
@@ -58,6 +66,26 @@
             <p class="ant-upload-text">点击或将文件拖拽到此区域上传</p>
             <p class="ant-upload-hint">支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>
           </v-upload>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                name: 'file',
+                action: '/upload',
+                onChange (info) {
+                  if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList)
+                  }
+                  if (info.file.status === 'done') {
+                    console.log(info.file.name + ' 上传成功.')
+                  } else if (info.file.status === 'error') {
+                    console.log(info.file.name + ' 上传失败.')
+                  }
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>
@@ -66,49 +94,105 @@
         <code-box
           title="传入已上传的文件"
           describe="对已上传的文件进行编辑。"
-          code="<v-upload :name='name' :action='action' :default-file-list='defaultFileList' :on-change='onChange'>
-  <v-button type='ghost'>
-    <v-icon type='upload'></v-icon> 点击上传
-  </v-button>
-</v-upload>"
         >
-         <v-upload :name="name" :action="action" :default-file-list="defaultFileList" :on-change="onChange">
-          <v-button type="ghost">
-            <v-icon type="upload"></v-icon> 点击上传
-          </v-button>
-        </v-upload>
+          <v-upload :name="name" :action="action" :default-file-list="defaultFileList" :on-change="onChange">
+            <v-button type="ghost">
+              <v-icon type="upload"></v-icon> 点击上传
+            </v-button>
+          </v-upload>
+          <template slot="js">
+            export default {
+              data: function() {
+                return {
+                  name: 'file',
+                  action: '/upload',
+                  onChange (info) {
+                    if (info.file.status !== 'uploading') {
+                      console.log(info.file, info.fileList)
+                    }
+                    if (info.file.status === 'done') {
+                      console.log(info.file.name + ' 上传成功.')
+                    } else if (info.file.status === 'error') {
+                      console.log(info.file.name + ' 上传失败.')
+                    }
+                  },
+                  defaultFileList: [{
+                    uid: -1,
+                    name: 'xxx.png',
+                    status: 'done',
+                    url: 'http://www.baidu.com/xxx.png'
+                  }, {
+                    uid: -2,
+                    name: 'yyy.png',
+                    status: 'done',
+                    url: 'http://www.baidu.com/yyy.png'
+                  }]
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
           title="拖拽上传2"
           describe="可以把文件拖入指定区域，完成上传，同样支持点击上传。"
-          code="<div style='width: 246px; height: 146px'>
-  <v-upload :name='name' :action='action' type='drag' :on-change='onChange'>
-    <v-icon type='plus'></v-icon>
-  </v-upload>
-</div>"
         >
           <div style="width: 246px; height: 146px">
             <v-upload :name="name" :action="action" type="drag" :on-change="onChange">
               <v-icon type="plus"></v-icon>
             </v-upload>
           </div>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                name: 'file',
+                action: '/upload',
+                onChange (info) {
+                  if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList)
+                  }
+                  if (info.file.status === 'done') {
+                    console.log(info.file.name + ' 上传成功.')
+                  } else if (info.file.status === 'error') {
+                    console.log(info.file.name + ' 上传失败.')
+                  }
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="多文件上传"
           describe="可以选择多个文件上传。"
-          code="<v-upload :name='name' :action='action' :multiple='true' :on-change='onChange'>
-  <v-button type='ghost'>
-    <v-icon type='upload'></v-icon> 点击上传
-  </v-button>
-</v-upload>"
         >
           <v-upload :name="name" :action="action" :multiple="true" :on-change="onChange">
             <v-button type="ghost">
               <v-icon type="upload"></v-icon> 点击上传
             </v-button>
           </v-upload>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                name: 'file',
+                action: '/upload',
+                onChange (info) {
+                  if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList)
+                  }
+                  if (info.file.status === 'done') {
+                    console.log(info.file.name + ' 上传成功.')
+                  } else if (info.file.status === 'error') {
+                    console.log(info.file.name + ' 上传失败.')
+                  }
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>

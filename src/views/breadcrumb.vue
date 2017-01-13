@@ -19,16 +19,9 @@
         <v-Row :gutter="16">
             <v-Col span="12">
                 <code-box
-                        title="基本"
-                        describe="最简单的用法。"
-                        code='import vBreadcrumbs from "../../components/breadcrumb"
-<v-breadcrumbs>
-    <v-breadcrumb name="Home"></v-breadcrumb>
-    <v-breadcrumb name="Application Center" href=""></v-breadcrumb>
-    <v-breadcrumb name="Application List" href=""></v-breadcrumb>
-    <v-breadcrumb name="An Application"></v-breadcrumb>
-</v-breadcrumbs>'
-                        >
+                    title="基本"
+                    describe="最简单的用法。"
+                >
 
                     <v-breadcrumbs>
                         <v-breadcrumb name="Home"></v-breadcrumb>
@@ -39,11 +32,9 @@
 
                 </code-box>
                 <code-box
-                        title="路由"
-                        describe="和 vue-router 进行结合使用。"
-                        code='import vBreadcrumbs from "../../components/breadcrumb"
-暂且放一放'
-                        >
+                    title="路由"
+                    describe="和 vue-router 进行结合使用。"
+                >
 
                     <v-breadcrumbs>
                         <v-breadcrumb name="Home" href=""></v-breadcrumb>
@@ -54,15 +45,9 @@
             </v-col>
             <v-Col span="12">
                 <code-box
-                        title="带有图标的"
-                        describe="图标放在文字前面。"
-                        code='import vBreadcrumbs from "../../components/breadcrumb"
-<v-breadcrumbs>
-    <v-breadcrumb name="Home" icon="home"></v-breadcrumb>
-    <v-breadcrumb name="Application List" href="" icon="user"></v-breadcrumb>
-    <v-breadcrumb name="Application"></v-breadcrumb>
-</v-breadcrumbs>'
-                        >
+                    title="带有图标的"
+                    describe="图标放在文字前面。"
+                >
 
                     <v-breadcrumbs>
                         <v-breadcrumb name="Home" icon="home"></v-breadcrumb>
@@ -72,16 +57,9 @@
 
                 </code-box>
                 <code-box
-                        title="分隔符"
-                        describe='使用 separator=">" 可以自定义分隔符。'
-                        code='import vBreadcrumbs from "../../components/breadcrumb"
-<v-breadcrumbs>
-    <v-breadcrumb name="Home" separator=">"></v-breadcrumb>
-    <v-breadcrumb name="Application Center" href="" separator=">"></v-breadcrumb>
-    <v-breadcrumb name="Application List" href="" separator=">"></v-breadcrumb>
-    <v-breadcrumb name="An Application" separator="/"></v-breadcrumb>
-</v-breadcrumbs>'
-                        >
+                    title="分隔符"
+                    describe='使用 separator=">" 可以自定义分隔符。'
+                >
 
                     <v-breadcrumbs>
                         <v-breadcrumb name="Home" separator=">"></v-breadcrumb>

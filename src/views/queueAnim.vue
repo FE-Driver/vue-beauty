@@ -62,6 +62,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -95,6 +109,22 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false,
+                  labelCol : { span: 6 },
+                  wrapperCol: { span: 14 }
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -155,6 +185,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
       </v-col>
       <v-Col span="12">
@@ -185,6 +229,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -215,6 +273,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false;
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -238,6 +310,28 @@
             <v-button @click="_handleAdd" style="margin-left: 10px">添加</v-button>
             <v-button @click="_handleRemove" style="margin-left: 10px">删除</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false,
+                  items: ['1', '2', '3'],
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                },
+                _handleAdd () {
+                  const len = this.items.length + 1;
+                  this.items.push(`${len}`);
+                },
+                _handleRemove () {
+                  this.items.pop();
+                }
+              }
+            }
+          </template>
         </code-box>
 
       </v-col>

@@ -59,6 +59,21 @@
             ></v-alert>
           </v-spin>
           切换加载状态：<v-switch @click="_toogle"></v-switch>
+
+          <template slot="js">
+            export default {
+              data :function(){
+                return {
+                  spinning: false
+                }
+              },
+              methods:{
+                toogle(){
+                  this.spinning = !this.spinning
+                }
+              }
+            }
+          </template>
         </code-box>
 
       </v-col>

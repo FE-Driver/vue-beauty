@@ -18,7 +18,6 @@
                 <code-box
                     title="基本"
                     describe="最典型的用法"
-                    code=""
                 >
                     <v-carousel :after-change="onChange">
                         <div><h3>1</h3></div>
@@ -26,12 +25,33 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="js">
+                    export default {
+                        data: function() {
+                            return {
+                                onClose: function() {
+                                    console.log(this);
+                                }
+                            }
+                        }
+                    }
+                    </template>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    </template>
                 </code-box>
 
                 <code-box
                     title="渐显"
                     describe="切换效果为渐显"
-                    code=""
                 >
                     <v-carousel :fade="true">
                         <div><h3>1</h3></div>
@@ -39,13 +59,23 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    </template>
                 </code-box>
             </v-col>
             <v-Col span="12">
                 <code-box
                     title="垂直"
                     describe="垂直显示"
-                    code=""
                     id="components-carousel-demo-vertical"
                 >
                     <v-carousel :vertical="true">
@@ -54,12 +84,25 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    #components-carousel-demo-vertical .ant-carousel {
+                        margin-right: 35px;
+                    }
+                    </template>
                 </code-box>
 
                 <code-box
                     title="自动切换"
                     describe="自动切换下一张"
-                    code=""
                 >
                     <v-carousel :autoplay="true">
                         <div><h3>1</h3></div>
@@ -67,6 +110,17 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    </template>
                 </code-box>
             </v-col>
         </v-row>
@@ -136,9 +190,6 @@
   }
 </script>
 <style>
-    body{
-        background-color:#fff;
-    }
     .ant-carousel .slick-slide h3{
         text-align: center;
         height: 100px;

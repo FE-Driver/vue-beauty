@@ -15,19 +15,37 @@
     	<code-box
         title="基本用法"
         describe="最基本的用法。"
-        code=''> 
+      > 
         <v-transfer
 				 :data-source="dataSource1"
 				 :target-keys="targetKeys1"
 				 :on-change="handleChange1"
 				 :render="render">
 				 </v-transfer>
+				 <template slot="js">
+          export default {
+            data: function() {
+              return {
+                dataSource1: [],
+								targetKeys1: [],
+              }
+            },
+						methods: {
+							render(recoder) {
+								return recoder.title;
+							},
+							handleChange1(targetKeys, direction, moveKeys) {
+								this.targetKeys1 = targetKeys;
+							}
+						}
+          }
+          </template>
       </code-box>
 
       <code-box
         title="带搜索框"
         describe="带搜索框的穿梭框，可以自定义搜索函数。"
-        code=''> 
+      > 
         <v-transfer
 				 :data-source="dataSource2"
 				 :target-keys="targetKeys2"
@@ -36,12 +54,33 @@
 				 :filter-option="filterOption"
 				 :render="render">
 				 </v-transfer>
+				 <template slot="js">
+          export default {
+            data: function() {
+              return {
+                dataSource2: [],
+								targetKeys2: [],
+              }
+            },
+						methods: {
+							render(recoder) {
+								return recoder.title;
+							},
+							handleChange2(targetKeys, direction, moveKeys) {
+								this.targetKeys2 = targetKeys;
+							},
+							filterOption(inputValue, option) {
+								return option.description.indexOf(inputValue) > -1;
+							}
+						}
+          }
+          </template>
       </code-box>
 
       <code-box
         title="高级用法"
         describe="穿梭框高级用法，可配置操作文案，可定制宽高，可对底部进行自定义渲染。"
-        code=''> 
+      > 
         <v-transfer
 				 :data-source="dataSource3"
 				 :target-keys="targetKeys3"
@@ -59,12 +98,53 @@
 				 		>刷新</v-button>
 				 	</div>
 				 </v-transfer>
+				 <template slot="js">
+          export default {
+            data: function() {
+              return {
+                dataSource3: [],
+								targetKeys3: [],
+              }
+            },
+						methods: {
+							getMock() {
+								for(let num = 0; num < 4; num ++) {
+									const targetKeys = [];
+									const mockData = [];
+									for (let i = 0; i < 20; i++) {
+										const data = {
+											key: i,
+											title: `内容${i + 1}`,
+											description: `内容${i + 1}的描述`,
+											chosen: Math.random() * 2 > 1,
+										};
+										if (data.chosen) {
+											targetKeys.push(data.key);
+										}
+										mockData.push(data);
+									}
+									this[`dataSource${num + 1}`] = mockData;
+									this[`targetKeys${num + 1}`] = targetKeys;
+								}
+							},
+							render(recoder) {
+								return recoder.title;
+							},
+							handleChange3(targetKeys, direction, moveKeys) {
+								this.targetKeys3 = targetKeys;
+							},
+							filterOption(inputValue, option) {
+								return option.description.indexOf(inputValue) > -1;
+							}
+						}
+          }
+          </template>
       </code-box>
 
       <code-box
         title="自定义渲染行数据"
         describe="自定义渲染每一个 Transfer Item，可用于渲染复杂数据。"
-        code=''> 
+      > 
         <v-transfer
 				 :data-source="dataSource4"
 				 :target-keys="targetKeys4"
@@ -72,6 +152,27 @@
 				 :list-style="{width: '300px', height: '300px'}"
 				 :render="render2">
 				 </v-transfer>
+				 <template slot="js">
+          export default {
+            data: function() {
+              return {
+                dataSource4: [],
+								targetKeys4: [],
+              }
+            },
+						methods: {
+							render2(recoder) {
+								return {
+									label: `${recoder.title} - ${recoder.description}`,
+									value: recoder.title
+								}
+							},
+							handleChange4(targetKeys, direction, moveKeys) {
+								this.targetKeys4 = targetKeys;
+							}
+						}
+          }
+          </template>
       </code-box>
   </v-col>
 </v-row>

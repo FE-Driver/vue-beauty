@@ -18,6 +18,18 @@
                 <v-popconfirm  title="确定删除吗?" :on-confirm="confirm" :on-cancel="cancel">
                     <a href="javascript:;">删除</a>
                 </v-popconfirm>
+                <template slot="js">
+                    export default{
+                        methods: {
+                            confirm: function(){
+                                this.$message.info('点击了确定');
+                            },
+                            cancel: function(){
+                                this.$message.info('点击了取消');
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
 
@@ -42,6 +54,27 @@
                     <span slot="checkedChildren">是</span>
                     <span slot="unCheckedChildren">否</span>
                 </v-switch>
+                <template slot="js">
+                    export default{
+                        data:function(){
+                            return {
+                                is_skip: false,
+                                default_is_skip: false
+                            }
+                        },
+                        methods: {
+                            confirm: function(){
+                                this.$message.info('点击了确定');
+                            },
+                            cancel: function(){
+                                this.$message.info('点击了取消');
+                            },
+                            to_skip_confirm: function (val) {
+                                this.is_skip = val;
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
     </v-row>

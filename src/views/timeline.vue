@@ -83,26 +83,9 @@
         </v-row>
 
 
-        <api-table
-            :content='content'
-        >
-      <pre>
-          <code class="html">
-            &lt;v-timeline&gt;
-              &lt;v-timeline-item&gt;创建服务现场 2015-09-01&lt;/v-timeline-item&gt;
-              &lt;v-timeline-item&gt;初步排除网络异常 2015-09-01&lt;/v-timeline-item&gt;
-            &lt;/v-timeline&gt;
-          </code>
-        </pre>
+        <api-table title="Timeline API" :content='content'></api-table>
 
-            <h3>Timeline</h3>
-        </api-table>
-
-        <api-table
-            :content='itemcontent'
-        >
-            <h3>TimelineItem</h3>
-        </api-table>
+        <api-table title="TimelineItem API" :content='itemcontent'></api-table>
 
     </div>
 

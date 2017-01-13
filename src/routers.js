@@ -53,10 +53,10 @@ export default function(router) {
             require(['./views/font.vue'], resolve);
           },
         },
-        '/layout': {
-          name: 'layout',
+        '/grid': {
+          name: 'grid',
           component: function index(resolve) {
-            require(['./views/layout.vue'], resolve);
+            require(['./views/grid.vue'], resolve);
           },
         },
         '/button': {

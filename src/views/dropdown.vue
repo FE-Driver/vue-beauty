@@ -22,16 +22,55 @@
           <v-dropdown :options="options">
             <a href="javascript:void(0)">Hover me <v-icon type="down"></v-icon></a>
           </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options2: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item'}
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
         <code-box title="触发方式" describe="默认是移入触发菜单，可以点击触发。">
           <v-dropdown :options="options1" trigger="click">
             <a href="javascript:void(0)">Click me <v-icon type="down"></v-icon></a>
           </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options2: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item'}
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
         <code-box title="带下拉框的按钮" describe="可使用按钮触发下拉菜单。">
           <v-dropdown :options="options">
             <v-button>default <v-icon type="down"></v-icon></v-button>
           </v-dropdown>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  options2: [
+                    {content: '1st item'},
+                    {content: '2nd item'},
+                    {content: '3rd item',divided: true}
+                  ]
+                }
+              }
+            }
+          </template>
         </code-box>
       </v-Col>
 

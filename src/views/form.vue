@@ -73,6 +73,16 @@
               <v-button type='primary' html-type="submit">确定</v-button>
             </v-form-item>
           </v-form>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                labelCol: { span: 6 },
+                wrapperCol: { span: 14 }
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
@@ -89,19 +99,29 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
             <v-form-item label="警告校验" :label-col="labelCol" :wrapper-col="wrapperCol" validate-status="warning">
               <v-input value="前方高能预警" size="large"></v-input>
             </v-form-item>
-            <v-form-item label="校验中" :label-col="labelCol" :wrapper-col="wrapperCol" help="信息审核中..." has-feedback validate-status="validating">
+            <v-form-item label="校验中" :label-col="labelCol" :wrapper-col="wrapperCol" help="信息审核中..." :has-feedback="true" validate-status="validating">
               <v-input value="我是被校验的内容" size="large"></v-input>
             </v-form-item>
-            <v-form-item label="成功校验" :label-col="labelCol" :wrapper-col="wrapperCol" has-feedback validate-status="success">
+            <v-form-item label="成功校验" :label-col="labelCol" :wrapper-col="wrapperCol" :has-feedback="true" validate-status="success">
               <v-input value="我是正文" size="large"></v-input>
             </v-form-item>
-            <v-form-item label="警告校验" :label-col="labelCol" :wrapper-col="wrapperCol" has-feedback validate-status="warning">
+            <v-form-item label="警告校验" :label-col="labelCol" :wrapper-col="wrapperCol" :has-feedback="true" validate-status="warning">
               <v-input value="前方高能预警" size="large"></v-input>
             </v-form-item>
-            <v-form-item label="失败校验" :label-col="labelCol" :wrapper-col="wrapperCol" help="请输入数字和字母的组合" has-feedback validate-status="error">
+            <v-form-item label="失败校验" :label-col="labelCol" :wrapper-col="wrapperCol" help="请输入数字和字母的组合" :has-feedback="true" validate-status="error">
               <v-input value="无效选择" size="large"></v-input>
             </v-form-item>
           </v-form>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                labelCol: { span: 6 },
+                wrapperCol: { span: 14 }
+              }
+            }
+          }
+          </template>
         </code-box>
 
          <code-box
@@ -109,7 +129,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
           describe="Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并 Form-Item 的 prop 属相设置为需校验的字段名即可。校验规则参见<a href='https://github.com/yiminghe/async-validator' target='_blank'>async-validator</a>"
         >
           <v-form direction="horizontal" :model="ruleForm" :rules="rules" v-ref:rule-form>
-            <v-form-item label="活动名称" :label-col="labelCol" :wrapper-col="wrapperCol" prop="name" has-feedback>
+            <v-form-item label="活动名称" :label-col="labelCol" :wrapper-col="wrapperCol" prop="name" :has-feedback="true">
               <v-input size="large" :value.sync="ruleForm.name"></v-input>
             </v-form-item>
             <v-form-item label="活动区域" :label-col="labelCol" :wrapper-col="wrapperCol" prop="region">
@@ -134,6 +154,66 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
               <v-button type="primary" style="margin-right:10px" @click.prevent="handleSubmit">立即创建</v-button><v-button type="ghost" @click.prevent="handleReset">重置</v-button>
             </v-form-item>
           </v-form>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                ruleForm: {
+                  name: '',
+                  region: '',
+                  date: '',
+                  delivery: false,
+                  type: [],
+                  resource: '',
+                  desc: ''
+                },
+                rules: {
+                  name: [
+                    { required: true, message: '请输入活动名称'}
+                  ],
+                  region: [
+                    { required: true, message: '请选择活动区域'}
+                  ],
+                  date: [
+                    { required: true, message: '请选择日期'}
+                  ],
+                  type: [
+                    { type: 'array', required: true, message: '请至少选择一个活动性质'}
+                  ],
+                  resource: [
+                    { required: true, message: '请选择活动资源'}
+                  ],
+                  desc: [
+                    { required: true, message: '请填写活动形式'}
+                  ]
+                },
+                checkboxOpt: [
+                  { label: '美食/餐厅线上活动', value: '1' },
+                  { label: '地推活动', value: '2' },
+                  { label: '线下主题活动', value: '3' },
+                  { label: '单纯品牌曝光', value: '4' }
+                ],
+                labelCol: { span: 6 },
+                wrapperCol: { span: 14 }
+              }
+            }
+            methods: {
+              handleSubmit() {
+                this.$refs.ruleForm.validate(valid => {
+                  if (valid) {
+                    alert('submit!');
+                  } else {
+                    console.log('error submit!!');
+                    return false;
+                  }
+                });
+              },
+              handleReset() {
+                this.$refs.ruleForm.resetFields();
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
@@ -141,19 +221,99 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
           describe="更加灵活的表单校验。"
         >
           <v-form direction="horizontal" :model="customForm" :rules="customRules" v-ref:custom-rule-form>
-            <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol" prop="pass" has-feedback>
+            <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol" prop="pass" :has-feedback="true">
               <v-input type="password" size="large" :value.sync="customForm.pass"></v-input>
             </v-form-item>
-            <v-form-item label="确认密码" :label-col="labelCol" :wrapper-col="wrapperCol" prop="checkPass" has-feedback>
+            <v-form-item label="确认密码" :label-col="labelCol" :wrapper-col="wrapperCol" prop="checkPass" :has-feedback="true">
               <v-input type="password" size="large" :value.sync="customForm.checkPass"></v-input>
             </v-form-item>
-            <v-form-item label="年龄" :label-col="labelCol" :wrapper-col="wrapperCol" prop="age" has-feedback>
+            <v-form-item label="年龄" :label-col="labelCol" :wrapper-col="wrapperCol" prop="age" :has-feedback="true">
               <v-input size="large" :value.sync="customForm.age"></v-input>
             </v-form-item>
             <v-form-item :wrapper-col="{offset:6, span: 14 }">
               <v-button type="primary" style="margin-right:10px" @click.prevent="handleSubmit2">提交</v-button><v-button type="ghost" @click.prevent="handleReset2">重置</v-button>
             </v-form-item>
           </v-form>
+          <template slot="js">
+          export default {
+            data: function() {
+
+              var checkAge = (rule, value, callback) => {
+                var age = parseInt(value, 10);
+
+                setTimeout(() => {
+                  if (!Number.isInteger(age)) {
+                    callback(new Error('请输入数字值'));
+                  } else{
+                    if (age < 18) {
+                      callback(new Error('必须年满18岁'));
+                    } else {
+                      callback();
+                    }
+                  }
+                }, 1000);
+              };
+              var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                  callback(new Error('请输入密码'));
+                } else {
+                  if (this.customForm.checkPass !== '') {
+                    this.$refs.customRuleForm.validateField('checkPass');
+                  }
+                  callback();
+                }
+              };
+              var validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                  callback(new Error('请再次输入密码'));
+                } else if (value !== this.customForm.pass) {
+                  callback(new Error('两次输入密码不一致!'));
+                } else {
+                  callback();
+                }
+              };
+              
+              return {
+                customForm:{
+                  pass: '',
+                  checkPass: '',
+                  age: ''
+                },
+                customRules:{
+                  pass: [
+                    { required: true, message: '请输入密码'},
+                    { validator: validatePass }
+                  ],
+                  checkPass: [
+                    { required: true, message: '请再次输入密码'},
+                    { validator: validatePass2 }
+                  ],
+                  age: [
+                    { required: true, message: '请填写年龄'},
+                    { validator: checkAge}
+                  ]
+                },
+                labelCol: { span: 6 },
+                wrapperCol: { span: 14 }
+              }
+            },
+            methods: {
+              handleReset2() {
+                this.$refs.customRuleForm.resetFields();
+              },
+              handleSubmit2(ev) {
+                this.$refs.customRuleForm.validate(valid => {
+                  if (valid) {
+                    alert('submit!');
+                  } else {
+                    console.log('error submit!!');
+                    return false;
+                  }
+                });
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>

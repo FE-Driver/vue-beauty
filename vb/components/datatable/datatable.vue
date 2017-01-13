@@ -94,14 +94,13 @@
             <div class="{{prefix}}-pagination">
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
-                              :default-current="defaultCurrent"
-                              :current="pageNum"
-                              :total="total"
-                              :on-change="pageChange"
-                              :show-size-changer="true"
-                              :on-show-size-change="pageSizeChange"
-                              :page-size-options="pageSizeOptions"
-                              :page-size="pageSize"
+                    :current="pageNum"
+                    :total="total"
+                    :on-change="pageChange"
+                    :show-size-changer="true"
+                    :on-show-size-change="pageSizeChange"
+                    :page-size-options="pageSizeOptions"
+                    :page-size="pageSize"
                 ></v-pagination>
             </div>
             <div class="{{prefix}}-description">
@@ -219,6 +218,10 @@
                 type: Boolean,
                 default:false
             },
+            httpType: {
+                type: String,
+                default: 'post'
+            },
             treeTableOption:{
                 type:Object,
                 default:function () {
@@ -248,8 +251,6 @@
                 prefix: 'ant-table',
                 borderClass:"ant-table-bordered",
                 contentClass:"ant-table-content",
-                // 默认加载第一页
-                defaultCurrent:1,
                 //加载状态
                 loading:false,
                 sortParams:{},
@@ -364,43 +365,41 @@
              * 加载数据
              * @param params
              */
-            loadData: function (params) {
+            async loadData (params) {
                 params = Object.assign({},params);
-                var self = this;
-                self.loading = true;
+                this.loading = true;
                 //拼装请求参数
                 const url = this.dataSource;
                 const remoteParams = Object.assign({}, this.sortParams, this.otherParams);
                 remoteParams[this.paramsName.pageNumber] = params.pageNum || self.pageNum;
                 remoteParams[this.paramsName.pageSize] = this.pageSize;
 
-                this.$http.post(url, remoteParams,{emulateJSON:true}).then((response) => {
-                    const data = response.body.data;
-                    let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
+                const response = await this.$http[this.httpType](url, remoteParams,{emulateJSON:true}).catch(()=> {
+                    this.loading = false;
+                })
+
+                if(!response) return
+                const data = (await response.json()).data;
+                let results = this.formatter ? this.formatter(data[this.paramsName.results]) : data[this.paramsName.results];
 
 //                    处理treeTable数据
-                    if(self.treeTable){
-                        self.dealTreeData(results);
-                    }else{
-                        self.current = results;
-                    }
+                if(this.treeTable){
+                    this.dealTreeData(results);
+                }else{
+                    this.current = results;
+                }
 
-                    self.total = data[self.paramsName.total]*1;
-                    self.pageNum = data[self.paramsName.pageNumber]*1;
+                this.total = data[this.paramsName.total]*1;
+                this.pageNum = data[this.paramsName.pageNumber]*1;
 //                服务端返回的pagesize不可信，暂时注释
-//                    self.pageSize = data[self.paramsName.pageSize]*1;
+//                    this.pageSize = data[this.paramsName.pageSize]*1;
 
 //                    重置选择状态
-                    self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+                this.rowSelectionStates = new Array(this.current.length || 0).fill(false);
 
-                    self.loading = false;
+                this.loading = false;
 //                    重新计算并设置表格尺寸
-                    self.calculateSize();
-                },(response) =>{
-                    // error callback
-                    self.loading = false;
-                    }
-                );
+                this.calculateSize();
             },
             rowSelectionChange:function (index) {
                 if(this.rowSelection.onSelect){
@@ -608,47 +607,46 @@
                 }
                 this.calculateSize();
             },
-            loadChildren: function (item) {
-                var self = this;
-                self.loading = true;
+            async loadChildren(item) {
+                this.loading = true;
                 //拼装请求参数
                 const url = this.dataSource;
                 const remoteParams = Object.assign({parentid:item.id}, this.sortParams, this.otherParams);
 
-                this.$http.post(url, remoteParams,{emulateJSON:true}).then((response) => {
-                    const data = response.body.data;
-                    let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
+                const response = await this.$http[this.httpType](url, remoteParams,{emulateJSON:true}).catch(()=> {
+                    this.loading = false;
+                })
 
-                    if(results.length){
-                        item.loadChildren = true;
-                        item.children = self.transAsyncTreeData(results,item.level);
+                if(!response) return
+                const data = (await response.json()).data;
+                let results = this.formatter ? this.formatter(data[this.paramsName.results]) : data[this.paramsName.results];
+
+                if(results.length){
+                    item.loadChildren = true;
+                    item.children = this.transAsyncTreeData(results,item.level);
 //                        插入到父节点后面
-                        var pindex = self.current.findIndex(function(value, index, arr) {
-                            return value.id == item.id;
-                        }) + 1;
+                    var pindex = this.current.findIndex(function(value, index, arr) {
+                        return value.id == item.id;
+                    }) + 1;
 
-                        if(pindex==0) {
-                            return false;
-                        }
+                    if(pindex==0) {
+                        return false;
+                    }
 
 //                    向父节点后面插入子节点数据
-                        var newCurrent = self.current.slice(0,pindex).concat(results,self.current.slice(pindex));
-                        self.current = newCurrent;
+                    var newCurrent = this.current.slice(0,pindex).concat(results,this.current.slice(pindex));
+                    this.current = newCurrent;
 
 //                    向rowSelectionStates数组中插入子节点数据
-                        var newRowSelectionStates = self.rowSelectionStates.slice(0,pindex).concat(new Array(results.length || 0).fill(false),self.rowSelectionStates.slice(pindex));
-                        self.rowSelectionStates = newRowSelectionStates;
+                    var newRowSelectionStates = this.rowSelectionStates.slice(0,pindex).concat(new Array(results.length || 0).fill(false),this.rowSelectionStates.slice(pindex));
+                    this.rowSelectionStates = newRowSelectionStates;
 
-                        self.expandChildren(item);
+                    this.expandChildren(item);
 
-                        self.loading = false;
+                    this.loading = false;
 //                    重新计算并设置表格尺寸
-                        self.calculateSize();
-                    }
-                },(response) =>{
-                    // error callback
-                    self.loading = false;
-                });
+                    this.calculateSize();
+                }
             },
             transAsyncTreeData:function (results,level) {
                 var self = this;

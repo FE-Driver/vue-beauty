@@ -139,11 +139,7 @@ export default {
 	name: 'v-pagination',
   props: defaultProps({
   	prefixCls: 'ant-pagination',
-    current: {
-      type: Number,
-      default: 1
-    },
-    defaultCurrent: 1,
+    current: 1,
     total: 0,
     defaultPageSize: 10,
     pageSize: {
@@ -186,8 +182,8 @@ export default {
   	}
   },
   created() {
-  	this.current = this.current || this.defaultCurrent;
-  	this.totalText = this.showTotal && this.showTotal(this.allPages);
+  	this.current = this.current;
+  	this.totalText = this.showTotal && this.showTotal(this.total,this.allPages);
     this.options = this.pageSizeOptions.map(function(item, index) {
       return {
         value: item,
@@ -302,6 +298,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

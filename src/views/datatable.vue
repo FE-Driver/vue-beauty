@@ -2,57 +2,273 @@
 
     <div>
         <section class="markdown">
-            <h1>Datatable</h1>
+            <h1>Datatable 表格</h1>
 
             <p>
-                依赖服务端加载的数据表格
+                展示行列数据。
             </p>
 
             <h2>何时使用</h2>
             <ul>
-                <p>
-                    展示大量结构化数据时使用.
-                </p>
+                <li>当有大量结构化的数据需要展现时；</li>
+                <li>当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。</li>
             </ul>
-
-            <v-datatable
-                    :data-source='url'
-                    :columns='columns'
-                    :formatter='formatter'
-                    :row-selection='rowSelection'
-                    :bottom-gap="100"
-                    :left-fix="3"
-            >
-            </v-datatable>
-
-            <br>
-
-            <v-datatable
-                    :data-source='url'
-                    :columns='columns'
-                    :formatter='formatter'
-                    :row-selection='rowSelection'
-                    :height='400'
-            >
-            </v-datatable>
-
             <h2>组件演示</h2>
         </section>
-
         <v-Row :gutter="16">
             <v-Col>
+                <code-box
+                    title="基本"
+                    describe="基本用法"
+                >
+                    <v-datatable
+                        :data-source='url'
+                        :columns='columns'
+                        :formatter='formatter'
+                        :row-selection='rowSelection'
+                        :bottom-gap="100"
+                        :left-fix="3"
+                        http-type="get"
+                    >
+                    </v-datatable>
+                    <template slot="js">
+                    export default {
+                        data() {
+                            return {
+                                url:"./static/datatable.json",
+                                columns:[
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true,width:"200px"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"性别",field:'sex',render:this.cellrender},
+                                    {title:"性别",field:'sex',render:this.cellrender},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"}
+                                ],
+                                formatter:function (data) {
+                                    console.log(data);
+                                    for (var obj of data) {
+                                        obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
+                                    }
+                                    return data;
+                                },
+                                rowSelection:{
+                                    type:"checkbox",
+                                    onSelect:function (index,state,item) {
+                                        console.log(index);
+                                        console.log(state);
+                                        console.log(item);
+                                    },
+                                    onSelectAll:function (state,items) {
+                                        console.log(state);
+                                        console.log(items);
+                                    }
+                                }
+                            }
+                        },
+                        methods:{
+                            cellrender:function (value, row, index) {
+                                return `<strong>${value}</strong>`;
+                            },
+                            clickCheck:function () {
+                                alert(0)
+                            }
+                        }
+                    }
+                    </template>
+                </code-box>
+
+                <code-box
+                    title="基本"
+                    describe="基本用法"
+                >
+                    <v-datatable
+                        :data-source='url'
+                        :columns='columns'
+                        :formatter='formatter'
+                        :row-selection='rowSelection'
+                        :height='400'
+                        http-type="get"
+                    >
+                    </v-datatable>
+                    <template slot="js">
+                    export default {
+                        data() {
+                            return {
+                                url:"./static/datatable.json",
+                                columns:[
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true,width:"200px"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"性别",field:'sex',render:this.cellrender},
+                                    {title:"性别",field:'sex',render:this.cellrender},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"}
+                                ],
+                                formatter:function (data) {
+                                    console.log(data);
+                                    for (var obj of data) {
+                                        obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
+                                    }
+                                    return data;
+                                },
+                                rowSelection:{
+                                    type:"checkbox",
+                                    onSelect:function (index,state,item) {
+                                        console.log(index);
+                                        console.log(state);
+                                        console.log(item);
+                                    },
+                                    onSelectAll:function (state,items) {
+                                        console.log(state);
+                                        console.log(items);
+                                    }
+                                }
+                            }
+                        },
+                        methods:{
+                            cellrender:function (value, row, index) {
+                                return `<strong>${value}</strong>`;
+                            },
+                            clickCheck:function () {
+                                alert(0)
+                            }
+                        }
+                    }
+                    </template>
+                </code-box>
+
                 <code-box title="表格-自定义事件" describe="自定义事件">
-                    <v-datatable :data-source='url' :columns='columns' :formatter='formatter' :row-selection='rowSelection'></v-datatable>
+                    <v-datatable :data-source='url' :columns='columns' :formatter='formatter' :row-selection='rowSelection' http-type="get"></v-datatable>
+                    <template slot="js">
+                    export default {
+                        data() {
+                            return {
+                                url:"./static/datatable.json",
+                                columns:[
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true,width:"200px"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名姓名",field:'name',sort:true},
+                                    {title:"姓名姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"性别",field:'sex',render:this.cellrender},
+                                    {title:"性别",field:'sex',render:this.cellrender},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"id",field:'id',className:"test dd"},
+                                    {title:"姓名",field:'name',sort:true},
+                                    {title:"id",field:'id',className:"test dd"}
+                                ],
+                                formatter:function (data) {
+                                    console.log(data);
+                                    for (var obj of data) {
+                                        obj.checkbox = "<input type='checkbox' @click='clickCheck(" + obj.id + ",$event)'>";
+                                    }
+                                    return data;
+                                },
+                                rowSelection:{
+                                    type:"checkbox",
+                                    onSelect:function (index,state,item) {
+                                        console.log(index);
+                                        console.log(state);
+                                        console.log(item);
+                                    },
+                                    onSelectAll:function (state,items) {
+                                        console.log(state);
+                                        console.log(items);
+                                    }
+                                }
+                            }
+                        }，
+                        methods:{
+                            cellrender:function (value, row, index) {
+                                return `<strong>${value}</strong>`;
+                            },
+                            clickCheck:function () {
+                                alert(0)
+                            }
+                        }
+                    }
+                    </template>
                 </code-box>
             </v-col>
         </v-row>
 
-        <api-table :apis='apis'>datatable参数</api-table>
-        <api-table :apis='columnsapi'>columns参数</api-table>
-        <api-table :apis='rowSelectionApi'>rowSelection参数</api-table>
+        <api-table :apis='apis'><h3>datatable参数</h3></api-table>
+        <api-table title="" :apis='columnsapi'><h3>columns参数</h3></api-table>
+        <api-table title="" :apis='rowSelectionApi'><h3>rowSelection参数</h3></api-table>
 
     </div>
-
 
 </template>
 
@@ -189,7 +405,7 @@
                         default: ''
                     }
                 ],
-                url:"/truck/search",
+                url:"static/datatable.json",
                 columns:[
                     {title:"姓名",field:'name',sort:true},
                     {title:"姓名",field:'name',sort:true},
@@ -224,7 +440,6 @@
                     {title:"姓名",field:'name',sort:true},
                     {title:"id",field:'id',className:"test dd"}
                 ],
-                msg:{},
                 formatter:function (data) {
                     console.log(data);
                     for (var obj of data) {
@@ -251,10 +466,6 @@
             apiTable
         },
         methods:{
-            handleIt:function (msg) {
-                console.log(msg);
-                this.msg = msg;
-            },
             cellrender:function (value, row, index) {
 //                console.warn(row);
                 return `<strong>${value}</strong>`;

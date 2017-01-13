@@ -29,8 +29,8 @@
               <v-menu-item v-link="{ name: 'font', activeClass: 'ant-menu-item-selected' }">
                 Icon 图标
               </v-menu-item>
-              <v-menu-item v-link="{ name: 'layout', activeClass: 'ant-menu-item-selected' }">
-                Layout 栅格
+              <v-menu-item v-link="{ name: 'grid', activeClass: 'ant-menu-item-selected' }">
+                Grid 栅格
               </v-menu-item>
             </v-menu-item-group>
             <v-menu-item-group title="Form Controls">

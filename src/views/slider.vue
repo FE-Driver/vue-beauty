@@ -25,7 +25,7 @@
                 >
                     <v-slider :default-value="30"></v-slider>
                     <v-slider :range="true" :default-value="[20, 50]"></v-slider>
-                    <v-slider :range="true" :default-value="[20, 50]" disabled></v-slider>
+                    <v-slider :range="true" :default-value="[20, 50]" :disabled="true"></v-slider>
                 </code-box>
 
             </v-col>

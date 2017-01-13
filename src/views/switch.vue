@@ -25,26 +25,22 @@
         <code-box
           title="简单"
           describe="最简单的用法。"
-          code="<v-switch :on-change='_change'></v-switch>"
         >
           <v-switch :on-change="_change"></v-switch>
+          <template slot="js">
+          export default {
+            methods:{
+              _change(val){
+                console.log('current value:'+val)
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="文字和图标"
           describe="带有文字和图标。"
-          code="<v-switch>
-  <span slot='checkedChildren'>开</span>
-  <span slot='unCheckedChildren'>关</span>
-</v-switch>
-<v-switch>
-  <span slot='checkedChildren'>
-    <i class='anticon anticon-check'></i>
-  </span>
-  <span slot='unCheckedChildren'>
-    <i class='anticon anticon-cross'></i>
-  </span>
-</v-switch>"
         >
           <v-switch>
             <span slot="checkedChildren">开</span>
@@ -67,20 +63,25 @@
         <code-box
           title="不可用"
           describe="Switch 失效状态。"
-          code="<v-switch disabled></v-switch>
-<v-button type='primary' @click='_toogle'>Toggle disabled</v-button>"
         >
           <v-switch :disabled="disabled"></v-switch>
           <br>
           <br>
           <v-button type="primary" @click="_toogle">Toggle disabled</v-button>
+          <template slot="js">
+          export default {
+            methods:{
+              _toogle(){
+                this.disabled = !this.disabled
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="两种大小"
           describe="size='small' 表示小号开关。"
-          code="<v-switch></v-switch>
-<v-switch size='small'></v-switch>"
         >
           <v-switch></v-switch>
           <br>
@@ -146,7 +147,9 @@ export default {
     apiTable
   },
   methods:{
-    _change:val=> console.log('current value:'+val),
+    _change(val){
+      console.log('current value:'+val)
+    },
     _toogle(){
       this.disabled = !this.disabled
     }

@@ -25,7 +25,6 @@
         <code-box
           title="基本"
           describe="最简单的用法。"
-          code="<v-radio><span>Radio</span></v-radio>"
         >
           <v-radio><span>Radio</span></v-radio>
         </code-box>
@@ -39,30 +38,21 @@
             default-value='a'
             :radios="[{value: 'a', name: 'A'},{value: 'b', name: 'B'},{value: 'c', name: 'C'},{value: 'd', name: 'D'}]">
           </v-radio-group>
+          <template slot="js">
+          export default {
+            methods: {
+              _onGroupChange (e) {
+                console.log('radio checked:' + e.target.value)
+                this.groupValue = e.target.value
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="按钮样式"
           describe="按钮样式的单选组合。"
-          code=" <v-radio-group
-  type='button'
-  :on-change='_onCityChange'
-  default-value='hangzhou'
-  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>
-</v-radio-group>
-<v-radio-group
-  type='button'
-  :on-change='_onCityChange'
-  default-value='hangzhou'
-  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:true},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>
-</v-radio-group>
-<v-radio-group
-  type='button'
-  :on-change='_onCityChange'
-  default-value='hangzhou'
-  disabled
-  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>
-</v-radio-group>"
         >
           <v-radio-group
             type="button"
@@ -82,9 +72,19 @@
             type="button"
             :on-change="_onCityChange"
             default-value="hangzhou"
-            disabled
+            :disabled="true"
             :radios="[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海',disabled:false},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]">
           </v-radio-group>
+          <template slot="js">
+          export default {
+            methods: {
+              _onCityChange (e) {
+                console.log('当前城市: ' + e.target.name)
+                this.cityName = e.target.name
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>
@@ -93,9 +93,6 @@
         <code-box
           title="不可用"
           describe="Radio 不可用。"
-          code="<v-radio :default-checked='false' :disabled='disabled'><span>不可用</span></v-radio>
-<v-radio :default-checked='true' :disabled='disabled'><span>不可用</span></v-radio>
-<v-button :type='primary' @click='_toggleDisabled'>Toggle disabled</v-button>"
         >
           <v-radio :default-checked="false" :disabled="disabled"><span>不可用</span></v-radio>
           <br>
@@ -103,33 +100,25 @@
           <br>
           <br>
           <v-button :type="primary" @click="_toggleDisabled">Toggle disabled</v-button>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                disabled: true
+              }
+            },
+            methods: {
+              _toggleDisabled () {
+                this.disabled = !this.disabled
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="大小"
           describe="大中小三种组合，可以和表单输入框进行对应配合。"
-          code="<v-radio-group
-  size='large'
-  type='button'
-  :on-change='_onCityChange'
-  default-value='hangzhou'
-  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>
-</v-radio-group>
-<br><br>
-<v-radio-group
-  type='button'
-  :on-change='_onCityChange'
-  default-value='hangzhou'
-  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>
-</v-radio-group>
-<br><br>
-<v-radio-group
-  size='small'
-  type='button'
-  :on-change='_onCityChange'
-  default-value='hangzhou'
-  :radios='[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]'>
-</v-radio-group>"
         >
           <v-radio-group
             size="large"
@@ -153,6 +142,16 @@
             default-value="hangzhou"
             :radios="[{value: 'hangzhou', name: '杭州'},{value: 'shanghai', name: '上海'},{value: 'beijing', name: '北京'},{value: 'chengdu', name: '成都'}]">
           </v-radio-group>
+          <template slot="js">
+          export default {
+            methods: {
+              _onCityChange (e) {
+                console.log('当前城市: ' + e.target.name)
+                this.cityName = e.target.name
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-col>
