@@ -25,7 +25,6 @@
         <code-box
           title="基本"
           describe="最简单的用法。"
-          code="<v-back-top></v-back-top>"
         >
           向下滚动后，见右下角灰色按钮
          <v-back-top></v-back-top>
@@ -37,9 +36,6 @@
         <code-box
           title="自定义样式"
           describe="可以自定义回到顶部按钮的样式，限制宽高：40px * 40px。"
-          code="<v-back-top style='bottom: 100px;' :visibility-height='500'  :on-click='handler'>
-  <div :style='styleObject'>UP</div>
-</v-back-top>"
         >
         向下滚动后，见右下角蓝色按钮
         <v-back-top style="bottom: 100px;" :visibility-height="500"  :on-click="handler">
@@ -60,6 +56,11 @@
                     fontSize: '20px',
                     backgroundColor: 'rgb(87, 197, 247)'
                   }
+                }
+              },
+              methods:{
+                handler(){
+                  console.log('噢');
                 }
               }
             }

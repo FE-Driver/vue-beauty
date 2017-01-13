@@ -1,0 +1,20 @@
+{
+  "data": {
+    "code":0,
+    "result":[
+      {"name":"lqy","sex":"男","check":"<input type='checkbox'>","id":1},
+      {"name":"wyq","sex":"男xx","check":"<input type='checkbox'>","id":2},
+      {"name":"wdw","sex":"男","check":"<input type='checkbox'>","id":3},
+      {"name":"yl","sex":"男","check":"<input type='checkbox'>","id":4},
+      {"name":"db","sex":"男","check":"<input type='checkbox'>","id":5},
+      {"name":"ylm","sex":"男","check":"<input type='checkbox'>","id":6},
+      {"name":"xyz","sex":"男","check":"<input type='checkbox'>","id":7},
+      {"name":"lb","sex":"男","check":"<input type='checkbox'>","id":8},
+      {"name":"yjx","sex":"男","check":"<input type='checkbox'>","id":9},
+      {"name":"dl","sex":"女","check":"<input type='checkbox'>","id":10}
+    ],
+    "totalCount":11,
+    "pageSize":10,
+    "pageNo":1
+  }
+}

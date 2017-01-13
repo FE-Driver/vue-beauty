@@ -40,17 +40,18 @@
             </v-checkbox>
           </p>
           <p>
-            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="this.checked = !this.checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
-            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="this.disabled = !this.disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>
+            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="checked = !checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
+            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="disabled = !disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>
           </p>
           <template slot="js">
           export default {
             data: function() {
+              let self = this;
               return {
                 checked: false,
                 disabled: false,
-                onChange: (e) => {
-                  this.checked = e.checked
+                onChange(e){
+                  self.checked = e.checked
                 }
               }
             }
@@ -129,11 +130,13 @@ import apiTable from '../components/apiTable'
 
 export default {
   data: function () {
+    let self = this;
+
     return {
       checked: false,
       disabled: false,
-      onChange: (e) => {
-        this.checked = e.checked
+      onChange(e){
+        self.checked = e.checked
       },
       checkGroup: (values) => {
         console.log(values);

@@ -17,31 +17,43 @@
     	<code-box
         title="基本"
         describe="基础分页。"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="1"
-			  	:total="50"></v-pagination>
+			  	:total="50">
+				</v-pagination>
       </code-box>
 
       <code-box
         title="改变"
         describe="改变每页显示条目数。"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="1"
 			  	:show-size-changer="true"
 			  	:on-show-size-change="pageSizeChange"
-			  	:total="50"></v-pagination>
+			  	:total="50">
+				</v-pagination>
+				<template slot="js">
+				export default {
+					methods: {
+						pageSizeChange(current, size){
+							console.log(current, size);
+						}
+					}
+				}
+			</template>
       </code-box>
 
       <code-box
         title="小尺寸"
         describe="小尺寸分页。"
-        code=''> 
+       > 
         <v-pagination 
 			  	:default-current="1"
 	        size="small"
-			  	:total="50"></v-pagination>
+			  	:total="50">
+				</v-pagination>
 			  <br>
         <v-pagination 
 			  	:current.sync="current" 
@@ -68,10 +80,15 @@
 			  	:show-total="showTotal"></v-pagination>
 			  <template slot="js">
 				  export default {
+						data(){
+							return {
+								current: 1
+							}
+						},
 					  methods: {
-					  showTotal(total) {
-						return `全部 ${total} 条`;
-						}
+							showTotal(total) {
+								return `全部 ${total} 条`;
+							}
 					}
 				  }
 			  </template>
@@ -80,60 +97,64 @@
       <code-box
         title="受控"
         describe="受控制的页码。"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="3"
-			  	:total="50"></v-pagination>
+			  	:total="50">
+				</v-pagination>
       </code-box>
     </v-col>
     <v-Col span="12">
     	<code-box
         title="更多"
         describe="更多分页"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="1"
-			  	:total="500"></v-pagination>
+			  	:total="500">
+				</v-pagination>
       </code-box>
 
       <code-box
         title="跳至"
         describe="快速跳转分页"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="1"
 			  	:show-quick-jumper="true"
-			  	:total="500"></v-pagination>
+			  	:total="500">
+				</v-pagination>
       </code-box>
 
       <code-box
         title="简单"
         describe="简单分页"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="1"
 			  	:simple="true"
-			  	:total="500"></v-pagination>
+			  	:total="500">
+				</v-pagination>
       </code-box>
 
       <code-box
         title="总数"
         describe="通过设置 showTotal 展示总共有多少数据。"
-        code=''> 
+      > 
         <v-pagination 
 			  	:default-current="1"
 			  	:show-total="showTotal"
 			  	:total="50">
-		</v-pagination>
-		<template slot="js">
-			export default {
-				methods: {
-					showTotal(total) {
-						return `全部 ${total} 条`;
+				</v-pagination>
+				<template slot="js">
+					export default {
+						methods: {
+							showTotal(total) {
+								return `全部 ${total} 条`;
+							}
+						}
 					}
-				}
-			}
-		</template>
+				</template>
       </code-box>
     </v-col>
   </v-row>

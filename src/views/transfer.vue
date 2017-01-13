@@ -15,7 +15,7 @@
     	<code-box
         title="基本用法"
         describe="最基本的用法。"
-        code=''> 
+      > 
         <v-transfer
 				 :data-source="dataSource1"
 				 :target-keys="targetKeys1"
@@ -45,7 +45,7 @@
       <code-box
         title="带搜索框"
         describe="带搜索框的穿梭框，可以自定义搜索函数。"
-        code=''> 
+      > 
         <v-transfer
 				 :data-source="dataSource2"
 				 :target-keys="targetKeys2"
