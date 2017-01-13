@@ -988,30 +988,21 @@ webpackJsonp([29,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([29,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([29,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([29,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([29,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([29,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([29,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([29,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([29,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([29,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([29,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([29,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([29,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([29,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([29,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([29,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([29,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([29,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([29,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([29,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([29,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([29,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([29,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([29,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([29,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,20 +5590,20 @@ webpackJsonp([29,53],{
 
 /***/ },
 
-/***/ 225:
+/***/ 226:
 /***/ function(module, exports) {
 
-	module.exports = "\n<section class=\"markdown\">\n    <h1>Popconfirm 气泡确认框</h1>\n    <p>\n        点击元素，弹出气泡式的确认框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。</p>\n        <p>更轻量的询问。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"国际化\" describe=\"自定义按钮文字\">\n            <v-popconfirm  title=\"Do you want to do something?\" ok-text=\"Ok\" cancel-text=\"Cancel\" >\n                <a href=\"javascript:;\">Delete</a>\n            </v-popconfirm>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"跳过询问\" describe=\"跳过询问立刻执行confirm回调\">\n            <v-popconfirm  title=\"确定删除吗?\" :on-confirm=\"confirm\" :on-cancel=\"cancel\" :skip=\"is_skip\">\n                <a href=\"javascript:;\">删除</a>\n            </v-popconfirm>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否跳过询问\n            <v-switch :on-change=\"to_skip_confirm\" :checked=\"default_is_skip\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n        </code-box>\n    </v-col>\n</v-row>\n\n<api-table :apis=\"apis\"></api-table>\n";
+	module.exports = "\n<div>\n\t\t<section class=\"markdown\">\n      <h1>Pagination 分页</h1>\n      <p>\n        采用分页的形式分隔长列表，每次只加载一个页面。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>当加载/渲染所有数据将花费很多时间时；</li>\n        <li>可切换页码浏览数据。</li>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n    \t<code-box\n        title=\"基本\"\n        describe=\"基础分页。\"\n      > \n        <v-pagination \n\t\t\t  \t:total=\"50\">\n\t\t\t\t</v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"改变\"\n        describe=\"改变每页显示条目数。\"\n      > \n        <v-pagination \n\t\t\t  \t:show-size-changer=\"true\"\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\n\t\t\t  \t:total=\"50\">\n\t\t\t\t</v-pagination>\n\t\t\t\t<template slot=\"js\">\n\t\t\t\texport default {\n\t\t\t\t\tmethods: {\n\t\t\t\t\t\tpageSizeChange(current, size){\n\t\t\t\t\t\t\tconsole.log(current, size);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t</template>\n      </code-box>\n\n      <code-box\n        title=\"小尺寸\"\n        describe=\"小尺寸分页。\"\n       > \n        <v-pagination \n\t        size=\"small\"\n\t\t\t  \t:total=\"50\">\n\t\t\t\t</v-pagination>\n\t\t\t  <br>\n        <v-pagination \n\t\t\t  \t:current.sync=\"current\"\n\t\t\t  \t:total=\"100\"\n\t\t\t  \t:default-page-size=\"5\"\n\t\t\t  \t:page-size=\"10\"\n\t\t\t  \t:on-change=\"loadPage\"\n\t\t\t  \t:show-size-changer=\"true\"\n\t\t\t  \t:on-show-size-change=\"pageSizeChange\"\n\t\t\t  \t:show-quick-jumper=\"true\"\n\t\t\t  \tsize=\"small\"\n\t\t\t  \t:simple=\"false\"></v-pagination>\n\t\t\t  <br>\n\t\t  \t<v-pagination \n\t\t\t  \t:current.sync=\"current\"\n\t\t\t  \t:total=\"50\"\n\t\t\t  \t:default-page-size=\"5\"\n\t\t\t  \t:page-size=\"10\"\n\t\t\t  \t:on-change=\"loadPage\"\n\t\t\t  \tsize=\"small\"\n\t\t\t  \t:simple=\"false\"\n\t\t\t  \t:show-total=\"showTotal\"></v-pagination>\n\t\t\t  <template slot=\"js\">\n\t\t\t\t  export default {\n\t\t\t\t\t\tdata(){\n\t\t\t\t\t\t\treturn {\n\t\t\t\t\t\t\t\tcurrent: 1\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t  methods: {\n\t\t\t\t\t\t\tshowTotal(total) {\n\t\t\t\t\t\t\t\treturn `全部 ${total} 条`;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t  }\n\t\t\t  </template>\n      </code-box>\n\n      <code-box\n        title=\"受控\"\n        describe=\"受控制的页码。\"\n      > \n        <v-pagination \n\t\t\t  \t:current=\"3\"\n\t\t\t  \t:total=\"50\">\n\t\t\t\t</v-pagination>\n      </code-box>\n    </v-col>\n    <v-Col span=\"12\">\n    \t<code-box\n        title=\"更多\"\n        describe=\"更多分页\"\n      > \n        <v-pagination\n\t\t\t  \t:total=\"500\">\n\t\t\t\t</v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"跳至\"\n        describe=\"快速跳转分页\"\n      > \n        <v-pagination\n\t\t\t  \t:show-quick-jumper=\"true\"\n\t\t\t  \t:total=\"500\">\n\t\t\t\t</v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"简单\"\n        describe=\"简单分页\"\n      > \n        <v-pagination\n\t\t\t  \t:simple=\"true\"\n\t\t\t  \t:total=\"500\">\n\t\t\t\t</v-pagination>\n      </code-box>\n\n      <code-box\n        title=\"总数\"\n        describe=\"通过设置 showTotal 展示总共有多少数据。\"\n      > \n        <v-pagination\n\t\t\t  \t:show-total=\"showTotal\"\n\t\t\t  \t:total=\"50\">\n\t\t\t\t</v-pagination>\n\t\t\t\t<br>\n\t\t\t\t<v-pagination\n\t\t\t  \t:show-total=\"showTotal2\"\n\t\t\t  \t:total=\"50\">\n\t\t\t\t</v-pagination>\n\t\t\t\t<template slot=\"js\">\n\t\t\t\t\texport default {\n\t\t\t\t\t\tmethods: {\n\t\t\t\t\t\t\tshowTotal(total) {\n\t\t\t\t\t\t\t\treturn `全部 ${total} 条`;\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tshowTotal2(total,pages) {\n\t\t\t\t\t\t\t\treturn `1-${pages} 全部 ${total} 条`;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t</template>\n      </code-box>\n    </v-col>\n  </v-row>\n\t  <api-table :apis=\"apis\"></api-table>\n</div>\n";
 
 /***/ },
 
-/***/ 554:
+/***/ 561:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 
 	var _codeBox = __webpack_require__(19);
@@ -5598,75 +5617,111 @@ webpackJsonp([29,53],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    name: 'popconfirm-doc',
-	    data: function data() {
-	        return {
-	            apis: [{
-	                parameter: 'placement',
-	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
-	                type: 'string',
-	                default: 'top'
-	            }, {
-	                parameter: 'title',
-	                explain: '询问内容',
-	                type: 'string',
-	                default: '无'
-	            }, {
-	                parameter: 'on-confirm',
-	                explain: '确定回调',
-	                type: 'function',
-	                default: '无'
-	            }, {
-	                parameter: 'on-cancel',
-	                explain: '取消回调',
-	                type: 'function',
-	                default: '无'
-	            }, {
-	                parameter: 'openClassName',
-	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
-	                type: 'string',
-	                default: '无'
-	            }, {
-	                parameter: 'skip',
-	                explain: '是否跳过询问,直接执行confirm回调',
-	                type: 'boolean',
-	                default: 'false'
-	            }],
-	            is_skip: false,
-	            default_is_skip: false
-	        };
-	    },
+		data: function data() {
+			return {
+				current: 1,
+				apis: [{
+					"parameter": "current",
+					"explain": "当前页数",
+					"type": "Number",
+					"default": "1"
+				}, {
+					"parameter": "total",
+					"explain": "数据总数",
+					"type": "Number",
+					"default": "0"
+				}, {
+					"parameter": "defaultPageSize",
+					"explain": "初始的每页条数",
+					"type": "Number",
+					"default": "10"
+				}, {
+					"parameter": "pageSize",
+					"explain": "每页条数",
+					"type": "Number",
+					"default": ""
+				}, {
+					"parameter": "onChange",
+					"explain": "页码改变的回调，参数是改变后的页码",
+					"type": "Function",
+					"default": "noop"
+				}, {
+					"parameter": "showSizeChanger",
+					"explain": "是否可以改变 pageSize",
+					"type": "Bool",
+					"default": "false"
+				}, {
+					"parameter": "pageSizeOptions",
+					"explain": "指定每页可以显示多少条",
+					"type": "Array",
+					"default": "[10, 20, 30, 40]"
+				}, {
+					"parameter": "onShowSizeChange",
+					"explain": "pageSize 变化的回调",
+					"type": "Function",
+					"default": "noop"
+				}, {
+					"parameter": "showQuickJumper",
+					"explain": "是否可以快速跳转至某页",
+					"type": "Bool",
+					"default": "false"
+				}, {
+					"parameter": "size",
+					"explain": "当为「small」时，是小尺寸分页",
+					"type": "String",
+					"default": "无"
+				}, {
+					"parameter": "simple",
+					"explain": "当添加该属性时，显示为简单分页",
+					"type": "Object",
+					"default": "无"
+				}, {
+					"parameter": "showTotal",
+					"explain": "用于显示总共有多少条数据",
+					"type": "Function",
+					"default": "无"
+				}]
+			};
+		},
 
-	    methods: {
-	        confirm: function confirm() {
-	            this.$message.info('点击了确定');
-	        },
-	        cancel: function cancel() {
-	            this.$message.info('点击了取消');
-	        },
-	        to_skip_confirm: function to_skip_confirm(val) {
-	            this.is_skip = val;
-	        }
-	    },
-	    components: {
-	        codeBox: _codeBox2.default,
-	        apiTable: _apiTable2.default
-	    }
+		watch: {
+			current: function current() {
+				console.log(this.current);
+			}
+		},
+		methods: {
+			loadPage: function loadPage(i) {
+				console.log('cb' + i);
+			},
+			showTotal: function showTotal(total) {
+				return '\u5168\u90E8 ' + total + ' \u6761';
+			},
+			showTotal2: function showTotal2(total, pages) {
+				return '1-' + pages + ' \u5168\u90E8 ' + total + ' \u6761';
+			},
+			pageSizeChange: function pageSizeChange(current, size) {
+				console.log(current, size);
+			}
+		},
+		components: {
+			codeBox: _codeBox2.default,
+			apiTable: _apiTable2.default
+		}
 	};
 
 /***/ },
 
-/***/ 682:
+/***/ 683:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(554)
+	__vue_script__ = __webpack_require__(561)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/views/popconfirm.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(225)
+	  console.warn("[vue-loader] src/views/pagination.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(226)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

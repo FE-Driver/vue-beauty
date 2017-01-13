@@ -988,30 +988,21 @@ webpackJsonp([15,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([15,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([15,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([15,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([15,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([15,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([15,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([15,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([15,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([15,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([15,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([15,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([15,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([15,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([15,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([15,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([15,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([15,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([15,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([15,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([15,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([15,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([15,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([15,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([15,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,14 +5590,14 @@ webpackJsonp([15,53],{
 
 /***/ },
 
-/***/ 241:
+/***/ 244:
 /***/ function(module, exports) {
 
-	module.exports = "\n\t<section class=\"markdown\">\n      <h1>Transfer  穿梭框</h1>\n      <p>\n        双栏穿梭选择框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>用直观的方式在两栏中移动元素，完成选择行为。</li>\n      </ul>\n      <h2>组件演示</h2>\n  </section>\n\t<v-Row :gutter=\"16\">\n\t\t<v-Col>\n    \t<code-box\n        title=\"基本用法\"\n        describe=\"最基本的用法。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource1\"\n\t\t\t\t :target-keys=\"targetKeys1\"\n\t\t\t\t :on-change=\"handleChange1\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"带搜索框\"\n        describe=\"带搜索框的穿梭框，可以自定义搜索函数。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource2\"\n\t\t\t\t :target-keys=\"targetKeys2\"\n\t\t\t\t :on-change=\"handleChange2\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"高级用法\"\n        describe=\"穿梭框高级用法，可配置操作文案，可定制宽高，可对底部进行自定义渲染。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource3\"\n\t\t\t\t :target-keys=\"targetKeys3\"\n\t\t\t\t :on-change=\"handleChange3\"\n\t\t\t\t :list-style=\"{width: '250px', height: '300px'}\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :operations=\"['向右操作文案', '向左操作文案']\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t \t<div :style=\"{float: 'right', margin: '5px'}\">\n\t\t\t\t \t\t<v-button \n\t\t\t\t \t\ttype=\"ghost\" \n\t\t\t\t \t\tsize=\"small\"\n\t\t\t\t \t\t@click=\"getMock\"\n\t\t\t\t \t\t>刷新</v-button>\n\t\t\t\t \t</div>\n\t\t\t\t </v-transfer>\n      </code-box>\n\n      <code-box\n        title=\"自定义渲染行数据\"\n        describe=\"自定义渲染每一个 Transfer Item，可用于渲染复杂数据。\"\n        code=''> \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource4\"\n\t\t\t\t :target-keys=\"targetKeys4\"\n\t\t\t\t :on-change=\"handleChange4\"\n\t\t\t\t :list-style=\"{width: '300px', height: '300px'}\"\n\t\t\t\t :render=\"render2\">\n\t\t\t\t </v-transfer>\n      </code-box>\n  </v-col>\n</v-row>\n  <api-table :apis=\"apis\"></api-table>\n";
+	module.exports = "\n\t<section class=\"markdown\">\n      <h1>Transfer  穿梭框</h1>\n      <p>\n        双栏穿梭选择框。\n      </p>\n      <h2>何时使用</h2>\n      <ul>\n        <li>用直观的方式在两栏中移动元素，完成选择行为。</li>\n      </ul>\n      <h2>组件演示</h2>\n  </section>\n\t<v-Row :gutter=\"16\">\n\t\t<v-Col>\n    \t<code-box\n        title=\"基本用法\"\n        describe=\"最基本的用法。\"\n      > \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource1\"\n\t\t\t\t :target-keys=\"targetKeys1\"\n\t\t\t\t :on-change=\"handleChange1\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n\t\t\t\t <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                dataSource1: [],\n\t\t\t\t\t\t\t\ttargetKeys1: [],\n              }\n            },\n\t\t\t\t\t\tmethods: {\n\t\t\t\t\t\t\trender(recoder) {\n\t\t\t\t\t\t\t\treturn recoder.title;\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\thandleChange1(targetKeys, direction, moveKeys) {\n\t\t\t\t\t\t\t\tthis.targetKeys1 = targetKeys;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n          }\n          </template>\n      </code-box>\n\n      <code-box\n        title=\"带搜索框\"\n        describe=\"带搜索框的穿梭框，可以自定义搜索函数。\"\n      > \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource2\"\n\t\t\t\t :target-keys=\"targetKeys2\"\n\t\t\t\t :on-change=\"handleChange2\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t </v-transfer>\n\t\t\t\t <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                dataSource2: [],\n\t\t\t\t\t\t\t\ttargetKeys2: [],\n              }\n            },\n\t\t\t\t\t\tmethods: {\n\t\t\t\t\t\t\trender(recoder) {\n\t\t\t\t\t\t\t\treturn recoder.title;\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\thandleChange2(targetKeys, direction, moveKeys) {\n\t\t\t\t\t\t\t\tthis.targetKeys2 = targetKeys;\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tfilterOption(inputValue, option) {\n\t\t\t\t\t\t\t\treturn option.description.indexOf(inputValue) > -1;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n          }\n          </template>\n      </code-box>\n\n      <code-box\n        title=\"高级用法\"\n        describe=\"穿梭框高级用法，可配置操作文案，可定制宽高，可对底部进行自定义渲染。\"\n      > \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource3\"\n\t\t\t\t :target-keys=\"targetKeys3\"\n\t\t\t\t :on-change=\"handleChange3\"\n\t\t\t\t :list-style=\"{width: '250px', height: '300px'}\"\n\t\t\t\t :show-search=\"true\"\n\t\t\t\t :operations=\"['向右操作文案', '向左操作文案']\"\n\t\t\t\t :filter-option=\"filterOption\"\n\t\t\t\t :render=\"render\">\n\t\t\t\t \t<div :style=\"{float: 'right', margin: '5px'}\">\n\t\t\t\t \t\t<v-button \n\t\t\t\t \t\ttype=\"ghost\" \n\t\t\t\t \t\tsize=\"small\"\n\t\t\t\t \t\t@click=\"getMock\"\n\t\t\t\t \t\t>刷新</v-button>\n\t\t\t\t \t</div>\n\t\t\t\t </v-transfer>\n\t\t\t\t <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                dataSource3: [],\n\t\t\t\t\t\t\t\ttargetKeys3: [],\n              }\n            },\n\t\t\t\t\t\tmethods: {\n\t\t\t\t\t\t\tgetMock() {\n\t\t\t\t\t\t\t\tfor(let num = 0; num < 4; num ++) {\n\t\t\t\t\t\t\t\t\tconst targetKeys = [];\n\t\t\t\t\t\t\t\t\tconst mockData = [];\n\t\t\t\t\t\t\t\t\tfor (let i = 0; i < 20; i++) {\n\t\t\t\t\t\t\t\t\t\tconst data = {\n\t\t\t\t\t\t\t\t\t\t\tkey: i,\n\t\t\t\t\t\t\t\t\t\t\ttitle: `内容${i + 1}`,\n\t\t\t\t\t\t\t\t\t\t\tdescription: `内容${i + 1}的描述`,\n\t\t\t\t\t\t\t\t\t\t\tchosen: Math.random() * 2 > 1,\n\t\t\t\t\t\t\t\t\t\t};\n\t\t\t\t\t\t\t\t\t\tif (data.chosen) {\n\t\t\t\t\t\t\t\t\t\t\ttargetKeys.push(data.key);\n\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\tmockData.push(data);\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\tthis[`dataSource${num + 1}`] = mockData;\n\t\t\t\t\t\t\t\t\tthis[`targetKeys${num + 1}`] = targetKeys;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\trender(recoder) {\n\t\t\t\t\t\t\t\treturn recoder.title;\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\thandleChange3(targetKeys, direction, moveKeys) {\n\t\t\t\t\t\t\t\tthis.targetKeys3 = targetKeys;\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tfilterOption(inputValue, option) {\n\t\t\t\t\t\t\t\treturn option.description.indexOf(inputValue) > -1;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n          }\n          </template>\n      </code-box>\n\n      <code-box\n        title=\"自定义渲染行数据\"\n        describe=\"自定义渲染每一个 Transfer Item，可用于渲染复杂数据。\"\n      > \n        <v-transfer\n\t\t\t\t :data-source=\"dataSource4\"\n\t\t\t\t :target-keys=\"targetKeys4\"\n\t\t\t\t :on-change=\"handleChange4\"\n\t\t\t\t :list-style=\"{width: '300px', height: '300px'}\"\n\t\t\t\t :render=\"render2\">\n\t\t\t\t </v-transfer>\n\t\t\t\t <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                dataSource4: [],\n\t\t\t\t\t\t\t\ttargetKeys4: [],\n              }\n            },\n\t\t\t\t\t\tmethods: {\n\t\t\t\t\t\t\trender2(recoder) {\n\t\t\t\t\t\t\t\treturn {\n\t\t\t\t\t\t\t\t\tlabel: `${recoder.title} - ${recoder.description}`,\n\t\t\t\t\t\t\t\t\tvalue: recoder.title\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\thandleChange4(targetKeys, direction, moveKeys) {\n\t\t\t\t\t\t\t\tthis.targetKeys4 = targetKeys;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n          }\n          </template>\n      </code-box>\n  </v-col>\n</v-row>\n  <api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 569:
+/***/ 575:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5669,17 +5688,17 @@ webpackJsonp([15,53],{
 
 /***/ },
 
-/***/ 699:
+/***/ 702:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(569)
+	__vue_script__ = __webpack_require__(575)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/views/transfer.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(241)
+	__vue_template__ = __webpack_require__(244)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

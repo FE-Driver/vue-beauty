@@ -988,30 +988,21 @@ webpackJsonp([27,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([27,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([27,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([27,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([27,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([27,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([27,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([27,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([27,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([27,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([27,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([27,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([27,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([27,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([27,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([27,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([27,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([27,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([27,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([27,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([27,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([27,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([27,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([27,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([27,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,20 +5590,20 @@ webpackJsonp([27,53],{
 
 /***/ },
 
-/***/ 227:
+/***/ 229:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Progress 进度条</h1>\n    <p>\n      进度条，展示操作的当前进度。\n    </p>\n    <h2>何时使用</h2>\n    <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p>\n    <ul>\n      <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li>\n      <li>当需要显示一个操作完成的百分比时。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n      <code-box title=\"进度条\" describe=\"有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-line :percent=\"30\" description=\"普通的进度条\"></v-progress-line>\n        <v-progress-line :percent=\"50\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\"></v-progress-line>\n        <v-progress-line :percent=\"50\" :show-info=\"false\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"小型进度条\" describe=\"通过设置strokeWidth,可以更灵活地使用进度条\">\n        <v-progress-line :percent=\"30\"  :stroke-width=\"5\"></v-progress-line>\n        <v-progress-line :percent=\"50\"  :stroke-width=\"5\" status=\"active\"></v-progress-line>\n        <v-progress-line :percent=\"70\"  :stroke-width=\"5\" status=\"exception\"></v-progress-line>\n        <v-progress-line :percent=\"100\" :stroke-width=\"5\"></v-progress-line>\n      </code-box>\n\n      <code-box title=\"动态展示\" describe=\"通过动态的改变进度,可以让进度条更有趣\">\n        <v-progress-line :percent=\"percentLine\"></v-progress-line>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineLine\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseLine\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </v-col>\n    <v-Col span=\"12\">\n\n      <code-box title=\"进度圈\" describe=\"有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n        <v-progress-circle :percent=\"30\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"小型进度圈\" describe=\"通过设置width,可以更灵活地使用进度圈\">\n        <v-progress-circle :percent=\"30\"  :width=\"80\"></v-progress-circle>\n        <v-progress-circle :percent=\"70\"  :width=\"80\" status=\"exception\"></v-progress-circle>\n        <v-progress-circle :percent=\"100\" :width=\"80\"></v-progress-circle>\n      </code-box>\n\n      <code-box title=\"进度圈动态展示\" describe=\"通过动态的改变进度,可以让进度圈更有趣\">\n        <v-progress-circle :percent=\"percentCircle\"></v-progress-circle>\n        <v-button-group>\n          <v-button type=\"ghost\" @click=\"_declineCircle\">\n            <v-icon type=\"minus\"></v-icon>\n          </v-button>\n          <v-button type=\"ghost\" @click=\"_increaseCircle\">\n            <v-icon type=\"plus\"></v-icon>\n          </v-button>\n        </v-button-group>\n      </code-box>\n\n    </v-col>\n  </v-row>\n\n  <api-table\n    title=\"Progress Bar API\"\n    :apis='progressBarApis'\n  ></api-table>\n\n  <api-table\n    title=\"Progress Circle API\"\n    :apis='progressCircleApis'\n  ></api-table>\n</div>\n";
+	module.exports = "\n<section class=\"markdown\">\n    <h1>Popover 气泡卡片</h1>\n    <p>\n        点击/鼠标移入元素，弹出气泡式的卡片浮层。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n        <p>当目标元素有进一步的描述和相关操作时，可以收纳到卡片中，根据用户的操作行为进行展现。</p>\n        <p>和 Tooltip 的区别是，用户可以对浮层上的元素进行操作，因此它可以承载更复杂的内容，比如链接或按钮等。</p>\n    </ul>\n    <h2>组件演示</h2>\n</section>\n\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"基本用法\" describe=\"使用slot指定弹出内容和触发目标\">\n            <v-popover placement=\"top\" title=\"简单标题\">\n                <div slot=\"content\">\n                    我是普通文本内容\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n    <v-col span=\"12\">\n        <code-box title=\"快速设置简单的内容\" describe=\"使用content属性设置简单内容\">\n            <v-popover placement=\"top\" title=\"简单标题\" content=\"我的优先级更高\">\n                <div slot=\"content\">\n                    我会被忽略\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出卡片</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"触发行为\" describe=\"点击、聚集、鼠标移入。\">\n            <v-popover placement=\"left\" title=\"简单标题\" content=\"点击\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n\n            <span style=\"display:inline-block;width:80px;\">\n                <v-popover placement=\"top\" title=\"简单标题\" trigger=\"focus\" content=\"focus\">\n                    <input class=\"ant-input ant-input-lg\" slot=\"trigger\" placeholder=\"focus\">\n                </v-popover>\n            </span>\n\n            <v-popover placement=\"right\" title=\"简单标题\" content=\"hover\" trigger=\"hover\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">hover</button>\n            </v-popover>\n        </code-box>\n    </v-col>\n\n\n\n    <v-col span=\"12\">\n        <code-box title=\"从卡片内关闭\" describe=\"使用visible控制显示。\">\n            <v-popover placement=\"top\" title=\"标题\" :visible=\"outer_control_visible\" :on-visible-change=\"outerVisibleChange\">\n                <div slot=\"content\">\n                    <a href=\"javascript:;\" @click=\"clickClose\">关闭</a>\n                </div>\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">click</button>\n            </v-popover>\n            <template slot=\"js\">\n                export default{\n                    data :function{\n                        outer_control_visible :true\n                    },\n                    method:{\n                        clickClose: function(){\n                            this.outer_control_visible = false;\n                        },\n                        outerVisibleChange: function (val) {\n                            this.outer_control_visible = val;\n                        }\n                    }\n                }\n            </template>\n        </code-box>\n    </v-col>\n</v-row>\n<v-row :gutter=\"16\">\n    <v-col span=\"12\">\n        <code-box title=\"临时禁用卡片弹出\" describe=\"使用disabled禁用卡片弹出。\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :disabled=\"popover_is_disabled\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            是否禁用卡片弹出\n            <v-switch :on-change=\"to_disabled\" :checked=\"default_is_disabled\">\n                <span slot=\"checkedChildren\">是</span>\n                <span slot=\"unCheckedChildren\">否</span>\n            </v-switch>\n            <template slot=\"js\">\n                export default{\n                    data :function{\n                        default_is_disabled :false,\n                        popover_is_disabled: false\n                    },\n                    method:{\n                        to_disabled: function (val) {\n                            this.popover_is_disabled = val;\n                        }\n                    }\n                }\n            </template>\n        </code-box>\n    </v-col>\n    <v-col span=\"12\">\n        <code-box title=\"卡片显示/隐藏的回调\" describe=\"onVisibleChange\">\n            <v-popover placement=\"top\" title=\"标题\" content=\"看见我了吗\" :on-visible-change=\"visibleChange\">\n                <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\">点击弹出</button>\n            </v-popover>\n            <template slot=\"js\">\n                export default{\n                    method:{\n                        visibleChange: function (val) {\n                            this.$message.info(val ? '卡片显示了' : '卡片隐藏了');\n                        }\n                    }\n                }\n            </template>\n        </code-box>\n    </v-col>\n</v-row>\n\n<v-row :gutter=\"8\">\n    <v-col span=\"12\">\n        <code-box title=\"滚动区域内\" describe=\"滚动区域内的卡片\">\n            <div style=\"height:100px;background:#D7E6F3;overflow:auto;\">\n                <div style=\"width:1000px;\">\n                    按钮在右下角\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\n                    <v-popover placement=\"top\" title=\"标题\" content=\"滚动区域内的定位\">\n                        <button class=\"ant-btn ant-btn-primary\" slot=\"trigger\" style=\"float:right;\">点击弹出</button>\n                    </v-popover>\n                </div>\n            </div>\n        </code-box>\n    </v-col>\n</v-row>\n<api-table :apis=\"apis\"></api-table>\n";
 
 /***/ },
 
-/***/ 556:
+/***/ 563:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _codeBox = __webpack_require__(19);
@@ -5598,107 +5617,99 @@ webpackJsonp([27,53],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      percentLine: 10,
-	      percentCircle: 10,
-	      progressBarApis: [{
-	        parameter: 'percent',
-	        explain: '百分比',
-	        type: 'Number',
-	        default: 0
-	      }, {
-	        parameter: 'status',
-	        explain: '状态，有normal、exception、active、success四个状态值',
-	        type: 'String',
-	        default: 'normal'
-	      }, {
-	        parameter: 'strokeWidth',
-	        explain: '进度条线的宽度，单位是px',
-	        type: 'Number',
-	        default: 1
-	      }, {
-	        parameter: 'showInfo',
-	        explain: '是否显示进度数值和状态图标',
-	        type: 'Boolean',
-	        default: true
-	      }],
-	      progressCircleApis: [{
-	        parameter: 'percent',
-	        explain: '百分比',
-	        type: 'Number',
-	        default: 0
-	      }, {
-	        parameter: 'status',
-	        explain: '状态，有normal、exception、success三个状态值',
-	        type: 'String',
-	        default: 'normal'
-	      }, {
-	        parameter: 'strokeWidth',
-	        explain: '进度圈线的宽度，单位是进度圈画布宽度的百分比',
-	        type: 'Number',
-	        default: 1
-	      }, {
-	        parameter: 'width',
-	        explain: '必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width',
-	        type: 'Number',
-	        default: 'null'
-	      }]
-	    };
-	  },
+	    data: function data() {
+	        return {
+	            apis: [{
+	                parameter: 'slot::trigger',
+	                explain: '触发目标(必选)',
+	                type: 'slot node',
+	                default: '无'
+	            }, {
+	                parameter: 'slot::content',
+	                explain: '卡片内容(可选,与content属性互斥)',
+	                type: 'slot node',
+	                default: '无'
+	            }, {
+	                parameter: 'trigger',
+	                explain: '触发行为，可选 hover/focus/click,默认click',
+	                type: 'string',
+	                default: 'click'
+	            }, {
+	                parameter: 'placement',
+	                explain: '气泡框位置，可选 top/left/right/bottom/topLeft/topRight/bottomLeft/bottomRight',
+	                type: 'string',
+	                default: 'bottom'
+	            }, {
+	                parameter: 'title',
+	                explain: '卡片标题',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'content',
+	                explain: '卡片内容',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'visible',
+	                explain: '用于手动控制浮层显隐',
+	                type: 'boolean',
+	                default: 'false'
+	            }, {
+	                parameter: 'onVisibleChange',
+	                explain: '显示或隐藏发生改变的回调',
+	                type: 'function(boolean:改变后卡片的可见性)',
+	                default: '无'
+	            }, {
+	                parameter: 'openClassName',
+	                explain: '气泡框展现时触发器添加的类名，可用于打开浮层时高亮触发器',
+	                type: 'string',
+	                default: '无'
+	            }, {
+	                parameter: 'disabled',
+	                explain: '临时禁用气泡卡片弹出',
+	                type: 'boolean',
+	                default: 'false'
+	            }],
 
+	            outer_control_visible: true,
+	            default_is_disabled: false,
+	            popover_is_disabled: false
+	        };
+	    },
 
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  },
-
-	  methods: {
-	    _declineLine: function _declineLine() {
-	      var percent = this.percentLine - 10;
-	      if (percent < 0) {
-	        percent = 0;
-	      }
-	      this.percentLine = percent;
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
 	    },
-	    _increaseLine: function _increaseLine() {
-	      var percent = this.percentLine + 10;
-	      if (percent > 100) {
-	        percent = 100;
-	      }
-	      this.percentLine = percent;
-	    },
-	    _declineCircle: function _declineCircle() {
-	      var percent = this.percentCircle - 10;
-	      if (percent < 0) {
-	        percent = 0;
-	      }
-	      this.percentCircle = percent;
-	    },
-	    _increaseCircle: function _increaseCircle() {
-	      var percent = this.percentCircle + 10;
-	      if (percent > 100) {
-	        percent = 100;
-	      }
-	      this.percentCircle = percent;
+	    methods: {
+	        clickClose: function clickClose() {
+	            this.outer_control_visible = false;
+	        },
+	        to_disabled: function to_disabled(val) {
+	            this.popover_is_disabled = val;
+	        },
+	        outerVisibleChange: function outerVisibleChange(val) {
+	            this.outer_control_visible = val;
+	        },
+	        visibleChange: function visibleChange(val) {
+	            this.$message.info(val ? '卡片显示了' : '卡片隐藏了');
+	        }
 	    }
-	  }
-
 	};
 
 /***/ },
 
-/***/ 684:
+/***/ 686:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(556)
+	__vue_script__ = __webpack_require__(563)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/views/progress.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(227)
+	  console.warn("[vue-loader] src/views/popover.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(229)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

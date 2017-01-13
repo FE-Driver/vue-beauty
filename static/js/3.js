@@ -988,30 +988,21 @@ webpackJsonp([3,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([3,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([3,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([3,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([3,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([3,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([3,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([3,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([3,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([3,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([3,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([3,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([3,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([3,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([3,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([3,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([3,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([3,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([3,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([3,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([3,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([3,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([3,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([3,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([3,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,7 +5590,7 @@ webpackJsonp([3,53],{
 
 /***/ },
 
-/***/ 157:
+/***/ 166:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -5579,20 +5598,20 @@ webpackJsonp([3,53],{
 
 
 	// module
-	exports.push([module.id, ".code-box-demo .ant-form-horizontal {\n  max-width: 540px;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.code-box-demo .demo-header[_v-341b3438] {\n  width: 100%;\n  background: #ebedee;\n  height: 30px;\n}\n.code-box-demo .demo-header ul[_v-341b3438] {\n  float: right;\n  margin-right: 5px;\n}\n.code-box-demo .demo-header ul li[_v-341b3438] {\n  width: 50px;\n  height: 30px;\n  float: left;\n  background: #e4e4e4;\n  margin-left: 5px;\n}\n.code-box-demo .demo-header ul li[_v-341b3438]:before {\n  margin: 10px auto;\n  width: 20px;\n  height: 10px;\n  background: #ebeded;\n}\n.code-box-demo .demo-header .logo[_v-341b3438] {\n  float: left;\n  margin: 0px auto 0 10px;\n  line-height: 32px;\n}\n.code-box-demo .demo-header .logo img[_v-341b3438]{\n  margin:auto\n}\n.code-box-demo .demo-header .logo span[_v-341b3438] {\n  display: block;\n  float: right;\n}\n.code-box-demo .demo-content[_v-341b3438] {\n  width: 80%;\n  margin: 10px auto;\n}\n.code-box-demo .demo-content .demo-title[_v-341b3438] {\n  text-align:left;\n  background: #a4a4a4;\n  width: 40%;\n  height: 20px;\n  line-height: 20px;\n  color: #ebeded;\n  text-indent:10px\n}\n.code-box-demo .demo-content .demo-listBox[_v-341b3438] {\n  margin-top: 10px;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438] {\n  height: 30px;\n  background: #cacaca;\n  overflow: hidden;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:before,.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:after{\n  width: 30%;\n  height: 5px;\n  background: #ebeded;\n  float:left;\n  margin:12px 35px 0;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:after{\n  width:15%;\n  float:right;\n  margin:12px 10px 0;\n\n}\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438] {\n  height: 25px;\n  background: #ebeded;\n  border-bottom: 1px solid #cacaca;\n  overflow: hidden;\n  padding: 5px 15px;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:before {\n  width: 10px;\n  height: 5px;\n  background: #cacaca;\n  float: left;\n  margin-top:4px\n}\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:after {\n  width: 50%;\n  height: 5px;\n  background: #cacaca;\n  float: left;\n  margin-left: 10px;\n  margin-top: 4px;\n}\n.code-box-demo .demo-content .demo-kp[_v-341b3438] {\n  margin: 10px auto;\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438] {\n  display: inline-block;\n  width: 30%;\n  height: 40px;\n  background: #cacaca;\n  color: #ebeded;\n  text-align: left;\n  padding: 10px;\n  margin-right: calc(2%);\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:last-child {\n  margin-right: 0%;\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:after {\n  width: 60%;\n  height: 5px;\n  background: #ebeded;\n  float: left;\n  margin-top: 7px;\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:before {\n  background: #ebeded;\n  float: left;\n  width: 15px;\n  height: 15px;\n  margin:2px 10% 0 0;\n\n}\n.code-box-demo .demo-footer[_v-341b3438] {\n  margin-top: 10px;\n  background: #cacaca;\n  height: 40px;\n  float: left;\n  width: 100%;\n  display: table;\n}\n.code-box-demo .demo-footer[_v-341b3438]:before {\n  width: 60%;\n  height: 5px;\n  background: #ededed;\n  margin: 10px auto 0;\n}\n.code-box-demo .demo-footer[_v-341b3438]:after {\n  width: 30%;\n  height: 5px;\n  background: #ededed;\n  margin: 5px auto;\n}\n.code-box-demo .demo-header ul li[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:after,\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:after,\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:after,\n.code-box-demo .demo-footer[_v-341b3438]:before,\n.code-box-demo .demo-footer[_v-341b3438]:after {\n  display: block;\n  content: \"\";\n}\n.code-box-demo .buttons[_v-341b3438] {\n  text-align: center;\n  padding-top: 20px;\n  clear: both;\n}\n.demo-list ul li[_v-341b3438] {\n    height: 25px;\n    background: #ebeded;\n    border-bottom: 1px solid #cacaca;\n    overflow: hidden;\n    padding: 5px 15px;\n}\n.code-box-demo .ant-form-horizontal[_v-341b3438]{\n  max-width: 540px\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 175:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(157);
+	var content = __webpack_require__(166);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -5601,8 +5620,8 @@ webpackJsonp([3,53],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./form.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./form.vue");
+			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-341b3438&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./queueAnim.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-341b3438&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./queueAnim.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -5613,44 +5632,14 @@ webpackJsonp([3,53],{
 
 /***/ },
 
-/***/ 213:
+/***/ 328:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Form 表单</h1>\n      <p>\n        具有数据收集、校验和提交功能的表单，包含复选框、单选框、输入框、下拉选择框等元素。\n      </p>\n      <h2>表单</h2>\n      <ul>\n        <p>\n          我们为 form 提供了以下两种排列方式：\n        </p>\n        <li>水平排列：可以实现 label 标签和表单控件的水平排列；</li>\n        <li>行内排列：使其表现为 inline-block 级别的控件。</li>\n      </ul>\n      <h2>表单域</h2>\n      <ul>\n        <p>\n          表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。<br>这里我们封装了表单域 <code>&lt;Form.Item /&gt;</code 。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <v-row>\n\n      <v-col>\n\n        <code-box\n          title=\"平行排列\"\n          describe=\"行内排列，常用于登录界面。\"\n        >\n          <v-form>\n            <v-form-item label=\"账户\">\n              <v-input value=\"请输入账户名\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"密码\">\n              <v-input value=\"请输入密码\"></v-input>\n            </v-form-item>\n            <v-form-item>\n              <v-checkbox>记住我</v-checkbox>\n            </v-form-item>\n            <v-button type='primary' html-type=\"submit\">登录</v-button>\n          </v-form>\n        </code-box>\n\n       <code-box\n          title=\"典型排列\"\n          describe=\"竖直排列的表单。\"\n        >\n          <v-form direction=\"horizontal\">\n            <v-form-item label=\"用户名\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <p className=\"ant-form-text\" id=\"userName\" name=\"userName\">大眼萌 minion</p>\n            </v-form-item>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" required>\n              <v-input type=\"password\" placeholder=\"请输入密码\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"您的性别\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-radio-group\n                default-value='female'\n                :radios=\"[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]\">\n              </v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"备注\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-input type='textarea' placeholder=\"随便写\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"卖身华府\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-checkbox>同意</v-checkbox>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{span:16,offset:6}\" style=\"margin-top:24px\">\n              <v-button type='primary' html-type=\"submit\">确定</v-button>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n        <code-box\n          title=\"校验提示\"\n          describe=\"我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。\nvalidateStatus: 'success', 'warning', 'error', 'validating'。\n另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。\n注意: 反馈图标只对 &lt; v-input &gt; 有效。\"\n        >\n          <v-form direction=\"horizontal\">\n            <v-form-item label=\"失败校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"请输入数字和字母的组合\" validate-status=\"error\">\n              <v-input value=\"无效选择\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"警告校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" validate-status=\"warning\">\n              <v-input value=\"前方高能预警\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"校验中\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"信息审核中...\" has-feedback validate-status=\"validating\">\n              <v-input value=\"我是被校验的内容\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"成功校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" has-feedback validate-status=\"success\">\n              <v-input value=\"我是正文\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"警告校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" has-feedback validate-status=\"warning\">\n              <v-input value=\"前方高能预警\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"失败校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"请输入数字和字母的组合\" has-feedback validate-status=\"error\">\n              <v-input value=\"无效选择\" size=\"large\"></v-input>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n         <code-box\n          title=\"表单校验\"\n          describe=\"Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并 Form-Item 的 prop 属相设置为需校验的字段名即可。校验规则参见<a href='https://github.com/yiminghe/async-validator' target='_blank'>async-validator</a>\"\n        >\n          <v-form direction=\"horizontal\" :model=\"ruleForm\" :rules=\"rules\" v-ref:rule-form>\n            <v-form-item label=\"活动名称\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"name\" has-feedback>\n              <v-input size=\"large\" :value.sync=\"ruleForm.name\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"活动区域\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"region\">\n               <v-Select :value.sync=\"ruleForm.region\" placeholder=\"请选择活动区域\" notfound=\"无法找到\" :options=\"[{value: '1', text: '区域1'}, {value: '2', text: '区域2'}]\"></v-Select>\n            </v-form-item>\n            <v-form-item label=\"活动时间\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"date\">\n              <v-datepicker :time.sync=\"ruleForm.date\"></v-datepicker>\n            </v-form-item>\n            <v-form-item label=\"即时配送\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-switch :value.sync=\"ruleForm.delivery\"></v-switch>\n            </v-form-item>\n            <v-form-item label=\"活动性质\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"type\">\n              <v-checkbox-group :value.sync=\"ruleForm.type\" :options=\"checkboxOpt\"></v-checkbox-group>\n            </v-form-item>\n            <v-form-item label=\"特殊资源\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"resource\">\n              <v-radio-group :value.sync=\"ruleForm.resource\" :radios=\"[{value: '1', name: '线上品牌商赞助'},{value: '2', name: '线下场地免费'}]\"></v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"活动形式\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"desc\">\n              <v-input :value.sync=\"ruleForm.desc\" type='textarea'></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{offset:6, span: 14 }\">\n              <v-button type=\"primary\" style=\"margin-right:10px\" @click.prevent=\"handleSubmit\">立即创建</v-button><v-button type=\"ghost\" @click.prevent=\"handleReset\">重置</v-button>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n        <code-box\n          title=\"自定义校验规则\"\n          describe=\"更加灵活的表单校验。\"\n        >\n          <v-form direction=\"horizontal\" :model=\"customForm\" :rules=\"customRules\" v-ref:custom-rule-form>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"pass\" has-feedback>\n              <v-input type=\"password\" size=\"large\" :value.sync=\"customForm.pass\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"确认密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"checkPass\" has-feedback>\n              <v-input type=\"password\" size=\"large\" :value.sync=\"customForm.checkPass\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"年龄\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"age\" has-feedback>\n              <v-input size=\"large\" :value.sync=\"customForm.age\"></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{offset:6, span: 14 }\">\n              <v-button type=\"primary\" style=\"margin-right:10px\" @click.prevent=\"handleSubmit2\">提交</v-button><v-button type=\"ghost\" @click.prevent=\"handleReset2\">重置</v-button>\n            </v-form-item>\n          </v-form>\n        </code-box>\n\n      </v-col>\n\n    </v-row>\n\n\n    <api-table\n      :content='content'\n    >\n      <h3>Form</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      type=\"methods\"\n      :content='methodsCont'\n    >\n      <h3>Form methods</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      :content='itemCont'\n    >\n      <h3>Form.Item</h3>\n    </api-table>\n\n  </div>\n\n";
+	module.exports = "\n\n<div _v-341b3438=\"\">\n\n  <section class=\"markdown\" _v-341b3438=\"\">\n    <h1 _v-341b3438=\"\">QueueAnim 进出场动画</h1>\n    <p _v-341b3438=\"\">\n      通过简单的配置对一组元素添加串行的进场动画效果。\n    </p>\n    <h2 _v-341b3438=\"\">何时使用</h2>\n    <ul _v-341b3438=\"\">\n      <li _v-341b3438=\"\">从内容A到内容B的转变过程时能有效的吸引用户注意力，突出视觉中心，提高整体视觉效果。</li>\n      <li _v-341b3438=\"\">小的信息元素排布或块状较多的情况下，根据一定的路径层次依次进场，区分维度层级，来凸显量级，使页面转场更加流畅和舒适，提高整体视觉效果和产品的质感。</li>\n      <li _v-341b3438=\"\">特别适合首页和需要视觉展示效果的宣传页，以及单页应用的切换页面动效。</li>\n    </ul>\n    <h2 _v-341b3438=\"\">组件演示</h2>\n  </section>\n\n  <v-row :gutter=\"16\" _v-341b3438=\"\">\n    <v-col span=\"12\" _v-341b3438=\"\">\n\n      <code-box title=\"默认\" describe=\"最简单的进场例子。\" _v-341b3438=\"\">\n        <v-queue-anim :delay=\"1000\" _v-341b3438=\"\">\n          <div key=\"a\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"b\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"c\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"d\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"e\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"f\" _v-341b3438=\"\">依次进场</div>\n        </v-queue-anim>\n      </code-box>\n\n      <code-box title=\"进场和离场\" describe=\"通过把属性设置一个数组来分别表示进出场的效果，type、animConfig、delay、duration、interval、ease 等属性均支持配置为数组。\" _v-341b3438=\"\">\n        <v-queue-anim class=\"demo-content\" key=\"demo\" :show=\"show\" :type=\"['right', 'left']\" :ease=\"['easeOutQuart', 'easeInOutQuart']\" _v-341b3438=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-341b3438=\"\">\n            <ul _v-341b3438=\"\">\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n            <div class=\"demo-list\" _v-341b3438=\"\">\n              <div class=\"title\" _v-341b3438=\"\"></div>\n              <ul _v-341b3438=\"\">\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n        <template slot=\"js\">\n          export default{\n            data:function(){\n              return {\n                show :false\n              }\n            },\n            methods:{\n              _handleClick :function(){\n                this.show = !this.show;\n              }\n            }\n          }\n        </template>\n      </code-box>\n\n      <code-box title=\"表单动画进出场\" describe=\"表单组合的进场与出场动画。\" _v-341b3438=\"\">\n        <v-queue-anim class=\"ant-form-horizontal\" type=\"bottom\" :leave-reverse=\"true\" :show=\"show\" _v-341b3438=\"\">\n          <v-form direction=\"horizontal\" _v-341b3438=\"\">\n            <v-form-item label=\"用户名\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"name\" _v-341b3438=\"\">\n              <p classname=\"ant-form-text\" id=\"userName\" name=\"userName\" _v-341b3438=\"\">大眼萌 minion</p>\n            </v-form-item>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"password\" _v-341b3438=\"\">\n              <v-input type=\"password\" placeholder=\"请输入密码\" size=\"large\" _v-341b3438=\"\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"您的性别\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"sex\" _v-341b3438=\"\">\n              <v-radio-group default-value=\"female\" :radios=\"[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]\" _v-341b3438=\"\">\n              </v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"备注\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"remark\" _v-341b3438=\"\">\n              <v-input type=\"textarea\" placeholder=\"随便写\" _v-341b3438=\"\"></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{span:16,offset:6}\" style=\"margin-top:24px\" key=\"btn\" _v-341b3438=\"\">\n              <v-button type=\"primary\" html-type=\"submit\" _v-341b3438=\"\">确定</v-button>\n            </v-form-item>\n          </v-form>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n        <template slot=\"js\">\n          export default{\n            data:function(){\n              return {\n                show :false,\n                labelCol : { span: 6 },\n                wrapperCol: { span: 14 }\n              }\n            },\n            methods:{\n              _handleClick :function(){\n                this.show = !this.show;\n              }\n            }\n          }\n        </template>\n      </code-box>\n\n      <code-box title=\"一个复杂些的例子\" describe=\"模拟一个完整的页面。\" _v-341b3438=\"\">\n        <v-queue-anim :show=\"show\" :type=\"['right', 'left']\" _v-341b3438=\"\">\n          <div class=\"demo-header\" key=\"header\" _v-341b3438=\"\">\n            <div class=\"logo\" _v-341b3438=\"\">\n              <img width=\"30\" src=\"https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg\" _v-341b3438=\"\">\n              <span _v-341b3438=\"\">logo</span>\n            </div>\n            <v-queue-anim _v-341b3438=\"\">\n              <ul _v-341b3438=\"\">\n                <li key=\"0\" _v-341b3438=\"\"></li>\n                <li key=\"1\" _v-341b3438=\"\"></li>\n                <li key=\"2\" _v-341b3438=\"\"></li>\n                <li key=\"3\" _v-341b3438=\"\"></li>\n                <li key=\"4\" _v-341b3438=\"\"></li>\n              </ul>\n            </v-queue-anim>\n          </div>\n          <v-queue-anim class=\"demo-content\" key=\"content\" :delay=\"300\" _v-341b3438=\"\">\n            <div class=\"demo-title\" key=\"title\" _v-341b3438=\"\">我是标题</div>\n            <v-queue-anim class=\"demo-kp\" key=\"b\" _v-341b3438=\"\">\n              <v-queue-anim _v-341b3438=\"\">\n                <ul _v-341b3438=\"\">\n                  <li key=\"0\" _v-341b3438=\"\"></li>\n                  <li key=\"1\" _v-341b3438=\"\"></li>\n                  <li key=\"2\" _v-341b3438=\"\"></li>\n                </ul>\n              </v-queue-anim>\n            </v-queue-anim>\n            <div class=\"demo-title\" key=\"title2\" _v-341b3438=\"\">我是标题</div>\n            <div class=\"demo-listBox\" _v-341b3438=\"\">\n              <v-queue-anim class=\"demo-list\" :delay=\"500\" _v-341b3438=\"\">\n                <div class=\"title\" key=\"title3\" _v-341b3438=\"\"></div>\n                <v-queue-anim type=\"bottom\" key=\"li\" _v-341b3438=\"\">\n                  <ul _v-341b3438=\"\">\n                    <li key=\"0\" _v-341b3438=\"\"></li>\n                    <li key=\"1\" _v-341b3438=\"\"></li>\n                    <li key=\"2\" _v-341b3438=\"\"></li>\n                    <li key=\"3\" _v-341b3438=\"\"></li>\n                    <li key=\"4\" _v-341b3438=\"\"></li>\n                  </ul>\n                </v-queue-anim>\n              </v-queue-anim>\n            </div>\n          </v-queue-anim>\n          <v-queue-anim type=\"bottom\" :delay=\"1000\" key=\"footerBox\" _v-341b3438=\"\">\n            <div class=\"demo-footer\" key=\"footer\" _v-341b3438=\"\"></div>\n          </v-queue-anim>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n        <template slot=\"js\">\n          export default{\n            data:function(){\n              return {\n                show :false\n              }\n            },\n            methods:{\n              _handleClick :function(){\n                this.show = !this.show;\n              }\n            }\n          }\n        </template>\n      </code-box>\n    </v-col>\n    <v-col span=\"12\" _v-341b3438=\"\">\n\n      <code-box title=\"进场和离场\" describe=\"同时支持进场和离场动画。\" _v-341b3438=\"\">\n        <v-queue-anim :show=\"show\" class=\"demo-content\" _v-341b3438=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-341b3438=\"\">\n            <ul _v-341b3438=\"\">\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n            <div class=\"demo-list\" _v-341b3438=\"\">\n              <div class=\"title\" _v-341b3438=\"\"></div>\n              <ul _v-341b3438=\"\">\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n        <template slot=\"js\">\n          export default{\n            data:function(){\n              return {\n                show :false\n              }\n            },\n            methods:{\n              _handleClick :function(){\n                this.show = !this.show;\n              }\n            }\n          }\n        </template>\n      </code-box>\n\n      <code-box title=\"自定义动画进出场\" describe=\"通过 animConfig 来自定义动画进出场。\" _v-341b3438=\"\">\n        <v-queue-anim class=\"demo-content\" :show=\"show\" :anim-config=\"[{ opacity: [1, 0], translateY: [0, 50] },{ opacity: [1, 0], translateY: [0, -50] }]\" _v-341b3438=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-341b3438=\"\">\n            <ul _v-341b3438=\"\">\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n            <div class=\"demo-list\" _v-341b3438=\"\">\n              <div class=\"title\" _v-341b3438=\"\"></div>\n              <ul _v-341b3438=\"\">\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n        <template slot=\"js\">\n          export default{\n            data:function(){\n              return {\n                show :false;\n              }\n            },\n            methods:{\n              _handleClick :function(){\n                this.show = !this.show;\n              }\n            }\n          }\n        </template>\n      </code-box>\n\n      <code-box title=\"添加与删除\" describe=\"场景里有增加或删除条目时也会触发动画。\" _v-341b3438=\"\">\n        <div class=\"demo-content\" _v-341b3438=\"\">\n            <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n              <div class=\"demo-list\" _v-341b3438=\"\">\n                <div class=\"title\" _v-341b3438=\"\"></div>\n                <v-queue-anim :type=\"['right', 'left']\" :watch-value=\"items\" :show=\"show\" _v-341b3438=\"\">\n                  <ul _v-341b3438=\"\">\n                    <li v-for=\"item in items\" :key=\"Date.now()\" _v-341b3438=\"\"></li>\n                  </ul>\n                </v-queue-anim>\n              </div>\n            </div>\n        </div>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n          <v-button @click=\"_handleAdd\" style=\"margin-left: 10px\" _v-341b3438=\"\">添加</v-button>\n          <v-button @click=\"_handleRemove\" style=\"margin-left: 10px\" _v-341b3438=\"\">删除</v-button>\n        </p>\n        <template slot=\"js\">\n          export default{\n            data:function(){\n              return {\n                show :false,\n                items: ['1', '2', '3'],\n              }\n            },\n            methods:{\n              _handleClick :function(){\n                this.show = !this.show;\n              },\n              _handleAdd () {\n                const len = this.items.length + 1;\n                this.items.push(`${len}`);\n              },\n              _handleRemove () {\n                this.items.pop();\n              }\n            }\n          }\n        </template>\n      </code-box>\n\n    </v-col>\n  </v-row>\n  <section class=\"markdown\" _v-341b3438=\"\">\n      <h3 _v-341b3438=\"\">API</h3>\n      <p _v-341b3438=\"\">元素依次进场</p>\n      <pre _v-341b3438=\"\">        <code class=\"html\" _v-341b3438=\"\">&lt;v-queue-anim&gt;\n            &lt;div key='demo1'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo2'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo3'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo4'&gt;依次进场&lt;/div&gt;\n          &lt;/v-queue-anim&gt;</code>\n      </pre>\n      <blockquote _v-341b3438=\"\">\n        <p _v-341b3438=\"\">每个子标签必须带 key，如果未设置 key 将不执行动画。</p>\n      </blockquote>\n   </section>\n  <api-table :content=\"content\" _v-341b3438=\"\"></api-table>\n\n</div>\n\n";
 
 /***/ },
 
-/***/ 372:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(410);
-	module.exports = __webpack_require__(24).Number.isInteger;
-
-/***/ },
-
-/***/ 389:
-/***/ function(module, exports, __webpack_require__) {
-
-	// 20.1.2.3 Number.isInteger(number)
-	var isObject = __webpack_require__(46)
-	  , floor    = Math.floor;
-	module.exports = function isInteger(it){
-	  return !isObject(it) && isFinite(it) && floor(it) === it;
-	};
-
-/***/ },
-
-/***/ 410:
-/***/ function(module, exports, __webpack_require__) {
-
-	// 20.1.2.3 Number.isInteger(number)
-	var $export = __webpack_require__(32);
-
-	$export($export.S, 'Number', {isInteger: __webpack_require__(389)});
-
-/***/ },
-
-/***/ 543:
+/***/ 564:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5658,10 +5647,6 @@ webpackJsonp([3,53],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _isInteger = __webpack_require__(646);
-
-	var _isInteger2 = _interopRequireDefault(_isInteger);
 
 	var _codeBox = __webpack_require__(19);
 
@@ -5675,134 +5660,46 @@ webpackJsonp([3,53],{
 
 	exports.default = {
 	  data: function data() {
-	    var _this = this;
-
-	    var checkAge = function checkAge(rule, value, callback) {
-	      var age = parseInt(value, 10);
-
-	      setTimeout(function () {
-	        if (!(0, _isInteger2.default)(age)) {
-	          callback(new Error('请输入数字值'));
-	        } else {
-	          if (age < 18) {
-	            callback(new Error('必须年满18岁'));
-	          } else {
-	            callback();
-	          }
-	        }
-	      }, 1000);
-	    };
-	    var validatePass = function validatePass(rule, value, callback) {
-	      if (value === '') {
-	        callback(new Error('请输入密码'));
-	      } else {
-	        if (_this.customForm.checkPass !== '') {
-	          _this.$refs.customRuleForm.validateField('checkPass');
-	        }
-	        callback();
-	      }
-	    };
-	    var validatePass2 = function validatePass2(rule, value, callback) {
-	      if (value === '') {
-	        callback(new Error('请再次输入密码'));
-	      } else if (value !== _this.customForm.pass) {
-	        callback(new Error('两次输入密码不一致!'));
-	      } else {
-	        callback();
-	      }
-	    };
-
 	    return {
-	      content: [['model', '表单数据对象', 'object', '-'], ['rules', '表单验证规则', 'object', '-'], ['direction', 'form 排列布局方式 inline或者horizontal', 'string', 'inline']],
-	      methodsCont: [['validate', '对整个表单进行校验的方法', 'callback(valid)', '无'], ['validateField', '对部分表单字段进行校验的方法', 'prop,callback(valid)', '无'], ['resetFields', '对整个表单进行重置，isAll为true将model里所有字段值重置为初始值并移除校验结果，为false则只重置传了prop属性的表单元素', 'isAll,默认为true', '无']],
-	      itemCont: [['prop', '表单域 model 字段', '传入 Form 组件的 model 中的字段', '-'], ['help', '提示信息，如不设置，则会根据校验规则自动生成', 'string', '无'], ['hasFeedback', '配合 validateStatus 属性使用，展示校验状态图标，建议只配合 Input 组件使用', 'boolean', 'false'], ['validateStatus', "校验状态，如不设置，则会根据校验规则自动生成('success' 'warning' 'error' 'validating')", 'string', '无'], ['required', '是否必填，如不设置，则会根据校验规则自动生成', 'boolean', 'false'], ['label', 'label 标签的文本', 'string', '无'], ['labelCol', 'label 标签布局，通 v-col 组件，设置 span offset 值，如 {span: 3, offset: 12}', 'object', '无'], ['wrapperCol', '需要为输入控件设置布局样式时，使用该属性，用法同 labelCol', 'object', '无']],
-	      ruleForm: {
-	        name: '',
-	        region: '',
-	        date: '',
-	        delivery: false,
-	        type: [],
-	        resource: '',
-	        desc: ''
-	      },
-	      rules: {
-	        name: [{ required: true, message: '请输入活动名称' }],
-	        region: [{ required: true, message: '请选择活动区域' }],
-	        date: [{ required: true, message: '请选择日期' }],
-	        type: [{ type: 'array', required: true, message: '请至少选择一个活动性质' }],
-	        resource: [{ required: true, message: '请选择活动资源' }],
-	        desc: [{ required: true, message: '请填写活动形式' }]
-	      },
-	      customForm: {
-	        pass: '',
-	        checkPass: '',
-	        age: ''
-	      },
-	      customRules: {
-	        pass: [{ required: true, message: '请输入密码' }, { validator: validatePass }],
-	        checkPass: [{ required: true, message: '请再次输入密码' }, { validator: validatePass2 }],
-	        age: [{ required: true, message: '请填写年龄' }, { validator: checkAge }]
-	      },
-	      checkboxOpt: [{ label: '美食/餐厅线上活动', value: '1' }, { label: '地推活动', value: '2' }, { label: '线下主题活动', value: '3' }, { label: '单纯品牌曝光', value: '4' }],
+	      content: [['show', '控制queueAnim组件的显示隐藏', 'bool', 'true'], ['type', '动画内置参数 left right top bottom scale scaleBig scaleX scaleY', 'string / array', 'right'], ['animConfig', '配置动画参数 如 {opacity:[1, 0],translateY:[0, -30]} 具体参考 velocity 的写法', 'object / array', 'null'], ['delay', '整个动画的延时,以毫秒为单位', 'number / array', '0'], ['duration', '每个动画的时间,以毫秒为单位', 'number / array', '500'], ['interval', '每个动画的间隔时间,以毫秒为单位', 'number / array', '100'], ['leaveReverse', '出场时是否倒放,从最后一个 dom 开始往上播放', 'boolean', 'false'], ['ease', '动画的缓动函数,<a href="http://velocityjs.org/#easing" target="_blank">查看详细</a>', 'string / array', 'easeOutQuart'], ['animatingClassName', '进出场动画进行中的类名', 'array', "['queue-anim-entering', 'queue-anim-leaving']"]],
+	      items: ['1', '2', '3'],
+	      show: true,
 	      labelCol: { span: 6 },
 	      wrapperCol: { span: 14 }
 	    };
 	  },
-	  methods: {
-	    handleSubmit: function handleSubmit() {
-	      this.$refs.ruleForm.validate(function (valid) {
-	        if (valid) {
-	          alert('submit!');
-	        } else {
-	          console.log('error submit!!');
-	          return false;
-	        }
-	      });
-	    },
-	    handleReset: function handleReset() {
-	      this.$refs.ruleForm.resetFields();
-	    },
-	    handleReset2: function handleReset2() {
-	      this.$refs.customRuleForm.resetFields();
-	    },
-	    handleSubmit2: function handleSubmit2(ev) {
-	      this.$refs.customRuleForm.validate(function (valid) {
-	        if (valid) {
-	          alert('submit!');
-	        } else {
-	          console.log('error submit!!');
-	          return false;
-	        }
-	      });
-	    }
-	  },
 	  components: {
 	    codeBox: _codeBox2.default,
 	    apiTable: _apiTable2.default
+	  },
+	  methods: {
+	    _handleClick: function _handleClick() {
+	      this.show = !this.show;
+	    },
+	    _handleAdd: function _handleAdd() {
+	      var len = this.items.length + 1;
+	      this.items.push('' + len);
+	    },
+	    _handleRemove: function _handleRemove() {
+	      this.items.pop();
+	    }
 	  }
 	};
 
 /***/ },
 
-/***/ 646:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(372), __esModule: true };
-
-/***/ },
-
-/***/ 670:
+/***/ 688:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(175)
-	__vue_script__ = __webpack_require__(543)
+	__webpack_require__(188)
+	__vue_script__ = __webpack_require__(564)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/views/form.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(213)
+	  console.warn("[vue-loader] src/views/queueAnim.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(328)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

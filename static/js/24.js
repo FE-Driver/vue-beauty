@@ -988,30 +988,21 @@ webpackJsonp([24,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([24,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([24,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([24,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([24,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([24,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([24,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([24,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([24,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([24,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([24,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([24,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([24,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([24,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([24,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([24,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([24,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([24,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([24,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([24,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([24,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([24,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([24,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([24,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([24,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,14 +5590,14 @@ webpackJsonp([24,53],{
 
 /***/ },
 
-/***/ 230:
+/***/ 233:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Select选择器</h1>\n    <p>\n      类似 Select2 的选择器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>\n      <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n      <code-box\n        title=\"简单\"\n        describe=\"最简单的用法。\"\n      >\n        <v-Select placeholder=\"请选择人员\" style=\"width: 120px;\" :options=\"options\" value=\"\" @change=\"change\"></v-Select>\n        <v-Select placement=\"top\" style=\"width: 120px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select disabled style=\"width: 120px;\" value=\"\"></v-Select>\n      </code-box>\n      <code-box\n        title=\"带搜索框\"\n        describe=\"展开后可对选项进行搜索。\"\n      >\n        <v-Select search style=\"width: 120px;\" :options=\"options\" value=\"\"></v-Select><br><br>\n        <v-Select search multiple style=\"width: 100%\" :options=\"options\" :value=\"[]\"></v-Select>\n      </code-box>\n\n      <code-box\n        title=\"分组\"\n        describe=\"用嵌套的数据结构进行选项分组。\"\n      >\n        <v-Select style=\"width: 200px\" :options=\"groupOpt\" :value=\"'lp'\"></v-Select>\n        <v-Select style=\"width: 200px\" multiple :options=\"groupOpt\" :value=\"['lp']\"></v-Select>\n      </code-box>\n    </v-Col>\n    <v-Col span=\"12\">\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的选择框，当 size 分别为 lg 和 sm 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n      >\n        <v-Select size=\"lg\" style=\"width: 200px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select style=\"width: 200px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select size=\"sm\" style=\"width: 200px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n      </code-box>\n\n      <code-box\n        title=\"多选\"\n        describe=\"多选，从已有条目中选择（scroll the menu）\"\n      >\n        <v-Select style=\"width: 100%;\" multiple :options=\"options\" :value=\"['3']\"></v-Select>\n      </code-box>\n\n      <code-box\n        title=\"远程搜索\"\n        describe=\"从服务器搜索数据，输入关键字进行查找\"\n      >\n        <v-Select style=\"width: 200px\" search :loading=\"loading\" :remote-method=\"remoteMethod\" :options=\"remoteOption\"></v-Select><br><br>\n        <v-Select style=\"width: 100%\" search multiple :loading=\"loading2\" :remote-method=\"remoteMethod2\" :options=\"remoteOption\"></v-Select>\n      </code-box>\n    </v-Col>\n  </v-Row>\n\n\n  <api-table :content='content'></api-table>\n  <api-table\n    title=\"\"\n    type=\"events\"\n    :content='eventContent'\n  >\n    <h3>Select Events</h3>\n  </api-table>\n  <api-table\n    title=\"\"\n    :content='optionCont'\n  >\n    <h3>Options Attributes</h3>\n  </api-table>\n</div>\n\n";
+	module.exports = "\n\n<div>\n\n  <section class=\"markdown\">\n    <h1>Select选择器</h1>\n    <p>\n      类似 Select2 的选择器。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。</li>\n      <li>当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n      <code-box\n        title=\"简单\"\n        describe=\"最简单的用法。\"\n      >\n        <v-Select placeholder=\"请选择人员\" style=\"width: 120px;\" :options=\"options\" value=\"\" @change=\"change\"></v-Select>\n        <v-Select placement=\"top\" style=\"width: 120px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select :disabled=\"true\" style=\"width: 120px;\" value=\"\"></v-Select>\n        <template slot=\"js\">\n        export default {\n          data: function() {\n            return {\n              options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],\n              value: '3'\n            }\n          },\n          methods:{\n            change(val){\n              console.log(val)\n            }\n          }\n        }\n        </template>\n      </code-box>\n      <code-box\n        title=\"带搜索框\"\n        describe=\"展开后可对选项进行搜索。\"\n      >\n        <v-Select :search=\"true\" style=\"width: 120px;\" :options=\"options\" value=\"\"></v-Select><br><br>\n        <v-Select :search=\"true\" :multiple=\"true\" style=\"width: 100%\" :options=\"options\" :value=\"[]\"></v-Select>\n        <template slot=\"js\">\n        export default {\n          data: function() {\n            return {\n              options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}]\n            }\n          }\n        }\n        </template>\n      </code-box>\n\n      <code-box\n        title=\"分组\"\n        describe=\"用嵌套的数据结构进行选项分组。\"\n      >\n        <v-Select style=\"width: 200px\" :options=\"groupOpt\" :value=\"'lp'\"></v-Select>\n        <v-Select style=\"width: 200px\" :multiple=\"true\" :options=\"groupOpt\" :value=\"['lp']\"></v-Select>\n        <template slot=\"js\">\n        export default {\n          data: function() {\n            return {\n              groupOpt: [\n                {\n                  label: '重庆',\n                  data: [\n                    {\n                      value: 'lp',\n                      text: '梁平'\n                    },\n                    {\n                      value: 'wz',\n                      text: '万州',\n                      disabled: true\n                    }\n                  ]\n                },\n                {\n                  label: '四川',\n                  data: [{\n                    value: 'cd',\n                    text: '成都'\n                  },{\n                    value: 'dz',\n                    text: '达州'\n                  }]\n                }\n              ]\n            }\n          }\n        }\n        </template>\n      </code-box>\n    </v-Col>\n    <v-Col span=\"12\">\n      <code-box\n        title=\"三种大小\"\n        describe=\"三种大小的选择框，当 size 分别为 lg 和 sm 时，输入框高度为 32px 和 22px ，默认高度为 28px\"\n      >\n        <v-Select size=\"lg\" style=\"width: 200px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select style=\"width: 200px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <v-Select size=\"sm\" style=\"width: 200px;\" :options=\"options\" :value.sync=\"value\"></v-Select>\n        <template slot=\"js\">\n        export default {\n          data: function() {\n            return {\n              options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],\n              value: '3'\n            }\n          }\n        }\n        </template>\n      </code-box>\n\n      <code-box\n        title=\"多选\"\n        describe=\"多选，从已有条目中选择（scroll the menu）\"\n      >\n        <v-Select style=\"width: 100%;\" :multiple=\"true\" :options=\"options\" :value=\"['3']\"></v-Select>\n        <template slot=\"js\">\n        export default {\n          data: function() {\n            return {\n              options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}]\n            }\n          }\n        }\n        </template>\n      </code-box>\n\n      <code-box\n        title=\"远程搜索\"\n        describe=\"从服务器搜索数据，输入关键字进行查找\"\n      >\n        <v-Select style=\"width: 200px\" :search=\"true\" :loading=\"loading\" :remote-method=\"remoteMethod\" :options=\"remoteOption\"></v-Select><br><br>\n        <v-Select style=\"width: 100%\" :search=\"true\" :multiple=\"true\" :loading=\"loading2\" :remote-method=\"remoteMethod2\" :options=\"remoteOption\"></v-Select>\n        <template slot=\"js\">\n        export default {\n          data: function() {\n            return {\n              loading: false,\n              loading2: false,\n              remoteOption: [],\n            }\n          },\n          methods:{\n            remoteMethod(query) {\n              if (query !== '') {\n                this.loading = true;\n                setTimeout(() => {\n                  this.loading = false;\n                  this.remoteOption = this.list.filter(item => {\n                    return item.text.toLowerCase()\n                      .indexOf(query.toLowerCase()) > -1;\n                  });\n                }, 200);\n              } else {\n                this.remoteOption = [];\n              }\n            },\n            remoteMethod2(query) {\n              if (query !== '') {\n                this.loading2 = true;\n                setTimeout(() => {\n                  this.loading2 = false;\n                  this.remoteOption = this.list.filter(item => {\n                    return item.text.toLowerCase()\n                      .indexOf(query.toLowerCase()) > -1;\n                  });\n                }, 200);\n              } else {\n                this.remoteOption = [];\n              }\n            }\n          }\n        }\n        </template>\n      </code-box>\n    </v-Col>\n  </v-Row>\n\n\n  <api-table :content='content'></api-table>\n  <api-table\n    title=\"\"\n    type=\"events\"\n    :content='eventContent'\n  >\n    <h3>Select Events</h3>\n  </api-table>\n  <api-table\n    title=\"\"\n    :content='optionCont'\n  >\n    <h3>Options Attributes</h3>\n  </api-table>\n</div>\n\n";
 
 /***/ },
 
-/***/ 560:
+/***/ 567:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5681,17 +5700,17 @@ webpackJsonp([24,53],{
 
 /***/ },
 
-/***/ 688:
+/***/ 691:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(560)
+	__vue_script__ = __webpack_require__(567)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/views/select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(230)
+	__vue_template__ = __webpack_require__(233)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -988,30 +988,21 @@ webpackJsonp([7,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([7,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([7,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([7,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([7,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([7,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([7,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([7,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([7,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([7,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([7,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([7,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([7,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([7,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([7,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([7,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([7,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([7,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([7,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([7,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([7,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([7,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([7,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([7,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([7,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,7 +5590,7 @@ webpackJsonp([7,53],{
 
 /***/ },
 
-/***/ 158:
+/***/ 162:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -5579,20 +5598,20 @@ webpackJsonp([7,53],{
 
 
 	// module
-	exports.push([module.id, ".global .code-box:hover {\n  box-shadow: none;\n}\n.global .highlight pre code {\n  background: #f7f7f7;\n}\n.global .ant-row .paragraph-14px {\n  font-size: 14px;\n}\n.global .ant-row .paragraph-12px {\n  font-size: 12px;\n}\n.global .demo-row {\n  margin-bottom: 20px;\n}\n.global .demo-ant-row-col .ant-row,\n.global .demo-row {\n  background-image: -webkit-linear-gradient(left, #F5F5F5 4.16666667%, transparent 4.16666667%, transparent 8.33333333%, #F5F5F5 8.33333333%, #F5F5F5 12.5%, transparent 12.5%, transparent 16.66666667%, #F5F5F5 16.66666667%, #F5F5F5 20.83333333%, transparent 20.83333333%, transparent 25%, #F5F5F5 25%, #F5F5F5 29.16666667%, transparent 29.16666667%, transparent 33.33333333%, #F5F5F5 33.33333333%, #F5F5F5 37.5%, transparent 37.5%, transparent 41.66666667%, #F5F5F5 41.66666667%, #F5F5F5 45.83333333%, transparent 45.83333333%, transparent 50%, #F5F5F5 50%, #F5F5F5 54.16666667%, transparent 54.16666667%, transparent 58.33333333%, #F5F5F5 58.33333333%, #F5F5F5 62.5%, transparent 62.5%, transparent 66.66666667%, #F5F5F5 66.66666667%, #F5F5F5 70.83333333%, transparent 70.83333333%, transparent 75%, #F5F5F5 75%, #F5F5F5 79.16666667%, transparent 79.16666667%, transparent 83.33333333%, #F5F5F5 83.33333333%, #F5F5F5 87.5%, transparent 87.5%, transparent 91.66666667%, #F5F5F5 91.66666667%, #F5F5F5 95.83333333%, transparent 95.83333333%);\n  background-image: linear-gradient(90deg, #F5F5F5 4.16666667%, transparent 4.16666667%, transparent 8.33333333%, #F5F5F5 8.33333333%, #F5F5F5 12.5%, transparent 12.5%, transparent 16.66666667%, #F5F5F5 16.66666667%, #F5F5F5 20.83333333%, transparent 20.83333333%, transparent 25%, #F5F5F5 25%, #F5F5F5 29.16666667%, transparent 29.16666667%, transparent 33.33333333%, #F5F5F5 33.33333333%, #F5F5F5 37.5%, transparent 37.5%, transparent 41.66666667%, #F5F5F5 41.66666667%, #F5F5F5 45.83333333%, transparent 45.83333333%, transparent 50%, #F5F5F5 50%, #F5F5F5 54.16666667%, transparent 54.16666667%, transparent 58.33333333%, #F5F5F5 58.33333333%, #F5F5F5 62.5%, transparent 62.5%, transparent 66.66666667%, #F5F5F5 66.66666667%, #F5F5F5 70.83333333%, transparent 70.83333333%, transparent 75%, #F5F5F5 75%, #F5F5F5 79.16666667%, transparent 79.16666667%, transparent 83.33333333%, #F5F5F5 83.33333333%, #F5F5F5 87.5%, transparent 87.5%, transparent 91.66666667%, #F5F5F5 91.66666667%, #F5F5F5 95.83333333%, transparent 95.83333333%);\n  overflow: hidden;\n}\n.global .row-flex {\n  background: #F5F5F5;\n}\n.global .demo-ant-row-col .ant-row div,\n.global .demo-row div,\n.global .row-flex div {\n  padding: 5px 0;\n  background: rgba(24, 115, 216, 0.7);\n  text-align: center;\n  min-height: 28px;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  margin-top: 10px;\n  margin-bottom: 10px;\n  color: #fff;\n}\n.global .demo-row .demo-col {\n  text-align: center;\n  padding: 40px 0;\n  color: #fff;\n  font-size: 18px;\n  border: none;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.global .demo-row .demo-col-1 {\n  background: rgba(24, 115, 216, 0.7);\n}\n.global .demo-row .demo-col-2 {\n  background: rgba(24, 115, 216, 0.5);\n}\n.global .demo-row .demo-col-3 {\n  background: rgba(255, 255, 255, 0.2);\n  color: #999;\n}\n.global .demo-row .demo-col-4 {\n  background: rgba(24, 115, 216, 0.6);\n}\n.global .demo-row .demo-col-5 {\n  background: rgba(255, 255, 255, 0.5);\n  color: #999;\n}\n.global .hight-100 {\n  height: 100px;\n}\n.global .hight-50 {\n  height: 50px;\n}\n.global .hight-120 {\n  height: 120px;\n}\n.global .hight-80 {\n  height: 80px;\n}\n.global .testRowClassName {\n  background: #f0f0f0;\n}\n.global div.testColClassName {\n  background: rgba(24, 115, 216, 0.9);\n}\n", ""]);
+	exports.push([module.id, ".ant-progress-circle,\n.ant-progress-line {\n  margin-right: 8px;\n  margin-bottom: 8px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 176:
+/***/ 180:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(158);
+	var content = __webpack_require__(162);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -5601,8 +5620,8 @@ webpackJsonp([7,53],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./layout.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./layout.vue");
+			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./progress.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./progress.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -5613,20 +5632,20 @@ webpackJsonp([7,53],{
 
 /***/ },
 
-/***/ 216:
+/***/ 230:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"markdown global\">\n\n  <h2>栅格设计理念</h2>\n  <p>在多数业务情况下，Ant Design需要在设计区域内解决大量信息收纳的问题，因此在12栅格系统的基础上，我们将整个设计建议区域按照24等分的原则进行划分。\n划分之后的信息区块我们称之为“盒子”。\n建议横向排列的盒子数量最多四个，最少一个。“盒子”在整个屏幕上占比见下图。\n设计部分基于盒子的单位定制盒子内部的排版规则，以保证视觉层面的舒适感。\n  </p>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-1\" span=\"24\">\n      100%\n    </v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-2\" span=\"6\">25%</v-col>\n    <v-col class=\"demo-col demo-col-3\" span=\"6\">25%</v-col>\n    <v-col class=\"demo-col demo-col-2\" span=\"6\">25%</v-col>\n    <v-col class=\"demo-col demo-col-3\" span=\"6\">25%</v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-4\" span=\"8\">33.33%</v-col>\n    <v-col class=\"demo-col demo-col-5\" span=\"8\">33.33%</v-col>\n    <v-col class=\"demo-col demo-col-4\" span=\"8\">33.33%</v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-1\" span=\"12\">50%</v-col>\n    <v-col class=\"demo-col demo-col-3\" span=\"12\">50%</v-col>\n  </v-row>\n\n  <v-row class=\"demo-row\">\n    <v-col class=\"demo-col demo-col-4\" span=\"16\">66.66%</v-col>\n    <v-col class=\"demo-col demo-col-5\" span=\"8\">33.33%</v-col>\n  </v-row>\n\n  <h2>概述</h2>\n  <p>\n  布局的栅格化系统，我们是基于行（row）和列（col）来定义信息区块的外部框架，以保证页面的每个区域能够稳健地排布起来。下面简单介绍一下它的工作原理：</p>\n  <ul>\n    <li>通过row在水平方向建立一组column（简写col）</li>\n    <li>你的内容应当放置于col内，并且，只有col可以作为row的直接元素</li>\n    <li>栅格系统中的列是指1到24的值来表示其跨越的范围。例如，三个等宽d的列可以使用.ant-col-8来创建</li>\n    <li>如果一个row中的col总和超过24，那么多余的col会作为一个整体另起一行排列</li>\n  </ul>\n\n  <h2>组件演示</h2>\n  <div class=\"ant-row\">\n    <div class=\"ant-col-11\">\n      <code-box\n        title=\"基本布局演示\"\n        describe=\"点击戳开代码\"\n        code='\n          <v-row><v-col span=\"24\">100%</v-col></v-row>\n          <v-row>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\">50%</v-col>\n            <v-col span=\"12\">50%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"16\">66.66%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n          <v-row><v-col span=\"24\">100%</v-col></v-row>\n          <v-row>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n            <v-col span=\"6\">25%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\">50%</v-col>\n            <v-col span=\"12\">50%</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"16\">66.66%</v-col>\n            <v-col span=\"8\">33.33%</v-col>\n          </v-row>\n\n        </div>\n      </code-box>\n\n    </div>\n\n    <div class=\"ant-col-2\">\n\n    </div>\n\n    <div class=\"ant-col-11\">\n      <code-box\n        title=\"可以左右偏移的布局\"\n        describe=\"ant-col-offset-n n为想要margin-left多少个栅格的距离\"\n        code='\n          <v-row>\n            <v-col span=\"8\">.ant-col-8</v-col>\n            <v-col span=\"8\" offset=\"8\">.ant-col-8 ant-col-offset-8</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" offset=\"6\">.ant-col-12 .ant-col-offset-6</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n\n          <v-row>\n            <v-col span=\"8\">.ant-col-8</v-col>\n            <v-col span=\"8\" offset=\"8\">.ant-col-8 ant-col-offset-8</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n            <v-col span=\"6\" offset=\"6\">.ant-col-6 .ant-col-offset-6</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" offset=\"6\">.ant-col-12 .ant-col-offset-6</v-col>\n          </v-row>\n\n        </div>\n\n      </code-box>\n    </div>\n\n  </div>\n\n  <br/>\n\n  <div class=\"ant-row\">\n    <div class=\"ant-col-11\">\n      <code-box\n        title=\"布局排序\"\n        describe=\"栅格系统内子元素默认是左浮动，push的作用设置子元素基于自己原来浮动的位置的向右移动的距离，pull的作用设置子元素基于自己原来浮动的位置的向左移动的距离\"\n        code='\n          <v-row>\n            <v-col span=\"18\" push=\"6\">.ant-col-18 .ant-col-push-6</v-col>\n            <v-col span=\"6\" pull=\"18\">.ant-col-6 .ant-col-pull-18</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" push=\"12\">.ant-col-push-12 .ant-col-12</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-12 .ant-col-12</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-12 .ant-col-6 1</v-col>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-6 .ant-col-6 2</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-6 .ant-col-12</v-col>\n          </v-row>\n        '>\n        <div class=\"demo-ant-row-col\">\n\n          <v-row>\n            <v-col span=\"18\" push=\"6\">.ant-col-18 .ant-col-push-6</v-col>\n            <v-col span=\"6\" pull=\"18\">.ant-col-6 .ant-col-pull-18</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"12\" push=\"12\">.ant-col-push-12 .ant-col-12</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-12 .ant-col-12</v-col>\n          </v-row>\n\n          <v-row>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-12 .ant-col-6 1</v-col>\n            <v-col span=\"6\" push=\"12\">.ant-col-push-6 .ant-col-6 2</v-col>\n            <v-col span=\"12\" pull=\"12\">.ant-col-pull-6 .ant-col-12</v-col>\n          </v-row>\n        </div>\n      </code-box>\n    </div>\n  </div>\n\n  <h2>Flex 布局</h2>\n  <p>\n    我们的栅格化系统支持 Flex 布局，允许子元素在父节点内的水平对齐方式 - 居左、居中、居右、等宽排列、分散排列。子元素与子元素之间，支持顶部对齐、垂直居中对齐、底部对齐的方式。同时，支持使用 order 来定义元素的排列顺序。\n    Flex 布局是基于 24 栅格来定义每一个“盒子”的宽度，但排版则不拘泥于栅格。\n  </p>\n\n  <div class=\"ant-row\">\n    <div class=\"ant-col-11\">\n      <h3>Flex布局</h3>\n      <code-box\n        title=\"Flex布局：排列\"\n        describe=\"点击戳开代码 关键词：start, center, end, space-between, space-around\"\n        code='\n        <p>子元素居左排列（默认）.ant-row-flex-start .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"start\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居中排列 .ant-row-flex-center .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"center\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居右排列 .ant-row-flex-end .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"end\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素等宽排列 .ant-row-flex-space-between .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-between\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素分散对齐 .ant-row-flex-space-around .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-around\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n          <p>子元素居左排列（默认）.ant-row-flex-start .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"start\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居中排列 .ant-row-flex-center .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"center\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素居右排列 .ant-row-flex-end .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"end\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素等宽排列 .ant-row-flex-space-between .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-between\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n          <p>子元素分散对齐 .ant-row-flex-space-around .ant-row-flex .ant-row</p>\n          <v-row display=\"flex\" pack=\"space-around\">\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n            <v-col span=\"4\">.ant-col-4</v-col>\n          </v-row>\n        </div>\n      </code-box>\n\n      <h3>Flex排序</h3>\n      <code-box\n        title=\"Flex排序\"\n        describe=\"点击戳开代码 关键词：ant-col-order-n n为想要的顺序\"\n        code='\n          <v-row display=\"flex\">\n            <v-col order=\"4\" span=\"6\">1 ant-col-order-4</v-col>\n            <v-col order=\"3\" span=\"6\">2 ant-col-order-3</v-col>\n            <v-col order=\"2\" span=\"6\">3 ant-col-order-2</v-col>\n            <v-col order=\"1\" span=\"6\">4 ant-col-order-1</v-col>\n          </v-row>'>\n        <div class=\"demo-ant-row-col\">\n          <v-row display=\"flex\">\n            <v-col order=\"4\" span=\"6\">1 ant-col-order-4</v-col>\n            <v-col order=\"3\" span=\"6\">2 ant-col-order-3</v-col>\n            <v-col order=\"2\" span=\"6\">3 ant-col-order-2</v-col>\n            <v-col order=\"1\" span=\"6\">4 ant-col-order-1</v-col>\n          </v-row>\n        </div>\n      </code-box>\n\n    </div>\n    <div class=\"ant-col-2\"></div>\n    <div class=\"ant-col-11\">\n      <h3>Flex对齐</h3>\n      <code-box\n        title=\"Flex对齐：配合排列方式的对齐方式\"\n        describe=\"点击戳开代码 关键词：flex-top, flex-middle, flex-bottom\"\n        code='<p>顶部对齐</p>\n        <div class=\"ant-row-flex-center ant-row-flex-top ant-row-flex ant-row\">\n          <div class=\"ant-col-4\"><p style=\"height: 100px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 50px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 120px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 80px\">.ant-col-4</p></div>\n        </div>\n        <p>居中对齐</p>\n        <div class=\"ant-row-flex-space-around ant-row-flex-middle ant-row-flex ant-row\">\n          <div class=\"ant-col-4\"><p style=\"height: 100px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 50px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 120px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 80px\">.ant-col-4</p></div>\n        </div>\n        <p>底部对齐</p>\n        <div class=\"ant-row-flex-space-between ant-row-flex-bottom ant-row-flex ant-row\">\n          <div class=\"ant-col-4\"><p style=\"height: 100px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 50px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 120px\">.ant-col-4</p></div>\n          <div class=\"ant-col-4\"><p style=\"height: 80px\">.ant-col-4</p></div>\n        </div>\n        '>\n        <div class=\"demo-ant-row-col\">\n          <p>顶部对齐 .ant-row-flex-center .ant-row-flex-top .ant-row-flex .ant-row</p>\n          <v-row pack=\"center\" display=\"flex\" align=\"top\">\n            <v-col span=\"4\"><p style=\"height: 100px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 50px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 120px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 80px\">.ant-col-4</p></v-col>\n          </v-row>\n\n          <p>居中对齐 .ant-row-flex-space-around .ant-row-flex-middle .ant-row-flex .ant-row</p>\n          <v-row pack=\"space-around\" display=\"flex\" align=\"middle\">\n            <v-col span=\"4\"><p style=\"height: 100px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 50px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 120px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 80px\">.ant-col-4</p></v-col>\n          </v-row>\n          <p>底部对齐 .ant-row-flex-space-between .ant-row-flex-bottom .ant-row-flex .ant-row</p>\n          <v-row pack=\"space-between\" display=\"flex\" align=\"bottom\">\n            <v-col span=\"4\"><p style=\"height: 100px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 50px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 120px\">.ant-col-4</p></v-col>\n            <v-col span=\"4\"><p style=\"height: 80px\">.ant-col-4</p></v-col>\n          </v-row>\n        </div>\n      </code-box>\n    </div>\n  </div>\n\n  <api-table\n    :apis='apis'\n  ></api-table>\n\n</div>\n\n";
+	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>Progress 进度条</h1>\n        <p>\n            进度条，展示操作的当前进度。\n        </p>\n        <h2>何时使用</h2>\n        <p>在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。</p>\n        <ul>\n            <li>当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；</li>\n            <li>当需要显示一个操作完成的百分比时。</li>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n\n    <v-Row :gutter=\"16\">\n        <v-Col span=\"12\">\n            <code-box title=\"进度条\"\n                      describe=\"有normal、exception、active、success四个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n                <v-progress-line :percent=\"30\"></v-progress-line>\n                <v-progress-line :percent=\"50\" status=\"active\"></v-progress-line>\n                <v-progress-line :percent=\"70\" status=\"exception\"></v-progress-line>\n                <v-progress-line :percent=\"100\"></v-progress-line>\n                <v-progress-line :percent=\"50\" :show-info=\"false\"></v-progress-line>\n            </code-box>\n\n            <code-box title=\"小型进度条\" describe=\"通过设置strokeWidth,可以更灵活地使用进度条\">\n                <v-progress-line :percent=\"30\" :stroke-width=\"5\"></v-progress-line>\n                <v-progress-line :percent=\"50\" :stroke-width=\"5\" status=\"active\"></v-progress-line>\n                <v-progress-line :percent=\"70\" :stroke-width=\"5\" status=\"exception\"></v-progress-line>\n                <v-progress-line :percent=\"100\" :stroke-width=\"5\"></v-progress-line>\n            </code-box>\n\n            <code-box title=\"自定义文本格式\" describe=\"通过设置format，可以更灵活地定义文本格式\">\n                <v-progress-line :percent=\"75\" format=\"75 天\"></v-progress-line>\n                <v-progress-line :percent=\"100\" format=\"完成\"></v-progress-line>\n            </code-box>\n\n            <code-box title=\"动态展示\" describe=\"通过动态的改变进度,可以让进度条更有趣\">\n                <v-progress-line :percent=\"percentLine\" :format=\"percentLine == 100 ? '完成' : percentLine + '%'\"></v-progress-line>\n                <v-button-group size=\"small\">\n                    <v-button icon=\"minus\" @click=\"_declineLine\"></v-button>\n                    <v-button icon=\"plus\" @click=\"_increaseLine\"></v-button>\n                </v-button-group>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                percentLine: 10,\n                            }\n                        },\n\n                        methods: {\n                            _declineLine () {\n                                let percent = this.percentLine - 10;\n                                if (percent < 0) {\n                                    percent = 0;\n                                }\n                                this.percentLine = percent\n                            },\n\n                            _increaseLine () {\n                                let percent = this.percentLine + 10;\n                                if (percent > 100) {\n                                    percent = 100;\n                                }\n                                this.percentLine = percent\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n        </v-col>\n        <v-Col span=\"12\">\n\n            <code-box title=\"进度圈\" describe=\"有normal、exception、success三个样式的进度条,默认为normal值,当进度为100时自动设置为success\">\n                <v-progress-circle :percent=\"30\"></v-progress-circle>\n                <v-progress-circle :percent=\"70\" status=\"exception\"></v-progress-circle>\n                <v-progress-circle :percent=\"100\"></v-progress-circle>\n            </code-box>\n\n            <code-box title=\"小型进度圈\" describe=\"通过设置width,可以更灵活地使用进度圈\">\n                <v-progress-circle :percent=\"30\" :width=\"80\"></v-progress-circle>\n                <v-progress-circle :percent=\"70\" :width=\"80\" status=\"exception\"></v-progress-circle>\n                <v-progress-circle :percent=\"100\" :width=\"80\"></v-progress-circle>\n            </code-box>\n\n            <code-box title=\"自定义文本格式\" describe=\"通过设置format，可以更灵活地定义文本格式\">\n                <v-progress-circle :percent=\"75\" format=\"75 天\"></v-progress-circle>\n                <v-progress-circle :percent=\"100\" format=\"完成\"></v-progress-circle>\n            </code-box>\n\n            <code-box title=\"进度圈动态展示\" describe=\"通过动态的改变进度,可以让进度圈更有趣\">\n                <v-progress-circle :percent=\"percentCircle\" :format=\"percentCircle == 100 ? '完成' : percentCircle + '%'\"></v-progress-circle>\n                <v-button-group size=\"small\">\n                    <v-button icon=\"minus\" @click=\"_declineCircle\"></v-button>\n                    <v-button icon=\"plus\" @click=\"_increaseCircle\"></v-button>\n                </v-button-group>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                percentCircle: 10\n                            }\n                        },\n\n                        methods: {\n                            _declineCircle () {\n                                let percent = this.percentCircle - 10;\n                                if (percent < 0) {\n                                    percent = 0;\n                                }\n                                this.percentCircle = percent\n                            },\n\n                            _increaseCircle () {\n                                let percent = this.percentCircle + 10;\n                                if (percent > 100) {\n                                    percent = 100;\n                                }\n                                this.percentCircle = percent\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n        </v-col>\n    </v-row>\n\n    <api-table\n            title=\"Progress Bar API\"\n            :apis='progressBarApis'\n    ></api-table>\n\n    <api-table\n            title=\"Progress Circle API\"\n            :apis='progressCircleApis'\n    ></api-table>\n</div>\n";
 
 /***/ },
 
-/***/ 546:
+/***/ 458:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _codeBox = __webpack_require__(19);
@@ -5640,68 +5659,117 @@ webpackJsonp([7,53],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      apis: [{
-	        parameter: 'span',
-	        explain: '栅格系统（列）元素，row的直接元素，其值1到24来表示其跨越row的范围。例如，三个等宽d的列可以使用.col-8来创建，将一行整分割成3份同样大小的区域',
-	        type: 'String,Number',
-	        default: '无'
-	      }, {
-	        parameter: 'push',
-	        explain: '栅格系统内子元素默认是左浮动，push的作用设置子元素基于自己原来浮动的位置的向右移动的距离',
-	        type: 'String,Number',
-	        default: '无'
-	      }, {
-	        parameter: 'pull',
-	        explain: '栅格系统内子元素默认是左浮动，pull的作用设置子元素基于自己原来浮动的位置的向左移动的距离',
-	        type: 'String,Number',
-	        default: '无'
-	      }, {
-	        parameter: 'offset',
-	        explain: '栅格系统内子元素默认是左浮动，offset的作用设置子元素的margin-left的值',
-	        type: 'String,Number',
-	        default: '无'
-	      }, {
-	        parameter: 'display',
-	        explain: '栅格系统（行）区域，规定外层元素应该生成的框的类型，可用值 "flex"',
-	        type: 'String',
-	        default: "block"
-	      }, {
-	        parameter: 'pack',
-	        explain: '栅格系统（行）区域，规定display="flex"类型的外层元素内部元素的排列模式，可选值["start","center","end","space-between","space-around"]，声明该值的时候display="flex"是必须的',
-	        type: 'String',
-	        default: 'start'
-	      }, {
-	        parameter: 'align',
-	        explain: '栅格系统（行）区域，规定display="flex"类型的外层元素内部元素的对齐模式，可选值["top","middle","bottom"]，声明该值的时候display="flex"是必须的',
-	        type: 'Array',
-	        default: '无'
-	      }, {
-	        parameter: 'order',
-	        explain: '栅格化系统支持 Flex 布局，支持使用 order 来定义子元素的排列顺序。',
-	        type: 'String,Number',
-	        default: '无'
-	      }]
-	    };
-	  },
-	  components: { codeBox: _codeBox2.default, apiTable: _apiTable2.default }
+	    data: function data() {
+	        return {
+	            percentLine: 10,
+	            percentCircle: 10,
+	            progressBarApis: [{
+	                parameter: 'percent',
+	                explain: '百分比',
+	                type: 'Number',
+	                default: 0
+	            }, {
+	                parameter: 'format',
+	                explain: '自定义文本格式，showInfo为true时有效',
+	                type: 'String',
+	                default: "空字符串"
+	            }, {
+	                parameter: 'status',
+	                explain: '状态，有normal、exception、active、success四个状态值',
+	                type: 'String',
+	                default: 'normal'
+	            }, {
+	                parameter: 'strokeWidth',
+	                explain: '进度条线的宽度，单位是px',
+	                type: 'Number',
+	                default: 1
+	            }, {
+	                parameter: 'showInfo',
+	                explain: '是否显示进度数值和状态图标',
+	                type: 'Boolean',
+	                default: true
+	            }],
+	            progressCircleApis: [{
+	                parameter: 'percent',
+	                explain: '百分比',
+	                type: 'Number',
+	                default: 0
+	            }, {
+	                parameter: 'format',
+	                explain: '自定义文本格式',
+	                type: 'String',
+	                default: "空字符串"
+	            }, {
+	                parameter: 'status',
+	                explain: '状态，有normal、exception、success三个状态值',
+	                type: 'String',
+	                default: 'normal'
+	            }, {
+	                parameter: 'strokeWidth',
+	                explain: '进度圈线的宽度，单位是进度圈画布宽度的百分比',
+	                type: 'Number',
+	                default: 1
+	            }, {
+	                parameter: 'width',
+	                explain: '必填，进度圈画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width',
+	                type: 'Number',
+	                default: 'null'
+	            }]
+	        };
+	    },
+
+
+	    components: {
+	        codeBox: _codeBox2.default,
+	        apiTable: _apiTable2.default
+	    },
+
+	    methods: {
+	        _declineLine: function _declineLine() {
+	            var percent = this.percentLine - 10;
+	            if (percent < 0) {
+	                percent = 0;
+	            }
+	            this.percentLine = percent;
+	        },
+	        _increaseLine: function _increaseLine() {
+	            var percent = this.percentLine + 10;
+	            if (percent > 100) {
+	                percent = 100;
+	            }
+	            this.percentLine = percent;
+	        },
+	        _declineCircle: function _declineCircle() {
+	            var percent = this.percentCircle - 10;
+	            if (percent < 0) {
+	                percent = 0;
+	            }
+	            this.percentCircle = percent;
+	        },
+	        _increaseCircle: function _increaseCircle() {
+	            var percent = this.percentCircle + 10;
+	            if (percent > 100) {
+	                percent = 100;
+	            }
+	            this.percentCircle = percent;
+	        }
+	    }
 	};
 
 /***/ },
 
-/***/ 673:
+/***/ 687:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(176)
-	__vue_script__ = __webpack_require__(546)
+	__webpack_require__(180)
+	__vue_script__ = __webpack_require__(458)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/views/layout.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(216)
+	  console.warn("[vue-loader] src/views/progress.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(230)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

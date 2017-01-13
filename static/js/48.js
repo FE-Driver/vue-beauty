@@ -114,7 +114,7 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 163:
+/***/ 167:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -129,13 +129,13 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 187:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(163);
+	var content = __webpack_require__(167);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -156,7 +156,7 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 189:
+/***/ 192:
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -196,7 +196,7 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 190:
+/***/ 193:
 /***/ function(module, exports) {
 
 	function E () {
@@ -269,7 +269,7 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 191:
+/***/ 194:
 /***/ function(module, exports) {
 
 	/**
@@ -325,11 +325,11 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 192:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(191);
-	var delegate = __webpack_require__(453);
+	var is = __webpack_require__(194);
+	var delegate = __webpack_require__(456);
 
 	/**
 	 * Validates all params and calls the right
@@ -427,19 +427,19 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 327:
+/***/ 330:
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div _v-70c7ab9d=\"\">\n  <section class=\"markdown\" _v-70c7ab9d=\"\">\n    <h1 _v-70c7ab9d=\"\">Iconfont</h1>\n    <p _v-70c7ab9d=\"\">\n      语义化的矢量图形。\n    </p>\n    <h2 _v-70c7ab9d=\"\">图标的命名规范</h2>\n    <p _v-70c7ab9d=\"\">\n      我们为每个图标赋予了语义化的命名，命名规则如下:\n    </p>\n    <ul _v-70c7ab9d=\"\">\n      <li _v-70c7ab9d=\"\">\n        实心和描线图标保持同名，用 -o 来区分，比如 question-circle(实心) 和 question-circle-o(描线)；\n      </li>\n      <li _v-70c7ab9d=\"\">\n        命名顺序：[icon名]-[形状可选]-[描线与否]-[方向可选]。\n      </li>\n    </ul>\n\n    <h2 _v-70c7ab9d=\"\">如何使用</h2>\n    <p _v-70c7ab9d=\"\">使用 <v-icon _v-70c7ab9d=\"\"></v-icon>标签声明组件，指定图标对应的 type 属性，示例代码如下:</p>\n    <pre _v-70c7ab9d=\"\"><code class=\"lang-html\" _v-70c7ab9d=\"\">&lt;v-icon type=\"link\"&gt;&lt;/v-icon&gt;</code></pre>\n\n    <p _v-70c7ab9d=\"\">最终会渲染为：</p>\n\n    <pre _v-70c7ab9d=\"\"><code class=\"lang-html\" _v-70c7ab9d=\"\">&lt;i class=\"anticon anticon-link\"&gt;&lt;/i&gt;</code></pre>\n    <h2 _v-70c7ab9d=\"\">本地部署</h2>\n    <p _v-70c7ab9d=\"\">图标组件使用 <a href=\"http://www.iconfont.cn/\" target=\"blank\" _v-70c7ab9d=\"\">iconfont.cn</a>，默认公网可访问。如需本地部署，可参考 <a href=\"https://github.com/ant-design/antd-init/tree/master/examples/local-iconfont\" target=\"blank\" _v-70c7ab9d=\"\">示例</a>。</p>\n    <p style=\"color:#ff7800\" _v-70c7ab9d=\"\">* 点击下面的图标即可复制标签</p>\n    \n    <api-table :content=\"content\" _v-70c7ab9d=\"\">\n      <h3 _v-70c7ab9d=\"\">Icon</h3>\n    </api-table>\n\n    <h2 _v-70c7ab9d=\"\">图标列表</h2>\n    <h3 _v-70c7ab9d=\"\">方向性图标</h3>\n\n    <ul class=\"anticons-list\" _v-70c7ab9d=\"\">\n      <li class=\"icon-item\" v-for=\"icon in icons1Obj\" :class=\"{copied: Copied}\" :data-clipboard-text=\"_getCopyCode(icon.name)\" _v-70c7ab9d=\"\">\n        <span class=\"anticon anticon-{{icon.name}}\" _v-70c7ab9d=\"\"></span>\n        <span class=\"anticon-class\" _v-70c7ab9d=\"\">{{icon.name}}</span>\n      </li>\n    </ul>\n\n    <h3 _v-70c7ab9d=\"\">提示建议性图标</h3>\n\n    <ul class=\"anticons-list\" _v-70c7ab9d=\"\">\n      <li class=\"icon-item\" v-for=\"icon in icons2Obj\" :class=\"{copied: Copied}\" :data-clipboard-text=\"_getCopyCode(icon.name)\" _v-70c7ab9d=\"\">\n        <span class=\"anticon anticon-{{icon.name}}\" _v-70c7ab9d=\"\"></span>\n        <span class=\"anticon-class\" _v-70c7ab9d=\"\">{{icon.name}}</span>\n      </li>\n    </ul>\n\n    <h3 _v-70c7ab9d=\"\">网站通用图标</h3>\n\n    <ul class=\"anticons-list\" _v-70c7ab9d=\"\">\n      <li class=\"icon-item\" v-for=\"icon in icons3Obj\" :class=\"{copied: Copied}\" :data-clipboard-text=\"_getCopyCode(icon.name)\" _v-70c7ab9d=\"\">\n        <span class=\"anticon anticon-{{icon.name}}\" _v-70c7ab9d=\"\"></span>\n        <span class=\"anticon-class\" _v-70c7ab9d=\"\">{{icon.name}}</span>\n      </li>\n    </ul>\n\n  </section>\n</div>\n\n";
 
 /***/ },
 
-/***/ 329:
+/***/ 332:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(189)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(192)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -669,12 +669,12 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 330:
+/***/ 333:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(329), __webpack_require__(190), __webpack_require__(192)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(332), __webpack_require__(193), __webpack_require__(195)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -860,7 +860,7 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 452:
+/***/ 455:
 /***/ function(module, exports) {
 
 	var DOCUMENT_NODE_TYPE = 9;
@@ -897,10 +897,10 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 453:
+/***/ 456:
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(452);
+	var closest = __webpack_require__(455);
 
 	/**
 	 * Delegates event to a selector.
@@ -948,7 +948,7 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 542:
+/***/ 551:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -961,7 +961,7 @@ webpackJsonp([48,53],{
 
 	var _apiTable2 = _interopRequireDefault(_apiTable);
 
-	var _clipboard = __webpack_require__(330);
+	var _clipboard = __webpack_require__(333);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -1031,18 +1031,18 @@ webpackJsonp([48,53],{
 
 /***/ },
 
-/***/ 669:
+/***/ 672:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(187)
-	__vue_script__ = __webpack_require__(542)
+	__webpack_require__(190)
+	__vue_script__ = __webpack_require__(551)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src/views/font.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(327)
+	__vue_template__ = __webpack_require__(330)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

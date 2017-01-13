@@ -988,30 +988,21 @@ webpackJsonp([2,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([2,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([2,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([2,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([2,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([2,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([2,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([2,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([2,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([2,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([2,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([2,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([2,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([2,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([2,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([2,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([2,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([2,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([2,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([2,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([2,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([2,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([2,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([2,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([2,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,88 +5590,7 @@ webpackJsonp([2,53],{
 
 /***/ },
 
-/***/ 115:
-/***/ function(module, exports, __webpack_require__) {
-
-	var ctx                = __webpack_require__(50)
-	  , invoke             = __webpack_require__(387)
-	  , html               = __webpack_require__(103)
-	  , cel                = __webpack_require__(75)
-	  , global             = __webpack_require__(29)
-	  , process            = global.process
-	  , setTask            = global.setImmediate
-	  , clearTask          = global.clearImmediate
-	  , MessageChannel     = global.MessageChannel
-	  , counter            = 0
-	  , queue              = {}
-	  , ONREADYSTATECHANGE = 'onreadystatechange'
-	  , defer, channel, port;
-	var run = function(){
-	  var id = +this;
-	  if(queue.hasOwnProperty(id)){
-	    var fn = queue[id];
-	    delete queue[id];
-	    fn();
-	  }
-	};
-	var listener = function(event){
-	  run.call(event.data);
-	};
-	// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
-	if(!setTask || !clearTask){
-	  setTask = function setImmediate(fn){
-	    var args = [], i = 1;
-	    while(arguments.length > i)args.push(arguments[i++]);
-	    queue[++counter] = function(){
-	      invoke(typeof fn == 'function' ? fn : Function(fn), args);
-	    };
-	    defer(counter);
-	    return counter;
-	  };
-	  clearTask = function clearImmediate(id){
-	    delete queue[id];
-	  };
-	  // Node.js 0.8-
-	  if(__webpack_require__(49)(process) == 'process'){
-	    defer = function(id){
-	      process.nextTick(ctx(run, id, 1));
-	    };
-	  // Browsers with MessageChannel, includes WebWorkers
-	  } else if(MessageChannel){
-	    channel = new MessageChannel;
-	    port    = channel.port2;
-	    channel.port1.onmessage = listener;
-	    defer = ctx(port.postMessage, port, 1);
-	  // Browsers with postMessage, skip WebWorkers
-	  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-	  } else if(global.addEventListener && typeof postMessage == 'function' && !global.importScripts){
-	    defer = function(id){
-	      global.postMessage(id + '', '*');
-	    };
-	    global.addEventListener('message', listener, false);
-	  // IE8-
-	  } else if(ONREADYSTATECHANGE in cel('script')){
-	    defer = function(id){
-	      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function(){
-	        html.removeChild(this);
-	        run.call(id);
-	      };
-	    };
-	  // Rest old browsers
-	  } else {
-	    defer = function(id){
-	      setTimeout(ctx(run, id, 1), 0);
-	    };
-	  }
-	}
-	module.exports = {
-	  set:   setTask,
-	  clear: clearTask
-	};
-
-/***/ },
-
-/***/ 161:
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -5660,20 +5598,20 @@ webpackJsonp([2,53],{
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vertical-center-modal {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.vertical-center-modal .ant-modal {\n  top: 0;\n}\n", ""]);
+	exports.push([module.id, ".code-box-demo .ant-form-horizontal {\n  max-width: 540px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 180:
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(161);
+	var content = __webpack_require__(160);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -5682,8 +5620,8 @@ webpackJsonp([2,53],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./modal.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./modal.vue");
+			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./form.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.2.2.3@less-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./form.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -5694,515 +5632,44 @@ webpackJsonp([2,53],{
 
 /***/ },
 
-/***/ 219:
+/***/ 216:
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n  <section class=\"markdown\">\n    <h1>Modal对话框</h1>\n    <p>\n      模态对话框。\n    </p>\n    <h2>何时使用</h2>\n    <ul>\n      <li>需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。</li>\n      <li>另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 ant.Modal.confirm() 等方法。</li>\n    </ul>\n    <h2>组件演示</h2>\n  </section>\n  <v-Row :gutter=\"16\">\n    <v-Col span=\"12\">\n    <code-box\n      title=\"基本\"\n      describe=\"第一个对话框。\"\n      code=''> \n      <v-button type=\"primary\" @click=\"_showModal\">显示对话框</v-button>\n      <v-modal title=\"第一个 Modal\"\n        :visible=\"visible\"\n        :on-ok=\"_handleOk\"\n        :on-cancel=\"_handleCancel\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"自定义页脚\"\n      describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal2\">显示对话框</v-button>\n      <v-modal title=\"Modal\"\n        :visible=\"visible2\"\n        :on-cancel=\"_handleCancel2\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <div slot=\"footer\">\n          <v-button key=\"cancel\" type=\"ghost\" size=\"large\" @click=\"_handleCancel2\">返 回</v-button>\n          <v-button key=\"confirm\" type=\"primary\" size=\"large\" :loading=\"confirmLoading2\" @click=\"_handleOk2\">提 交</v-button>\n        </div>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"自定义页脚\"\n      describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal3\">显示对话框</v-button>\n      <v-modal title=\"第一个 Modal\"\n        :visible=\"visible3\"\n        :on-ok=\"_handleOk3\"\n        :on-cancel=\"_handleCancel3\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"国际化\"\n      describe=\"设置 okText 与 cancelText 以自定义按钮文字。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal4\">show Modal</v-button>\n      <v-modal title=\"Modal\"\n        :visible=\"visible4\"\n        :on-ok=\"_handleOk4\"\n        :on-cancel=\"_handleCancel4\"\n        ok-text=\"ok\"\n        cancel-text=\"Cancel\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n      <br/>\n      <v-button @click=\"_confirmNation\">confirm</v-button>\n    </code-box>\n\n    <code-box\n      title=\"自定义位置\"\n      describe=\"1.0 之后，Modal 的 align 属性被移除，您可以直接使用 style.top 或配合其他样式来设置对话框位置。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal5\">显示距离顶部 20px 的对话框</v-button>\n      <v-button type=\"primary\" @click=\"_showModal51\">显示垂直居中的对话框</v-button>\n      <v-modal \n        title=\"Modal\"\n        :visible=\"visible5\"\n        :on-ok=\"_handleOk5\"\n        :on-cancel=\"_handleCancel5\"\n        :modal-style=\"modalStyle\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n      <v-modal \n        title=\"Modal\"\n        :visible=\"visible51\"\n        :on-ok=\"_handleOk51\"\n        :on-cancel=\"_handleCancel51\"\n        wrap-class-name=\"vertical-center-modal\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n  </v-col>\n  <v-Col span=\"12\">\n    <code-box\n      title=\"异步关闭\"\n      describe=\"点击确定后异步关闭对话框，例如提交表单。\"\n      code=\"\"> \n      <v-button type=\"primary\" @click=\"_showModal6\">显示对话框</v-button>\n      <v-modal title=\"第一个 Modal\"\n        :visible=\"visible6\"\n        :on-ok=\"_handleOk6\"\n        :on-cancel=\"_handleCancel6\"\n        :confirm-loading=\"confirmLoading6\">\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n        <p>对话框的内容</p>\n      </v-modal>\n    </code-box>\n\n    <code-box\n      title=\"自定义页脚\"\n      describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\"\n      code=\"\"> \n      <v-button @click=\"_showConfirm2\">确认对话框</v-button>\n    </code-box>\n\n    <code-box\n      title=\"信息提示\"\n      describe=\"各种类型的信息提示，只提供一个按钮用于关闭。\"\n      code=\"\"> \n      <v-button @click=\"info\">信息提示</v-button>\n      <v-button @click=\"success\">成功提示</v-button>\n      <v-button @click=\"error\">失败提示</v-button>\n      <v-button @click=\"error\">警告提示</v-button>\n    </code-box>\n\n    <code-box\n      title=\"手动移除\"\n      describe=\"手动关闭modal。\"\n      code=\"\"> \n      <v-button @click=\"_confirmDestroy\">成功提示</v-button>\n    </code-box>\n  </v-col>\n</v-row>\n  <api-table\n    :apis='modalApis'\n  ></api-table>\n  <api-table\n    :apis='confirmApis',\n    title=\"Modal.xxx()\"\n  >\n    <p>包括：</p>\n    <ul><li><p><code>Modal.info</code></p></li><li><p><code>Modal.success</code></p></li><li><p><code>Modal.error</code></p></li><li><p><code>Modal.warning</code></p></li><li><p><code>Modal.confirm</code></p></li></ul>\n    <p>以上均为一个函数，参数为 object，具体属性如下：</p>\n  </api-table>\n</div>\n";
+	module.exports = "\n\n  <div>\n\n    <section class=\"markdown\">\n      <h1>Form 表单</h1>\n      <p>\n        具有数据收集、校验和提交功能的表单，包含复选框、单选框、输入框、下拉选择框等元素。\n      </p>\n      <h2>表单</h2>\n      <ul>\n        <p>\n          我们为 form 提供了以下两种排列方式：\n        </p>\n        <li>水平排列：可以实现 label 标签和表单控件的水平排列；</li>\n        <li>行内排列：使其表现为 inline-block 级别的控件。</li>\n      </ul>\n      <h2>表单域</h2>\n      <ul>\n        <p>\n          表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。<br>这里我们封装了表单域 <code>&lt;Form.Item /&gt;</code 。\n        </p>\n      </ul>\n      <h2>组件演示</h2>\n    </section>\n\n    <v-row>\n\n      <v-col>\n\n        <code-box\n          title=\"平行排列\"\n          describe=\"行内排列，常用于登录界面。\"\n        >\n          <v-form>\n            <v-form-item label=\"账户\">\n              <v-input value=\"请输入账户名\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"密码\">\n              <v-input value=\"请输入密码\"></v-input>\n            </v-form-item>\n            <v-form-item>\n              <v-checkbox>记住我</v-checkbox>\n            </v-form-item>\n            <v-button type='primary' html-type=\"submit\">登录</v-button>\n          </v-form>\n        </code-box>\n\n       <code-box\n          title=\"典型排列\"\n          describe=\"竖直排列的表单。\"\n        >\n          <v-form direction=\"horizontal\">\n            <v-form-item label=\"用户名\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <p className=\"ant-form-text\" id=\"userName\" name=\"userName\">大眼萌 minion</p>\n            </v-form-item>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" required>\n              <v-input type=\"password\" placeholder=\"请输入密码\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"您的性别\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-radio-group\n                default-value='female'\n                :radios=\"[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]\">\n              </v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"备注\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-input type='textarea' placeholder=\"随便写\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"卖身华府\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-checkbox>同意</v-checkbox>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{span:16,offset:6}\" style=\"margin-top:24px\">\n              <v-button type='primary' html-type=\"submit\">确定</v-button>\n            </v-form-item>\n          </v-form>\n          <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                labelCol: { span: 6 },\n                wrapperCol: { span: 14 }\n              }\n            }\n          }\n          </template>\n        </code-box>\n\n        <code-box\n          title=\"校验提示\"\n          describe=\"我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。\nvalidateStatus: 'success', 'warning', 'error', 'validating'。\n另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。\n注意: 反馈图标只对 &lt; v-input &gt; 有效。\"\n        >\n          <v-form direction=\"horizontal\">\n            <v-form-item label=\"失败校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"请输入数字和字母的组合\" validate-status=\"error\">\n              <v-input value=\"无效选择\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"警告校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" validate-status=\"warning\">\n              <v-input value=\"前方高能预警\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"校验中\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"信息审核中...\" :has-feedback=\"true\" validate-status=\"validating\">\n              <v-input value=\"我是被校验的内容\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"成功校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" :has-feedback=\"true\" validate-status=\"success\">\n              <v-input value=\"我是正文\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"警告校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" :has-feedback=\"true\" validate-status=\"warning\">\n              <v-input value=\"前方高能预警\" size=\"large\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"失败校验\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" help=\"请输入数字和字母的组合\" :has-feedback=\"true\" validate-status=\"error\">\n              <v-input value=\"无效选择\" size=\"large\"></v-input>\n            </v-form-item>\n          </v-form>\n          <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                labelCol: { span: 6 },\n                wrapperCol: { span: 14 }\n              }\n            }\n          }\n          </template>\n        </code-box>\n\n         <code-box\n          title=\"表单校验\"\n          describe=\"Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并 Form-Item 的 prop 属相设置为需校验的字段名即可。校验规则参见<a href='https://github.com/yiminghe/async-validator' target='_blank'>async-validator</a>\"\n        >\n          <v-form direction=\"horizontal\" :model=\"ruleForm\" :rules=\"rules\" v-ref:rule-form>\n            <v-form-item label=\"活动名称\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"name\" :has-feedback=\"true\">\n              <v-input size=\"large\" :value.sync=\"ruleForm.name\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"活动区域\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"region\">\n               <v-Select :value.sync=\"ruleForm.region\" placeholder=\"请选择活动区域\" notfound=\"无法找到\" :options=\"[{value: '1', text: '区域1'}, {value: '2', text: '区域2'}]\"></v-Select>\n            </v-form-item>\n            <v-form-item label=\"活动时间\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"date\">\n              <v-datepicker :time.sync=\"ruleForm.date\"></v-datepicker>\n            </v-form-item>\n            <v-form-item label=\"即时配送\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\">\n              <v-switch :value.sync=\"ruleForm.delivery\"></v-switch>\n            </v-form-item>\n            <v-form-item label=\"活动性质\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"type\">\n              <v-checkbox-group :value.sync=\"ruleForm.type\" :options=\"checkboxOpt\"></v-checkbox-group>\n            </v-form-item>\n            <v-form-item label=\"特殊资源\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"resource\">\n              <v-radio-group :value.sync=\"ruleForm.resource\" :radios=\"[{value: '1', name: '线上品牌商赞助'},{value: '2', name: '线下场地免费'}]\"></v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"活动形式\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"desc\">\n              <v-input :value.sync=\"ruleForm.desc\" type='textarea'></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{offset:6, span: 14 }\">\n              <v-button type=\"primary\" style=\"margin-right:10px\" @click.prevent=\"handleSubmit\">立即创建</v-button><v-button type=\"ghost\" @click.prevent=\"handleReset\">重置</v-button>\n            </v-form-item>\n          </v-form>\n          <template slot=\"js\">\n          export default {\n            data: function() {\n              return {\n                ruleForm: {\n                  name: '',\n                  region: '',\n                  date: '',\n                  delivery: false,\n                  type: [],\n                  resource: '',\n                  desc: ''\n                },\n                rules: {\n                  name: [\n                    { required: true, message: '请输入活动名称'}\n                  ],\n                  region: [\n                    { required: true, message: '请选择活动区域'}\n                  ],\n                  date: [\n                    { required: true, message: '请选择日期'}\n                  ],\n                  type: [\n                    { type: 'array', required: true, message: '请至少选择一个活动性质'}\n                  ],\n                  resource: [\n                    { required: true, message: '请选择活动资源'}\n                  ],\n                  desc: [\n                    { required: true, message: '请填写活动形式'}\n                  ]\n                },\n                checkboxOpt: [\n                  { label: '美食/餐厅线上活动', value: '1' },\n                  { label: '地推活动', value: '2' },\n                  { label: '线下主题活动', value: '3' },\n                  { label: '单纯品牌曝光', value: '4' }\n                ],\n                labelCol: { span: 6 },\n                wrapperCol: { span: 14 }\n              }\n            }\n            methods: {\n              handleSubmit() {\n                this.$refs.ruleForm.validate(valid => {\n                  if (valid) {\n                    alert('submit!');\n                  } else {\n                    console.log('error submit!!');\n                    return false;\n                  }\n                });\n              },\n              handleReset() {\n                this.$refs.ruleForm.resetFields();\n              }\n            }\n          }\n          </template>\n        </code-box>\n\n        <code-box\n          title=\"自定义校验规则\"\n          describe=\"更加灵活的表单校验。\"\n        >\n          <v-form direction=\"horizontal\" :model=\"customForm\" :rules=\"customRules\" v-ref:custom-rule-form>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"pass\" :has-feedback=\"true\">\n              <v-input type=\"password\" size=\"large\" :value.sync=\"customForm.pass\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"确认密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"checkPass\" :has-feedback=\"true\">\n              <v-input type=\"password\" size=\"large\" :value.sync=\"customForm.checkPass\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"年龄\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" prop=\"age\" :has-feedback=\"true\">\n              <v-input size=\"large\" :value.sync=\"customForm.age\"></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{offset:6, span: 14 }\">\n              <v-button type=\"primary\" style=\"margin-right:10px\" @click.prevent=\"handleSubmit2\">提交</v-button><v-button type=\"ghost\" @click.prevent=\"handleReset2\">重置</v-button>\n            </v-form-item>\n          </v-form>\n          <template slot=\"js\">\n          export default {\n            data: function() {\n\n              var checkAge = (rule, value, callback) => {\n                var age = parseInt(value, 10);\n\n                setTimeout(() => {\n                  if (!Number.isInteger(age)) {\n                    callback(new Error('请输入数字值'));\n                  } else{\n                    if (age < 18) {\n                      callback(new Error('必须年满18岁'));\n                    } else {\n                      callback();\n                    }\n                  }\n                }, 1000);\n              };\n              var validatePass = (rule, value, callback) => {\n                if (value === '') {\n                  callback(new Error('请输入密码'));\n                } else {\n                  if (this.customForm.checkPass !== '') {\n                    this.$refs.customRuleForm.validateField('checkPass');\n                  }\n                  callback();\n                }\n              };\n              var validatePass2 = (rule, value, callback) => {\n                if (value === '') {\n                  callback(new Error('请再次输入密码'));\n                } else if (value !== this.customForm.pass) {\n                  callback(new Error('两次输入密码不一致!'));\n                } else {\n                  callback();\n                }\n              };\n              \n              return {\n                customForm:{\n                  pass: '',\n                  checkPass: '',\n                  age: ''\n                },\n                customRules:{\n                  pass: [\n                    { required: true, message: '请输入密码'},\n                    { validator: validatePass }\n                  ],\n                  checkPass: [\n                    { required: true, message: '请再次输入密码'},\n                    { validator: validatePass2 }\n                  ],\n                  age: [\n                    { required: true, message: '请填写年龄'},\n                    { validator: checkAge}\n                  ]\n                },\n                labelCol: { span: 6 },\n                wrapperCol: { span: 14 }\n              }\n            },\n            methods: {\n              handleReset2() {\n                this.$refs.customRuleForm.resetFields();\n              },\n              handleSubmit2(ev) {\n                this.$refs.customRuleForm.validate(valid => {\n                  if (valid) {\n                    alert('submit!');\n                  } else {\n                    console.log('error submit!!');\n                    return false;\n                  }\n                });\n              }\n            }\n          }\n          </template>\n        </code-box>\n\n      </v-col>\n\n    </v-row>\n\n\n    <api-table\n      :content='content'\n    >\n      <h3>Form</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      type=\"methods\"\n      :content='methodsCont'\n    >\n      <h3>Form methods</h3>\n    </api-table>\n\n    <api-table\n      title=\"\"\n      :content='itemCont'\n    >\n      <h3>Form.Item</h3>\n    </api-table>\n\n  </div>\n\n";
 
 /***/ },
 
-/***/ 378:
+/***/ 375:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(116);
-	__webpack_require__(53);
-	__webpack_require__(65);
-	__webpack_require__(414);
-	module.exports = __webpack_require__(24).Promise;
+	__webpack_require__(413);
+	module.exports = __webpack_require__(24).Number.isInteger;
 
 /***/ },
 
-/***/ 382:
-/***/ function(module, exports) {
-
-	module.exports = function(it, Constructor, name, forbiddenField){
-	  if(!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)){
-	    throw TypeError(name + ': incorrect invocation!');
-	  } return it;
-	};
-
-/***/ },
-
-/***/ 386:
+/***/ 392:
 /***/ function(module, exports, __webpack_require__) {
 
-	var ctx         = __webpack_require__(50)
-	  , call        = __webpack_require__(107)
-	  , isArrayIter = __webpack_require__(106)
-	  , anObject    = __webpack_require__(34)
-	  , toLength    = __webpack_require__(81)
-	  , getIterFn   = __webpack_require__(85)
-	  , BREAK       = {}
-	  , RETURN      = {};
-	var exports = module.exports = function(iterable, entries, fn, that, ITERATOR){
-	  var iterFn = ITERATOR ? function(){ return iterable; } : getIterFn(iterable)
-	    , f      = ctx(fn, that, entries ? 2 : 1)
-	    , index  = 0
-	    , length, step, iterator, result;
-	  if(typeof iterFn != 'function')throw TypeError(iterable + ' is not iterable!');
-	  // fast case for arrays with default iterator
-	  if(isArrayIter(iterFn))for(length = toLength(iterable.length); length > index; index++){
-	    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-	    if(result === BREAK || result === RETURN)return result;
-	  } else for(iterator = iterFn.call(iterable); !(step = iterator.next()).done; ){
-	    result = call(iterator, f, step.value, entries);
-	    if(result === BREAK || result === RETURN)return result;
-	  }
-	};
-	exports.BREAK  = BREAK;
-	exports.RETURN = RETURN;
-
-/***/ },
-
-/***/ 387:
-/***/ function(module, exports) {
-
-	// fast apply, http://jsperf.lnkit.com/fast-apply/5
-	module.exports = function(fn, args, that){
-	  var un = that === undefined;
-	  switch(args.length){
-	    case 0: return un ? fn()
-	                      : fn.call(that);
-	    case 1: return un ? fn(args[0])
-	                      : fn.call(that, args[0]);
-	    case 2: return un ? fn(args[0], args[1])
-	                      : fn.call(that, args[0], args[1]);
-	    case 3: return un ? fn(args[0], args[1], args[2])
-	                      : fn.call(that, args[0], args[1], args[2]);
-	    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-	                      : fn.call(that, args[0], args[1], args[2], args[3]);
-	  } return              fn.apply(that, args);
+	// 20.1.2.3 Number.isInteger(number)
+	var isObject = __webpack_require__(47)
+	  , floor    = Math.floor;
+	module.exports = function isInteger(it){
+	  return !isObject(it) && isFinite(it) && floor(it) === it;
 	};
 
 /***/ },
 
-/***/ 394:
+/***/ 413:
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(29)
-	  , macrotask = __webpack_require__(115).set
-	  , Observer  = global.MutationObserver || global.WebKitMutationObserver
-	  , process   = global.process
-	  , Promise   = global.Promise
-	  , isNode    = __webpack_require__(49)(process) == 'process';
+	// 20.1.2.3 Number.isInteger(number)
+	var $export = __webpack_require__(32);
 
-	module.exports = function(){
-	  var head, last, notify;
-
-	  var flush = function(){
-	    var parent, fn;
-	    if(isNode && (parent = process.domain))parent.exit();
-	    while(head){
-	      fn   = head.fn;
-	      head = head.next;
-	      try {
-	        fn();
-	      } catch(e){
-	        if(head)notify();
-	        else last = undefined;
-	        throw e;
-	      }
-	    } last = undefined;
-	    if(parent)parent.enter();
-	  };
-
-	  // Node.js
-	  if(isNode){
-	    notify = function(){
-	      process.nextTick(flush);
-	    };
-	  // browsers with MutationObserver
-	  } else if(Observer){
-	    var toggle = true
-	      , node   = document.createTextNode('');
-	    new Observer(flush).observe(node, {characterData: true}); // eslint-disable-line no-new
-	    notify = function(){
-	      node.data = toggle = !toggle;
-	    };
-	  // environments with maybe non-completely correct, but existent Promise
-	  } else if(Promise && Promise.resolve){
-	    var promise = Promise.resolve();
-	    notify = function(){
-	      promise.then(flush);
-	    };
-	  // for other environments - macrotask based on:
-	  // - setImmediate
-	  // - MessageChannel
-	  // - window.postMessag
-	  // - onreadystatechange
-	  // - setTimeout
-	  } else {
-	    notify = function(){
-	      // strange IE + webpack dev server bug - use .call(global)
-	      macrotask.call(global, flush);
-	    };
-	  }
-
-	  return function(fn){
-	    var task = {fn: fn, next: undefined};
-	    if(last)last.next = task;
-	    if(!head){
-	      head = task;
-	      notify();
-	    } last = task;
-	  };
-	};
+	$export($export.S, 'Number', {isInteger: __webpack_require__(392)});
 
 /***/ },
 
-/***/ 401:
-/***/ function(module, exports, __webpack_require__) {
-
-	var hide = __webpack_require__(41);
-	module.exports = function(target, src, safe){
-	  for(var key in src){
-	    if(safe && target[key])target[key] = src[key];
-	    else hide(target, key, src[key]);
-	  } return target;
-	};
-
-/***/ },
-
-/***/ 402:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var global      = __webpack_require__(29)
-	  , core        = __webpack_require__(24)
-	  , dP          = __webpack_require__(33)
-	  , DESCRIPTORS = __webpack_require__(35)
-	  , SPECIES     = __webpack_require__(28)('species');
-
-	module.exports = function(KEY){
-	  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
-	  if(DESCRIPTORS && C && !C[SPECIES])dP.f(C, SPECIES, {
-	    configurable: true,
-	    get: function(){ return this; }
-	  });
-	};
-
-/***/ },
-
-/***/ 403:
-/***/ function(module, exports, __webpack_require__) {
-
-	// 7.3.20 SpeciesConstructor(O, defaultConstructor)
-	var anObject  = __webpack_require__(34)
-	  , aFunction = __webpack_require__(72)
-	  , SPECIES   = __webpack_require__(28)('species');
-	module.exports = function(O, D){
-	  var C = anObject(O).constructor, S;
-	  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-	};
-
-/***/ },
-
-/***/ 414:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var LIBRARY            = __webpack_require__(61)
-	  , global             = __webpack_require__(29)
-	  , ctx                = __webpack_require__(50)
-	  , classof            = __webpack_require__(73)
-	  , $export            = __webpack_require__(32)
-	  , isObject           = __webpack_require__(46)
-	  , aFunction          = __webpack_require__(72)
-	  , anInstance         = __webpack_require__(382)
-	  , forOf              = __webpack_require__(386)
-	  , speciesConstructor = __webpack_require__(403)
-	  , task               = __webpack_require__(115).set
-	  , microtask          = __webpack_require__(394)()
-	  , PROMISE            = 'Promise'
-	  , TypeError          = global.TypeError
-	  , process            = global.process
-	  , $Promise           = global[PROMISE]
-	  , process            = global.process
-	  , isNode             = classof(process) == 'process'
-	  , empty              = function(){ /* empty */ }
-	  , Internal, GenericPromiseCapability, Wrapper;
-
-	var USE_NATIVE = !!function(){
-	  try {
-	    // correct subclassing with @@species support
-	    var promise     = $Promise.resolve(1)
-	      , FakePromise = (promise.constructor = {})[__webpack_require__(28)('species')] = function(exec){ exec(empty, empty); };
-	    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-	    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
-	  } catch(e){ /* empty */ }
-	}();
-
-	// helpers
-	var sameConstructor = function(a, b){
-	  // with library wrapper special case
-	  return a === b || a === $Promise && b === Wrapper;
-	};
-	var isThenable = function(it){
-	  var then;
-	  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-	};
-	var newPromiseCapability = function(C){
-	  return sameConstructor($Promise, C)
-	    ? new PromiseCapability(C)
-	    : new GenericPromiseCapability(C);
-	};
-	var PromiseCapability = GenericPromiseCapability = function(C){
-	  var resolve, reject;
-	  this.promise = new C(function($$resolve, $$reject){
-	    if(resolve !== undefined || reject !== undefined)throw TypeError('Bad Promise constructor');
-	    resolve = $$resolve;
-	    reject  = $$reject;
-	  });
-	  this.resolve = aFunction(resolve);
-	  this.reject  = aFunction(reject);
-	};
-	var perform = function(exec){
-	  try {
-	    exec();
-	  } catch(e){
-	    return {error: e};
-	  }
-	};
-	var notify = function(promise, isReject){
-	  if(promise._n)return;
-	  promise._n = true;
-	  var chain = promise._c;
-	  microtask(function(){
-	    var value = promise._v
-	      , ok    = promise._s == 1
-	      , i     = 0;
-	    var run = function(reaction){
-	      var handler = ok ? reaction.ok : reaction.fail
-	        , resolve = reaction.resolve
-	        , reject  = reaction.reject
-	        , domain  = reaction.domain
-	        , result, then;
-	      try {
-	        if(handler){
-	          if(!ok){
-	            if(promise._h == 2)onHandleUnhandled(promise);
-	            promise._h = 1;
-	          }
-	          if(handler === true)result = value;
-	          else {
-	            if(domain)domain.enter();
-	            result = handler(value);
-	            if(domain)domain.exit();
-	          }
-	          if(result === reaction.promise){
-	            reject(TypeError('Promise-chain cycle'));
-	          } else if(then = isThenable(result)){
-	            then.call(result, resolve, reject);
-	          } else resolve(result);
-	        } else reject(value);
-	      } catch(e){
-	        reject(e);
-	      }
-	    };
-	    while(chain.length > i)run(chain[i++]); // variable length - can't use forEach
-	    promise._c = [];
-	    promise._n = false;
-	    if(isReject && !promise._h)onUnhandled(promise);
-	  });
-	};
-	var onUnhandled = function(promise){
-	  task.call(global, function(){
-	    var value = promise._v
-	      , abrupt, handler, console;
-	    if(isUnhandled(promise)){
-	      abrupt = perform(function(){
-	        if(isNode){
-	          process.emit('unhandledRejection', value, promise);
-	        } else if(handler = global.onunhandledrejection){
-	          handler({promise: promise, reason: value});
-	        } else if((console = global.console) && console.error){
-	          console.error('Unhandled promise rejection', value);
-	        }
-	      });
-	      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-	      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
-	    } promise._a = undefined;
-	    if(abrupt)throw abrupt.error;
-	  });
-	};
-	var isUnhandled = function(promise){
-	  if(promise._h == 1)return false;
-	  var chain = promise._a || promise._c
-	    , i     = 0
-	    , reaction;
-	  while(chain.length > i){
-	    reaction = chain[i++];
-	    if(reaction.fail || !isUnhandled(reaction.promise))return false;
-	  } return true;
-	};
-	var onHandleUnhandled = function(promise){
-	  task.call(global, function(){
-	    var handler;
-	    if(isNode){
-	      process.emit('rejectionHandled', promise);
-	    } else if(handler = global.onrejectionhandled){
-	      handler({promise: promise, reason: promise._v});
-	    }
-	  });
-	};
-	var $reject = function(value){
-	  var promise = this;
-	  if(promise._d)return;
-	  promise._d = true;
-	  promise = promise._w || promise; // unwrap
-	  promise._v = value;
-	  promise._s = 2;
-	  if(!promise._a)promise._a = promise._c.slice();
-	  notify(promise, true);
-	};
-	var $resolve = function(value){
-	  var promise = this
-	    , then;
-	  if(promise._d)return;
-	  promise._d = true;
-	  promise = promise._w || promise; // unwrap
-	  try {
-	    if(promise === value)throw TypeError("Promise can't be resolved itself");
-	    if(then = isThenable(value)){
-	      microtask(function(){
-	        var wrapper = {_w: promise, _d: false}; // wrap
-	        try {
-	          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-	        } catch(e){
-	          $reject.call(wrapper, e);
-	        }
-	      });
-	    } else {
-	      promise._v = value;
-	      promise._s = 1;
-	      notify(promise, false);
-	    }
-	  } catch(e){
-	    $reject.call({_w: promise, _d: false}, e); // wrap
-	  }
-	};
-
-	// constructor polyfill
-	if(!USE_NATIVE){
-	  // 25.4.3.1 Promise(executor)
-	  $Promise = function Promise(executor){
-	    anInstance(this, $Promise, PROMISE, '_h');
-	    aFunction(executor);
-	    Internal.call(this);
-	    try {
-	      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
-	    } catch(err){
-	      $reject.call(this, err);
-	    }
-	  };
-	  Internal = function Promise(executor){
-	    this._c = [];             // <- awaiting reactions
-	    this._a = undefined;      // <- checked in isUnhandled reactions
-	    this._s = 0;              // <- state
-	    this._d = false;          // <- done
-	    this._v = undefined;      // <- value
-	    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
-	    this._n = false;          // <- notify
-	  };
-	  Internal.prototype = __webpack_require__(401)($Promise.prototype, {
-	    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-	    then: function then(onFulfilled, onRejected){
-	      var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
-	      reaction.ok     = typeof onFulfilled == 'function' ? onFulfilled : true;
-	      reaction.fail   = typeof onRejected == 'function' && onRejected;
-	      reaction.domain = isNode ? process.domain : undefined;
-	      this._c.push(reaction);
-	      if(this._a)this._a.push(reaction);
-	      if(this._s)notify(this, false);
-	      return reaction.promise;
-	    },
-	    // 25.4.5.1 Promise.prototype.catch(onRejected)
-	    'catch': function(onRejected){
-	      return this.then(undefined, onRejected);
-	    }
-	  });
-	  PromiseCapability = function(){
-	    var promise  = new Internal;
-	    this.promise = promise;
-	    this.resolve = ctx($resolve, promise, 1);
-	    this.reject  = ctx($reject, promise, 1);
-	  };
-	}
-
-	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
-	__webpack_require__(62)($Promise, PROMISE);
-	__webpack_require__(402)(PROMISE);
-	Wrapper = __webpack_require__(24)[PROMISE];
-
-	// statics
-	$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
-	  // 25.4.4.5 Promise.reject(r)
-	  reject: function reject(r){
-	    var capability = newPromiseCapability(this)
-	      , $$reject   = capability.reject;
-	    $$reject(r);
-	    return capability.promise;
-	  }
-	});
-	$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
-	  // 25.4.4.6 Promise.resolve(x)
-	  resolve: function resolve(x){
-	    // instanceof instead of internal slot check because we should fix it without replacement native Promise core
-	    if(x instanceof $Promise && sameConstructor(x.constructor, this))return x;
-	    var capability = newPromiseCapability(this)
-	      , $$resolve  = capability.resolve;
-	    $$resolve(x);
-	    return capability.promise;
-	  }
-	});
-	$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(109)(function(iter){
-	  $Promise.all(iter)['catch'](empty);
-	})), PROMISE, {
-	  // 25.4.4.1 Promise.all(iterable)
-	  all: function all(iterable){
-	    var C          = this
-	      , capability = newPromiseCapability(C)
-	      , resolve    = capability.resolve
-	      , reject     = capability.reject;
-	    var abrupt = perform(function(){
-	      var values    = []
-	        , index     = 0
-	        , remaining = 1;
-	      forOf(iterable, false, function(promise){
-	        var $index        = index++
-	          , alreadyCalled = false;
-	        values.push(undefined);
-	        remaining++;
-	        C.resolve(promise).then(function(value){
-	          if(alreadyCalled)return;
-	          alreadyCalled  = true;
-	          values[$index] = value;
-	          --remaining || resolve(values);
-	        }, reject);
-	      });
-	      --remaining || resolve(values);
-	    });
-	    if(abrupt)reject(abrupt.error);
-	    return capability.promise;
-	  },
-	  // 25.4.4.4 Promise.race(iterable)
-	  race: function race(iterable){
-	    var C          = this
-	      , capability = newPromiseCapability(C)
-	      , reject     = capability.reject;
-	    var abrupt = perform(function(){
-	      forOf(iterable, false, function(promise){
-	        C.resolve(promise).then(capability.resolve, reject);
-	      });
-	    });
-	    if(abrupt)reject(abrupt.error);
-	    return capability.promise;
-	  }
-	});
-
-/***/ },
-
-/***/ 549:
+/***/ 552:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6211,9 +5678,9 @@ webpackJsonp([2,53],{
 	  value: true
 	});
 
-	var _promise = __webpack_require__(648);
+	var _isInteger = __webpack_require__(649);
 
-	var _promise2 = _interopRequireDefault(_promise);
+	var _isInteger2 = _interopRequireDefault(_isInteger);
 
 	var _codeBox = __webpack_require__(19);
 
@@ -6227,297 +5694,134 @@ webpackJsonp([2,53],{
 
 	exports.default = {
 	  data: function data() {
+	    var _this = this;
+
+	    var checkAge = function checkAge(rule, value, callback) {
+	      var age = parseInt(value, 10);
+
+	      setTimeout(function () {
+	        if (!(0, _isInteger2.default)(age)) {
+	          callback(new Error('请输入数字值'));
+	        } else {
+	          if (age < 18) {
+	            callback(new Error('必须年满18岁'));
+	          } else {
+	            callback();
+	          }
+	        }
+	      }, 1000);
+	    };
+	    var validatePass = function validatePass(rule, value, callback) {
+	      if (value === '') {
+	        callback(new Error('请输入密码'));
+	      } else {
+	        if (_this.customForm.checkPass !== '') {
+	          _this.$refs.customRuleForm.validateField('checkPass');
+	        }
+	        callback();
+	      }
+	    };
+	    var validatePass2 = function validatePass2(rule, value, callback) {
+	      if (value === '') {
+	        callback(new Error('请再次输入密码'));
+	      } else if (value !== _this.customForm.pass) {
+	        callback(new Error('两次输入密码不一致!'));
+	      } else {
+	        callback();
+	      }
+	    };
+
 	    return {
-	      modalText: '对话框的内容',
-	      confirmLoading: false,
-	      visible: false,
-	      visible2: false,
-	      visible3: false,
-	      visible4: false,
-	      visible5: false,
-	      visible51: false,
-	      visible6: false,
-	      confirmLoading2: false,
-	      confirmLoading6: false,
-	      modalStyle: {
-	        top: '20px'
+	      content: [['model', '表单数据对象', 'object', '-'], ['rules', '表单验证规则', 'object', '-'], ['direction', 'form 排列布局方式 inline或者horizontal', 'string', 'inline']],
+	      methodsCont: [['validate', '对整个表单进行校验的方法', 'callback(valid)', '无'], ['validateField', '对部分表单字段进行校验的方法', 'prop,callback(valid)', '无'], ['resetFields', '对整个表单进行重置，isAll为true将model里所有字段值重置为初始值并移除校验结果，为false则只重置传了prop属性的表单元素', 'isAll,默认为true', '无']],
+	      itemCont: [['prop', '表单域 model 字段', '传入 Form 组件的 model 中的字段', '-'], ['help', '提示信息，如不设置，则会根据校验规则自动生成', 'string', '无'], ['hasFeedback', '配合 validateStatus 属性使用，展示校验状态图标，建议只配合 Input 组件使用', 'boolean', 'false'], ['validateStatus', "校验状态，如不设置，则会根据校验规则自动生成('success' 'warning' 'error' 'validating')", 'string', '无'], ['required', '是否必填，如不设置，则会根据校验规则自动生成', 'boolean', 'false'], ['label', 'label 标签的文本', 'string', '无'], ['labelCol', 'label 标签布局，通 v-col 组件，设置 span offset 值，如 {span: 3, offset: 12}', 'object', '无'], ['wrapperCol', '需要为输入控件设置布局样式时，使用该属性，用法同 labelCol', 'object', '无']],
+	      ruleForm: {
+	        name: '',
+	        region: '',
+	        date: '',
+	        delivery: false,
+	        type: [],
+	        resource: '',
+	        desc: ''
 	      },
-	      wrapClassName: 'vertical-center-modal',
-	      confirmApis: [{
-	        "parameter": "title",
-	        "explain": "标题",
-	        "type": "React.Element or String",
-	        "default": "无"
-	      }, {
-	        "parameter": "content",
-	        "explain": "内容",
-	        "type": "React.Element or String",
-	        "default": "无"
-	      }, {
-	        "parameter": "onOk",
-	        "explain": "点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",
-	        "type": "function",
-	        "default": "无"
-	      }, {
-	        "parameter": "onCancel",
-	        "explain": "取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",
-	        "type": "function",
-	        "default": "无"
-	      }, {
-	        "parameter": "width",
-	        "explain": "宽度",
-	        "type": "String or Number",
-	        "default": "416"
-	      }, {
-	        "parameter": "iconType",
-	        "explain": "图标 Icon 类型",
-	        "type": "String",
-	        "default": "question-circle"
-	      }, {
-	        "parameter": "okText",
-	        "explain": "确认按钮文字",
-	        "type": "String",
-	        "default": "确定"
-	      }, {
-	        "parameter": "cancelText",
-	        "explain": "取消按钮文字",
-	        "type": "String",
-	        "default": "取消"
-	      }],
-	      modalApis: [{
-	        "parameter": "visible",
-	        "explain": "对话框是否可见",
-	        "type": "Boolean",
-	        "default": "无"
-	      }, {
-	        "parameter": "confirmLoading",
-	        "explain": "确定按钮 loading",
-	        "type": "Boolean",
-	        "default": "无"
-	      }, {
-	        "parameter": "title",
-	        "explain": "标题",
-	        "type": "React.Element",
-	        "default": "无"
-	      }, {
-	        "parameter": "closable",
-	        "explain": "是否显示右上角的关闭按钮",
-	        "type": "Boolean",
-	        "default": "true"
-	      }, {
-	        "parameter": "onOk",
-	        "explain": "点击确定回调",
-	        "type": "function",
-	        "default": "无"
-	      }, {
-	        "parameter": "onCancel",
-	        "explain": "点击遮罩层或右上角叉或取消按钮的回调",
-	        "type": "function(e)",
-	        "default": "无"
-	      }, {
-	        "parameter": "width",
-	        "explain": "宽度",
-	        "type": "String or Number",
-	        "default": "520"
-	      }, {
-	        "parameter": "footer",
-	        "explain": "底部内容",
-	        "type": "React.Element",
-	        "default": "确定取消按钮"
-	      }, {
-	        "parameter": "okText",
-	        "explain": "确认按钮文字",
-	        "type": "String",
-	        "default": "确定"
-	      }, {
-	        "parameter": "cancelText",
-	        "explain": "取消按钮文字",
-	        "type": "String",
-	        "default": "取消"
-	      }, {
-	        "parameter": "maskClosable",
-	        "explain": "点击蒙层是否允许关闭",
-	        "type": "Boolean",
-	        "default": "true"
-	      }, {
-	        "parameter": "style",
-	        "explain": "可用于设置浮层的样式，调整浮层位置等",
-	        "type": "Object",
-	        "default": "-"
-	      }, {
-	        "parameter": "wrapClassName",
-	        "explain": "对话框外层容器的类名",
-	        "type": "String",
-	        "default": "-"
-	      }]
+	      rules: {
+	        name: [{ required: true, message: '请输入活动名称' }],
+	        region: [{ required: true, message: '请选择活动区域' }],
+	        date: [{ required: true, message: '请选择日期' }],
+	        type: [{ type: 'array', required: true, message: '请至少选择一个活动性质' }],
+	        resource: [{ required: true, message: '请选择活动资源' }],
+	        desc: [{ required: true, message: '请填写活动形式' }]
+	      },
+	      customForm: {
+	        pass: '',
+	        checkPass: '',
+	        age: ''
+	      },
+	      customRules: {
+	        pass: [{ required: true, message: '请输入密码' }, { validator: validatePass }],
+	        checkPass: [{ required: true, message: '请再次输入密码' }, { validator: validatePass2 }],
+	        age: [{ required: true, message: '请填写年龄' }, { validator: checkAge }]
+	      },
+	      checkboxOpt: [{ label: '美食/餐厅线上活动', value: '1' }, { label: '地推活动', value: '2' }, { label: '线下主题活动', value: '3' }, { label: '单纯品牌曝光', value: '4' }],
+	      labelCol: { span: 6 },
+	      wrapperCol: { span: 14 }
 	    };
 	  },
-
-
-	  components: { codeBox: _codeBox2.default, apiTable: _apiTable2.default },
-
 	  methods: {
-	    _showModal: function _showModal() {
-	      this.visible = true;
-	    },
-	    _handleOk: function _handleOk() {
-	      this.confirmLoading = false;
-	      this.visible = false;
-	    },
-	    _handleCancel: function _handleCancel() {
-	      this.visible = false;
-	    },
-	    _showModal2: function _showModal2() {
-	      this.visible2 = true;
-	    },
-	    _handleOk2: function _handleOk2() {
-	      var _this = this;
-
-	      this.modalText = '对话框将在两秒后关闭';
-	      this.confirmLoading2 = true;
-	      setTimeout(function () {
-	        _this.visible2 = false;
-	        _this.confirmLoading2 = false;
-	      }, 2000);
-	    },
-	    _handleCancel2: function _handleCancel2() {
-	      this.visible2 = false;
-	    },
-	    _showModal3: function _showModal3() {
-	      this.visible3 = true;
-	    },
-	    _handleOk3: function _handleOk3() {
-	      this.visible3 = false;
-	    },
-	    _handleCancel3: function _handleCancel3() {
-	      this.visible3 = false;
-	    },
-	    _showModal4: function _showModal4() {
-	      this.visible4 = true;
-	    },
-	    _handleOk4: function _handleOk4() {
-	      this.modalText = '对话框将在两秒后关闭';
-	      this.visible4 = false;
-	    },
-	    _handleCancel4: function _handleCancel4() {
-	      this.visible4 = false;
-	    },
-	    _showModal5: function _showModal5() {
-	      this.visible5 = true;
-	    },
-	    _handleOk5: function _handleOk5() {
-	      this.visible5 = false;
-	    },
-	    _handleCancel5: function _handleCancel5() {
-	      this.visible5 = false;
-	    },
-	    _showModal51: function _showModal51() {
-	      this.visible51 = true;
-	    },
-	    _handleOk51: function _handleOk51() {
-	      this.visible51 = false;
-	    },
-	    _handleCancel51: function _handleCancel51() {
-	      this.visible51 = false;
-	    },
-	    _showModal6: function _showModal6() {
-	      this.visible6 = true;
-	    },
-	    _handleOk6: function _handleOk6() {
-	      var _this2 = this;
-
-	      this.modalText = '对话框将在两秒后关闭';
-	      this.confirmLoading6 = true;
-	      setTimeout(function () {
-	        _this2.visible6 = false;
-	        _this2.confirmLoading6 = false;
-	      }, 2000);
-	    },
-	    _handleCancel6: function _handleCancel6() {
-	      this.visible6 = false;
-	    },
-	    _confirmNation: function _confirmNation() {
-	      Vue.$modal.confirm({
-	        title: 'Confirm',
-	        content: 'Bla bla ...',
-	        okText: 'OK',
-	        cancelText: 'Cancel'
+	    handleSubmit: function handleSubmit() {
+	      this.$refs.ruleForm.validate(function (valid) {
+	        if (valid) {
+	          alert('submit!');
+	        } else {
+	          console.log('error submit!!');
+	          return false;
+	        }
 	      });
 	    },
-	    _showConfirm: function _showConfirm() {
-	      Vue.$modal.confirm({
-	        title: '您是否确认要删除这项内容',
-	        content: '一些解释',
-	        onOk: function onOk() {
-	          console.log('确定');
-	        },
-	        onCancel: function onCancel() {}
-	      });
+	    handleReset: function handleReset() {
+	      this.$refs.ruleForm.resetFields();
 	    },
-	    _showConfirm2: function _showConfirm2() {
-	      Vue.$modal.confirm({
-	        title: '您是否确认要删除这项内容',
-	        content: '点确认 1 秒后关闭',
-	        onOk: function onOk() {
-	          return new _promise2.default(function (resolve) {
-	            setTimeout(resolve, 1000);
-	          });
-	        },
-	        onCancel: function onCancel() {}
-	      });
+	    handleReset2: function handleReset2() {
+	      this.$refs.customRuleForm.resetFields();
 	    },
-	    info: function info() {
-	      Vue.$modal.info({
-	        title: '这是一条通知信息',
-	        content: '一些附加信息一些附加信息一些附加信息',
-	        onOk: function onOk() {}
+	    handleSubmit2: function handleSubmit2(ev) {
+	      this.$refs.customRuleForm.validate(function (valid) {
+	        if (valid) {
+	          alert('submit!');
+	        } else {
+	          console.log('error submit!!');
+	          return false;
+	        }
 	      });
-	    },
-	    success: function success() {
-	      Vue.$modal.success({
-	        title: '这是一条通知信息',
-	        content: '一些附加信息一些附加信息一些附加信息'
-	      });
-	    },
-	    error: function error() {
-	      this.$modal.error({
-	        title: '这是一条通知信息',
-	        content: '一些附加信息一些附加信息一些附加信息'
-	      });
-	    },
-	    _confirmDestroy: function _confirmDestroy() {
-	      var modal = this.$modal.success({
-	        title: '这是一条通知信息',
-	        content: '一秒后自动移除'
-	      });
-	      setTimeout(function () {
-	        return modal.destroy();
-	      }, 1000);
 	    }
+	  },
+	  components: {
+	    codeBox: _codeBox2.default,
+	    apiTable: _apiTable2.default
 	  }
 	};
 
 /***/ },
 
-/***/ 648:
+/***/ 649:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(378), __esModule: true };
+	module.exports = { "default": __webpack_require__(375), __esModule: true };
 
 /***/ },
 
-/***/ 676:
+/***/ 673:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(180)
-	__vue_script__ = __webpack_require__(549)
+	__webpack_require__(178)
+	__vue_script__ = __webpack_require__(552)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/views/modal.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(219)
+	  console.warn("[vue-loader] src/views/form.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(216)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports

@@ -988,30 +988,21 @@ webpackJsonp([4,53],{
 	            this.beautify = function() {
 
 	                /*jshint onevar:true */
-	                var local_token, sweet_code;
+	                var sweet_code;
 	                Tokenizer = new tokenizer(js_source_text, opt, indent_string);
 	                tokens = Tokenizer.tokenize();
 	                token_pos = 0;
 
-	                function get_local_token() {
-	                    local_token = get_token();
-	                    return local_token;
-	                }
-
-	                while (get_local_token()) {
-	                    for (var i = 0; i < local_token.comments_before.length; i++) {
-	                        // The cleanest handling of inline comments is to treat them as though they aren't there.
-	                        // Just continue formatting and the behavior should be logical.
-	                        // Also ignore unknown tokens.  Again, this should result in better behavior.
-	                        handle_token(local_token.comments_before[i]);
-	                    }
-	                    handle_token(local_token);
+	                current_token = get_token();
+	                while (current_token) {
+	                    handlers[current_token.type]();
 
 	                    last_last_text = flags.last_text;
-	                    last_type = local_token.type;
-	                    flags.last_text = local_token.text;
+	                    last_type = current_token.type;
+	                    flags.last_text = current_token.text;
 
 	                    token_pos += 1;
+	                    current_token = get_token();
 	                }
 
 	                sweet_code = output.get_code();
@@ -1026,13 +1017,24 @@ webpackJsonp([4,53],{
 	                return sweet_code;
 	            };
 
-	            function handle_token(local_token) {
+	            function handle_whitespace_and_comments(local_token, preserve_statement_flags) {
 	                var newlines = local_token.newlines;
 	                var keep_whitespace = opt.keep_array_indentation && is_array(flags.mode);
+	                var temp_token = current_token;
+
+	                for (var h = 0; h < local_token.comments_before.length; h++) {
+	                    // The cleanest handling of inline comments is to treat them as though they aren't there.
+	                    // Just continue formatting and the behavior should be logical.
+	                    // Also ignore unknown tokens.  Again, this should result in better behavior.
+	                    current_token = local_token.comments_before[h];
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
+	                    handlers[current_token.type](preserve_statement_flags);
+	                }
+	                current_token = temp_token;
 
 	                if (keep_whitespace) {
 	                    for (var i = 0; i < newlines; i += 1) {
-	                        print_newline(i > 0);
+	                        print_newline(i > 0, preserve_statement_flags);
 	                    }
 	                } else {
 	                    if (opt.max_preserve_newlines && newlines > opt.max_preserve_newlines) {
@@ -1041,16 +1043,14 @@ webpackJsonp([4,53],{
 
 	                    if (opt.preserve_newlines) {
 	                        if (local_token.newlines > 1) {
-	                            print_newline();
+	                            print_newline(false, preserve_statement_flags);
 	                            for (var j = 1; j < newlines; j += 1) {
-	                                print_newline(true);
+	                                print_newline(true, preserve_statement_flags);
 	                            }
 	                        }
 	                    }
 	                }
 
-	                current_token = local_token;
-	                handlers[current_token.type]();
 	            }
 
 	            // we could use just string.split, but
@@ -1220,7 +1220,8 @@ webpackJsonp([4,53],{
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') ||
 	                    (last_type === 'TK_RESERVED' && flags.last_text === 'do') ||
 	                    (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['return', 'throw']) && !current_token.wanted_newline) ||
-	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(current_token.type === 'TK_RESERVED' && current_token.text === 'if')) ||
+	                    (last_type === 'TK_RESERVED' && flags.last_text === 'else' &&
+	                        !(current_token.type === 'TK_RESERVED' && current_token.text === 'if' && !current_token.comments_before.length)) ||
 	                    (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
 	                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement &&
 	                        !flags.in_case &&
@@ -1234,9 +1235,7 @@ webpackJsonp([4,53],{
 	                    set_mode(MODE.Statement);
 	                    indent();
 
-	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
-	                        flags.declaration_statement = true;
-	                    }
+	                    handle_whitespace_and_comments(current_token, true);
 
 	                    // Issue #276:
 	                    // If starting a new statement with [if, for, while, do], push to a new line.
@@ -1285,8 +1284,9 @@ webpackJsonp([4,53],{
 	            }
 
 	            function handle_start_expr() {
-	                if (start_of_statement()) {
-	                    // The conditional starts the statement if appropriate.
+	                // The conditional starts the statement if appropriate.
+	                if (!start_of_statement()) {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                var next_mode = MODE.Expression;
@@ -1394,6 +1394,8 @@ webpackJsonp([4,53],{
 	                    restore_mode();
 	                }
 
+	                handle_whitespace_and_comments(current_token);
+
 	                if (flags.multiline_frame) {
 	                    allow_wrap_or_preserved_newline(current_token.text === ']' && is_array(flags.mode) && !opt.keep_array_indentation);
 	                }
@@ -1426,6 +1428,8 @@ webpackJsonp([4,53],{
 	            }
 
 	            function handle_start_block() {
+	                handle_whitespace_and_comments(current_token);
+
 	                // Check if this is should be treated as a ObjectLiteral
 	                var next_token = get_token(1);
 	                var second_token = get_token(2);
@@ -1513,9 +1517,12 @@ webpackJsonp([4,53],{
 
 	            function handle_end_block() {
 	                // statements must all be closed when their container closes
+	                handle_whitespace_and_comments(current_token);
+
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+
 	                var empty_braces = last_type === 'TK_START_BLOCK';
 
 	                if (flags.inline_frame && !empty_braces) { // try inline_frame (only set if opt.braces-preserve-inline) first
@@ -1558,12 +1565,17 @@ webpackJsonp([4,53],{
 
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                    if (last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const']) && current_token.type === 'TK_WORD') {
+	                        flags.declaration_statement = true;
+	                    }
 	                } else if (current_token.wanted_newline && !is_expression(flags.mode) &&
 	                    (last_type !== 'TK_OPERATOR' || (flags.last_text === '--' || flags.last_text === '++')) &&
 	                    last_type !== 'TK_EQUALS' &&
 	                    (opt.preserve_newlines || !(last_type === 'TK_RESERVED' && in_array(flags.last_text, ['var', 'let', 'const', 'set', 'get'])))) {
-
+	                    handle_whitespace_and_comments(current_token);
 	                    print_newline();
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.do_block && !flags.do_while) {
@@ -1617,7 +1629,8 @@ webpackJsonp([4,53],{
 	                }
 
 	                if (current_token.type === 'TK_RESERVED' && current_token.text === 'function') {
-	                    if (in_array(flags.last_text, ['}', ';']) || (output.just_added_newline() && !in_array(flags.last_text, ['[', '{', ':', '=', ',']))) {
+	                    if (in_array(flags.last_text, ['}', ';']) ||
+	                        (output.just_added_newline() && !(in_array(flags.last_text, ['(', '[', '{', ':', '=', ',']) || last_type === 'TK_OPERATOR'))) {
 	                        // make sure there is a nice clean space of at least one blank line
 	                        // before a new function definition
 	                        if (!output.just_added_blankline() && !current_token.comments_before.length) {
@@ -1757,7 +1770,10 @@ webpackJsonp([4,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // Semicolon can be the start (and end) of a statement
 	                    output.space_before_token = false;
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
+
 	                var next_token = get_token(1);
 	                while (flags.mode === MODE.Statement &&
 	                    !(flags.if_block && next_token && next_token.type === 'TK_RESERVED' && next_token.text === 'else') &&
@@ -1777,14 +1793,17 @@ webpackJsonp([4,53],{
 	                    // The conditional starts the statement if appropriate.
 	                    // One difference - strings want at least a space before
 	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
-	                    output.space_before_token = true;
-	                } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
-	                    if (!start_of_object_property()) {
-	                        allow_wrap_or_preserved_newline();
-	                    }
 	                } else {
-	                    print_newline();
+	                    handle_whitespace_and_comments(current_token);
+	                    if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || flags.inline_frame) {
+	                        output.space_before_token = true;
+	                    } else if (last_type === 'TK_COMMA' || last_type === 'TK_START_EXPR' || last_type === 'TK_EQUALS' || last_type === 'TK_OPERATOR') {
+	                        if (!start_of_object_property()) {
+	                            allow_wrap_or_preserved_newline();
+	                        }
+	                    } else {
+	                        print_newline();
+	                    }
 	                }
 	                print_token();
 	            }
@@ -1792,6 +1811,8 @@ webpackJsonp([4,53],{
 	            function handle_equals() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token);
 	                }
 
 	                if (flags.declaration_statement) {
@@ -1804,6 +1825,8 @@ webpackJsonp([4,53],{
 	            }
 
 	            function handle_comma() {
+	                handle_whitespace_and_comments(current_token, true);
+
 	                print_token();
 	                output.space_before_token = true;
 	                if (flags.declaration_statement) {
@@ -1838,8 +1861,21 @@ webpackJsonp([4,53],{
 	            }
 
 	            function handle_operator() {
+	                var isGeneratorAsterisk = current_token.text === '*' &&
+	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
+	                        (in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
+	                    );
+	                var isUnary = in_array(current_token.text, ['-', '+']) && (
+	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
+	                    in_array(flags.last_text, Tokenizer.line_starters) ||
+	                    flags.last_text === ','
+	                );
+
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    var preserve_statement_flags = !isGeneratorAsterisk;
+	                    handle_whitespace_and_comments(current_token, preserve_statement_flags);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1879,17 +1915,6 @@ webpackJsonp([4,53],{
 	                var space_before = true;
 	                var space_after = true;
 	                var in_ternary = false;
-	                var isGeneratorAsterisk = current_token.text === '*' &&
-	                    ((last_type === 'TK_RESERVED' && in_array(flags.last_text, ['function', 'yield'])) ||
-	                        (flags.mode === MODE.ObjectLiteral && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA'])) ||
-	                        (flags.mode === MODE.BlockStatement && in_array(last_type, ['TK_START_BLOCK', 'TK_COMMA', 'TK_END_BLOCK', 'TK_SEMICOLON']))
-	                    );
-	                var isUnary = in_array(current_token.text, ['-', '+']) && (
-	                    in_array(last_type, ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) ||
-	                    in_array(flags.last_text, Tokenizer.line_starters) ||
-	                    flags.last_text === ','
-	                );
-
 	                if (current_token.text === ':') {
 	                    if (flags.ternary_depth === 0) {
 	                        // Colon is invalid javascript outside of ternary and object, but do our best to guess what was meant.
@@ -2017,7 +2042,7 @@ webpackJsonp([4,53],{
 	                output.space_before_token = space_after;
 	            }
 
-	            function handle_block_comment() {
+	            function handle_block_comment(preserve_statement_flags) {
 	                if (output.raw) {
 	                    output.add_raw_token(current_token);
 	                    if (current_token.directives && current_token.directives.preserve === 'end') {
@@ -2028,7 +2053,7 @@ webpackJsonp([4,53],{
 	                }
 
 	                if (current_token.directives) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                    print_token();
 	                    if (current_token.directives.preserve === 'start') {
 	                        output.raw = true;
@@ -2053,7 +2078,7 @@ webpackJsonp([4,53],{
 	                var lastIndentLength = lastIndent.length;
 
 	                // block comment starts with a new line
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	                if (lines.length > 1) {
 	                    javadoc = all_lines_start_with(lines.slice(1), '*');
 	                    starless = each_line_matches_indent(lines.slice(1), lastIndent);
@@ -2076,24 +2101,26 @@ webpackJsonp([4,53],{
 	                }
 
 	                // for comments of more than one line, make sure there's a new line after
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
-	            function handle_comment() {
+	            function handle_comment(preserve_statement_flags) {
 	                if (current_token.wanted_newline) {
-	                    print_newline(false, true);
+	                    print_newline(false, preserve_statement_flags);
 	                } else {
 	                    output.trim(true);
 	                }
 
 	                output.space_before_token = true;
 	                print_token();
-	                print_newline(false, true);
+	                print_newline(false, preserve_statement_flags);
 	            }
 
 	            function handle_dot() {
 	                if (start_of_statement()) {
 	                    // The conditional starts the statement if appropriate.
+	                } else {
+	                    handle_whitespace_and_comments(current_token, true);
 	                }
 
 	                if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -2107,11 +2134,11 @@ webpackJsonp([4,53],{
 	                print_token();
 	            }
 
-	            function handle_unknown() {
+	            function handle_unknown(preserve_statement_flags) {
 	                print_token();
 
 	                if (current_token.text[current_token.text.length - 1] === '\n') {
-	                    print_newline();
+	                    print_newline(false, preserve_statement_flags);
 	                }
 	            }
 
@@ -2120,6 +2147,7 @@ webpackJsonp([4,53],{
 	                while (flags.mode === MODE.Statement) {
 	                    restore_mode();
 	                }
+	                handle_whitespace_and_comments(current_token);
 	            }
 	        }
 
@@ -4471,7 +4499,7 @@ webpackJsonp([4,53],{
 	        eol = eol.replace(/\\r/, '\r').replace(/\\n/, '\n');
 
 	        // HACK: newline parsing inconsistent. This brute force normalizes the input.
-	        source_text = html_source.replace(allLineBreaks, '\n');
+	        html_source = html_source.replace(allLineBreaks, '\n');
 
 	        function Parser() {
 
@@ -5454,22 +5482,13 @@ webpackJsonp([4,53],{
 	      var slot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 	      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'html';
 
-	      if (!this._slotContents[slot]) return false;
-	      var children = this._slotContents[slot].childNodes;
+	      var _slot = this._slotContents[slot];
+	      if (!_slot) return false;
 
-	      children = Array.prototype.filter.call(children, function (node) {
-	        return [1, 3].includes(node.nodeType);
-	      });
+	      var container = document.createElement('div');
+	      container.appendChild(_slot.cloneNode(true));
 
-	      return children.map(function (dom) {
-	        var str = void 0;
-	        if (dom.nodeType === 1) {
-	          str = dom.outerHTML;
-	        } else {
-	          str = dom.data;
-	        }
-	        return (0, _beautify2.default)(str, { format: type });
-	      }).join('\n');
+	      return (0, _beautify2.default)(container.innerHTML, { format: type });
 	    },
 	    handleOpen: function handleOpen() {
 	      this.open = !this.open;
@@ -5571,7 +5590,7 @@ webpackJsonp([4,53],{
 
 /***/ },
 
-/***/ 162:
+/***/ 165:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -5579,20 +5598,20 @@ webpackJsonp([4,53],{
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.code-box-demo .demo-header[_v-341b3438] {\n  width: 100%;\n  background: #ebedee;\n  height: 30px;\n}\n.code-box-demo .demo-header ul[_v-341b3438] {\n  float: right;\n  margin-right: 5px;\n}\n.code-box-demo .demo-header ul li[_v-341b3438] {\n  width: 50px;\n  height: 30px;\n  float: left;\n  background: #e4e4e4;\n  margin-left: 5px;\n}\n.code-box-demo .demo-header ul li[_v-341b3438]:before {\n  margin: 10px auto;\n  width: 20px;\n  height: 10px;\n  background: #ebeded;\n}\n.code-box-demo .demo-header .logo[_v-341b3438] {\n  float: left;\n  margin: 0px auto 0 10px;\n  line-height: 32px;\n}\n.code-box-demo .demo-header .logo img[_v-341b3438]{\n  margin:auto\n}\n.code-box-demo .demo-header .logo span[_v-341b3438] {\n  display: block;\n  float: right;\n}\n.code-box-demo .demo-content[_v-341b3438] {\n  width: 80%;\n  margin: 10px auto;\n}\n.code-box-demo .demo-content .demo-title[_v-341b3438] {\n  text-align:left;\n  background: #a4a4a4;\n  width: 40%;\n  height: 20px;\n  line-height: 20px;\n  color: #ebeded;\n  text-indent:10px\n}\n.code-box-demo .demo-content .demo-listBox[_v-341b3438] {\n  margin-top: 10px;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438] {\n  height: 30px;\n  background: #cacaca;\n  overflow: hidden;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:before,.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:after{\n  width: 30%;\n  height: 5px;\n  background: #ebeded;\n  float:left;\n  margin:12px 35px 0;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:after{\n  width:15%;\n  float:right;\n  margin:12px 10px 0;\n\n}\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438] {\n  height: 25px;\n  background: #ebeded;\n  border-bottom: 1px solid #cacaca;\n  overflow: hidden;\n  padding: 5px 15px;\n}\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:before {\n  width: 10px;\n  height: 5px;\n  background: #cacaca;\n  float: left;\n  margin-top:4px\n}\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:after {\n  width: 50%;\n  height: 5px;\n  background: #cacaca;\n  float: left;\n  margin-left: 10px;\n  margin-top: 4px;\n}\n.code-box-demo .demo-content .demo-kp[_v-341b3438] {\n  margin: 10px auto;\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438] {\n  display: inline-block;\n  width: 30%;\n  height: 40px;\n  background: #cacaca;\n  color: #ebeded;\n  text-align: left;\n  padding: 10px;\n  margin-right: calc(2%);\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:last-child {\n  margin-right: 0%;\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:after {\n  width: 60%;\n  height: 5px;\n  background: #ebeded;\n  float: left;\n  margin-top: 7px;\n}\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:before {\n  background: #ebeded;\n  float: left;\n  width: 15px;\n  height: 15px;\n  margin:2px 10% 0 0;\n\n}\n.code-box-demo .demo-footer[_v-341b3438] {\n  margin-top: 10px;\n  background: #cacaca;\n  height: 40px;\n  float: left;\n  width: 100%;\n  display: table;\n}\n.code-box-demo .demo-footer[_v-341b3438]:before {\n  width: 60%;\n  height: 5px;\n  background: #ededed;\n  margin: 10px auto 0;\n}\n.code-box-demo .demo-footer[_v-341b3438]:after {\n  width: 30%;\n  height: 5px;\n  background: #ededed;\n  margin: 5px auto;\n}\n.code-box-demo .demo-header ul li[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-kp ul li[_v-341b3438]:after,\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-listBox .demo-list .title[_v-341b3438]:after,\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:before,\n.code-box-demo .demo-content .demo-listBox .demo-list ul li[_v-341b3438]:after,\n.code-box-demo .demo-footer[_v-341b3438]:before,\n.code-box-demo .demo-footer[_v-341b3438]:after {\n  display: block;\n  content: \"\";\n}\n.code-box-demo .buttons[_v-341b3438] {\n  text-align: center;\n  padding-top: 20px;\n  clear: both;\n}\n.demo-list ul li[_v-341b3438] {\n    height: 25px;\n    background: #ebeded;\n    border-bottom: 1px solid #cacaca;\n    overflow: hidden;\n    padding: 5px 15px;\n}\n.code-box-demo .ant-form-horizontal[_v-341b3438]{\n  max-width: 540px\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vertical-center-modal {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.vertical-center-modal .ant-modal {\n  top: 0;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 
-/***/ 185:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(162);
+	var content = __webpack_require__(165);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -5601,8 +5620,8 @@ webpackJsonp([4,53],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-341b3438&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./queueAnim.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-341b3438&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./queueAnim.vue");
+			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./modal.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./modal.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -5613,21 +5632,25 @@ webpackJsonp([4,53],{
 
 /***/ },
 
-/***/ 325:
+/***/ 222:
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div _v-341b3438=\"\">\n\n  <section class=\"markdown\" _v-341b3438=\"\">\n    <h1 _v-341b3438=\"\">QueueAnim 进出场动画</h1>\n    <p _v-341b3438=\"\">\n      通过简单的配置对一组元素添加串行的进场动画效果。\n    </p>\n    <h2 _v-341b3438=\"\">何时使用</h2>\n    <ul _v-341b3438=\"\">\n      <li _v-341b3438=\"\">从内容A到内容B的转变过程时能有效的吸引用户注意力，突出视觉中心，提高整体视觉效果。</li>\n      <li _v-341b3438=\"\">小的信息元素排布或块状较多的情况下，根据一定的路径层次依次进场，区分维度层级，来凸显量级，使页面转场更加流畅和舒适，提高整体视觉效果和产品的质感。</li>\n      <li _v-341b3438=\"\">特别适合首页和需要视觉展示效果的宣传页，以及单页应用的切换页面动效。</li>\n    </ul>\n    <h2 _v-341b3438=\"\">组件演示</h2>\n  </section>\n\n  <v-row :gutter=\"16\" _v-341b3438=\"\">\n    <v-col span=\"12\" _v-341b3438=\"\">\n\n      <code-box title=\"默认\" describe=\"最简单的进场例子。\" _v-341b3438=\"\">\n        <v-queue-anim :delay=\"1000\" _v-341b3438=\"\">\n          <div key=\"a\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"b\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"c\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"d\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"e\" _v-341b3438=\"\">依次进场</div>\n          <div key=\"f\" _v-341b3438=\"\">依次进场</div>\n        </v-queue-anim>\n      </code-box>\n\n      <code-box title=\"进场和离场\" describe=\"通过把属性设置一个数组来分别表示进出场的效果，type、animConfig、delay、duration、interval、ease 等属性均支持配置为数组。\" _v-341b3438=\"\">\n        <v-queue-anim class=\"demo-content\" key=\"demo\" :show=\"show\" :type=\"['right', 'left']\" :ease=\"['easeOutQuart', 'easeInOutQuart']\" _v-341b3438=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-341b3438=\"\">\n            <ul _v-341b3438=\"\">\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n            <div class=\"demo-list\" _v-341b3438=\"\">\n              <div class=\"title\" _v-341b3438=\"\"></div>\n              <ul _v-341b3438=\"\">\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"表单动画进出场\" describe=\"表单组合的进场与出场动画。\" _v-341b3438=\"\">\n        <v-queue-anim class=\"ant-form-horizontal\" type=\"bottom\" :leave-reverse=\"true\" :show=\"show\" _v-341b3438=\"\">\n          <v-form direction=\"horizontal\" _v-341b3438=\"\">\n            <v-form-item label=\"用户名\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"name\" _v-341b3438=\"\">\n              <p classname=\"ant-form-text\" id=\"userName\" name=\"userName\" _v-341b3438=\"\">大眼萌 minion</p>\n            </v-form-item>\n            <v-form-item label=\"密码\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"password\" _v-341b3438=\"\">\n              <v-input type=\"password\" placeholder=\"请输入密码\" size=\"large\" _v-341b3438=\"\"></v-input>\n            </v-form-item>\n            <v-form-item label=\"您的性别\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"sex\" _v-341b3438=\"\">\n              <v-radio-group default-value=\"female\" :radios=\"[{value: 'male', name: '男的'},{value: 'female', name: '女的'}]\" _v-341b3438=\"\">\n              </v-radio-group>\n            </v-form-item>\n            <v-form-item label=\"备注\" :label-col=\"labelCol\" :wrapper-col=\"wrapperCol\" key=\"remark\" _v-341b3438=\"\">\n              <v-input type=\"textarea\" placeholder=\"随便写\" _v-341b3438=\"\"></v-input>\n            </v-form-item>\n            <v-form-item :wrapper-col=\"{span:16,offset:6}\" style=\"margin-top:24px\" key=\"btn\" _v-341b3438=\"\">\n              <v-button type=\"primary\" html-type=\"submit\" _v-341b3438=\"\">确定</v-button>\n            </v-form-item>\n          </v-form>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"一个复杂些的例子\" describe=\"模拟一个完整的页面。\" _v-341b3438=\"\">\n        <v-queue-anim :show=\"show\" :type=\"['right', 'left']\" _v-341b3438=\"\">\n          <div class=\"demo-header\" key=\"header\" _v-341b3438=\"\">\n            <div class=\"logo\" _v-341b3438=\"\">\n              <img width=\"30\" src=\"https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg\" _v-341b3438=\"\">\n              <span _v-341b3438=\"\">logo</span>\n            </div>\n            <v-queue-anim _v-341b3438=\"\">\n              <ul _v-341b3438=\"\">\n                <li key=\"0\" _v-341b3438=\"\"></li>\n                <li key=\"1\" _v-341b3438=\"\"></li>\n                <li key=\"2\" _v-341b3438=\"\"></li>\n                <li key=\"3\" _v-341b3438=\"\"></li>\n                <li key=\"4\" _v-341b3438=\"\"></li>\n              </ul>\n            </v-queue-anim>\n          </div>\n          <v-queue-anim class=\"demo-content\" key=\"content\" :delay=\"300\" _v-341b3438=\"\">\n            <div class=\"demo-title\" key=\"title\" _v-341b3438=\"\">我是标题</div>\n            <v-queue-anim class=\"demo-kp\" key=\"b\" _v-341b3438=\"\">\n              <v-queue-anim _v-341b3438=\"\">\n                <ul _v-341b3438=\"\">\n                  <li key=\"0\" _v-341b3438=\"\"></li>\n                  <li key=\"1\" _v-341b3438=\"\"></li>\n                  <li key=\"2\" _v-341b3438=\"\"></li>\n                </ul>\n              </v-queue-anim>\n            </v-queue-anim>\n            <div class=\"demo-title\" key=\"title2\" _v-341b3438=\"\">我是标题</div>\n            <div class=\"demo-listBox\" _v-341b3438=\"\">\n              <v-queue-anim class=\"demo-list\" :delay=\"500\" _v-341b3438=\"\">\n                <div class=\"title\" key=\"title3\" _v-341b3438=\"\"></div>\n                <v-queue-anim type=\"bottom\" key=\"li\" _v-341b3438=\"\">\n                  <ul _v-341b3438=\"\">\n                    <li key=\"0\" _v-341b3438=\"\"></li>\n                    <li key=\"1\" _v-341b3438=\"\"></li>\n                    <li key=\"2\" _v-341b3438=\"\"></li>\n                    <li key=\"3\" _v-341b3438=\"\"></li>\n                    <li key=\"4\" _v-341b3438=\"\"></li>\n                  </ul>\n                </v-queue-anim>\n              </v-queue-anim>\n            </div>\n          </v-queue-anim>\n          <v-queue-anim type=\"bottom\" :delay=\"1000\" key=\"footerBox\" _v-341b3438=\"\">\n            <div class=\"demo-footer\" key=\"footer\" _v-341b3438=\"\"></div>\n          </v-queue-anim>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n      </code-box>\n    </v-col>\n    <v-col span=\"12\" _v-341b3438=\"\">\n\n      <code-box title=\"进场和离场\" describe=\"同时支持进场和离场动画。\" _v-341b3438=\"\">\n        <v-queue-anim :show=\"show\" class=\"demo-content\" _v-341b3438=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-341b3438=\"\">\n            <ul _v-341b3438=\"\">\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n            <div class=\"demo-list\" _v-341b3438=\"\">\n              <div class=\"title\" _v-341b3438=\"\"></div>\n              <ul _v-341b3438=\"\">\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"自定义动画进出场\" describe=\"通过 animConfig 来自定义动画进出场。\" _v-341b3438=\"\">\n        <v-queue-anim class=\"demo-content\" :show=\"show\" :anim-config=\"[{ opacity: [1, 0], translateY: [0, 50] },{ opacity: [1, 0], translateY: [0, -50] }]\" _v-341b3438=\"\">\n          <div class=\"demo-kp\" key=\"a\" _v-341b3438=\"\">\n            <ul _v-341b3438=\"\">\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n              <li _v-341b3438=\"\"></li>\n            </ul>\n          </div>\n          <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n            <div class=\"demo-list\" _v-341b3438=\"\">\n              <div class=\"title\" _v-341b3438=\"\"></div>\n              <ul _v-341b3438=\"\">\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n                <li _v-341b3438=\"\"></li>\n              </ul>\n            </div>\n          </div>\n        </v-queue-anim>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n        </p>\n      </code-box>\n\n      <code-box title=\"添加与删除\" describe=\"场景里有增加或删除条目时也会触发动画。\" _v-341b3438=\"\">\n        <div class=\"demo-content\" _v-341b3438=\"\">\n            <div class=\"demo-listBox\" key=\"b\" _v-341b3438=\"\">\n              <div class=\"demo-list\" _v-341b3438=\"\">\n                <div class=\"title\" _v-341b3438=\"\"></div>\n                <v-queue-anim :type=\"['right', 'left']\" :watch-value=\"items\" :show=\"show\" _v-341b3438=\"\">\n                  <ul _v-341b3438=\"\">\n                    <li v-for=\"item in items\" :key=\"Date.now()\" _v-341b3438=\"\"></li>\n                  </ul>\n                </v-queue-anim>\n              </div>\n            </div>\n        </div>\n        <p class=\"buttons\" _v-341b3438=\"\">\n          <v-button type=\"primary\" @click=\"_handleClick\" _v-341b3438=\"\">切换</v-button>\n          <v-button @click=\"_handleAdd\" style=\"margin-left: 10px\" _v-341b3438=\"\">添加</v-button>\n          <v-button @click=\"_handleRemove\" style=\"margin-left: 10px\" _v-341b3438=\"\">删除</v-button>\n        </p>\n      </code-box>\n\n    </v-col>\n  </v-row>\n  <section class=\"markdown\" _v-341b3438=\"\">\n      <h3 _v-341b3438=\"\">API</h3>\n      <p _v-341b3438=\"\">元素依次进场</p>\n      <pre _v-341b3438=\"\">        <code class=\"html\" _v-341b3438=\"\">&lt;v-queue-anim&gt;\n            &lt;div key='demo1'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo2'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo3'&gt;依次进场&lt;/div&gt;\n            &lt;div key='demo4'&gt;依次进场&lt;/div&gt;\n          &lt;/v-queue-anim&gt;</code>\n      </pre>\n      <blockquote _v-341b3438=\"\">\n        <p _v-341b3438=\"\">每个子标签必须带 key，如果未设置 key 将不执行动画。</p>\n      </blockquote>\n   </section>\n  <api-table :content=\"content\" _v-341b3438=\"\"></api-table>\n\n</div>\n\n";
+	module.exports = "\n<div>\n    <section class=\"markdown\">\n        <h1>Modal对话框</h1>\n        <p>\n            模态对话框。\n        </p>\n        <h2>何时使用</h2>\n        <ul>\n            <li>需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。</li>\n            <li>另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 ant.Modal.confirm() 等方法。</li>\n        </ul>\n        <h2>组件演示</h2>\n    </section>\n    <v-Row :gutter=\"16\">\n        <v-Col span=\"12\">\n            <code-box\n                    title=\"基本\"\n                    describe=\"第一个对话框。\">\n                <v-button type=\"primary\" @click=\"_showModal\">显示对话框</v-button>\n                <v-modal title=\"第一个 Modal\"\n                         :visible=\"visible\"\n                         :on-ok=\"_handleOk\"\n                         :on-cancel=\"_handleCancel\">\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                </v-modal>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                visible: false\n                            }\n                        },\n\n                        methods: {\n                            _showModal () {\n                                this.visible = true;\n                            },\n\n                            _handleOk () {\n                                this.visible = false;\n                            },\n\n                            _handleCancel () {\n                                this.visible = false;\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n            <code-box\n                    title=\"自定义页脚\"\n                    describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\">\n                <v-button type=\"primary\" @click=\"_showModal2\">显示对话框</v-button>\n                <v-modal title=\"Modal\"\n                         :visible=\"visible2\"\n                         :on-cancel=\"_handleCancel2\">\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <div slot=\"footer\">\n                        <v-button key=\"cancel\" type=\"ghost\" size=\"large\" @click=\"_handleCancel2\">返 回</v-button>\n                        <v-button key=\"confirm\" type=\"primary\" size=\"large\" :loading=\"confirmLoading2\"\n                                  @click=\"_handleOk2\">提 交\n                        </v-button>\n                    </div>\n                </v-modal>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                visible2: false,\n                                confirmLoading2: false\n                            }\n                        },\n\n                        methods: {\n                            _handleOk2 () {\n                                /* 对话框将在两秒后关闭 */\n                                this.confirmLoading2 = true;\n                                setTimeout(() => {\n                                    this.visible2 = false;\n                                    this.confirmLoading2 = false;\n                                }, 2000);\n                            },\n\n                            _handleCancel2 () {\n                                this.visible2 = false;\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n            <code-box\n                    title=\"国际化\"\n                    describe=\"设置 okText 与 cancelText 以自定义按钮文字。\">\n                <v-button type=\"primary\" @click=\"_showModal4\">show Modal</v-button>\n                <v-modal title=\"Modal\"\n                         :visible=\"visible4\"\n                         :on-ok=\"_handleOk4\"\n                         :on-cancel=\"_handleCancel4\"\n                         ok-text=\"ok\"\n                         cancel-text=\"Cancel\">\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                </v-modal>\n                <br/>\n                <v-button @click=\"_confirmNation\">confirm</v-button>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                visible4: false\n                            }\n                        },\n\n                        methods: {\n                            _showModal4 () {\n                                this.visible4 = true;\n                            },\n\n                            _handleOk4 () {\n                                this.visible4 = false;\n                            },\n\n                            _handleCancel4 () {\n                                this.visible4 = false;\n                            },\n\n                            _confirmNation() {\n                                Vue.$modal.confirm({\n                                    title: 'Confirm',\n                                    content: 'Bla bla ...',\n                                    okText: 'OK',\n                                    cancelText: 'Cancel'\n                                })\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n            <code-box\n                    title=\"自定义位置\"\n                    describe=\"1.0 之后，Modal 的 align 属性被移除，您可以直接使用 style.top 或配合其他样式来设置对话框位置。\">\n                <v-button type=\"primary\" @click=\"_showModal5\">显示距离顶部 20px 的对话框</v-button>\n                <v-button type=\"primary\" @click=\"_showModal51\">显示垂直居中的对话框</v-button>\n                <v-modal\n                        title=\"Modal\"\n                        :visible=\"visible5\"\n                        :on-ok=\"_handleOk5\"\n                        :on-cancel=\"_handleCancel5\"\n                        :modal-style=\"modalStyle\">\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                </v-modal>\n                <v-modal\n                        title=\"Modal\"\n                        :visible=\"visible51\"\n                        :on-ok=\"_handleOk51\"\n                        :on-cancel=\"_handleCancel51\"\n                        wrap-class-name=\"vertical-center-modal\">\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                </v-modal>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                modalStyle: {\n                                    top: '20px'\n                                },\n                                visible5: false,\n                                visible51: false\n                            }\n                        },\n\n                        methods: {\n                            _showModal5 () {\n                                this.visible5 = true;\n                            },\n\n                            _handleOk5 () {\n                                this.visible5 = false;\n                            },\n\n                            _handleCancel5 () {\n                                this.visible5 = false;\n                            },\n\n                            _showModal51 () {\n                                this.visible51 = true;\n                            },\n\n                            _handleOk51 () {\n                                this.visible51 = false;\n                            },\n\n                            _handleCancel51 () {\n                                this.visible51 = false;\n                            },\n                        }\n                    }\n                </template>\n                <template slot=\"css\">\n                    .vertical-center-modal {\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                    }\n                </template>\n            </code-box>\n        </v-col>\n        <v-Col span=\"12\">\n            <code-box\n                    title=\"异步关闭\"\n                    describe=\"点击确定后异步关闭对话框，例如提交表单。\">\n                <v-button type=\"primary\" @click=\"_showModal6\">显示对话框</v-button>\n                <v-modal title=\"第一个 Modal\"\n                         :visible=\"visible6\"\n                         :on-ok=\"_handleOk6\"\n                         :on-cancel=\"_handleCancel6\"\n                         :confirm-loading=\"confirmLoading6\">\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                    <p>对话框的内容</p>\n                </v-modal>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {\n                                visible6: false,\n                                confirmLoading6: false\n                            }\n                        },\n\n                        methods: {\n                            _showModal6 () {\n                                this.visible6 = true;\n                            },\n\n                            _handleOk6 () {\n                                /* 对话框将在两秒后关闭 */\n                                this.confirmLoading6 = true;\n                                setTimeout(() => {\n                                    this.visible6 = false;\n                                    this.confirmLoading6 = false;\n                                }, 2000);\n                            },\n\n                            _handleCancel6 () {\n                                this.visible6 = false;\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n            <code-box\n                    title=\"自定义页脚\"\n                    describe=\"更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。\">\n                <v-button @click=\"_showConfirm2\">确认对话框</v-button>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {}\n                        },\n\n                        methods: {\n                            _showConfirm2 () {\n                                Vue.$modal.confirm({\n                                    title: '您是否确认要删除这项内容',\n                                    content: '点确认 1 秒后关闭',\n                                    onOk: function () {\n                                        return new Promise(function (resolve) {\n                                            setTimeout(resolve, 1000);\n                                        })\n                                    },\n                                    onCancel: function () {\n                                    }\n                                })\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n            <code-box\n                    title=\"信息提示\"\n                    describe=\"各种类型的信息提示，只提供一个按钮用于关闭。\">\n                <v-button @click=\"info\">信息提示</v-button>\n                <v-button @click=\"success\">成功提示</v-button>\n                <v-button @click=\"error\">失败提示</v-button>\n                <v-button @click=\"error\">警告提示</v-button>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {}\n                        },\n\n                        methods: {\n                            info() {\n                                Vue.$modal.info({\n                                    title: '这是一条通知信息',\n                                    content: '一些附加信息一些附加信息一些附加信息',\n                                    onOk: function () {\n                                    }\n                                })\n                            },\n\n                            success() {\n                                Vue.$modal.success({\n                                    title: '这是一条通知信息',\n                                    content: '一些附加信息一些附加信息一些附加信息'\n                                })\n                            },\n\n                            error() {\n                                this.$modal.error({\n                                    title: '这是一条通知信息',\n                                    content: '一些附加信息一些附加信息一些附加信息'\n                                })\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n\n            <code-box\n                    title=\"手动移除\"\n                    describe=\"手动关闭modal。\">\n                <v-button @click=\"_confirmDestroy\">成功提示</v-button>\n                <template slot=\"js\">\n                    export default {\n                        data () {\n                            return {}\n                        },\n\n                        methods: {\n                            _confirmDestroy() {\n                                const modal = this.$modal.success({\n                                    title: '这是一条通知信息',\n                                    content: '一秒后自动移除'\n                                });\n                                setTimeout(() => modal.destroy(), 1000);\n                            }\n                        }\n                    }\n                </template>\n            </code-box>\n        </v-col>\n    </v-row>\n    <api-table :apis='modalApis'></api-table>\n    <api-table :apis='confirmApis' , title=\"Modal.xxx()\">\n        <p>包括：</p>\n        <ul>\n            <li><p><code>Modal.info</code></p></li>\n            <li><p><code>Modal.success</code></p></li>\n            <li><p><code>Modal.error</code></p></li>\n            <li><p><code>Modal.warning</code></p></li>\n            <li><p><code>Modal.confirm</code></p></li>\n        </ul>\n        <p>以上均为一个函数，参数为 object，具体属性如下：</p>\n    </api-table>\n</div>\n";
 
 /***/ },
 
-/***/ 557:
+/***/ 457:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+
+	var _promise = __webpack_require__(143);
+
+	var _promise2 = _interopRequireDefault(_promise);
 
 	var _codeBox = __webpack_require__(19);
 
@@ -5640,47 +5663,287 @@ webpackJsonp([4,53],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      content: [['show', '控制queueAnim组件的显示隐藏', 'bool', 'true'], ['type', '动画内置参数 left right top bottom scale scaleBig scaleX scaleY', 'string / array', 'right'], ['animConfig', '配置动画参数 如 {opacity:[1, 0],translateY:[0, -30]} 具体参考 velocity 的写法', 'object / array', 'null'], ['delay', '整个动画的延时,以毫秒为单位', 'number / array', '0'], ['duration', '每个动画的时间,以毫秒为单位', 'number / array', '500'], ['interval', '每个动画的间隔时间,以毫秒为单位', 'number / array', '100'], ['leaveReverse', '出场时是否倒放,从最后一个 dom 开始往上播放', 'boolean', 'false'], ['ease', '动画的缓动函数,<a href="http://velocityjs.org/#easing" target="_blank">查看详细</a>', 'string / array', 'easeOutQuart'], ['animatingClassName', '进出场动画进行中的类名', 'array', "['queue-anim-entering', 'queue-anim-leaving']"]],
-	      items: ['1', '2', '3'],
-	      show: true,
-	      labelCol: { span: 6 },
-	      wrapperCol: { span: 14 }
-	    };
-	  },
-	  components: {
-	    codeBox: _codeBox2.default,
-	    apiTable: _apiTable2.default
-	  },
-	  methods: {
-	    _handleClick: function _handleClick() {
-	      this.show = !this.show;
+	    data: function data() {
+	        return {
+	            confirmLoading: false,
+	            visible: false,
+	            visible2: false,
+	            visible3: false,
+	            visible4: false,
+	            visible5: false,
+	            visible51: false,
+	            visible6: false,
+	            confirmLoading2: false,
+	            confirmLoading6: false,
+	            modalStyle: {
+	                top: '20px'
+	            },
+	            wrapClassName: 'vertical-center-modal',
+	            confirmApis: [{
+	                "parameter": "title",
+	                "explain": "标题",
+	                "type": "React.Element or String",
+	                "default": "无"
+	            }, {
+	                "parameter": "content",
+	                "explain": "内容",
+	                "type": "React.Element or String",
+	                "default": "无"
+	            }, {
+	                "parameter": "onOk",
+	                "explain": "点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",
+	                "type": "function",
+	                "default": "无"
+	            }, {
+	                "parameter": "onCancel",
+	                "explain": "取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭",
+	                "type": "function",
+	                "default": "无"
+	            }, {
+	                "parameter": "width",
+	                "explain": "宽度",
+	                "type": "String or Number",
+	                "default": "416"
+	            }, {
+	                "parameter": "iconType",
+	                "explain": "图标 Icon 类型",
+	                "type": "String",
+	                "default": "question-circle"
+	            }, {
+	                "parameter": "okText",
+	                "explain": "确认按钮文字",
+	                "type": "String",
+	                "default": "确定"
+	            }, {
+	                "parameter": "cancelText",
+	                "explain": "取消按钮文字",
+	                "type": "String",
+	                "default": "取消"
+	            }],
+	            modalApis: [{
+	                "parameter": "visible",
+	                "explain": "对话框是否可见",
+	                "type": "Boolean",
+	                "default": "无"
+	            }, {
+	                "parameter": "confirmLoading",
+	                "explain": "确定按钮 loading",
+	                "type": "Boolean",
+	                "default": "无"
+	            }, {
+	                "parameter": "title",
+	                "explain": "标题",
+	                "type": "React.Element",
+	                "default": "无"
+	            }, {
+	                "parameter": "closable",
+	                "explain": "是否显示右上角的关闭按钮",
+	                "type": "Boolean",
+	                "default": "true"
+	            }, {
+	                "parameter": "onOk",
+	                "explain": "点击确定回调",
+	                "type": "function",
+	                "default": "无"
+	            }, {
+	                "parameter": "onCancel",
+	                "explain": "点击遮罩层或右上角叉或取消按钮的回调",
+	                "type": "function(e)",
+	                "default": "无"
+	            }, {
+	                "parameter": "width",
+	                "explain": "宽度",
+	                "type": "String or Number",
+	                "default": "520"
+	            }, {
+	                "parameter": "footer",
+	                "explain": "底部内容",
+	                "type": "React.Element",
+	                "default": "确定取消按钮"
+	            }, {
+	                "parameter": "okText",
+	                "explain": "确认按钮文字",
+	                "type": "String",
+	                "default": "确定"
+	            }, {
+	                "parameter": "cancelText",
+	                "explain": "取消按钮文字",
+	                "type": "String",
+	                "default": "取消"
+	            }, {
+	                "parameter": "maskClosable",
+	                "explain": "点击蒙层是否允许关闭",
+	                "type": "Boolean",
+	                "default": "true"
+	            }, {
+	                "parameter": "style",
+	                "explain": "可用于设置浮层的样式，调整浮层位置等",
+	                "type": "Object",
+	                "default": "-"
+	            }, {
+	                "parameter": "wrapClassName",
+	                "explain": "对话框外层容器的类名",
+	                "type": "String",
+	                "default": "-"
+	            }]
+	        };
 	    },
-	    _handleAdd: function _handleAdd() {
-	      var len = this.items.length + 1;
-	      this.items.push('' + len);
-	    },
-	    _handleRemove: function _handleRemove() {
-	      this.items.pop();
+
+
+	    components: { codeBox: _codeBox2.default, apiTable: _apiTable2.default },
+
+	    methods: {
+	        _showModal: function _showModal() {
+	            this.visible = true;
+	        },
+	        _handleOk: function _handleOk() {
+	            this.confirmLoading = false;
+	            this.visible = false;
+	        },
+	        _handleCancel: function _handleCancel() {
+	            this.visible = false;
+	        },
+	        _showModal2: function _showModal2() {
+	            this.visible2 = true;
+	        },
+	        _handleOk2: function _handleOk2() {
+	            var _this = this;
+
+	            this.confirmLoading2 = true;
+	            setTimeout(function () {
+	                _this.visible2 = false;
+	                _this.confirmLoading2 = false;
+	            }, 2000);
+	        },
+	        _handleCancel2: function _handleCancel2() {
+	            this.visible2 = false;
+	        },
+	        _showModal3: function _showModal3() {
+	            this.visible3 = true;
+	        },
+	        _handleOk3: function _handleOk3() {
+	            this.visible3 = false;
+	        },
+	        _handleCancel3: function _handleCancel3() {
+	            this.visible3 = false;
+	        },
+	        _showModal4: function _showModal4() {
+	            this.visible4 = true;
+	        },
+	        _handleOk4: function _handleOk4() {
+	            this.visible4 = false;
+	        },
+	        _handleCancel4: function _handleCancel4() {
+	            this.visible4 = false;
+	        },
+	        _showModal5: function _showModal5() {
+	            this.visible5 = true;
+	        },
+	        _handleOk5: function _handleOk5() {
+	            this.visible5 = false;
+	        },
+	        _handleCancel5: function _handleCancel5() {
+	            this.visible5 = false;
+	        },
+	        _showModal51: function _showModal51() {
+	            this.visible51 = true;
+	        },
+	        _handleOk51: function _handleOk51() {
+	            this.visible51 = false;
+	        },
+	        _handleCancel51: function _handleCancel51() {
+	            this.visible51 = false;
+	        },
+	        _showModal6: function _showModal6() {
+	            this.visible6 = true;
+	        },
+	        _handleOk6: function _handleOk6() {
+	            var _this2 = this;
+
+	            this.confirmLoading6 = true;
+	            setTimeout(function () {
+	                _this2.visible6 = false;
+	                _this2.confirmLoading6 = false;
+	            }, 2000);
+	        },
+	        _handleCancel6: function _handleCancel6() {
+	            this.visible6 = false;
+	        },
+	        _confirmNation: function _confirmNation() {
+	            Vue.$modal.confirm({
+	                title: 'Confirm',
+	                content: 'Bla bla ...',
+	                okText: 'OK',
+	                cancelText: 'Cancel'
+	            });
+	        },
+	        _showConfirm: function _showConfirm() {
+	            Vue.$modal.confirm({
+	                title: '您是否确认要删除这项内容',
+	                content: '一些解释',
+	                onOk: function onOk() {
+	                    console.log('确定');
+	                },
+	                onCancel: function onCancel() {}
+	            });
+	        },
+	        _showConfirm2: function _showConfirm2() {
+	            Vue.$modal.confirm({
+	                title: '您是否确认要删除这项内容',
+	                content: '点确认 1 秒后关闭',
+	                onOk: function onOk() {
+	                    return new _promise2.default(function (resolve) {
+	                        setTimeout(resolve, 1000);
+	                    });
+	                },
+	                onCancel: function onCancel() {}
+	            });
+	        },
+	        info: function info() {
+	            Vue.$modal.info({
+	                title: '这是一条通知信息',
+	                content: '一些附加信息一些附加信息一些附加信息',
+	                onOk: function onOk() {}
+	            });
+	        },
+	        success: function success() {
+	            Vue.$modal.success({
+	                title: '这是一条通知信息',
+	                content: '一些附加信息一些附加信息一些附加信息'
+	            });
+	        },
+	        error: function error() {
+	            this.$modal.error({
+	                title: '这是一条通知信息',
+	                content: '一些附加信息一些附加信息一些附加信息'
+	            });
+	        },
+	        _confirmDestroy: function _confirmDestroy() {
+	            var modal = this.$modal.success({
+	                title: '这是一条通知信息',
+	                content: '一秒后自动移除'
+	            });
+	            setTimeout(function () {
+	                return modal.destroy();
+	            }, 1000);
+	        }
 	    }
-	  }
 	};
 
 /***/ },
 
-/***/ 685:
+/***/ 679:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(185)
-	__vue_script__ = __webpack_require__(557)
+	__webpack_require__(184)
+	__vue_script__ = __webpack_require__(457)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src/views/queueAnim.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(325)
+	  console.warn("[vue-loader] src/views/modal.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(222)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
