@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'v-card',
+  name: 'vCard',
   data:()=>({
       prefix: 'ant-card',
       extra: false,

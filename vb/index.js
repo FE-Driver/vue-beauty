@@ -5,21 +5,25 @@ import button from './components/button'
 import card from './components/card'
 import rate from './components/rate'
 import menu from './components/menu'
+//import tabs from './components/tabs'
+import vSwitch from './components/switch'
 import {col,row} from './components/grid'
 
-let compnents = {
-  col,
-  row,
-  menu,
-  subMenu: menu.subMenu,
-  menuItemGroup: menu.itemGroup,
-  menuItem: menu.item,
-  rate,
-  alert,
-  button,
-  buttonGroup:button.Group,
-  card,
-  rate,
+const compnents = {
+    col,
+    row,
+    menu,
+    subMenu: menu.subMenu,
+    menuItemGroup: menu.itemGroup,
+    menuItem: menu.item,
+    rate,
+    alert,
+    button,
+    buttonGroup:button.Group,
+    //tabs,
+    //tabPane: tabs.tabPane,
+    card,
+    vSwitch,
 }
 
 for(let item of Object.values(compnents) ){
@@ -50,3 +54,19 @@ module.exports = {
   install,
   ...compnents
 }
+
+/*function isFlexSupported(style) {
+  return 'flex' in style ||
+    'webkitFlex' in style ||
+    'MozFlex' in style;
+}
+
+if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
+  const { documentElement } = window.document;
+  const NO_FLEX = 'no-flex';
+
+  if (!isFlexSupported(documentElement.style) &&
+      documentElement.className.indexOf(NO_FLEX) === -1) {
+    documentElement.className += ` ${NO_FLEX}`;
+  }
+}*/

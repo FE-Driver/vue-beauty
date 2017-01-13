@@ -26,35 +26,35 @@
 
 ### 最简单的用法。
 
-<vb-rate :on-change="_change"></vb-rate>
+<v-rate :on-change="_change"></v-rate>
 
 ```
-<vb-rate :on-change="_change"></vb-rate>
+<v-rate :on-change="_change"></v-rate>
 ```
 
 ### 支持选中半星。
 
-<vb-rate allow-half :default-value='2.5'></vb-rate>
+<v-rate allow-half :default-value='2.5'></v-rate>
 
 ```
-<vb-rate allow-half :default-value='2.5'></vb-rate>
+<v-rate allow-half :default-value='2.5'></v-rate>
 ```
 
 ### 给评分组件加上文案展示。
-<vb-rate :default-value='star' :on-change="_change">
+<v-rate :default-value='star' :on-change="_change">
   <span class='ant-rate-text'>{{ star }}星</span>
-</vb-rate>
+</v-rate>
 
 ```
-<vb-rate :default-value='star' :on-change="_change">
+<v-rate :default-value='star' :on-change="_change">
   <span class='ant-rate-text'>{{ star }}星</span>
-</vb-rate>
+</v-rate>
 ```
 
 ### 只读，无法进行鼠标交互。
-<vb-rate disabled :default-value='2'></vb-brate>
+<v-rate disabled :default-value='2'></v-brate>
 ```
-<vb-rate disabled :default-value='2'></vb-brate>
+<v-rate disabled :default-value='2'></v-brate>
 ```
 
 

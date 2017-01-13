@@ -3,33 +3,33 @@
   <div class="main-wrapper page-container">
     <div class="ant-row">
       <div class="aside-container ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
-        <vb-menu mode="inline">
-          <vb-sub-menu title="General">
-            <vb-menu-item>
+        <v-menu mode="inline">
+          <v-submenu title="General">
+            <v-menu-item>
               <router-link :to="{ name:'button'}">Button 按钮</router-link>
-            </vb-menu-item>
-          </vb-sub-menu>
-          <vb-sub-menu title="Navigation">
-            <vb-menu-item>
+            </v-menu-item>
+          </v-submenu>
+          <v-submenu title="Navigation">
+            <v-menu-item>
               <router-link :to="{ name:'test'}">Menu 导航菜单</router-link>
-            </vb-menu-item>
-          </vb-sub-menu>
-          <vb-sub-menu title="feedback">
-            <vb-menu-item>
+            </v-menu-item>
+          </v-submenu>
+          <v-submenu title="feedback">
+            <v-menu-item>
               <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
-            </vb-menu-item>
-          </vb-sub-menu>
-            <vb-sub-menu title="Data Entry">
-            <vb-menu-item>
+            </v-menu-item>
+          </v-submenu>
+            <v-submenu title="Data Entry">
+            <v-menu-item>
               <router-link :to="{ name:'rate'}">Rate 评分</router-link>
-            </vb-menu-item>
-          </vb-sub-menu>
-           <vb-sub-menu title="Data display">
-            <vb-menu-item>
+            </v-menu-item>
+          </v-submenu>
+           <v-submenu title="Data display">
+            <v-menu-item>
               <router-link :to="{ name:'card'}">Card 卡片</router-link>
-            </vb-menu-item>
-          </vb-sub-menu>
-        </vb-menu>
+            </v-menu-item>
+          </v-submenu>
+        </v-menu>
       </div>
       <div class="main-container ant-col-xs-24 ant-col-sm-24 ant-col-md-18 ant-col-lg-20">
         <router-view keep-alive></router-view>

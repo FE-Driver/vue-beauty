@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        name:'vb-menu-item-group',
+        name:'vMenuItemGroup',
         props: {
             title: String
         }

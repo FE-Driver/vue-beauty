@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'vb-sub-menu',
+  name: 'vSubmenu',
   props: {
     title: String,
     icon: String,
@@ -67,8 +67,8 @@ export default {
       let index = 1;
       let parent = this.$parent;
 
-      while (parent.$options.name !== 'vb-menu') {
-        if(parent.$options.name == 'vb-sub-menu') index++;
+      while (parent.$options.name !== 'vMenu') {
+        if(parent.$options.name == 'vSubmenu') index++;
         parent = parent.$parent;
       }
       console.log(parent.mode)

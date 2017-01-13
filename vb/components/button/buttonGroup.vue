@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'v-button-group',
+  name: 'vButtonGroup',
   data:()=>({
     prefix: 'ant-btn-group',
   }),

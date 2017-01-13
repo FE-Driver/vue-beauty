@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name:'vb-menu',
+  name:'vMenu',
   props: {
     mode: {
       type: String,

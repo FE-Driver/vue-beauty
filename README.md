@@ -49,7 +49,7 @@ Beautiful  UI components build with vue and ant design
 
 ## 命名规范
 - 文件，目录均以小写开头，驼峰式(如inputNumber)
-- 组件的name均以vb开头，短横线隔开(如vb-tree-select)
+- 组件的name均以v开头，驼峰式(如vTreeSelect)
 
 ## 感谢
 - 感谢为这个项目做过贡献的所有朋友。

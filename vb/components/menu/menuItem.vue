@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name:'vb-menu-item',
+  name:'vMenuItem',
   data:()=>({
     level:0,
     mode: 'vertical'
@@ -33,8 +33,8 @@ export default {
       let index = 1;
       let parent = this.$parent;
 
-      while (parent.$options.name !== 'vb-menu') {
-        if(parent.$options.name == 'vb-sub-menu') index++;
+      while (parent.$options.name !== 'vMenu') {
+        if(parent.$options.name == 'vSubmenu') index++;
         parent = parent.$parent;
       }
       this.mode = parent.mode;

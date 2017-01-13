@@ -5,7 +5,7 @@
 </template>
 <script>
   export default {
-    name:'v-row',
+    name:'vRow',
     props: {
       gutter: Number,
       pack:String,

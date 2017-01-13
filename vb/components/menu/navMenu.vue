@@ -3,7 +3,7 @@
     <menu v-if="data && data.length" :mode="mode" :theme="theme">
       <template v-for="item in data">
         <menu-item v-if="!item.children && !item.groups" v-link="item.link" :disabled="item.disabled" :icon="item.icon">{{item.name}}</menu-item>
-        <nav-sub-menu v-else :data="item"></nav-sub-menu>
+        <nav-submenu v-else :data="item"></nav-submenu>
       </template>
     </menu>
   </div>
@@ -12,11 +12,10 @@
 <script>
   import menu from './menu.vue'
   import menuItem from './menuItem.vue'
-  import navSubMenu from './navSubMenu.vue'
-
+  import navSubmenu from './navSubMenu.vue'
 
   export default {
-    name: 'vb-nav-menu',
+    name: 'vNavmenu',
     props: {
       data: {
         type: Array,
@@ -33,7 +32,7 @@
     },
     components:{
       menu,
-      navSubMenu,
+      navSubmenu,
       menuItem
     }
   }

@@ -1,7 +1,7 @@
 import "./style/index.less"
-import vButton from './button.vue'
-import vButtonGroup from './buttonGroup.vue'
+import button from './button.vue'
+import buttonGroup from './buttonGroup.vue'
 
-vButton.Group = vButtonGroup
+button.Group = buttonGroup
 
-export default vButton
+export default button

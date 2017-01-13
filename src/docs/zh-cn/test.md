@@ -1,5 +1,8 @@
 <script>
   export default {
+    data: ()=> ({
+      checked: true
+    }),
     methods: {
       hello() {
         alert('Hello World!');
@@ -24,8 +27,7 @@
 ### 自定义关闭按钮
 
 自定义关闭按钮为文字或其他符号。
-
-<vb-rate></vb-rate>
+  <v-switch v-model="checked"></v-switch>
 
 
 ### Attributes

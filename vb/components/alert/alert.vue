@@ -35,7 +35,7 @@
  */
 
 export default {
-  name: 'v-alert',
+  name: 'vAlert',
   props: {
     type: {
       type: String,

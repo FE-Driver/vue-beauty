@@ -12,7 +12,7 @@
 <script>
 
   export default {
-    name: 'vb-rate',
+    name: 'vRate',
     data: () => ({
       prefix: 'ant-rate',
       value: 0,
