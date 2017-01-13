@@ -146,11 +146,20 @@
 			  	:show-total="showTotal"
 			  	:total="50">
 				</v-pagination>
+				<br>
+				<v-pagination 
+			  	:default-current="1"
+			  	:show-total="showTotal2"
+			  	:total="50">
+				</v-pagination>
 				<template slot="js">
 					export default {
 						methods: {
 							showTotal(total) {
 								return `全部 ${total} 条`;
+							},
+							showTotal2(total,pages) {
+								return `1-${pages} 全部 ${total} 条`;
 							}
 						}
 					}
@@ -183,6 +192,9 @@ export default {
   	},
   	showTotal(total) {
   		return `全部 ${total} 条`;
+  	},
+		showTotal2(total,pages) {
+  		return `1-${pages} 全部 ${total} 条`;
   	},
   	pageSizeChange(current, size){
   		console.log(current, size);

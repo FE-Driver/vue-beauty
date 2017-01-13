@@ -187,7 +187,7 @@ export default {
   },
   created() {
   	this.current = this.current || this.defaultCurrent;
-  	this.totalText = this.showTotal && this.showTotal(this.allPages);
+  	this.totalText = this.showTotal && this.showTotal(this.total,this.allPages);
     this.options = this.pageSizeOptions.map(function(item, index) {
       return {
         value: item,
