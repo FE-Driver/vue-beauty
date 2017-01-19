@@ -14,11 +14,16 @@ export default [
                 component: require('./docs/zh-cn/test.md')
             },
             {
+                path: 'tag',
+                name: 'tag',
+                component: require('./docs/zh-cn/tag.md')
+            },
+            {
                 path: 'alert',
                 name: 'alert',
                 component: require('./docs/zh-cn/alert.md')
             },
-             {
+            {
                 path: 'button',
                 name: 'button',
                 component: require('./docs/zh-cn/button.md')

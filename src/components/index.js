@@ -1,7 +1,7 @@
-//import codeBox from './codeBox.vue'
+import demoBox from './demoBox.vue'
 
 const compnents = {
-    //codeBox,
+    demoBox,
 }
 
 for(let item of Object.values(compnents) ){

@@ -5,6 +5,7 @@ import button from './components/button'
 import card from './components/card'
 import rate from './components/rate'
 import menu from './components/menu'
+import tag from './components/tag'
 //import tabs from './components/tabs'
 import vSwitch from './components/switch'
 import {col,row} from './components/grid'
@@ -24,6 +25,7 @@ const compnents = {
     //tabPane: tabs.tabPane,
     card,
     vSwitch,
+    tag,
 }
 
 for(let item of Object.values(compnents) ){

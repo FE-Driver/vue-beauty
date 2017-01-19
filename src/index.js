@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import routerMap from './routers'
+//import 'highlight.js/styles/solarized-dark.css'
+import 'highlight.js/styles/color-brewer.css';
 import '../vb/style/index.less'
 import vueBeauty from '../vb'
 import components from './components'
