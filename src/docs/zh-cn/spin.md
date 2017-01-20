@@ -1,25 +1,8 @@
-<style>
-  .demo-box.demo-alert .el-alert {
-    margin: 20px 0 0;
-  }
-
-  .demo-box.demo-alert .el-alert:first-child {
-    margin: 0;
-  }
-</style>
-
 <script>
 export default {
-    data:function(){
-        return {
-            spinning:false
-        }
-   },
-   methods:{
-    _toogle(){
-        this.spinning = !this.spinning
-    }
-  }
+    data:()=> ({
+      spinning:false
+    })
 }
 </script>
 
@@ -57,7 +40,7 @@ export default {
     <v-alert type="info" message="消息提示的文案"
       description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"
     ></v-alert>
-  </v-spin>
+</v-spin>
 ```
 :::
 
@@ -84,30 +67,25 @@ export default {
 
 
 ```html
-<v-spin :spinning="spinning" tip="加载中">
-     <v-alert type="info" message="消息提示的文案" description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍">
-     </v-alert>
- </v-spin>
-切换加载状态：<v-switch v-model="spinning"></v-switch>
+<template>
+  <v-spin :spinning="spinning" tip="加载中">
+      <v-alert type="info" message="消息提示的文案" description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍">
+      </v-alert>
+  </v-spin>
+  切换加载状态：<v-switch v-model="spinning"></v-switch>
+</template>
 <script>
 export default {
-   data:function(){
-        return {
-            spinning:false
-        }
-   },
-   methods:{
-    _toogle(){
-        this.spinning = !this.spinning
-    }
-  }
+   data: ()=> ({
+     spinning:false
+   })
 }
 <script>
 ```
 :::
 
 ## API
-### Attributes
+### Spin Props
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |

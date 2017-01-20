@@ -27,8 +27,10 @@
 </summary>
 
 ```html
-<v-tag>标签</v-tag>
-<v-tag closable @close="onClose">标签</v-tag>
+<template>
+  <v-tag>标签</v-tag>
+  <v-tag closable @close="onClose">标签</v-tag>
+</template>
 
 <script>
   export default {
@@ -58,7 +60,7 @@
 :::
 
 ## API
-### Tag props
+### Tag Props
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | color    | 标签背景色 | string | - |

@@ -13,7 +13,7 @@
 import spinInner from './spinInner'
 
 export default {
-  name: 'v-spin',
+  name: 'vSpin',
   data(){
       return {
         prefix : 'ant-spin',

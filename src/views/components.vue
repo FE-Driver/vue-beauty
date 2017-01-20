@@ -22,7 +22,7 @@
                             <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
                         </v-menu-item>
                         <v-menu-item>
-                            <router-link :to="{ name:'tag'}">Tag 警告提示</router-link>
+                            <router-link :to="{ name:'tag'}">Tag 标签</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Data Entry">
