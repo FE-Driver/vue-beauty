@@ -13,13 +13,13 @@ Vue.use(vueBeauty);
 Vue.use(components);
 
 window.router = new VueRouter({
-  mode: 'hash',
-  base: __dirname,
-  routes: routerMap
+    mode: 'hash',
+    base: __dirname,
+    routes: routerMap
 });
 
 new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
+    el: '#app',
+    router,
+    render: h => h(App)
 })

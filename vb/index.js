@@ -8,7 +8,7 @@ import menu from './components/menu'
 import tag from './components/tag'
 //import tabs from './components/tabs'
 import vSwitch from './components/switch'
-import {col,row} from './components/grid'
+import {col, row} from './components/grid'
 
 const compnents = {
     col,
@@ -20,7 +20,7 @@ const compnents = {
     rate,
     alert,
     button,
-    buttonGroup:button.Group,
+    buttonGroup: button.Group,
     //tabs,
     //tabPane: tabs.tabPane,
     card,
@@ -28,47 +28,47 @@ const compnents = {
     tag,
 }
 
-for(let item of Object.values(compnents) ){
-  if(!item.install && item.name){
-    item.install = function(Vue) {
-      Vue.component(item.name, item);
-    };
-  }
+for (let item of Object.values(compnents)) {
+    if (!item.install && item.name) {
+        item.install = function (Vue) {
+            Vue.component(item.name, item);
+        };
+    }
 }
 
-const install = function(Vue) {
+const install = function (Vue) {
     if (install.installed) return;
 
-    for(let item of Object.values(compnents) ){
-      if(item.install){
-        Vue.use(item);
-      }
+    for (let item of Object.values(compnents)) {
+        if (item.install) {
+            Vue.use(item);
+        }
     }
 }
 
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
+    install(window.Vue);
 };
 
 module.exports = {
-  version: '2.0.0-alpha.0',
-  install,
-  ...compnents
+    version: '2.0.0-alpha.0',
+    install,
+    ...compnents
 }
 
 /*function isFlexSupported(style) {
-  return 'flex' in style ||
-    'webkitFlex' in style ||
-    'MozFlex' in style;
+    return 'flex' in style ||
+        'webkitFlex' in style ||
+        'MozFlex' in style;
 }
 
 if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
-  const { documentElement } = window.document;
-  const NO_FLEX = 'no-flex';
+    const {documentElement} = window.document;
+    const NO_FLEX = 'no-flex';
 
-  if (!isFlexSupported(documentElement.style) &&
-      documentElement.className.indexOf(NO_FLEX) === -1) {
-    documentElement.className += ` ${NO_FLEX}`;
-  }
+    if (!isFlexSupported(documentElement.style) &&
+        documentElement.className.indexOf(NO_FLEX) === -1) {
+        documentElement.className += ` ${NO_FLEX}`;
+    }
 }*/
