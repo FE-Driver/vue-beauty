@@ -66,7 +66,6 @@
 
         methods: {
             _getCopyCode: function(type) {
-                console.log(1)
                 return '<v-icon type="'+type+'"></v-icon>'
             },
             clickfunc: function(event){
