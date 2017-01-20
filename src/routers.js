@@ -37,6 +37,11 @@ export default [
                 path: 'rate',
                 name: 'rate',
                 component: require('./docs/zh-cn/rate.md')
+            },
+            {
+                path: 'spin',
+                name: 'spin',
+                component: require('./docs/zh-cn/spin.md')
             }
         ]
     }

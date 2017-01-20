@@ -10,7 +10,7 @@ import tag from './components/tag'
 import vSwitch from './components/switch'
 import {col, row} from './components/grid'
 import locale from './locale';
-
+import spin from './components/spin'
 const compnents = {
     col,
     row,
@@ -27,6 +27,7 @@ const compnents = {
     card,
     vSwitch,
     tag,
+    spin,
 }
 
 for (let item of Object.values(compnents)) {
