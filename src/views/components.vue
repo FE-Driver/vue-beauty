@@ -35,6 +35,11 @@
                             <router-link :to="{ name:'card'}">Card 卡片</router-link>
                         </v-menu-item>
                     </v-submenu>
+                    <v-submenu title="other">
+                        <v-menu-item>
+                            <router-link :to="{ name:'spin'}">spin加载中</router-link>
+                        </v-menu-item>
+                    </v-submenu>
                 </v-menu>
             </div>
             <div class="main-container ant-col-xs-24 ant-col-sm-24 ant-col-md-18 ant-col-lg-20">
