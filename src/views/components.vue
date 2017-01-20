@@ -8,6 +8,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'button'}">Button 按钮</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'icon'}">Icon 图标</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Navigation">
                         <v-menu-item>

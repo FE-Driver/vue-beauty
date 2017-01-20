@@ -29,6 +29,11 @@ export default [
                 component: require('./docs/zh-cn/button.md')
             },
             {
+                path: 'icon',
+                name: 'icon',
+                component: require('./docs/zh-cn/icon.md')
+            },
+            {
                 path: 'card',
                 name: 'card',
                 component: require('./docs/zh-cn/card.md')
