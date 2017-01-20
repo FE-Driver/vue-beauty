@@ -7,9 +7,11 @@ import 'highlight.js/styles/color-brewer.css';
 import '../vb/style/index.less'
 import vueBeauty from '../vb'
 import components from './components'
+//import locale from '../vb/locale/lang/en'
+import locale from '../vb/locale/lang/zh-CN'
 
 Vue.use(VueRouter);
-Vue.use(vueBeauty);
+Vue.use(vueBeauty,{locale});
 Vue.use(components);
 
 window.router = new VueRouter({

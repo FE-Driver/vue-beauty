@@ -1,6 +1,8 @@
 <script>
+  import {t} from '../../../vb/locale'
   export default {
     data: ()=> ({
+      test: t('test.test'),
       checked: true
     }),
     methods: {
@@ -69,7 +71,8 @@
 </style>
 ```
 :::
-  <v-switch v-model="checked"></v-switch>
+## i18n
+<div>{{test}}</div>
 
 
 ### Attributes

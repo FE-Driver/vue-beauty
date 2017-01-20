@@ -9,6 +9,7 @@ import tag from './components/tag'
 //import tabs from './components/tabs'
 import vSwitch from './components/switch'
 import {col, row} from './components/grid'
+import locale from './locale';
 
 const compnents = {
     col,
@@ -36,8 +37,10 @@ for (let item of Object.values(compnents)) {
     }
 }
 
-const install = function (Vue) {
+const install = function (Vue, opts = {}) {
     if (install.installed) return;
+    locale.use(opts.locale);
+    locale.i18n(opts.i18n);
 
     for (let item of Object.values(compnents)) {
         if (item.install) {
