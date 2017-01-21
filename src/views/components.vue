@@ -14,6 +14,9 @@
                     </v-submenu>
                     <v-submenu title="Navigation">
                         <v-menu-item>
+                            <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'test'}">Menu 导航菜单</router-link>
                         </v-menu-item>
                     </v-submenu>

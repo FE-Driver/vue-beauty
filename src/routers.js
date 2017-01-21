@@ -24,6 +24,11 @@ export default [
                 component: require('./docs/zh-cn/alert.md')
             },
             {
+                path: 'breadcrumb',
+                name: 'breadcrumb',
+                component: require('./docs/zh-cn/breadcrumb.md')
+            },
+            {
                 path: 'button',
                 name: 'button',
                 component: require('./docs/zh-cn/button.md')
