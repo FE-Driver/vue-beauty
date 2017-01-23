@@ -17,7 +17,10 @@
                             <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
                         </v-menu-item>
                         <v-menu-item>
-                            <router-link :to="{ name:'test'}">Menu 导航菜单</router-link>
+                            <router-link :to="{ name:'cascader'}">Cascader 面包屑</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'test'}">Switch test</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">

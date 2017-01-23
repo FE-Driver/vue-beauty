@@ -10,8 +10,10 @@ import tag from './components/tag';
 // import tabs from './components/tabs'
 import vSwitch from './components/switch';
 import { col, row } from './components/grid';
-import locale from './locale';
 import spin from './components/spin';
+import cascader from './components/cascader';
+import input from './components/input';
+import locale from './locale';
 
 const components = {
     breadcrumb,
@@ -32,6 +34,7 @@ const components = {
     vSwitch,
     tag,
     spin,
+    cascader,
 };
 
 for (let item of Object.values(components)) {

@@ -1,7 +1,7 @@
 <template>
   <span>
   <ul :class="[prefix,{[prefix+'-disabled']: disabled}]" @mouseout="recovery">
-    <li :class="[prefix+'-star',item]" v-for="(item, index) in lightArr" track-by="index" @mouseover="allLight(index)" @click="selected">
+    <li :class="[prefix+'-star',item]" v-for="(item, index) in lightArr" @mouseover="allLight(index)" @click="selected">
       <div :class="prefix+'-star-content'"  @mouseover="halfLight(index,$event)"></div>
     </li>
   </ul>
