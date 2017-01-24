@@ -144,10 +144,33 @@
           export default {
             data: function() {
               return {
+                list: [],
+                states: ["Alabama", "Alaska", "Arizona",
+                "Arkansas", "California", "Colorado",
+                "Connecticut", "Delaware", "Florida",
+                "Georgia", "Hawaii", "Idaho", "Illinois",
+                "Indiana", "Iowa", "Kansas", "Kentucky",
+                "Louisiana", "Maine", "Maryland",
+                "Massachusetts", "Michigan", "Minnesota",
+                "Mississippi", "Missouri", "Montana",
+                "Nebraska", "Nevada", "New Hampshire",
+                "New Jersey", "New Mexico", "New York",
+                "North Carolina", "North Dakota", "Ohio",
+                "Oklahoma", "Oregon", "Pennsylvania",
+                "Rhode Island", "South Carolina",
+                "South Dakota", "Tennessee", "Texas",
+                "Utah", "Vermont", "Virginia",
+                "Washington", "West Virginia", "Wisconsin",
+                "Wyoming"],
                 loading: false,
                 loading2: false,
-                remoteOption: [],
+                remoteOption: []
               }
+            },
+            ready(){
+              this.list = this.states.map(item => {
+                return { value: item, text: item };
+              });
             },
             methods:{
               remoteMethod(query) {
@@ -319,7 +342,7 @@
             'allowClear',
             '支持清除, 单选模式有效',
             'Boolean',
-            'false'
+            'true'
           ],
           [
             'value',
@@ -398,7 +421,7 @@
           [
             'text',
             '选项的标签(该字段可通过select的label属性修改)',
-            'String/Number',
+            'String',
             '-'
           ],
           [
