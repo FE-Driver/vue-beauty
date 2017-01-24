@@ -1,15 +1,13 @@
 <template>
-
     <div :style="placeholderStyle">
         <div :class="{[prefix]: isAffix}" :style="affixStyle">
             <slot></slot>
         </div>
     </div>
-
 </template>
 
 <script lang="babel">
-    import {getOffset,getScroll} from "../_util/_func.js"
+    import {getOffset,getScroll} from "../../utils/fn"
 
     export default {
         name: 'vAffix',
@@ -53,14 +51,10 @@
                     height: this.$el.offsetHeight + 'px'
                 } : null
             },
-            affixClass() {
-
-            },
             affixStyle(){
                 let style = null;
                 if(this.isAffix ){
                     style = {
-                        position: 'fixed',
                         left: getOffset(this.$el).left + 'px',
                         width: this.$el.offsetWidth + 'px',
                     }

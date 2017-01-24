@@ -54,6 +54,11 @@ export default [
                 component: require('./docs/zh-cn/card.md')
             },
             {
+                path: 'select',
+                name: 'select',
+                component: require('./docs/zh-cn/select.md')
+            },
+            {
                 path: 'rate',
                 name: 'rate',
                 component: require('./docs/zh-cn/rate.md')

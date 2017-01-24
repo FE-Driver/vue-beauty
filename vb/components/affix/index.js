@@ -1,3 +1,4 @@
-import vAffix from './affix';
+import "./style/index.less"
+import affix from './affix';
 
-export default vAffix;
+export default affix;

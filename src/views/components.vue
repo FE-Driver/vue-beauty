@@ -17,13 +17,16 @@
                             <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
                         </v-menu-item>
                         <v-menu-item>
-                            <router-link :to="{ name:'cascader'}">Cascader 面包屑</router-link>
+                            <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'test'}">Switch test</router-link>
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'affix'}">Affix 固钉</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'select'}">Select 选择器</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
