@@ -1,7 +1,6 @@
 <template>
     <div :class="wrapCls" @click.stop="toggleDropdown">
-        <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true"
-        aria-expanded="false" tabindex="0">
+        <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0">
             <div class="ant-select-selection__rendered">
                 <template v-if="labels">
                     <ul v-if="multiple">
@@ -16,7 +15,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="ant-select-selection-selected-value" title="Lucy" :style="{opacity: isSearchFocus?0.4:1};">{{labels}}</div>
+                    <div v-else class="ant-select-selection-selected-value" title="Lucy" :style="{opacity: isSearchFocus?0.4:1}">{{labels}}</div>
                 </template>
                 <div v-show="((multiple && !labels.length) || (!multiple && !labels)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
                 <div v-if="search && !multiple" class="ant-select-search ant-select-search--inline">
@@ -42,13 +41,13 @@
                             <li v-if="searchVal && remoteMethod && !options.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
                             <li v-if="searchVal && !remoteMethod && !searchFound" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
                             <template v-for="(option,i) in ori_options">
-                                <template v-if="option[groupLabel]">
+                                <template v-if="option.options">
                                     <li v-show="option.show" class=" ant-select-dropdown-menu-item-group">
                                         <div class="ant-select-dropdown-menu-item-group-title">
                                             {{option[groupLabel]}}
                                         </div>
-                                        <ul v-if="option.data && option.data.length" class="ant-select-dropdown-menu-item-group-list">
-                                            <li v-show="option.show" v-for="(item,index) in option.data" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,index])">
+                                        <ul v-if="option.options.length" class="ant-select-dropdown-menu-item-group-list">
+                                            <li v-show="option.show" v-for="(item,index) in option.options" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,index])">
                                                 {{item[label]}}
                                                 <span v-if="item.icon" style="float: right"><span :class="'anticon anticon-' + item.icon"></span></span>
                                             </li>
@@ -56,8 +55,7 @@
                                     </li>
                                 </template>
                                 <template v-else>
-                                    <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]"
-                                    role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
+                                    <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
                                         {{option[label]}}
                                         <span v-if="option.icon" style="float: right"><span :class="'anticon anticon-' + option.icon"></span></span>
                                     </li>
@@ -71,31 +69,34 @@
     </div>
 </template>
 <script>
-    import {getOffset} from '../_util/_func'
+    import {getOffset} from '../../utils/fn'
     
     export default {
-        name: 'v-select',
-        data: ()=>({
-            prefix: 'ant-select',
-            searchVal: '',
-            multipleSearchStyle: {},
-            searchFound: false,
-            show: false,
-            style: {},
-            labels: '',
-            ori_options: [],
-            isSearchFocus: false,
-            dropdownHeight: 0,
-            container: null
-        }),
+        name: 'vSelect',
+        data() {
+            return {
+                prefix: 'ant-select',
+                currentValue: this.value,
+                searchVal: '',
+                multipleSearchStyle: {},
+                searchFound: false,
+                show: false,
+                style: {},
+                labels: '',
+                ori_options: JSON.parse(JSON.stringify(this.options)),
+                isSearchFocus: false,
+                dropdownHeight: 0,
+                container: null
+            }
+        },
         props: {
-            key: {
+            keyFiled: {
                 type: String,
                 default: 'value'
             },
             label: {
                 type: String,
-                default: 'text'
+                default: 'label'
             },
             groupLabel: {
                 type: String,
@@ -179,8 +180,9 @@
             window.removeEventListener('click',this.closeDropdown);
         },
         watch: {
-            value(val){
-                this.$emit('change',val)
+            currentValue(val){
+                this.$emit('change',val);
+                this.$emit('input',val);
             },
             searchVal(val){
                 if(this.multiple){
@@ -195,13 +197,13 @@
                         if(isIncluded) this.searchFound = true;
 
                         if(type == 'item'){
-                            this.$set(`ori_options[${path}].show`, isIncluded);
+                            this.$set(this.ori_options[path],'show',isIncluded);
                         }else{
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, isIncluded);
+                            this.$set(this.ori_options[path[0]].options[path[1]],'show',isIncluded);
                             if(isIncluded) show = true;
                         }
                     },(i,group)=> {
-                        this.$set(`ori_options[${i}].show`, show);
+                        this.$set(this.ori_options[i],'show',show);
                         show = false;
                     })
                 }else{
@@ -214,20 +216,20 @@
 
                     this.mapOptions(([type, path, item])=> {
                         let selected = false;
-                        if(this.multiple && this.value.includes(item[this.key])){
+                        if(this.multiple && this.currentValue.includes(item[this.keyFiled])){
                             selected = true;
-                        }else if(!this.multiple && this.value === item[this.key]){
+                        }else if(!this.multiple && this.currentValue === item[this.keyFiled]){
                             selected = true;
                         }
                         if(type == 'item'){
-                            this.$set(`ori_options[${path}].selected`, selected);
-                            this.$set(`ori_options[${path}].show`, true);
+                            this.$set(this.ori_options[path],'selected',selected);
+                            this.$set(this.ori_options[path],'show',true);
                         }else{
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, selected);
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, true);
+                            this.$set(this.ori_options[path[0]].options[path[1]],'selected',selected);
+                            this.$set(this.ori_options[path[0]].options[path[1]],'show',true);
                         }
                     },(i,group)=> {
-                        this.$set(`ori_options[${i}].show`, true);
+                        this.$set(this.ori_options[i],'show',true);
                     })
                 },
                 deep: true
@@ -260,9 +262,9 @@
         methods: {
             mapOptions(callback,groupCallback){
                 for(let [i,opt] of this.ori_options.entries()){
-                    if(opt[this.groupLabel]){
-                        if(opt.data && opt.data.length){
-                            for(let [j,item] of opt.data.entries()){
+                    if(opt.options){
+                        if(opt.options.length){
+                            for(let [j,item] of opt.options.entries()){
                                 const res = callback(['groupItem', [i,j], item])
                                 if(res) break;
                             }
@@ -275,50 +277,49 @@
                 }
             },
             init(){
-                if(this.options.length) this.ori_options = JSON.parse(JSON.stringify(this.options));
                 if(this.multiple){
                     this.labels = [];
-                    if(!this.value) this.value = [];
+                    if(!this.currentValue) this.currentValue = [];
                 }
 
                 this.mapOptions(([type, path, item])=> {
                     let selected = false;
-                    if(this.multiple && this.value.includes(item[this.key])){
+                    if(this.multiple && this.currentValue.includes(item[this.keyFiled])){
                         selected = true;
                         this.labels.push(item[this.label]);
-                    }else if(!this.multiple && this.value === item[this.key]){
+                    }else if(!this.multiple && this.currentValue === item[this.keyFiled]){
                         selected = true;
                         this.labels = item[this.label];
                     }
                     if(type == 'item'){
-                        this.$set(`ori_options[${path}].selected`, selected);
-                        this.$set(`ori_options[${path}].show`, true);
+                        this.$set(this.ori_options[path],'selected',selected);
+                        this.$set(this.ori_options[path],'show',true);
                     }else{
-                        this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, selected);
-                        this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, true);
+                        this.$set(this.ori_options[path[0]].options[path[1]],'selected',selected);
+                        this.$set(this.ori_options[path[0]].options[path[1]],'show',true);
                     }
                 },(i,group)=> {
-                    this.$set(`ori_options[${i}].show`, true);
+                    this.$set(this.ori_options[i],'show',true);
                 })
             },
             getDropdownHeight(){
                 this.dropdownHeight = parseFloat(getComputedStyle(this.$refs.dropdown, null).height);
             },
             setOptions(opt,groupOpt){
-               this.mapOptions(([type, path, item])=> {
+                this.mapOptions(([type, path, item])=> {
                     if(type == 'item'){
                         for(let [key,val] of Object.entries(opt)){
-                            this.$set(`ori_options[${path}].${key}`, val);
+                            this.$set(this.ori_options[path],key,val);
                         }
                     }else{
                         for(let [key,val] of Object.entries(opt)){
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].${key}`, val);
+                            this.$set(this.ori_options[path[0]].options[path[1]],key,val);
                         }
                     }
                 },(i,group)=> {
                     if(groupOpt){
                         for(let [key,val] of Object.entries(groupOpt)){
-                            this.$set(`ori_options[${i}].${key}`, val);
+                            this.$set(this.ori_options[i],key,val);
                         }
                     }
                 }) 
@@ -327,12 +328,12 @@
                 if(!this.$el) return;
                 let p = getOffset(this.$el, this.container);
 
-                this.$set('style',{
+                this.style = {
                     top: (this.placement == 'top'? p.top-this.dropdownHeight - 4 : p.bottom + 4) + 'px',
                     left: p.left + 'px',
                     width: p.right - p.left + 'px',
                     maxHeight: this.maxHeight + 'px'
-                })
+                }
             },
             closeDropdown(){
                 this.show = false;
@@ -359,20 +360,20 @@
                 },300)
             },
             clear(){
-                this.value = '';
+                this.currentValue = '';
                 this.labels = '';
                 this.setOptions({selected: false});
             },
             remove(i,text){
                 this.labels.splice(i,1);
-                this.value.splice(i,1);
+                this.currentValue.splice(i,1);
 
                 this.mapOptions(([type, path, item])=> {
                     if(item[this.label] == text){
                         if(type == 'item'){
-                            this.$set(`ori_options[${path}].selected`, false);
+                            this.$set(this.ori_options[path],'selected',false);
                         }else{
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, false);
+                            this.$set(this.ori_options[path[0]].options[path[1]],'selected',false);
                         }
                         return true;
                     }
@@ -383,7 +384,7 @@
                 if(typeof path == 'number'){
                     opt = this.ori_options[path]
                 }else{
-                    opt = this.ori_options[path[0]].data[path[1]]
+                    opt = this.ori_options[path[0]].options[path[1]]
                 }
                 if(opt.disabled) return;
                 this.searchVal = '';
@@ -392,15 +393,15 @@
                     if(opt.selected){
                         const j = this.labels.indexOf(opt[this.label]);
                         this.labels.splice(j,1);
-                        this.value.splice(j,1);
+                        this.currentValue.splice(j,1);
                     }else{
-                        this.value.push(opt[this.key]);
+                        this.currentValue.push(opt[this.keyFiled]);
                         this.labels.push(opt[this.label]);
                     }
                     opt.selected = !opt.selected;
                 }else{
                     opt.selected = true;
-                    this.value = opt[this.key];
+                    this.currentValue = opt[this.keyFiled];
                     this.labels = opt[this.label];
                 }
             }

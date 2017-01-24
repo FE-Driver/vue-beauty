@@ -15,7 +15,7 @@ import { col, row } from './components/grid';
 import spin from './components/spin';
 import cascader from './components/cascader';
 import input from './components/input';
-//import select from './components/select';
+import select from './components/select';
 import locale from './locale';
 
 const components = {
@@ -40,7 +40,7 @@ const components = {
     tag,
     spin,
     cascader,
-    //select,
+    select,
 };
 
 for (let item of Object.values(components)) {
