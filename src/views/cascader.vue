@@ -160,16 +160,14 @@
 			</code-box>
 			<code-box title="禁用选项" describe="通过指定 options 里的 disabled 字段。">
 				<v-cascader :options="options2"></v-cascader>
-			</code-box>
-			<code-box title="禁用" describe="禁用整个控件">
-				<v-cascader disabled :options="options2"></v-cascader>
 				<template slot="js">
 				export default {
 					data: function() {
 						return {
-							options: [{
+							options2: [{
 								value: 'sc',
 								label: '四川',
+								disabled: 'true',
 								children: [{
 									value: 'cd',
 									label: '成都',
@@ -204,6 +202,9 @@
 					}
 				}
 				</template>
+			</code-box>
+			<code-box title="禁用" describe="禁用整个控件">
+				<v-cascader :disabled="true"></v-cascader>
 			</code-box>
 		</v-Col>
 	</v-row>

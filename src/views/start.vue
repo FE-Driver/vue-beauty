@@ -24,11 +24,11 @@
         import Vue from 'vue'
 
         //import css
-        import from 'vue-beauty/style/vue-beauty.min.css'
+        import 'vue-beauty/package/style/vue-beauty.min.css'
 
         //import components
-        import vue-beauty from 'vue-beauty'
-        Vue.use(vue-beauty)
+        import vueBeauty from 'vue-beauty'
+        Vue.use(vueBeauty)
 
         //OR
         import {alert} from 'vue-beauty'
