@@ -3,9 +3,11 @@ import './utils/polyfill';
 import alert from './components/alert';
 import breadcrumb from './components/breadcrumb';
 import button from './components/button';
+import icon from './components/icon';
 import card from './components/card';
 import rate from './components/rate';
 import menu from './components/menu';
+import affix from './components/affix';
 import tag from './components/tag';
 // import tabs from './components/tabs'
 import vSwitch from './components/switch';
@@ -24,8 +26,10 @@ const components = {
     subMenu: menu.subMenu,
     menuItemGroup: menu.itemGroup,
     menuItem: menu.item,
+    affix,
     rate,
     alert,
+    icon,
     button,
     buttonGroup: button.Group,
     // tabs,

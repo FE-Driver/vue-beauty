@@ -44,6 +44,11 @@ export default [
                 component: require('./docs/zh-cn/icon.md')
             },
             {
+                path: 'affix',
+                name: 'affix',
+                component: require('./docs/zh-cn/affix.md')
+            },
+            {
                 path: 'card',
                 name: 'card',
                 component: require('./docs/zh-cn/card.md')

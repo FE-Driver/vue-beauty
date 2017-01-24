@@ -22,6 +22,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'test'}">Switch test</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'affix'}">Affix 固钉</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
                         <v-menu-item>
