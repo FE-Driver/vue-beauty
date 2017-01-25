@@ -12,21 +12,36 @@
                             <router-link :to="{ name:'icon'}">Icon 图标</router-link>
                         </v-menu-item>
                     </v-submenu>
+                    <v-submenu title="Layout">
+                    </v-submenu>
                     <v-submenu title="Navigation">
-                        <v-menu-item>
-                            <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'test'}">Switch test</router-link>
-                        </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'affix'}">Affix 固钉</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
+                        </v-menu-item>
+                    </v-submenu>
+                    <v-submenu title="Data Entry">
+                        <v-menu-item>
+                            <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'rate'}">Rate 评分</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'select'}">Select 选择器</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'switch'}">Switch 开关</router-link>
+                        </v-menu-item>
+                    </v-submenu>
+                    <v-submenu title="Data display">
+                        <v-menu-item>
+                            <router-link :to="{ name:'card'}">Card 卡片</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'tag'}">Tag 标签</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
@@ -34,23 +49,10 @@
                             <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
                         </v-menu-item>
                         <v-menu-item>
-                            <router-link :to="{ name:'tag'}">Tag 标签</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Data Entry">
-                        <v-menu-item>
-                            <router-link :to="{ name:'rate'}">Rate 评分</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Data display">
-                        <v-menu-item>
-                            <router-link :to="{ name:'card'}">Card 卡片</router-link>
+                            <router-link :to="{ name:'spin'}">spin加载中</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="other">
-                        <v-menu-item>
-                            <router-link :to="{ name:'spin'}">spin加载中</router-link>
-                        </v-menu-item>
                     </v-submenu>
                 </v-menu>
             </div>

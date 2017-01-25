@@ -26,7 +26,7 @@ export default {
     }
   },
   data:()=>({
-    open: false,
+    open: true,
     level:0,
     mode: 'vertical',
     timer: null

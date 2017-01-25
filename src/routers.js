@@ -54,6 +54,11 @@ export default [
                 component: require('./docs/zh-cn/card.md')
             },
             {
+                path: 'switch',
+                name: 'switch',
+                component: require('./docs/zh-cn/switch.md')
+            },
+            {
                 path: 'select',
                 name: 'select',
                 component: require('./docs/zh-cn/select.md')

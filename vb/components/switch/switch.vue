@@ -1,8 +1,8 @@
 <template lang="html">
   <span :class="wrapClasses" @click="_toggle">
     <span :class="prefix + '-inner'">
-      <slot v-if="value" name="checkedChildren"></slot>
-      <slot v-if="!value" name="unCheckedChildren"></slot>
+      <slot v-if="defaultValue" name="checkedChildren"></slot>
+      <slot v-if="!defaultValue" name="unCheckedChildren"></slot>
     </span>
   </span>
 </template>
@@ -10,9 +10,12 @@
 <script>
 export default {
   name: 'vSwitch',
-  data:()=>({
-    prefix: 'ant-switch',
-  }),
+  data() {
+    return {
+      prefix: 'ant-switch',
+      defaultValue: this.value
+    }
+  },
   props:{
     size: {
       type: String
@@ -32,7 +35,7 @@ export default {
 
       return [
         this.prefix,
-        {[`${this.prefix}-checked`]: this.value},
+        {[`${this.prefix}-checked`]: this.defaultValue},
         {[`${this.prefix}-disabled`]: this.disabled},
         {[`${this.prefix}-${size}`]: size}
       ]
@@ -41,7 +44,8 @@ export default {
   methods: {
     _toggle () {
       if (this.disabled) return;
-      this.$emit('input', !this.value)
+      this.defaultValue = !this.defaultValue;
+      this.$emit('input', this.defaultValue)
     }
   }
 }
