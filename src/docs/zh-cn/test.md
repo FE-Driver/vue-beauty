@@ -2,7 +2,7 @@
   import {t} from '../../../vb/locale'
   export default {
     data: ()=> ({
-      test: t('test.test'),
+      test: t('select.placeholder'),
       checked: true
     }),
     methods: {

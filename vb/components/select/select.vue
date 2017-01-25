@@ -69,6 +69,7 @@
     </div>
 </template>
 <script>
+    import {t} from '../../locale'
     import {getOffset} from '../../utils/fn'
     
     export default {
@@ -108,7 +109,7 @@
             },
             notFoundContent: {
                 type: String,
-                default: '没有找到'
+                default: ()=>t('select.notFoundContent')
             },
             placement: {
                 type: String,
@@ -136,7 +137,7 @@
             },
             placeholder: {
                 type: String,
-                default: '请选择'
+                default: ()=>t('select.placeholder')
             },
             options: {
                 type: Array,
@@ -157,7 +158,7 @@
             },
             loadingText: {
                 type: String,
-                default: '加载中...'
+                default: ()=>t('select.loadingText')
             },
             remoteMethod: Function
         },
