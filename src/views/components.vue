@@ -35,6 +35,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'switch'}">Switch 开关</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'timePicker'}">TimePicker 时间选择框</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Data display">
                         <v-menu-item>

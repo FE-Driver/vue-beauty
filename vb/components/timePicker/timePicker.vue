@@ -1,0 +1,126 @@
+<template lang="html">
+    <span :class="wrapClasses">
+        <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="defaultValue" ref="timePicker" readonly :disabled="disabled">
+        <span class="ant-time-picker-icon"></span>
+        <transition name="fade">
+            <time-picker-node v-show="selected" :selected="selected" :hide-disabled="hideDisabledOptions" :style="style" v-model="defaultValue" :local-format="format" :disabled-h="disabledHours" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" ref="timePickerOption" @select="select"></time-picker-node>
+        </transition>
+        <div class="ant-time-picker-panel-addon" v-if="$scopedSlots.addon" ref="addon">
+            <slot name="addon" :panel="$refs.timePickerOption"></slot>
+        </div>
+    </span>
+</template>
+
+<script>
+    import timePickerNode from './timePickerOption'
+    import {getOffset, closeByElement} from '../../utils/fn'
+
+    export default {
+        name: 'vTimePicker',
+        data() {
+            return {
+                prefix: 'ant-time-picker',
+                style: {},
+                dropDown: false,
+                container: null,
+                defaultValue: this.value,
+                selected: false
+            }
+        },
+        props: {
+            popupContainer: {
+                type: Function,
+                default: ()=> document.body
+            },
+            position: {
+                type: String,
+                default: 'absolute'
+            },
+            size: String,
+            format: String,
+            disabled: Boolean,
+            value: {
+                type: String,
+                default: ''
+            },
+            hideDisabledOptions: {
+                type: Boolean,
+                default: false
+            },
+            disabledHours: Function,
+            disabledMinutes: Function,
+            disabledSeconds: Function
+        },
+        created (){
+            document.addEventListener('click', this.backdrop);
+        },
+        computed: {
+            wrapClasses (){
+                return [
+                    this.prefix,
+                    `${this.prefix}-${this.size}`
+                ]
+            }
+        },
+        mounted (){
+            this.container = this.popupContainer();
+            this.$refs.timePickerOption.$el.style.position = this.position;
+            this.container.appendChild(this.$refs.timePickerOption.$el);
+
+            this.$nextTick(()=>{
+                this.setPosition();
+            })
+            let timer = null;
+            window.addEventListener('resize', ()=> {
+                clearTimeout(timer);
+                timer = setTimeout(()=> {
+                    if (!this.disabled) {
+                        this.setPosition();
+                    }
+                }, 200)
+            })
+
+            if(this.$refs.addon){
+                this.$refs.timePickerOption.$el.children[0].appendChild(this.$refs.addon);
+            }
+        },
+        beforeDestroy (){
+            document.removeEventListener('click', this.backdrop);
+            window.removeEventListener('resize', this.backdrop);
+            let node = this.$refs.timePickerOption.$el;
+            node && document.body.removeChild(node)
+        },
+        watch: {
+            defaultValue(val){
+                this.$emit('input',val)
+            }
+        },
+        methods: {
+            select (status){
+                this.selected = status;
+            },
+            timePicker (){
+                this.selected = !this.selected;
+            },
+            setPosition (){
+                if(!this.$el){
+                    return
+                }
+                let p = getOffset(this.$refs.timePicker, this.container);
+
+                this.style = {
+                    top: p.top + 'px',
+                    left: p.left + 'px'
+                }
+            },
+            backdrop (e){
+                if (!closeByElement(e.target, [this.$refs.timePicker, this.$refs.timePickerOption.$el])) {
+                    this.selected = false;
+                }
+            }
+        },
+        components: {
+            timePickerNode
+        }
+    }
+</script>

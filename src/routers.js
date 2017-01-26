@@ -59,6 +59,11 @@ export default [
                 component: require('./docs/zh-cn/switch.md')
             },
             {
+                path: 'timePicker',
+                name: 'timePicker',
+                component: require('./docs/zh-cn/timePicker.md')
+            },
+            {
                 path: 'select',
                 name: 'select',
                 component: require('./docs/zh-cn/select.md')

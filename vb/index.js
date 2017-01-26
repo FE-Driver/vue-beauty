@@ -16,6 +16,7 @@ import spin from './components/spin';
 import cascader from './components/cascader';
 import input from './components/input';
 import select from './components/select';
+import timePicker from './components/timePicker';
 import locale from './locale';
 
 const components = {
@@ -41,6 +42,7 @@ const components = {
     spin,
     cascader,
     select,
+    timePicker,
 };
 
 for (let item of Object.values(components)) {
