@@ -60,7 +60,7 @@
                 </v-menu>
             </div>
             <div class="main-container ant-col-xs-24 ant-col-sm-24 ant-col-md-18 ant-col-lg-20">
-                <router-view keep-alive></router-view>
+                <router-view keep-alive class="markdown"></router-view>
             </div>
         </div>
     </div>
@@ -114,10 +114,6 @@ export default {
             font-size: 24px;
         }
 
-        /*& > h3 {
-          font-size: 22px;
-        }*/
-
         hr {
             border-radius: 10px;
             height: 3px;
@@ -156,27 +152,30 @@ export default {
         }
 
         .table {
+            font-size: 13px;
             border-collapse: collapse;
+            border-spacing: 0px;
+            empty-cells: show;
+            border: 1px solid #e9e9e9;
             width: 100%;
-            background-color: #fff;
-            color: #5e6d82;
-            font-size: 14px;
-            margin-bottom: 45px;
+            margin: 16px 0;
 
-            strong {
-                font-weight: normal;
+            th{
+                background: #F7F7F7;
+                white-space: nowrap;
+                color: #5C6B77;
+                font-weight: 600;
             }
-            th {
+            td:first-child {
+                background: #fcfcfc;
+                font-weight: 500;
+                width: 20%;
+                font-family: "Lucida Console", Consolas, Menlo, Courier, monospace;
+            }
+            th,td{
+                border: 1px solid #e9e9e9;
+                padding: 8px 16px;
                 text-align: left;
-                border-top: 1px solid #eaeefb;
-                background-color: #EFF2F7;
-            }
-            td, th {
-                border-bottom: 1px solid #eaeefb;
-                padding: 10px 0;
-            }
-            th:first-child, td:first-child {
-                padding-left: 10px;
             }
         }
     }
@@ -205,4 +204,19 @@ export default {
         overflow: hidden;
     }
 
+    .markdown h1, .markdown h2, .markdown h3 {
+        a{
+            font-size: .8em;
+            opacity: 0;
+            font-weight: normal;
+            transition: opacity .2s ease-in-out;
+        }
+
+        &:hover a {
+            opacity: 1;
+        }
+    }
+    .header-anchor {
+        margin-left: -18px;
+    }
 </style>
