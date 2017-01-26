@@ -17,6 +17,7 @@ import cascader from './components/cascader';
 import input from './components/input';
 import select from './components/select';
 import timePicker from './components/timePicker';
+import morePanel from './components/morePanel';
 import locale from './locale';
 
 const components = {
@@ -43,6 +44,7 @@ const components = {
     cascader,
     select,
     timePicker,
+    morePanel,
 };
 
 for (let item of Object.values(components)) {

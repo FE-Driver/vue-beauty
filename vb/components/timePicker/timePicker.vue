@@ -1,6 +1,6 @@
 <template lang="html">
     <span :class="wrapClasses">
-        <input type="text" class="ant-time-picker-input" placeholder="请选择时间" @click="timePicker" v-model="defaultValue" ref="timePicker" readonly :disabled="disabled">
+        <input type="text" class="ant-time-picker-input" :placeholder="placeholder" @click="timePicker" v-model="defaultValue" ref="timePicker" readonly :disabled="disabled">
         <span class="ant-time-picker-icon"></span>
         <transition name="fade">
             <time-picker-node v-show="selected" :selected="selected" :hide-disabled="hideDisabledOptions" :style="style" v-model="defaultValue" :local-format="format" :disabled-h="disabledHours" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" ref="timePickerOption" @select="select"></time-picker-node>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import {t} from '../../locale'
     import timePickerNode from './timePickerOption'
     import {getOffset, closeByElement} from '../../utils/fn'
 
@@ -28,6 +29,10 @@
             }
         },
         props: {
+            placeholder: {
+                type: String,
+                default: ()=>t('timePicker.placeholder')
+            },
             popupContainer: {
                 type: Function,
                 default: ()=> document.body

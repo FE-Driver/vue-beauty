@@ -1,0 +1,49 @@
+@import "../../../style/themes/default";
+
+@more-panel-prefix-cls: ~"@{ant-prefix}-more-panel";
+
+.@{more-panel-prefix-cls} {
+  background-color: #fff;
+  border-radius: @border-radius-sm;
+  font-size: @font-size-base;
+  position: relative;
+  padding: 15px;
+  display: flex;
+  border: 1px solid #e9e9e9;
+  transition: all .3s;
+
+  &:hover {
+    box-shadow: @box-shadow-base;
+    border-color: #eee;
+  }
+
+  &-body{
+    flex: 1;
+    overflow:hidden;
+  }
+  &-form{
+    position: relative;
+    display: inline-block;
+  }
+
+  &-control{
+      position: absolute;
+      right:0;
+      top:0;
+      padding-top:2px;
+  }
+
+  &-btn{
+    cursor: pointer;
+    border: 1px solid #e9e9e9;
+    color: #96A1A7;
+    border-radius: @border-radius-sm;
+    width: 48px;
+    text-align: center;
+    line-height: 14px;
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    margin-left: -1px;
+  }
+}
