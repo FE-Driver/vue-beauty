@@ -82,6 +82,11 @@ export default [
                 path: 'spin',
                 name: 'spin',
                 component: require('./docs/zh-cn/spin.md')
+            },
+            {
+                path: 'radio',
+                name: 'radio',
+                component: require('./docs/zh-cn/radio.md')
             }
         ]
     }

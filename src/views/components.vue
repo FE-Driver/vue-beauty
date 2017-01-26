@@ -30,6 +30,10 @@
                             <router-link :to="{ name:'rate'}">Rate 评分</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'radio'}">Radio 单选框</router-link>
+                        </v-menu-item>
+
+                        <v-menu-item>
                             <router-link :to="{ name:'select'}">Select 选择器</router-link>
                         </v-menu-item>
                         <v-menu-item>

@@ -1,0 +1,91 @@
+<template>
+    <div :class="wrapClasses">
+        <v-radio v-for="(radio,index) in radios" :type="type" :class-name="radioClasses" :index="index" :disabled="radio.disabled" :value="radio.value" v-on:radioChange="_handleChange" :select-value="selectValue" :group-value="value">
+          <span>{{radio.text}}</span>
+        </v-radio>
+    </div>
+</template>
+
+<script>
+import vRadio from './radio.vue'
+
+export default {
+    name: 'vRadioGroup',
+    data:function(){
+        return {
+            selectValue :''
+        }
+    },
+    props:{
+        prefixCls: {
+            type: String,
+            default: 'ant-radio-group',
+        },
+        type:{
+            type: String,
+            default: 'radio',
+        },
+        onChange: {
+            type : Function,
+            default: function(){
+            }
+        },
+        name:{
+            type :[String,Number],
+            default: 'radioGroup'
+        },
+        value: {
+            type: [String, Number, Boolean],
+            default: ''
+        },
+        radios: {
+            type: Array,
+            default: []//[{value:'',text:'',disabled:true/false}]
+        },
+        disabled: {
+            type: Boolean,
+            default:false
+        },
+        size: {
+            type: String,
+            default: '',
+        },
+    },
+
+    components: { vRadio },
+
+    computed: {
+        wrapClasses () {
+            let size = ['small','large'].indexOf(this.size) !== -1?this.size:'';
+
+            return [
+              this.prefixCls,
+              {[`${this.prefixCls}-${size}`]: size}
+            ]
+        },
+        radioClasses () {
+            return this.type === 'button'?'ant-radio-button-wrapper':'ant-radio-wrapper';
+        }
+    },
+
+    created () {
+        if (this.value == null) {
+            this.value = this.defaultValue;
+        }
+        if(this.disabled){
+            for(let radio of this.radios){
+                if(radio.hasOwnProperty('disabled') && radio.disabled === false) continue;
+                radio.disabled = true;
+            }
+        }
+    },
+
+    methods: {
+      _handleChange(selectValue){
+            this.selectValue = selectValue;
+            this.$emit('onChange',selectValue);
+      }
+    }
+}
+
+</script>

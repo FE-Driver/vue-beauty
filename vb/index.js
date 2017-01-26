@@ -19,6 +19,7 @@ import select from './components/select';
 import timePicker from './components/timePicker';
 import morePanel from './components/morePanel';
 import locale from './locale';
+import radio from './components/radio';
 
 const components = {
     breadcrumb,
@@ -45,7 +46,8 @@ const components = {
     select,
     timePicker,
     morePanel,
-};
+    radioGroup:radio.Group,
+}
 
 for (let item of Object.values(components)) {
     if (!item.install && item.name) {
