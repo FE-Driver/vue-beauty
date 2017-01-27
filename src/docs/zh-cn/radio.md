@@ -35,7 +35,7 @@ export default {
 <template>
 <v-radio-group
             :on-change="_onGroupChange"
-            :radios="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
+            :data="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
           </v-radio-group>
 </template>
 <script>
@@ -62,7 +62,7 @@ export default {
 <template>
 <v-radio-group
             :on-change="_onGroupChange"
-            :radios="[{value: 'a', text: 'A',disabled:true},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
+            :data="[{value: 'a', text: 'A',disabled:true},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
           </v-radio-group>
 </template>
 <script>
@@ -90,21 +90,21 @@ export default {
 <v-radio-group
             :on-change="_onGroupChange"
             type="button" size="small" value="beijing"
-            :radios="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
+            :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
           </v-radio-group>
           <br>
           <br>
 <v-radio-group
             :on-change="_onGroupChange"
             type="button" value="shanghai" 
-            :radios="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
+            :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
           </v-radio-group>
           <br>
           <br>
 <v-radio-group
             :on-change="_onGroupChange"
-            type="button" size="large" value="shanghai"
-            :radios="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
+            type="button" size="large" value="shanghai" disabled="true"
+            :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
           </v-radio-group>
 </template>
 <script>
@@ -128,7 +128,8 @@ export default {
 | size | 组件中点的大小，可选值为 small default large | string | default |
 | value | 初始化value控制默认选中 | boolean | 无 |
 | type | radio 展示方式，可选button | string | 无 |
-| radios | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | 无 |
+| disabled | radio是否可用 | Boolean |  无 |
+| data | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | 无 |
 
 ### radioGroup event
 

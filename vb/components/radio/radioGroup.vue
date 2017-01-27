@@ -1,6 +1,6 @@
 <template>
     <div :class="wrapClasses">
-        <v-radio v-for="(radio,index) in radios" :type="type" :class-name="radioClasses" :index="index" :disabled="radio.disabled" :value="radio.value" v-on:radioChange="_handleChange" :select-value="selectValue" :group-value="value">
+        <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :index="index" :disabled="radio.disabled" :value="radio.value" v-on:radioChange="_handleChange" :select-value="selectValue" :group-value="value">
           <span>{{radio.text}}</span>
         </v-radio>
     </div>
@@ -38,7 +38,7 @@ export default {
             type: [String, Number, Boolean],
             default: ''
         },
-        radios: {
+        data: {
             type: Array,
             default: []//[{value:'',text:'',disabled:true/false}]
         },
@@ -73,7 +73,7 @@ export default {
             this.value = this.defaultValue;
         }
         if(this.disabled){
-            for(let radio of this.radios){
+            for(let radio of this.data){
                 if(radio.hasOwnProperty('disabled') && radio.disabled === false) continue;
                 radio.disabled = true;
             }
