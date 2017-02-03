@@ -21,6 +21,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'pagination'}">Pagination 分页</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Data Entry">
                         <v-menu-item>
@@ -32,7 +35,11 @@
                         <v-menu-item>
                             <router-link :to="{ name:'radio'}">Radio 单选框</router-link>
                         </v-menu-item>
-
+                        <v-menu-item>
+                            <router-link :to="{ name:'pagination'}">Pagination分页</router-link>
+                        </v-menu-item>
+                    </v-submenu>
+                    <v-submenu title="feedback">
                         <v-menu-item>
                             <router-link :to="{ name:'select'}">Select 选择器</router-link>
                         </v-menu-item>

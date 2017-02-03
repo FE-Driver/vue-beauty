@@ -8,6 +8,7 @@ import card from './components/card';
 import rate from './components/rate';
 import menu from './components/menu';
 import affix from './components/affix';
+import pagination from './components/pagination';
 import tag from './components/tag';
 // import tabs from './components/tabs'
 import vSwitch from './components/switch';
@@ -31,6 +32,7 @@ const components = {
     menuItemGroup: menu.itemGroup,
     menuItem: menu.item,
     affix,
+    pagination,
     rate,
     alert,
     icon,

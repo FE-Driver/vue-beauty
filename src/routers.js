@@ -49,6 +49,11 @@ export default [
                 component: require('./docs/zh-cn/affix.md')
             },
             {
+                path: 'pagination',
+                name: 'pagination',
+                component: require('./docs/zh-cn/pagination.md')
+            },
+            {
                 path: 'card',
                 name: 'card',
                 component: require('./docs/zh-cn/card.md')
