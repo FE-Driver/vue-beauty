@@ -4,6 +4,11 @@
 
 @btn-prefix-cls: ~"@{ant-prefix}-btn";
 
+// for compatibile
+@btn-ghost-color        : @text-color;
+@btn-ghost-bg           : transparent;
+@btn-ghost-border       : @border-color-base;
+
 // Button styles
 // -----------------------------
 .@{btn-prefix-cls} {
@@ -16,6 +21,10 @@
     .@{btn-prefix-cls}-group &:not(:first-child):not(:last-child) {
       border-right-color: @btn-group-border;
       border-left-color: @btn-group-border;
+
+      &:disabled {
+        border-color: @btn-default-border;
+      }
     }
 
     .@{btn-prefix-cls}-group &:first-child {
@@ -28,7 +37,7 @@
     }
 
     .@{btn-prefix-cls}-group &:last-child:not(:first-child),
-    .@{btn-prefix-cls}-group & + .@{btn-prefix-cls} {
+    .@{btn-prefix-cls}-group & + & {
       border-left-color: @btn-group-border;
       &[disabled] {
         border-left-color: @btn-default-border;
@@ -42,6 +51,10 @@
 
   &-dashed {
     .btn-dashed;
+  }
+
+  &-danger {
+    .btn-danger;
   }
 
   &-circle,
@@ -112,6 +125,16 @@
     opacity: 0.4;
     animation: buttonEffect 0.36s ease-out forwards;
     display: block;
+  }
+
+  &-background-ghost {
+    background: transparent!important;
+    border-color: #fff;
+    color: #fff;
+  }
+
+  &-background-ghost&-primary {
+    .button-variant-other(@primary-color; transparent; @primary-color);
   }
 }
 
