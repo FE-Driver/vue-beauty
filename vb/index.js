@@ -19,8 +19,9 @@ import input from './components/input';
 import select from './components/select';
 import timePicker from './components/timePicker';
 import morePanel from './components/morePanel';
-import locale from './locale';
 import radio from './components/radio';
+import upload from './components/upload';
+import locale from './locale';
 
 const components = {
     breadcrumb,
@@ -49,6 +50,7 @@ const components = {
     timePicker,
     morePanel,
     radioGroup:radio.Group,
+    upload,
 }
 
 for (let item of Object.values(components)) {

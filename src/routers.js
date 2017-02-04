@@ -92,6 +92,11 @@ export default [
                 path: 'radio',
                 name: 'radio',
                 component: require('./docs/zh-cn/radio.md')
+            },
+            {
+                path: 'upload',
+                name: 'upload',
+                component: require('./docs/zh-cn/upload.md')
             }
         ]
     }

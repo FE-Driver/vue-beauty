@@ -115,7 +115,7 @@ export default {
 
 <style lang="less">
   .box-demo-code{
-    pre{
+    pre,code{
       background-color: #fff;
     }
   }

@@ -41,6 +41,11 @@ export default {
       ]
     }
   },
+  watch: {
+    value(val) {
+      this.defaultValue = val;
+    }  
+  },
   methods: {
     _toggle () {
       if (this.disabled) return;

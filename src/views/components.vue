@@ -35,9 +35,6 @@
                         <v-menu-item>
                             <router-link :to="{ name:'radio'}">Radio 单选框</router-link>
                         </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'pagination'}">Pagination分页</router-link>
-                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
                         <v-menu-item>
@@ -48,6 +45,9 @@
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'timePicker'}">TimePicker 时间选择框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'upload'}">Upload 上传</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Data display">
@@ -135,12 +135,6 @@ export default {
 
         p, pre {
             margin: 1em 0;
-        }
-
-        pre {
-            padding: 1em;
-            background-color: #F3f3f3;
-            border-radius: 6px;
         }
 
         code, kbd, pre, samp {
