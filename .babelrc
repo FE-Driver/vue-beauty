@@ -7,5 +7,10 @@
       "regenerator": true
     }]
   ],
-  "comments": false
+  "comments": false,
+  "env": {
+    "test": {
+      "plugins": [ "istanbul" ]
+    }
+  }
 }

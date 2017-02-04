@@ -1,34 +1,27 @@
 // https://github.com/shelljs/shelljs
-'use strict'
+require('./check-versions')()
 
-require('shelljs/global')
-env.NODE_ENV = 'production'
+process.env.NODE_ENV = 'production'
 
-const path = require('path')
-const config = require('../config')
-const ora = require('ora')
-const webpack = require('webpack')
-const webpackConfig = require('./webpack.prod.conf')
+var ora = require('ora')
+var path = require('path')
+var chalk = require('chalk')
+var shell = require('shelljs')
+var webpack = require('webpack')
+var config = require('../config')
+var webpackConfig = require('./webpack.prod.conf')
 
-console.log(
-  '  Tip:\n' +
-  '  Built files are meant to be served over an HTTP server.\n' +
-  '  Opening index.html over file:// won\'t work.\n'
-)
-
-const spinner = ora('building for production...')
+var spinner = ora('building for production...')
 spinner.start()
 
-const assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
-rm('-rf', assetsPath)
-mkdir('-p', assetsPath)
-cp('-R', 'static/*', assetsPath)
+var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
+shell.rm('-rf', assetsPath)
+shell.mkdir('-p', assetsPath)
+shell.config.silent = true
+shell.cp('-R', 'static/*', assetsPath)
+shell.config.silent = false
 
-const compiler = webpack(webpackConfig)
-const ProgressPlugin = require('webpack/lib/ProgressPlugin')
-compiler.apply(new ProgressPlugin())
-
-compiler.run((err, stats) => {
+webpack(webpackConfig, function (err, stats) {
   spinner.stop()
   if (err) throw err
   process.stdout.write(stats.toString({
@@ -37,5 +30,11 @@ compiler.run((err, stats) => {
     children: false,
     chunks: false,
     chunkModules: false
-  }) + '\n')
+  }) + '\n\n')
+
+  console.log(chalk.cyan('  Build complete.\n'))
+  console.log(chalk.yellow(
+    '  Tip: built files are meant to be served over an HTTP server.\n' +
+    '  Opening index.html over file:// won\'t work.\n'
+  ))
 })

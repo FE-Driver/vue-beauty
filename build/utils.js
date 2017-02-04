@@ -29,8 +29,8 @@ exports.cssLoaders = function (options) {
     // (which is the case during production build)
     if (options.extract) {
       return ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: sourceLoader
+        loader: sourceLoader,
+        fallbackLoader: 'vue-style-loader'
       })
     } else {
       return ['vue-style-loader', sourceLoader].join('!')

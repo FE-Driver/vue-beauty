@@ -1,21 +1,17 @@
-'use strict'
-
-const path = require('path')
-const webpack = require('webpack')
-const config = require('../config')
-const utils = require('./utils')
-const projectRoot = path.resolve(__dirname, '../')
-const slugify = require('transliteration').slugify;
-const hljs = require('highlight.js');
-const striptags = require('./strip-tags');
-
+var path = require('path')
+var utils = require('./utils')
+var config = require('../config')
+var vueLoaderConfig = require('./vue-loader.conf')
+var slugify = require('transliteration').slugify;
+var hljs = require('highlight.js');
+var striptags = require('./strip-tags');
 
 /**
  * `{{ }}` => `<span>{{</span> <span>}}</span>`
  * @param  {string} str
  * @return {string}
  */
-const replaceDelimiters = function (str) {
+var replaceDelimiters = function (str) {
   return str.replace(/({{|}})/g, '<span>$1</span>')
 };
 
@@ -25,7 +21,7 @@ const replaceDelimiters = function (str) {
  * @param  {string} lang
  */
 
-const renderHighlight = function (str, lang) {
+var renderHighlight = function (str, lang) {
   if (!(lang && hljs.getLanguage(lang))) {
     return ''
   }
@@ -41,6 +37,14 @@ function convert(str) {
   });
   return str;
 }
+
+function wrap(render) {
+  return function() {
+    return render.apply(this, arguments)
+      .replace('<code class="', '<code class="hljs ')
+      .replace('<code>', '<code class="hljs">');
+  };
+};
 
 const md = require('markdown-it')('default',{
   html: true,
@@ -101,46 +105,37 @@ function convert(str) {
   return str;
 }
 
-const env = process.env.NODE_ENV
-const isProduction = env === 'production'
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    vendor: ['vue']
+    app: './src/main.js'
   },
   output: {
     path: config.build.assetsRoot,
-    publicPath: isProduction ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.css', '.json'],
-    mainFields: ['jsnext:main','main'],
+    extensions: ['.js', '.vue', '.json'],
+    modules: [
+      resolve('src'),
+      resolve('node_modules')
+    ],
     alias: {
-      package: path.resolve(__dirname, '../package.json'),
-      src: path.resolve(__dirname, '../src'),
-      assets: path.resolve(__dirname, '../src/assets'),
-      components: path.resolve(__dirname, '../src/components'),
-      views: path.resolve(__dirname, '../src/views'),
+      'vue$': 'vue/dist/vue.common.js',
+      'src': resolve('src'),
+      'assets': resolve('src/assets'),
+      'components': resolve('src/components'),
+      'views': resolve('src/views')
     }
   },
   module: {
-    loaders: [
-      /*{
-        test: /\.vue$/,
-        loader: ['eslint-loader'],
-        include: projectRoot,
-        exclude: /node_modules/,
-        enforce: 'pre'
-      },*/
-      /*{
-        test: /\.js$/,
-        loader: ['eslint-loader'],
-        include: projectRoot,
-        exclude: /node_modules/,
-        enforce: 'pre'
-      },*/
+    rules: [
       {
         test: /\.md/,
         loader: 'vue-markdown-loader',
@@ -148,17 +143,17 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: ['vue-loader']
+        loader: 'vue-loader',
+        options: vueLoaderConfig
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test')]
       },
       {
         test: /\.json$/,
         loader: 'json-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: ['babel-loader?cacheDirectory'],
-        include: projectRoot,
-        exclude: /node_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -170,30 +165,12 @@ module.exports = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-    ],
-  },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      vue: {
-        loaders: utils.cssLoaders({
-          sourceMap: isProduction,
-          extract: isProduction
-        })
-      }
-    })
-  ]
+    ]
+  }
 }
-
-function wrap(render) {
-  return function() {
-    return render.apply(this, arguments)
-      .replace('<code class="', '<code class="hljs ')
-      .replace('<code>', '<code class="hljs">');
-  };
-};

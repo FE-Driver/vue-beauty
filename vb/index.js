@@ -78,11 +78,13 @@ if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }
 
-module.exports = {
-    version: '2.0.0-alpha.0',
-    install,
-    ...components
-};
+export default Object.assign(
+    {
+        version: '2.0.0-alpha.0',
+        install
+    },
+    components
+)
 
 /* function isFlexSupported(style) {
     return 'flex' in style ||
