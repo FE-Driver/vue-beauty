@@ -218,7 +218,7 @@ export default {
 ### Pagination Props
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
-| current    | 当前页数 | Number | 1 |
+| value    | 当前页数 | Number | 1 |
 | total | 数据总数 | Number | 0 |
 | defaultPageSize | 初始的每页条数 | Number | 10 |
 | pageSize    | 每页条数 | Number | 10 |
@@ -227,10 +227,9 @@ export default {
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |
 | size | 当为「small」时，是小尺寸分页 | String | 无 |
 | simple | 当添加该属性时，显示为简单分页 | Object | 无 |
+| showTotal    | 用于显示总共有多少条数据 | Function | 无 |
 
 ### Pagination Events
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
-| onChange    | 页码改变的回调，参数是改变后的页码 | value |
 | onShowSizeChange    | pageSize 变化的回调 | current, size |
-| showTotal    | 用于显示总共有多少条数据 | total, range |
