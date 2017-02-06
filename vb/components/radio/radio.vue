@@ -4,7 +4,6 @@
       <span :class="prefixCls + '-inner'"></span>
       <input
         type="radio"
-        :name="name"
         :value="value"
         :disabled="disabled"
         v-model="selfValue"
@@ -51,10 +50,6 @@ export default {
         className: {
             type: String,
             default: '',
-        },
-        name:{
-            type: String,
-            default: ''
         }
     },
 
