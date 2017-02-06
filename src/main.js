@@ -7,7 +7,7 @@ import 'highlight.js/styles/solarized-light.css'
 import '../vb/style/index.less'
 import vueBeauty from '../vb'
 import components from './components'
-//import locale from '../vb/locale/lang/en'
+// import locale from '../vb/locale/lang/en'
 import locale from '../vb/locale/lang/zh-CN'
 
 Vue.use(VueRouter);

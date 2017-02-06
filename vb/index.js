@@ -20,6 +20,7 @@ import select from './components/select';
 import timePicker from './components/timePicker';
 import morePanel from './components/morePanel';
 import radio from './components/radio';
+import checkbox from './components/checkbox';
 import upload from './components/upload';
 import locale from './locale';
 
@@ -50,6 +51,8 @@ const components = {
     timePicker,
     morePanel,
     radioGroup:radio.Group,
+    checkbox,
+    checkboxGroup: checkbox.Group,
     upload,
 }
 

@@ -94,6 +94,11 @@ export default [
                 component: require('./docs/zh-cn/radio.md')
             },
             {
+                path: 'checkbox',
+                name: 'checkbox',
+                component: require('./docs/zh-cn/checkbox.md')
+            },
+            {
                 path: 'upload',
                 name: 'upload',
                 component: require('./docs/zh-cn/upload.md')
