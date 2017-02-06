@@ -35,8 +35,6 @@
                         <v-menu-item>
                             <router-link :to="{ name:'radio'}">Radio 单选框</router-link>
                         </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="feedback">
                         <v-menu-item>
                             <router-link :to="{ name:'select'}">Select 选择器</router-link>
                         </v-menu-item>
