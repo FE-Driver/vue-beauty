@@ -44,7 +44,7 @@ export default {
 <script>
 export default {
     methods: {
-      groupChange(selectValue) {
+      change(selectValue) {
         console.log('radio checked:' + selectValue)
       }
     }
@@ -69,7 +69,7 @@ export default {
 <script>
 export default {
     methods: {
-      groupChange (selectValue) {
+      change(selectValue) {
         console.log('radio checked:' + selectValue)
         this.groupValue = selectValue
       }
