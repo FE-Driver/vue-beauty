@@ -1,17 +1,22 @@
 <script>
 
 export default {
-  data: function () {
+    data: function () {
     return {
       disabled: true,
+      groupValue:'shanghai',
     }
-  },
-  methods: {
-    _onGroupChange (selectValue) {
-        console.log('radio checked:' + selectValue)
-        this.groupValue = e.selectValue
-      }
-  }
+    },
+    methods: {
+        change(selectValue) {
+            console.log('radio checked:' + selectValue)
+        }
+    },
+    watch:{
+        groupValue(){
+            console.log('watch groupValue '+this.groupValue);
+        }
+    }
 }
 </script>
 
@@ -33,17 +38,14 @@ export default {
 
 ```html
 <template>
-<v-radio-group
-            :on-change="_onGroupChange"
-            :data="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
-          </v-radio-group>
+<v-radio-group @change="change" :data="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
+</v-radio-group>
 </template>
 <script>
 export default {
     methods: {
-      _onGroupChange (selectValue) {
+      groupChange(selectValue) {
         console.log('radio checked:' + selectValue)
-        this.groupValue = e.selectValue
       }
     }
   }
@@ -60,17 +62,16 @@ export default {
 
 ```html
 <template>
-<v-radio-group
-            :on-change="_onGroupChange"
-            :data="[{value: 'a', text: 'A',disabled:true},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
-          </v-radio-group>
+<v-radio-group @change="change" 
+    :data="[{value: 'a', text: 'A',disabled:true},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
+</v-radio-group>
 </template>
 <script>
 export default {
     methods: {
-      _onGroupChange (selectValue) {
+      groupChange (selectValue) {
         console.log('radio checked:' + selectValue)
-        this.groupValue = e.selectValue
+        this.groupValue = selectValue
       }
     }
   }
@@ -87,34 +88,39 @@ export default {
 
 ```html
 <template>
-<v-radio-group
-            :on-change="_onGroupChange"
-            type="button" size="small" value="beijing"
-            :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
-          </v-radio-group>
-          <br>
-          <br>
-<v-radio-group
-            :on-change="_onGroupChange"
-            type="button" value="shanghai" 
-            :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
-          </v-radio-group>
-          <br>
-          <br>
-<v-radio-group
-            :on-change="_onGroupChange"
-            type="button" size="large" value="shanghai" disabled="true"
-            :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
-          </v-radio-group>
+<v-radio-group @change="change" type="button" size="small" v-model="groupValue"
+    :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
+</v-radio-group>
+<br>
+<br>
+<v-radio-group  @change="change" type="button" value="shanghai" 
+    :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
+</v-radio-group>
+<br>
+<br>
+<v-radio-group @change="change" type="button" size="large" value="shanghai" disabled="disabled"
+    :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
+</v-radio-group>
 </template>
 <script>
 export default {
+    data: function () {
+        return {
+          disabled: true,
+          groupValue:'shanghai',
+        }
+    },
     methods: {
-      _onGroupChange (selectValue) {
+      change(selectValue) {
         console.log('radio checked:' + selectValue)
-        this.groupValue = e.selectValue
       }
-    }
+    },
+     watch:{
+         groupValue(){
+             console.log('watch groupValue'+this.groupValue);
+         }
+     }
+    
   }
 </script>
 ```
@@ -126,7 +132,7 @@ export default {
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | size | 组件中点的大小，可选值为 small default large | string | default |
-| value | 初始化value控制默认选中 | boolean | 无 |
+| value | 初始化value控制默认选中 | string | 无 |
 | type | radio 展示方式，可选button | string | 无 |
 | disabled | radio是否可用 | Boolean |  无 |
 | data | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | 无 |
@@ -135,4 +141,4 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| onChange | 选项变化时的回调函数 | Function(selectValue) | 无 |
+| change | 选项变化时的回调函数 | Function(selectValue) | 无 |

@@ -24,13 +24,10 @@ export default {
         return {
             selected: this.value == this.selfValue,
             selfValue: this.groupValue,
+            prefixCls : 'ant-radio',
         };
     },
     props: {
-        prefixCls: {
-            type: String,
-            default: 'ant-radio',
-        },
         type:{
             type: String,
             default: 'radio',//或者button
