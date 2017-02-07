@@ -11,9 +11,9 @@ export default {
                 {label: '橘', value: 'Orange'},
             ],
             optionsWithDisabled: [
-                {label: '苹果', value: 'Apple'},
-                {label: '梨', value: 'Pear'},
-                {label: '橘', value: 'Orange', disabled: true},
+                {text: '苹果', value: 'Apple'},
+                {text: '梨', value: 'Pear'},
+                {text: '橘', value: 'Orange', disabled: true},
             ]
         }
     },
@@ -121,7 +121,7 @@ export default {
 
 ```html
 <template>
-    <v-checkbox :disabled="true">checkbox</v-checkbox>
+    <v-checkbox disabled>checkbox</v-checkbox>
     <v-checkbox :value="true" :disabled="true">checkbox</v-checkbox>
 </template>
 ```
@@ -143,7 +143,7 @@ export default {
             <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="changeDefaultValue">修改默认选中值</button>
         </p>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :options="optionsWithDisabled" @change="checkGroup"></v-checkbox-group>
+            <v-checkbox-group :options="optionsWithDisabled" label="text" @change="checkGroup"></v-checkbox-group>
         </p>
     </div>
 </template>
@@ -159,9 +159,9 @@ export default {
                     {label: '橘', value: 'Orange'},
                 ],
                 optionsWithDisabled: [
-                    {label: '苹果', value: 'Apple'},
-                    {label: '梨', value: 'Pear'},
-                    {label: '橘', value: 'Orange', disabled: true},
+                    {text: '苹果', value: 'Apple'},
+                    {text: '梨', value: 'Pear'},
+                    {text: '橘', value: 'Orange', disabled: true},
                 ]
             }
         },
@@ -185,22 +185,36 @@ export default {
 
 ## API
 
-### Checkbox
+### Checkbox Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | value | 指定当前是否选中 | Boolean | false |
 | disabled | 只读，无法进行交互 | Boolean | false |
 
-### Checkbox Group
+### Checkbox Group Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | value | 默认选中的选项 | array | 无 |
-| options[{ label,value,disabled }] | 指定可选项 | array | 无 |
+| keyField | 选项的value的字段名 | string | value |
+| label | 选项显示的文本的字段名 | string | label |
+| options | 选项 | array | 无 |
+
+### Options Props
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |---------- |-------- |
+| value | 选项的值(该字段可通过keyField属性修改)	 | string | 无 |
+| label    | 选项的标签(可通过label属性修改) | string | 无 |
+| disabled | 是否禁用	 | boolean | false |
 
 ### Checkbox Events
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | click    | checkbox被点击的时候触发 | value |
+| change    | 值发生变化的时候触发 | value |
+
+### Checkbox Group Events
+| 事件        | 说明           | 参数        |
+|------------|----------------|------------|
 | change    | 选择的值发生变化的时候触发 | value |
 
 

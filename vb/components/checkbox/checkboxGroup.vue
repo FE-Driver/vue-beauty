@@ -7,7 +7,7 @@
                 :disabled="!!option.disabled"
                 @click="toggleChecked(index)"
         >
-            {{ option.label }}
+            {{ option[label] }}
         </v-checkbox>
     </div>
 </template>
@@ -22,6 +22,10 @@
             keyFiled: {
                 type: String,
                 default: 'value'
+            },
+            label: {
+                type: String,
+                default: 'label'
             },
             value: {
                 type: Array,

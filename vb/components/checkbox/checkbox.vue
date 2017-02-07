@@ -4,11 +4,9 @@
             <span class="ant-checkbox-inner"></span>
             <input type="checkbox" class="ant-checkbox-input" @click="_change" :value="currentValue">
         </span>
-        <!--<span v-if="_slotContents && _slotContents.default">-->
-        <span>
+        <span v-if="$slots && $slots.default">
             <slot></slot>
         </span>
-        <!--</span>-->
     </label>
 </template>
 
