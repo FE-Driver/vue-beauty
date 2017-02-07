@@ -194,16 +194,16 @@ export default {
 ### Checkbox Group Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| value | 默认选中的选项 | array | 无 |
+| value | 默认选中的选项 | array | — |
 | keyField | 选项的value的字段名 | string | value |
 | label | 选项显示的文本的字段名 | string | label |
-| options | 选项 | array | 无 |
+| options | 选项 | array | — |
 
 ### Options Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| value | 选项的值(该字段可通过keyField属性修改)	 | string | 无 |
-| label    | 选项的标签(可通过label属性修改) | string | 无 |
+| value | 选项的值(该字段可通过keyField属性修改)	 | string | — |
+| label    | 选项的标签(可通过label属性修改) | string | — |
 | disabled | 是否禁用	 | boolean | false |
 
 ### Checkbox Events

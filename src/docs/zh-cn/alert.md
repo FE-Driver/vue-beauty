@@ -1,117 +1,102 @@
 <script>
-  export default {
-    methods: {
-      hello() {
-        alert('Hello World!');
-      }
+    export default {
+        methods: {
+            onClose() {
+                alert("Alert Closed！")
+            }
+        }
     }
-  }
 </script>
 <style>
-  .demo-box.demo-alert .el-alert {
-    margin: 20px 0 0;
-  }
+    .demo-box.demo-alert .el-alert {
+        margin: 20px 0 0;
+    }
 
-  .demo-box.demo-alert .el-alert:first-child {
-    margin: 0;
-  }
+    .demo-box.demo-alert .el-alert:first-child {
+        margin: 0;
+    }
 </style>
 
-## Alert 警告提示
+# Alert 警告提示
 
 警告提示，展现需要关注的信息。
 
-#### 何时使用
+## 何时使用
 
 - 当某个页面需要向用户显示警告的信息时。
 - 非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。
 
-#### 1.基本使用
+## 代码演示
 
-<v-alert type="success" message="成功提示的文案"></v-alert>
+::: demo
+<summary>
+  #### 基本
+  基本使用。
+</summary>
 
+```html
+<template>
+    <v-alert type="success" message="成功提示的文案"></v-alert>
+</template>
 ```
-<v-alert type="success" message="成功提示的文案"></v-alert>
-```
+:::
 
-#### 2.四种样式
-<v-alert type="success" message="成功提示的文案"></v-alert>
-<v-alert type="info" message="消息提示的文案"></v-alert>
-<v-alert type="warning" message="警告提示的文案"></v-alert>
-<v-alert type="error" message="错误提示的文案"></v-alert>
+::: demo
+<summary>
+  #### 四种样式
+  四种样式。
+</summary>
 
-```js
-<v-alert type="success" message="成功提示的文案"></v-alert>
-<v-alert type="info" message="消息提示的文案"></v-alert>
-<v-alert type="warning" message="警告提示的文案"></v-alert>
-<v-alert type="error" message="错误提示的文案"></v-alert>
+```html
+<template>
+    <v-alert type="success" message="成功提示的文案"></v-alert>
+    <v-alert type="info" message="消息提示的文案"></v-alert>
+    <v-alert type="warning" message="警告提示的文案"></v-alert>
+    <v-alert type="error" message="错误提示的文案"></v-alert>
+</template>
 ```
+:::
 
-#### 3.可关闭的警告提示
-<v-alert type="error" message="错误提示的文案"
-description="错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"
-closable></v-alert>
+::: demo
+<summary>
+  #### 可关闭的警告提示
+  可关闭的警告提示。
+</summary>
 
-```js
-<v-alert type="error" message="错误提示的文案"
-description="错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"
-closable></v-alert>
+```html
+<template>
+    <v-alert type="error" message="错误提示的文案"
+    description="错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"
+    closable @close="onClose"></v-alert>
+</template>
 ```
+:::
 
-#### 4.可口的图标让信息类型更加醒目。
-<v-alert type="success" message="成功提示的文案" show-icon></v-alert>
-```
-<v-alert type="success" message="成功提示的文案" show-icon></v-alert>
-```
+::: demo
+<summary>
+  #### 图标
+  可口的图标让信息类型更加醒目。
+</summary>
 
-<v-alert type="info" message="消息提示的文案" show-icon></v-alert>
+```html
+<template>
+    <v-alert type="success" message="成功提示的文案" show-icon></v-alert>
+    <v-alert type="info" message="消息提示的文案" show-icon></v-alert>
+    <v-alert type="warning" message="警告提示的文案" show-icon></v-alert>
+    <v-alert type="error" message="错误提示的文案" show-icon></v-alert>
+    <v-alert type="success" message="成功提示的文案" show-icon 
+        description="成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍"></v-alert>
+    <v-alert type="info" message="消息提示的文案" show-icon 
+        description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"></v-alert>
+    <v-alert type="warning" message="警告提示的文案" show-icon 
+        description="警告提示的辅助性文字介绍警告提示的辅助性文字介绍"></v-alert>
+    <v-alert type="error" message="错误提示的文案" show-icon description="错误错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"></v-alert>
+</template>
 ```
-<v-alert type="info" message="消息提示的文案" show-icon></v-alert>
-```
-
-<v-alert type="warning" message="警告提示的文案" show-icon></v-alert>
-```
-<v-alert type="warning" message="警告提示的文案" show-icon></v-alert>
-```
-
-<v-alert type="error" message="错误提示的文案" show-icon></v-alert>
-```
-<v-alert type="error" message="错误提示的文案" show-icon></v-alert>
-```
-
-<v-alert type="success" message="成功提示的文案" show-icon 
-    description="成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍"></v-alert>
-```
-<v-alert type="success" message="成功提示的文案" show-icon 
-    description="成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍"></v-alert>
-```
-
-<v-alert type="info" message="消息提示的文案" show-icon 
-    description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"></v-alert>
-```
-<v-alert type="info" message="消息提示的文案" show-icon 
-    description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"></v-alert>
-```
-
-<v-alert type="warning" message="警告提示的文案" show-icon 
-    description="警告提示的辅助性文字介绍警告提示的辅助性文字介绍"></v-alert>
-```
-
-<v-alert type="warning" message="警告提示的文案" show-icon description="警告提示的辅助性文字介绍警告提示的辅助性文字介绍"></v-alert>
-```
-
-<v-alert type="error" message="错误提示的文案" show-icon description="错误错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"></v-alert>
-```
-<v-alert type="error" message="错误提示的文案" show-icon 
-    description="错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示示的辅助性文字介绍"></v-alert>
-```
+:::
          
 
-
-
-
-
-### Attributes
+### Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | **title** | 标题，**必选参数** | string | — | — |
