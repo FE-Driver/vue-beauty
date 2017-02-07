@@ -1,107 +1,102 @@
 <script>
-  export default {
-    data: ()=> ({
-      options: [{
-          value: '1',
-          label: 'lady'
-      }, {
-          value: '2',
-          label: '小强',
-          disabled: true
-      }, {
-          value: '3',
-          label: '小明'
-      }],
-      value: '3',
-      groupOpt: [{
-          label: '重庆',
-          options: [{
-                  value: 'lp',
-                  label: '梁平'
-              },
-              {
-                  value: 'wz',
-                  label: '万州',
-                  disabled: true
-              }
-          ]
-      },
-      {
-          label: '四川',
-          options: [{
-              value: 'cd',
-              label: '成都'
-          }, {
-              value: 'dz',
-              label: '达州'
-          }]
-      }],
-      list: [],
-      states: ["Alabama", "Alaska", "Arizona",
-      "Arkansas", "California", "Colorado",
-      "Connecticut", "Delaware", "Florida",
-      "Georgia", "Hawaii", "Idaho", "Illinois",
-      "Indiana", "Iowa", "Kansas", "Kentucky",
-      "Louisiana", "Maine", "Maryland",
-      "Massachusetts", "Michigan", "Minnesota",
-      "Mississippi", "Missouri", "Montana",
-      "Nebraska", "Nevada", "New Hampshire",
-      "New Jersey", "New Mexico", "New York",
-      "North Carolina", "North Dakota", "Ohio",
-      "Oklahoma", "Oregon", "Pennsylvania",
-      "Rhode Island", "South Carolina",
-      "South Dakota", "Tennessee", "Texas",
-      "Utah", "Vermont", "Virginia",
-      "Washington", "West Virginia", "Wisconsin",
-      "Wyoming"],
-      loading: false,
-      loading2: false,
-      remoteOption: []
-    }),
-    watch: {
-      value(val){
-        console.log(val)
-      }
-    },
-    mounted(){
-      this.list = this.states.map(item => {
-        return { value: item, label: item };
-      });
-    },
-    methods: {
-      change(val) {
-          console.log(val)
-      },
-      remoteMethod(query) {
-        if (query !== '') {
-          this.loading = true;
-          setTimeout(() => {
-            this.loading = false;
-            this.remoteOption = this.list.filter(item => {
-              return item.label.toLowerCase()
-                .indexOf(query.toLowerCase()) > -1;
+    export default {
+        data: () => ({
+            options: [{
+                value: '1',
+                label: 'lady'
+            }, {
+                value: '2',
+                label: '小强',
+                disabled: true
+            }, {
+                value: '3',
+                label: '小明'
+            }],
+            value: '3',
+            groupOpt: [{
+                label: '重庆',
+                options: [{
+                    value: 'lp',
+                    label: '梁平'
+                }, {
+                    value: 'wz',
+                    label: '万州',
+                    disabled: true
+                }]
+            }, {
+                label: '四川',
+                options: [{
+                    value: 'cd',
+                    label: '成都'
+                }, {
+                    value: 'dz',
+                    label: '达州'
+                }]
+            }],
+            list: [],
+            states: ["Alabama", "Alaska", "Arizona",
+                "Arkansas", "California", "Colorado",
+                "Connecticut", "Delaware", "Florida",
+                "Georgia", "Hawaii", "Idaho", "Illinois",
+                "Indiana", "Iowa", "Kansas", "Kentucky",
+                "Louisiana", "Maine", "Maryland",
+                "Massachusetts", "Michigan", "Minnesota",
+                "Mississippi", "Missouri", "Montana",
+                "Nebraska", "Nevada", "New Hampshire",
+                "New Jersey", "New Mexico", "New York",
+                "North Carolina", "North Dakota", "Ohio",
+                "Oklahoma", "Oregon", "Pennsylvania",
+                "Rhode Island", "South Carolina",
+                "South Dakota", "Tennessee", "Texas",
+                "Utah", "Vermont", "Virginia",
+                "Washington", "West Virginia", "Wisconsin",
+                "Wyoming"],
+            loading: false,
+            loading2: false,
+            remoteOption: []
+        }),
+        watch: {
+            value(val){
+                console.log(val)
+            }
+        },
+        mounted(){
+            this.list = this.states.map(item => {
+                return {value: item, label: item};
             });
-          }, 200);
-        } else {
-          this.remoteOption = [];
+        },
+        methods: {
+            change(val) {
+                console.log(val)
+            },
+            remoteMethod(query) {
+                if (query !== '') {
+                    this.loading = true;
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.remoteOption = this.list.filter(item => {
+                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                        });
+                    }, 200);
+                } else {
+                    this.remoteOption = [];
+                }
+            },
+            remoteMethod2(query) {
+                if (query !== '') {
+                    this.loading2 = true;
+                    setTimeout(() => {
+                        this.loading2 = false;
+                        this.remoteOption = this.list.filter(item => {
+                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                        });
+                    }, 200);
+                } else {
+                    this.remoteOption = [];
+                }
+            }
         }
-      },
-      remoteMethod2(query) {
-        if (query !== '') {
-          this.loading2 = true;
-          setTimeout(() => {
-            this.loading2 = false;
-            this.remoteOption = this.list.filter(item => {
-              return item.label.toLowerCase()
-                .indexOf(query.toLowerCase()) > -1;
-            });
-          }, 200);
-        } else {
-          this.remoteOption = [];
-        }
-      }
     }
-  }
 </script>
 
 
@@ -124,38 +119,38 @@
 
 ```html
 <template>
-  <v-select placeholder="请选择人员" style="width: 120px;" :options="options" @change="change"></v-select>
-  <v-select placement="top" style="width: 120px;" :options="options" v-model="value"></v-select>
-  <v-select disabled style="width: 120px;"></v-select>
+    <v-select placeholder="请选择人员" style="width: 120px;" :options="options" @change="change"></v-select>
+    <v-select placement="top" style="width: 120px;" :options="options" v-model="value"></v-select>
+    <v-select disabled style="width: 120px;"></v-select>
 </template>
 
 <script>
-  export default {
-    data: ()=> ({
-      options: [{
-          value: '1',
-          label: 'lady'
-      }, {
-          value: '2',
-          label: '小强',
-          disabled: true
-      }, {
-          value: '3',
-          label: '小明'
-      }],
-      value: '3'
-    }),
-    watch: {
-      value(val){
-        console.log(val)
-      }
-    },
-    methods: {
-      change(val) {
-          console.log(val)
-      }
+    export default {
+        data: ()=> ({
+            options: [{
+                value: '1',
+                label: 'lady'
+            }, {
+                value: '2',
+                label: '小强',
+                disabled: true
+            }, {
+                value: '3',
+                label: '小明'
+            }],
+            value: '3'
+        }),
+        watch: {
+            value(val){
+                console.log(val)
+            }
+        },
+        methods: {
+            change(val) {
+                console.log(val)
+            }
+        }
     }
-  }
 </script>
 ```
 :::
@@ -168,33 +163,33 @@
 
 ```html
 <template>
-  <v-select size="lg" style="width: 200px;" :options="options" v-model="value"></v-select>
-  <v-select style="width: 200px;" :options="options" v-model="value"></v-select>
-  <v-select size="sm" style="width: 200px;" :options="options" v-model="value"></v-select>
+    <v-select size="lg" style="width: 200px;" :options="options" v-model="value"></v-select>
+    <v-select style="width: 200px;" :options="options" v-model="value"></v-select>
+    <v-select size="sm" style="width: 200px;" :options="options" v-model="value"></v-select>
 </template>
 
 <script>
-  export default {
-    data: ()=> ({
-      options: [{
-          value: '1',
-          label: 'lady'
-      }, {
-          value: '2',
-          label: '小强',
-          disabled: true
-      }, {
-          value: '3',
-          label: '小明'
-      }],
-      value: '3'
-    }),
-    watch: {
-      value(val){
-        console.log(val)
-      }
+    export default {
+        data: ()=> ({
+            options: [{
+                value: '1',
+                label: 'lady'
+            }, {
+                value: '2',
+                label: '小强',
+                disabled: true
+            }, {
+                value: '3',
+                label: '小明'
+            }],
+            value: '3'
+        }),
+        watch: {
+            value(val){
+                console.log(val)
+            }
+        }
     }
-  }
 </script>
 ```
 :::
@@ -207,25 +202,25 @@
 
 ```html
 <template>
-  <v-select style="width: 100%;" multiple :options="options" :value="['3']"></v-select>
+    <v-select style="width: 100%;" multiple :options="options" :value="['3']"></v-select>
 </template>
 
 <script>
-  export default {
-    data: ()=> ({
-      options: [{
-          value: '1',
-          label: 'lady'
-      }, {
-          value: '2',
-          label: '小强',
-          disabled: true
-      }, {
-          value: '3',
-          label: '小明'
-      }]
-    })
-  }
+    export default {
+        data: ()=> ({
+            options: [{
+                value: '1',
+                label: 'lady'
+            }, {
+                value: '2',
+                label: '小强',
+                disabled: true
+            }, {
+                value: '3',
+                label: '小明'
+            }]
+        })
+    }
 </script>
 ```
 :::
@@ -238,27 +233,27 @@
 
 ```html
 <template>
-  <v-select search style="width: 120px;" :options="options"></v-select>
-  <br><br>
-  <v-select search multiple style="width: 100%" :options="options"></v-select>
+    <v-select search style="width: 120px;" :options="options"></v-select>
+    <br><br>
+    <v-select search multiple style="width: 100%" :options="options"></v-select>
 </template>
 
 <script>
-  export default {
-    data: ()=> ({
-      options: [{
-          value: '1',
-          label: 'lady'
-      }, {
-          value: '2',
-          label: '小强',
-          disabled: true
-      }, {
-          value: '3',
-          label: '小明'
-      }]
-    })
-  }
+     export default {
+         data: ()=> ({
+             options: [{
+                 value: '1',
+                 label: 'lady'
+             }, {
+                 value: '2',
+                 label: '小强',
+                 disabled: true
+             }, {
+                 value: '3',
+                 label: '小明'
+             }]
+         })
+     }
 </script>
 ```
 :::
@@ -271,38 +266,35 @@
 
 ```html
 <template>
-  <v-select style="width: 200px" :options="groupOpt" :value="'lp'"></v-select>
-  <v-select style="width: 200px" multiple :options="groupOpt" :value="['lp']"></v-select>
+    <v-select style="width: 200px" :options="groupOpt" :value="'lp'"></v-select>
+    <v-select style="width: 200px" multiple :options="groupOpt" :value="['lp']"></v-select>
 </template>
 
 <script>
-  export default {
-    data: ()=> ({
-      groupOpt: [{
-          label: '重庆',
-          options: [{
-                  value: 'lp',
-                  label: '梁平'
-              },
-              {
-                  value: 'wz',
-                  label: '万州',
-                  disabled: true
-              }
-          ]
-      },
-      {
-          label: '四川',
-          options: [{
-              value: 'cd',
-              label: '成都'
-          }, {
-              value: 'dz',
-              label: '达州'
-          }]
-      }]
-    })
-  }
+    export default {
+        data: ()=> ({
+            groupOpt: [{
+                label: '重庆',
+                options: [{
+                    value: 'lp',
+                    label: '梁平'
+                }, {
+                    value: 'wz',
+                    label: '万州',
+                    disabled: true
+                }]
+            }, {
+                label: '四川',
+                options: [{
+                    value: 'cd',
+                    label: '成都'
+                }, {
+                    value: 'dz',
+                    label: '达州'
+                }]
+            }]
+        })
+    }
 </script>
 ```
 :::
@@ -315,71 +307,70 @@
 
 ```html
 <template>
-  <v-select style="width: 200px" search :loading="loading" :remote-method="remoteMethod" :options="remoteOption"></v-select>
-  <br><br>
-  <v-select style="width: 100%" search multiple :loading="loading2" :remote-method="remoteMethod2" :options="remoteOption"></v-select>
+    <v-select style="width: 200px" search :loading="loading" :remote-method="remoteMethod" :options="remoteOption"></v-select>
+    <br><br>
+    <v-select style="width: 100%" search multiple :loading="loading2" :remote-method="remoteMethod2" :options="remoteOption"></v-select>
+</template>
 
 <script>
-  export default {
-    data: ()=> ({
-      list: [],
-      states: ["Alabama", "Alaska", "Arizona",
-      "Arkansas", "California", "Colorado",
-      "Connecticut", "Delaware", "Florida",
-      "Georgia", "Hawaii", "Idaho", "Illinois",
-      "Indiana", "Iowa", "Kansas", "Kentucky",
-      "Louisiana", "Maine", "Maryland",
-      "Massachusetts", "Michigan", "Minnesota",
-      "Mississippi", "Missouri", "Montana",
-      "Nebraska", "Nevada", "New Hampshire",
-      "New Jersey", "New Mexico", "New York",
-      "North Carolina", "North Dakota", "Ohio",
-      "Oklahoma", "Oregon", "Pennsylvania",
-      "Rhode Island", "South Carolina",
-      "South Dakota", "Tennessee", "Texas",
-      "Utah", "Vermont", "Virginia",
-      "Washington", "West Virginia", "Wisconsin",
-      "Wyoming"],
-      loading: false,
-      loading2: false,
-      remoteOption: []
-    }),
-    mounted(){
-      this.list = this.states.map(item => {
-        return { value: item, label: item };
-      });
-    },
-    methods: {
-      remoteMethod(query) {
-        if (query !== '') {
-          this.loading = true;
-          setTimeout(() => {
-            this.loading = false;
-            this.remoteOption = this.list.filter(item => {
-              return item.label.toLowerCase()
-                .indexOf(query.toLowerCase()) > -1;
+    export default {
+        data: ()=> ({
+            list: [],
+            states: ["Alabama", "Alaska", "Arizona",
+                "Arkansas", "California", "Colorado",
+                "Connecticut", "Delaware", "Florida",
+                "Georgia", "Hawaii", "Idaho", "Illinois",
+                "Indiana", "Iowa", "Kansas", "Kentucky",
+                "Louisiana", "Maine", "Maryland",
+                "Massachusetts", "Michigan", "Minnesota",
+                "Mississippi", "Missouri", "Montana",
+                "Nebraska", "Nevada", "New Hampshire",
+                "New Jersey", "New Mexico", "New York",
+                "North Carolina", "North Dakota", "Ohio",
+                "Oklahoma", "Oregon", "Pennsylvania",
+                "Rhode Island", "South Carolina",
+                "South Dakota", "Tennessee", "Texas",
+                "Utah", "Vermont", "Virginia",
+                "Washington", "West Virginia", "Wisconsin",
+                "Wyoming"],
+            loading: false,
+            loading2: false,
+            remoteOption: []
+        }),
+        mounted(){
+            this.list = this.states.map(item => {
+                return { value: item, label: item };
             });
-          }, 200);
-        } else {
-          this.remoteOption = [];
+        },
+        methods: {
+            remoteMethod(query) {
+                if (query !== '') {
+                    this.loading = true;
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.remoteOption = this.list.filter(item => {
+                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                        });
+                    }, 200);
+                } else {
+                    this.remoteOption = [];
+                }
+            },
+            remoteMethod2(query) {
+                if (query !== '') {
+                    this.loading2 = true;
+                    setTimeout(() => {
+                        this.loading2 = false;
+                        this.remoteOption = this.list.filter(item => {
+                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                        });
+                    }, 200);
+                } else {
+                    this.remoteOption = [];
+                }
+            }
         }
-      },
-      remoteMethod2(query) {
-        if (query !== '') {
-          this.loading2 = true;
-          setTimeout(() => {
-            this.loading2 = false;
-            this.remoteOption = this.list.filter(item => {
-              return item.label.toLowerCase()
-                .indexOf(query.toLowerCase()) > -1;
-            });
-          }, 200);
-        } else {
-          this.remoteOption = [];
-        }
-      }
     }
-  }
 </script>
 ```
 :::
