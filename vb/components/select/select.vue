@@ -174,6 +174,7 @@
             window.addEventListener('click',this.closeDropdown);
         },
         beforeDestroy(){
+            this.container.removeChild(this.$els.dropdown);
             window.removeEventListener('click',this.closeDropdown);
         },
         watch: {

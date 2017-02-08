@@ -395,13 +395,13 @@
                 confirmApis: [{
                     "parameter": "title",
                     "explain": "标题",
-                    "type": "React.Element or String",
+                    "type": "String",
                     "default": "无"
                 },
                     {
                         "parameter": "content",
                         "explain": "内容",
-                        "type": "React.Element or String",
+                        "type": "String",
                         "default": "无"
                     },
                     {
@@ -455,7 +455,7 @@
                     {
                         "parameter": "title",
                         "explain": "标题",
-                        "type": "React.Element",
+                        "type": "String",
                         "default": "无"
                     },
                     {
@@ -483,9 +483,9 @@
                         "default": "520"
                     },
                     {
-                        "parameter": "footer",
+                        "parameter": "footer:slot",
                         "explain": "底部内容",
-                        "type": "React.Element",
+                        "type": "slot node",
                         "default": "确定取消按钮"
                     },
                     {
@@ -520,7 +520,6 @@
                     }]
             }
         },
-
         components: {codeBox, apiTable},
 
         methods: {

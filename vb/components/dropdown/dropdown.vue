@@ -64,6 +64,7 @@
             this.initEvent();
         },
         beforeDestroy(){
+            this.container.removeChild(this.$els.content);
             document.removeEventListener('click', this.close);
         },
         methods: {

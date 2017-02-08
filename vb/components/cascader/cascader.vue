@@ -77,6 +77,7 @@
             window.addEventListener('click',this.clickListener);
         },
         beforeDestroy(){
+            this.container.removeChild(this.$els.menu);
             window.removeEventListener('click',this.clickListener);
         },
         watch: {

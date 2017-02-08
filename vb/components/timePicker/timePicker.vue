@@ -70,10 +70,9 @@
             })
         },
         beforeDestroy (){
+            this.container.removeChild(this.$els.timePickerOption);
             document.removeEventListener('click', this.backdrop);
             window.removeEventListener('resize', this.backdrop);
-            let node = this.$els.timePickerOption;
-            node && document.body.removeChild(node)
         },
         methods: {
             timePicker (){
