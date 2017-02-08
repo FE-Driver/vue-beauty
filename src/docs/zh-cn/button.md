@@ -56,6 +56,10 @@
         <v-button type="primary" icon="search"><span>搜索</span></v-button>
         <v-button type="ghost" shape="circle-outline" icon="search"></v-button>
         <v-button type="ghost" icon="search"><span>搜索</span></v-button>
+        <br/><br/>
+        <v-button type="dashed" shape="circle-outline" icon="search"></v-button>
+        <v-button type="dashed" icon="search"><span>搜索</span></v-button>
+        <v-button type="ghost" shape="circle-outline"><v-icon type="search"></v-icon></v-button>
         <v-button type="ghost"><span>搜索</span><v-icon type="search"></v-icon></v-button>
     </div>
 </template>
@@ -74,6 +78,18 @@
         <v-button type="primary" size="large">Large</v-button>
         <v-button type="primary">Default</v-button>
         <v-button type="primary" size="small">Small</v-button>
+        <br/><br/>
+        <v-button type="ghost" size="large">Large</v-button>
+        <v-button type="ghost">Default</v-button>
+        <v-button type="ghost" size="small">Small</v-button>
+        <br/><br/>
+        <v-button type="dashed" size="large">Large</v-button>
+        <v-button type="dashed">Default</v-button>
+        <v-button type="dashed" size="small">Small</v-button>
+        <br/><br/>
+        <v-button type="primary" shape="circle" icon="search" size="large"></v-button>
+        <v-button type="primary" shape="circle" icon="search"></v-button>
+        <v-button type="primary" shape="circle" icon="search" size="small"></v-button>
     </div>
 </template>
 ```
@@ -90,6 +106,15 @@
     <div>
         <v-button type="primary" @click="onClick">Primary</v-button>
         <v-button type="primary" disabled @click="onClick">Primary</v-button>
+        <br/><br/>
+        <v-button type="default" @click="onClick">Default</v-button>
+        <v-button type="default" disabled @click="onClick">Default</v-button>
+        <br/><br/>
+        <v-button type="ghost" @click="onClick">Ghost</v-button>
+        <v-button type="ghost" disabled @click="onClick">Ghost</v-button>
+        <br/><br/>
+        <v-button type="dashed" @click="onClick">Dashed</v-button>
+        <v-button type="dashed" disabled @click="onClick">Dashed</v-button>
     </div>
 </template>
 
@@ -141,6 +166,24 @@
 
 ::: demo
 <summary>
+  #### 幽灵按钮
+  幽灵按钮将其他按钮的内容反色，背景变为透明，常用在有色背景上。
+</summary>
+
+```html
+<template>
+    <div style="background: rgb(190, 200, 200); padding: 1.5rem 1rem 1rem;">
+        <v-button type="primary" ghost>Primary</v-button>
+        <v-button type="default" ghost>Default</v-button>
+        <v-button type="ghost" ghost>Ghost</v-button>
+        <v-button type="dashed" ghost>Dashed</v-button>
+    </div>
+</template>
+```
+:::
+
+::: demo
+<summary>
   #### 按钮组合
   可以将多个 Button 放入 Button.Group 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。
 </summary>
@@ -172,6 +215,7 @@
 | shape | 设置按钮形状 | String | circle circle-outline 或者不设 | 无 |
 | size | 设置按钮大小 | String | small large 或者不设 | default |
 | loading | 设置按钮载入状态 | Boolean | true false | false |
+| ghost | 幽灵属性，使按钮背景透明，ant-design版本 2.7 中增加 | Boolean | true false | false |
 
 ### Button Group Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |

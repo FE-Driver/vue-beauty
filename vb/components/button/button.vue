@@ -25,6 +25,10 @@
                 type: Boolean,
                 default: false
             },
+            ghost: {
+                type: Boolean,
+                default: false
+            },
             disabled: {
                 type: Boolean,
                 default: false
@@ -32,7 +36,7 @@
         },
         computed: {
             btnClassObj() {
-                let {type, size, shape, loading, clicked} = this;
+                let {type, size, shape, loading, clicked, ghost} = this;
                 let btnClass = {};
                 let tmpSize = "";
                 if (size == "small") {
@@ -45,6 +49,7 @@
                 btnClass['ant-btn-' + tmpSize] = size;
                 btnClass['ant-btn-' + shape] = shape;
                 btnClass['ant-btn-loading'] = loading;
+                btnClass['ant-btn-background-ghost'] = ghost;
                 btnClass['ant-btn-' + clicked] = clicked;
 
                 return btnClass;

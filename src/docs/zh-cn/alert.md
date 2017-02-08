@@ -84,6 +84,20 @@
 
 ::: demo
 <summary>
+  #### 自定义关闭
+  可以自定义关闭，自定义的文字会替换掉原先的关闭Icon。
+</summary>
+
+```html
+<template>
+    <v-alert type="info" message="消息提示的文案"
+    closable close-text="关闭"></v-alert>
+</template>
+```
+:::
+
+::: demo
+<summary>
   #### 图标
   可口的图标让信息类型更加醒目。
 </summary>
