@@ -61,6 +61,9 @@
                 }, 200)
             })
         },
+        beforeDestroy(){
+            this.container.removeChild(this.$els.dropdown);
+        },
         computed: {
             wrapCls(){
                 return [

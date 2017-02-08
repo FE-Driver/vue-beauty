@@ -269,6 +269,9 @@
                 }
             }
         },
+        beforeDestroy(){
+            this.container.removeChild(this.$els.container);
+        },
         watch: {
             show(val) {
                 this.hidePanel();
