@@ -135,7 +135,8 @@ export default {
         }
 
         p, pre {
-            margin: 1em 0;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         code, kbd, pre, samp {
