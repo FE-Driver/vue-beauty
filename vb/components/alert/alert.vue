@@ -14,7 +14,6 @@
             <i class="anticon anticon-cross " v-if="!closeText "></i>
         </a>
     </div>
-
 </template>
 
 <script lang="babel">
