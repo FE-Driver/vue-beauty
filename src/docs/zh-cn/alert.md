@@ -69,6 +69,16 @@
     description="错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"
     closable @close="onClose"></v-alert>
 </template>
+
+<script>
+    export default {
+        methods: {
+            onClose() {
+                alert("Alert Closed！")
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -99,13 +109,12 @@
 ### Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| **title** | 标题，**必选参数** | string | — | — |
-| type | 主题 | string | success/warning/info/error | info |
-| description | 辅助性文字 | string | — | — |
-| closable | 是否可关闭 | boolean | — | true |
-| close-text | 关闭按钮自定义文本 | string | — | — |
-| show-icon | 是否显示图标 | boolean | — | false |
-
+| **title** | 标题，**必选参数** | String | — | — |
+| type | 主题 | String | success/warning/info/error | info |
+| description | 辅助性文字 | String | — | — |
+| closable | 是否可关闭 | Boolean | — | true |
+| close-text | 关闭按钮自定义文本 | String | — | — |
+| show-icon | 是否显示图标 | Boolean | — | false |
 
 ### Events
 | 事件名称 | 说明 | 回调参数 |
