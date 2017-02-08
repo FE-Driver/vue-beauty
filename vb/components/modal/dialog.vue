@@ -9,7 +9,7 @@
       :class="[prefixCls + '-wrap', wrapClassName]" 
       v-if="visible"
       tabindex="-1"
-      @click.stop="_onMaskClick"
+      @click="_onMaskClick"
       transition="zoom">
         <div
           v-el:dialog
@@ -17,7 +17,7 @@
           :style="[modalStyle, {width: modalWidth +'px'}]"
           :class="prefixCls"
           @keydown="_onKeyDown"
-          @click.stop>
+          @click="innerClick">
           <div :class="prefixCls + '-content'">
             <a v-if="closable" tabIndex="0" @click="_close" :class="prefixCls + '-close'">
               <span :class="prefixCls + '-close-x'"></span>
@@ -42,6 +42,9 @@
 <script>
 import { defaultProps, KeyCode } from '../../utils'
 export default {
+  data: ()=> ({
+    fromInner: false
+  }),
   props: defaultProps({
     prefixCls: 'vc-dialog',
     modalStyle: {},
@@ -74,6 +77,9 @@ export default {
   },
   methods: {
     _onMaskClick () {
+      if(this.fromInner){
+        return this.fromInner = false;
+      }
       if (this.maskClosable) {
         this._close()
       }
@@ -123,7 +129,9 @@ export default {
       document.body.style.paddingRight = '';
       document.body.style.overflow = '';
     },
-
+    innerClick() {
+      this.fromInner = true;
+    },
     _close () {
       this.onClose()
     }
