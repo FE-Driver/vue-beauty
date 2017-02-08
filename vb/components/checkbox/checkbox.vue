@@ -1,8 +1,8 @@
 <template lang="html">
-    <label class="ant-checkbox-wrapper">
-        <span class="ant-checkbox" :class="{'ant-checkbox-checked': currentValue, 'ant-checkbox-disabled': disabled}">
-            <span class="ant-checkbox-inner"></span>
-            <input type="checkbox" class="ant-checkbox-input" @click="_change" :value="currentValue">
+    <label :class="prefixCls + '-wrapper'">
+        <span :class="[prefixCls, currentValue ? prefixCls + '-checked': '', disabled ? prefixCls + '-disabled': disabled]">
+            <span :class="prefixCls + '-inner'"></span>
+            <input type="checkbox" :class="prefixCls + '-input'" @click="_change" :value="currentValue">
         </span>
         <span v-if="$slots && $slots.default">
             <slot></slot>
@@ -25,6 +25,7 @@
         },
         data() {
             return {
+                prefixCls: 'ant-checkbox',
                 currentValue: this.value
             }
         },

@@ -1,13 +1,11 @@
 <template>
-    <div class="ant-alert"
-         :class="['ant-alert-'+type,{'ant-alert-with-description':description, 'ant-alert-no-icon':!showIcon}]"
+    <div :class="[prefixCls, prefixCls + '-' + type, description ? prefixCls + '-with-description' : '', !showIcon ? prefixCls + '-no-icon' : '']"
          transition="bounce">
-        <i class="ant-alert-icon anticon "
-           :class=" 'anticon-'+iconClass "
+        <i :class="[prefixCls + '-icon', 'anticon', 'anticon-'+iconClass]"
            v-if="showIcon"></i>
-        <span class="ant-alert-message ">{{message}}</span>
-        <span class="ant-alert-description ">{{description}}</span>
-        <a class="ant-alert-close-icon "
+        <span :class="prefixCls + '-message'">{{ message }}</span>
+        <span :class="prefixCls + '-description'">{{ description }}</span>
+        <a :class="prefixCls + '-close-icon'"
            v-if="closable "
            @click="handleClose ">
             {{closeText}}
@@ -59,7 +57,9 @@
             }
         },
         data () {
-            return {}
+            return {
+                prefixCls: 'ant-alert',
+            }
         },
         computed: {
             iconClass(){

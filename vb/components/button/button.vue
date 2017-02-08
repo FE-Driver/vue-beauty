@@ -9,6 +9,7 @@
     export default {
         name: 'vButton',
         data: () => ({
+            prefixCls: 'ant-btn',
             clicked: false,
             clickTimer: null
         }),
@@ -36,7 +37,7 @@
         },
         computed: {
             btnClassObj() {
-                let {type, size, shape, loading, clicked, ghost} = this;
+                let {prefixCls, type, size, shape, loading, clicked, ghost} = this;
                 let btnClass = {};
                 let tmpSize = "";
                 if (size == "small") {
@@ -44,13 +45,13 @@
                 } else if (size == "large") {
                     tmpSize = "lg";
                 }
-                btnClass['ant-btn'] = true;
-                btnClass['ant-btn-' + type] = type;
-                btnClass['ant-btn-' + tmpSize] = size;
-                btnClass['ant-btn-' + shape] = shape;
-                btnClass['ant-btn-loading'] = loading;
-                btnClass['ant-btn-background-ghost'] = ghost;
-                btnClass['ant-btn-' + clicked] = clicked;
+                btnClass[prefixCls] = true;
+                btnClass[prefixCls + '-' + type] = type;
+                btnClass[prefixCls + '-' + tmpSize] = size;
+                btnClass[prefixCls + '-' + shape] = shape;
+                btnClass[prefixCls + '-loading'] = loading;
+                btnClass[prefixCls + '-background-ghost'] = ghost;
+                btnClass[prefixCls + '-' + clicked] = clicked;
 
                 return btnClass;
             }

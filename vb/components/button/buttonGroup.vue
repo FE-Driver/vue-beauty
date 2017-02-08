@@ -8,7 +8,7 @@
     export default {
         name: 'vButtonGroup',
         data: () => ({
-            prefix: 'ant-btn-group',
+            prefixCls: 'ant-btn-group',
         }),
         props: {
             size: String
@@ -18,8 +18,8 @@
                 const size = {small: 'sm', large: 'lg'}[this.size];
 
                 return [
-                    this.prefix,
-                    {[`${this.prefix}-${size}`]: size}
+                    this.prefixCls,
+                    {[`${this.prefixCls}-${size}`]: size}
                 ]
             }
         },
