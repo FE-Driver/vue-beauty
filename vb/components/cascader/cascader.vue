@@ -80,6 +80,7 @@
             window.addEventListener('click',this.clickListener);
         },
         beforeDestroy(){
+            this.container.removeChild(this.$refs.menu);
             window.removeEventListener('click',this.clickListener);
         },
         watch: {
