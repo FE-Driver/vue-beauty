@@ -1,4 +1,4 @@
 import "./style/index.less"
-import vSpin from './spin.vue'
+import vTooltip from './tooltip.vue'
 
-export default vSpin
+export default vTooltip

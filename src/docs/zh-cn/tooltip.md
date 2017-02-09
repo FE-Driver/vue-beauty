@@ -1,144 +1,170 @@
+<style scoped>
+  .box {
+    width: 500px;
+    }
+    .top {
+        
+      margin-left: 125px;
+      
+    }
+
+    .left {
+      float: left;
+      width: 60px;
+    }
+
+    .right {
+      width: 60px; 
+      margin-left: 380px;
+    }
+
+    .bottom {
+      clear: both;
+      margin-left: 125px;
+    }
+    .ant-tooltip{
+        margin:5px
+    }
+</style>
 <script>
 
 export default {
     data: function () {
-    return {
-      disabled: true,
-      groupValue:'shanghai',
-    }
+        return {
+          disabled: true,
+          visible : true,
+          delay :1000,
+          controlled : true
+        }
     },
     methods: {
-        change(selectValue) {
-            console.log('radio checked:' + selectValue)
-        }
-    },
-    watch:{
-        groupValue(){
-            console.log('watch groupValue '+this.groupValue);
-        }
+        popperHide :function() {
+            console.log('tooltip hide');
+          }
     }
 }
 </script>
 
-# Radio 单选框
-单选框
+# Tooltip 文字提示
+简单的文字提示气泡框
 
 ## 何时使用
-
-用于在多个备选项中选中单个状态。和 Select 的区别是：Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。
+鼠标移入则显示提示，移出消失，气泡浮层不承载复杂文本和操作。
 
 ## 代码演示
 
 ::: demo
 
 <summary>
-  #### RadioGroup组合
-  一组互斥的 Radio 配合使用。
+  #### 基本
+  最简单的用法
 </summary>
 
 ```html
 <template>
-<v-radio-group @change="change" :data="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
-</v-radio-group>
-</template>
-<script>
-export default {
-    methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-      }
-    }
-  }
-</script>
-```
-:::
+<div class="box">
+  <div class="top">
+    <v-tooltip content="top-start 文字提示" placement="top-start" :controlled="controlled">
+         <v-button>上左</v-button>
+     </v-tooltip>
+    <v-tooltip content="top 文字提示,初始可见" placement="top" :visible="visible">
+        <v-button>上边</v-button>
+    </v-tooltip>
+    <v-tooltip content="top-end 不可用tooltip" placement="top-end" :disabled="disabled">
+        <v-button>上右</v-button>
+    </v-tooltip>
+  </div>
+  <div class="left">
+    <v-tooltip content="left-start 文字提示" placement="left-start" @tooltiphide="popperHide">
+             <v-button>左上</v-button>
+         </v-tooltip>
+        <v-tooltip content="left 文字提示" placement="left">
+            <v-button>左边</v-button>
+        </v-tooltip>
+        <v-tooltip content="left-end 文字提示" placement="left-end">
+            <v-button>左下</v-button>
+        </v-tooltip>
+  </div>
 
-::: demo
-
-<summary>
-  #### 不可用
-  radio 不可用。
-</summary>
-
-```html
-<template>
-<v-radio-group @change="change" 
-    :data="[{value: 'a', text: 'A',disabled:true},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]" name="sex">
-</v-radio-group>
-</template>
-<script>
-export default {
-    methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-        this.groupValue = selectValue
-      }
-    }
-  }
-</script>
-```
-:::
-
-::: demo
-
-<summary>
-  #### 按钮样式及大小
-  不同大小及样式,通过value初始化默认选中
-</summary>
-
-```html
-<template>
-<v-radio-group @change="change" type="button" size="small" v-model="groupValue"
-    :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
-</v-radio-group>
-<br>
-<br>
-<v-radio-group  @change="change" type="button" value="shanghai" 
-    :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
-</v-radio-group>
-<br>
-<br>
-<v-radio-group @change="change" type="button" size="large" value="shanghai" disabled="disabled"
-    :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]" name="sex">
-</v-radio-group>
+  <div class="right">
+    <v-tooltip content="right-start 文字提示" placement="right-start">
+             <v-button>右上</v-button>
+         </v-tooltip>
+        <v-tooltip content="right 文字提示" placement="right">
+            <v-button>右边</v-button>
+        </v-tooltip>
+        <v-tooltip content="right-end 文字提示" placement="right-end">
+            <v-button>右下</v-button>
+        </v-tooltip>
+  </div>
+  <div class="bottom">
+    <v-tooltip content="bottom-start 文字提示" placement="bottom-start">
+             <v-button>下左</v-button>
+         </v-tooltip>
+        <v-tooltip content="bottom 文字提示" placement="bottom">
+            <v-button>下边</v-button>
+        </v-tooltip>
+        <v-tooltip content="bottom-end 文字提示" placement="bottom-end">
+            <v-button>下右</v-button>
+            <div slot="content">
+                <span style="color:#AAA">自定义提示内容</span>
+            <div>
+        </v-tooltip>
+  </div>
+</div>
 </template>
 <script>
 export default {
     data: function () {
         return {
-          disabled: true,
-          groupValue:'shanghai',
+          visible : false,
+          disabled : true,
+          controlled : true
         }
     },
-    methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-      }
+  }
+</script>
+```
+:::
+
+::: demo
+
+<summary>
+  #### 延时
+  设定延时时间 展示提示信息
+</summary>
+
+```html
+<template>
+<v-tooltip content="延时1秒展示" placement="top-start" :delay="delay">
+         <v-button>延时展示</v-button>
+     </v-tooltip>
+</template>
+<script>
+export default {
+    data: function () {
+        return {
+          delay: 1000
+        }
     },
-     watch:{
-         groupValue(){
-             console.log('watch groupValue'+this.groupValue);
-         }
-     }
-    
   }
 </script>
 ```
 :::
 
 ## API
-### radioGroup Props
+### tooltip Props
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| size | 组件中点的大小，可选值为 small default large | string | default |
-| value | 初始化value控制默认选中 | string | 无 |
-| type | radio 展示方式，可选button | string | 无 |
-| disabled | radio是否可用 | Boolean |  无 |
-| data | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | 无 |
+| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `top-start` `top-end` `bottom-start` `bottom-end` `left-start` `left-end` `right-start` `right-end` | string     | top    |
+| visible | 初始状态是否显示tooltip | Boolean |  false |
+| delay | 鼠标移入后延时多少才显示tooltip,单位:毫秒| number |  0 |
+| disabled | tooltip是否可用 | Boolean |  false |
+| controlled | 保持tooltop显示 | Boolean |  false |
 
-### radioGroup event
+### tooltip event
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| change | 选项变化时的回调函数 | Function(selectValue) | 无 |
+| tooltiphide | tooptip由显示变为隐藏的回调函数 | Function() | -- |

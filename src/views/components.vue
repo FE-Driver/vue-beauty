@@ -58,6 +58,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'tag'}">Tag 标签</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'tooltip'}">Tooltip 文字提示</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
                         <v-menu-item>

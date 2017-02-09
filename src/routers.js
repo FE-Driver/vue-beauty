@@ -102,6 +102,11 @@ export default [
                 path: 'upload',
                 name: 'upload',
                 component: require('./docs/zh-cn/upload.md')
+            },
+            {
+                path: 'tooltip',
+                name: 'tooltip',
+                component: require('./docs/zh-cn/tooltip.md')
             }
         ]
     }
