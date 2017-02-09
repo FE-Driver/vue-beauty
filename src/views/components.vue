@@ -61,6 +61,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'tag'}">Tag 标签</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'tooltip'}">Tooltip 文字提示</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
                         <v-menu-item>
@@ -228,5 +231,15 @@ export default {
     }
     .header-anchor {
         margin-left: -18px;
+    }
+    .markdown {
+        ul{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            & > li {
+                list-style: circle;
+                margin-left: 1rem;
+            }
+        }
     }
 </style>

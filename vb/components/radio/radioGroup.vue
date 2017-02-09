@@ -25,11 +25,6 @@ export default {
             type: String,
             default: 'radio',
         },
-        onChange: {
-            type : Function,
-            default: function(){
-            }
-        },
         value: {
             type: [String, Number, Boolean],
             default: ''

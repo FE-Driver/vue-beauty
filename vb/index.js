@@ -23,6 +23,7 @@ import radio from './components/radio';
 import checkbox from './components/checkbox';
 import upload from './components/upload';
 import locale from './locale';
+import tooltip from './components/tooltip';
 
 const components = {
     breadcrumb,
@@ -55,6 +56,7 @@ const components = {
     checkbox,
     checkboxGroup: checkbox.Group,
     upload,
+    tooltip,
 }
 
 for (let item of Object.values(components)) {
