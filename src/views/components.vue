@@ -232,4 +232,14 @@ export default {
     .header-anchor {
         margin-left: -18px;
     }
+    .markdown {
+        ul{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            & > li {
+                list-style: circle;
+                margin-left: 1rem;
+            }
+        }
+    }
 </style>

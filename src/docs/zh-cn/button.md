@@ -26,9 +26,8 @@
 
 ::: demo
 <summary>
-  #### 按钮有四种类型：主按钮、次按钮、幽灵按钮、虚线按钮
-  通过设置 type 为 primary ghost dashed 可分别创建主按钮、幽灵按钮、虚线按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。
-  主按钮和次按钮可独立使用，幽灵按钮用于和主按钮组合。需要强引导用主按钮，切记主按钮在同一个操作区域最多出现一次。
+  #### 按钮类型
+  按钮有四种类型：主按钮、次按钮、虚线按钮、危险按钮。主按钮在同一个操作区域最多出现一次。
 </summary>
 
 ```html
@@ -36,9 +35,9 @@
     <div>
         <v-button type="primary">Primary</v-button>
         <v-button>default</v-button>
-        <v-button type="ghost">Ghost</v-button>
         <v-button type="dashed">Dashed</v-button>
-    </div>
+        <v-button type="danger">Danger</v-button>
+</div>
 </template>
 ```
 :::
@@ -110,11 +109,11 @@
         <v-button type="default" @click="onClick">Default</v-button>
         <v-button type="default" disabled @click="onClick">Default</v-button>
         <br/><br/>
-        <v-button type="ghost" @click="onClick">Ghost</v-button>
-        <v-button type="ghost" disabled @click="onClick">Ghost</v-button>
-        <br/><br/>
         <v-button type="dashed" @click="onClick">Dashed</v-button>
         <v-button type="dashed" disabled @click="onClick">Dashed</v-button>
+        <br/><br/>
+        <v-button type="danger" @click="onClick">Danger</v-button>
+        <v-button type="danger" disabled @click="onClick">Danger</v-button>
     </div>
 </template>
 
@@ -174,10 +173,9 @@
 <template>
     <div style="background: rgb(190, 200, 200); padding: 1.5rem 1rem 1rem;">
         <v-button type="primary" ghost>Primary</v-button>
-        <v-button type="default" ghost>Default</v-button>
-        <v-button type="ghost" ghost>Ghost</v-button>
+        <v-button ghost>Default</v-button>
         <v-button type="dashed" ghost>Dashed</v-button>
-    </div>
+</div>
 </template>
 ```
 :::
@@ -200,11 +198,21 @@
         <v-button-group size="small">
             <v-button>Small</v-button><v-button>Small</v-button>
         </v-button-group>
+        <br/><br/>
+        <h3>带图标的组合</h3>
+        <v-button-group>
+            <v-button type="primary" icon="left">后退</v-button><v-button type="primary">前进 <v-icon type="right"></v-icon></v-button>
+        </v-button-group>
+        <v-button-group>
+            <v-button type="primary" icon="cloud"></v-button><v-button type="primary" icon="cloud-download"></v-button>
+        </v-button-group>
+        
     </div>
 </template>
 ```
 :::
 
+## API
 
 ### Button Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
