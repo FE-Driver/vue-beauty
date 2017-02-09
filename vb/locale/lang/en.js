@@ -6,5 +6,8 @@ export default {
     },
     timePicker: {
         placeholder: 'select time'
+    },
+    input: {
+        placeholder: 'plese enter'
     }
 }

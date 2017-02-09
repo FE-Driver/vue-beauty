@@ -3,9 +3,9 @@
       <span v-if="hasbefore" class="ant-input-group-addon">
           <slot name="before"></slot>
       </span>
-      <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" :debounce="debounce" @blur="blur">
+      <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" @blur="blur">
       </textarea>
-      <input v-else type="text" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" autocomplete="off" @blur="blur" :debounce="debounce"/>
+      <input v-else type="text" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" autocomplete="off" @blur="blur"/>
       <span v-if="hasafter" class="ant-input-group-addon">
           <slot name="after"></slot>
       </span>
@@ -13,23 +13,21 @@
 </template>
 
 <script>
+    import {t} from '../../locale'
+
     export default {
         name:'vInput',
         props: {
-            debounce: {
-                type: Number,
-                default: 0
-            },
             type: {
                 type: String,
                 default: 'text'
             },
-            id: [Number, String],
-            value: null,
             placeholder: {
                 type: String,
-                default: ''
+                default: ()=>t('input.placeholder')
             },
+            id: [Number, String],
+            value: null,
             defaultValue: null,
             size: {
                 type: String,
@@ -75,13 +73,13 @@
         mounted () {
             this.$nextTick( ()=>{
                 if(this.$slots) {
-                    this.hasslot = true
-
                     if(this.$slots.before) {
+                        this.hasslot = true
                         this.hasbefore = true
                     }
 
                     if(this.$slots.after) {
+                        this.hasslot = true
                         this.hasafter = true
                     }
                 }

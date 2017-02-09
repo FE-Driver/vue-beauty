@@ -108,17 +108,17 @@
     <v-alert type="info" message="消息提示的文案" show-icon></v-alert>
     <v-alert type="warning" message="警告提示的文案" show-icon></v-alert>
     <v-alert type="error" message="错误提示的文案" show-icon></v-alert>
-    <v-alert type="success" message="成功提示的文案" show-icon 
+    <v-alert type="success" message="成功提示的文案" show-icon
         description="成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍"></v-alert>
-    <v-alert type="info" message="消息提示的文案" show-icon 
+    <v-alert type="info" message="消息提示的文案" show-icon
         description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍"></v-alert>
-    <v-alert type="warning" message="警告提示的文案" show-icon 
+    <v-alert type="warning" message="警告提示的文案" show-icon
         description="警告提示的辅助性文字介绍警告提示的辅助性文字介绍"></v-alert>
     <v-alert type="error" message="错误提示的文案" show-icon description="错误错误提示的辅助性文字介绍错误提示的辅助性文字介绍错误提示的辅助性文字介绍"></v-alert>
 </template>
 ```
 :::
-         
+
 ## API
 
 ### Alert Props

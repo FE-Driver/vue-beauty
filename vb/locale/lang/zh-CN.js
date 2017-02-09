@@ -6,5 +6,8 @@ export default {
     },
     timePicker: {
         placeholder: '选择时间'
+    },
+    input: {
+        placeholder: '请输入'
     }
 }
