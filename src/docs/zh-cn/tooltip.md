@@ -122,6 +122,11 @@ export default {
           controlled : true
         }
     },
+    methods: {
+        popperHide :function() {
+            console.log('tooltip hide');
+          }
+    }
   }
 </script>
 ```
