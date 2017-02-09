@@ -30,6 +30,9 @@
                             <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'input'}">Input 输入框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'rate'}">Rate 评分</router-link>
                         </v-menu-item>
                         <v-menu-item>
@@ -138,7 +141,8 @@ export default {
         }
 
         p, pre {
-            margin: 1em 0;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         code, kbd, pre, samp {

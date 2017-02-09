@@ -56,9 +56,6 @@
             disabledMinutes: Function,
             disabledSeconds: Function
         },
-        created (){
-            document.addEventListener('click', this.backdrop);
-        },
         computed: {
             wrapClasses (){
                 return [
@@ -84,16 +81,16 @@
                     }
                 }, 200)
             })
+            document.addEventListener('click', this.backdrop);
 
             if(this.$refs.addon){
                 this.$refs.timePickerOption.$el.children[0].appendChild(this.$refs.addon);
             }
         },
         beforeDestroy (){
+            this.container.removeChild(this.$refs.timePickerOption.$el);
             document.removeEventListener('click', this.backdrop);
             window.removeEventListener('resize', this.backdrop);
-            let node = this.$refs.timePickerOption.$el;
-            node && document.body.removeChild(node)
         },
         watch: {
             defaultValue(val){

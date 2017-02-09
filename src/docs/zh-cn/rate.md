@@ -1,71 +1,126 @@
 <script>
   export default {
-    data: function() {
-      return {
-        star: 3
-      };
-    },
-    methods: {
-      _change(val) {
-        console.log('selected:' + val);
-        this.star = val;
+      data: function() {
+          return {
+              star1: 1,
+              star2: 6,
+          };
+      },
+      methods: {
+          _change(val) {
+              console.log('selected:' + val);
+          }
       }
-    }
   }
 </script>
 
 
-## Rate 评分
+# Rate 评分
 
 评分组件。
 
-### 何时使用
+## 何时使用
 
 对评价进行展示。
 对事物进行快速的评级操作。
 
-### 最简单的用法。
+## 代码演示
 
-<v-rate :on-change="_change"></v-rate>
+::: demo
+<summary>
+  #### 基本
+  最简单的用法。
+</summary>
 
+```html
+<template>
+    <v-rate v-model="star1" @change="_change"></v-rate>
+</template>
+
+<script>
+    export default {
+        data: function() {
+            return {
+                star1: 1
+            };
+        },
+        methods: {
+            _change(val) {
+                console.log('selected:' + val);
+            }
+        }
+    }
+</script>
 ```
-<v-rate :on-change="_change"></v-rate>
+:::
+
+::: demo
+<summary>
+  #### 半星
+  支持选中半星。
+</summary>
+
+```html
+<template>
+    <v-rate allow-half :value='2.5'></v-rate>
+</template>
 ```
+:::
 
-### 支持选中半星。
+::: demo
+<summary>
+  #### 文案展示
+  给评分组件加上文案展示。
+</summary>
 
-<v-rate allow-half :default-value='2.5'></v-rate>
+```html
+<template>
+    <v-rate v-model='star2' @change="_change">
+        <span class='ant-rate-text'>{{ star2 }}星</span>
+    </v-rate>
+</template>
 
+<script>
+    export default {
+        data: function() {
+            return {
+                star2: 6
+            };
+        },
+        methods: {
+            _change(val) {
+                console.log('selected:' + val);
+            }
+        }
+    }
+</script>
 ```
-<v-rate allow-half :default-value='2.5'></v-rate>
-```
+:::
 
-### 给评分组件加上文案展示。
-<v-rate :default-value='star' :on-change="_change">
-  <span class='ant-rate-text'>{{ star }}星</span>
-</v-rate>
+::: demo
+<summary>
+  #### 只读
+  只读，无法进行鼠标交互。
+</summary>
 
+```html
+<template>
+    <v-rate disabled :value='2'></v-brate>
+</template>
 ```
-<v-rate :default-value='star' :on-change="_change">
-  <span class='ant-rate-text'>{{ star }}星</span>
-</v-rate>
-```
+:::
 
-### 只读，无法进行鼠标交互。
-<v-rate disabled :default-value='2'></v-brate>
-```
-<v-rate disabled :default-value='2'></v-brate>
-```
-
-
-### Attributes
+## API
+### Rate Props
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | count    | star 总数 | Number | 5 |
-| value | 当前数，受控值 | Number | - |
-| defaultValue | 默认值 | Number | 0 |
-| onChange | 回调 | Function(value: Number) | - |
+| value | 当前值，如果输入值超过 count 会被强制转换成count值 | Number | 0 |
 | allowHalf | 是否允许半选   | Boolean | false |
 | disabled | 只读，无法进行交互 | Boolean | false |
 
+### Alert Events
+| 事件名称 | 说明 | 回调参数 |
+|---------- |-------- |---------- |
+| change | 选择的值发生变化的时候触发 | value |
 

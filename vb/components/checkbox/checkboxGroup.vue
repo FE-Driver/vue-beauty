@@ -1,13 +1,13 @@
 <template lang="html">
-    <div class="ant-checkbox-group">
+    <div :class="prefixCls">
         <v-checkbox
-                class="ant-checkbox-group-item"
+                :class="prefixCls + '-item'"
                 v-for="(option, index) in ori_options"
                 v-model="option.checked"
                 :disabled="!!option.disabled"
                 @click="toggleChecked(index)"
         >
-            {{ option.label }}
+            {{ option[label] }}
         </v-checkbox>
     </div>
 </template>
@@ -23,6 +23,10 @@
                 type: String,
                 default: 'value'
             },
+            label: {
+                type: String,
+                default: 'label'
+            },
             value: {
                 type: Array,
                 default: () => []
@@ -30,6 +34,7 @@
         },
         data: function () {
             return {
+                prefixCls: 'ant-checkbox-group',
                 ori_options: JSON.parse(JSON.stringify(this.options)),
                 currentValue: this.value
             }

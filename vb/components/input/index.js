@@ -1,3 +1,3 @@
 import "./style/index.less"
-
-export default {}
+import input from './input.vue'
+export default input

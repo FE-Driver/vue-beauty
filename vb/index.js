@@ -48,6 +48,7 @@ const components = {
     tag,
     spin,
     cascader,
+    input,
     select,
     timePicker,
     morePanel,
