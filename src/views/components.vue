@@ -13,6 +13,9 @@
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Layout">
+                        <v-menu-item>
+                            <router-link :to="{ name:'grid'}">Grid 栅格</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Navigation">
                         <v-menu-item>
