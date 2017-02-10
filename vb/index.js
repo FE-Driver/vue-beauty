@@ -25,6 +25,8 @@ import upload from './components/upload';
 import form from './components/form';
 import locale from './locale';
 import tooltip from './components/tooltip';
+import notification from './components/notification';
+import tooltipd from './directive/tooltipd'
 
 const components = {
     breadcrumb,
@@ -60,6 +62,7 @@ const components = {
     tooltip,
     form,
     formItem: form.Item,
+    tooltipd,
 }
 
 for (let item of Object.values(components)) {
@@ -82,6 +85,11 @@ const install = function (Vue, opts = {}) {
     }
 };
 
+//注册全局方法
+notification.install = function(Vue){
+    Vue.$notification = Vue.prototype.$notification = notification
+}
+
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
@@ -94,6 +102,7 @@ export default Object.assign(
     },
     components
 )
+
 
 /* function isFlexSupported(style) {
     return 'flex' in style ||
