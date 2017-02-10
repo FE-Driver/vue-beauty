@@ -47,15 +47,32 @@
 ::: demo
 <summary>
   #### 多彩标签
-  基本标签可以通过`color`设置背景色，以提供视觉暗示区分不同目的的标签。
+  我们添加了多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
 </summary>
 
 ```html
-<v-tag color="blue">blue</v-tag>
-<v-tag color="green">green</v-tag>
-<v-tag color="yellow">yellow</v-tag>
+<v-tag color="pink">pink</v-tag>
 <v-tag color="red">red</v-tag>
+<v-tag color="orange">orange</v-tag>
+<v-tag color="yellow">yellow</v-tag>
+<v-tag color="green">green</v-tag>
+<v-tag color="cyan">cyan</v-tag>
+<v-tag color="blue">blue</v-tag>
+<v-tag color="purple">purple</v-tag>
+<br><br>
+<v-tag color="pink-inverse">pink-inverse</v-tag>
+<v-tag color="red-inverse">red-inverse</v-tag>
+<v-tag color="orange-inverse">orange-inverse</v-tag>
+<v-tag color="yellow-inverse">yellow-inverse</v-tag>
+<v-tag color="green-inverse">green-inverse</v-tag>
+<v-tag color="cyan-inverse">cyan-inverse</v-tag>
+<v-tag color="blue-inverse">blue-inverse</v-tag>
+<v-tag color="purple-inverse">purple-inverse</v-tag>
+<br><br>
+<v-tag color="#f50">#f50</v-tag>
+<v-tag color="#2db7f5">#2db7f5</v-tag>
 <v-tag color="#87d068">#87d068</v-tag>
+<v-tag color="#108ee9">#108ee9</v-tag>
 ```
 :::
 
