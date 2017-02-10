@@ -1,5 +1,5 @@
 <template>
-    <input v-if="!hasbefore && !hasafter" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
+    <input v-if="!hasbefore && !hasafter && type!='textarea'" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
     <span v-else :class="wrapClasses">
         <span v-if="hasbefore" class="ant-input-group-addon">
             <slot name="before"></slot>
