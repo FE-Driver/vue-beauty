@@ -15,7 +15,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="ant-select-selection-selected-value" title="Lucy" :style="{opacity: isSearchFocus?0.4:1}">{{labels}}</div>
+                    <div v-else class="ant-select-selection-selected-value" :title="labels" :style="{opacity: isSearchFocus?0.4:1}">{{labels}}</div>
                 </template>
                 <div v-show="((multiple && !labels.length) || (!multiple && !labels)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
                 <div v-if="search && !multiple" class="ant-select-search ant-select-search--inline">
@@ -163,7 +163,12 @@
             remoteMethod: Function
         },
         mounted() {
-            this.init();
+            if(this.multiple){
+                this.labels = [];
+                if(!this.currentValue) this.currentValue = [];
+            }
+
+            this.initVal();
             this.container = this.popupContainer()
 
             this.$refs.dropdown.style.position = this.position;
@@ -187,8 +192,11 @@
                 this.$emit('input',val);
             },
             value(val){
-                this.currentValue = val;
-                this.init();
+                if(this.currentValue !== val){
+                    this.labels = this.multiple?[]:'';
+                    this.currentValue = val;
+                    this.initVal();
+                }
             },
             searchVal(val){
                 if(this.multiple){
@@ -282,15 +290,7 @@
                     }
                 }
             },
-            init(){
-                if(this.multiple){
-                    this.labels = [];
-                    if(!this.currentValue) this.currentValue = [];
-                }else{
-                    this.labels = '';
-                    if(!this.currentValue) this.currentValue = '';
-                }
-
+            initVal(){
                 this.mapOptions(([type, path, item])=> {
                     let selected = false;
                     if(this.multiple && this.currentValue.includes(item[this.keyFiled])){
