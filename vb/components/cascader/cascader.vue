@@ -38,7 +38,7 @@
                 type: String,
                 default: 'absolute'
             },
-            options: Array,
+            data: Array,
             value: {
                 type: Array,
                 default: ()=> []
@@ -85,7 +85,7 @@
         },
         watch: {
             path(val){
-                let value = [], label = [], opt = this.options;
+                let value = [], label = [], opt = this.data;
 
                 for(let i of val){
                     if(i < 0) break;
@@ -119,7 +119,7 @@
         methods: {
             init(){
                 this.defaultValue = JSON.parse(JSON.stringify(this.value))
-                let res = [],opt = this.options;
+                let res = [],opt = this.data;
                 for(let val of this.value){
                     for(let [i,item] of opt.entries()){
                         if(item.value == val){
@@ -148,7 +148,7 @@
                 }
             },
             getMenuData(index){
-                let res = this.options;
+                let res = this.data;
                 for(let i=0;i < index;i++){
                     const s = this.path[i];
                     if(res[s].children){
