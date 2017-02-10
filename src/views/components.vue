@@ -16,6 +16,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'grid'}">Grid 栅格</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'morePanel'}">MorePanel 更多条件</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Navigation">
                         <v-menu-item>
