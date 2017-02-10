@@ -1,12 +1,12 @@
 <template>
-    <input v-if="type === 'text' && !hasbefore && !hasafter" type="text" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" autocomplete="off" @blur="blur"/>
+    <input v-if="!hasbefore && !hasafter" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
     <span v-else :class="wrapClasses">
         <span v-if="hasbefore" class="ant-input-group-addon">
             <slot name="before"></slot>
         </span>
         <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" @blur="blur">
         </textarea>
-        <input v-else type="text" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" autocomplete="off" @blur="blur"/>
+        <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
         <span v-if="hasafter" class="ant-input-group-addon">
             <slot name="after"></slot>
         </span>
@@ -51,8 +51,8 @@
             }
         },
         watch: {
-            content(val) {
-                this.$emit('input',val);
+            value(val) {
+                this.content = val
             }
         },
         computed: {
@@ -87,6 +87,14 @@
             } )
         },
         methods: {
+            handleInput(event) {
+                this.setCurrentValue(event.target.value);
+            },
+            setCurrentValue(value) {
+                if (value === this.content) return;
+                this.content = value
+                this.$emit('input', value)
+            },
             blur() {
                 this.$emit('blur', this.content)
             }
