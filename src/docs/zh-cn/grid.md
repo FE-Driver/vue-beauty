@@ -461,7 +461,6 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ```
 :::
 
-<!--
 ::: demo
 <summary>
   #### 响应式布局
@@ -472,9 +471,9 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 <template>
     <div class="grid-demo">
         <v-row type="flex">
-            <v-col xs="2" sm="4" md="6" lg="8">col</v-col>
-            <v-col xs="20" sm="16" md="12" lg="8">col</v-col>
-            <v-col xs="2" sm="4" md="6" lg="8">col</v-col>
+            <v-col :xs="2" :sm="4" :md="6" :lg="8">col</v-col>
+            <v-col :xs="20" :sm="16" :md="12" :lg="8">col</v-col>
+            <v-col :xs="2" :sm="4" :md="6" :lg="8">col</v-col>
         </v-row>
     </div>
 </template>
@@ -495,11 +494,15 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
             <v-col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">col</v-col>
             <v-col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }">col</v-col>
         </v-row>
+        <v-row type="flex">
+            <v-col :xs="{ span: 6, order: 1 }" :lg="{ span: 8, order: 3 }">col-1</v-col>
+            <v-col :xs="{ span: 12, order: 2 }" :lg="{ span: 8, order: 2 }">col-2</v-col>
+            <v-col :xs="{ span: 6, order: 3 }" :lg="{ span: 8, order: 1 }">col-3</v-col>
+        </v-row>
     </div>
 </template>
 ```
 :::
--->
 
 ::: demo
 <summary>
@@ -591,9 +594,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 | offset | 栅格左侧的间隔格数，间隔内不可以有栅格   | Number | 0 |
 | push | 栅格向右移动格数 | Number | 0 |
 | pull | 栅格向左移动格数 | Number | 0 |
-<!--
-| xs | <768px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number|Object | - |
-| sm | ≥768px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number|Object | - |
-| md | ≥992px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number|Object | - |
-| lg | ≥1200px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number|Object | - |
--->
+| xs | <768px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
+| sm | ≥768px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
+| md | ≥992px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
+| lg | ≥1200px 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
