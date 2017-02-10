@@ -5,9 +5,9 @@
                 align: "top",
                 index: 0,
                 alignChoose: ["top", "middle", "bottom"],
-                gutter: 8,
+                gutter: 0,
                 colCount: 2,
-                renderCode: '<v-row gutter="8">\n' +
+                renderCode: '<v-row>\n' +
                             '    <v-col span="12"></v-col>\n' +
                             '    <v-col span="12"></v-col>\n' +
                             '</v-row>',
@@ -510,7 +510,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ```html
 <template>
     <div class="grid-demo">
-        Gutter: <v-select size="lg" style="width: 200px;" :options="gutterOptions" v-model="gutter" @change="gutterChange"></v-select>{{ gutter }}
+        Gutter: <v-select size="lg" style="width: 200px;" :options="gutterOptions" v-model="gutter" @change="gutterChange"></v-select>
         Column Count: <v-select size="lg" style="width: 200px;" :options="colCountOptions" v-model="colCount" @change="colCountChange"></v-select>
         <v-row :gutter="gutter">
             <v-col v-for="n in colCount" :span="24/colCount" class="gutter-row" >
@@ -525,7 +525,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
     export default {
         data: function() {
             return {
-                gutter: 8,
+                gutter: 0,
                 colCount: 2,
                 renderCode: '<v-row>\n' +
                             '    <v-col span="12"></v-col>\n' +

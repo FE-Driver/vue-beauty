@@ -13,33 +13,13 @@
             justify: String
         },
         mounted(){
-            console.log("mounted");
             if (this.gutter) {
-                console.log("mounted + gutter");
-
-                let half = this.gutter / 2;
-                this.$el.style.marginLeft = -half + 'px';
-                this.$el.style.marginRight = -half + 'px';
-
-                for (let $child of this.$children) {
-                    $child.$el.style.paddingLeft = half + 'px';
-                    $child.$el.style.paddingRight = half + 'px';
-                }
+                this.updateGutter(this.gutter);
             }
         },
         updated(){
-            console.log("updated");
             if (this.gutter) {
-                console.log("updated + gutter");
-
-                let half = this.gutter / 2;
-                this.$el.style.marginLeft = -half + 'px';
-                this.$el.style.marginRight = -half + 'px';
-
-                for (let $child of this.$children) {
-                    $child.$el.style.paddingLeft = half + 'px';
-                    $child.$el.style.paddingRight = half + 'px';
-                }
+                this.updateGutter(this.gutter);
             }
         },
         computed: {
@@ -53,6 +33,11 @@
         },
         watch: {
             gutter(value) {
+                this.updateGutter(value);
+            }
+        },
+        methods: {
+            updateGutter(value) {
                 let half = value / 2;
                 this.$el.style.marginLeft = -half + 'px';
                 this.$el.style.marginRight = -half + 'px';
