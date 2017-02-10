@@ -34,6 +34,11 @@ export default [
                 component: require('./docs/zh-cn/input.md')
             },
             {
+                path: 'inputNumber',
+                name: 'inputNumber',
+                component: require('./docs/zh-cn/inputNumber.md')
+            },
+            {
                 path: 'cascader',
                 name: 'cascader',
                 component: require('./docs/zh-cn/cascader.md')

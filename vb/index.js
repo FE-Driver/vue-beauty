@@ -16,6 +16,7 @@ import { col, row } from './components/grid';
 import spin from './components/spin';
 import cascader from './components/cascader';
 import input from './components/input';
+import inputNumber from './components/inputNumber';
 import select from './components/select';
 import timePicker from './components/timePicker';
 import morePanel from './components/morePanel';
@@ -50,6 +51,7 @@ const components = {
     spin,
     cascader,
     input,
+    inputNumber,
     select,
     timePicker,
     morePanel,

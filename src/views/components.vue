@@ -42,6 +42,9 @@
                             <router-link :to="{ name:'input'}">Input 输入框</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'inputNumber'}">InputNumber 数字输入框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'rate'}">Rate 评分</router-link>
                         </v-menu-item>
                         <v-menu-item>
