@@ -186,6 +186,10 @@
                 this.$emit('change',val);
                 this.$emit('input',val);
             },
+            value(val){
+                this.currentValue = val;
+                this.init();
+            },
             searchVal(val){
                 if(this.multiple){
                     this.multipleSearchStyle = val?{width: this.$refs.searchMirror.offsetWidth + 'px'}:{}
@@ -282,6 +286,9 @@
                 if(this.multiple){
                     this.labels = [];
                     if(!this.currentValue) this.currentValue = [];
+                }else{
+                    this.labels = '';
+                    if(!this.currentValue) this.currentValue = '';
                 }
 
                 this.mapOptions(([type, path, item])=> {

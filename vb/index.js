@@ -22,6 +22,7 @@ import morePanel from './components/morePanel';
 import radio from './components/radio';
 import checkbox from './components/checkbox';
 import upload from './components/upload';
+import form from './components/form';
 import locale from './locale';
 import tooltip from './components/tooltip';
 
@@ -57,6 +58,8 @@ const components = {
     checkboxGroup: checkbox.Group,
     upload,
     tooltip,
+    form,
+    formItem: form.Item,
 }
 
 for (let item of Object.values(components)) {

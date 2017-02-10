@@ -112,6 +112,11 @@ export default [
                 path: 'tooltip',
                 name: 'tooltip',
                 component: require('./docs/zh-cn/tooltip.md')
+            },
+            {
+                path: 'form',
+                name: 'form',
+                component: require('./docs/zh-cn/form.md')
             }
         ]
     }

@@ -32,7 +32,9 @@
   "homepage": "https://github.com/FE-Driver/vue-beauty",
   "private": true,
   "dependencies": {
-    "core-js": "^2.4.1"
+    "async-validator": "^1.6.8",
+    "core-js": "^2.4.1",
+    "popper.js": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -78,11 +80,10 @@
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.1.10",
     "webpack": "^2.2.1",
-    "webpack-bundle-analyzer": "^2.2.2",
+    "webpack-bundle-analyzer": "^2.2.3",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
-    "webpack-merge": "^2.6.1",
-    "popper.js": "^0.6.4"
+    "webpack-merge": "^2.6.1"
   },
   "engines": {
     "node": ">= 4.0.0",
