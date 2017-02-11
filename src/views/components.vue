@@ -67,6 +67,9 @@
                             <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'notification'}">Notification 通知提醒框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'spin'}">spin加载中</router-link>
                         </v-menu-item>
                     </v-submenu>
