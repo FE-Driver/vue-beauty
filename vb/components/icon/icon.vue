@@ -25,7 +25,7 @@
                 return [
                     this.prefix,
                     `${this.prefix}-${this.type}`,
-                    {[`${this.prefix}-spin`]: this.spin}
+                    {[`${this.prefix}-spin`]: this.spin || this.type === 'loading'}
                 ]
             }
         }

@@ -78,6 +78,19 @@
         <span>打开通知提醒框</span>
     </button>
 </template>
+<script>
+    export default {
+        methods: {
+            openNotification() {
+                this.$notification.open({
+                  message: '这是标题',
+                  description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
+                  onClose: close
+                });
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -93,6 +106,19 @@
         <span>打开通知提醒框</span>
     </button>
 </template>
+<script>
+    export default {
+        methods: {
+            openNotificationInfinite() {
+                this.$notification.open({
+                    message: '这是标题',
+                    description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
+                    duration: 0
+                });
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -110,6 +136,18 @@
     <button type="button" class="ant-btn" @click="openNotificationWithIcon('warning')"><span>警 告</span></button>
     <button type="button" class="ant-btn" @click="openNotificationWithIcon('error')"><span>错 误</span></button>
 </template>
+<script>
+    export default {
+        methods: {
+            openNotificationWithIcon(type) {
+                this.$notification[type]({
+                  message: '这是标题',
+                  description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
+                });
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -121,22 +159,52 @@
 
 ```html
 <template>
-    <v-select search style="width: 120px;" :options="options" @change="onPlacementChange"></v-select>
-
+    <v-select style="width: 120px;" :data="options" @change="onPlacementChange"></v-select>
     <button type="button" class="ant-btn ant-btn-primary" @click="openNotificationInfinite">
         <span>打开通知提醒框</span>
     </button>
 </template>
+<script>
+    const options = [{
+        value: 'topLeft',
+        label: 'topLeft'
+    }, {
+        value: 'topRight',
+        label: 'topRight'
+    }, {
+        value: 'bottomLeft',
+        label: 'bottomLeft'
+    }, {
+        value: 'bottomRight',
+        label: 'bottomRight'
+    }];
+    export default {
+        data () {
+            return {
+                options
+            }
+        },
+        methods: {
+            onPlacementChange() {
+                this.$notification.open({
+                  message: '这是标题',
+                  description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
+                  onClose: close
+                });
+            }
+        }
+    }
+</script>
 ```
 :::
 
 
 ## API
 
-- `notification.success(config)`
-- `notification.error(config)`
-- `notification.info(config)`
-- `notification.warning(config)`
+- `this.$notification.success(config)`
+- `this.$notification.error(config)`
+- `this.$notification.info(config)`
+- `this.$notification.warning(config)`
 
 ### Notification Props
 | 参数        | 说明                                            | 类型         | 默认值 |
@@ -150,10 +218,10 @@
 
 还提供了一个全局配置方法，在调用前提前配置，全局一次生效。
 
-- `notification.config(options)`
+- `this.$notification.config(options)`
 
 ```js
-    notification.config({
+    this.$notification.config({
         top: 100,
         duration: 3,
     });

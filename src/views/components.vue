@@ -82,6 +82,9 @@
                             <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'message'}">Message 全局提示</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'notification'}">Notification 通知提醒框</router-link>
                         </v-menu-item>
                         <v-menu-item>
