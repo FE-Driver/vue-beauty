@@ -199,14 +199,14 @@
 :::
 
 
-### API
+## API
 
 - `this.$notification.success(config)`
 - `this.$notification.error(config)`
 - `this.$notification.info(config)`
 - `this.$notification.warning(config)`
 
-### Props
+### Notification Props
 | 参数        | 说明                                            | 类型         | 默认值 |
 |----------- |---------------------------------------------    | ----------- |--------|
 | message    | 通知提醒标题，必选                                 | string  | -     |
