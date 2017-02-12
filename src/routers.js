@@ -64,11 +64,6 @@ export default [
                 component: require('./docs/zh-cn/affix.md')
             },
             {
-                path: 'pagination',
-                name: 'pagination',
-                component: require('./docs/zh-cn/pagination.md')
-            },
-            {
                 path: 'card',
                 name: 'card',
                 component: require('./docs/zh-cn/card.md')
@@ -87,6 +82,16 @@ export default [
                 path: 'pagination',
                 name: 'pagination',
                 component: require('./docs/zh-cn/pagination.md')
+            },
+            {
+                path: 'message',
+                name: 'message',
+                component: require('./docs/zh-cn/message.md')
+            },
+            {
+                path: 'notification',
+                name: 'notification',
+                component: require('./docs/zh-cn/notification.md')
             },
             {
                 path: 'morePanel',

@@ -19,6 +19,7 @@ import input from './components/input'
 import inputNumber from './components/inputNumber'
 import select from './components/select'
 import timePicker from './components/timePicker'
+import message from './components/message'
 import morePanel from './components/morePanel'
 import radio from './components/radio'
 import checkbox from './components/checkbox'
@@ -64,6 +65,11 @@ const components = {
     tooltip,
     form,
     formItem: form.Item,
+    message
+}
+
+message.install = function (Vue) {
+    Vue.$message = Vue.prototype.$message = message
 }
 
 notification.install = function (Vue) {
