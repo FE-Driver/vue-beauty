@@ -73,7 +73,7 @@
             }
         },
         methods: {
-            add(notice) {
+            add (notice) {
                 const self = this
                 const key = notice.key = notice.key || seed++
                     const notices = this.notices
@@ -85,7 +85,7 @@
                     this.notices = notices.concat(notice)
                 }
             },
-            close(key) {
+            close (key) {
                 const notices = this.notices;
                 for (let i = 0; i < notices.length; i++) {
                     if (notices[i].vkey === key) {
@@ -93,6 +93,10 @@
                         break
                     }
                 }
+            },
+            destroy () {
+                this.$destroy(true)
+                this.$el.parentNode.removeChild(this.$el)
             }
         },
         components: {
