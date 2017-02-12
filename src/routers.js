@@ -84,6 +84,11 @@ export default [
                 component: require('./docs/zh-cn/timePicker.md')
             },
             {
+                path: 'pagination',
+                name: 'pagination',
+                component: require('./docs/zh-cn/pagination.md')
+            },
+            {
                 path: 'morePanel',
                 name: 'morePanel',
                 component: require('./docs/zh-cn/morePanel.md')
@@ -129,5 +134,5 @@ export default [
                 component: require('./docs/zh-cn/form.md')
             }
         ]
-    }
+  }
 ]

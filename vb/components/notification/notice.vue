@@ -1,0 +1,86 @@
+<template>
+    <div class="ant-notification-notice" transition="notification">
+        <div class="ant-notification-notice-content">
+            <div :class="type ? `${prefixCls}-with-icon`: ''">
+                <icon v-if="type" :class="[`${prefixCls}-icon ${prefixCls}-icon-${this.type}`]" :type="iconType"></icon>
+                <div class="ant-notification-notice-message" v-text="message"></div>
+                <div class="ant-notification-notice-description" v-text="description"></div>
+            </div>
+        </div>
+        <a class="ant-notification-notice-close" @click="_close">
+            <span class="ant-notification-notice-close-x"></span>
+        </a>
+    </div>
+</template>
+
+<script>
+    import icon from '../icon'
+    const prefixCls = 'ant-notification-notice'
+    export default {
+        props: {
+            message: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                required: true
+            },
+            type: String,
+            // 由于key为vue的保留可以，调整为vkey
+            vkey: {
+                type: String,
+                required: true
+            },
+            onClose: {
+                type: Function,
+                default: function () {}
+            },
+            duration: Number
+        },
+        data: function () {
+            return {
+              prefixCls: prefixCls
+            }
+        },
+        computed: {
+            iconType () {
+                let iconClass = ({
+                    'info': 'info-circle-o',
+                    'success': 'check-circle-o',
+                    'error': 'cross-circle-o',
+                    'warning': 'exclamation-circle-o',
+                })[this.type] || 'info-circle'
+                return iconClass
+            }
+        },
+        mounted() {
+            this._clearCloseTimer()
+            if (this.duration) {
+                this.closeTimer = setTimeout(() => {
+                    this._close()
+                }, this.duration * 1000)
+            }
+        },
+        beforeDestory() {
+            this._clearCloseTimer()
+        },
+        methods: {
+            _clearCloseTimer() {
+                if (this.closeTimer) {
+                    clearTimeout(this.closeTimer)
+                    this.closeTimer = null
+                }
+            },
+            _close() {
+                this._clearCloseTimer()
+                this.onClose()
+                this.$parent.close(this.vkey);
+            }
+        },
+        components: {
+            icon
+        }
+    }
+
+</script>
