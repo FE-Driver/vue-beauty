@@ -64,9 +64,9 @@ export default [
                 component: require('./docs/zh-cn/affix.md')
             },
             {
-                path: 'pagination',
-                name: 'pagination',
-                component: require('./docs/zh-cn/pagination.md')
+                path: 'notification',
+                name: 'notification',
+                component: require('./docs/zh-cn/notification.md')
             },
             {
                 path: 'card',
