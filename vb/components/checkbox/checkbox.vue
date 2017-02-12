@@ -1,6 +1,6 @@
 <template lang="html">
     <label :class="prefixCls + '-wrapper'">
-        <span :class="[prefixCls, currentValue ? prefixCls + '-checked': '', disabled ? prefixCls + '-disabled': disabled]">
+        <span :class="[prefixCls, {[prefixCls + '-checked']: currentValue && !indeterminate,  [prefixCls + '-indeterminate']: indeterminate, [prefixCls + '-disabled']: disabled}]">
             <span :class="prefixCls + '-inner'"></span>
             <input type="checkbox" :class="prefixCls + '-input'" @click="_change" :value="currentValue">
         </span>
@@ -15,6 +15,10 @@
         name: 'vCheckbox',
         props: {
             value: {
+                type: Boolean,
+                default: false
+            },
+            indeterminate: {
                 type: Boolean,
                 default: false
             },

@@ -12,13 +12,11 @@ import pagination from './components/pagination'
 import tag from './components/tag'
 // import tabs from './components/tabs'
 import vSwitch from './components/switch'
-import {
-    col,
-    row
-} from './components/grid'
+import { col, row } from './components/grid'
 import spin from './components/spin'
 import cascader from './components/cascader'
 import input from './components/input'
+import inputNumber from './components/inputNumber'
 import select from './components/select'
 import timePicker from './components/timePicker'
 import morePanel from './components/morePanel'
@@ -26,6 +24,8 @@ import radio from './components/radio'
 import checkbox from './components/checkbox'
 import upload from './components/upload'
 import notification from './components/notification'
+import form from './components/form'
+import tooltip from './components/tooltip'
 import locale from './locale'
 
 const components = {
@@ -52,6 +52,7 @@ const components = {
     spin,
     cascader,
     input,
+    inputNumber,
     select,
     timePicker,
     morePanel,
@@ -59,7 +60,10 @@ const components = {
     checkbox,
     checkboxGroup: checkbox.Group,
     upload,
-    notification
+    notification,
+    tooltip,
+    form,
+    formItem: form.Item,
 }
 
 notification.install = function (Vue) {

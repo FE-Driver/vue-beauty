@@ -23,7 +23,7 @@ export default {
                 value: '3',
                 label: '小明'
             }],
-            value: '3'
+            value: '1'
         }
     },
     methods: {
@@ -39,8 +39,8 @@ export default {
 通过鼠标或键盘输入内容，是最基础的表单域的包装。
 
 ### 何时使用
-需要用户输入表单域内容时。
-提供组合型输入框，带搜索的输入框，还可以进行大小选择。
+- 需要用户输入表单域内容时。
+- 提供组合型输入框，带搜索的输入框，还可以进行大小选择。
 
 ### 组件演示
 
@@ -52,7 +52,7 @@ export default {
 
 ```html
 <template>
-  <v-input placeholder="基本使用" @blur="blur('blur')"></v-input>
+  <v-input placeholder="基本使用" v-model="value" @blur="blur('blur')"></v-input>
 </template>
 <script>
 export default {
@@ -89,12 +89,12 @@ export default {
 
 ```html
 <template>
-  <v-input placeholder="基本使用">
+  <v-input>
       <span slot="before">http://</span>
       <span slot="after">.com</span>
   </v-input>
   <br>
-  <v-input placeholder="基本使用">
+  <v-input>
       <v-select placeholder="请选择" style="width: 80px;" slot="before" :options="options"
       v-model="value"></v-select>
       <v-select style="width: 80px;" slot="after" :options="options2"
@@ -126,7 +126,7 @@ export default {
 ```html
 <template>
   <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block"
-  disabled=""></v-input>
+  disabled></v-input>
   <br>
   <v-input placeholder="基本尺寸" style="width:200px;display:inline-block"></v-input>
   <br>
@@ -144,9 +144,8 @@ export default {
 | value | value 值 | any | - |
 | size | 控件大小，默认值为 default 。{"large","default","small"}注：标准表单内的输入框大小限制为 large。 | String | default |
 | disabled    | 是否禁用状态，默认为 false | Boolean | false |
-| debounce | 每次敲击之后同步输入框的值与数据的延时时间 | Number | 0 |
-| slot::before | input前面加前缀修饰 | slot node | - |
-| slot::after | input后面加后缀修饰	 | slot node | - |
+| slot:before | input前面加前缀修饰 | slot node | - |
+| slot:after | input后面加后缀修饰	 | slot node | - |
 
 ### Input Events
 | 事件        | 说明           | 参数        |

@@ -158,7 +158,6 @@
                 type: Number,
                 default: 10
             },
-            onChange: Function,
             showSizeChanger: {
                 type: Boolean,
                 default: false
@@ -188,16 +187,6 @@
             return {
                 currentForSimple: 1,
                 current: this.value
-//                currentForSimple: 1,
-//                totalText: '',
-//                pageList: [],
-//                allPages: 0,
-//                showJumpPrev: false,
-////              showJumpNext: false,
-////              showFirstPager: false,
-//                showLastPager: false,
-//                pageLeft: 0,
-//                pageRight: 0
             }
         },
         mounted () {

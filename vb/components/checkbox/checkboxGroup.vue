@@ -2,7 +2,7 @@
     <div :class="prefixCls">
         <v-checkbox
                 :class="prefixCls + '-item'"
-                v-for="(option, index) in ori_options"
+                v-for="(option, index) in ori_data"
                 v-model="option.checked"
                 :disabled="!!option.disabled"
                 @click="toggleChecked(index)"
@@ -18,7 +18,7 @@
     export default {
         name: 'vCheckboxGroup',
         props: {
-            options: Array,
+            data: Array,
             keyFiled: {
                 type: String,
                 default: 'value'
@@ -35,7 +35,7 @@
         data: function () {
             return {
                 prefixCls: 'ant-checkbox-group',
-                ori_options: JSON.parse(JSON.stringify(this.options)),
+                ori_data: JSON.parse(JSON.stringify(this.data)),
                 currentValue: this.value
             }
         },
@@ -48,8 +48,8 @@
                 this.$emit('change',value);
                 this.$emit('input',value);
             },
-            options: function(value) {
-                this.ori_options = JSON.parse(JSON.stringify(value));
+            data: function(value) {
+                this.ori_data = JSON.parse(JSON.stringify(value));
                 this.setChecked();
             }
         },
@@ -58,24 +58,24 @@
         },
         methods: {
             setChecked: function () {
-                for (let [index, item] of this.ori_options.entries()) {
+                for (let [index, item] of this.ori_data.entries()) {
                     if(this.currentValue.includes(item[this.keyFiled])) {
-                        this.$set(this.ori_options[index], 'checked', true);
+                        this.$set(this.ori_data[index], 'checked', true);
                     } else {
-                        this.$set(this.ori_options[index], 'checked', false);
+                        this.$set(this.ori_data[index], 'checked', false);
                     }
                 }
             },
             toggleChecked: function (index) {
-                if(this.currentValue.includes(this.ori_options[index][this.keyFiled])) {
+                if(this.currentValue.includes(this.ori_data[index][this.keyFiled])) {
                     for (let [i, item] of this.currentValue.entries()) {
-                        if (this.currentValue[i] == this.ori_options[index][this.keyFiled]) {
+                        if (this.currentValue[i] == this.ori_data[index][this.keyFiled]) {
                             this.currentValue.splice(i,1);
                             break;
                         }
                     }
                 } else {
-                    this.currentValue.push(this.ori_options[index][this.keyFiled]);
+                    this.currentValue.push(this.ori_data[index][this.keyFiled]);
                 }
 
             }

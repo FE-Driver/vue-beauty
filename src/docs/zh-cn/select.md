@@ -119,8 +119,8 @@
 
 ```html
 <template>
-    <v-select placeholder="请选择人员" style="width: 120px;" :options="options" @change="change"></v-select>
-    <v-select placement="top" style="width: 120px;" :options="options" v-model="value"></v-select>
+    <v-select placeholder="请选择人员" style="width: 120px;" :data="options" @change="change"></v-select>
+    <v-select placement="top" style="width: 120px;" :data="options" v-model="value"></v-select>
     <v-select disabled style="width: 120px;"></v-select>
 </template>
 
@@ -163,9 +163,9 @@
 
 ```html
 <template>
-    <v-select size="lg" style="width: 200px;" :options="options" v-model="value"></v-select>
-    <v-select style="width: 200px;" :options="options" v-model="value"></v-select>
-    <v-select size="sm" style="width: 200px;" :options="options" v-model="value"></v-select>
+    <v-select size="lg" style="width: 200px;" :data="options" v-model="value"></v-select>
+    <v-select style="width: 200px;" :data="options" v-model="value"></v-select>
+    <v-select size="sm" style="width: 200px;" :data="options" v-model="value"></v-select>
 </template>
 
 <script>
@@ -202,7 +202,7 @@
 
 ```html
 <template>
-    <v-select style="width: 100%;" multiple :options="options" :value="['3']"></v-select>
+    <v-select style="width: 100%;" multiple :data="options" :value="['3']"></v-select>
 </template>
 
 <script>
@@ -233,9 +233,9 @@
 
 ```html
 <template>
-    <v-select search style="width: 120px;" :options="options"></v-select>
+    <v-select search style="width: 120px;" :data="options"></v-select>
     <br><br>
-    <v-select search multiple style="width: 100%" :options="options"></v-select>
+    <v-select search multiple style="width: 100%" :data="options"></v-select>
 </template>
 
 <script>
@@ -266,8 +266,8 @@
 
 ```html
 <template>
-    <v-select style="width: 200px" :options="groupOpt" :value="'lp'"></v-select>
-    <v-select style="width: 200px" multiple :options="groupOpt" :value="['lp']"></v-select>
+    <v-select style="width: 200px" :data="groupOpt" :value="'lp'"></v-select>
+    <v-select style="width: 200px" multiple :data="groupOpt" :value="['lp']"></v-select>
 </template>
 
 <script>
@@ -307,9 +307,9 @@
 
 ```html
 <template>
-    <v-select style="width: 200px" search :loading="loading" :remote-method="remoteMethod" :options="remoteOption"></v-select>
+    <v-select style="width: 200px" search :loading="loading" :remote-method="remoteMethod" :data="remoteOption"></v-select>
     <br><br>
-    <v-select style="width: 100%" search multiple :loading="loading2" :remote-method="remoteMethod2" :options="remoteOption"></v-select>
+    <v-select style="width: 100%" search multiple :loading="loading2" :remote-method="remoteMethod2" :data="remoteOption"></v-select>
 </template>
 
 <script>
@@ -383,7 +383,7 @@
 | keyField | 选项的value的字段名 | string | value |
 | label | 选项显示的文本的字段名 | string | label |
 | groupLabel | 分组title的字段名 | string | label |
-| options | 下拉框的数据 | array | [] |
+| data | 下拉框的数据 | array | [] |
 | multiple | 是否支持多选 | boolean | false |
 | notFoundContent | 当下拉列表为空时显示的内容 | string | 没有找到 |
 | placement | 下拉框出现的位置(top、bottom) | string | bottom |
@@ -399,7 +399,7 @@
 | position | 下拉框的定位方式（absolute,fixed）	 | string | absolute |
 | popupContainer | 下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | function | () => document.body |
 
-### Options Props
+### Data Props
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | value | 选项的值(该字段可通过select的keyField属性修改)	 | string/number/object | - |

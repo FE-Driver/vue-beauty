@@ -14,6 +14,15 @@ export default {
                 {text: '苹果', value: 'Apple'},
                 {text: '梨', value: 'Pear'},
                 {text: '橘', value: 'Orange', disabled: true},
+            ],
+            indeterminate: true,
+            allChecked: false,
+            fruits: ['Apple', 'Orange'],
+            allFruits: ['Apple', 'Pear', 'Orange'],
+            fruitsOptions: [
+                {label: '苹果', value: 'Apple'},
+                {label: '梨', value: 'Pear'},
+                {label: '橘', value: 'Orange'},
             ]
         }
     },
@@ -34,6 +43,29 @@ export default {
             } else {
                 this.defaultValue.push("Pear");
             }
+        },
+        checkAll: function() {
+            if (this.fruits.length == this.fruitsOptions.length) {
+                this.fruits = [];
+                this.allChecked = false;
+                this.indeterminate = false;
+            } else {
+                this.fruits = this.allFruits;
+                this.allChecked = true;
+                this.indeterminate = false;
+            }
+        },
+        setState: function() {
+            if (this.fruits.length > 0 && this.fruits.length < this.fruitsOptions.length) {
+                this.allChecked = false;
+                this.indeterminate = true;
+            } else if (this.fruits.length == this.fruitsOptions.length) {
+                this.allChecked = true;
+                this.indeterminate = false;
+            } else if (this.fruits.length == 0) {
+                this.allChecked = false;
+                this.indeterminate = false;
+            }
         }
     }
 }
@@ -45,8 +77,8 @@ export default {
 
 ## 何时使用
 
-- 在一组可选项中进行多项选择时；
-- 单独使用可以表示两种状态之间的切换，和 `switch` 类似。区别在于切换 `switch` 会直接触发状态改变，而 `checkbox` 一般用于状态标记，需要和提交操作配合。
+* 在一组可选项中进行多项选择时；
+* 单独使用可以表示两种状态之间的切换，和 `switch` 类似。区别在于切换 `switch` 会直接触发状态改变，而 `checkbox` 一般用于状态标记，需要和提交操作配合。
 
 ## 代码演示
 
@@ -137,13 +169,13 @@ export default {
 <template>
     <div>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :options="options" v-model="defaultValue" @change="checkGroup"></v-checkbox-group>
+            <v-checkbox-group :data="options" v-model="defaultValue" @change="checkGroup"></v-checkbox-group>
         </p>
         <p>
             <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="changeDefaultValue">修改默认选中值</button>
         </p>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :options="optionsWithDisabled" label="text" @change="checkGroup"></v-checkbox-group>
+            <v-checkbox-group :data="optionsWithDisabled" label="text" @change="checkGroup"></v-checkbox-group>
         </p>
     </div>
 </template>
@@ -183,6 +215,61 @@ export default {
 ```
 :::
 
+::: demo
+<summary>
+  #### 全选
+  在实现全选效果时，你可能会用到 indeterminate 属性。
+</summary>
+
+```html
+<template>
+    <div>
+        <p>
+            <v-checkbox :indeterminate="indeterminate" :value="allChecked" @click="checkAll">全选</v-checkbox>
+        </p>
+        <p style="margin-bottom: 16px;">
+            <v-checkbox-group :data="options" v-model="fruits" @change="setState"></v-checkbox-group>
+        </p>
+    </div>
+</template>
+
+<script>
+    export default {
+        data: function () {
+            return {
+                indeterminate: true,
+                allChecked: false,
+                fruits: ['Apple', 'Orange'],
+                allFruits: ['Apple', 'Pear', 'Orange'],
+                fruitsOptions: [
+                    {label: '苹果', value: 'Apple'},
+                    {label: '梨', value: 'Pear'},
+                    {label: '橘', value: 'Orange'},
+                ]
+            }
+        },
+        methods: {
+            checkAll: function() {
+                if (this.fruits.length == this.fruitsOptions.length) {
+                    this.fruits = [];
+                    this.allChecked = false;
+                    this.indeterminate = false;
+                } else {
+                    this.fruits = this.allFruits;
+                    this.allChecked = true;
+                    this.indeterminate = false;
+                }
+            },
+            setState: function() {
+                this.indeterminate =  this.fruits.length > 0 && this.fruits.length < this.fruitsOptions.length;
+                this.allChecked = this.fruits.length == this.fruitsOptions.length;
+            }
+        }
+    }
+</script>
+```
+:::
+
 ## API
 
 ### Checkbox Props
@@ -190,16 +277,17 @@ export default {
 |---------- |-------------- |---------- |-------- |
 | value | 指定当前是否选中 | Boolean | false |
 | disabled | 只读，无法进行交互 | Boolean | false |
+| indeterminate | 设置 indeterminate 状态，只负责样式控制 | Boolean | false |
 
 ### Checkbox Group Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | value | 默认选中的选项 | array | — |
-| key-field | 选项的value的字段名 | String | value |
+| keyField | 选项的value的字段名 | String | value |
 | label | 选项显示的文本的字段名 | String | label |
-| options | 选项 | array | — |
+| data | 选项 | array | — |
 
-### Options Props
+### Data Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | value | 选项的值(该字段可通过keyField属性修改) | String | — |

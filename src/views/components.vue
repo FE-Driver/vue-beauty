@@ -13,6 +13,12 @@
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Layout">
+                        <v-menu-item>
+                            <router-link :to="{ name:'grid'}">Grid 栅格</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'morePanel'}">MorePanel 更多条件</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Navigation">
                         <v-menu-item>
@@ -30,7 +36,13 @@
                             <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'form'}">Form 表单</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'input'}">Input 输入框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'inputNumber'}">InputNumber 数字输入框</router-link>
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'rate'}">Rate 评分</router-link>
@@ -60,6 +72,9 @@
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'tag'}">Tag 标签</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'tooltip'}">Tooltip 文字提示</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="feedback">
@@ -116,7 +131,7 @@ export default {
     .page-container {
         /*color: #666;*/
         font-size: 14px;
-        line-height: 1.8;
+        line-height: 1.5;
 
         h1 {
             color: #404040;
@@ -217,19 +232,38 @@ export default {
         overflow: hidden;
     }
 
-    .markdown h1, .markdown h2, .markdown h3 {
-        a{
-            font-size: .8em;
-            opacity: 0;
-            font-weight: normal;
-            transition: opacity .2s ease-in-out;
-        }
-
-        &:hover a {
-            opacity: 1;
-        }
-    }
     .header-anchor {
         margin-left: -18px;
+    }
+
+    .markdown {
+        & > ul{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            & > li {
+                list-style: circle;
+                margin-left: 1rem;
+            }
+        }
+        h1, h2, h3{
+            a{
+                font-size: .8em;
+                opacity: 0;
+                font-weight: normal;
+                transition: opacity .2s ease-in-out;
+            }
+
+            &:hover a {
+                opacity: 1;
+            }
+        }
+        code{
+            margin: 0 1px;
+            background: #f7f7f7;
+            padding: .2em .4em;
+            border-radius: 3px;
+            font-size: .9em;
+            border: 1px solid #eee;
+        }
     }
 </style>

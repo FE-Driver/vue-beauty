@@ -1,39 +1,53 @@
 <template>
-  <div class="ant-row" :class="classes">
-    <slot></slot>
-  </div>
+    <div class="ant-row" :class="classes">
+        <slot></slot>
+    </div>
 </template>
-<script>
-  export default {
-    name:'vRow',
-    props: {
-      gutter: Number,
-      pack:String,
-      display:String,
-      align:String
-    },
-    ready(){
-      if(this.gutter){
-        let half = this.gutter/2;
-        this.$el.style.marginLeft = -half + 'px';
-        this.$el.style.marginRight= -half + 'px';
+<script lang="babel">
+    export default {
+        name: 'vRow',
+        props: {
+            gutter: Number,
+            type: String,
+            align: String,
+            justify: String
+        },
+        mounted(){
+            if (this.gutter) {
+                this.updateGutter(this.gutter);
+            }
+        },
+        updated(){
+            if (this.gutter) {
+                this.updateGutter(this.gutter);
+            }
+        },
+        computed: {
+            classes () {
+                return [
+                    this.type ? `ant-row-${this.type}` : '',
+                    this.justify ? `ant-row-flex-${this.justify}` : '',
+                    this.align ? `ant-row-flex-${this.align}` : '',
+                ]
+            }
+        },
+        watch: {
+            gutter(value) {
+                this.updateGutter(value);
+            }
+        },
+        methods: {
+            updateGutter(value) {
+                let half = value / 2;
+                this.$el.style.marginLeft = -half + 'px';
+                this.$el.style.marginRight = -half + 'px';
 
-        for(let $child of this.$children){
-          $child.$el.style.paddingLeft = half + 'px';
-          $child.$el.style.paddingRight = half + 'px';
+                for (let $child of this.$children) {
+                    $child.$el.style.paddingLeft = half + 'px';
+                    $child.$el.style.paddingRight = half + 'px';
+                }
+            }
         }
-      }
-    },
-    computed: {
-      classes () {
-        return [
-          this.display ? `ant-row-${this.display}` : '',
-          this.pack ? `ant-row-flex-${this.pack}` : '',
-          this.align ? `ant-row-flex-${this.align}` : '',
-        ]
-      }
     }
-
-  }
 </script>
 
