@@ -188,14 +188,14 @@
 ```
 :::
 
-## 概述
+# 概述
 
 布局的栅格化系统，我们是基于行（row）和列（col）来定义信息区块的外部框架，以保证页面的每个区域能够稳健地排布起来。下面简单介绍一下它的工作原理：
 
-* 通过row在水平方向建立一组column（简写col）
-* 你的内容应当放置于col内，并且，只有col可以作为row的直接元素
-* 栅格系统中的列是指1到24的值来表示其跨越的范围。例如，三个等宽d的列可以使用.ant-col-8来创建
-* 如果一个row中的col总和超过24，那么多余的col会作为一个整体另起一行排列
+* 通过`row`在水平方向建立一组`column`（简写col）
+* 你的内容应当放置于`col`内，并且，只有`col`可以作为`row`的直接元素
+* 栅格系统中的列是指1到24的值来表示其跨越的范围。例如，三个等宽的列可以使用`.col-8`来创建
+* 如果一个`row`中的`col`总和超过 24，那么多余的`col`会作为一个整体另起一行排列
 
 ## Flex 布局
 
@@ -209,7 +209,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 <summary>
   #### 基本栅格
   从堆叠到水平排列。
-  使用单一的一组 Row 和 Col 栅格组件，就可以创建一个基本的栅格系统，所有列（Col）必须放在 Row 内。
+  使用单一的一组 `Row` 和 `Col` 栅格组件，就可以创建一个基本的栅格系统，所有列（Col）必须放在 `Row` 内。
 </summary>
 
 ```html
@@ -250,7 +250,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ::: demo
 <summary>
   #### 区块间隔
-  栅格常常需要和间隔进行配合，你可以使用 Row 的 gutter 属性，我们推荐使用 (16+8n)px 作为栅格间隔。
+  栅格常常需要和间隔进行配合，你可以使用 `Row` 的 `gutter` 属性，我们推荐使用 `(16+8n)px` 作为栅格间隔。
 </summary>
 
 ```html
@@ -289,7 +289,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ::: demo
 <summary>
   #### 左右偏移
-  使用 offset 可以将列向右侧偏。例如，offset={4} 将元素向右侧偏移了 4 个列（column）的宽度。
+  使用 `offset` 可以将列向右侧偏。例如，`offset={4}` 将元素向右侧偏移了 4 个列（column）的宽度。
 </summary>
 
 ```html
@@ -314,7 +314,8 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ::: demo
 <summary>
   #### 格栅排序
-  列排序。通过使用 push 和 pull 类就可以很容易的改变列（column）的顺序。
+  列排序。
+  通过使用 `push` 和 `pull` 类就可以很容易的改变列（column）的顺序。
 </summary>
 
 ```html
@@ -333,7 +334,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 <summary>
   #### Flex 布局
   Flex 布局基础。
-  使用 row-flex 定义 flex 布局，其子元素根据不同的值 start,center,end,space-between,space-around，分别定义其在父节点里面的排版方式。
+  使用 `row-flex` 定义 `flex` 布局，其子元素根据不同的值 `start`,`center`,`end`,`space-between`,`space-around`，分别定义其在父节点里面的排版方式。
 </summary>
 
 ```html
@@ -464,7 +465,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ::: demo
 <summary>
   #### 响应式布局
-  参照 Bootstrap 的 <a href="http://getbootstrap.com/css/#grid-media-queries">响应式设计</a> ，预设四个响应尺寸：xs sm md lg。
+  参照 Bootstrap 的 [响应式设计](http://getbootstrap.com/css/#grid-media-queries)，预设四个响应尺寸：`xs` `sm` `md` `lg`。
 </summary>
 
 ```html
@@ -483,7 +484,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ::: demo
 <summary>
   #### 其他属性的响应式
-  span pull push offset order 属性可以通过内嵌到 xs sm md lg 属性中来使用。
+  `span` `pull` `push` `offset` `order` 属性可以通过内嵌到 `xs` `sm` `md` `lg` 属性中来使用。其中 `:xs="6"` 相当于 `:xs="{ span: 6 }"`。
 </summary>
 
 ```html
