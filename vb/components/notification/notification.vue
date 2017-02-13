@@ -8,9 +8,10 @@
                 :duration="notice.duration"
                 :type="notice.type"
                 :selfKey="notice.selfKey"
+                :key="notice.selfKey"
                 :on-close="notice.onClose"
                 @close="close"
-            ><notice>
+            ></notice>
         </span>
     </div>
 </template>
@@ -74,28 +75,21 @@
         },
         methods: {
             add (notice) {
-                const notices = this.notices;
-                if (!notices.filter(v => v.selfKey === notice.selfKey).length) {
-                    this.notices = notices.concat(notice);
-                }
+                this.notices.push(notice);
             },
             close (key) {
-                const notices = this.notices;
-                for (let i = 0; i < notices.length; i++) {
-                    if (notices[i].selfKey === key) {
+                for (let i = 0; i < this.notices.length; i++) {
+                    if (this.notices[i].selfKey === key) {
                         this.notices.splice(i, 1);
                         break;
                     }
                 }
+
             },
-            destroy () {
-                this.$destroy(true);
-                this.$el.parentNode.removeChild(this.$el);
-            }
         },
         components: {
             notice
-        }
+        },
     }
 
 </script>

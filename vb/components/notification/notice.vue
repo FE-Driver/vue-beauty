@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade">
     <div class="ant-notification-notice" transition="notification">
         <div class="ant-notification-notice-content">
             <div :class="type ? `${prefixCls}-with-icon`: ''">
@@ -11,6 +12,7 @@
             <span class="ant-notification-notice-close-x"></span>
         </a>
     </div>
+    </transition>
 </template>
 
 <script>
@@ -38,12 +40,14 @@
                 default: function () {}
             },
             duration: {
-                type : Number
+                type : Number,
+                default : 4.5
             }
         },
         data: function () {
             return {
-              prefixCls: prefixCls
+              prefixCls: prefixCls,
+              closeTimer:null
             }
         },
         computed: {
@@ -59,15 +63,12 @@
             }
         },
         mounted() {
-            this._clearCloseTimer()
-            if (this.duration) {
+            var self = this;
+            if (this.duration && !this.closeTimer) {
                 this.closeTimer = setTimeout(() => {
-                    this._close()
-                }, this.duration * 1000);
+                    self._close();
+                }, self.duration * 1000);
             }
-        },
-        beforeDestory() {
-            this._clearCloseTimer();
         },
         methods: {
             _clearCloseTimer() {

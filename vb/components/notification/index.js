@@ -25,7 +25,7 @@ function notice (message, description, duration = defaultDuration, onClose, self
   let instance = getNotificationInstance();
 
   instance.notice({
-    selfKey: selfKey? selfKey : key + '',
+    selfKey: selfKey? selfKey : key+'',
     duration: duration,
     message: message,
     description: description,
