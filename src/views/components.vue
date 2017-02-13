@@ -42,6 +42,9 @@
                             <router-link :to="{ name:'input'}">Input 输入框</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'inputNumber'}">InputNumber 数字输入框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'rate'}">Rate 评分</router-link>
                         </v-menu-item>
                         <v-menu-item>
@@ -80,6 +83,12 @@
                     <v-submenu title="feedback">
                         <v-menu-item>
                             <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'message'}">Message 全局提示</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'notification'}">Notification 通知提醒框</router-link>
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'spin'}">spin加载中</router-link>

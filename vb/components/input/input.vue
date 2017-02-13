@@ -4,7 +4,7 @@
         <span v-if="hasbefore" class="ant-input-group-addon">
             <slot name="before"></slot>
         </span>
-        <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" v-model="content" @blur="blur">
+        <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" @blur="blur">
         </textarea>
         <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
         <span v-if="hasafter" class="ant-input-group-addon">

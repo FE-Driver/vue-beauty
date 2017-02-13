@@ -76,7 +76,7 @@
 
 ```html
 <template>
-  <v-cascader :options="options" @change="onchange"></v-cascader>
+  <v-cascader :data="options" @change="onchange"></v-cascader>
 </template>
 
 <script>
@@ -134,9 +134,9 @@
 
 ```html
 <template>
-  <v-cascader size="large" :options="options"></v-cascader>
-  <v-cascader :options="options"></v-cascader>
-  <v-cascader size="small" :options="options"></v-cascader>
+  <v-cascader size="large" :data="options"></v-cascader>
+  <v-cascader :data="options"></v-cascader>
+  <v-cascader size="small" :data="options"></v-cascader>
 </template>
 
 <script>
@@ -189,7 +189,7 @@
 
 ```html
 <template>
-  <v-cascader v-model="value" :options="options"></v-cascader>
+  <v-cascader v-model="value" :data="options"></v-cascader>
 </template>
 
 <script>
@@ -248,7 +248,7 @@
 
 ```html
 <template>
-  <v-cascader :options="options2"></v-cascader>
+  <v-cascader :data="options2"></v-cascader>
 </template>
 
 <script>
@@ -309,7 +309,7 @@
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | value    | 指定选中项 | array | - |
-| options | 可选项数据源	 | array | - |
+| data | 可选项数据源	 | array | - |
 | placeholder | 输入框占位文本 | string | 请选择 |
 | size    | 输入框大小，可选 large default small | string | default |
 | disabled | 禁用	 | boolean | false |

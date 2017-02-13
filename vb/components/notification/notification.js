@@ -1,9 +1,9 @@
-import vNotification from './notification.vue'
 import Vue from 'vue'
+import vNotification from './notification.vue'
 
 vNotification.newInstance = (data) => {
   const div = document.createElement('div')
-  div.innerHTML = `<v-notification :top='${data.top}'></v-notification>`
+  div.innerHTML = `<v-notification :top='${data.top}' :bottom='${data.bottom}' placement='${data.placement}' :duration='${data.duration}'></v-notification>`
   document.body.appendChild(div)
 
   const notification = new Vue({
@@ -18,13 +18,13 @@ vNotification.newInstance = (data) => {
     },
 
     removeNotice (key) {
-      notification.remove(key)
+      notification.close(key)
     },
 
     component: notification,
 
-    destory () {
-      document.body.removeChild(div)
+    destroy () {
+      notification.destroy()
     }
   }
 }

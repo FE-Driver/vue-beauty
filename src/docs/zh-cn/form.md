@@ -345,7 +345,7 @@ export default {
             <v-input size="large" v-model="ruleForm.name"></v-input>
         </v-form-item>
         <v-form-item label="活动区域" :label-col="labelCol" :wrapper-col="wrapperCol" prop="region">
-            <v-select v-model="ruleForm.region" placeholder="请选择活动区域" notfound="无法找到" :options="[{value: '1', label: '区域1'}, {value: '2', label: '区域2'}]"></v-select>
+            <v-select v-model="ruleForm.region" placeholder="请选择活动区域" notfound="无法找到" :data="[{value: '1', label: '区域1'}, {value: '2', label: '区域2'}]"></v-select>
         </v-form-item>
         <!--<v-form-item label="活动时间" :label-col="labelCol" :wrapper-col="wrapperCol" prop="date">
             <v-datepicker :time.sync="ruleForm.date"></v-datepicker>
@@ -354,7 +354,7 @@ export default {
             <v-switch v-model="ruleForm.delivery"></v-switch>
         </v-form-item>
         <v-form-item label="活动性质" :label-col="labelCol" :wrapper-col="wrapperCol" prop="type">
-            <v-checkbox-group v-model="ruleForm.type" :options="checkboxOpt"></v-checkbox-group>
+            <v-checkbox-group v-model="ruleForm.type" :data="checkboxOpt"></v-checkbox-group>
         </v-form-item>
         <v-form-item label="特殊资源" :label-col="labelCol" :wrapper-col="wrapperCol" prop="resource">
             <v-radio-group v-model="ruleForm.resource" :data="[{value: '1', text: '线上品牌商赞助'},{value: '2', text: '线下场地免费'}]"></v-radio-group>

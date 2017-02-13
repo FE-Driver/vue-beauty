@@ -169,13 +169,13 @@ export default {
 <template>
     <div>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :options="options" v-model="defaultValue" @change="checkGroup"></v-checkbox-group>
+            <v-checkbox-group :data="options" v-model="defaultValue" @change="checkGroup"></v-checkbox-group>
         </p>
         <p>
             <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="changeDefaultValue">修改默认选中值</button>
         </p>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :options="optionsWithDisabled" label="text" @change="checkGroup"></v-checkbox-group>
+            <v-checkbox-group :data="optionsWithDisabled" label="text" @change="checkGroup"></v-checkbox-group>
         </p>
     </div>
 </template>
@@ -228,7 +228,7 @@ export default {
             <v-checkbox :indeterminate="indeterminate" :value="allChecked" @click="checkAll">全选</v-checkbox>
         </p>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :options="options" v-model="fruits" @change="setState"></v-checkbox-group>
+            <v-checkbox-group :data="options" v-model="fruits" @change="setState"></v-checkbox-group>
         </p>
     </div>
 </template>
@@ -283,11 +283,11 @@ export default {
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | value | 默认选中的选项 | array | — |
-| key-field | 选项的value的字段名 | String | value |
+| keyField | 选项的value的字段名 | String | value |
 | label | 选项显示的文本的字段名 | String | label |
-| options | 选项 | array | — |
+| data | 选项 | array | — |
 
-### Options Props
+### Data Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | value | 选项的值(该字段可通过keyField属性修改) | String | — |
