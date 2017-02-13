@@ -23,7 +23,7 @@
         },
         methods: {
             openNotification() {
-                this.$notification.open({
+                this.$notification.info({
                   message: '这是标题',
                   description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
                   onClose: close
@@ -37,17 +37,23 @@
                 });
             },
             openNotificationInfinite() {
-                this.$notification.open({
+                this.$notification.info({
                     message: '这是标题',
                     description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
-                    duration: 0
+                    duration: 0,
+                    selfKey:'noClose'
                 });
             },
             onPlacementChange(val) {
                 this.$notification.config({
                     placement: val,
                 });
+            },
+            closeNotice(){
+                this.$notification.close('noClose');
             }
+            
+            
         }
     }
 </script>
@@ -82,7 +88,7 @@
     export default {
         methods: {
             openNotification() {
-                this.$notification.open({
+                this.$notification.info({
                   message: '这是标题',
                   description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
                   onClose: close
@@ -98,6 +104,7 @@
 <summary>
   #### 自动关闭的延时
   自定义通知框自动关闭的延时，默认`4.5s`，取消自动关闭只要将该值设为 `0` 即可。
+  可通过this.$notification.close(selfKey) 手动关闭通知框
 </summary>
 
 ```html
@@ -105,16 +112,23 @@
     <button type="button" class="ant-btn ant-btn-primary" @click="openNotificationInfinite">
         <span>打开通知提醒框</span>
     </button>
+    <button type="button" class="ant-btn ant-btn-primary" @click="closeNotice">
+            <span>关闭通知提醒框</span>
+        </button>
 </template>
 <script>
     export default {
         methods: {
             openNotificationInfinite() {
-                this.$notification.open({
+                this.$notification.info({
                     message: '这是标题',
                     description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
-                    duration: 0
+                    duration: 0,
+                    selfKey:'noClose'
                 });
+            },
+            closeNotice(){
+                this.$notification.close('noClose');
             }
         }
     }
@@ -160,7 +174,7 @@
 ```html
 <template>
     <v-select style="width: 120px;" :data="options" @change="onPlacementChange"></v-select>
-    <button type="button" class="ant-btn ant-btn-primary" @click="openNotificationInfinite">
+    <button type="button" class="ant-btn ant-btn-primary" @click="openNotification">
         <span>打开通知提醒框</span>
     </button>
 </template>
@@ -185,13 +199,18 @@
             }
         },
         methods: {
-            onPlacementChange() {
-                this.$notification.open({
+            openNotification() {
+                this.$notification.info({
                   message: '这是标题',
                   description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
                   onClose: close
                 });
-            }
+            },
+            onPlacementChange(val) {
+                this.$notification.config({
+                    placement: val,
+                });
+            },
         }
     }
 </script>
@@ -205,16 +224,20 @@
 - `this.$notification.error(config)`
 - `this.$notification.info(config)`
 - `this.$notification.warning(config)`
+- `this.$notification.close(selfKey:String)`
 
-### Notification Props
+
+### config 参数如下：
 | 参数        | 说明                                            | 类型         | 默认值 |
 |----------- |---------------------------------------------    | ----------- |--------|
 | message    | 通知提醒标题，必选                                 | string  | -     |
 | description | 通知提醒内容，必选                                | string  | -     |
-| vkey        | 当前通知唯一标志                                   | string      | -     |
-| onClose    | 点击默认关闭按钮时触发的回调函数                     | Function    | -     |
-| duration   | 默认 4.5 秒后自动关闭，配置为 null 则不自动关闭         | number    | 4.5     |
+| selfKey        | 当前通知唯一标志                                   | string      | -     |
+| duration   | 默认自动关闭延时，设置为 null或者0 则不自动关闭,单位秒        | number    | 4.5     |
 | placement  | 弹出位置，可选 `topLeft` `topRight` `bottomLeft` `bottomRight` | string | topRight |
+| onClose    | 关闭通知弹框时触发的回调函数(注：手动触发关闭不触发回调)     | Function    | -     |
+
+
 
 还提供了一个全局配置方法，在调用前提前配置，全局一次生效。
 
@@ -226,7 +249,7 @@
         duration: 3,
     });
 ```
-
+### options 参数如下：
 | 参数       | 说明               | 类型                       | 默认值       |
 |------------|--------------------|----------------------------|--------------|
 | placement  | 弹出位置，可选 `topLeft` `topRight` `bottomLeft` `bottomRight` | string | topRight |

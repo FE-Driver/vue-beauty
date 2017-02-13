@@ -142,11 +142,6 @@ export default [
                 path: 'tooltipd',
                 name: 'tooltipd',
                 component: require('./docs/zh-cn/tooltipd.md')
-            },
-            {
-                path: 'notification',
-                name: 'notification',
-                component: require('./docs/zh-cn/notification.md')
             }
 
         ]

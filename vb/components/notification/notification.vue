@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <div :class="[prefixCls, `${prefixCls}-${placement}`]" :style="wrapStyles">
         <span>
             <notice
@@ -7,8 +7,9 @@
                 :description="notice.description"
                 :duration="notice.duration"
                 :type="notice.type"
-                :vkey="notice.vkey"
+                :selfKey="notice.selfKey"
                 :on-close="notice.onClose"
+                @close="close"
             ><notice>
         </span>
     </div>
@@ -16,7 +17,6 @@
 
 <script>
     import notice from './notice'
-    let seed = 0
 
     export default {
         props: {
@@ -74,29 +74,23 @@
         },
         methods: {
             add (notice) {
-                const self = this
-                const key = notice.key = notice.key || seed++
-                    const notices = this.notices
-                if (!notices.filter(v => v.key === key).length) {
-                    let _notice = Object.assign({
-                        content: '',
-                        duration: 0.5,
-                    }, notice)
-                    this.notices = notices.concat(notice)
+                const notices = this.notices;
+                if (!notices.filter(v => v.selfKey === notice.selfKey).length) {
+                    this.notices = notices.concat(notice);
                 }
             },
             close (key) {
                 const notices = this.notices;
                 for (let i = 0; i < notices.length; i++) {
-                    if (notices[i].vkey === key) {
-                        this.notices.splice(i, 1)
-                        break
+                    if (notices[i].selfKey === key) {
+                        this.notices.splice(i, 1);
+                        break;
                     }
                 }
             },
             destroy () {
-                this.$destroy(true)
-                this.$el.parentNode.removeChild(this.$el)
+                this.$destroy(true);
+                this.$el.parentNode.removeChild(this.$el);
             }
         },
         components: {

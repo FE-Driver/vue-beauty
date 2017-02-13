@@ -24,11 +24,12 @@
             },
             description: {
                 type: String,
-                required: true
             },
-            type: String,
-            // 由于key为vue的保留可以，调整为vkey
-            vkey: {
+            type: {
+                type:String,
+                default: 'info'
+            },
+            selfKey: {
                 type: String,
                 required: true
             },
@@ -36,7 +37,9 @@
                 type: Function,
                 default: function () {}
             },
-            duration: Number
+            duration: {
+                type : Number
+            }
         },
         data: function () {
             return {
@@ -50,8 +53,9 @@
                     'success': 'check-circle-o',
                     'error': 'cross-circle-o',
                     'warning': 'exclamation-circle-o',
-                })[this.type] || 'info-circle'
-                return iconClass
+                })[this.type] || 'info-circle';
+
+                return iconClass;
             }
         },
         mounted() {
@@ -59,23 +63,23 @@
             if (this.duration) {
                 this.closeTimer = setTimeout(() => {
                     this._close()
-                }, this.duration * 1000)
+                }, this.duration * 1000);
             }
         },
         beforeDestory() {
-            this._clearCloseTimer()
+            this._clearCloseTimer();
         },
         methods: {
             _clearCloseTimer() {
                 if (this.closeTimer) {
-                    clearTimeout(this.closeTimer)
-                    this.closeTimer = null
+                    clearTimeout(this.closeTimer);
+                    this.closeTimer = null;
                 }
             },
             _close() {
-                this._clearCloseTimer()
-                this.onClose()
-                this.$parent.close(this.vkey);
+                this._clearCloseTimer();
+                this.onClose();
+                this.$emit('close',this.selfKey);
             }
         },
         components: {

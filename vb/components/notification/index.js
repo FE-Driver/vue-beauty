@@ -18,45 +18,44 @@ function getNotificationInstance () {
     placement: placement
   })
 
-  return notificationInstance
+  return notificationInstance;
 }
 
-function notice (message, description, duration = defaultDuration, onClose, type) {
-  let instance = getNotificationInstance()
+function notice (message, description, duration = defaultDuration, onClose, selfKey, type) {
+  let instance = getNotificationInstance();
 
   instance.notice({
-    vkey: key + '',
+    selfKey: selfKey? selfKey : key + '',
     duration: duration,
     message: message,
     description: description,
     type: type,
     onClose: onClose
-  })
+  });
 
-  return (function () {
-    let target = key++
+  key++;
+}
 
-    return function () {
-      instance.removeNotice(target)
-    }
-  })()
+function close(selfKey){
+  let instance = getNotificationInstance();
+  instance.removeNotice(selfKey);
 }
 
 export default {
   info (config) {
-    return notice(config.message, config.description, config.duration, config.onClose, 'info')
+    return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, 'info')
   },
   success (config) {
-    return notice(config.message, config.description, config.duration, config.onClose, 'success')
+    return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, 'success')
   },
   error (config) {
-    return notice(config.message, config.description, config.duration, config.onClose, 'error')
+    return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, 'error')
   },
   warning (config) {
-    return notice(config.message, config.description, config.duration, config.onClose, 'warning')
+    return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, 'warning')
   },
-  open (config) {
-    return notice(config.message, config.description, config.duration, config.onClose, 'open')
+  close (selfKey) {
+    close(selfKey);
   },
   config (options) {
     if (options.top) {
