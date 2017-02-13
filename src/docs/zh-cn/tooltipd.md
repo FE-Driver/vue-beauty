@@ -22,17 +22,15 @@
       clear: both;
       margin-left: 125px;
     }
-    .ant-tooltip{
-        margin:5px
-    }
 </style>
 <script>
 export default{
     data :function(){
         return {
-            msg: '<em>LVison </em>',
-            msg1: '<em>love</em>',
-            msg2: '<em>jiangguagua</em>',
+            msg: '<em>hello world</em>',
+            msg1: '请正确输入',
+            msg2: '不保持显示',
+            msg3: '保持显示',
         }
     }
 }
@@ -57,9 +55,9 @@ export default{
 <template>
 <div class="box">
   <div class="top">
-    <v-button type='success' v-tooltipd.topleft='msg'>上左</v-button>
-    <v-button type='success' v-tooltipd.top='msg1'>上边</v-button>
-    <v-button type='success' v-tooltipd.topright='msg2'>上右</v-button>
+    <v-button type='success' v-tooltipd.topleft.controlled='msg'>上左</v-button>
+    <v-button type='success' v-tooltipd.top='msg'>上边</v-button>
+    <v-button type='success' v-tooltipd.topright='msg'>上右</v-button>
   </div>
   <div class="left">
     <v-button type='success' v-tooltipd.lefttop='msg'>左上</v-button>
@@ -78,22 +76,69 @@ export default{
     <v-button type='success' v-tooltipd.bottomright='msg'>下右</v-button>
 </div>
 </template>
+<script>
+export default{
+    data :function(){
+        return {
+            msg: '<em>hello world</em>',
+        }
+    }
+}
+</script>
 ```
 :::
 
+::: demo
+
+<summary>
+  #### 保持tooltip的显示
+  通过controlled来控制tooltip是否保持显示
+</summary>
+
+```html
+<template>
+<v-button type='success' v-tooltipd.topleft='msg2'>不保持显示</v-button>
+<v-button type='success' v-tooltipd.top.controlled='msg3'>保持显示</v-button>
+</template>
+<script>
+export default{
+    data :function(){
+        return {
+            msg2: '不保持显示',
+            msg3: '保持显示',
+        }
+    }
+}
+</script>
+```
+
+::: demo
+
+<summary>
+  #### 指定触发事件
+  可通过指定触发事件来控制tooltip的显示
+</summary>
+
+```html
+<template>
+<v-input name="test" v-tooltipd:focus.right="msg1"></v-input>
+</template>
+<script>
+export default{
+    data :function(){
+        return {
+            msg1: '请正确输入',
+        }
+    }
+}
+</script>
+```
+:::
 ## API
-### tooltip Props
+### tooltip 指令说明
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `top-start` `top-end` `bottom-start` `bottom-end` `left-start` `left-end` `right-start` `right-end` | string     | top    |
-| visible | 初始状态是否显示tooltip | Boolean |  false |
-| delay | 鼠标移入后延时多少才显示tooltip,单位:毫秒| number |  0 |
-| disabled | tooltip是否可用 | Boolean |  false |
-| controlled | 保持tooltop显示 | Boolean |  false |
-
-### tooltip event
-
-| 参数      | 说明          | 类型      | 默认值  |
-|---------- |-------------- |----------  |-------- |
-| tooltiphide | tooptip由显示变为隐藏的回调函数 | Function() | -- |
+| :事件 | 显示或关闭tip的触发事件,支持hover或focus | String |  hover |
+| .位置 | 气泡框位置，可选 `top` `left` `right` `bottom` `topstart` `topend` `bottomstart` `bottomend` `leftstart` `leftend` `rightstart` `rightend` | string     | top    |
+| .controlled | 是否保持tooltip的显示 | -- |  -- |

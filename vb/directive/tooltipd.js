@@ -46,12 +46,13 @@ export default {
         /**
          * 关闭方法
          */
-        function closeTooltip(el){
+        function closeTooltip(el,binding){
             if (el.vm){
-                // 延时关闭,给tip本身的鼠标事件留出时间
-                el.closeTimer = setTimeout(() => {
-                    // show设置为false,触发view改变
-                    el.vm.show = false;
+                if(!binding.controled)
+                    // 延时关闭,给tip本身的鼠标事件留出时间
+                    el.closeTimer = setTimeout(() => {
+                        // show设置为false,触发view改变
+                        el.vm.show = false;
                 }, 100);
             }
         }
@@ -60,93 +61,94 @@ export default {
          * 显示方法
          */
         function openTooltip(el,binding){
-                if(!el) return;
-                // 创建一个新的tip组件实例,插入到body中
-                tipVm = el.vm = new TipComponent({
-                    data : {
-                        tip : binding.value, // 支持html内容
-                        show: true,
-                        place : binding.place
-                    }
-                }).$mount();
+            if(!el) return;
 
-                document.getElementsByTagName('body')[0].appendChild(el.vm.$el);
-
-                //this.tooltipd = tooltipOptions.tipVm.$el;
-
-                // 给tip组件本身绑定鼠标事件,鼠标移上去之后停止关闭操作（从而允许复制tip中的内容）,鼠标移开后关闭
-                el.vm.$el.addEventListener('mouseover', () => {
-                    clearTimeout(el.closeTimer);
-                });
-                el.vm.$el.addEventListener('mouseout', function(){closeTooltip(el)});
-                el.vm.$el.addEventListener('click', function(){closeTooltip(el)});
-
-                //设置tooltip的位置
-                const offset = getOffset(el);
-                const eleWidth = el.offsetWidth;
-                const eleHeight = el.offsetHeight;
-                var left = offset.left  ;
-                var top = offset.top  ;
-                const tooltipHeight = el.vm.$el.offsetHeight;
-                const tooltipWidth = el.vm.$el.offsetWidth;
-
-                switch(binding.place.toUpperCase()){
-                    case 'TOP':
-                        top = offset.top - tooltipHeight;
-                        left = offset.left + eleWidth/2 - tooltipWidth/2;
-                        break;
-                    case 'TOPLEFT':
-                        top = offset.top - tooltipHeight;
-                        left = offset.left  ;
-                        break;
-                    case 'TOPRIGHT':
-                        top = offset.top - tooltipHeight;
-                        left = offset.left + eleWidth - tooltipWidth;
-                        break;
-                    case 'BOTTOM':
-                        top = offset.top + eleHeight;
-                        left = offset.left + eleWidth/2 - tooltipWidth/2;
-                        break;
-                    case 'BOTTOMLEFT':
-                        top = offset.top + eleHeight;
-                        left = offset.left;
-                        break;
-                    case 'BOTTOMRIGHT':
-                        top = offset.top + eleHeight;
-                        left = offset.left + eleWidth - tooltipWidth;
-                        break;
-                    case 'LEFT':
-                        top = offset.top + eleHeight/2 - tooltipHeight/2;
-                        left = offset.left - tooltipWidth;
-                        break;
-                    case 'LEFTTOP':
-                        top = offset.top  
-                        left = offset.left - tooltipWidth;
-                        break;
-                    case 'LEFTBOTTOM':
-                        top = offset.top + eleHeight - tooltipHeight;
-                        left = offset.left - tooltipWidth;
-                        break;
-                    case 'RIGHT':
-                        top = offset.top + eleHeight/2 - tooltipHeight/2;
-                        left = offset.left + eleWidth;
-                        break;
-                    case 'RIGHTTOP':
-                        top = offset.top
-                        left = offset.left + eleWidth;
-                        break;
-                    case 'RIGHTBOTTOM':
-                        top = offset.top + eleHeight - tooltipHeight;
-                        left = offset.left + eleWidth;
-                        break;
-
+            // 创建一个新的tip组件实例,插入到body中
+            tipVm = el.vm = new TipComponent({
+                data : {
+                    tip : binding.value, // 支持html内容
+                    show: true,
+                    place : binding.place
                 }
-                // 设置位置
-                addStyle(el.vm.$el, {
-                    left: left+'px',
-                    top: top+'px',
-                    position: 'absolute'
-                });
+            }).$mount();
+
+            document.getElementsByTagName('body')[0].appendChild(el.vm.$el);
+
+            //this.tooltipd = tooltipOptions.tipVm.$el;
+
+            // 给tip组件本身绑定鼠标事件,鼠标移上去之后停止关闭操作（从而允许复制tip中的内容）,鼠标移开后关闭
+            el.vm.$el.addEventListener('mouseover', () => {
+                clearTimeout(el.closeTimer);
+        });
+            el.vm.$el.addEventListener('mouseout', function(){closeTooltip(el,binding)});
+            el.vm.$el.addEventListener('click', function(){closeTooltip(el,binding)});
+
+            //设置tooltip的位置
+            const offset = getOffset(el);
+            const eleWidth = el.offsetWidth;
+            const eleHeight = el.offsetHeight;
+            var left = offset.left  ;
+            var top = offset.top  ;
+            const tooltipHeight = el.vm.$el.offsetHeight;
+            const tooltipWidth = el.vm.$el.offsetWidth;
+
+            switch(binding.place.toUpperCase()){
+                case 'TOP':
+                    top = offset.top - tooltipHeight;
+                    left = offset.left + eleWidth/2 - tooltipWidth/2;
+                    break;
+                case 'TOPLEFT':
+                    top = offset.top - tooltipHeight;
+                    left = offset.left  ;
+                    break;
+                case 'TOPRIGHT':
+                    top = offset.top - tooltipHeight;
+                    left = offset.left + eleWidth - tooltipWidth;
+                    break;
+                case 'BOTTOM':
+                    top = offset.top + eleHeight;
+                    left = offset.left + eleWidth/2 - tooltipWidth/2;
+                    break;
+                case 'BOTTOMLEFT':
+                    top = offset.top + eleHeight;
+                    left = offset.left;
+                    break;
+                case 'BOTTOMRIGHT':
+                    top = offset.top + eleHeight;
+                    left = offset.left + eleWidth - tooltipWidth;
+                    break;
+                case 'LEFT':
+                    top = offset.top + eleHeight/2 - tooltipHeight/2;
+                    left = offset.left - tooltipWidth;
+                    break;
+                case 'LEFTTOP':
+                    top = offset.top
+                    left = offset.left - tooltipWidth;
+                    break;
+                case 'LEFTBOTTOM':
+                    top = offset.top + eleHeight - tooltipHeight;
+                    left = offset.left - tooltipWidth;
+                    break;
+                case 'RIGHT':
+                    top = offset.top + eleHeight/2 - tooltipHeight/2;
+                    left = offset.left + eleWidth;
+                    break;
+                case 'RIGHTTOP':
+                    top = offset.top
+                    left = offset.left + eleWidth;
+                    break;
+                case 'RIGHTBOTTOM':
+                    top = offset.top + eleHeight - tooltipHeight;
+                    left = offset.left + eleWidth;
+                    break;
+
+            }
+            // 设置位置
+            addStyle(el.vm.$el, {
+                left: left+'px',
+                top: top+'px',
+                position: 'absolute'
+            });
         }
 
         /**
@@ -170,22 +172,11 @@ export default {
                 }
                 // 获取位置
                 binding.place = Object.keys(binding.modifiers)[0] || 'top';
-                /*// 设置位置系数
-                 if (tooltipOptions.place.toUpperCase().includes('LEFT')){
-                 tooltipOptions.leftFactor = 0;
-                 } else if (tooltipOptions.place.toUpperCase().includes('RIGHT')){
-                 tooltipOptions.leftFactor = 1;
-                 }
-                 if (tooltipOptions.place.toUpperCase().includes('TOP')){
-                 tooltipOptions.topFactor = 0;
-                 } else if (tooltipOptions.place.toUpperCase().includes('BOTTOM')){
-                 tooltipOptions.topFactor = 1;
-                 }*/
-
+                binding.controled = Object.keys(binding.modifiers)[1] == 'controlled' ? true : false;
                 // 绑定触发事件
                 el.addEventListener(binding.openTrigger, function(){openTooltip(el,binding)});
-                el.addEventListener(binding.closeTrigger, function(){closeTooltip(el)});
-                el.addEventListener('click', closeTooltip(el));
+                el.addEventListener(binding.closeTrigger, function(){closeTooltip(el,binding)});
+                el.addEventListener('click', closeTooltip(el,binding));
             },
 
             /**
@@ -205,7 +196,7 @@ export default {
                 // 清理工作
                 // 例如，删除 bind() 添加的事件监听器
                 /*this.el.removeEventListener(binding.openTrigger,function(){openTooltip(el,binding)});
-                this.el.removeEventListener(binding.closeTrigger, function(){closeTooltip(el)});*/
+                 this.el.removeEventListener(binding.closeTrigger, function(){closeTooltip(el)});*/
             },
         });
     }
