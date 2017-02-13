@@ -55,7 +55,7 @@ export default{
 <template>
 <div class="box">
   <div class="top">
-    <v-button type='success' v-tooltipd.topleft.controlled='msg'>上左</v-button>
+    <v-button type='success' v-tooltipd.topleft='msg'>上左</v-button>
     <v-button type='success' v-tooltipd.top='msg'>上边</v-button>
     <v-button type='success' v-tooltipd.topright='msg'>上右</v-button>
   </div>
