@@ -3,7 +3,7 @@
         <input type="text" class="ant-time-picker-input" :placeholder="placeholder" @click="timePicker" v-model="defaultValue" ref="timePicker" readonly :disabled="disabled">
         <span class="ant-time-picker-icon"></span>
         <transition name="fade">
-            <time-picker-node v-show="selected" :selected="selected" :hide-disabled="hideDisabledOptions" :style="style" v-model="defaultValue" :local-format="format" :disabled-h="disabledHours" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" ref="timePickerOption" @select="select"></time-picker-node>
+            <time-picker-option v-show="selected" :selected="selected" :hide-disabled="hideDisabledOptions" :style="style" v-model="defaultValue" :local-format="format" :disabled-h="disabledHours" :disabled-m="disabledMinutes" :disabled-s="disabledSeconds" ref="timePickerOption" @close="optionClose"></time-picker-option>
         </transition>
         <div class="ant-time-picker-panel-addon" v-if="$scopedSlots.addon" ref="addon">
             <slot name="addon" :panel="$refs.timePickerOption"></slot>
@@ -13,7 +13,7 @@
 
 <script>
     import {t} from '../../locale'
-    import timePickerNode from './timePickerOption'
+    import timePickerOption from './timePickerOption'
     import {getOffset, closeByElement} from '../../utils/fn'
 
     export default {
@@ -98,8 +98,8 @@
             }
         },
         methods: {
-            select (status){
-                this.selected = status;
+            optionClose (){
+                this.selected = false;
             },
             timePicker (){
                 this.selected = !this.selected;
@@ -122,7 +122,7 @@
             }
         },
         components: {
-            timePickerNode
+            timePickerOption
         }
     }
 </script>

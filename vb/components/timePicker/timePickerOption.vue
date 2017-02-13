@@ -126,7 +126,7 @@
                 }
             },
             close(){
-                this.$emit('select', false);
+                this.$emit('close');
             },
             showLi (curNum, type){
                 let show = true;
