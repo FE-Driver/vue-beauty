@@ -5,7 +5,7 @@
         <div class="{{prefix}}-item-group-title">
             {{item.groupName}}
         </div>
-        <v-nav-menu :data="item.list" type="item-group-list" :mode="mode" :a-tag="aTag" :level="level"></v-nav-menu>
+        <v-nav-menu :data="item.list" type="item-group-list" :mode="mode" :a-tag="aTag" :level="level" :key="$index"></v-nav-menu>
       </li>
     </template>
     <template v-else>
@@ -22,8 +22,8 @@
               <span>{{item.name}}</span>
             </span>
           </div>
-          <v-nav-menu v-if="item.children" :data="item.children" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :transition="mode=='inline'?'slide-up':'fade'" v-show="item.open"></v-nav-menu>
-          <v-nav-menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :transition="mode=='inline'?'slide-up':'fade'" v-show="item.open"></v-nav-menu>
+          <v-nav-menu v-if="item.children" :data="item.children" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :transition="mode=='inline'?'slide-up':'fade'" v-show="item.open" :key="$index"></v-nav-menu>
+          <v-nav-menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="mode" :a-tag="aTag" :level="level+1" :transition="mode=='inline'?'slide-up':'fade'" v-show="item.open" :key="$index"></v-nav-menu>
         </li>
       </template>
     </template>
@@ -43,6 +43,7 @@
         type: String,
         default: 'root'
       },
+      key: Number,
       isItemGroup: {
         type: Boolean,
         default: false
@@ -69,12 +70,18 @@
       }
     },
     ready(){
-      this.$on('nodeSelected',ori=>{
-        if(this.type !== 'root') return true;
-        if(this !== ori){
-          this.setAllSelected(false)
+      this.$on('nodeSelected',(ori,current,key,dataPath)=>{
+        if(this.type == 'root') {
+          if(this === current){
+            this.$emit('itemclick',dataPath);
+          }else{
+            this.setAllSelected(false);
+            this.$emit('itemclick',[this.data[key],...dataPath]);
+          }
+          this.$broadcast('cancelSelected',ori);
+        }else if(this !== current){
+          this.$dispatch('nodeSelected',ori,this,this.key,[this.data[key],...dataPath]);
         }
-        this.$broadcast('cancelSelected',ori);
       })
       this.$on('cancelSelected',ori=>{
         this.$broadcast('cancelSelected',ori);
@@ -100,7 +107,7 @@
       },
       paddingSty(){
         return this.mode == 'inline'?{
-            paddingLeft: 24 * this.level + 'px'
+            paddingLeft: 24 * this.level + 'px' 
           }:{}; 
       }
     },
@@ -139,7 +146,7 @@
             this.$set(`data[${i}].selected`,false);
           }
         }
-        this.$dispatch('nodeSelected',this);
+        this.$dispatch('nodeSelected',this,this,this.key,[this.data[index]]);
       }
     }
   }
