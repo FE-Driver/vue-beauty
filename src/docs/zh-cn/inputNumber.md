@@ -2,6 +2,7 @@
 export default {
     data() {
         return {
+            value: 5,
             disabled: true
         }
     },
@@ -33,11 +34,14 @@ export default {
 </summary>
 
 ```html
-<template>
-    <v-input-number min="1" max="10" default-value="3" :on-change="_handleChange"></v-input-number>
-</template>
+<v-input-number min="1" max="10" v-model="value" :change="_handleChange"></v-input-number>
 <script>
 export default {
+    data() {
+        return {
+            value: 5
+        }
+    },
     methods: {
         _handleChange(value) {
             console.log('changed ', value)
@@ -57,7 +61,7 @@ export default {
 
 ```html
 <template>
-    <v-input-number min="1" max="10" :disabled="disabled" default-value="3"></v-input-number>
+    <v-input-number min="1" max="10" :disabled="disabled" :change="_handleChange"></v-input-number>
     <br>
     <br>
     <v-button @click="_toggle" type="primary">Toggle disabled</v-button>
@@ -88,11 +92,9 @@ export default {
 
 ```html
 <template>
-    <v-input-number size="large" min="1" max="100000" default-value="3" :on-change="_handleChange"></v-input-number>
-    <v-input-number min="1" max="100000" default-value="3"
-    :on-change="_handleChange"></v-input-number>
-    <v-input-number size="small" min="1" max="100000" default-value="3"
-    :on-change="_handleChange"></v-input-number>
+    <v-input-number size="large" min="1" max="100000" :change="_handleChange"></v-input-number>
+    <v-input-number min="1" max="100000" :change="_handleChange"></v-input-number>
+    <v-input-number size="small" min="1" max="100000" :change="_handleChange"></v-input-number>
 </template>
 <script>
 export default {
@@ -114,9 +116,7 @@ export default {
 </summary>
 
 ```html
-<template>
-    <v-input-number min="1" max="10" step="0.1"></v-input-number>
-</template>
+<v-input-number min="1" max="10" step="0.1"></v-input-number>
 ```
 
 :::
@@ -129,11 +129,10 @@ export default {
 | max | 最大值 | Number | Infinity |
 | value | 当前值 | Number | - |
 | step    | 每次改变步数，可以为小数 | Number | 1 |
-| defaultValue | 初始值 | Number | - |
 | disabled | 禁用	 | Boolean | false |
 | size | 输入框大小 | String | - |
 
 ### Input Events
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
-| onChange    | 变化回调事件 | value |
+| change    | 变化回调事件 | value |

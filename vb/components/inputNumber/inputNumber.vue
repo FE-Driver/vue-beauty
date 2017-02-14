@@ -29,14 +29,14 @@
                 @focus="_onFocus"
                 @blur="_onBlur"
                 @keydown.stop="_onKeyDown"
-                @change="_onChange"
                 :class="prefixCls + '-input'"
                 :autoFocus="autoFocus"
                 :readOnly="readOnly"
                 :disabled="disabled"
                 :max="max"
                 :min="min"
-                :value="relValue"/>
+                :value="relValue"
+                @input="handleInput" />
         </div>
     </div>
 </template>
@@ -101,7 +101,8 @@
             readOnly: {
                 type: Boolean,
                 default: false
-            }
+            },
+            change: Function
         },
         data () {
             return {
@@ -112,7 +113,6 @@
                 downDisabledClass: '',
                 currentValue: this.defaultValue,
                 relValue: this.value,
-                onChange: Function
             }
         },
 
@@ -135,6 +135,9 @@
         },
 
         watch: {
+            value(val) {
+                this.relValue = val
+            },
             relValue (val) {
                 if (isValueNumber(val)) {
                     val = Number(val)
@@ -163,25 +166,17 @@
         },
 
         methods: {
-            _setValue (value) {
-                this.relValue = value
-                this.onChange(value)
+            handleInput(event) {
+                this._setValue(event.target.value);
             },
 
-            _onChange (event) {
-                let val = event.target.value.trim()
-
-                if (!val) {
-                    this._setValue(val)
-                } else if (isValueNumber(val)) {
-                    val = Number(val)
-                    if (val < this.min) return
-                    if (val > this.max) return
-                    this._setValue(val)
-                } else if (val === '-') {
-                    if (this.min >= 0) return
-                    this.relValue = val
+            _setValue (value) {
+                if (value === this.relValue) return;
+                this.relValue = value
+                if ( this.change ) {
+                    this.change(value)
                 }
+                this.$emit('input', value)
             },
 
             _onKeyDown (e) {
@@ -231,7 +226,6 @@
                 if (this.upDisabledClass) {
                     return
                 }
-                console.log(1)
                 this._step('up', e)
             }
         }
