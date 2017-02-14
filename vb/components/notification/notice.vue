@@ -63,11 +63,10 @@
             }
         },
         mounted() {
-            var self = this;
             if (this.duration && !this.closeTimer) {
                 this.closeTimer = setTimeout(() => {
-                    self._close();
-                }, self.duration * 1000);
+                    this._close();
+                }, this.duration * 1000);
             }
         },
         methods: {

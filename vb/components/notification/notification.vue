@@ -75,7 +75,9 @@
         },
         methods: {
             add (notice) {
-                this.notices.push(notice);
+                if (!this.notices.filter(v => v.selfKey === notice.selfKey).length) {
+                    this.notices.push(notice);
+                }
             },
             close (key) {
                 for (let i = 0; i < this.notices.length; i++) {
