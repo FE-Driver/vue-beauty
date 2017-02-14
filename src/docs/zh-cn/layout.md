@@ -480,9 +480,9 @@
 |----------|-----------------------------------------|------------|-------|
 | style | 指定样式 | Object | - |
 | class | 容器 class | String | - |
-| collapsible | 是否可收起 | boolean | false  |
-| collapsed | 当前收起状态 | boolean | - |
-| trigger | 自定义 trigger，设置为 null 时隐藏 trigger | String\|Object | - |
+| collapsible | 是否可收起 | Boolean | false  |
+| collapsed | 当前收起状态 | Boolean | false |
+| trigger | 是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger | Boolean | - |
 | width | 宽度 | Number\|String | 200 |
 | collapsedWidth | 收缩宽度，仅当 `collapsible:true` 时生效 | Number | 64 |
 
