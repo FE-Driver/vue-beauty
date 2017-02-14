@@ -68,6 +68,9 @@
                     </v-submenu>
                     <v-submenu title="Data display">
                         <v-menu-item>
+                            <router-link :to="{ name:'badge'}">Badge 徽标数</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'card'}">Card 卡片</router-link>
                         </v-menu-item>
                         <v-menu-item>

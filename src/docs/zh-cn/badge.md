@@ -1,0 +1,220 @@
+<style>
+    .ant-badge:not(.ant-badge-status) {
+        margin-right: 16px;
+    }
+    .head-example {
+        width: 42px;
+        height: 42px;
+        border-radius: 6px;
+        background: #eee;
+        display: inline-block;
+    }
+</style>
+<script>
+    export default {
+        data: function () {
+            return {
+                counter: 5,
+                overflowCount:99,
+                checked:true,
+                show:true,
+                showDot:true,
+                success:'success',
+                error:'error',
+                defaultStr:'default',
+                processing:'processing',
+                warning:'warning',
+            }
+        },
+        methods: {
+            decline: function() {
+                this.counter--;
+            },
+            increase: function() {
+                this.counter++;
+            },
+            change:function() {
+                this.showDot = !this.showDot;
+            }
+        }
+    }
+</script>
+## Badge 徽标数
+图标右上角的圆形徽标数字。
+
+### 何时使用
+一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。
+
+### 组件演示
+::: demo
+<summary>
+ #### 基本
+ 简单的徽章展示。
+</summary>
+
+```html
+
+<template>
+    <v-badge :count="5">
+        <a href="#" class="head-example" />
+    </v-badge>
+</template>
+
+```
+:::
+
+::: demo
+<summary>
+ #### 独立使用
+ 不包裹任何元素即是独立使用，可自定样式展现。
+ 在右上角的 badge 则限定为红色。
+</summary>
+
+```html
+
+<template>
+    <v-badge :count="25"></v-badge>
+    <v-badge :count="4" :styles="{ 'background-color': '#fff', 'color': '#999', 'box-shadow': '0 0 0 1px #d9d9d9 inset',}"></v-badge>
+    <v-badge :count="109" :styles="{ 'background-color': '#87d068'}"></v-badge>
+</template>
+
+```
+:::
+
+::: demo
+<summary>
+  #### 封顶数字
+  超过 `overflowCount` 的会显示为 `${overflowCount}+`，默认的 `overflowCount` 为 `99`。
+</summary>
+
+```html
+
+<template>
+    <v-badge :count="99">
+        <a href="#" class="head-example" />
+    </v-badge>
+    <v-badge :count="100">
+        <a href="#" class="head-example" />
+    </v-badge>
+    <v-badge :count="99" :overflow-count="10">
+        <a href="#" class="head-example" />
+    </v-badge>
+    <v-badge :count="1000" :overflow-count="999">
+        <a href="#" class="head-example" />
+    </v-badge>
+</template>
+
+```
+:::
+
+::: demo
+<summary>
+ #### 讨嫌的小红点
+ 没有具体的数字。
+</summary>
+
+```html
+<template>
+    <v-badge dot>
+        <v-icon type="notification" />
+    </v-badge>
+    <v-badge dot>
+        <a href="#">Link something</a>
+    </v-badge>
+</template>
+```
+:::
+
+::: demo
+<summary>
+ #### 可点击
+ 用 a 标签进行包裹即可。
+</summary>
+
+```html
+<template>
+    <a href="#">
+        <v-badge :count="5">
+            <span class="head-example" />
+        </v-badge>
+    </a>
+</template>
+```
+:::
+
+::: demo
+
+<summary>
+ #### 动态
+ 展示动态变化的效果。
+</summary>
+
+```html
+<template>
+    <div>
+        <div>
+          <v-badge :count="counter">
+            <a href="#" class="head-example" />
+          </v-badge>
+          <v-button-group>
+            <v-button @click="decline">
+              <v-icon type="minus" />
+            </v-button>
+            <v-button @click="increase">
+              <v-icon type="plus" />
+            </v-button>
+          </v-button-group>
+        </div>
+        <div style="margin-top: 10px">
+          <v-badge :dot="show" :show-dot="showDot">
+            <a href="#" class="head-example" />
+          </v-badge>
+          <v-switch v-model="checked" @input="change" />
+        </div>
+    </div>
+</template>
+```
+:::
+
+::: demo
+
+<summary>
+ #### 状态点
+ 用于表示状态的小圆点。
+</summary>
+
+```html
+<template>
+    <div>
+        <v-badge :status="success"></v-badge>
+        <v-badge :status="error"></v-badge>
+        <v-badge :status="defaultStr"></v-badge>
+        <v-badge :status="processing"></v-badge>
+        <v-badge :status="warning"></v-badge>
+        <br />
+        <v-badge :status="success" :text="success"></v-badge>
+        <br/>
+        <v-badge status="error" :text="error"></v-badge>
+        <br />
+        <v-badge status="default" :text="defaultStr"></v-badge>
+        <br />
+        <v-badge status="processing" :text="processing"></v-badge>
+        <br />
+        <v-badge status="warning" :text="warning"></v-badge>        
+    </div>
+</template>
+```
+:::
+
+## API
+
+### Badge Props
+
+|参数         |说明|类型|可选值|默认值|
+|----------|-----------------------------------------------------------------|-------|-----|-------|
+|count     |展示的数字，大于 overflowCount 时显示为 {{overflowCount}}+，为 0 时隐藏|Number|      |       |
+|overflowCount|展示封顶的数字值                                                 |Number|      |99     |
+|dot       |不展示数字，只有一个小红点                                           |Boolean|      |false |
+|showDot   |动态展示变化是否有小圆点，当dot为true时有效                            |Boolean|       |true |
+|status    |设置 badge 为状态点                                             |String|'success'、'processing'、'default'、'error'、'warning'      |''|
+|text      |在设置了 status 的前提下有效，设置状态点的文本                         |String |       |''   |

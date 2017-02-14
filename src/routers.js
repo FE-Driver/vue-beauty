@@ -54,6 +54,11 @@ export default [
                 component: require('./docs/zh-cn/icon.md')
             },
             {
+                path: 'badge',
+                name: 'badge',
+                component: require('./docs/zh-cn/badge.md')
+            },
+            {
                 path: 'grid',
                 name: 'grid',
                 component: require('./docs/zh-cn/grid.md')
@@ -143,7 +148,6 @@ export default [
                 name: 'tooltipd',
                 component: require('./docs/zh-cn/tooltipd.md')
             }
-
         ]
   }
 ]

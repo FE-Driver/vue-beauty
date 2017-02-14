@@ -15,6 +15,7 @@ import vSwitch from './components/switch'
 import { col, row } from './components/grid'
 import spin from './components/spin'
 import cascader from './components/cascader'
+import badge from './components/badge'
 import input from './components/input'
 import inputNumber from './components/inputNumber'
 import select from './components/select'
@@ -33,6 +34,7 @@ import tooltipd from './directive/tooltipd'
 const components = {
     breadcrumb,
     breadcrumbItem: breadcrumb.item,
+    badge,
     col,
     row,
     menu,
