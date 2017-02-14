@@ -29,7 +29,7 @@ import notification from './components/notification'
 import form from './components/form'
 import tooltip from './components/tooltip'
 import locale from './locale'
-import tooltipd from './directive/tooltipd'
+import tooltipd from './directive/tooltip'
 
 const components = {
     breadcrumb,

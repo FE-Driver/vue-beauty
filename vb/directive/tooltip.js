@@ -1,6 +1,3 @@
-/**
- * Created by bailey on 16/8/11.
- */
 import { addStyle } from '../utils/dom'
 import "./style/index.less";
 let tipVm;
@@ -152,9 +149,9 @@ export default {
         }
 
         /**
-         * 注册自定义指令tooltipd
+         * 注册自定义指令tooltip
          */
-        const tooltipd = Vue.directive('tooltipd', {
+        const tooltip = Vue.directive('tooltipd', {
             /**
              * 指令第一次绑定到元素时调用
              * @param el
