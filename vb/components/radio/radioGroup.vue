@@ -1,6 +1,6 @@
 <template>
     <div :class="wrapClasses">
-        <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :index="index" :disabled="radio.disabled" :value="radio.value" v-on:radioChange="_handleChange" :select-value="selectValue" :group-value="value">
+        <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :index="index" :disabled="radio.disabled" :value="radio.value" v-on:radioChange="_handleChange" :key="radio.value" :select-value="selectValue" :group-value="value">
           <span>{{radio.text}}</span>
         </v-radio>
     </div>
@@ -70,13 +70,17 @@ export default {
             }
         }
     },
-
     methods: {
       _handleChange(selectValue){
             this.selectValue = selectValue;
             this.$emit('change',this.selectValue);
             this.$emit('input',this.selectValue);
       }
+    },
+    watch:{
+        value(){
+            this.selectValue = this.value;
+        },
     }
 }
 

@@ -93,7 +93,7 @@ export default {
         },
         groupValue(){
             this.selfValue = this.groupValue;
-        },
+        }
     }
 }
 

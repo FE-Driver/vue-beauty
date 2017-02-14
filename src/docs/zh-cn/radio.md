@@ -5,11 +5,15 @@ export default {
     return {
       disabled: true,
       groupValue:'shanghai',
+      radioValue:'c'
     }
     },
     methods: {
         change(selectValue) {
             console.log('radio checked:' + selectValue)
+        },
+        changeRadioValue(){
+            this.radioValue = 'b'
         }
     },
     watch:{
@@ -38,15 +42,21 @@ export default {
 
 ```html
 <template>
-<v-radio-group @change="change" :data="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]">
+<v-radio-group @change="change" v-model="radioValue" :data="[{value: 'a', text: '<a href=\'baidu.com\'>点我</a>'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]">
 </v-radio-group>
+<br>
+<br>
+<v-button name="test" @click="changeRadioValue">设置raido的值</v-button>
 </template>
 <script>
 export default {
     methods: {
       change(selectValue) {
         console.log('radio checked:' + selectValue)
-      }
+      },
+       changeRadioValue(){
+           this.radioValue = 'b'
+       }
     }
   }
 </script>
@@ -63,7 +73,7 @@ export default {
 ```html
 <template>
 <v-radio-group @change="change" 
-    :data="[{value: 'a', text: 'A',disabled:true},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]">
+    :data="[{value: 'e', text: 'E',disabled:true},{value: 'F', text: 'F'},{value: 'G', text: 'G'}]">
 </v-radio-group>
 </template>
 <script>
@@ -71,7 +81,6 @@ export default {
     methods: {
       change(selectValue) {
         console.log('radio checked:' + selectValue)
-        this.groupValue = selectValue
       }
     }
   }
@@ -93,12 +102,12 @@ export default {
 </v-radio-group>
 <br>
 <br>
-<v-radio-group  @change="change" type="button" value="shanghai" 
+<v-radio-group  @change="change" type="button" value="tianjin" 
     :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]">
 </v-radio-group>
 <br>
 <br>
-<v-radio-group @change="change" type="button" size="large" value="shanghai" disabled="disabled"
+<v-radio-group @change="change" type="button" size="large" value="shanghai"
     :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]">
 </v-radio-group>
 </template>
@@ -132,13 +141,12 @@ export default {
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | size | 组件中点的大小，可选值为 small default large | string | default |
-| value | 初始化value控制默认选中 | string | 无 |
-| type | radio 展示方式，可选button | string | 无 |
-| disabled | radio是否可用 | Boolean |  无 |
-| data | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | 无 |
+| value | 初始化value控制默认选中 | string | -- |
+| type | radio 展示方式，可选button | string | -- |
+| data | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | -- |
 
 ### radioGroup event
 
-| 参数      | 说明          | 类型      | 默认值  |
-|---------- |-------------- |----------  |-------- |
-| change | 选项变化时的回调函数 | Function(selectValue) | 无 |
+| 参数      | 说明          | 参数     |
+|---------- |-------------- |----------  |
+| change | 选择的值发生变化的时候触发 | value |
