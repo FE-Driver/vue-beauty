@@ -13,6 +13,7 @@ import tag from './components/tag'
 // import tabs from './components/tabs'
 import vSwitch from './components/switch'
 import { col, row } from './components/grid'
+import { layout, sider, header, content, footer } from './components/layout'
 import spin from './components/spin'
 import cascader from './components/cascader'
 import badge from './components/badge'
@@ -37,6 +38,11 @@ const components = {
     badge,
     col,
     row,
+    layout,
+    sider,
+    header,
+    content,
+    footer,
     menu,
     subMenu: menu.subMenu,
     menuItemGroup: menu.itemGroup,

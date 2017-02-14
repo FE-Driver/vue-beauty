@@ -64,6 +64,11 @@ export default [
                 component: require('./docs/zh-cn/grid.md')
             },
             {
+                path: 'layout',
+                name: 'layout',
+                component: require('./docs/zh-cn/layout.md')
+            },
+            {
                 path: 'affix',
                 name: 'affix',
                 component: require('./docs/zh-cn/affix.md')
