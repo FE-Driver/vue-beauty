@@ -17,6 +17,9 @@
                             <router-link :to="{ name:'grid'}">Grid 栅格</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'layout'}">Layout 布局</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'morePanel'}">MorePanel 更多条件</router-link>
                         </v-menu-item>
                     </v-submenu>
@@ -265,6 +268,13 @@ export default {
             &:hover a {
                 opacity: 1;
             }
+        }
+        blockquote {
+            font-size: 90%;
+            color: #999;
+            border-left: 4px solid #e9e9e9;
+            padding-left: 0.8em;
+            margin: 1em 0;
         }
         code{
             margin: 0 1px;
