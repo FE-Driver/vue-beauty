@@ -54,10 +54,10 @@ export default {
                     required: true,
                     message: '请选择活动区域'
                 }],
-                /*date: [{
+                date: [{
                     required: true,
                     message: '请选择日期'
-                }],*/
+                }],
                 type: [{
                     type: 'array',
                     required: true,
@@ -347,9 +347,9 @@ export default {
         <v-form-item label="活动区域" :label-col="labelCol" :wrapper-col="wrapperCol" prop="region">
             <v-select v-model="ruleForm.region" placeholder="请选择活动区域" notfound="无法找到" :data="[{value: '1', label: '区域1'}, {value: '2', label: '区域2'}]"></v-select>
         </v-form-item>
-        <!--<v-form-item label="活动时间" :label-col="labelCol" :wrapper-col="wrapperCol" prop="date">
-            <v-datepicker :time.sync="ruleForm.date"></v-datepicker>
-        </v-form-item>-->
+        <v-form-item label="活动时间" :label-col="labelCol" :wrapper-col="wrapperCol" prop="date">
+            <v-date-picker v-model="ruleForm.date"></v-date-picker>
+        </v-form-item>
         <v-form-item label="即时配送" :label-col="labelCol" :wrapper-col="wrapperCol">
             <v-switch v-model="ruleForm.delivery"></v-switch>
         </v-form-item>
@@ -388,6 +388,10 @@ export default {
             region: [{
                 required: true,
                 message: '请选择活动区域'
+            }],
+            date: [{
+                required: true,
+                message: '请选择日期'
             }],
             type: [{
                 type: 'array',

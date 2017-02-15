@@ -118,6 +118,8 @@ export default {
   .box-demo-code{
     pre,code{
       background-color: #fff;
+      border: none;
+      font-size: 1em;
     }
   }
 </style>

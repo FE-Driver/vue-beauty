@@ -21,6 +21,7 @@ import input from './components/input'
 import inputNumber from './components/inputNumber'
 import select from './components/select'
 import timePicker from './components/timePicker'
+import datePicker from './components/datePicker'
 import message from './components/message'
 import morePanel from './components/morePanel'
 import radio from './components/radio'
@@ -75,7 +76,8 @@ const components = {
     form,
     formItem: form.Item,
     tooltipd,
-    message
+    message,
+    datePicker,
 }
 
 message.install = function (Vue) {

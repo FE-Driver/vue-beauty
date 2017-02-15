@@ -39,6 +39,9 @@
                             <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'datePicker'}">DatePicker 日期选择框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'form'}">Form 表单</router-link>
                         </v-menu-item>
                         <v-menu-item>
