@@ -1,4 +1,3 @@
-import { addStyle } from '../utils/dom'
 import "./style/index.less";
 let tipVm;
 export default {
@@ -141,11 +140,9 @@ export default {
 
             }
             // 设置位置
-            addStyle(el.vm.$el, {
-                left: left+'px',
-                top: top+'px',
-                position: 'absolute'
-            });
+            el.vm.$el.style['left'] = left+'px';
+            el.vm.$el.style['top'] = top+'px';
+            el.vm.$el.style['position'] = 'absolute';
         }
 
         /**
