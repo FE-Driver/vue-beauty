@@ -42,7 +42,7 @@ export default {
 
 ```html
 <template>
-<v-radio-group @change="change" v-model="radioValue" :data="[{value: 'a', text: '<a href=\'baidu.com\'>点我</a>'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]">
+<v-radio-group @change="change" v-model="radioValue" :data="[{value: 'a', text: 'A'},{value: 'b', text: 'B'},{value: 'c', text: 'C'},{value: 'd', text: 'D'}]">
 </v-radio-group>
 <br>
 <br>
