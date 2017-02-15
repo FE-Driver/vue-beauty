@@ -2,17 +2,12 @@ export default [
     {
         path: '/',
         name: 'index',
-        redirect: '/components/test'
+        redirect: '/components/button'
     },
     {
         path: '/components',
         component: require('./views/components.vue'),
         children: [
-            {
-                path: 'test',
-                name: 'test',
-                component: require('./docs/zh-cn/test.md')
-            },
             {
                 path: 'tag',
                 name: 'tag',
@@ -87,6 +82,11 @@ export default [
                 path: 'timePicker',
                 name: 'timePicker',
                 component: require('./docs/zh-cn/timePicker.md')
+            },
+            {
+                path: 'datePicker',
+                name: 'datePicker',
+                component: require('./docs/zh-cn/datePicker.md')
             },
             {
                 path: 'pagination',
