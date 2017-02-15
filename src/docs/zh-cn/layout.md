@@ -374,6 +374,21 @@
         display: none;
     }
 </style>
+
+<script>
+    export default {
+        data() {
+            return {
+                collapsed: false,
+            }
+        },
+        methods: {
+            onCollapse() {
+                console.log("onCollapse！")
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -460,6 +475,21 @@
         display: none;
     }
 </style>
+
+<script>
+    export default {
+        data() {
+            return {
+                customCollapsed: false,
+            }
+        },
+        methods: {
+            toggle() {
+                this.customCollapsed = !this.customCollapsed;
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -483,8 +513,8 @@
 | collapsible | 是否可收起 | Boolean | false  |
 | collapsed | 当前收起状态 | Boolean | false |
 | trigger | 是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger | Boolean | - |
-| width | 宽度 | Number\|String | 200 |
-| collapsedWidth | 收缩宽度，仅当 `collapsible:true` 时生效 | Number | 64 |
+| width | 宽度 | Number | 200 |
+| collapsedWidth | 收缩宽度，仅当 `collapsed:true` 时生效 | Number | 64 |
 
 ### Sider Events
 
