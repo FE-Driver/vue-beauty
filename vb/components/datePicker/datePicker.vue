@@ -8,7 +8,7 @@
         <transition name="slide-up">
             <div class="ant-calendar-picker-container" :class="{'ant-calendar-picker-container-placement-bottomLeft':left}" v-show="show" tabindex="-1" @blur="show = false" @mousedown="$event.preventDefault()" @keyup.up="changeMonth(-1,1)" @click.stop @keyup.down="changeMonth(1,1)" @keyup.left="changeYear(-1,1)" @keyup.right="changeYear(1,1)" :style="containerStyle" ref="container">
                 <div :class="[prefix,{[prefix+'-range']:range},{[prefix+'-time']:showTime || range}]">
-                    <div class="ant-calendar-top" v-if="range&&!en">
+                    <div class="ant-calendar-top" v-if="range">
                         <template v-for="(item,index) in ranges">
                             <i v-if="index"></i><a v-text="item.name" :class="item.active?'on':''" @click="selectRange(index)"></a>
                         </template>
@@ -17,16 +17,14 @@
                         <template v-for="no in count">
                             <div :class="range?'ant-calendar-range-part ant-calendar-range-left':''">
                                 <div class="ant-calendar-header">
-                                    <a class="ant-calendar-prev-year-btn" :title="prevYearTitle" @click="changeYear(-1,no)"></a>
-                                    <a class="ant-calendar-prev-month-btn" :title="prevMonthTitle" @click="changeMonth(-1,no)"></a>
+                                    <a class="ant-calendar-prev-year-btn" :title="t('datePicker.lastYear')" @click="changeYear(-1,no)"></a>
+                                    <a class="ant-calendar-prev-month-btn" :title="t('datePicker.lastMonth')" @click="changeMonth(-1,no)"></a>
                                     <span class="ant-calendar-my-select">
-                                        <a v-if="!en" class="ant-calendar-year-select" :title="selectYearTitle" @click="showYear(no)">{{$data['now'+no].getFullYear()+(en?"":"年")}}</a>
-                                        <a v-if="!en" class="ant-calendar-month-select" :title="selectMonthTitle" @click="showMonth(no)">{{months[$data['now'+no].getMonth()]}}</a>
-                                        <a v-if="en" class="ant-calendar-month-select" :title="selectMonthTitle" @click="showMonth(no)">{{months[$data['now'+no].getMonth()]}}</a>
-                                        <a v-if="en" class="ant-calendar-year-select" :title="selectYearTitle" @click="showYear(no)">{{$data['now'+no].getFullYear()+(en?"":"年")}}</a>
+                                        <a class="ant-calendar-year-select" :title="t('datePicker.selectYear')" @click="showYear(no)">{{$data['now'+no].getFullYear()+t('datePicker.year')}}</a>
+                                        <a class="ant-calendar-month-select" :title="t('datePicker.selectMonth')" @click="showMonth(no)">{{months[$data['now'+no].getMonth()]}}</a>
                                     </span>
-                                    <a class="ant-calendar-next-month-btn" :title="nextMonthTitle" @click="changeMonth(1,no)"></a>
-                                    <a class="ant-calendar-next-year-btn" :title="nextYearTitle" @click="changeYear(1,no)"></a>
+                                    <a class="ant-calendar-next-month-btn" :title="t('datePicker.nextYear')" @click="changeMonth(1,no)"></a>
+                                    <a class="ant-calendar-next-year-btn" :title="t('datePicker.nextMonth')" @click="changeYear(1,no)"></a>
                                 </div>
                                 <div class="ant-calendar-body">
                                     <table class="ant-calendar-table" cellspacing="0" role="grid">
@@ -57,7 +55,7 @@
                                     <div class="ant-calendar-year-panel" v-if="$data['showYear'+no]">
                                         <span class="ant-calendar-year-panel-prev"  @click="changeYearRange(no,-1)"><a class="anticon anticon-up"></a></span>
                                         <span class="ant-calendar-year-panel-cell" v-for="(item,index) in $data['years'+no]" :class="item.status" @click="selectYear(index,no)" style="width:33.33%; display:inline-block;padding:9px 0">
-                                            <a class="ant-calendar-year-panel-year">{{item.year+(en?"":"年")}}</a>
+                                            <a class="ant-calendar-year-panel-year">{{item.year+t('datePicker.year')}}</a>
                                         </span>
                                         <span class="ant-calendar-year-panel-next"  @click="changeYearRange(no,1)"><a class="anticon anticon-down"></a></span>
                                     </div>
@@ -82,8 +80,8 @@
                     </div>
                     <div v-if="range || showTime" :class="[prefix+'-footer',{[prefix+'-range-bottom']:range}]">
                         <component :is="range?'div':'span'" class="ant-calendar-footer-btn">
-                            <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">{{timeSelected?'选择日期':'选择时间'}}</a>
-                            <a :class="{[prefix+'-ok-btn']: showTime}" role="button" @click="confirm">{{confirmTitle}}</a>
+                            <a v-if="showTime" :class="[prefix+'-time-picker-btn', {[prefix+'-time-picker-btn-disabled']: !timeBtnEnable}]" role="button" @click="selectTime">{{timeSelected?t('datePicker.selectDate'):t('datePicker.selectTime')}}</a>
+                            <a :class="{[prefix+'-ok-btn']: showTime}" role="button" @click="confirm">{{t('datePicker.confirm')}}</a>
                         </component>
                     </div>
                 </div>
@@ -93,16 +91,19 @@
 </template>
 
 <script lang="babel">
+    import Locale from '../../mixins/locale'
     import {getOffset} from '../../utils/fn'
     import timePickerPanel from '../timePicker/timePickerOption.vue'
+    const _t = Locale.methods.t
 
     export default {
         name: 'vDatePicker',
         components: {timePickerPanel},
+        mixins: [ Locale ],
         props: {
             placeholder: {
                 type: String, 
-                default:'请选择日期'
+                default: ()=> _t('datePicker.placeholder')
             },
             //是否显示范围
             range: {
@@ -147,11 +148,6 @@
                 default: false
             },
             disabledDate: Function,
-            //英文显示
-            en: {
-                type: Boolean,
-                default: false
-            },
             disabledTime: {
                 type: Array,
                 default: ()=>[{},{}]
@@ -169,18 +165,10 @@
                 showYear2: false,
                 showMonth1: false,
                 showMonth2: false,
-                prevYearTitle: this.en ? 'last year' : '上一年',
-                prevMonthTitle: this.en ? 'last month' : '上个月',
-                selectYearTitle: this.en ? 'select year' : '选择年份',
-                selectMonthTitle: this.en ? 'select month' : '选择月份',
-                nextMonthTitle: this.en ? 'next month' : '下个月',
-                nextYearTitle: this.en ? 'next year' : '下一年',
-                toTitle: this.en ? 'TO' : '至',
-                confirmTitle: this.en ? 'OK' : '确定',
                 left: false,
                 ranges: [], //选择范围
-                days: this.en ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] : ['一', '二', '三', '四', '五', '六', '日'],
-                months: this.en ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] : ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                days: this.t('datePicker.days').split(','),
+                months: this.t('datePicker.months').split(','),
                 years1: [],
                 years2: [],
                 months1: [],
