@@ -18,7 +18,7 @@ vMessage.newInstance = (data) => {
     },
 
     removeNotice (key) {
-      message.remove(key)
+      message.close(key)
     },
 
     component: message,

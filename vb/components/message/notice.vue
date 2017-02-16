@@ -21,6 +21,10 @@
             type: {
                 type: String
             },
+            selfKey: {
+                type: String,
+                required: true
+            },
             onClose: {
                 type: Function,
                 default: function () {}
@@ -63,7 +67,7 @@
             _close() {
                 this._clearCloseTimer()
                 this.onClose()
-                this.$parent.remove(this.key)
+                this.$emit('close', this.selfKey)
             }
         },
         components: {

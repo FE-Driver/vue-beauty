@@ -18,7 +18,7 @@
     }
 </script>
 
-# Notification 通知提醒框
+# Message 全局提示
 
 全局展示操作反馈信息。
 
@@ -55,8 +55,8 @@
 
 ::: demo
 <summary>
-  #### 普通提示
-  信息提醒反馈。
+  #### 其他提示类型
+  包括成功、失败、警告。
 </summary>
 
 ```html

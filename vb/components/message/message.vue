@@ -5,16 +5,16 @@
             v-for="notice in notices"
             :content="notice.content"
             :duration="notice.duration"
+            :selfKey="notice.selfKey"
             :type="notice.type"
             :on-close="notice.onClose"
+            @close="close"
           ><notice>
         </span>
     </div>
 </template>
 <script>
     import notice from './notice'
-
-    let seed = 0
 
     export default {
         props: {
@@ -29,22 +29,13 @@
         },
         methods: {
             add(notice) {
-                const self = this
-                const key = notice.key = notice.key || seed++
-                    const notices = this.notices
-
-                if (!notices.filter(v => v.key === key).length) {
-                    let _notice = Object.assign({
-                        content: '',
-                        duration: 0.5,
-                    }, notice)
-                    this.notices = notices.concat(notice)
+                if (!this.notices.filter(v => v.selfKey === notice.selfKey).length) {
+                    this.notices.push(notice)
                 }
             },
-            remove (key) {
-                const notices = this.notices;
-                for (let i = 0; i < notices.length; i++) {
-                    if (notices[i].key === key) {
+            close (key) {
+                for (let i = 0; i < this.notices.length; i++) {
+                    if (this.notices[i].selfKey === key) {
                         this.notices.splice(i, 1)
                         break
                     }

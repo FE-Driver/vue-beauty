@@ -14,11 +14,11 @@ function getMessageInstance () {
   return messageInstance
 }
 
-function notice (content, duration = defaultDuration, onClose, type) {
+function notice (content, duration = defaultDuration, onClose, selfKey, type) {
   let instance = getMessageInstance()
 
   instance.notice({
-    key: key,
+    selfKey: selfKey || key + '',
     duration: duration,
     content: content,
     type: type,
@@ -34,20 +34,20 @@ function notice (content, duration = defaultDuration, onClose, type) {
 }
 
 export default {
-  info (content, duration, onClose) {
-    return notice(content, duration, onClose, 'info')
+  info (content, duration, onClose, selfKey) {
+    return notice(content, duration, onClose, selfKey, 'info')
   },
-  success (content, duration, onClose) {
-    return notice(content, duration, onClose, 'success')
+  success (content, duration, onClose, selfKey) {
+    return notice(content, duration, onClose, selfKey, 'success')
   },
-  error (content, duration, onClose) {
-    return notice(content, duration, onClose, 'error')
+  error (content, duration, onClose, selfKey) {
+    return notice(content, duration, onClose, selfKey, 'error')
   },
-  warning (content, duration, onClose) {
-    return notice(content, duration, onClose, 'warning')
+  warning (content, duration, onClose, selfKey) {
+    return notice(content, duration, onClose, selfKey, 'warning')
   },
-  loading (content, duration, onClose) {
-    return notice(content, duration, onClose, 'loading')
+  loading (content, duration, onClose, selfKey) {
+    return notice(content, duration, onClose, selfKey, 'loading')
   },
   config (options) {
     if (options.top) {
@@ -55,6 +55,7 @@ export default {
       // delete messageInstance for new defaultTop
       messageInstance = null
     }
+
     if (options.duration) {
       defaultDuration = options.duration
     }
