@@ -29,7 +29,7 @@
             mountedSider() {
                 let children = this.$children;
                 for(let i = 0; i < children.length; i++) {
-                    if (children[i].$options.name == 'vSider') {
+                    if (children[i].$options.name == 'Sider') {
                         this.hasSider = true;
                     }
                 }
