@@ -6,6 +6,7 @@
             :content="notice.content"
             :duration="notice.duration"
             :selfKey="notice.selfKey"
+            :key="notice.selfKey"
             :type="notice.type"
             :on-close="notice.onClose"
             @close="close"
