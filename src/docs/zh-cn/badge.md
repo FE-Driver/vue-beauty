@@ -12,29 +12,17 @@
 </style>
 <script>
     export default {
-        data: function () {
-            return {
-                counter: 5,
-                overflowCount:99,
-                checked:true,
-                show:true,
-                showDot:true,
-                success:'success',
-                error:'error',
-                defaultStr:'default',
-                processing:'processing',
-                warning:'warning',
-            }
-        },
+        data:()=> ({
+            counter: 5,
+            //overflowCount:99,
+            show:true
+        }),
         methods: {
-            decline: function() {
+            decline() {
                 this.counter--;
             },
-            increase: function() {
+            increase() {
                 this.counter++;
-            },
-            change:function() {
-                this.showDot = !this.showDot;
             }
         }
     }
@@ -59,6 +47,18 @@
         <a href="#" class="head-example" />
     </v-badge>
 </template>
+<style>
+    .ant-badge:not(.ant-badge-status) {
+        margin-right: 16px;
+    }
+    .head-example {
+        width: 42px;
+        height: 42px;
+        border-radius: 6px;
+        background: #eee;
+        display: inline-block;
+    }
+</style>
 
 ```
 :::
@@ -71,13 +71,9 @@
 </summary>
 
 ```html
-
-<template>
-    <v-badge :count="25"></v-badge>
-    <v-badge :count="4" :styles="{ 'background-color': '#fff', 'color': '#999', 'box-shadow': '0 0 0 1px #d9d9d9 inset',}"></v-badge>
-    <v-badge :count="109" :styles="{ 'background-color': '#87d068'}"></v-badge>
-</template>
-
+<v-badge :count="25"></v-badge>
+<v-badge :count="4" :count-style="{ 'background-color': '#fff', 'color': '#999', 'box-shadow': '0 0 0 1px #d9d9d9 inset',}"></v-badge>
+<v-badge :count="109" :count-style="{ 'background-color': '#87d068'}"></v-badge>
 ```
 :::
 
@@ -103,6 +99,18 @@
         <a href="#" class="head-example" />
     </v-badge>
 </template>
+<style>
+    .ant-badge:not(.ant-badge-status) {
+        margin-right: 16px;
+    }
+    .head-example {
+        width: 42px;
+        height: 42px;
+        border-radius: 6px;
+        background: #eee;
+        display: inline-block;
+    }
+</style>
 
 ```
 :::
@@ -114,14 +122,12 @@
 </summary>
 
 ```html
-<template>
-    <v-badge dot>
-        <v-icon type="notification" />
-    </v-badge>
-    <v-badge dot>
-        <a href="#">Link something</a>
-    </v-badge>
-</template>
+<v-badge dot>
+    <v-icon type="notification" />
+</v-badge>
+<v-badge dot>
+    <a href="#">Link something</a>
+</v-badge>
 ```
 :::
 
@@ -139,6 +145,18 @@
         </v-badge>
     </a>
 </template>
+<style>
+    .ant-badge:not(.ant-badge-status) {
+        margin-right: 16px;
+    }
+    .head-example {
+        width: 42px;
+        height: 42px;
+        border-radius: 6px;
+        background: #eee;
+        display: inline-block;
+    }
+</style>
 ```
 :::
 
@@ -166,13 +184,41 @@
           </v-button-group>
         </div>
         <div style="margin-top: 10px">
-          <v-badge :dot="show" :show-dot="showDot">
+          <v-badge :dot="show">
             <a href="#" class="head-example" />
           </v-badge>
-          <v-switch v-model="checked" @input="change" />
+          <v-switch v-model="show"/>
         </div>
     </div>
 </template>
+<script>
+    export default {
+        data:()=> ({
+            counter: 5,
+            show:true
+        }),
+        methods: {
+            decline() {
+                this.counter--;
+            },
+            increase() {
+                this.counter++;
+            }
+        }
+    }
+</script>
+<style>
+    .ant-badge:not(.ant-badge-status) {
+        margin-right: 16px;
+    }
+    .head-example {
+        width: 42px;
+        height: 42px;
+        border-radius: 6px;
+        background: #eee;
+        display: inline-block;
+    }
+</style>
 ```
 :::
 
@@ -184,24 +230,21 @@
 </summary>
 
 ```html
-<template>
-    <div>
-        <v-badge :status="success"></v-badge>
-        <v-badge :status="error"></v-badge>
-        <v-badge :status="defaultStr"></v-badge>
-        <v-badge :status="processing"></v-badge>
-        <v-badge :status="warning"></v-badge>
-        <br />
-        <v-badge :status="success" :text="success"></v-badge>
-        <br/>
-        <v-badge status="error" :text="error"></v-badge>
-        <br />
-        <v-badge status="default" :text="defaultStr"></v-badge>
-        <br />
-        <v-badge status="processing" :text="processing"></v-badge>
-        <br />
-        <v-badge status="warning" :text="warning"></v-badge>        
-    </div>
+<v-badge status="success"></v-badge>
+<v-badge status="error"></v-badge>
+<v-badge status="defaultStr"></v-badge>
+<v-badge status="processing"></v-badge>
+<v-badge status="warning"></v-badge>
+<br />
+<v-badge status="success" text="Success"></v-badge>
+<br/>
+<v-badge status="error" text="Error"></v-badge>
+<br />
+<v-badge status="default" text="DefaultStr"></v-badge>
+<br />
+<v-badge status="processing" text="Processing"></v-badge>
+<br />
+<v-badge status="warning" text="Warning"></v-badge>   
 </template>
 ```
 :::
@@ -210,11 +253,11 @@
 
 ### Badge Props
 
-|参数         |说明|类型|可选值|默认值|
+|参数         |  说明  |  类型  |  默认值  |
 |----------|-----------------------------------------------------------------|-------|-----|-------|
-|count     |展示的数字，大于 overflowCount 时显示为 {{overflowCount}}+，为 0 时隐藏|Number|      |       |
-|overflowCount|展示封顶的数字值                                                 |Number|      |99     |
-|dot       |不展示数字，只有一个小红点                                           |Boolean|      |false |
-|showDot   |动态展示变化是否有小圆点，当dot为true时有效                            |Boolean|       |true |
-|status    |设置 badge 为状态点                                             |String|'success'、'processing'、'default'、'error'、'warning'      |''|
-|text      |在设置了 status 的前提下有效，设置状态点的文本                         |String |       |''   |
+|count     |展示的数字，大于 overflowCount 时显示为 ${overflowCount}+，为 0 时隐藏|number|   0  |
+|overflowCount| 展示封顶的数字值    |number|  99     |
+|dot       |不展示数字，只有一个小红点   |boolean|  false |
+|countStyle   | 设置count的样式  |object|   - |
+|status    |设置 badge 为状态点('success'、'processing'、'default'、'error'、'warning')   |string| - |
+|text      |在设置了 status 的前提下有效，设置状态点的文本   |string |  -  |
