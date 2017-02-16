@@ -18,27 +18,27 @@ function getNotificationInstance () {
     placement: placement
   })
 
-  return notificationInstance;
+  return notificationInstance
 }
 
 function notice (message, description, duration = defaultDuration, onClose, selfKey, type) {
-  let instance = getNotificationInstance();
+  let instance = getNotificationInstance()
 
   instance.notice({
-    selfKey: selfKey? selfKey : key+'',
+    selfKey: selfKey || key + '',
     duration: duration,
     message: message,
     description: description,
     type: type,
     onClose: onClose
-  });
+  })
 
-  key++;
+  key++
 }
 
-function close(selfKey){
-  let instance = getNotificationInstance();
-  instance.removeNotice(selfKey);
+function close (selfKey) {
+  let instance = getNotificationInstance()
+  instance.removeNotice(selfKey)
 }
 
 export default {
@@ -55,7 +55,7 @@ export default {
     return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, 'warning')
   },
   close (selfKey) {
-    close(selfKey);
+    close(selfKey)
   },
   config (options) {
     if (options.top) {

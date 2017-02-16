@@ -57,29 +57,29 @@
                     'success': 'check-circle-o',
                     'error': 'cross-circle-o',
                     'warning': 'exclamation-circle-o',
-                })[this.type] || 'info-circle';
+                })[this.type] || 'info-circle'
 
-                return iconClass;
+                return iconClass
             }
         },
         mounted() {
             if (this.duration && !this.closeTimer) {
                 this.closeTimer = setTimeout(() => {
-                    this._close();
-                }, this.duration * 1000);
+                    this._close()
+                }, this.duration * 1000)
             }
         },
         methods: {
             _clearCloseTimer() {
                 if (this.closeTimer) {
-                    clearTimeout(this.closeTimer);
-                    this.closeTimer = null;
+                    clearTimeout(this.closeTimer)
+                    this.closeTimer = null
                 }
             },
             _close() {
-                this._clearCloseTimer();
-                this.onClose();
-                this.$emit('close',this.selfKey);
+                this._clearCloseTimer()
+                this.onClose()
+                this.$emit('close', this.selfKey)
             }
         },
         components: {

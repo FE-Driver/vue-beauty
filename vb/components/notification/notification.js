@@ -18,13 +18,13 @@ vNotification.newInstance = (data) => {
     },
 
     removeNotice (key) {
-      notification.close(key);
+      notification.close(key)
     },
 
     component: notification,
 
     destroy () {
-      notification.destroy();
+      notification.destroy()
     }
   }
 }

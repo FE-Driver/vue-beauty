@@ -8,7 +8,6 @@
                 :duration="notice.duration"
                 :type="notice.type"
                 :selfKey="notice.selfKey"
-                :key="notice.selfKey"
                 :on-close="notice.onClose"
                 @close="close"
             ></notice>
@@ -76,14 +75,14 @@
         methods: {
             add (notice) {
                 if (!this.notices.filter(v => v.selfKey === notice.selfKey).length) {
-                    this.notices.push(notice);
+                    this.notices.push(notice)
                 }
             },
             close (key) {
                 for (let i = 0; i < this.notices.length; i++) {
                     if (this.notices[i].selfKey === key) {
-                        this.notices.splice(i, 1);
-                        break;
+                        this.notices.splice(i, 1)
+                        break
                     }
                 }
 
