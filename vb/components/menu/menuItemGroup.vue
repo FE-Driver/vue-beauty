@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        name:'vMenuItemGroup',
+        name:'MenuItemGroup',
         props: {
             title: String
         }

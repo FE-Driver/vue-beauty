@@ -15,9 +15,8 @@
     </div>
 </template>
 <script>
-    import card from '../card'
     export default{
-        name: 'vMorePanel',
+        name: 'MorePanel',
         data: ()=>({
             prefix: 'ant-more-panel',
             collapse: true,
@@ -70,7 +69,6 @@
             click(){
                 this.collapse = !this.collapse;
             }
-        },
-        components: {card}
+        }
     }
 </script>

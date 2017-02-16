@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'vBreadcrumb',
+  name: 'Breadcrumb',
   props: {
     separator: {
       type: String,

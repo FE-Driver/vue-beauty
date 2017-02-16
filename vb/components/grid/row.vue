@@ -5,7 +5,7 @@
 </template>
 <script lang="babel">
     export default {
-        name: 'vRow',
+        name: 'Row',
         props: {
             gutter: Number,
             type: String,

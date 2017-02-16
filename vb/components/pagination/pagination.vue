@@ -135,7 +135,7 @@
 <script>
     import vSelect from '../select'
     export default {
-        name: 'vPagination',
+        name: 'Pagination',
 
         props: {
             value: {
@@ -230,7 +230,6 @@
                 return this.allPages > 9 && this.current - 1 >= 4;
             },
             showJumpNext() {
-                console.log(this.allPages > 9 && this.allPages - this.current >= 4)
                 return this.allPages > 9 && this.allPages - this.current >= 4;
             },
             showFirstPager() {

@@ -16,7 +16,7 @@
     import vCheckbox from './checkbox'
 
     export default {
-        name: 'vCheckboxGroup',
+        name: 'CheckboxGroup',
         props: {
             data: Array,
             keyFiled: {

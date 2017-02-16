@@ -7,7 +7,7 @@
 </template>
 <script lang="babel">
     export default {
-        name: 'vButton',
+        name: 'Button',
         data: () => ({
             prefixCls: 'ant-btn',
             clicked: false,

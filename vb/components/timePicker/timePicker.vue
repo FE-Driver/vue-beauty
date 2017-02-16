@@ -17,7 +17,7 @@
     import {getOffset, closeByElement} from '../../utils/fn'
 
     export default {
-        name: 'vTimePicker',
+        name: 'TimePicker',
         data() {
             return {
                 prefix: 'ant-time-picker',

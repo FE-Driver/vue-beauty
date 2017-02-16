@@ -5,7 +5,7 @@
 </template>
 <script lang="babel">
     export default{
-        name: 'vContent',
+        name: 'Content',
         data(){
             return{
                 prefixCls: 'ant-layout-content'

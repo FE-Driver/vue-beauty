@@ -6,7 +6,7 @@
 
 <script lang="babel">
     export default{
-        name: 'vLayout',
+        name: 'Layout',
         data() {
             return {
                 prefixCls: 'ant-layout',

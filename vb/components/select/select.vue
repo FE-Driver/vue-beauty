@@ -73,7 +73,7 @@
     import {getOffset} from '../../utils/fn'
     
     export default {
-        name: 'vSelect',
+        name: 'Select',
         data() {
             return {
                 prefix: 'ant-select',

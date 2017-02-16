@@ -18,7 +18,7 @@ import {col as vCol} from '../grid'
 import emitter from '../../mixins/emitter';
 
 export default {
-  name:'vFormItem',
+  name:'FormItem',
   mixins: [emitter],
   data() {
     return {
@@ -89,7 +89,7 @@ export default {
     },
     form() {
         var parent = this.$parent;
-        while (parent.$options.name !== 'vForm') {
+        while (parent.$options.name !== 'Form') {
             parent = parent.$parent;
         }
         return parent;
@@ -110,7 +110,7 @@ export default {
   },
   mounted(){
     if (this.prop) {
-        this.dispatch('vForm', 'form.addField', [this]);
+        this.dispatch('Form', 'form.addField', [this]);
 
         this.initialValue = this.getInitialValue();
         let rules = this.getRules();
@@ -126,7 +126,7 @@ export default {
     }
   },
   beforeDestroy() {
-    this.dispatch('vForm', 'form.removeField', [this]);
+    this.dispatch('Form', 'form.removeField', [this]);
   },
   methods: {
     validate(trigger, cb) {

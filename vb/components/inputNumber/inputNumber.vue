@@ -73,7 +73,7 @@
     }
 
     export default {
-        name:'vInputNumber',
+        name:'InputNumber',
         props: {
             max: {
                 type: [Number, String],

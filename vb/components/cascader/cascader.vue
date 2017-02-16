@@ -19,7 +19,7 @@
     import {getOffset} from '../../utils/fn'
 
     export default {
-        name:'vCascader',
+        name:'Cascader',
         data: ()=>({
             prefix: 'ant-cascader',
             defaultValue: [],

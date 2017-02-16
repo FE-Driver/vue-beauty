@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name:'vForm',
+  name:'Form',
   data:()=>({
     prefix: 'ant-form',
     fields: {},

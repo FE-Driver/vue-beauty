@@ -13,7 +13,7 @@
 
 <script lang="babel">
     export default {
-        name: 'vRate',
+        name: 'Rate',
         data() {
             return {
                 prefixCls: 'ant-rate',

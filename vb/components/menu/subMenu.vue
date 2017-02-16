@@ -16,7 +16,7 @@
 
 <script lang="babel">
     export default {
-        name: 'vSubmenu',
+        name: 'Submenu',
         props: {
             title: String,
             icon: String,
@@ -67,8 +67,8 @@
                 let index = 1;
                 let parent = this.$parent;
 
-                while (parent.$options.name !== 'vMenu') {
-                    if (parent.$options.name == 'vSubmenu') index++;
+                while (parent.$options.name !== 'Menu') {
+                    if (parent.$options.name == 'Submenu') index++;
                     parent = parent.$parent;
                 }
                 console.log(parent.mode)

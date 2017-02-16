@@ -12,7 +12,7 @@
 
 <script lang="babel">
     export default {
-        name: 'vCheckbox',
+        name: 'Checkbox',
         props: {
             value: {
                 type: Boolean,

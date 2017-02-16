@@ -55,25 +55,25 @@ export default{
 <template>
 <div class="box">
   <div class="top">
-    <v-button type='success' v-tooltipd.topleft='msg'>上左</v-button>
-    <v-button type='success' v-tooltipd.top='msg'>上边</v-button>
-    <v-button type='success' v-tooltipd.topright='msg'>上右</v-button>
+    <v-button type='success' v-tooltip.topleft='msg'>上左</v-button>
+    <v-button type='success' v-tooltip.top='msg'>上边</v-button>
+    <v-button type='success' v-tooltip.topright='msg'>上右</v-button>
   </div>
   <div class="left">
-    <v-button type='success' v-tooltipd.lefttop='msg'>左上</v-button>
-    <v-button type='success' v-tooltipd.left='msg'>左边</v-button>
-    <v-button type='success' v-tooltipd.leftbottom='msg'>左下</v-button>
+    <v-button type='success' v-tooltip.lefttop='msg'>左上</v-button>
+    <v-button type='success' v-tooltip.left='msg'>左边</v-button>
+    <v-button type='success' v-tooltip.leftbottom='msg'>左下</v-button>
   </div>
 
   <div class="right">
-    <v-button type='success' v-tooltipd.righttop='msg'>右上</v-button>
-    <v-button type='success' v-tooltipd.right='msg'>右边</v-button>
-    <v-button type='success' v-tooltipd.rightbottom='msg'>右下</v-button>
+    <v-button type='success' v-tooltip.righttop='msg'>右上</v-button>
+    <v-button type='success' v-tooltip.right='msg'>右边</v-button>
+    <v-button type='success' v-tooltip.rightbottom='msg'>右下</v-button>
   </div>
   <div class="bottom">
-    <v-button type='success' v-tooltipd.bottomleft='msg'>下左</v-button>
-    <v-button type='success' v-tooltipd.bottom='msg'>下边</v-button>
-    <v-button type='success' v-tooltipd.bottomright='msg'>下右</v-button>
+    <v-button type='success' v-tooltip.bottomleft='msg'>下左</v-button>
+    <v-button type='success' v-tooltip.bottom='msg'>下边</v-button>
+    <v-button type='success' v-tooltip.bottomright='msg'>下右</v-button>
 </div>
 </template>
 <script>
@@ -97,8 +97,8 @@ export default{
 
 ```html
 <template>
-<v-button type='success' v-tooltipd.topleft='msg2'>不保持显示</v-button>
-<v-button type='success' v-tooltipd.top.controlled='msg3'>保持显示</v-button>
+<v-button type='success' v-tooltip.topleft='msg2'>不保持显示</v-button>
+<v-button type='success' v-tooltip.top.controlled='msg3'>保持显示</v-button>
 </template>
 <script>
 export default{
@@ -121,7 +121,7 @@ export default{
 
 ```html
 <template>
-<v-input name="test" v-tooltipd:focus.right="msg1"></v-input>
+<v-input name="test" v-tooltip:focus.right="msg1"></v-input>
 </template>
 <script>
 export default{

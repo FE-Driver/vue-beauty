@@ -5,7 +5,7 @@
 </template>
 <script lang="babel">
     export default{
-        name: 'vHeader',
+        name: 'Header',
         data(){
             return{
                 prefixCls: 'ant-layout-header'

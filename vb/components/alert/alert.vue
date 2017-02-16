@@ -28,7 +28,7 @@
      */
 
     export default {
-        name: 'vAlert',
+        name: 'Alert',
         props: {
             type: {
                 type: String,

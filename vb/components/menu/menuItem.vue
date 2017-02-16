@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name:'vMenuItem',
+  name:'MenuItem',
   data:()=>({
     level:0,
     mode: 'vertical'

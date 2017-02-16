@@ -85,11 +85,8 @@
                         <v-menu-item>
                             <router-link :to="{ name:'tooltip'}">Tooltip 文字提示</router-link>
                         </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'tooltipd'}">Tooltip-指令 文字提示</router-link>
-                        </v-menu-item>
                     </v-submenu>
-                    <v-submenu title="feedback">
+                    <v-submenu title="Feedback">
                         <v-menu-item>
                             <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
                         </v-menu-item>
@@ -103,7 +100,12 @@
                             <router-link :to="{ name:'spin'}">spin加载中</router-link>
                         </v-menu-item>
                     </v-submenu>
-                    <v-submenu title="other">
+                    <v-submenu title="Other">
+                    </v-submenu>
+                    <v-submenu title="Directive">
+                        <v-menu-item>
+                            <router-link :to="{ name:'tooltipd'}">Tooltip 文字提示</router-link>
+                        </v-menu-item>
                     </v-submenu>
                 </v-menu>
             </div>

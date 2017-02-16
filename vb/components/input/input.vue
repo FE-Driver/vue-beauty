@@ -17,7 +17,7 @@
     import {t} from '../../locale'
 
     export default {
-        name:'vInput',
+        name:'Input',
         props: {
             type: {
                 type: String,

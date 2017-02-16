@@ -90,8 +90,9 @@ notification.install = function (Vue) {
 
 for (let item of Object.values(components)) {
     if (!item.install && item.name) {
-        item.install = function (Vue) {
-            Vue.component(item.name, item)
+        item.install = function (Vue, prefix) {
+            prefix = prefix || 'v';
+            Vue.component(prefix+item.name, item)
         }
     }
 }
@@ -103,7 +104,7 @@ const install = function (Vue, opts = {}) {
 
     for (let item of Object.values(components)) {
         if (item.install) {
-            Vue.use(item)
+            Vue.use(item, opts.prefix)
         }
     }
 }

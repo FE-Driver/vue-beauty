@@ -18,7 +18,7 @@
 <script>
 
 export default {
-    name: 'vRadio',
+    name: 'Radio',
     data () {
         return {
             selected: this.value == this.selfValue,

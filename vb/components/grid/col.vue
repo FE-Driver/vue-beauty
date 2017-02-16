@@ -5,7 +5,7 @@
 </template>
 <script lang="babel">
     export default {
-        name: 'vCol',
+        name: 'Col',
         props: {
             span: [String, Number],
             offset: [String, Number],

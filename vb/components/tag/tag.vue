@@ -11,7 +11,7 @@
 </style>
 <script>
   export default{
-    name: 'vTag',
+    name: 'Tag',
     props: {
       color: {
         type: String

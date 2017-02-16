@@ -97,7 +97,7 @@
     const _t = Locale.methods.t
 
     export default {
-        name: 'vDatePicker',
+        name: 'DatePicker',
         components: {timePickerPanel},
         mixins: [ Locale ],
         props: {

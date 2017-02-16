@@ -5,7 +5,7 @@
 </template>
 <script lang="babel">
     export default{
-        name: 'vFooter',
+        name: 'Footer',
         data(){
             return{
                 prefixCls: 'ant-layout-footer'

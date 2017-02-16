@@ -8,7 +8,7 @@
 </template>
 <script lang="babel">
     export default{
-        name: 'vSider',
+        name: 'Sider',
         data(){
             return{
                 prefixCls: 'ant-layout-sider',

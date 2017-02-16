@@ -8,6 +8,7 @@
                 :duration="notice.duration"
                 :type="notice.type"
                 :selfKey="notice.selfKey"
+                :key="notice.selfKey"
                 :on-close="notice.onClose"
                 @close="close"
             ></notice>

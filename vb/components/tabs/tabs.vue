@@ -30,7 +30,7 @@
 <script>
     import { defaultProps } from '../../utils'
     export default{
-        name: 'vTabs',
+        name: 'Tabs',
         data:()=>({
             prefix: 'ant-tabs',
             activeIndex: 0,

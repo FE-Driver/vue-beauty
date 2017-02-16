@@ -148,7 +148,7 @@ export default {
         /**
          * 注册自定义指令tooltip
          */
-        const tooltip = Vue.directive('tooltipd', {
+        const tooltip = Vue.directive('tooltip', {
             /**
              * 指令第一次绑定到元素时调用
              * @param el

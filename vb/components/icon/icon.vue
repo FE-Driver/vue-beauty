@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'vIcon',
+        name: 'Icon',
         data: ()=>({
             prefix: 'anticon'
         }),

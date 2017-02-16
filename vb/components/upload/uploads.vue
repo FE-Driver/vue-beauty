@@ -43,7 +43,7 @@ function fileToObject (file) {
 }
 
 export default {
-  name: 'vUpload',
+  name: 'Upload',
   data() {
     return {
       prefixCls: 'ant-upload',

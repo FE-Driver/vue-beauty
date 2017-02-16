@@ -10,7 +10,7 @@
     import {getOffset,getScroll} from "../../utils/fn"
 
     export default {
-        name: 'vAffix',
+        name: 'Affix',
         props:{
             offsetTop: Number,
             offsetBottom: Number

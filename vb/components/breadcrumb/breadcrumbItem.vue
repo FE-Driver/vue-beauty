@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: 'vBreadcrumbItem',
+  name: 'BreadcrumbItem',
   data: () => ({
     separator: '',
   }),

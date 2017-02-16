@@ -10,7 +10,7 @@
 import vRadio from './radio.vue'
 
 export default {
-    name: 'vRadioGroup',
+    name: 'RadioGroup',
     data:function(){
         return {
             selectValue :''

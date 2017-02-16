@@ -6,7 +6,7 @@
 
 <script lang="babel">
     export default {
-        name: 'vButtonGroup',
+        name: 'ButtonGroup',
         data: () => ({
             prefixCls: 'ant-btn-group',
         }),

@@ -36,7 +36,7 @@
 
 <script lang="babel">
     export default {
-        name: 'vCard',
+        name: 'Card',
         data: () => ({
             prefixCls: 'ant-card',
             extra: false,
