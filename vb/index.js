@@ -67,6 +67,7 @@ const components = {
     select,
     timePicker,
     morePanel,
+    radio,
     radioGroup: radio.Group,
     checkbox,
     checkboxGroup: checkbox.Group,
@@ -77,7 +78,7 @@ const components = {
     formItem: form.Item,
     tooltipd,
     message,
-    datePicker,
+    datePicker
 }
 
 message.install = function (Vue) {

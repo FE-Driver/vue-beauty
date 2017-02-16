@@ -1,8 +1,11 @@
 <template>
     <div :class="wrapClasses">
-        <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :index="index" :disabled="radio.disabled" :value="radio.value" v-on:radioChange="_handleChange" :key="radio.value" :select-value="selectValue" :group-value="value">
-          <span>{{radio.text}}</span>
-        </v-radio>
+        <slot></slot>
+        <template v-if="!hasSlot">
+            <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :disabled="radio.disabled" v-model="radio.value" v-on:change="change" :key="radio.value" >
+                <span>{{radio.text}}</span>
+            </v-radio>
+        </template>
     </div>
 </template>
 
@@ -13,14 +16,12 @@ export default {
     name: 'RadioGroup',
     data:function(){
         return {
-            selectValue :''
+            prefixCls : 'ant-radio-group',
+            hasSlot : false,
+            selectValue : ''
         }
     },
     props:{
-        prefixCls: {
-            type: String,
-            default: 'ant-radio-group',
-        },
         type:{
             type: String,
             default: 'radio',
@@ -30,8 +31,10 @@ export default {
             default: ''
         },
         data: {
-            type: Array,
-            default: []//[{value:'',text:'',disabled:true/false}]
+            type: Array,//[{value:'',text:'',disabled:true/false}]
+            default: function(){
+                return [];
+            }
         },
         disabled: {
             type: Boolean,
@@ -47,8 +50,7 @@ export default {
 
     computed: {
         wrapClasses () {
-            let size = ['small','large'].indexOf(this.size) !== -1?this.size:'';
-
+            let size = ['small','large'].indexOf(this.size) !== -1? this.size:'';
             return [
               this.prefixCls,
               {[`${this.prefixCls}-${size}`]: size}
@@ -59,10 +61,15 @@ export default {
         }
     },
 
-    created () {
-        if (this.value == null) {
-            this.value = this.defaultValue;
+    mounted(){
+        if(this.$slots && this.$slots.default){
+            this.hasSlot = true;
         }
+        this.selectValue = this.value;
+        this.updateModel();
+    },
+
+    created () {
         if(this.disabled){
             for(let radio of this.data){
                 if(radio.hasOwnProperty('disabled') && radio.disabled === false) continue;
@@ -71,15 +78,23 @@ export default {
         }
     },
     methods: {
-      _handleChange(selectValue){
-            this.selectValue = selectValue;
+        change(value){
+            this.selectValue = value;
+            this.updateModel();
             this.$emit('change',this.selectValue);
             this.$emit('input',this.selectValue);
-      }
+        },
+        updateModel(){
+            this.$children.forEach((child)=>{
+                child.selected = this.selectValue == child.value;
+                child.isGroup = true;
+            });
+        }
     },
     watch:{
         value(){
             this.selectValue = this.value;
+            this.updateModel();
         },
     }
 }

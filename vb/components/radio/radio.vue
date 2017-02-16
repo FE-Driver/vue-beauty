@@ -3,12 +3,11 @@
     <span :class="radioClasses">
       <span :class="prefixCls + '-inner'"></span>
       <input
-        type="radio"
-        :value="value"
-        :disabled="disabled"
-        v-model="selfValue"
-        :class="prefixCls + '-input'"
-        @click="_click"
+              type="radio"
+              :disabled="disabled"
+              :checked="selected"
+              :class="prefixCls + '-input'"
+              @click="_click"
       >
     </span>
     <slot>radio</slot>
@@ -16,14 +15,12 @@
 </template>
 
 <script>
-
 export default {
     name: 'Radio',
     data () {
         return {
-            selected: this.value == this.selfValue,
-            selfValue: this.groupValue,
-            prefixCls : 'ant-radio',
+            selected : false,
+            prefixCls : 'ant-radio'
         };
     },
     props: {
@@ -35,21 +32,17 @@ export default {
           type: [String, Number, Boolean],
           default: ''
         },
-        groupValue: {
-          type: [String, Number, Boolean],
-          default: ''
-        },
-        selectValue: {
-          type: [String, Number, Boolean],
-          default: ''
-        },
         disabled: {
             type: Boolean,
             default: false,
         },
         className: {
             type: String,
-            default: '',
+            default: 'ant-radio-wrapper',
+        },
+        checked:{
+            type: Boolean,
+            default: false,
         }
     },
 
@@ -76,24 +69,30 @@ export default {
         if(this.type === 'button'){
             this.prefixCls = 'ant-radio-button';
         }
-        this.selected = this.groupValue == this.value;
+        this.selected = this.checked;
     },
 
     methods: {
         _click(){
-            this.$emit('radioChange',this.value);
+            if(this.disabled){
+                return false;
+            }
+            if(this.isGroup){
+                this.$parent.change(this.value);
+            }else{
+                this.selected = true;
+                this.$emit('change',this.value);
+                this.$emit('input',this.value);
+            }
         }
     },
 
     watch: {
         //监听 选择值得变化以及radioGroup变化 控制radio选择状态
-        selectValue(){
-            this.selfValue = this.selectValue;
-            this.selected = this.selectValue == this.value;
-        },
-        groupValue(){
-            this.selfValue = this.groupValue;
+        value(){
+            this.$parent.updateModel();
         }
+
     }
 }
 
