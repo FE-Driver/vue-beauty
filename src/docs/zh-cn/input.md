@@ -74,9 +74,7 @@ export default {
 </summary>
 
 ```html
-<template>
   <v-input type="textarea" value="这是一个textarea"></v-input>
-</template>
 ```
 
 :::
@@ -95,9 +93,9 @@ export default {
   </v-input>
   <br>
   <v-input>
-      <v-select placeholder="请选择" style="width: 80px;" slot="before" :options="options"
+      <v-select placeholder="请选择" style="width: 80px;" slot="before" :data="options"
       v-model="value"></v-select>
-      <v-select style="width: 80px;" slot="after" :options="options2"
+      <v-select style="width: 80px;" slot="after" :data="options2"
       v-model="value"></v-select>
   </v-input>
 </template>
@@ -124,14 +122,9 @@ export default {
 </summary>
 
 ```html
-<template>
-  <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block"
-  disabled></v-input>
-  <br>
+  <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block"disabled></v-input>
   <v-input placeholder="基本尺寸" style="width:200px;display:inline-block"></v-input>
-  <br>
   <v-input size="small" placeholder="小尺寸" style="width:200px;display:inline-block"></v-input>
-</template>
 ```
 
 :::
