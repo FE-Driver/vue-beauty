@@ -69,6 +69,11 @@ export default [
                 component: require('./docs/zh-cn/affix.md')
             },
             {
+                path: 'steps',
+                name: 'steps',
+                component: require('./docs/zh-cn/steps.md')
+            },
+            {
                 path: 'card',
                 name: 'card',
                 component: require('./docs/zh-cn/card.md')

@@ -8,6 +8,7 @@ import card from './components/card'
 import rate from './components/rate'
 import menu from './components/menu'
 import affix from './components/affix'
+import { steps, step } from './components/steps'
 import pagination from './components/pagination'
 import tag from './components/tag'
 // import tabs from './components/tabs'
@@ -49,6 +50,8 @@ const components = {
     menuItemGroup: menu.itemGroup,
     menuItem: menu.item,
     affix,
+    steps,
+    step,
     pagination,
     rate,
     alert,

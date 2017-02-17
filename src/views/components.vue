@@ -33,6 +33,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'pagination'}">Pagination 分页</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'steps'}">Steps 步骤条</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Data Entry">
                         <v-menu-item>
