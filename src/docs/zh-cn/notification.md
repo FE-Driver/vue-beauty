@@ -113,8 +113,8 @@
         <span>打开通知提醒框</span>
     </button>
     <button type="button" class="ant-btn ant-btn-primary" @click="closeNotice">
-            <span>关闭通知提醒框</span>
-        </button>
+        <span>关闭通知提醒框</span>
+    </button>
 </template>
 <script>
     export default {

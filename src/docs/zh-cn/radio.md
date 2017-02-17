@@ -3,11 +3,13 @@
 export default {
     data: function () {
     return {
-      disabled: true,
-      groupValue:'shanghai',
       radioValue:'apple',
       radioValue1 : 'a' ,
-      oneRadio : 'oneRadio'
+      radio : 'third',
+      bRadio1: 'shanghai',
+      bRadio2: 'shanghai',
+      bRadio3: 'shanghai',
+      
     }
     },
     methods: {
@@ -20,11 +22,6 @@ export default {
          changeRadioValue1(){
              this.radioValue1 = 'b'
          }
-    },
-    watch:{
-        groupValue(){
-            console.log('watch groupValue '+this.groupValue);
-        }
     }
 }
 </script>
@@ -42,21 +39,26 @@ export default {
 
 <summary>
   #### radio
-  单个radio使用(不建议，单个请用checkbox)
+  radio组合使用(不建议单个使用，单个请用checkbox)
 </summary>
 
 ```html
 <template>
-        <v-radio v-model="oneRadio" checked @change="change" >oneRadio</v-radio>
+    <v-radio v-model="radio" label="first" disabled>fist</v-radio>
+    <v-radio v-model="radio" label="second">second</v-radio>
+    <v-radio v-model="radio" label="third">third</v-radio>
+    <br>
+    <br>
+    <span>选择的值为：{{radio}}</span>
 </template>
 <script>
 export default {
-    methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-      }
+    data: function () {
+        return {
+          radio : 'third'
+        }
     }
-  }
+}
 </script>
 ```
 :::
@@ -71,9 +73,9 @@ export default {
 ```html
 <template>
 <v-radio-group @change="change" v-model="radioValue">
-        <v-radio value="apple" disabled><v-icon type="apple"></v-icon><span>Apple</span></v-radio>
-        <v-radio value="android" checked><v-icon type="android"></v-icon><span>Android</span></v-radio>
-        <v-radio value="rocket"><v-icon type="rocket"></v-icon><span>Rocket</span></v-radio>
+    <v-radio label="apple" disabled><v-icon type="apple"></v-icon><span>Apple</span></v-radio>
+    <v-radio label="android" ><v-icon type="android"></v-icon><span>Android</span></v-radio>
+    <v-radio label="rocket"><v-icon type="rocket"></v-icon><span>Rocket</span></v-radio>
 </v-radio-group>
 <br>
 <br>
@@ -84,13 +86,18 @@ export default {
 </template>
 <script>
 export default {
+    data:{
+        return {
+            radioValue: 'apple',
+        }
+    },
     methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-      },
-       changeRadioValue(){
-           this.radioValue = 'android'
-       }
+        change(selectValue) {
+            console.log('radio checked:' + selectValue)
+        },
+        changeRadioValue(){
+            this.radioValue = 'android'
+        }
     }
   }
 </script>
@@ -117,15 +124,20 @@ export default {
 </template>
 <script>
 export default {
+    data:{
+        return {
+            radioValue1: 'a',
+        }
+    },
     methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-      },
-       changeRadioValue1(){
+        change(selectValue) {
+            console.log('radio checked:' + selectValue)
+        },
+        changeRadioValue1(){
            this.radioValue1 = 'b'
-       }
+        }
     }
-  }
+}
 </script>
 ```
 :::
@@ -139,33 +151,44 @@ export default {
 
 ```html
 <template>
-<v-radio-group @change="change" type="button" size="small" 
+<v-radio-group type="button" size="small" v-model="bRadio1"
     :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]">
 </v-radio-group>
 <br>
 <br>
-<v-radio-group  @change="change" type="button"  
+<v-radio-group type="button"  v-model="bRadio2"
     :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]">
 </v-radio-group>
 <br>
 <br>
-<v-radio-group @change="change" type="button" size="large" 
+<v-radio-group type="button" size="large" v-model="bRadio3"
     :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]">
 </v-radio-group>
 </template>
 <script>
 export default {
-    methods: {
-      change(selectValue) {
-        console.log('radio checked:' + selectValue)
-      }
+    data:{
+        return {
+            bRadio1: 'shanghai',
+            bRadio2: 'shanghai',
+            bRadio3: 'shanghai',
+        }
     }
-  }
+}
 </script>
 ```
 :::
 
 ## API
+
+
+### radio Props
+
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |----------  |-------- |
+| label | radio的value， | String,Number |--|
+| disabled | 是否禁用 | Boolean | false |
+
 ### radioGroup Props
 
 | 参数      | 说明          | 类型      | 默认值  |
@@ -179,3 +202,4 @@ export default {
 | 参数      | 说明          | 参数     |
 |---------- |-------------- |----------  |
 | change | 选择的值发生变化的时候触发 | value |
+

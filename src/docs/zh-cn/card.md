@@ -3,12 +3,16 @@
         data: function() {
             return {
                 loading: true,
+                isShow:false
             }
         },
         methods: {
             onClick() {
                 this.loading = !this.loading;
-            }
+            },
+            changeShow(){
+                this.isShow = !this.isShow;
+            },
         }
     }
 </script>
@@ -40,13 +44,30 @@
 
 ```html
 <template>  
-    <v-card title="Card title">
-        <a href="#" slot="extra">More</a>
+    <v-card title="Card title" @mouseleave.native="changeShow" @mouseenter.native="changeShow">
         <p>Card content</p>
         <p>Card content</p>
         <p>Card content</p>
+        <div slot="extra" v-show="isShow">
+            <v-button type="primary">编辑</v-button>
+            <v-button type="danger">删除</v-button>
+        </div>
     </v-card>
 </template>
+<script>
+    export default {
+        data: function() {
+            return {
+                isShow:false
+            }
+        },
+        methods: {
+            changeShow(){
+                this.isShow = !this.isShow;
+            },
+        }
+    }
+</script>
 ```
 :::
 

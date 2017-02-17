@@ -1,26 +1,22 @@
 <style scoped>
-  .box {
-    width: 500px;
+    .box {
+        width: 500px;
     }
     .top {
-        
-      margin-left: 125px;
-      
+        margin-left: 125px;
     }
-
     .left {
-      float: left;
-      width: 60px;
+        float: left;
+        width: 60px;
     }
 
     .right {
-      width: 60px; 
-      margin-left: 380px;
+        width: 60px; 
+        margin-left: 380px;
     }
-
     .bottom {
-      clear: both;
-      margin-left: 125px;
+        clear: both;
+        margin-left: 125px;
     }
 </style>
 <script>
@@ -54,26 +50,26 @@ export default{
 ```html
 <template>
 <div class="box">
-  <div class="top">
-    <v-button type='success' v-tooltip.topleft='msg'>上左</v-button>
-    <v-button type='success' v-tooltip.top='msg'>上边</v-button>
-    <v-button type='success' v-tooltip.topright='msg'>上右</v-button>
-  </div>
-  <div class="left">
-    <v-button type='success' v-tooltip.lefttop='msg'>左上</v-button>
-    <v-button type='success' v-tooltip.left='msg'>左边</v-button>
-    <v-button type='success' v-tooltip.leftbottom='msg'>左下</v-button>
-  </div>
-
-  <div class="right">
-    <v-button type='success' v-tooltip.righttop='msg'>右上</v-button>
-    <v-button type='success' v-tooltip.right='msg'>右边</v-button>
-    <v-button type='success' v-tooltip.rightbottom='msg'>右下</v-button>
-  </div>
-  <div class="bottom">
-    <v-button type='success' v-tooltip.bottomleft='msg'>下左</v-button>
-    <v-button type='success' v-tooltip.bottom='msg'>下边</v-button>
-    <v-button type='success' v-tooltip.bottomright='msg'>下右</v-button>
+    <div class="top">
+        <v-button type='success' v-tooltip.topleft='msg'>上左</v-button>
+        <v-button type='success' v-tooltip.top='msg'>上边</v-button>
+        <v-button type='success' v-tooltip.topright='msg'>上右</v-button>
+    </div>
+    <div class="left">
+        <v-button type='success' v-tooltip.lefttop='msg'>左上</v-button>
+        <v-button type='success' v-tooltip.left='msg'>左边</v-button>
+        <v-button type='success' v-tooltip.leftbottom='msg'>左下</v-button>
+    </div>
+    <div class="right">
+        <v-button type='success' v-tooltip.righttop='msg'>右上</v-button>
+        <v-button type='success' v-tooltip.right='msg'>右边</v-button>
+        <v-button type='success' v-tooltip.rightbottom='msg'>右下</v-button>
+    </div>
+    <div class="bottom">
+        <v-button type='success' v-tooltip.bottomleft='msg'>下左</v-button>
+        <v-button type='success' v-tooltip.bottom='msg'>下边</v-button>
+        <v-button type='success' v-tooltip.bottomright='msg'>下右</v-button>
+    </div>
 </div>
 </template>
 <script>

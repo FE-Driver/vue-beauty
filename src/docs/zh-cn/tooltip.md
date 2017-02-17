@@ -1,29 +1,26 @@
 <style scoped>
-  .box {
-    width: 500px;
+    .box {
+        width: 500px;
     }
     .top {
-        
-      margin-left: 125px;
-      
+        margin-left: 125px;
     }
-
     .left {
-      float: left;
-      width: 60px;
+        float: left;
+        width: 60px;
     }
-
     .right {
-      width: 60px; 
-      margin-left: 380px;
+        width: 60px; 
+        margin-left: 380px;
     }
-
     .bottom {
-      clear: both;
-      margin-left: 125px;
+        clear: both;
+        margin-left: 125px;
     }
     .ant-tooltip{
-        margin:5px
+        margin:5px;
+        position:relative;
+        display:inline-block;
     }
 </style>
 <script>
@@ -63,44 +60,44 @@ export default {
 ```html
 <template>
 <div class="box">
-  <div class="top">
-    <v-tooltip content="top-start 文字提示" placement="top-start" :controlled="controlled">
-         <v-button>上左</v-button>
-     </v-tooltip>
-    <v-tooltip content="top 文字提示,初始可见" placement="top" :visible="visible">
-        <v-button>上边</v-button>
-    </v-tooltip>
-    <v-tooltip content="top-end 不可用tooltip" placement="top-end" :disabled="disabled">
-        <v-button>上右</v-button>
-    </v-tooltip>
-  </div>
-  <div class="left">
-    <v-tooltip content="left-start 文字提示" placement="left-start" @tooltiphide="popperHide">
-             <v-button>左上</v-button>
+    <div class="top">
+        <v-tooltip content="top-start 文字提示" placement="top-start" :controlled="controlled">
+             <v-button>上左</v-button>
+        </v-tooltip>
+        <v-tooltip content="top 文字提示,初始可见" placement="top" :visible="visible">
+            <v-button>上边</v-button>
+        </v-tooltip>
+        <v-tooltip content="top-end 不可用tooltip" placement="top-end" :disabled="disabled">
+            <v-button>上右</v-button>
+        </v-tooltip>
+    </div>
+    <div class="left">
+        <v-tooltip content="left-start 文字提示" placement="left-start" @tooltiphide="popperHide">
+            <v-button>左上</v-button>
          </v-tooltip>
-        <v-tooltip content="left 文字提示" placement="left">
+         <v-tooltip content="left 文字提示" placement="left">
             <v-button>左边</v-button>
-        </v-tooltip>
-        <v-tooltip content="left-end 文字提示" placement="left-end">
-            <v-button>左下</v-button>
-        </v-tooltip>
-  </div>
-
-  <div class="right">
-    <v-tooltip content="right-start 文字提示" placement="right-start">
-             <v-button>右上</v-button>
          </v-tooltip>
+         <v-tooltip content="left-end 文字提示" placement="left-end">
+            <v-button>左下</v-button>
+         </v-tooltip>
+    </div>
+
+    <div class="right">
+        <v-tooltip content="right-start 文字提示" placement="right-start">
+            <v-button>右上</v-button>
+        </v-tooltip>
         <v-tooltip content="right 文字提示" placement="right">
             <v-button>右边</v-button>
         </v-tooltip>
         <v-tooltip content="right-end 文字提示" placement="right-end">
             <v-button>右下</v-button>
         </v-tooltip>
-  </div>
-  <div class="bottom">
-    <v-tooltip content="bottom-start 文字提示" placement="bottom-start">
-             <v-button>下左</v-button>
-         </v-tooltip>
+    </div>
+    <div class="bottom">
+        <v-tooltip content="bottom-start 文字提示" placement="bottom-start">
+            <v-button>下左</v-button>
+        </v-tooltip>
         <v-tooltip content="bottom 文字提示" placement="bottom">
             <v-button>下边</v-button>
         </v-tooltip>
@@ -110,7 +107,7 @@ export default {
                 <span style="color:#AAA">自定义提示内容</span>
             <div>
         </v-tooltip>
-  </div>
+    </div>
 </div>
 </template>
 <script>
@@ -129,6 +126,32 @@ export default {
     }
   }
 </script>
+<style scoped>
+    .box {
+        width: 500px;
+    }
+    .top {
+        margin-left: 125px;
+    }
+    .left {
+        float: left;
+        width: 60px;
+    }
+    .right {
+        width: 60px; 
+        margin-left: 380px;
+    }
+    
+    .bottom {
+        clear: both;
+        margin-left: 125px;
+    }
+    .ant-tooltip{
+        margin:5px;
+        position:relative;
+        display:inline-block;
+    }
+</style>
 ```
 :::
 
@@ -142,14 +165,14 @@ export default {
 ```html
 <template>
 <v-tooltip content="延时1秒展示" placement="top-start" :delay="delay">
-         <v-button>延时展示</v-button>
-     </v-tooltip>
+    <v-button>延时展示</v-button>
+</v-tooltip>
 </template>
 <script>
 export default {
     data: function () {
         return {
-          delay: 1000
+            delay: 1000
         }
     },
   }

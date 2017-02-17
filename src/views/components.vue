@@ -175,11 +175,6 @@ export default {
             margin: 20px 0;
         }
 
-        p, pre {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-
         code, kbd, pre, samp {
             font-family: Consolas, monospace;
         }
@@ -291,6 +286,11 @@ export default {
             border-radius: 3px;
             font-size: .9em;
             border: 1px solid #eee;
+        }
+
+        & > p, & > pre {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
     }
 </style>

@@ -68,16 +68,16 @@ export default {
 
 ```html
 <template>
-  <v-spin :spinning="spinning" tip="加载中">
-      <v-alert type="info" message="消息提示的文案" description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍">
-      </v-alert>
-  </v-spin>
-  切换加载状态：<v-switch v-model="spinning"></v-switch>
+    <v-spin :spinning="spinning" tip="加载中">
+        <v-alert type="info" message="消息提示的文案" description="消息提示的辅助性文字介绍消息提示的辅助性文字介绍消息提示的辅助性文字介绍">
+        </v-alert>
+    </v-spin>
+    切换加载状态：<v-switch v-model="spinning"></v-switch>
 </template>
 <script>
 export default {
    data: ()=> ({
-     spinning:false
+       spinning:false
    })
 }
 <script>

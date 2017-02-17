@@ -2,7 +2,7 @@
     <div :class="wrapClasses">
         <slot></slot>
         <template v-if="!hasSlot">
-            <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :disabled="radio.disabled" v-model="radio.value" v-on:change="change" :key="radio.value" >
+            <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :disabled="radio.disabled" :label="radio.value"  >
                 <span>{{radio.text}}</span>
             </v-radio>
         </template>
@@ -65,8 +65,9 @@ export default {
         if(this.$slots && this.$slots.default){
             this.hasSlot = true;
         }
-        this.selectValue = this.value;
-        this.updateModel();
+        this.$children.forEach((child)=>{
+            child.isGroup = true;
+        });
     },
 
     created () {
@@ -79,24 +80,10 @@ export default {
     },
     methods: {
         change(value){
-            this.selectValue = value;
-            this.updateModel();
-            this.$emit('change',this.selectValue);
-            this.$emit('input',this.selectValue);
-        },
-        updateModel(){
-            this.$children.forEach((child)=>{
-                child.selected = this.selectValue == child.value;
-                child.isGroup = true;
-            });
+            this.$emit('input',value);
+            this.$emit('change',value);
         }
     },
-    watch:{
-        value(){
-            this.selectValue = this.value;
-            this.updateModel();
-        },
-    }
 }
 
 </script>
