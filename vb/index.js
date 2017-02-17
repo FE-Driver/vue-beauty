@@ -1,5 +1,6 @@
 import './utils/polyfill'
 
+// import tabs from './components/tabs'
 import alert from './components/alert'
 import breadcrumb from './components/breadcrumb'
 import button from './components/button'
@@ -11,7 +12,6 @@ import affix from './components/affix'
 import { steps, step } from './components/steps'
 import pagination from './components/pagination'
 import tag from './components/tag'
-// import tabs from './components/tabs'
 import vSwitch from './components/switch'
 import { col, row } from './components/grid'
 import { layout, sider, header, content, footer } from './components/layout'
@@ -24,6 +24,7 @@ import select from './components/select'
 import timePicker from './components/timePicker'
 import datePicker from './components/datePicker'
 import message from './components/message'
+import modal from './components/modal'
 import morePanel from './components/morePanel'
 import radio from './components/radio'
 import checkbox from './components/checkbox'
@@ -80,17 +81,18 @@ const components = {
     form,
     formItem: form.Item,
     tooltipd,
+    modal,
     message,
     datePicker
 }
 
 message.install = function (Vue) {
     Vue.$message = Vue.prototype.$message = message
-}
+};
 
 notification.install = function (Vue) {
     Vue.$notification = Vue.prototype.$notification = notification
-}
+};
 
 for (let item of Object.values(components)) {
     if (!item.install && item.name) {
@@ -111,12 +113,12 @@ const install = function (Vue, opts = {}) {
             Vue.use(item, opts.prefix)
         }
     }
-}
+};
 
 //注册全局方法
 notification.install = function(Vue){
     Vue.$notification = Vue.prototype.$notification = notification
-}
+};
 
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {

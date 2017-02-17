@@ -97,10 +97,13 @@
                             <router-link :to="{ name:'message'}">Message 全局提示</router-link>
                         </v-menu-item>
                         <v-menu-item>
+                            <router-link :to="{ name:'modal'}">Modal 对话框</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
                             <router-link :to="{ name:'notification'}">Notification 通知提醒框</router-link>
                         </v-menu-item>
                         <v-menu-item>
-                            <router-link :to="{ name:'spin'}">spin加载中</router-link>
+                            <router-link :to="{ name:'spin'}">Spin加载中</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Other">

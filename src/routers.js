@@ -104,6 +104,11 @@ export default [
                 component: require('./docs/zh-cn/message.md')
             },
             {
+                path: 'modal',
+                name: 'modal',
+                component: require('./docs/zh-cn/modal.md')
+            },
+            {
                 path: 'notification',
                 name: 'notification',
                 component: require('./docs/zh-cn/notification.md')

@@ -14,6 +14,8 @@ Vue.use(VueRouter);
 Vue.use(vueBeauty,{locale});
 Vue.use(components);
 
+window.Vue = Vue;
+
 window.router = new VueRouter({
     mode: 'hash',
     base: __dirname,
