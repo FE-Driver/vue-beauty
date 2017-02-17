@@ -122,9 +122,79 @@ export default {
 </summary>
 
 ```html
-  <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block"disabled></v-input>
+  <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block" disabled></v-input>
   <v-input placeholder="基本尺寸" style="width:200px;display:inline-block"></v-input>
   <v-input size="small" placeholder="小尺寸" style="width:200px;display:inline-block"></v-input>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 输入框组合
+  输入框的组合展现。
+  注意：使用 compact 模式时，不需要通过 Col 来控制宽度。
+</summary>
+
+```html
+<template>
+    <v-input-group size="large">
+        <v-col span="4">
+            <v-input value="0571"></v-input>
+        </v-col>
+
+        <v-col span="8">
+            <v-input value="26888888"></v-input>
+        </v-col>
+    </v-input-group>
+
+    <br />
+
+    <v-input-group size="large" compact>
+        <v-input value="0571" style="width: 20%"></v-input>
+        <v-input value="26888888" style="width: 30%"></v-input>
+    </v-input-group>
+
+    <br />
+
+    <v-input-group size="large" compact>
+        <v-select placeholder="请选择" :data="options" v-model="value"></v-select>
+        <v-input value="Input content" style="width: 50%"></v-input>
+    </v-input-group>
+
+    <br />
+
+    <v-input-group size="large" compact>
+        <v-select placeholder="请选择" :data="options" v-model="value"></v-select>
+        <v-input value="Input content" style="width: 50%"></v-input>
+        <v-input-number min="1" max="10"></v-input-number>
+    </v-input-group>
+
+    <br />
+
+    <v-input-group size="large" compact>
+        <v-input value="Input content" style="width: 50%"></v-input>
+        <v-date-picker></v-date-picker>
+    </v-input-group>
+
+    <br />
+
+    <v-input-group size="large" compact>
+        <v-select placeholder="请选择" :data="options" v-model="value" style="width: 10%"></v-select>
+        <v-select placeholder="请选择" :data="options2" v-model="value" style="width: 10%"></v-select>
+    </v-input-group>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            options: [{value: '1', label: 'lady'}, {value: '2', label: '小强', disabled: true}, {value: '3', label: '小明'}],
+            options2: [{value: '1', label: 'lady'}, {value: '2', label: '小强'}, {value: '3', label: '小明'}],
+            value: '3'
+        }
+    }
+}
+</script>
 ```
 
 :::
@@ -144,3 +214,9 @@ export default {
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | blur    | blur事件 | val |
+
+### InputGroup
+| 参数        | 说明           | 类型               | 默认值       |
+|------------|----------------|-------------------|-------------|
+| size | InputGroup 中所有的 Input 的大小，可选 large default small。 | String | default |
+| compact | 是否用紧凑模式。 | Boolean | false |
