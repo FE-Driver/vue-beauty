@@ -18,7 +18,7 @@ import { layout, sider, header, content, footer } from './components/layout'
 import spin from './components/spin'
 import cascader from './components/cascader'
 import badge from './components/badge'
-import input from './components/input'
+import { input, inputGroup } from './components/input'
 import inputNumber from './components/inputNumber'
 import select from './components/select'
 import timePicker from './components/timePicker'
@@ -66,6 +66,7 @@ const components = {
     spin,
     cascader,
     input,
+    inputGroup,
     inputNumber,
     select,
     timePicker,
