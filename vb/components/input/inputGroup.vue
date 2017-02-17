@@ -21,7 +21,7 @@
                 return [
                     'ant-input-group',
                     {['ant-input-group-sm']: this.size === 'small'},
-                    {['ant-input-group-lg']: this.direction === 'large'},
+                    {['ant-input-group-lg']: this.size === 'large'},
                     {['ant-input-group-compact']: this.compact === true}
                 ]
             }

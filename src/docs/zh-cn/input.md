@@ -133,7 +133,7 @@ export default {
 <summary>
   #### 输入框组合
   输入框的组合展现。
-  注意：使用 compact 模式时，不需要通过 Col 来控制宽度。
+  注意：使用 `compact` 模式时，不需要通过 `Col` 来控制宽度。
 </summary>
 
 ```html
@@ -150,21 +150,21 @@ export default {
 
     <br />
 
-    <v-input-group size="large" compact>
+    <v-input-group compact>
         <v-input value="0571" style="width: 20%"></v-input>
         <v-input value="26888888" style="width: 30%"></v-input>
     </v-input-group>
 
     <br />
 
-    <v-input-group size="large" compact>
+    <v-input-group compact>
         <v-select placeholder="请选择" :data="options" v-model="value"></v-select>
         <v-input value="Input content" style="width: 50%"></v-input>
     </v-input-group>
 
     <br />
 
-    <v-input-group size="large" compact>
+    <v-input-group compact>
         <v-select placeholder="请选择" :data="options" v-model="value"></v-select>
         <v-input value="Input content" style="width: 50%"></v-input>
         <v-input-number min="1" max="10"></v-input-number>
@@ -172,14 +172,14 @@ export default {
 
     <br />
 
-    <v-input-group size="large" compact>
+    <v-input-group compact>
         <v-input value="Input content" style="width: 50%"></v-input>
         <v-date-picker></v-date-picker>
     </v-input-group>
 
     <br />
 
-    <v-input-group size="large" compact>
+    <v-input-group compact>
         <v-select placeholder="请选择" :data="options" v-model="value" style="width: 10%"></v-select>
         <v-select placeholder="请选择" :data="options2" v-model="value" style="width: 10%"></v-select>
     </v-input-group>
