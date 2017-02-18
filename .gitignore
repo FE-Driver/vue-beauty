@@ -9,3 +9,4 @@ test/unit/coverage
 test/e2e/reports
 .history
 .idea/
+.vscode/
