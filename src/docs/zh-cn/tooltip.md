@@ -72,7 +72,7 @@ export default {
         </v-tooltip>
     </div>
     <div class="left">
-        <v-tooltip content="left-start 文字提示" placement="left-start" @tooltiphide="popperHide">
+        <v-tooltip content="left-start 文字提示" placement="left-start" @hide="popperHide">
             <v-button>左上</v-button>
          </v-tooltip>
          <v-tooltip content="left 文字提示" placement="left">
@@ -195,4 +195,4 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| tooltiphide | tooptip由显示变为隐藏的回调函数 | Function() | -- |
+| hide | tooptip由显示变为隐藏的回调函数 | Function() | -- |

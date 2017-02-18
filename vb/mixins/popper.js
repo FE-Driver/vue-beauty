@@ -32,7 +32,7 @@ export default {
                 this.updatePopper();
             } else {
                 this.destroyPopper();
-                this.$emit('tooltiphide');
+                this.$emit('hide');
             }
         }
     },
