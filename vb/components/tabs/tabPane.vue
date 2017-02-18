@@ -1,37 +1,41 @@
 <template>
-    <div role="tabpanel" aria-hidden="false" :class="wrapCls">
-        <slot></slot>
+    <div
+        v-bind:class="className"
+        @click="handle"
+    >
+        {{this.tab}}
     </div>
 </template>
-
 <script>
-    import { defaultProps } from '../../utils'
-
-    export default{
-        name: 'TabPane',
-        data:()=>({
-            prefix: 'ant-tabs-tabpane',
-            selected: false
-        }),
-        props: defaultProps({
-            key: String,
-            icon: String,
-            disabled: false,
-            tab: String
-        }),
-        ready(){
-            this.$on('activeKey',(key)=>{
-                this.selected = key === this.key;
-            })
+    const TabPane = {
+        name: 'Tabpane',
+        props: ['index', 'tab'],
+        data() {
+            const baseClass = 'ant-tabs-tab';
+            const className = {
+                [baseClass]: true,
+                [`${baseClass}-active`]: false,
+            };
+            return {
+                baseClass,
+                className,
+            };
         },
-        computed: {
-            wrapCls(){
-                return [
-                    this.prefix,
-                    {[`${this.prefix}-active`]: this.selected},
-                    {[`${this.prefix}-inactive`]: !this.selected}
-                ]
-            }
-        }
-    }
+        created() {
+        },
+        methods: {
+            handle(e) {
+                this.$emit('click', e);
+                const baseClass = this.baseClass;
+                this.$parent.movePane(e, this.index, this, `${baseClass}-active`);
+            },
+        },
+    };
+
+    export default TabPane;
+
 </script>
+
+<style scoped lang='less'>
+    @import './style/index.less';
+</style>

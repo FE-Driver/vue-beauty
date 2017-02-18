@@ -12,6 +12,10 @@ export default [
                 path: 'tag',
                 name: 'tag',
                 component: require('./docs/zh-cn/tag.md')
+            },{
+                path: 'tabs',
+                name: 'tabs',
+                component: require('./docs/zh-cn/tabs.md')
             },
             {
                 path: 'alert',

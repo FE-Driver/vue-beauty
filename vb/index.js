@@ -22,6 +22,7 @@ import { input, inputGroup } from './components/input'
 import inputNumber from './components/inputNumber'
 import select from './components/select'
 import timePicker from './components/timePicker'
+import { tabs, tabPane } from './components/tabs'
 import datePicker from './components/datePicker'
 import message from './components/message'
 import modal from './components/modal'
@@ -36,6 +37,8 @@ import locale from './locale'
 import tooltipd from './directive/tooltip'
 
 const components = {
+    tabs,
+    tabPane,
     breadcrumb,
     breadcrumbItem: breadcrumb.item,
     badge,

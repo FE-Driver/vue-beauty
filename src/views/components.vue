@@ -36,6 +36,9 @@
                         <v-menu-item>
                             <router-link :to="{ name:'steps'}">Steps 步骤条</router-link>
                         </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'tabs'}">Tabs 标签页</router-link>
+                        </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Data Entry">
                         <v-menu-item>

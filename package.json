@@ -33,6 +33,8 @@
   "private": true,
   "dependencies": {
     "async-validator": "^1.6.8",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.3.0",
     "core-js": "^2.4.1",
     "popper.js": "^0.6.4"
   },
