@@ -190,21 +190,26 @@
 <template>
     <div>
         <v-button-group size="large">
-            <v-button>Large</v-button><v-button>Large</v-button>
+            <v-button>Large</v-button>
+            <v-button>Large</v-button>
         </v-button-group>
         <v-button-group>
-            <v-button>Default</v-button><v-button>Default</v-button>
+            <v-button>Default</v-button>
+            <v-button>Default</v-button>
         </v-button-group>
         <v-button-group size="small">
-            <v-button>Small</v-button><v-button>Small</v-button>
+            <v-button>Small</v-button>
+            <v-button>Small</v-button>
         </v-button-group>
         <br/><br/>
         <h3>带图标的组合</h3>
         <v-button-group>
-            <v-button type="primary" icon="left">后退</v-button><v-button type="primary">前进 <v-icon type="right"></v-icon></v-button>
+            <v-button type="primary" icon="left">后退</v-button>
+            <v-button type="primary">前进 <v-icon type="right"></v-icon></v-button>
         </v-button-group>
         <v-button-group>
-            <v-button type="primary" icon="cloud"></v-button><v-button type="primary" icon="cloud-download"></v-button>
+            <v-button type="primary" icon="cloud"></v-button>
+            <v-button type="primary" icon="cloud-download"></v-button>
         </v-button-group>
         
     </div>

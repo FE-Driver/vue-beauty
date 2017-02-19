@@ -2,7 +2,7 @@
     <button :type="htmlType" :class="btnClassObj" :disabled="disabled" @click="handleClick">
         <i class="anticon anticon-spin anticon-loading" v-if="loading"></i>
         <i v-bind:class="'anticon anticon-' +icon" v-if="icon"></i>
-        <slot></slot>
+        <span v-if="$slots && $slots.default"><slot></slot></span>
     </button>
 </template>
 <script lang="babel">
@@ -51,14 +51,14 @@
                 btnClass[prefixCls + '-' + shape] = shape;
                 btnClass[prefixCls + '-loading'] = loading;
                 btnClass[prefixCls + '-background-ghost'] = ghost;
-                btnClass[prefixCls + '-' + clicked] = clicked;
+                btnClass[prefixCls + '-clicked'] = clicked;
 
                 return btnClass;
             }
 
         },
         methods: {
-            handleClick(evt){
+            handleClick(evt) {
                 this.clicked = true;
                 if (this.clickTimer) clearTimeout(this.clickTimer);
                 this.clickTimer = setTimeout(() => this.clicked = false, 500);
