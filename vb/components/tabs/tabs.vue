@@ -1,4 +1,4 @@
-<script>
+<script lang="babel">
     const Tabs = {
         name: 'Tabs',
         props: {

@@ -4,7 +4,7 @@
     </i>
 </template>
 
-<script>
+<script lang="babel">
     export default {
         name: 'Icon',
         data: ()=>({

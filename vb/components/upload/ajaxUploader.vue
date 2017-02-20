@@ -15,7 +15,7 @@
 </span>
 </template>
 
-<script>
+<script lang="babel">
 import request from './request'
 import uid from './uid'
 

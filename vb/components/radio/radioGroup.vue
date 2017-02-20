@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script>
+<script lang="babel">
 import vRadio from './radio.vue'
 
 export default {

@@ -32,7 +32,7 @@
     </div>
 </template>
 
-<script>
+<script lang="babel">
     export default {
         data() {
             return {

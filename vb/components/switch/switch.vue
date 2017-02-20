@@ -7,7 +7,7 @@
   </span>
 </template>
 
-<script>
+<script lang="babel">
 export default {
   name: 'Switch',
   data() {

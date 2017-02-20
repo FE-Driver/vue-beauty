@@ -22,7 +22,7 @@
 </span>
 </template>
 
-<script>
+<script lang="babel">
 import AjaxUpload from './ajaxUploader.vue'
 import UploadList from './uploadList.vue'
 import getFileItem from './getFileItem'

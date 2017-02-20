@@ -9,7 +9,8 @@
         </div>
         <spin-inner v-else :size="size" :spinning="spinning" :tip="tip" :prefix="prefix"></spin-inner>
 </template>
-<script>
+
+<script lang="babel">
 import spinInner from './spinInner'
 
 export default {

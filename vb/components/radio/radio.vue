@@ -15,7 +15,7 @@
   </label>
 </template>
 
-<script>
+<script lang="babel">
 export default {
     name: 'Radio',
     data () {

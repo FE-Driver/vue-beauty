@@ -12,7 +12,7 @@
 </div>
 </template>
 
-<script>
+<script lang="babel">
 import AsyncValidator from 'async-validator'
 import {col as vCol} from '../grid'
 import emitter from '../../mixins/emitter';

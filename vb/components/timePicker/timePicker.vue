@@ -11,7 +11,7 @@
     </span>
 </template>
 
-<script>
+<script lang="babel">
     import {t} from '../../locale'
     import timePickerOption from './timePickerOption'
     import {getOffset, closeByElement} from '../../utils/fn'

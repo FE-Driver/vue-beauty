@@ -17,7 +17,7 @@
     </submenu>
 </template>
 
-<script>
+<script lang="babel">
   import submenu from './subMenu.vue'
   import menuItemGroup from './menuItemGroup.vue'
   import menuItem from './menuItem.vue'

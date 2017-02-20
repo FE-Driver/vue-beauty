@@ -14,7 +14,7 @@
     </span>
 </template>
 
-<script>
+<script lang="babel">
     import vmenu from './menu.vue'
     import {getOffset} from '../../utils/fn'
 

@@ -6,7 +6,8 @@
         {{this.tab}}
     </div>
 </template>
-<script>
+
+<script lang="babel">
     const TabPane = {
         name: 'Tabpane',
         props: ['index', 'tab'],

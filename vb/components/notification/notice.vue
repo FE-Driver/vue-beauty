@@ -15,7 +15,7 @@
     </transition>
 </template>
 
-<script>
+<script lang="babel">
     import icon from '../icon'
     const prefixCls = 'ant-notification-notice'
     export default {

@@ -3,7 +3,7 @@
     <slot></slot>
   </div>
 </template>
-<script>
+<script lang="babel">
 export default {
   name: 'Breadcrumb',
   props: {

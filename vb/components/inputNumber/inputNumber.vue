@@ -41,7 +41,7 @@
     </div>
 </template>
 
-<script>
+<script lang="babel">
     function isValueNumber (value) {
         return !isNaN(Number(value))
     }

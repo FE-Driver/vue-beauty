@@ -13,7 +13,7 @@
     </span>
 </template>
 
-<script>
+<script lang="babel">
     import {t} from '../../locale'
 
     export default {

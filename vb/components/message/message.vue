@@ -14,7 +14,8 @@
         </span>
     </div>
 </template>
-<script>
+
+<script lang="babel">
     import notice from './notice'
 
     export default {

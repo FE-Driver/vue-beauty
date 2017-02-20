@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script>
+<script lang="babel">
   import menu from './menu.vue'
   import menuItem from './menuItem.vue'
   import navSubmenu from './navSubMenu.vue'

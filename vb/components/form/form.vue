@@ -4,7 +4,7 @@
     </form>
 </template>
 
-<script>
+<script lang="babel">
 export default {
   name:'Form',
   data:()=>({

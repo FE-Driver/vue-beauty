@@ -14,7 +14,8 @@
         </div>
     </div>
 </template>
-<script>
+
+<script lang="babel">
     export default{
         name: 'MorePanel',
         data: ()=>({

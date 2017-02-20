@@ -132,7 +132,8 @@
         </ul>
     </div>
 </template>
-<script>
+
+<script lang="babel">
     import vSelect from '../select'
     export default {
         name: 'Pagination',

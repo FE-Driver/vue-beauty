@@ -13,7 +13,7 @@
     <span class="ant-breadcrumb-separator">{{ separator }}</span>
   </span>
 </template>
-<script>
+<script lang="babel">
 export default {
   name: 'BreadcrumbItem',
   data: () => ({

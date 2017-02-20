@@ -5,7 +5,7 @@
         </li>
     </ul>
 </template>
-<script>
+<script lang="babel">
     export default {
         data: ()=>({
             prefix: 'ant-cascader-menu'

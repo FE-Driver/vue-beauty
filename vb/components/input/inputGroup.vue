@@ -3,7 +3,7 @@
         <slot></slot>
     </span>
 </template>
-<script>
+<script lang="babel">
     export default {
         name: 'InputGroup',
         props: {

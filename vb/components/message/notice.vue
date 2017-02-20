@@ -8,7 +8,7 @@
         </div>
     </div>
 </template>
-<script>
+<script lang="babel">
     import icon from '../icon'
     export default {
         props: {
