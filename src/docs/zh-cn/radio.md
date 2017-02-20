@@ -161,7 +161,7 @@ export default {
 </v-radio-group>
 <br>
 <br>
-<v-radio-group type="button" size="large" v-model="bRadio3"
+<v-radio-group type="button" size="large" v-model="bRadio3" disabled
     :data="[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true},{value: 'chengdu', text: 'chengdu'},{value: 'tianjin', text: 'tianji'}]">
 </v-radio-group>
 </template>
@@ -186,7 +186,7 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| label | radio的value， | String,Number |--|
+| label | radio的value， | String,Number |-|
 | disabled | 是否禁用 | Boolean | false |
 
 ### radioGroup Props
@@ -194,8 +194,16 @@ export default {
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | size | 组件中点的大小，可选值为 small default large | string | default |
-| type | radio 展示方式，可选button | string | -- |
-| data | 展示多个radio项,[{value: 'shanghai', text: 'shanghai'},{value: 'beijing', text: 'beijing',disabled:true}]<br>value-radio项的value值，text-radio项展示值，disabled-是否不可用，默认false | json | -- |
+| type | radio 展示方式，可选button | string |-|
+| data | 用于渲染多个radio项 | Array |-|
+| disabled | 是否禁用 | Boolean | false |
+
+### data
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |----------  |-------- 
+| value | radio项的value 值| String,Number |-|
+| text | radio项展示值| String |-|
+| disabled | radio项是否可用| Boolean | false |
 
 ### radioGroup event
 

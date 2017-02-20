@@ -5,7 +5,7 @@
       <input
               type="radio"
               :value = "label"
-              :disabled="disabled"
+              :disabled="isDisabled"
               v-model="model"
               :checked="selected"
               :class="prefixCls + '-input'"
@@ -52,7 +52,7 @@ export default {
             return [
                 this.className,
                 {[`${this.className}-checked`]: this.selected},
-                {[`${this.className}-disabled`]: this.disabled}
+                {[`${this.className}-disabled`]: this.isDisabled}
             ]
         },
 
@@ -61,7 +61,7 @@ export default {
                 this.prefixCls,
                 {[`${this.prefixCls}-checked`]: this.selected},
                 {[`${this.prefixCls}-checked-${this.selected ? 1 : 0}`]: !!this.selected},
-                {[`${this.prefixCls}-disabled`]: this.disabled}
+                {[`${this.prefixCls}-disabled`]: this.isDisabled}
             ]
         },
         model: {
@@ -78,6 +78,9 @@ export default {
         },
         selected(){
             return this.model == this.label;
+        },
+        isDisabled(){
+            return this.isGroup ? (this.$parent.disabled ? true : this.disabled) : this.disabled
         }
     },
 

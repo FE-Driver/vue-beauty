@@ -73,7 +73,6 @@ export default {
     created () {
         if(this.disabled){
             for(let radio of this.data){
-                if(radio.hasOwnProperty('disabled') && radio.disabled === false) continue;
                 radio.disabled = true;
             }
         }
