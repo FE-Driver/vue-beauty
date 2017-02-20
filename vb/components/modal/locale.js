@@ -1,7 +1,10 @@
+import Locale from '../../mixins/locale'
+const _t = Locale.methods.t;
+
 const defaultLocale = {
-    okText: '确定',
-    cancelText: '取消',
-    justOkText: '知道了',
+    okText: _t('modal.okText'),
+    cancelText: _t('modal.cancelText'),
+    justOkText: _t('modal.justOkText'),
 };
 
 let runtimeLocale = Object.assign({}, defaultLocale);

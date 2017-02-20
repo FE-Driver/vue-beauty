@@ -108,9 +108,9 @@ for (let item of Object.values(components)) {
 }
 
 const install = function (Vue, opts = {}) {
-    if (install.installed) return
-    locale.use(opts.locale)
-    locale.i18n(opts.i18n)
+    if (install.installed) return;
+    locale.use(opts.locale);
+    locale.i18n(opts.i18n);
 
     for (let item of Object.values(components)) {
         if (item.install) {
