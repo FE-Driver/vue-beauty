@@ -36,6 +36,9 @@
         <v-button type="primary">Primary</v-button>
         <v-button>default</v-button>
         <v-button type="dashed">Dashed</v-button>
+        <v-button type="info">Info</v-button>
+        <v-button type="success">Success</v-button>
+        <v-button type="warning">Warning</v-button>
         <v-button type="danger">Danger</v-button>
 </div>
 </template>
@@ -175,7 +178,7 @@
         <v-button type="primary" ghost>Primary</v-button>
         <v-button ghost>Default</v-button>
         <v-button type="dashed" ghost>Dashed</v-button>
-</div>
+    </div>
 </template>
 ```
 :::
@@ -222,18 +225,18 @@
 ### Button Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |-------------------------------- |-------- |
-| type | 设置按钮类型 | String | primary ghost dashed 或者不设| 无 |
-| html-type | 设置 button 原生的 type 值 | String | 参考 HTML 标准（button reset submit） | button |
-| icon | 设置按钮的图标类型 | String | 参考Icon组件中的type可选值| 无 |
-| shape | 设置按钮形状 | String | circle circle-outline 或者不设 | 无 |
-| size | 设置按钮大小 | String | small large 或者不设 | default |
-| loading | 设置按钮载入状态 | Boolean | true false | false |
-| ghost | 幽灵属性，使按钮背景透明，ant-design版本 2.7 中增加 | Boolean | true false | false |
+| type | 设置按钮类型 | string | primary dashed info success warning danger 或者不设| 无 |
+| html-type | 设置 button 原生的 type 值 | string | 参考 HTML 标准（button reset submit） | button |
+| icon | 设置按钮的图标类型 | string | 参考Icon组件中的type可选值| 无 |
+| shape | 设置按钮形状 | string | circle circle-outline 或者不设 | 无 |
+| size | 设置按钮大小 | string | small large 或者不设 | default |
+| loading | 设置按钮载入状态 | boolean | true false | false |
+| ghost | 幽灵属性，使按钮背景透明，ant-design版本 2.7 中增加 | boolean | true false | false |
 
 ### Button Group Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |-------------------------------- |-------- |
-| size | 设置按钮大小 | String | small large 或者不设 | default |
+| size | 设置按钮大小 | string | small large 或者不设 | default |
 
 
 ### Button Events

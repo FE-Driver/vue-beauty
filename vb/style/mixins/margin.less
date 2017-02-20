@@ -1,0 +1,22 @@
+
+.margin-side(@side,@size) {
+  margin-@{side} : @size !important;
+}
+
+.margin(@size) {
+  margin: @size !important;
+}
+
+.generate-margins(@n, @i: 5) when (@i =< @n) {
+  .margin-@{i} {
+    .margin(@i*1px);
+  }
+  .generate-margins(@n, (@i + 5));
+}
+
+.generate-margins-side(@side, @n, @i: 5) when (@i =< @n) {
+  .margin-@{side}-@{i} {
+    .margin-side(@side,@i*1px);
+  }
+  .generate-margins-side(@side, @n, (@i + 5));
+}
