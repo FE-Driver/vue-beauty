@@ -37,10 +37,19 @@ export default {
 
 ```html
 <template>
-  <v-pagination v-model="value"
+  <v-pagination v-model="value" @change="loadPage"
       :total="50">
   </v-pagination>
 </template>
+<script>
+export default {
+    methods: {
+        loadPage(i) {
+            console.log('cb' + i);
+        }
+    }
+}
+</script>
 ```
 
 :::
@@ -55,7 +64,7 @@ export default {
 <template>
   <v-pagination
       :show-size-changer="true"
-      :on-show-size-change="pageSizeChange"
+      @sizechange="pageSizeChange"
       :total="50">
   </v-pagination>
 </template>
@@ -92,7 +101,7 @@ export default {
       :page-size="10"
       :on-change="loadPage"
       :show-size-changer="true"
-      :on-show-size-change="pageSizeChange"
+      @sizechange="pageSizeChange"
       :show-quick-jumper="true"
       size="small"
       :simple="false">
@@ -103,7 +112,7 @@ export default {
       :total="50"
       :default-page-size="5"
       :page-size="10"
-      :on-change="loadPage"
+      @change="loadPage"
       size="small"
       :simple="false"
       :show-total="showTotal">
@@ -232,4 +241,5 @@ export default {
 ### Pagination Events
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
-| onShowSizeChange    | pageSize 变化的回调 | current, size |
+| change    | 页码改变的回调，参数是改变后的页码 | page |
+| sizechange    | pageSize 变化的回调 | current, size |
