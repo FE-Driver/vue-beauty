@@ -328,6 +328,12 @@ export default function(router) {
           component: function index(resolve) {
             require(['./views/polyfill.vue'], resolve);
           }
+        },
+        '/layout': {
+          name: 'layout',
+          component: function index(resolve) {
+            require(['./views/layout.vue'], resolve);
+          }
         }
       }
     },

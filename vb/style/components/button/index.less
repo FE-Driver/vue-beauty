@@ -4,6 +4,11 @@
 
 @btn-prefix-cls: ~"@{ant-prefix}-btn";
 
+// for compatibile
+@btn-ghost-color        : @text-color;
+@btn-ghost-bg           : transparent;
+@btn-ghost-border       : @border-color-base;
+
 // Button styles
 // -----------------------------
 .@{btn-prefix-cls} {
@@ -48,6 +53,10 @@
     .btn-dashed;
   }
 
+  &-danger {
+    .btn-danger;
+  }
+
   &-circle,
   &-circle-outline {
     .btn-circle(@btn-prefix-cls);
@@ -69,20 +78,24 @@
     display: none;
   }
 
-  &&-loading {
+  &&-loading:before {
+    display: block;
+  }
+
+  .@{iconfont-css-prefix} {
+    transition: all .3s @ease-in-out;
+  }
+
+  &&-loading:not(&-circle):not(&-circle-outline) {
     padding-left: 29px;
     pointer-events: none;
     position: relative;
     .@{iconfont-css-prefix} {
       margin-left: -14px;
-      transition: all .3s @ease-in-out;
-    }
-    &:before {
-      display: block;
     }
   }
 
-  &-sm&-loading {
+  &-sm&-loading:not(&-circle):not(&-circle-outline) {
     padding-left: 24px;
     .@{iconfont-css-prefix} {
       margin-left: -17px;
@@ -112,10 +125,24 @@
     bottom: -1px;
     right: -1px;
     border-radius: inherit;
-    border: 0 solid @primary-color;
+    border: 1.5px solid @primary-color;
     opacity: 0.4;
-    animation: buttonEffect 0.36s ease-out forwards;
+    animation: buttonEffect 0.4s ease-in-out forwards;
     display: block;
+  }
+
+  &-danger&-clicked:after {
+    border-color: @btn-danger-bg;
+  }
+
+  &-background-ghost {
+    background: transparent!important;
+    border-color: #fff;
+    color: #fff;
+  }
+
+  &-background-ghost&-primary {
+    .button-variant-other(@primary-color; transparent; @primary-color);
   }
 }
 
@@ -126,7 +153,6 @@
     left: -6px;
     bottom: -6px;
     right: -6px;
-    border-width: 6px;
   }
 }
 

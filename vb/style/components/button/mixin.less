@@ -112,7 +112,7 @@
   touch-action: manipulation;
   cursor: pointer;
   background-image: none;
-  border: 1px solid transparent;
+  border: @border-width-base @border-style-base transparent;
   white-space: nowrap;
   line-height: @line-height-base;
   .button-size(@btn-padding-base; @font-size-base; @btn-border-radius-base);
@@ -177,10 +177,15 @@
   .button-variant-other(@btn-ghost-color, @btn-ghost-bg, @btn-ghost-border);
 }
 
-// ghost button style
+// dashed button style
 .btn-dashed() {
-  .button-variant-other(@btn-ghost-color, @btn-ghost-bg, @btn-ghost-border);
+  .button-variant-other(@btn-default-color, @btn-default-bg, @btn-default-border);
   border-style: dashed;
+}
+
+// danger button style
+.btn-danger() {
+  .button-variant-primary(@btn-danger-color, @btn-danger-bg);
 }
 
 // circle button: the content only contains icon

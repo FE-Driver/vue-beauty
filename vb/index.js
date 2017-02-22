@@ -46,9 +46,10 @@ import upload from './components/upload'
 import message from './components/message'
 import notification from './components/notification'
 import morePanel from './components/morePanel'
+import { layout, sider, header, content, footer } from './components/layout'
 import tooltip from './directive/tooltip'
 
-let compnents = {
+const compnents = {
     affix,
     alert,
     backTop,
@@ -111,6 +112,11 @@ let compnents = {
     message,
     notification,
     morePanel,
+    layout,
+    sider,
+    header,
+    content,
+    footer,
     tooltip
 };
 
