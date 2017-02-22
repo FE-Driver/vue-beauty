@@ -166,6 +166,11 @@
             toggleMenu(){
                 if(this.disabled) return;
                 this.open = !this.open;
+                if(this.open){
+                    this.$nextTick(()=>{
+                        this.setPosition();
+                    })
+                }
             },
             changeMenuValue(key,i){
                 this.$set(this.path, key, i)

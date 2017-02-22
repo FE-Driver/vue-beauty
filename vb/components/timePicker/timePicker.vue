@@ -103,6 +103,11 @@
             },
             timePicker (){
                 this.selected = !this.selected;
+                if(this.selected){
+                    this.$nextTick(()=>{
+                        this.setPosition();
+                    })
+                }
             },
             setPosition (){
                 if(!this.$el){

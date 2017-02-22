@@ -389,6 +389,12 @@
                     right = document.documentElement.clientWidth - rect.left;
                 (right < (this.range ? 441 : 214) && right < rect.left) ? (this.left = true) : (this.left = false);
                 this.show = !this.show;
+
+                if(this.show){
+                    this.$nextTick(()=>{
+                        this.setPosition();
+                    })
+                }
             },
             //选择时间
             select(item, no) {
