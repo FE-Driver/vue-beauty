@@ -111,8 +111,8 @@
                     :class="prefixCls + '-options-size-changer'">
                     <v-select
                         :size="!!size ? 'sm' : ''"
-                        :options="options"
-                        :value="pageSize"
+                        :data="options"
+                        v-model="currentPageSize"
                         :allow-clear="false"
                         placement="top"
                     ></v-select>
@@ -169,7 +169,6 @@
                     return [10, 20, 30, 40]
                 }
             },
-            onShowSizeChange: Function,
             showQuickJumper: {
                 type: Boolean,
                 default: false
@@ -187,21 +186,23 @@
         data() {
             return {
                 currentForSimple: 1,
-                current: this.value
+                current: this.value,
+                currentPageSize: this.pageSize
             }
         },
         mounted () {
         },
         watch: {
-            pageSize() {
+            currentPageSize() {
                 let current = this.current;
                 let newCurrent = this.allPages;
                 current = current > newCurrent ? newCurrent : current;
                 this.current =  current;
-                this.onShowSizeChange(current, Number(this.pageSize));
+                this.$emit('sizechange', current, Number(this.currentPageSize))
             },
-            current(val){
+            current(val) {
                 this.$emit('input',val);
+                this.$emit('change',val);
             }
         },
         created() {
@@ -215,7 +216,7 @@
         },
         computed: {
             allPages() {
-                return Math.floor((this.total - 1) / Number(this.pageSize)) + 1;
+                return Math.floor((this.total - 1) / Number(this.currentPageSize)) + 1;
             },
             pageList() {
                 let biger = this.allPages <= 9;
