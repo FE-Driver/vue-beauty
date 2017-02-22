@@ -22,15 +22,23 @@
             <a href="https://github.com/FE-Driver/vue-beauty/releases" target="_blank">更新日志</a>
           </v-menu-item>
           <v-sub-menu title="组件">
-            <v-menu-item-group title="Basic">
+            <v-menu-item-group title="General">
               <v-menu-item v-link="{ name: 'button', activeClass: 'ant-menu-item-selected' }">
                 Button 按钮
               </v-menu-item>
               <v-menu-item v-link="{ name: 'font', activeClass: 'ant-menu-item-selected' }">
                 Icon 图标
               </v-menu-item>
+            </v-menu-item-group>
+            <v-menu-item-group title="Layout">
               <v-menu-item v-link="{ name: 'grid', activeClass: 'ant-menu-item-selected' }">
                 Grid 栅格
+              </v-menu-item>
+              <v-menu-item v-link="{ name: 'layout', activeClass: 'ant-menu-item-selected' }">
+                Layout 布局
+              </v-menu-item>
+              <v-menu-item v-link="{ name: 'morePanel', activeClass: 'ant-menu-item-selected' }">
+                MorePanel 更多条件面板
               </v-menu-item>
             </v-menu-item-group>
             <v-menu-item-group title="Form Controls">
@@ -125,9 +133,6 @@
               </v-menu-item>
               <v-menu-item v-link="{ name: 'datatable', activeClass: 'ant-menu-item-selected' }">
                 Datatable 数据表格
-              </v-menu-item>
-              <v-menu-item v-link="{ name: 'morePanel', activeClass: 'ant-menu-item-selected' }">
-                MorePanel 更多条件面板
               </v-menu-item>
             </v-menu-item-group>
             <v-menu-item-group title="Navigation">

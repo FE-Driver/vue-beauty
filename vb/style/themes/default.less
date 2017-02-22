@@ -10,7 +10,7 @@
 @highlight-color        : #f50;
 @warning-color          : #fa0;
 @normal-color           : #d9d9d9;
-@dark-color             : #000;
+@normal-color           : #d9d9d9;
 
 @primary-1: color(~`colorPalette("@{primary-color}", 1)`);  // replace tint(@primary-color, 90%)
 @primary-2: color(~`colorPalette("@{primary-color}", 2)`);  // replace tint(@primary-color, 80%)
@@ -34,8 +34,8 @@
 @disabled-color         : fade(#000, 25%);
 @heading-color-dark     : fade(#fff, 97%);
 @text-color-dark        : fade(#fff, 91%);
-@text-color-secondary-dark: fade(#fff, 57%);
-@disabled-color-dark    : fade(#000, 35%);
+@text-color-secondary-dark: fade(#fff, 67%);
+@disabled-color-dark    : fade(#fff, 35%);
 @font-size-base         : 12px;
 @font-size-lg           : @font-size-base + 2px;
 @line-height-base       : 1.5;
@@ -69,6 +69,8 @@
 // Border color
 @border-color-base      : #d9d9d9;        // base border outline a component
 @border-color-split     : #e9e9e9;        // split border inside a component
+@border-width-base      : 1px;            // width of the border for a component
+@border-style-base      : solid;          // style of a components border
 
 // Outline
 @outline-blur-size      : 0;
@@ -90,19 +92,17 @@
 // Buttons
 @btn-font-weight        : 500;
 @btn-border-radius-base : @border-radius-base;
-@btn-border-radius-sm   : @border-radius-sm;
+@btn-border-radius-sm   : @border-radius-base;
 
 @btn-primary-color      : #fff;
 @btn-primary-bg         : @primary-color;
-@btn-group-border       : @primary-7;
 
 @btn-default-color      : @text-color;
-@btn-default-bg         : @background-color-base;
+@btn-default-bg         : #fff;
 @btn-default-border     : @border-color-base;
 
-@btn-ghost-color        : @text-color;
-@btn-ghost-bg           : transparent;
-@btn-ghost-border       : @border-color-base;
+@btn-danger-color      : #fff;
+@btn-danger-bg         : @red-6;
 
 @btn-disable-color      : @disabled-color;
 @btn-disable-bg         : @background-color-base;
@@ -116,6 +116,8 @@
 @btn-circle-size        : 28px;
 @btn-circle-size-lg     : 32px;
 @btn-circle-size-sm     : 22px;
+
+@btn-group-border       : @primary-7;
 
 // Media queries breakpoints
 // Extra small screen / phone
@@ -149,7 +151,6 @@
 @layout-header-padding     : 0 50px;
 @layout-footer-padding     : 24px 50px;
 @layout-sider-background   : @heading-color;
-@layout-content-margin     : 24px;
 @layout-trigger-height     : 48px;
 
 // z-index list
@@ -226,8 +227,30 @@
 @process-default-color: @primary-color;
 
 // Menu
-// --
+// ---
 @menu-dark-bg: #404040;
 @menu-dark-submenu-bg: #333;
+
+// Spin
+// ---
+@spin-dot-size-sm: 14px;
+@spin-dot-size: 20px;
+@spin-dot-size-lg: 32px;
+
+// TimePicker
+// ---
+@time-picker-panel-column-width: 56px;
+@time-picker-panel-width: @time-picker-panel-column-width * 3;
+
+// Carousel
+// ---
+@carousel-dot-width: 16px;
+@carousel-dot-height: 3px;
+@carousel-dot-active-width: 24px;
+
+// Badge
+// ---
+@badge-height: 20px;
+@badge-dot-size: 8px;
 
 @import "./default_vb";

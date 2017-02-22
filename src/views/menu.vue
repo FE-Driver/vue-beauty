@@ -24,7 +24,7 @@
         >
           <v-menu mode="horizontal">
             <v-menu-item><v-icon type='mail'></v-icon>导航一</v-menu-item>
-            <v-menu-item disabled="true"><v-icon type='appstore'></v-icon>导航二</v-menu-item>
+            <v-menu-item :disabled="true"><v-icon type='appstore'></v-icon>导航二</v-menu-item>
             <v-sub-menu title="导航 - 子菜单" icon="setting">
               <v-menu-item-group title="分组1">
                 <v-menu-item>选项1</v-menu-item>
@@ -63,7 +63,7 @@
                 <v-menu-item>选项8</v-menu-item>
               </v-sub-menu>
             </v-sub-menu>
-            <v-sub-menu title="导航三" icon="setting" disabled="true">
+            <v-sub-menu title="导航三" icon="setting" :disabled="true">
               <v-menu-item>选项9</v-menu-item>
               <v-menu-item>选项10</v-menu-item>
               <v-menu-item>选项11</v-menu-item>
@@ -96,7 +96,7 @@
                 <v-menu-item>选项8</v-menu-item>
               </v-sub-menu>
             </v-sub-menu>
-            <v-sub-menu title="导航三" icon="setting" disabled="true">
+            <v-sub-menu title="导航三" icon="setting" :disabled="true">
               <v-menu-item>选项9</v-menu-item>
               <v-menu-item>选项10</v-menu-item>
               <v-menu-item>选项11</v-menu-item>
@@ -139,7 +139,7 @@
                 title="从数据直接生成"
                 describe="使用data从json数据直接生成menu"
         >
-          <v-nav-menu style="width:240px" :data="menuData"></v-nav-menu>
+          <v-nav-menu style="width:240px" :data="menuData" @itemclick="itemclick"></v-nav-menu>
           <template slot="js">
             export default {
               data: function () {
@@ -199,6 +199,11 @@
                       ]
                     }
                   ]
+                }
+              },
+              methods: {
+                itemclick(data){
+                  console.log(data)
                 }
               }
             }
@@ -404,6 +409,11 @@ export default {
             'vertical'
           ]
       ]
+    }
+  },
+  methods: {
+    itemclick(data){
+      console.log(data)
     }
   },
   components: {

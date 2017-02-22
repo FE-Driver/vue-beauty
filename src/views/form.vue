@@ -52,7 +52,7 @@
         >
           <v-form direction="horizontal">
             <v-form-item label="用户名" :label-col="labelCol" :wrapper-col="wrapperCol">
-              <p className="ant-form-text" id="userName" name="userName">大眼萌 minion</p>
+              <p class="ant-form-text" id="userName" name="userName">大眼萌 minion</p>
             </v-form-item>
             <v-form-item label="密码" :label-col="labelCol" :wrapper-col="wrapperCol" required>
               <v-input type="password" placeholder="请输入密码" size="large"></v-input>
@@ -87,10 +87,10 @@
 
         <code-box
           title="校验提示"
-          describe="我们为表单控件定义了三种校验状态，为 <FormItem> 定义 validateStatus 属性即可。
+          describe="我们为表单控件定义了三种校验状态，为 &lt; FormItem&gt; 定义 validateStatus 属性即可。
 validateStatus: 'success', 'warning', 'error', 'validating'。
 另外为输入框添加反馈图标，设置 <FormItem> 的 hasFeedback 属性值为 true 即可。
-注意: 反馈图标只对 &lt; v-input &gt; 有效。"
+注意: 反馈图标只对 &lt; v-input&gt; 有效。"
         >
           <v-form direction="horizontal">
             <v-form-item label="失败校验" :label-col="labelCol" :wrapper-col="wrapperCol" help="请输入数字和字母的组合" validate-status="error">
@@ -126,7 +126,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
 
          <code-box
           title="表单校验"
-          describe="Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并 Form-Item 的 prop 属相设置为需校验的字段名即可。校验规则参见<a href='https://github.com/yiminghe/async-validator' target='_blank'>async-validator</a>"
+          describe="Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并将 Form-Item 的 prop 属相设置为需校验的字段名即可。校验规则参见<a href='https://github.com/yiminghe/async-validator' target='_blank'>async-validator</a>"
         >
           <v-form direction="horizontal" :model="ruleForm" :rules="rules" v-ref:rule-form>
             <v-form-item label="活动名称" :label-col="labelCol" :wrapper-col="wrapperCol" prop="name" :has-feedback="true">
@@ -196,7 +196,7 @@ validateStatus: 'success', 'warning', 'error', 'validating'。
                 labelCol: { span: 6 },
                 wrapperCol: { span: 14 }
               }
-            }
+            },
             methods: {
               handleSubmit() {
                 this.$refs.ruleForm.validate(valid => {

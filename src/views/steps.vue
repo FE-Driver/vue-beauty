@@ -3,7 +3,7 @@
   <div>
 
     <section class="markdown">
-      <h1>v-steps 步骤条</h1>
+      <h1>Steps 步骤条</h1>
       <p>
         引导用户按照流程完成任务的导航条。
       </p>

@@ -1,7 +1,7 @@
 <template>
     <span :class="prefix+'-picker'" :style="style">
         <span>
-            <input :value="value" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size},{focus:show}]" @click="click" @mousedown="$event.preventDefault()">
+            <input :value="value" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size}]" @click.stop="click" @mousedown="$event.preventDefault()">
             <i v-if="clearable&&value" @click.stop="clear" class="anticon anticon-cross-circle ant-calendar-picker-clear"></i>
             <span class="ant-calendar-picker-icon"></span>
         </span>
@@ -241,12 +241,8 @@
                 this.setPosition();
             })
 
-            window.addEventListener('resize',()=> {
-                clearTimeout(this.resizeTimer);
-                this.resizeTimer = setTimeout(()=> {
-                    this.setPosition();
-                }, 200)
-            })
+            window.addEventListener('resize',this.resize);
+            window.addEventListener('click',this.closeDropdown);
             if(this.range && !this.style.width){
                 this.$set('style.width','240px')
             }
@@ -271,11 +267,12 @@
         },
         beforeDestroy(){
             this.container.removeChild(this.$els.container);
+            window.removeEventListener('click',this.closeDropdown);
+            window.removeEventListener('resize',this.resize);
         },
         watch: {
             show(val) {
                 this.hidePanel();
-                val && this.$els.container.focus();
             },
             now1() {
                 this.updateAll();
@@ -295,6 +292,12 @@
             }
         },
         methods: {
+            resize(){
+                clearTimeout(this.resizeTimer);
+                this.resizeTimer = setTimeout(()=> {
+                    this.setPosition();
+                }, 200)
+            },
             selectTime(){
                 if(!this.timeBtnEnable) return;
                 this.timeSelected = !this.timeSelected;
@@ -306,7 +309,7 @@
                 let p = getOffset(this.$el, this.container);
 
                 this.$set('containerStyle',{
-                    top: p.bottom + 'px',
+                    top: p.bottom + 4 + 'px',
                     left: p.left + 'px'
                 })
             },
@@ -411,13 +414,16 @@
                 }else{
                     this.time = this.getOutTime(item.time);
 
-                    if(!this.showTime) this.show = false;
+                    if(!this.showTime) this.closeDropdown();
                 }
             },
             //确认
             confirm() {
-                this.show = false;
+                this.closeDropdown();
                 this.$emit('confirm');
+            },
+            closeDropdown() {
+                this.show = false;
             },
             //选择范围
             selectRange(index) {

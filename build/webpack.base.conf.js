@@ -49,7 +49,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[ext]')
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[ext]')
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
     ]
