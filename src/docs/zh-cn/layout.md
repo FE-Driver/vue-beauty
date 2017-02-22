@@ -1,4 +1,4 @@
-<style>
+<style scoped>
     .components-layout-demo-basic {
         text-align: center;
         margin: 2rem;

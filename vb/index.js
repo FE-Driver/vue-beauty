@@ -1,6 +1,5 @@
 import './utils/polyfill'
 
-// import tabs from './components/tabs'
 import alert from './components/alert'
 import breadcrumb from './components/breadcrumb'
 import button from './components/button'
@@ -18,11 +17,11 @@ import { layout, sider, header, content, footer } from './components/layout'
 import spin from './components/spin'
 import cascader from './components/cascader'
 import badge from './components/badge'
-import { input, inputGroup } from './components/input'
+import input from './components/input'
 import inputNumber from './components/inputNumber'
 import select from './components/select'
 import timePicker from './components/timePicker'
-import { tabs, tabPane } from './components/tabs'
+import tabs from './components/tabs'
 import datePicker from './components/datePicker'
 import message from './components/message'
 import modal from './components/modal'
@@ -37,8 +36,6 @@ import locale from './locale'
 import tooltipd from './directive/tooltip'
 
 const components = {
-    tabs,
-    tabPane,
     breadcrumb,
     breadcrumbItem: breadcrumb.item,
     badge,
@@ -62,15 +59,15 @@ const components = {
     icon,
     button,
     buttonGroup: button.Group,
-    // tabs,
-    // tabPane: tabs.tabPane,
+    tabs,
+    tabPane: tabs.tabPane,
     card,
     vSwitch,
     tag,
     spin,
     cascader,
     input,
-    inputGroup,
+    inputGroup: input.Group,
     inputNumber,
     select,
     timePicker,
@@ -88,7 +85,7 @@ const components = {
     modal,
     message,
     datePicker
-}
+};
 
 message.install = function (Vue) {
     Vue.$message = Vue.prototype.$message = message
