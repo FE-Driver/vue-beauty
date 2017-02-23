@@ -1,132 +1,287 @@
+<template>
+    <div :class="tabsCls">
+        <div v-if="tabPosition == 'bottom'" :class="[contentPrefixCls, animated ? contentPrefixCls + '-animated' : contentPrefixCls + '-no-animated']" :style="contentStyle">
+            <slot></slot>
+        </div>
+        <div role="tablist" :class="prefixCls + '-bar'" tabindex="0">
+            <div v-if="(!!$slots && $slots.tabBarExtraContent) || (type === 'editable-card' && !hideAdd)" style="float: right;">
+                <div class="ant-tabs-extra-content">
+                    <slot name="tabBarExtraContent"></slot>
+                    <span v-if="type === 'editable-card' && !hideAdd" @click="onAdd">
+                        <i :class="`anticon anticon-plus ${prefixCls}-new-tab`"></i>
+                    </span>
+                </div>
+            </div>
+            <div :class="navContainerCls">
+                <span v-if="isScroll" unselectable="unselectable"
+                      :class="[tabPrefixCls + '-prev',{[tabPrefixCls + '-btn-disabled']: tab_transform == 0}]"
+                      @click="before">
+                    <span :class="tabPrefixCls + '-prev-icon'"></span>
+                </span>
+                <span v-if="isScroll" unselectable="unselectable"
+                      :class="[tabPrefixCls + '-next',{[tabPrefixCls + '-btn-disabled']: tab_transform + tabWrap >= nav_w}]"
+                      @click="next">
+                    <span :class="tabPrefixCls + '-next-icon'"></span>
+                </span>
+                <div :class="navPrefixCls + '-wrap'">
+                    <div ref="navScroll" :class="navPrefixCls + '-scroll'">
+                        <div ref="nav" :class="[navPrefixCls, animated ? navPrefixCls + '-animated' : navPrefixCls + '-no-animated']"
+                             :style="{ transform: 'translate3d(-' + tab_transform + 'px, 0px, 0px)' }">
+                            <div :class="[inkBarPrefixCls, animated ? inkBarPrefixCls + '-animated' : inkBarPrefixCls + '-no-animated']" :style="barStyle"></div>
+                            <template v-for="(tab, index) in tabs">
+                                <div role="tab" v-bind:aria-disabled="tab.disabled" v-bind:aria-selected="index == activeIndex"
+                                     :class="[tabPrefixCls, {[tabPrefixCls + '-active']: index == activeIndex, [tabPrefixCls + '-disabled']: tab.disabled}]"
+                                     @click="selectTab(index)">
+                                    <span v-if="tab.icon !== ''" >
+                                        <i :class="'anticon anticon-' + tab.icon"></i>
+                                        {{ tab.tab }}
+                                        <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
+                                    </span>
+                                    <template v-else="">
+                                        {{ tab.tab }}
+                                        <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="tabPosition != 'bottom'" :class="[contentPrefixCls, animated ? contentPrefixCls + '-animated' : contentPrefixCls + '-no-animated']" :style="contentStyle">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
 <script lang="babel">
-    const Tabs = {
+    import emitter from '../../mixins/emitter';
+
+    export default{
         name: 'Tabs',
+        mixins: [emitter],
         props: {
-            onChange: Function,
-            onTableClick: Function,
+            activeTabKey: String,
+            tabBarExtraContent: String,
+            type: {
+                type: String,
+                default: 'line'
+            },
+            size: String,
+            tabPosition: {
+                type: String,
+                default: 'top'
+            },
+            hideAdd: {
+                type: Boolean,
+                default: false
+            },
+            animated: {
+                type: Boolean,
+                default: true
+            }
         },
         data() {
-            const baseClass = 'ant-tabs';
-            const className = {
-                [baseClass]: true,
-                [`${baseClass}-top`]: true,
-                [`${baseClass}-line`]: true,
-            };
             return {
-                inkBarOffset: 0,
-                inkBarWidth: 0,
-                active: undefined,
-                baseClass,
-                className,
-                pane: [],
-            };
+                prefixCls: 'ant-tabs',
+                activatedTabKey: this.activeTabKey || 0,
+                activeIndex: 0,
+                tabs: [],
+                tabWidth: 0,
+                tabMarginRight: 0,
+                tabHeight: 0,
+                tabMarginBottom: 0,
+                isScroll: false,
+                nav_w: 0,
+                navScroll_w: 0,
+                tabWrap: 0,
+                moveWidth: 0,
+                tab_transform: 0,
+                preTabPanesCount: 0,
+            }
         },
         created() {
-            const childrens = this.getRenderChild();
-            childrens.forEach((tab, index) => {
-                //这一部分是tabs的标题部分，通过对_tab的注入，修改相关内容
-                const _tab = tab.componentOptions.children;
-                const ind = tab.componentOptions.propsData.index || index;
-                tab.componentOptions.propsData.index = ind;
-                _tab.index = ind;
-                if (this.active === undefined) {
-                    this.active = ind;
-                }
-                _tab.active = this.active;
-                this.pane.push(_tab);
+            let that = this;
+            this.$on('tabs.disabledItem', function(tabPane) {
+                that.disableTab.call(that, tabPane.tabKey, tabPane.disabled);
             });
         },
         mounted() {
-            const child = this.$children;
-            if (child[0]) {
-                const inkBarWidth = child[0].$el.offsetWidth;
-                this.inkBarWidth = inkBarWidth;
-            }
+            this.updateTabs();
+        },
+        updated() {
+            let that = this;
+            setTimeout(function () {
+                /* 当有增加或删除操作时，要更新tabs */
+                if (that.tabPanesCount() != that.preTabPanesCount) {
+                    that.updateTabs();
+                }
+                /* 直接调用并不会触发视图更新，而在第一次看不到inkBar，所以使用事件排队 */
+                that.updateIndicator();
+            }, 0);
         },
         methods: {
-            getRenderChild() {
-                this.$options._renderChildren.filter((tab) => tab.context);
-                const _childrens = this.$options._renderChildren;
-                if (_childrens) {
-                    return _childrens.filter((tab) => tab.context);
-                } else {
-                    return [];
+            tabPanesCount() {
+                let count = 0;
+                for (let child of this.$children) {
+                    if (child.$options.name !== 'TabPane') continue;
+                    count++;
                 }
+                return count;
             },
-            movePane(e, index, target, className) {
-                this.$emit('change', e, index, target);
-                if (typeof this.onChange === 'function') {
-                    this.onChange(e, index, target);
-                }
-                this.active = index;
-                this.$children.forEach((c) => {
-                    const child = c;
-                    if (child === target) {
-                        child.className[className] = true;
-                    } else {
-                        child.className[className] = false;
+            updateTabs() {
+                let temp_tabs = [];
+                let tabPaneIndex = 0;
+                for (let child of this.$children) {
+                    if (child.$options.name !== 'TabPane') continue;
+                    temp_tabs.push({
+                        tab: child.tab,
+                        icon: child.icon || '',
+                        tabKey: child.tabKey || tabPaneIndex,
+                        disabled: child.disabled
+                    });
+
+                    if (this.activatedTabKey === child.tabKey) {
+                        this.activeIndex = tabPaneIndex;
+                        this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
                     }
-                });
-            },
-        },
-        render(h) {
-            const {className, baseClass} = this;
-            const title = this.getRenderChild().filter((tab) => tab.context).map((tab) => {
-                const _tab = tab;
-                if (_tab.data.on === undefined) {
-                    _tab.data.on = {};
+                    tabPaneIndex++;
                 }
-                _tab.data.on.click = (e) => {
-                    const target = e.target;
-                    const {offsetLeft, offsetWidth} = target;
-                    this.inkBarWidth = offsetWidth;
-                    this.inkBarOffset = offsetLeft;
-                };
-                return _tab;
-            });
-            const content = this.pane;
-            return (
-                <div
-                    class={className}
-                >
-                    <div class={`${baseClass}-bar`}>
-                        <div class={`${baseClass}-nav-container`}>
-                            <div class={`${baseClass}-nav-wrap`}>
-                                <div class={`${baseClass}-nav-scroll`}>
-                                    <div class={`${baseClass}-nav ${baseClass}-nav-animated`}>
-                                        <div class={`${baseClass}-ink-bar ${baseClass}-ink-bar-animated`}
-                                             style={`display: block; transform: translate3d(${this.inkBarOffset}px, 0px, 0px); width: ${this.inkBarWidth}px;`}/>
-                                        {title}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class={`${baseClass}-content ${baseClass}-content-animated`} style={{
-                'margin-left': `-${this.active}00%`,
-            }}>
-                        {content.map((val) => {
-                            let active;
-                            const isActive = this.active === val.index;
-                            if (isActive) {
-                                active = ` ${baseClass}-tabpane-active`;
-                            } else {
-                                active = ` ${baseClass}-tabpane-inactive`;
-                            }
-                            const _val = <div class={`${baseClass}-tabpane${active}`}>{val}</div>;
-                            return _val;
-                        })}
-                    </div>
-                </div>
-            );
+                this.$set(this, 'tabs', temp_tabs);
+                this.preTabPanesCount = tabPaneIndex;
+
+                if (tabPaneIndex > 0) {
+                    if (this.activeIndex >= tabPaneIndex) {
+                        /* 防止最后一个被删除后没有内容显示 */
+                        this.activeIndex = tabPaneIndex - 1;
+                        this.activatedTabKey = this.tabs[this.activeIndex].tabKey;
+                        this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
+                    } else if (this.tabs[this.activeIndex].tabKey !== this.activatedTabKey) {
+                        /* 删除当前active的tab时，要激活后面一个tab */
+                        this.activatedTabKey = this.tabs[this.activeIndex].tabKey;
+                        this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
+                    }
+                }
+            },
+            updateIndicator() {
+                let tab = this.$el.querySelector('.ant-tabs-tab');
+                try {
+                    if (this.isVertical){
+                        this.tabWidth = 0;
+                        this.tabMarginRight = 0;
+                        this.tabHeight = tab.offsetHeight;
+                        this.tabMarginBottom = parseInt(getComputedStyle(tab, false).marginBottom);
+                    } else  {
+                        this.tabWidth = tab.offsetWidth;
+                        this.tabMarginRight = parseInt(getComputedStyle(tab, false).marginRight);
+                        this.tabHeight = 0;
+                        this.tabMarginBottom = 0;
+                    }
+
+                    this.nav_w = this.$refs.nav.offsetWidth;
+                    this.navScroll_w = this.$refs.navScroll.offsetWidth;
+
+                    if (this.navScroll_w < this.nav_w) this.isScroll = true;
+                } catch (e) {
+                    /* Do nothing */
+                }
+            },
+            disableTab(tabKey, disabled) {
+                for (let i = 0; i < this.tabs.length; i++) {
+                    let tab = this.tabs[i];
+                    if (tab.tabKey == tabKey) {
+                        this.$set(this.tabs[i], "disabled", disabled);
+                        break;
+                    }
+                }
+            },
+            selectTab(index) {
+                this.activeIndex = index;
+                this.activatedTabKey = this.tabs[index].tabKey;
+                this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
+                this.$emit('tabClick', this.activatedTabKey);
+            },
+            before() {
+                if (this.tab_transform > 0) {
+                    this.tab_transform += -1 * this.moveWidth;
+                }
+            },
+            next() {
+                this.tabWrap = this.$el.querySelector('.ant-tabs-nav-scroll').offsetWidth;
+                this.moveWidth = Math.floor(this.tabWrap / ( this.tabWidth + 24 )) * ( this.tabWidth + 24 );
+                if (this.tab_transform + this.tabWrap < this.nav_w) {
+                    this.tab_transform += this.moveWidth;
+                }
+            },
+            onAdd() {
+                this.$emit("add");
+            },
+            onRemove(tabKey) {
+                this.$emit("remove", tabKey);
+            }
         },
-    };
-
-    export default Tabs;
-
+        computed: {
+            isVertical() {
+                return this.tabPosition === 'left' || this.tabPosition === 'right';
+            },
+            tabPrefixCls() { return this.prefixCls + '-tab' },
+            navPrefixCls() { return this.prefixCls + '-nav' },
+            inkBarPrefixCls() { return this.prefixCls + '-ink-bar' },
+            contentPrefixCls() { return this.prefixCls + '-content' },
+            tabsCls() {
+                const size = {small: 'mini'}[this.size];
+                return [
+                    this.prefixCls,
+                    `${this.prefixCls}-${this.tabPosition}`,
+                    `${this.prefixCls}-${this.type}`,
+                    {
+                        [`${this.prefixCls}-card`]: this.type === 'editable-card',
+                        [`${this.prefixCls}-${size}`]: !!size,
+                        [`${this.prefixCls}-vertical`]: this.isVertical
+                    }
+                ]
+            },
+            navContainerCls() {
+                return [
+                    `${this.navPrefixCls}-container`,
+                    {[`${this.navPrefixCls}-container-scrolling`]: this.isScroll}
+                ]
+            },
+            barStyle(){
+                let barStyle =  {
+                    transform: 'translate3d(' + (this.tabWidth + this.tabMarginRight) * this.activeIndex + 'px, ' +
+                                + (this.tabHeight + this.tabMarginBottom) * this.activeIndex + 'px, 0px)'
+                };
+                if (this.isVertical) {
+                    barStyle.height = this.tabHeight + 'px';
+                } else {
+                    barStyle.width = this.tabWidth + 'px';
+                }
+                return barStyle;
+            },
+            contentStyle() {
+                let contentStyle =  {};
+                if (!this.isVertical) {
+                    contentStyle.marginLeft = -100 * this.activeIndex + '%';
+                }
+                return contentStyle;
+            }
+        },
+        watch: {
+            tabPosition(value, oldValue) {
+                if ( value == 'bottom' || oldValue == 'bottom') {
+                    let that = this;
+                    setTimeout(function () {
+                        that.broadcast('TabPane', 'tabPane.activeTabKey', that.activatedTabKey);
+                    }, 0);
+                }
+            },
+            activeTabKey(value) {
+                this.activatedTabKey = value;
+            },
+            activatedTabKey(value) {
+                this.$emit('change', value);
+            }
+        }
+    }
 </script>
-
-<style lang='less'>
-    @import './style/index.less';
-    @import '../../style/index.less';
-</style>

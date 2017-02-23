@@ -199,7 +199,7 @@
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | title | 卡片标题 | String |  |
-| slot::extra | 卡片右上角的操作区域 | slot node | 无 |
+| slot:extra | 卡片右上角的操作区域 | slot node | 无 |
 | bordered | 是否有边框 | Boolean | true | 
 | bodyStyle | 内容区域自定义样式 | Object |  | 
 
