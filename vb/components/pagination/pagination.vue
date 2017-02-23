@@ -186,7 +186,7 @@
         data() {
             return {
                 currentForSimple: 1,
-                current: this.value,
+                current:1,
                 currentPageSize: this.pageSize
             }
         },
@@ -203,6 +203,9 @@
             current(val) {
                 this.$emit('input',val);
                 this.$emit('change',val);
+            },
+            value(){
+                this.current = this.value;
             }
         },
         created() {
