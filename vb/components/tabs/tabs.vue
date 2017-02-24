@@ -94,6 +94,7 @@
                 isScroll: false,
                 nav_w: 0,
                 navScroll_w: 0,
+                screenWidth: document.body.clientWidth,
                 tabWrap: 0,
                 moveWidth: 0,
                 tab_transform: 0,
@@ -107,7 +108,11 @@
             });
         },
         mounted() {
-            this.updateTabs();
+            let that = this;
+            that.updateTabs();
+            window.onresize = (function () {
+                that.screenWidth = document.body.clientWidth;
+            });
         },
         updated() {
             let that = this;
@@ -178,12 +183,19 @@
                         this.tabMarginBottom = 0;
                     }
 
-                    this.nav_w = this.$refs.nav.offsetWidth;
-                    this.navScroll_w = this.$refs.navScroll.offsetWidth;
-
-                    if (this.navScroll_w < this.nav_w) this.isScroll = true;
+                    this.updateScroll();
                 } catch (e) {
                     /* Do nothing */
+                }
+            },
+            updateScroll() {
+                this.nav_w = this.$refs.nav.offsetWidth;
+                this.navScroll_w = this.$refs.navScroll.offsetWidth;
+
+                if (this.navScroll_w < this.nav_w) {
+                    this.isScroll = true;
+                } else {
+                    this.isScroll = false;
                 }
             },
             disableTab(tabKey, disabled) {
@@ -199,7 +211,7 @@
                 this.activeIndex = index;
                 this.activatedTabKey = this.tabs[index].tabKey;
                 this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
-                this.$emit('tabClick', this.activatedTabKey);
+                this.$emit('tab-click', this.activatedTabKey);
             },
             before() {
                 if (this.tab_transform > 0) {
@@ -275,6 +287,15 @@
                         that.broadcast('TabPane', 'tabPane.activeTabKey', that.activatedTabKey);
                     }, 0);
                 }
+            },
+            screenWidth() {
+                let that = this;
+                if (that.resizeThead) {
+                    clearTimeout(that.resizeThead);
+                }
+                that.resizeThead = setTimeout(function () {
+                    that.updateScroll();
+                }, 300)
             },
             activeTabKey(value) {
                 this.activatedTabKey = value;

@@ -53,6 +53,9 @@
             onChange(tabKey) {
                 console.log("tab changed : " + tabKey);
             },
+            onTabClick(tabKey) {
+                console.log("tab clicked : " + tabKey);
+            },
             onAdd() {
                 this.tabPanes.push({
                     key: 'newTab' + this.keyIndex,
@@ -112,7 +115,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 
 ```html
 <template>
-    <v-tabs active-tab-key="key1" @change="onChange">
+    <v-tabs active-tab-key="key1" @change="onChange" @tab-click="onTabClick">
         <v-tab-pane tab-key="key1" tab="选项卡一">选项卡一内容</v-tab-pane>
         <v-tab-pane tab-key="key2" tab="选项卡二">选项卡二内容</v-tab-pane>
         <v-tab-pane tab-key="key3" tab="选项卡三">选项卡三内容</v-tab-pane>
@@ -124,6 +127,9 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
         methods: {
             onChange(tabKey) {
                 console.log("tab changed : " + tabKey);
+            },
+            onTabClick(tabKey) {
+                console.log("tab clicked : " + tabKey);
             }
         }
     };
@@ -474,6 +480,6 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 | 事件名称 | 说明 | 回调参数 |
 |---------- |-------- |---------- |
 | change | 切换面板时触发的事件 | — |
-| tabClick | tab 被点击时触发的事件 | — |
+| tab-click | tab 被点击时触发的事件 | — |
 | add | 新增页签的回调，在 `type="editable-card"`且`hideAdd=false` 时有效 | - |
 | remove | 新增页签的回调，在 `type="editable-card"` 时有效 | tabKey |
