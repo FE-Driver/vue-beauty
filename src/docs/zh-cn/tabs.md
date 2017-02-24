@@ -240,7 +240,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 ::: demo
 <summary>
   #### 位置
-  有四个位置，`tabPosition="left|right|top|bottom"`。
+  有四个位置，`position="left|right|top|bottom"`。
 </summary>
 
 ```html
@@ -248,7 +248,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
     <div style="margin-bottom: 16px;">
         Tab的位置：<v-select :data="positionOptions" v-model="position" size="lg" style="width: 200px;"></v-select>    
     </div>
-    <v-tabs active-tab-key="1" :tab-position="position">
+    <v-tabs active-tab-key="1" :position="position">
         <v-tab-pane tab-key="1" tab="选项卡一">选项卡一内容</v-tab-pane>
         <v-tab-pane tab-key="2" tab="选项卡二">选项卡二内容</v-tab-pane>
         <v-tab-pane tab-key="3" tab="选项卡三">选项卡三内容</v-tab-pane>
@@ -462,10 +462,10 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 | slot : tabBarExtraContent | tab bar 上额外的元素                       | slot node | - |
 | type | 页签的基本样式，可选 `line`、`card` `editable-card` 类型   | string   | `line` |
 | size | 大小，提供 `default` 和 `small` 两种大小，仅当 `type="line"` 时生效。  | string   | `default`|
-| tabPosition | 页签位置，可选值有 `top` `right` `bottom` `left`  | string   | `top` |
+| position | 页签位置，可选值有 `top` `right` `bottom` `left`  | string   | `top` |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | boolean   | `false` |
 <!--
-| animated | 是否使用动画切换 Tabs，在 `tabPosition=top|bottom` 时有效 | boolean | `true` |
+| animated | 是否使用动画切换 Tabs，在 `position=top|bottom` 时有效 | boolean | `true` |
 -->
 
 ### TabPane Props

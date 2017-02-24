@@ -1,6 +1,6 @@
 <template>
     <div :class="tabsCls">
-        <div v-if="tabPosition == 'bottom'" :class="[contentPrefixCls, animated ? contentPrefixCls + '-animated' : contentPrefixCls + '-no-animated']" :style="contentStyle">
+        <div v-if="position == 'bottom'" :class="[contentPrefixCls, animated ? contentPrefixCls + '-animated' : contentPrefixCls + '-no-animated']" :style="contentStyle">
             <slot></slot>
         </div>
         <div role="tablist" :class="prefixCls + '-bar'" tabindex="0">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="tabPosition != 'bottom'" :class="[contentPrefixCls, animated ? contentPrefixCls + '-animated' : contentPrefixCls + '-no-animated']" :style="contentStyle">
+        <div v-if="position != 'bottom'" :class="[contentPrefixCls, animated ? contentPrefixCls + '-animated' : contentPrefixCls + '-no-animated']" :style="contentStyle">
             <slot></slot>
         </div>
     </div>
@@ -68,7 +68,7 @@
                 default: 'line'
             },
             size: String,
-            tabPosition: {
+            position: {
                 type: String,
                 default: 'top'
             },
@@ -234,7 +234,7 @@
         },
         computed: {
             isVertical() {
-                return this.tabPosition === 'left' || this.tabPosition === 'right';
+                return this.position === 'left' || this.position === 'right';
             },
             tabPrefixCls() { return this.prefixCls + '-tab' },
             navPrefixCls() { return this.prefixCls + '-nav' },
@@ -244,7 +244,7 @@
                 const size = {small: 'mini'}[this.size];
                 return [
                     this.prefixCls,
-                    `${this.prefixCls}-${this.tabPosition}`,
+                    `${this.prefixCls}-${this.position}`,
                     `${this.prefixCls}-${this.type}`,
                     {
                         [`${this.prefixCls}-card`]: this.type === 'editable-card',
@@ -280,7 +280,7 @@
             }
         },
         watch: {
-            tabPosition(value, oldValue) {
+            position(value, oldValue) {
                 if ( value == 'bottom' || oldValue == 'bottom') {
                     let that = this;
                     setTimeout(function () {
