@@ -471,7 +471,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 ### TabPane Props
 | 参数 | 说明             | 类型                    | 默认值 |
 |------|------------------|-------------------------|--------|
-| tabKey  | 对应 activeKey | string | - |
+| tabKey  | 对应 activeTabKey | string | - |
 | tab  | 选项卡头显示文字 | string | - |
 | icon   | 图标 Icon 类型 | string | - |
 | disabled | 是否警用当前tab | boolean | `false` |
