@@ -31,17 +31,13 @@
 </summary>
 
 ```html
-<template>
-    <div>
-        <v-button type="primary">Primary</v-button>
-        <v-button>default</v-button>
-        <v-button type="dashed">Dashed</v-button>
-        <v-button type="info">Info</v-button>
-        <v-button type="success">Success</v-button>
-        <v-button type="warning">Warning</v-button>
-        <v-button type="danger">Danger</v-button>
-</div>
-</template>
+<v-button type="primary">Primary</v-button>
+<v-button>Default</v-button>
+<v-button type="dashed">Dashed</v-button>
+<v-button type="info">Info</v-button>
+<v-button type="success">Success</v-button>
+<v-button type="warning">Warning</v-button>
+<v-button type="danger">Danger</v-button>
 ```
 :::
 
@@ -52,19 +48,15 @@
 </summary>
 
 ```html
-<template>
-    <div>
-        <v-button type="primary" shape="circle" icon="search"></v-button>
-        <v-button type="primary" icon="search"><span>搜索</span></v-button>
-        <v-button type="ghost" shape="circle-outline" icon="search"></v-button>
-        <v-button type="ghost" icon="search"><span>搜索</span></v-button>
-        <br/><br/>
-        <v-button type="dashed" shape="circle-outline" icon="search"></v-button>
-        <v-button type="dashed" icon="search"><span>搜索</span></v-button>
-        <v-button type="ghost" shape="circle-outline"><v-icon type="search"></v-icon></v-button>
-        <v-button type="ghost"><span>搜索</span><v-icon type="search"></v-icon></v-button>
-    </div>
-</template>
+<v-button type="primary" shape="circle" icon="search"></v-button>
+<v-button type="primary" icon="search"><span>搜索</span></v-button>
+<v-button type="ghost" shape="circle-outline" icon="search"></v-button>
+<v-button type="ghost" icon="search"><span>搜索</span></v-button>
+<br/><br/>
+<v-button type="dashed" shape="circle-outline" icon="search"></v-button>
+<v-button type="dashed" icon="search"><span>搜索</span></v-button>
+<v-button type="ghost" shape="circle-outline"><v-icon type="search"></v-icon></v-button>
+<v-button type="ghost"><span>搜索</span><v-icon type="search"></v-icon></v-button>
 ```
 :::
 
@@ -75,25 +67,21 @@
 </summary>
 
 ```html
-<template>
-    <div>
-        <v-button type="primary" size="large">Large</v-button>
-        <v-button type="primary">Default</v-button>
-        <v-button type="primary" size="small">Small</v-button>
-        <br/><br/>
-        <v-button type="ghost" size="large">Large</v-button>
-        <v-button type="ghost">Default</v-button>
-        <v-button type="ghost" size="small">Small</v-button>
-        <br/><br/>
-        <v-button type="dashed" size="large">Large</v-button>
-        <v-button type="dashed">Default</v-button>
-        <v-button type="dashed" size="small">Small</v-button>
-        <br/><br/>
-        <v-button type="primary" shape="circle" icon="search" size="large"></v-button>
-        <v-button type="primary" shape="circle" icon="search"></v-button>
-        <v-button type="primary" shape="circle" icon="search" size="small"></v-button>
-    </div>
-</template>
+<v-button type="primary" size="large">Large</v-button>
+<v-button type="primary">Default</v-button>
+<v-button type="primary" size="small">Small</v-button>
+<br/><br/>
+<v-button type="ghost" size="large">Large</v-button>
+<v-button type="ghost">Default</v-button>
+<v-button type="ghost" size="small">Small</v-button>
+<br/><br/>
+<v-button type="dashed" size="large">Large</v-button>
+<v-button type="dashed">Default</v-button>
+<v-button type="dashed" size="small">Small</v-button>
+<br/><br/>
+<v-button type="primary" shape="circle" icon="search" size="large"></v-button>
+<v-button type="primary" shape="circle" icon="search"></v-button>
+<v-button type="primary" shape="circle" icon="search" size="small"></v-button>
 ```
 :::
 
@@ -173,13 +161,11 @@
 </summary>
 
 ```html
-<template>
-    <div style="background: rgb(190, 200, 200); padding: 1.5rem 1rem 1rem;">
-        <v-button type="primary" ghost>Primary</v-button>
-        <v-button ghost>Default</v-button>
-        <v-button type="dashed" ghost>Dashed</v-button>
-    </div>
-</template>
+<div style="background: rgb(190, 200, 200); padding: 1.5rem 1rem 1rem;">
+    <v-button type="primary" ghost>Primary</v-button>
+    <v-button ghost>Default</v-button>
+    <v-button type="dashed" ghost>Dashed</v-button>
+</div>
 ```
 :::
 
@@ -190,33 +176,28 @@
 </summary>
 
 ```html
-<template>
-    <div>
-        <v-button-group size="large">
-            <v-button>Large</v-button>
-            <v-button>Large</v-button>
-        </v-button-group>
-        <v-button-group>
-            <v-button>Default</v-button>
-            <v-button>Default</v-button>
-        </v-button-group>
-        <v-button-group size="small">
-            <v-button>Small</v-button>
-            <v-button>Small</v-button>
-        </v-button-group>
-        <br/><br/>
-        <h3>带图标的组合</h3>
-        <v-button-group>
-            <v-button type="primary" icon="left">后退</v-button>
-            <v-button type="primary">前进 <v-icon type="right"></v-icon></v-button>
-        </v-button-group>
-        <v-button-group>
-            <v-button type="primary" icon="cloud"></v-button>
-            <v-button type="primary" icon="cloud-download"></v-button>
-        </v-button-group>
-        
-    </div>
-</template>
+<v-button-group size="large">
+    <v-button>Large</v-button>
+    <v-button>Large</v-button>
+</v-button-group>
+<v-button-group>
+    <v-button>Default</v-button>
+    <v-button>Default</v-button>
+</v-button-group>
+<v-button-group size="small">
+    <v-button>Small</v-button>
+    <v-button>Small</v-button>
+</v-button-group>
+<br/><br/>
+<h3>带图标的组合</h3>
+<v-button-group>
+    <v-button type="primary" icon="left">后退</v-button>
+    <v-button type="primary">前进 <v-icon type="right"></v-icon></v-button>
+</v-button-group>
+<v-button-group>
+    <v-button type="primary" icon="cloud"></v-button>
+    <v-button type="primary" icon="cloud-download"></v-button>
+</v-button-group>
 ```
 :::
 
@@ -225,13 +206,13 @@
 ### Button Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |-------------------------------- |-------- |
-| type | 设置按钮类型 | string | primary dashed info success warning danger 或者不设| 无 |
+| type | 设置按钮类型 | string | primary dashed info success warning danger 或者不设| - |
 | html-type | 设置 button 原生的 type 值 | string | 参考 HTML 标准（button reset submit） | button |
-| icon | 设置按钮的图标类型 | string | 参考Icon组件中的type可选值| 无 |
-| shape | 设置按钮形状 | string | circle circle-outline 或者不设 | 无 |
+| icon | 设置按钮的图标类型 | string | 参考Icon组件中的type可选值| - |
+| shape | 设置按钮形状 | string | circle circle-outline 或者不设 | - |
 | size | 设置按钮大小 | string | small large 或者不设 | default |
 | loading | 设置按钮载入状态 | boolean | true false | false |
-| ghost | 幽灵属性，使按钮背景透明，ant-design版本 2.7 中增加 | boolean | true false | false |
+| ghost | 幽灵属性，使按钮背景透明 | boolean | true false | false |
 
 ### Button Group Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
