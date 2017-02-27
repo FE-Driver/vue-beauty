@@ -14,35 +14,33 @@
             </div>
             <div :class="navContainerCls">
                 <span v-if="isScroll" unselectable="unselectable"
-                      :class="[tabPrefixCls + '-prev',{[tabPrefixCls + '-btn-disabled']: tab_transform == 0}]"
+                      :class="[tabPrefixCls + '-prev',{[tabPrefixCls + '-btn-disabled']: tabTransform == 0}]"
                       @click="before">
                     <span :class="tabPrefixCls + '-prev-icon'"></span>
                 </span>
                 <span v-if="isScroll" unselectable="unselectable"
-                      :class="[tabPrefixCls + '-next',{[tabPrefixCls + '-btn-disabled']: tab_transform + tabWrap >= nav_w}]"
+                      :class="[tabPrefixCls + '-next',{[tabPrefixCls + '-btn-disabled']: tabTransform + navScrollWH >= navWH}]"
                       @click="next">
                     <span :class="tabPrefixCls + '-next-icon'"></span>
                 </span>
-                <div :class="navPrefixCls + '-wrap'">
+                <div ref="navWrap" :class="navPrefixCls + '-wrap'">
                     <div ref="navScroll" :class="navPrefixCls + '-scroll'">
                         <div ref="nav" :class="[navPrefixCls, animated ? navPrefixCls + '-animated' : navPrefixCls + '-no-animated']"
-                             :style="{ transform: 'translate3d(-' + tab_transform + 'px, 0px, 0px)' }">
+                             :style="{ transform: 'translate3d(-' + tabTransform + 'px, 0px, 0px)' }">
                             <div :class="[inkBarPrefixCls, animated ? inkBarPrefixCls + '-animated' : inkBarPrefixCls + '-no-animated']" :style="barStyle"></div>
-                            <template v-for="(tab, index) in tabs">
-                                <div role="tab" v-bind:aria-disabled="tab.disabled" v-bind:aria-selected="index == activeIndex"
-                                     :class="[tabPrefixCls, {[tabPrefixCls + '-active']: index == activeIndex, [tabPrefixCls + '-disabled']: tab.disabled}]"
-                                     @click="selectTab(index)">
-                                    <span v-if="tab.icon !== ''" >
-                                        <i :class="'anticon anticon-' + tab.icon"></i>
-                                        {{ tab.tab }}
-                                        <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
-                                    </span>
-                                    <template v-else="">
-                                        {{ tab.tab }}
-                                        <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
-                                    </template>
-                                </div>
-                            </template>
+                            <div v-for="(tab, index) in tabs" :key="tab.tabKey" role="tab" v-bind:aria-disabled="tab.disabled" v-bind:aria-selected="index == activeIndex"
+                                 :class="[tabPrefixCls, {[tabPrefixCls + '-active']: index == activeIndex, [tabPrefixCls + '-disabled']: tab.disabled}]"
+                                 @click="selectTab(index)">
+                                <span v-if="tab.icon !== ''" >
+                                    <i :class="'anticon anticon-' + tab.icon"></i>
+                                    {{ tab.tab }}
+                                    <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
+                                </span>
+                                <template v-else="">
+                                    {{ tab.tab }}
+                                    <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
+                                </template>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,24 +86,21 @@
                 activatedTabKey: this.activeTabKey || 0,
                 activeIndex: 0,
                 tabs: [],
-                tabWidth: 0,
-                tabMarginRight: 0,
-                tabHeight: 0,
-                tabMarginBottom: 0,
+                tabWH: 0,
+                tabMarginRB: 0,
                 isScroll: false,
-                nav_w: 0,
-                navScroll_w: 0,
-                screenWidth: document.body.clientWidth,
-                tabWrap: 0,
-                moveWidth: 0,
-                tab_transform: 0,
+                navWH: 0,
+                navScrollWH: 0,
+                moveWH: 0,
+                tabTransform: 0,
+                screenWH: this.getClientWH(document.body),
                 preTabPanesCount: 0,
             }
         },
         created() {
             let that = this;
             onWindowResize(function () {
-                that.screenWidth = document.body.clientWidth;
+                that.screenWH = that.getClientWH(document.body);
             });
             this.$on('tabs.disabledItem', function(tabPane) {
                 that.disableTab.call(that, tabPane.tabKey, tabPane.disabled);
@@ -113,19 +108,52 @@
         },
         mounted() {
             this.updateTabs();
+            this.$nextTick(function () {
+                /* 直接调用并不会触发视图更新，而在第一次看不到inkBar，所以使用事件排队 */
+                this.updateIndicator();
+            });
         },
         updated() {
-            let that = this;
-            setTimeout(function () {
+            this.$nextTick(function () {
+                this.updateIndicator();
                 /* 当有增加或删除操作时，要更新tabs */
-                if (that.tabPanesCount() != that.preTabPanesCount) {
-                    that.updateTabs();
+                if (this.tabPanesCount() != this.preTabPanesCount) {
+                    this.updateTabs();
+                    this.$nextTick(function () {
+                        this.scrollToActiveTab();
+                    })
                 }
-                /* 直接调用并不会触发视图更新，而在第一次看不到inkBar，所以使用事件排队 */
-                that.updateIndicator();
-            }, 0);
+            });
         },
         methods: {
+            getOffsetWH(element) {
+                var prop = 'offsetWidth';
+                if (this.isVertical) {
+                    prop = 'offsetHeight';
+                }
+                return element[prop];
+            },
+            getMarginRB(element) {
+                var prop = 'marginRight';
+                if (this.isVertical) {
+                    prop = 'marginBottom';
+                }
+                return element[prop];
+            },
+            getClientWH(element) {
+                var prop = 'clientWidth';
+                if (this.isVertical) {
+                    prop = 'clientHeight';
+                }
+                return element[prop];
+            },
+            getOffsetLT(element) {
+                var prop = 'left';
+                if (this.isVertical) {
+                    prop = 'top';
+                }
+                return element.getBoundingClientRect()[prop];
+            },
             tabPanesCount() {
                 let count = 0;
                 for (let child of this.$children) {
@@ -167,35 +195,86 @@
                         this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
                     }
                 }
+
+                this.$nextTick(function() {
+                    this.updateScroll();
+                })
             },
             updateIndicator() {
-                let tab = this.$el.querySelector('.ant-tabs-tab');
+                let tab = this.$el.querySelector('.' + this.tabPrefixCls);
                 try {
-                    if (this.isVertical){
-                        this.tabWidth = 0;
-                        this.tabMarginRight = 0;
-                        this.tabHeight = tab.offsetHeight;
-                        this.tabMarginBottom = parseInt(getComputedStyle(tab, false).marginBottom);
-                    } else  {
-                        this.tabWidth = tab.offsetWidth;
-                        this.tabMarginRight = parseInt(getComputedStyle(tab, false).marginRight);
-                        this.tabHeight = 0;
-                        this.tabMarginBottom = 0;
-                    }
+                    this.tabWH = this.getOffsetWH(tab);
+                    this.tabMarginRB = parseInt(this.getMarginRB(getComputedStyle(tab, false)));
                     this.updateScroll();
                 } catch (e) {
                     /* Do nothing */
                 }
             },
             updateScroll() {
-                this.nav_w = this.$refs.nav.offsetWidth;
-                this.navScroll_w = this.$refs.navScroll.offsetWidth;
+                this.navWH = this.getOffsetWH(this.$refs.nav);
+                this.navScrollWH = this.getOffsetWH(this.$refs.navScroll);
 
-                if (this.navScroll_w < this.nav_w) {
+                if (this.navScrollWH < this.navWH) {
                     this.isScroll = true;
                 } else {
                     this.isScroll = false;
                 }
+
+                if (this.tabTransform >= this.navWH) {
+                    this.before();
+                }
+            },
+            scrollToActiveTab() {
+                var navWrap = this.$refs.navWrap,
+                    activeTab = this.getActiveTab();
+
+                if (activeTab) {
+                    var activeTabWH = this.getOffsetWH(activeTab);
+                    var activeTabMarginRB = parseInt(this.getMarginRB(getComputedStyle(activeTab, false)));
+                    var navWrapWH = this.getOffsetWH(navWrap);
+                    var navWrapOffset = this.getOffsetLT(navWrap);
+                    var activeTabOffset = this.getOffsetLT(activeTab);
+                    if (navWrapOffset > activeTabOffset) {
+                        this.tabTransform -= navWrapOffset - activeTabOffset;
+                    } else if (navWrapOffset + navWrapWH < activeTabOffset + activeTabWH + activeTabMarginRB) {
+                        this.tabTransform += (activeTabOffset + activeTabWH + activeTabMarginRB) - (navWrapOffset + navWrapWH);
+                    } else {
+                        this.scrollToLastTab();
+                    }
+                }
+            },
+            scrollToLastTab() {
+                var navWrap = this.$refs.navWrap,
+                    nav = this.$refs.nav,
+                    lastTab = this.getLastTab();
+
+                if (lastTab) {
+                    var lastTabbWH = this.getOffsetWH(lastTab);
+                    var lastTabbWHMarginRB = parseInt(this.getMarginRB(getComputedStyle(lastTab, false)));
+                    var navWrapWH = this.getOffsetWH(navWrap);
+                    var navWH = this.navWH = this.getOffsetWH(nav);
+                    var navWrapOffset = this.getOffsetLT(navWrap);
+                    var lastTabOffset = this.getOffsetLT(lastTab);
+
+                    if (navWrapOffset + navWrapWH > lastTabOffset + lastTabbWH + lastTabbWHMarginRB) {
+                        if (navWrapWH < navWH) {
+                            this.tabTransform = navWH - navWrapWH;
+                        } else {
+                            this.tabTransform = 0;
+                        }
+                    }
+                }
+            },
+            getActiveTab() {
+                return this.$el.querySelector('.' + this.tabPrefixCls + '-active');
+            },
+            getLastTab() {
+                let tab = null;
+                let tabs = this.$el.querySelectorAll('.' + this.tabPrefixCls);
+                if (tabs && tabs.length) {
+                    tab = tabs[tabs.length - 1];
+                }
+                return tab;
             },
             disableTab(tabKey, disabled) {
                 for (let i = 0; i < this.tabs.length; i++) {
@@ -209,19 +288,30 @@
             selectTab(index) {
                 this.activeIndex = index;
                 this.activatedTabKey = this.tabs[index].tabKey;
+                this.$nextTick(function () {
+                    this.scrollToActiveTab();
+                });
                 this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
                 this.$emit('tab-click', this.activatedTabKey);
             },
+            setOffset(offset) {
+                this.tabTransform = offset;
+            },
             before() {
-                if (this.tab_transform > 0) {
-                    this.tab_transform += -1 * this.moveWidth;
+                this.moveWH = Math.floor(this.navScrollWH / ( this.tabWH + 24 )) * ( this.tabWH + 24 );
+                if (this.tabTransform - this.moveWH >= 0) {
+                    this.tabTransform += -1 * this.moveWH;
+                } else {
+                    this.tabTransform = 0;
                 }
             },
             next() {
-                this.tabWrap = this.$el.querySelector('.ant-tabs-nav-scroll').offsetWidth;
-                this.moveWidth = Math.floor(this.tabWrap / ( this.tabWidth + 24 )) * ( this.tabWidth + 24 );
-                if (this.tab_transform + this.tabWrap < this.nav_w) {
-                    this.tab_transform += this.moveWidth;
+                this.navScrollWH = this.getOffsetWH(this.$refs.navScroll);
+                this.moveWH = Math.floor(this.navScrollWH / ( this.tabWH + 24 )) * ( this.tabWH + 24 );
+                if (this.tabTransform + this.moveWH <= this.navWH - this.navScrollWH) {
+                    this.tabTransform += this.moveWH;
+                } else if (this.tabTransform <= this.navWH - this.navScrollWH) {
+                    this.tabTransform = this.navWH - this.navScrollWH;
                 }
             },
             onAdd() {
@@ -258,15 +348,15 @@
                     {[`${this.navPrefixCls}-container-scrolling`]: this.isScroll}
                 ]
             },
-            barStyle(){
+            barStyle() {
                 let barStyle =  {
-                    transform: 'translate3d(' + (this.tabWidth + this.tabMarginRight) * this.activeIndex + 'px, ' +
-                                + (this.tabHeight + this.tabMarginBottom) * this.activeIndex + 'px, 0px)'
+                    transform: 'translate3d(' + (this.tabWH + this.tabMarginRB) * this.activeIndex + 'px, 0px, 0px)'
                 };
                 if (this.isVertical) {
-                    barStyle.height = this.tabHeight + 'px';
+                    barStyle.height = this.tabWH + 'px';
+                    barStyle.transform = 'translate3d(0px, ' + (this.tabWH + this.tabMarginRB) * this.activeIndex + 'px, 0px)';
                 } else {
-                    barStyle.width = this.tabWidth + 'px';
+                    barStyle.width = this.tabWH + 'px';
                 }
                 return barStyle;
             },
@@ -287,7 +377,7 @@
                     }, 0);
                 }
             },
-            screenWidth() {
+            screenWH() {
                 let that = this;
                 if (that.resizeThead) {
                     clearTimeout(that.resizeThead);

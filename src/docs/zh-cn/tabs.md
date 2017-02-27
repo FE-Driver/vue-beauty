@@ -41,6 +41,8 @@
                     {key: 'tab2', tab: '选项卡2', content: '选项卡2的内容'},
                     {key: 'tab3', tab: '选项卡3', content: '选项卡3的内容'}
                 ],
+                customPosition: 'top',
+                customActiveKey: 'tab1',
                 customKeyIndex: 1,
                 customTabPanes: [
                     {key: 'tab1', tab: '选项卡1', content: '选项卡1的内容'},
@@ -72,6 +74,7 @@
                 }
             },
             onCustomAdd() {
+                this.customActiveKey = 'newTab' + this.customKeyIndex;
                 this.customTabPanes.push({
                     key: 'newTab' + this.customKeyIndex,
                     tab: '新选项卡' + this.customKeyIndex,
@@ -346,7 +349,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 ```html
 <template>
     <v-tabs active-tab-key="tab1" type="editable-card" @add="onAdd" @remove="onRemove">
-        <v-tab-pane v-for="tabPane in tabPanes" :tab-key="tabPane.key" :tab="tabPane.tab">{{ tabPane.content }}</v-tab-pane>
+        <v-tab-pane v-for="tabPane in tabPanes" :tab-key="tabPane.key" :key="tabPane.key" :tab="tabPane.tab">{{ tabPane.content }}</v-tab-pane>
     </v-tabs>
 </template>
 
@@ -393,9 +396,10 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 ```html
 <template>
     <div style="margin-bottom: 16px;">
+        Tab的位置：<v-select :data="positionOptions" v-model="customPosition" size="lg" style="width: 200px;"></v-select>
         <v-button @click="onCustomAdd">新增</v-button>
     </div>
-    <v-tabs active-tab-key="tab1" type="editable-card" hide-add @remove="onCustomRemove" >
+    <v-tabs :active-tab-key="customActiveKey" type="editable-card" :position="customPosition" hide-add @remove="onCustomRemove" >
         <v-tab-pane v-for="tabPane in customTabPanes" :tab-key="tabPane.key" :key="tabPane.key" :tab="tabPane.tab">{{ tabPane.content }}</v-tab-pane>
     </v-tabs>
 </template>
@@ -404,7 +408,15 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
     export default {
         data() {
             return {
+                customPosition: 'top',
+                customActiveKey: 'tab1',
                 customKeyIndex: 1,
+                positionOptions: [
+                    {label: 'top', value: 'top'},
+                    {label: 'bottom', value: 'bottom'},
+                    {label: 'left', value: 'left'},
+                    {label: 'right', value: 'right'}
+                ],
                 customTabPanes: [
                     {key: 'tab1', tab: '选项卡1', content: '选项卡1的内容'},
                     {key: 'tab2', tab: '选项卡2', content: '选项卡2的内容'},
@@ -421,6 +433,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
                 });
             },
             onCustomRemove(tabKey) {
+                this.customActiveKey = 'newTab' + this.customKeyIndex;
                 for (let i = 0; i < this.customTabPanes.length; i++) {
                     if (this.customTabPanes[i].key == tabKey) {
                         this.customTabPanes.splice(i, 1);
