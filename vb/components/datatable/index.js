@@ -2,6 +2,6 @@
  * Created by bailey on 17/2/20.
  */
 import "./style/index.less"
-import vDatatable from './datatable.vue';
+import dataTable from './dataTable.vue';
 
-export default vDatatable;
+export default dataTable;

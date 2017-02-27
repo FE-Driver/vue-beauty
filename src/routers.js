@@ -168,9 +168,9 @@ export default [
                 component: require('./docs/zh-cn/tooltipd.md')
             },
             {
-                path: 'datatable',
-                name: 'datatable',
-                component: require('./docs/zh-cn/datatable.md')
+                path: 'dataTable',
+                name: 'dataTable',
+                component: require('./docs/zh-cn/dataTable.md')
             }
         ]
   }

@@ -65,12 +65,12 @@
 ::: demo
 <summary>
   #### 基本
-  最基本用法，配置好data-source和columns即可。
+  最基本用法，配置好data和columns即可。
 </summary>
 
 ```html
-<v-datatable :data-source='loadData' :columns='columns'>  
-</v-datatable>
+<v-data-table :data='loadData' :columns='columns'>  
+</v-data-table>
 
 <script>
     import axios from 'axios'
@@ -117,14 +117,14 @@
 </summary>
 
 ```html
-<v-datatable :data-source='loadData' :columns='columns'>
+<v-data-table :data='loadData' :columns='columns'>
     <template slot="th" scope="props">
         <strong v-html="props.title"></strong>
     </template>
     <template slot="td" scope="props">
         <span v-html="props.content"></span>
     </template>     
-</v-datatable>
+</v-data-table>
 ```
 :::
 
@@ -135,7 +135,7 @@
 </summary>
 
 ```html
-<v-datatable :data-source='loadData' :columns='columns'>
+<v-data-table :data='loadData' :columns='columns'>
     <template slot="th" scope="props">
         <strong v-if="props.index==0">操作操作操作</strong>
         <strong v-else v-html="props.title"></strong>
@@ -147,7 +147,7 @@
         </v-button-group>
         <span v-else v-html="props.content"></span>
     </template>     
-</v-datatable>
+</v-data-table>
 ```
 :::
 
@@ -158,9 +158,9 @@
 </summary>
 
 ```html
-<v-datatable :data-source='loadData' :columns='columns' :height="300">
+<v-data-table :data='loadData' :columns='columns' :height="300">
       
-</v-datatable>
+</v-data-table>
 ```
 :::
 
@@ -172,9 +172,9 @@
 </summary>
 
 ```html
-<v-datatable :data-source='loadData' :columns='columns' :bottom-gap="30">
+<v-data-table :data='loadData' :columns='columns' :bottom-gap="30">
     
-</v-datatable>
+</v-data-table>
 ```
 :::
 
@@ -185,9 +185,9 @@
 </summary>
 
 ```html
-<v-datatable :data-source='loadData' :columns='columns' :pagination="false">
+<v-data-table :data='loadData' :columns='columns' :pagination="false">
      
-</v-datatable>
+</v-data-table>
 ```
 :::
 
@@ -203,9 +203,9 @@
 <v-alert v-if="checkRowMsg" :message="checkRowMsg"></v-alert>
 <v-alert v-if="clickRowMsg" :message="clickRowMsg"></v-alert>
 
-<v-datatable :data-source='loadData' :columns='columns' check-type="checkbox" @checkall="checkAll" @checkrow="checkRow" @clickRow="clickRow">
+<v-data-table :data='loadData' :columns='columns' check-type="checkbox" @checkall="checkAll" @checkrow="checkRow" @clickRow="clickRow">
       
-</v-datatable>
+</v-data-table>
 
 <script>
     import axios from 'axios'
@@ -264,11 +264,11 @@
 
 ```html
 
-<v-datatable :data-source='loadData' :columns='columns'>
+<v-data-table :data='loadData' :columns='columns'>
     <template slot="emptytext" scope="props">
         <v-tag color="orange">我去，这是几个意思？</v-tag>
     </template>    
-</v-datatable>
+</v-data-table>
 ```
 :::
 
@@ -280,9 +280,9 @@
 
 ```html
 
-<v-datatable ref="xtable" :data-source='loadData' :columns='columns' :page-num="pageno">
+<v-data-table ref="xtable" :data='loadData' :columns='columns' :page-num="pageno">
       
-</v-datatable>
+</v-data-table>
 <br>
 <v-button @click="reloadTable">刷新表格</v-button>
 <v-button @click="go2">跳转到第二页</v-button>
@@ -338,7 +338,7 @@
 ### Datatable Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| dataSource | 获取表格数据的函数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见dataSource arguments | Function | - |
+| data | 获取表格数据的函数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见data arguments | Function | - |
 | columns | 表头配置，类型为对象数据，具体请见下表：Columns Object | Array | - |
 | pagination | 是否启用分页 | Boolean | false |
 | pageSize | 分页大小 | Number | 10 |
@@ -349,7 +349,7 @@
 | bottomGap | 距离viewport底部的间隙距离 | Number | - |
 | responseParamsName | 接口数据的关键字段命名，目前支持total和results,分别表示总数字段和结果字段 | Object | {total:'totalCount',results: 'result'} |
 
-### dataSource arguments
+### data arguments
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | pageNo | 页数 | Number | — |
@@ -360,7 +360,7 @@
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | title | 列名 | String | — |
-| field | 字段名（对应dataSource中的字段名） | String | - |
+| field | 字段名（对应data中的字段名） | String | - |
 | sort | 是否排序 | Boolean | false |
 | width | 列宽 | 合法的CSS尺寸,如120px或5% | — |
 | className | 自定义类名 | String | — |

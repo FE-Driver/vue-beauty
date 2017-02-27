@@ -134,14 +134,14 @@
     import vRadio from '../radio'
 
     export default {
-        name: 'Datatable',
+        name: 'DataTable',
         props: {
             size: {
                 type: String,
                 default: "middle"
             },
             //接口地址
-            dataSource: {
+            data: {
                 type: Function,
                 required: true
             },
@@ -351,12 +351,12 @@
                 var self = this;
                 self.loading = true;
                 //拼装请求参数
-//                const url = this.dataSource;
+//                const url = this.data;
                 const remoteParams = Object.assign({}, this.sortParams);
                 remoteParams[this.paramsName.pageNumber] = params.pageNum || self.pageNumber;
                 remoteParams[this.paramsName.pageSize] = this.pageSizeT;
 
-                let dataPromise = self.dataSource(remoteParams);
+                let dataPromise = self.data(remoteParams);
 
                 dataPromise.then((response) => {
                             const data = response;
@@ -603,7 +603,7 @@
                 var self = this;
                 self.loading = true;
                 //拼装请求参数
-                const url = this.dataSource;
+                const url = this.data;
                 const remoteParams = Object.assign({parentid: item.id}, this.sortParams, this.otherParams);
 
                 this.$http.post(url, remoteParams, {emulateJSON: true}).then((response) => {

@@ -92,7 +92,7 @@
                             <router-link :to="{ name:'tooltip'}">Tooltip 文字提示</router-link>
                         </v-menu-item>
                         <v-menu-item>
-                            <router-link :to="{ name:'datatable'}">Datatable 数据表格</router-link>
+                            <router-link :to="{ name:'dataTable'}">DataTable 数据表格</router-link>
                         </v-menu-item>
                     </v-submenu>
                     <v-submenu title="Feedback">

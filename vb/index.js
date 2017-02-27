@@ -34,7 +34,7 @@ import form from './components/form'
 import tooltip from './components/tooltip'
 import locale from './locale'
 import tooltipd from './directive/tooltip'
-import datatable from './components/datatable'
+import dataTable from './components/dataTable'
 
 const components = {
     breadcrumb,
@@ -86,7 +86,7 @@ const components = {
     modal,
     message,
     datePicker,
-    datatable
+    dataTable
 };
 
 message.install = function (Vue) {
