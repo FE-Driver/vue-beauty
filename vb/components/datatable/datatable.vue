@@ -359,7 +359,7 @@
                 let dataPromise = self.dataSource(remoteParams);
 
                 dataPromise.then((response) => {
-                            const data = response.data;
+                            const data = response;
                             let results = data[self.paramsName.results];
 
                             //处理treeTable数据
