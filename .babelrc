@@ -1,7 +1,7 @@
 {
   "presets": [["latest",{"modules": false}],"stage-2"],
   "plugins": [
-    ["transform-vue-jsx", "transform-runtime", {
+    ["transform-runtime", {
       "helpers": false,
       "polyfill": true,
       "regenerator": true

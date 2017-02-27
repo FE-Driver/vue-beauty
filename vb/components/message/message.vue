@@ -10,7 +10,7 @@
             :type="notice.type"
             :on-close="notice.onClose"
             @close="close"
-          ><notice>
+          ></notice>
         </span>
     </div>
 </template>
