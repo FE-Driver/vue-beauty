@@ -3,6 +3,7 @@
         <v-checkbox
                 :class="prefixCls + '-item'"
                 v-for="(option, index) in ori_data"
+                :key="index"
                 v-model="option.checked"
                 :disabled="!!option.disabled"
                 @click="toggleChecked(index)"

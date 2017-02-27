@@ -71,7 +71,6 @@
                     if (parent.$options.name == 'Submenu') index++;
                     parent = parent.$parent;
                 }
-                console.log(parent.mode)
                 this.mode = parent.mode;
                 this.level = index;
             },
