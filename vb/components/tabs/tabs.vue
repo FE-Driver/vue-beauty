@@ -83,6 +83,7 @@
         data() {
             return {
                 prefixCls: 'ant-tabs',
+                transitionTime: 300,
                 activatedTabKey: this.activeTabKey || 0,
                 activeIndex: 0,
                 tabs: [],
@@ -115,13 +116,17 @@
         },
         updated() {
             this.$nextTick(function () {
+                let that = this;
                 this.updateIndicator();
                 /* 当有增加或删除操作时，要更新tabs */
                 if (this.tabPanesCount() != this.preTabPanesCount) {
                     this.updateTabs();
-                    this.$nextTick(function () {
-                        this.scrollToActiveTab();
-                    })
+                    if (this.scrollToActiveTabThread) {
+                        clearTimeout(this.scrollToActiveTabThread)
+                    }
+                    this.scrollToActiveTabThread = setTimeout(function () {
+                        that.scrollToActiveTab();
+                    }, that.transitionTime);
                 }
             });
         },
@@ -370,12 +375,15 @@
         },
         watch: {
             position(value, oldValue) {
+                let that = this;
                 if ( value == 'bottom' || oldValue == 'bottom') {
-                    let that = this;
-                    setTimeout(function () {
-                        that.broadcast('TabPane', 'tabPane.activeTabKey', that.activatedTabKey);
+                    this.$nextTick(function () {
+                        this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
                     }, 0);
                 }
+                setTimeout(function () {
+                    that.scrollToActiveTab();
+                }, this.transitionTime);
             },
             screenWH() {
                 let that = this;
@@ -384,7 +392,7 @@
                 }
                 that.resizeThead = setTimeout(function () {
                     that.updateScroll();
-                }, 300)
+                }, this.transitionTime)
             },
             activeTabKey(value) {
                 this.activatedTabKey = value;
