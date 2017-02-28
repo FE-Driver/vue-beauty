@@ -1,8 +1,8 @@
 import "./style/index.less"
-import Radio from './radio.vue'
-import RadioGroup from './radioGroup.vue'
+import radio from './radio.vue'
+import radioGroup from './radioGroup.vue'
 
-Radio.Group = RadioGroup
+radio.group = radioGroup
 
-export default Radio
+export default radio
 

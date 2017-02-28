@@ -1,7 +1,7 @@
 import "./style/index.less"
-import vCheckbox from './checkbox.vue'
-import vCheckboxGroup from './checkboxGroup.vue'
+import checkbox from './checkbox.vue'
+import checkboxGroup from './checkboxGroup.vue'
 
-vCheckbox.Group = vCheckboxGroup
+checkbox.group = checkboxGroup
 
-export default vCheckbox
+export default checkbox

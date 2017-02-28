@@ -2,7 +2,7 @@
     <div :class="wrapClasses">
         <slot></slot>
         <template v-if="!hasSlot">
-            <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :disabled="radio.disabled" :label="radio.value"  >
+            <v-radio v-for="(radio,index) in data" :type="type" :class-name="radioClasses" :key="radio.value" :disabled="radio.disabled" :label="radio.value"  >
                 <span>{{radio.text}}</span>
             </v-radio>
         </template>

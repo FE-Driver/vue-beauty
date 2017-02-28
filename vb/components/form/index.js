@@ -2,6 +2,6 @@ import "./style/index.less"
 import form from './form.vue'
 import formItem from './formItem.vue'
 
-form.Item = formItem
+form.item = formItem
 
 export default form

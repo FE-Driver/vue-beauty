@@ -186,14 +186,14 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| label | radio的value， | String,Number |-|
+| label | radio的value | String,Number |-|
 | disabled | 是否禁用 | Boolean | false |
 
 ### radioGroup Props
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| size | 组件中点的大小，可选值为 small default large | string | default |
+| size | 组件中点的大小，可选值为 `small` `default` `large` | string | default |
 | type | radio 展示方式，可选button | string |-|
 | data | 用于渲染多个radio项 | Array |-|
 | disabled | 是否禁用 | Boolean | false |
@@ -201,7 +201,7 @@ export default {
 ### data
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- 
-| value | radio项的value 值| String,Number |-|
+| value | radio项的value值| String,Number |-|
 | text | radio项展示值| String |-|
 | disabled | radio项是否可用| Boolean | false |
 
