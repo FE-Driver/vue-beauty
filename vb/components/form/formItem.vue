@@ -6,7 +6,7 @@
         <v-col :span="wrapperCol.span" :offset="wrapperCol.offset">
             <div :class="controlCls">
                 <slot></slot>
-                <div v-if="defaultHelp" v-text="defaultHelp" :class="formPrefix + '-explain'"></div>
+                <div v-if="validateMessage && showMessage && form.showMessage" v-text="validateMessage" :class="formPrefix + '-explain'"></div>
             </div>
         </v-col>
     </div>
@@ -17,6 +17,29 @@
     import {col as vCol} from '../grid'
     import emitter from '../../mixins/emitter';
 
+    function noop() {}
+    function getPropByPath(obj, path) {
+        let tempObj = obj;
+        path = path.replace(/\[(\w+)\]/g, '.$1');
+        path = path.replace(/^\./, '');
+
+        let keyArr = path.split('.');
+        let i = 0;
+
+        for (let len = keyArr.length; i < len - 1; ++i) {
+            let key = keyArr[i];
+            if (key in tempObj) {
+                tempObj = tempObj[key];
+            } else {
+                throw new Error('please transfer a valid prop path to form item!');
+            }
+        }
+        return {
+            o: tempObj,
+            k: keyArr[i],
+            v: tempObj[keyArr[i]]
+        };
+    }
     export default {
         name: 'FormItem',
         mixins: [emitter],
@@ -24,12 +47,11 @@
             return {
                 formPrefix: 'ant-form',
                 prefixCls: 'ant-form-item',
-                valid: true,
+                validateState: this.validateStatus,
+                validateMessage: this.help,
                 validateDisabled: false,
-                initialValue: null,
-                defaultHelp: this.help,
-                defaultValidateStatus: this.validateStatus,
-                isRequired: this.required
+                validator: {},
+                isRequired: false
             }
         },
         props: {
@@ -43,36 +65,35 @@
                 type: Object,
                 default: () => ({})
             },
-            help: String,
-            validateStatus: String,
             hasFeedback: {
                 type: Boolean,
                 default: false
             },
-            required: {
+            required: Boolean,
+            rules: [Object, Array],
+            help: String,
+            validateStatus: String,
+            showMessage: {
                 type: Boolean,
-                default: false
-            },
-            rules: [Object, Array]
-        },
-        watch: {
-            fieldValue(){
-                if (!this.reset) this.validate();
-            },
-            help(val){
-                this.defaultHelp = val;
-            },
-            validateStatus(val){
-                this.defaultValidateStatus = val;
+                default: true
             }
         },
         components: {vCol},
+        watch: {
+            help(value) {
+                this.validateMessage = value;
+                this.validateState = value ? 'error' : '';
+            },
+            validateStatus(value) {
+                this.validateState = value;
+            }
+        },
         computed: {
             itemCls () {
                 return [
                     'ant-row',
                     this.prefixCls,
-                    {[`${this.prefixCls}-with-defaultHelp`]: this.defaultHelp}
+                    {[`${this.prefixCls}-with-help`]: this.validateMessage}
                 ]
             },
             labelCls () {
@@ -84,7 +105,7 @@
                     warning: 'has-warning',
                     success: 'has-success',
                     validating: 'is-validating'
-                }[this.defaultValidateStatus];
+                }[this.validateState];
 
                 return [
                     `${this.prefixCls}-control`,
@@ -103,15 +124,14 @@
                 cache: false,
                 get() {
                     var model = this.form.model;
-                    if (!model || !this.prop) {
-                        return;
+                    if (!model || !this.prop) { return; }
+
+                    var path = this.prop;
+                    if (path.indexOf(':') !== -1) {
+                        path = path.replace(/:/, '.');
                     }
 
-                    var temp = this.prop.split(':');
-
-                    return temp.length > 1
-                        ? model[temp[0]][temp[1]]
-                        : model[this.prop];
+                    return getPropByPath(model, path).v;
                 }
             }
         },
@@ -119,7 +139,10 @@
             if (this.prop) {
                 this.dispatch('Form', 'form.addField', [this]);
 
-                this.initialValue = this.getInitialValue();
+                Object.defineProperty(this, 'initialValue', {
+                    value: this.fieldValue
+                });
+
                 let rules = this.getRules();
 
                 if (rules.length) {
@@ -129,6 +152,8 @@
                             return false;
                         }
                     });
+                    this.$on('form.blur', this.onFieldBlur);
+                    this.$on('form.change', this.onFieldChange);
                 }
             }
         },
@@ -136,14 +161,14 @@
             this.dispatch('Form', 'form.removeField', [this]);
         },
         methods: {
-            validate(trigger, cb) {
+            validate(trigger, callback = noop) {
                 var rules = this.getFilteredRule(trigger);
                 if (!rules || rules.length === 0) {
-                    cb && cb();
+                    callback();
                     return true;
                 }
 
-                this.defaultValidateStatus = 'validating';
+                this.validateState = 'validating';
 
                 var descriptor = {};
                 descriptor[this.prop] = rules;
@@ -153,40 +178,33 @@
 
                 model[this.prop] = this.fieldValue;
 
-                validator.validate(model, {firstFields: true}, (errors, fields) => {
-                    this.valid = !errors;
-                    this.defaultHelp = errors ? errors[0].message : '';
+                validator.validate(model, { firstFields: true }, (errors, fields) => {
+                    this.validateState = !errors ? 'success' : 'error';
+                    this.validateMessage = errors ? errors[0].message : '';
 
-                    cb && cb(errors);
-                    this.defaultValidateStatus = this.defaultHelp ? 'error' : 'success';
+                    callback(this.validateMessage);
                 });
             },
             resetField() {
-                this.defaultValidateStatus = "";
-                this.valid = true;
-                this.defaultHelp = '';
-                this.reset = true;
+                this.validateState = '';
+                this.validateMessage = '';
 
                 let model = this.form.model;
                 let value = this.fieldValue;
+                let path = this.prop;
+                if (path.indexOf(':') !== -1) {
+                    path = path.replace(/:/, '.');
+                }
 
-                if (Array.isArray(value) && value.length) {
+                let prop = getPropByPath(model, path);
+
+                if (Array.isArray(value) && value.length > 0) {
                     this.validateDisabled = true;
-                    model[this.prop] = [];
+                    prop.o[prop.k] = [];
                 } else if (value) {
                     this.validateDisabled = true;
-                    model[this.prop] = this.initialValue;
+                    prop.o[prop.k] = this.initialValue;
                 }
-                this.$nextTick(() => {
-                    this.reset = false;
-                })
-            },
-            getFilteredRule(trigger) {
-                var rules = this.getRules();
-
-                return rules.filter(rule => {
-                    return !rule.trigger || rule.trigger.indexOf(trigger) !== -1;
-                });
             },
             getRules() {
                 var formRules = this.form.rules;
@@ -196,13 +214,23 @@
 
                 return [].concat(selfRuels || formRules || []);
             },
-            getInitialValue() {
-                var value = this.form.model[this.prop];
-                if (value === undefined) {
-                    return value;
-                } else {
-                    return JSON.parse(JSON.stringify(value));
+            getFilteredRule(trigger) {
+                var rules = this.getRules();
+
+                return rules.filter(rule => {
+                    return !rule.trigger || rule.trigger.indexOf(trigger) !== -1;
+                });
+            },
+            onFieldBlur() {
+                this.validate('blur');
+            },
+            onFieldChange() {
+                if (this.validateDisabled) {
+                    this.validateDisabled = false;
+                    return;
                 }
+
+                this.validate('change');
             }
         }
     }

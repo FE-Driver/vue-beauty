@@ -93,13 +93,14 @@
 <script lang="babel">
     import Locale from '../../mixins/locale'
     import {getOffset} from '../../utils/fn'
+    import emitter from '../../mixins/emitter';
     import timePickerPanel from '../timePicker/timePickerOption.vue'
     const _t = Locale.methods.t
 
     export default {
         name: 'DatePicker',
         components: {timePickerPanel},
-        mixins: [ Locale ],
+        mixins: [ Locale, emitter],
         props: {
             placeholder: {
                 type: String, 
@@ -280,8 +281,10 @@
                     let time = val.split(' ~ ');
                     this.$emit('input',[time[0],time[1]]);
                     this.$emit('change',time[0],time[1] || '');
+                    this.dispatch('FormItem', 'form.change', [time[0],time[1] || '']);
                 }else{
                     this.$emit('change',val);
+                    this.dispatch('FormItem', 'form.change', [val]);
                 }
             }
         },

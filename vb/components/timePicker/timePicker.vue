@@ -13,11 +13,13 @@
 
 <script lang="babel">
     import {t} from '../../locale'
+    import emitter from '../../mixins/emitter';
     import timePickerOption from './timePickerOption'
     import {getOffset, closeByElement} from '../../utils/fn'
 
     export default {
         name: 'TimePicker',
+        mixins: [emitter],
         data() {
             return {
                 prefix: 'ant-time-picker',
@@ -95,6 +97,7 @@
         watch: {
             defaultValue(val){
                 this.$emit('input',val)
+                this.dispatch('FormItem', 'form.change', [val]);
             }
         },
         methods: {

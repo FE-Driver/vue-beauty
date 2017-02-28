@@ -14,10 +14,12 @@
 </template>
 
 <script lang="babel">
+    import emitter from '../../mixins/emitter';
     import {t} from '../../locale'
 
     export default {
         name:'Input',
+        mixins: [emitter],
         props: {
             type: {
                 type: String,
@@ -94,9 +96,11 @@
                 if (value === this.content) return;
                 this.content = value
                 this.$emit('input', value)
+                this.dispatch('FormItem', 'form.change', [value]);
             },
             blur() {
                 this.$emit('blur', this.content)
+                this.dispatch('FormItem', 'form.blur', [this.content]);
             }
         }
     }

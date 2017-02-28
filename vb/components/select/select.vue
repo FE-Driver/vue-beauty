@@ -75,9 +75,11 @@
 <script lang="babel">
     import {t} from '../../locale'
     import {getOffset} from '../../utils/fn'
+    import emitter from '../../mixins/emitter';
     
     export default {
         name: 'Select',
+        mixins: [emitter],
         data() {
             return {
                 prefix: 'ant-select',
@@ -194,6 +196,7 @@
             currentValue(val){
                 this.$emit('change',val);
                 this.$emit('input',val);
+                this.dispatch('FormItem', 'form.change', [val]);
             },
             value(val){
                 if(this.currentValue !== val){

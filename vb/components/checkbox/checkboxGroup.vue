@@ -15,9 +15,11 @@
 
 <script lang="babel">
     import vCheckbox from './checkbox'
+    import emitter from '../../mixins/emitter';
 
     export default {
         name: 'CheckboxGroup',
+        mixins: [emitter],
         props: {
             data: Array,
             keyFiled: {
@@ -48,6 +50,7 @@
             currentValue: function(value) {
                 this.$emit('change',value);
                 this.$emit('input',value);
+                this.dispatch('FormItem', 'form.change', [value]);
             },
             data: function(value) {
                 this.ori_data = JSON.parse(JSON.stringify(value));

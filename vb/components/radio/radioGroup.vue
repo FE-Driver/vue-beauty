@@ -11,9 +11,11 @@
 
 <script lang="babel">
 import vRadio from './radio.vue'
+import emitter from '../../mixins/emitter';
 
 export default {
     name: 'RadioGroup',
+    mixins: [emitter],
     data:function(){
         return {
             prefixCls : 'ant-radio-group',
@@ -81,6 +83,7 @@ export default {
         change(value){
             this.$emit('input',value);
             this.$emit('change',value);
+            this.dispatch('FormItem', 'form.change', [value]);
         }
     },
 }

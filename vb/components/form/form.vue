@@ -9,30 +9,36 @@
         name: 'Form',
         data: () => ({
             prefix: 'ant-form',
-            fields: {},
-            initModel: {},
-            fieldLength: 0
+            fields: []
         }),
         props: {
             model: Object,
             rules: Object,
+            showMessage: {
+                type: Boolean,
+                default: true
+            },
             direction: {
                 type: String,
                 default: 'inline'
             }
         },
+        watch: {
+            rules() {
+                this.validate();
+            }
+        },
         created() {
             this.$on('form.addField', field => {
-                this.fields[field.prop] = field;
-                this.fieldLength++;
+                if (field) {
+                    this.fields.push(field);
+                }
             });
             this.$on('form.removeField', field => {
-                delete this.fields[field.prop];
-                this.fieldLength--;
+                if (field.prop) {
+                    this.fields.splice(this.fields.indexOf(field), 1);
+                }
             });
-        },
-        mounted(){
-            if (this.model) this.initModel = JSON.parse(JSON.stringify(this.model));
         },
         computed: {
             wrapClasses () {
@@ -43,44 +49,28 @@
             }
         },
         methods: {
-            resetFields(all = true) {
-                if (all) {
-                    let temp = JSON.parse(JSON.stringify(this.initModel));
-                    for (let key in this.model) {
-                        if (this.fields[key]) {
-                            this.fields[key].resetField();
-                        } else {
-                            this.model[key] = temp[key];
-                        }
-                    }
-                } else {
-                    for (let prop in this.fields) {
-                        this.fields[prop].resetField();
-                    }
-                }
+            resetFields() {
+                this.fields.forEach(field => {
+                field.resetField();
+                });
             },
             validate(callback) {
-                var count = 0;
-                var valid = true;
-
-                for (let prop in this.fields) {
-                    let field = this.fields[prop];
+                let valid = true;
+                let count = 0;
+                this.fields.forEach((field, index) => {
                     field.validate('', errors => {
                         if (errors) {
                             valid = false;
                         }
-
-                        if (++count === this.fieldLength) {
+                        if (typeof callback === 'function' && ++count === this.fields.length) {
                             callback(valid);
                         }
                     });
-                }
+                });
             },
             validateField(prop, cb) {
-                var field = this.fields[prop];
-                if (!field) {
-                    throw new Error('must call validateField with valid prop string!');
-                }
+                var field = this.fields.filter(field => field.prop === prop)[0];
+                if (!field) { throw new Error('must call validateField with valid prop string!'); }
 
                 field.validate('', cb);
             }

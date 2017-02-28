@@ -17,9 +17,11 @@
 <script lang="babel">
     import vmenu from './menu.vue'
     import {getOffset} from '../../utils/fn'
+    import emitter from '../../mixins/emitter';
 
     export default {
         name:'Cascader',
+        mixins: [emitter],
         data: ()=>({
             prefix: 'ant-cascader',
             defaultValue: [],
@@ -96,6 +98,7 @@
                 this.defaultValue = value;
                 this.$emit('input', value);
                 this.$emit('change', value);
+                this.dispatch('FormItem', 'form.change', [value]);
                 this.label = label.join(' / ');
             }
         },

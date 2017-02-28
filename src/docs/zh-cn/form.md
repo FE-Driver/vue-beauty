@@ -119,6 +119,12 @@ export default {
                     }
                 ]
             },
+            dynamicValidateForm: {
+                domains: [{
+                    value: ''
+                }],
+                email: ''
+            },
             labelCol: {
                 span: 6
             },
@@ -128,30 +134,29 @@ export default {
         } 
     },
     methods: {
-        handleSubmit() {
-            this.$refs.ruleForm.validate(valid => {
-                if (valid) {
-                    alert('submit!');
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
             });
         },
-        handleReset() {
-            this.$refs.ruleForm.resetFields();
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         },
-        handleReset2() {
-            this.$refs.customRuleForm.resetFields();
+        removeDomain(item) {
+            var index = this.dynamicValidateForm.domains.indexOf(item)
+            if (index !== -1) {
+            this.dynamicValidateForm.domains.splice(index, 1)
+            }
         },
-        handleSubmit2(ev) {
-            this.$refs.customRuleForm.validate(valid => {
-                if (valid) {
-                    alert('submit!');
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
+        addDomain() {
+            this.dynamicValidateForm.domains.push({
+                value: '',
+                key: Date.now()
             });
         }
     }
@@ -363,8 +368,8 @@ export default {
             <v-input v-model="ruleForm.desc" type="textarea"></v-input>
         </v-form-item>
         <v-form-item :wrapper-col="{offset:6, span: 14 }">
-            <v-button type="primary" style="margin-right:10px" @click.prevent="handleSubmit">立即创建</v-button>
-            <v-button type="ghost" @click.prevent="handleReset">重置</v-button>
+            <v-button type="primary" style="margin-right:10px" @click.prevent="submitForm('ruleForm')">立即创建</v-button>
+            <v-button type="ghost" @click.prevent="resetForm('ruleForm')">重置</v-button>
         </v-form-item>
     </v-form>
 </template>
@@ -432,18 +437,18 @@ export default {
         }
     }),
     methods: {
-        handleSubmit() {
-            this.$refs.ruleForm.validate(valid => {
-                if (valid) {
-                    alert('submit!');
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
             });
         },
-        handleReset() {
-            this.$refs.ruleForm.resetFields();
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         }
     }
 }
@@ -471,8 +476,8 @@ export default {
             <v-input size="large" v-model="customForm.age"></v-input>
         </v-form-item>
         <v-form-item :wrapper-col="{offset:6, span: 14 }">
-            <v-button type="primary" style="margin-right:10px" @click.prevent="handleSubmit2">提交</v-button>
-            <v-button type="ghost" @click.prevent="handleReset2">重置</v-button>
+            <v-button type="primary" style="margin-right:10px" @click.prevent="submitForm('customRuleForm')">提交</v-button>
+            <v-button type="ghost" @click.prevent="resetForm('customRuleForm')">重置</v-button>
         </v-form-item>
     </v-form>
 </template>
@@ -554,17 +559,103 @@ export default {
         } 
     },
     methods: {
-        handleReset2() {
-            this.$refs.customRuleForm.resetFields();
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+            });
         },
-        handleSubmit2(ev) {
-            this.$refs.customRuleForm.validate(valid => {
-                if (valid) {
-                    alert('submit!');
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        }
+    }
+}
+</script>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 动态增减表单项
+  除了在 Form 组件上一次性传递所有的验证规则外还可以在单个的表单域上传递属性的验证规则
+</summary>
+
+```html
+<template>
+    <v-form direction="horizontal" :model="dynamicValidateForm" ref="dynamicValidateForm">
+        <v-form-item label="邮箱" :label-col="labelCol" :wrapper-col="wrapperCol" prop="email" has-feedback
+            :rules="[
+                { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+            ]"
+        >
+            <v-input size="large" v-model="dynamicValidateForm.email"></v-input>
+        </v-form-item>
+        <v-form-item :label-col="labelCol" :wrapper-col="wrapperCol" has-feedback
+            v-for="(domain, index) in dynamicValidateForm.domains"
+            :label="'域名' + index"
+            :key="domain.key"
+            :prop="'domains.' + index + '.value'"
+            :rules="{
+                required: true, message: '域名不能为空', trigger: 'blur'
+            }"
+        >
+            <v-input size="large" v-model="domain.value" style="width:78%;margin-right:10px"></v-input><v-button @click.prevent="removeDomain(domain)">删除</v-button>
+        </v-form-item>
+        <v-form-item :wrapper-col="{offset:6, span: 14 }">
+            <v-button type="primary" style="margin-right:10px" @click.prevent="submitForm('dynamicValidateForm')">提交</v-button>
+            <v-button @click="addDomain">新增域名</v-button>
+            <v-button @click="resetForm('dynamicValidateForm')">重置</v-button>
+        </v-form-item>
+    </v-form>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            dynamicValidateForm: {
+                domains: [{
+                    value: ''
+                }],
+                email: ''
+            },
+            labelCol: {
+                span: 6
+            },
+            wrapperCol: {
+                span: 14
+            }
+        } 
+    },
+    methods: {
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        removeDomain(item) {
+            var index = this.dynamicValidateForm.domains.indexOf(item)
+            if (index !== -1) {
+            this.dynamicValidateForm.domains.splice(index, 1)
+            }
+        },
+        addDomain() {
+            this.dynamicValidateForm.domains.push({
+                value: '',
+                key: Date.now()
             });
         }
     }
@@ -581,13 +672,14 @@ export default {
 | model  | 表单数据对象 | object | - |
 | rules | 表单验证规则 | object | - |
 | direction | form 排列布局方式 inline、vertical或者horizontal | string | inline |
+| showMessage | 是否显示校验错误信息 | boolean | true |
 
 ### Form Methods
 | 方法名        | 说明           | 参数               | 返回值       |
 |------------|----------------|-------------------|-------------|
-| validate  | 对整个表单进行校验的方法 | callback(valid) | - |
-| validateField | validateField | prop,callback(valid) | - |
-| resetFields | 对整个表单进行重置，isAll为true将model里所有字段值重置为初始值并移除校验结果，为false则只重置传了prop属性的表单元素 | isAll,默认为true | - |
+| validate  | 对整个表单进行校验的方法 | callback(boolean) | - |
+| validateField | validateField | prop: string,callback: function(errorMessage: string) | - |
+| resetFields | 对整个表单进行重置，将所有字段值重置为空并移除校验结果 | - | - |
 
 ### Form Item Props
 | 参数        | 说明           | 类型               | 默认值       |
@@ -600,3 +692,5 @@ export default {
 | label  | label 标签的文本 | string | - |
 | labelCol  | label 标签布局，通 v-col 组件，设置 span offset 值，如 {span: 3, offset: 12} | object | - |
 | wrapperCol  | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol | object | - |
+| rules  | 	表单验证规则 | object | - |
+| showMessage | 是否显示校验错误信息 | boolean | true |

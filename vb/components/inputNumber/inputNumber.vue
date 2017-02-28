@@ -42,6 +42,8 @@
 </template>
 
 <script lang="babel">
+    import emitter from '../../mixins/emitter';
+
     function isValueNumber (value) {
         return !isNaN(Number(value))
     }
@@ -74,6 +76,7 @@
 
     export default {
         name:'InputNumber',
+        mixins: [emitter],
         props: {
             max: {
                 type: [Number, String],
@@ -177,6 +180,7 @@
                     this.change(value)
                 }
                 this.$emit('input', value)
+                this.dispatch('FormItem', 'form.blur', [value]);
             },
 
             _onKeyDown (e) {

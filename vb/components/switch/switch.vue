@@ -8,8 +8,10 @@
 </template>
 
 <script lang="babel">
+import emitter from '../../mixins/emitter';
 export default {
   name: 'Switch',
+  mixins: [emitter],
   data() {
     return {
       prefix: 'ant-switch',
@@ -50,7 +52,8 @@ export default {
     _toggle () {
       if (this.disabled) return;
       this.defaultValue = !this.defaultValue;
-      this.$emit('input', this.defaultValue)
+      this.$emit('input', this.defaultValue);
+      this.dispatch('FormItem', 'form.change', [this.defaultValue]);
     }
   }
 }
