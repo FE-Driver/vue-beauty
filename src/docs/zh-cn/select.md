@@ -157,6 +157,47 @@
 
 ::: demo
 <summary>
+  #### 自定义选项
+  通过默认scopedSlot自定义选项显示内容
+</summary>
+
+```html
+<template>
+    <v-select style="width: 100%" :data="options" v-model="value">
+        <template scope="props">
+            {{props.option.label}}-{{props.option.value}}
+        </template>
+    </v-select>
+</template>
+
+<script>
+    export default {
+        data: ()=> ({
+            options: [{
+                value: '1',
+                label: 'lady'
+            }, {
+                value: '2',
+                label: '小强',
+                disabled: true
+            }, {
+                value: '3',
+                label: '小明'
+            }],
+            value: '3'
+        }),
+        watch: {
+            value(val){
+                console.log(val)
+            }
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
   #### 三种大小
   三种大小的选择框，当 size 分别为`lg`和`sm`时，输入框高度为`32px`和`22px`，默认高度为`28px`
 </summary>
@@ -380,6 +421,7 @@
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | value    | 指定默认选中的条目 | string/array | - |
+| default:slot | 自定义下拉框选项内容,可使用的变量：option | scopedSlot | - |
 | keyField | 选项的value的字段名 | string | value |
 | label | 选项显示的文本的字段名 | string | label |
 | groupLabel | 分组title的字段名 | string | label |
