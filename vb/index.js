@@ -35,6 +35,7 @@ import tooltip from './components/tooltip'
 import locale from './locale'
 import tooltipd from './directive/tooltip'
 import dataTable from './components/datatable'
+import tree from './components/tree'
 
 const components = {
     breadcrumb,
@@ -86,7 +87,8 @@ const components = {
     modal,
     message,
     datePicker,
-    dataTable
+    dataTable,
+    tree
 };
 
 message.install = function (Vue) {
