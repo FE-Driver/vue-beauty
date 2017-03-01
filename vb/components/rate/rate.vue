@@ -92,6 +92,7 @@
                     /* 强制转换 */
                     this.$emit("change", this.count);
                     this.$emit("input", this.count);
+                    this.dispatch('FormItem', 'form.change', [this.count]);
                     return this.count;
                 }
                 if (this.allowHalf) {
@@ -113,6 +114,7 @@
             currentValue: function(value) {
                 this.$emit("change", value);
                 this.$emit("input", value);
+                this.dispatch('FormItem', 'form.change', [value]);
             }
         }
     }
