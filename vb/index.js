@@ -34,7 +34,7 @@ import form from './components/form'
 import tooltip from './components/tooltip'
 import locale from './locale'
 import tooltipd from './directive/tooltip'
-import dataTable from './components/dataTable'
+import dataTable from './components/datatable'
 
 const components = {
     breadcrumb,
