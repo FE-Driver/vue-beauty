@@ -19,7 +19,7 @@ export default {
   data: () => ({
     separator: '',
   }),
- 
+
   mounted: function() {
     this.separator = this.$parent.separator;
   }
