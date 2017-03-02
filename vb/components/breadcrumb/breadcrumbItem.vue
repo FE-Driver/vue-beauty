@@ -19,9 +19,7 @@ export default {
   data: () => ({
     separator: '',
   }),
-  props: {
-    href: String
-  },
+ 
   mounted: function() {
     this.separator = this.$parent.separator;
   }
