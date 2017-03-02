@@ -2,7 +2,7 @@
   <span>
     <template v-if="typeof this.href === 'string'">
       <span class="ant-breadcrumb-link">
-        <a :href="href"><slot></slot></a>
+        <slot></slot>
       </span>
     </template>
     <template v-else>
