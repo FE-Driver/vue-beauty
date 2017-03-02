@@ -15,6 +15,7 @@ Vue.use(vueBeauty,{locale});
 Vue.use(components);
 
 window.Vue = Vue;
+Vue.config.productionTip = false;
 
 window.router = new VueRouter({
     mode: 'hash',

@@ -51,7 +51,7 @@
                 validateMessage: this.help,
                 validateDisabled: false,
                 validator: {},
-                isRequired: false
+                isRequired: this.required
             }
         },
         props: {
