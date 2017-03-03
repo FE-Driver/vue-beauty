@@ -86,6 +86,21 @@ export default {
     <v-checkbox>checkbox</v-checkbox>
     <v-checkbox v-model="checkStatus" :true-value="0" :false-value="1" @change="onChange">checkbox</v-checkbox>
 </template>
+
+<script>
+    export default {
+        data () {
+            return {
+                checkStatus: 1
+            }
+        },
+        methods: {
+            onChange(value) {
+                console.log("checkbox change event!!! " + value);
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -145,7 +160,7 @@ export default {
 ```html
 <template>
     <v-checkbox disabled>checkbox</v-checkbox>
-    <v-checkbox :value="true" :disabled="true">checkbox</v-checkbox>
+    <v-checkbox :value="true" disabled>checkbox</v-checkbox>
 </template>
 ```
 :::
@@ -233,7 +248,7 @@ export default {
 
 <script>
     export default {
-        data: function () {
+        data() {
             return {
                 arrayValue: ['Apple', 'Orange'],
                 options: [
@@ -249,11 +264,11 @@ export default {
             }
         },
         methods: {
-            checkGroup: function(values) {
+            checkGroup(values) {
                 console.log("checkboxGroup change event!!! ");
                 console.log(values);
             },
-            changeArrayValue: function() {
+            changeArrayValue() {
                 if (this.arrayValue.length > 0) {
                     this.arrayValue.splice(0,1);
                 } else {
@@ -286,7 +301,7 @@ export default {
 
 <script>
     export default {
-        data: function () {
+        data() {
             return {
                 indeterminate: true,
                 allChecked: false,
@@ -300,7 +315,7 @@ export default {
             }
         },
         methods: {
-            checkAll: function() {
+            checkAll() {
                 if (this.fruits.length == this.options.length) {
                     this.fruits = [];
                     this.allChecked = false;
@@ -311,7 +326,7 @@ export default {
                     this.indeterminate = false;
                 }
             },
-            setState: function() {
+            setState() {
                 this.indeterminate =  this.fruits.length > 0 && this.fruits.length < this.options.length;
                 this.allChecked = this.fruits.length == this.options.length;
             }
@@ -356,6 +371,3 @@ export default {
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | change    | 选择的值发生变化的时候触发 | value |
-
-
-
