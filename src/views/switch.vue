@@ -111,7 +111,7 @@ export default {
       apis: [{
           parameter: 'checked',
           explain: '指定当前是否选中',
-          type: 'boolean',
+          type: 'any',
           default: 'false'
         },{
           parameter: 'disabeled',
@@ -141,12 +141,12 @@ export default {
         },{
           parameter: 'true-value',
           explain: '选中时的值',
-          type: 'Any',
+          type: 'any',
           default: 'false'
         },{
           parameter: 'false-value',
           explain: '没有选中时的值',
-          type: 'Any',
+          type: 'any',
           default: 'false'
         }
       ],
