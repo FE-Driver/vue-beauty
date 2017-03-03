@@ -20,8 +20,8 @@
 ```html
 <v-breadcrumb>
   <v-breadcrumb-item>Home</v-breadcrumb-item>
-  <v-breadcrumb-item >Application Center</v-breadcrumb-item>
-  <v-breadcrumb-item >Application List</v-breadcrumb-item>
+  <v-breadcrumb-item>Application Center</v-breadcrumb-item>
+  <v-breadcrumb-item>Application List</v-breadcrumb-item>
   <v-breadcrumb-item>An Application</v-breadcrumb-item>
 </v-breadcrumb>
 ```
@@ -32,22 +32,22 @@
 
 <summary>
   #### 可点击的
-  点击目标外层添加 `a` 标签
+  用 `href`，会渲染为a标签，您也可以显式地使用 `<router-link>`
 </summary>
 
 ```html
 <v-breadcrumb>
   <v-breadcrumb-item>
-	<a href="#"> Home </a>
+	  <a href="#">Home </a>
   </v-breadcrumb-item>
   <v-breadcrumb-item >
-	<a href="#">Application Center</a>
+	  <a href="#">Application Center</a>
   </v-breadcrumb-item>
   <v-breadcrumb-item >
-	<a href="#">Application List</a>
+	  <a href="#">Application List</a>
   </v-breadcrumb-item>
   <v-breadcrumb-item>
-	<a href="#">An Application</a>
+	  <a href="#">An Application</a>
   </v-breadcrumb-item>
 </v-breadcrumb>
 ```
@@ -79,7 +79,7 @@
 
 <summary>
   #### 分隔符
-  使用 separator=">" 可以自定义分隔符。
+  使用 `separator=">"` 可以自定义分隔符。
 </summary>
 
 ```html
@@ -97,4 +97,5 @@
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| separator | 分隔符自定义 | String | '/' |
+| separator | 分隔符自定义 | string | '/' |
+| href | 跳转地址 | string | - |

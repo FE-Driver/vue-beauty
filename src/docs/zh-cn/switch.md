@@ -7,7 +7,11 @@
     methods: {
       _toogle() {
         this.disabled = !this.disabled
-      }
+      },
+      change(r) {
+        console.log("status",this.checked);
+        //do xxx
+      },
     }
   }
 </script>
@@ -64,7 +68,7 @@
     }),
     methods: {
       _toogle() {
-        this.disabled = !this.disabled
+
       }
     }
   };
@@ -108,6 +112,33 @@
 ```
 :::
 
+::: demo
+<summary>
+  #### 自定义状态值
+  属性名称：`true-value`  `false-value`
+  以下例子定义：选中时为 1 ，未选中时为 0
+</summary>
+
+```html
+<template>
+  <v-switch v-model="checked" true-value="1" false-value="0" @change="change"></v-switch>
+</template>
+
+<script>
+  export default {
+    data: ()=> ({
+      checked: true
+    }),
+    methods: {
+      change(r) {
+        //do xxx
+      }
+    }
+  };
+</script>
+```
+:::
+
 ## API
 ### Switch Props
 | 属性        | 说明           | 类型               | 默认值       |
@@ -117,3 +148,10 @@
 | size    | 开关大小（"default" or "small"） | string | default |
 | slot:checkedChildren  | 选中时的内容	 | slot node | - |
 | slot:unCheckedChildren    | 非选中时的内容	 | slot node | - |
+| true-value   | 选中时自定义值	 | string | - |
+| false-value   | 未选中时自定义值	 | string | - |
+
+### Events
+| 事件        | 说明           | 参数               |
+|------------|----------------|-------------------|
+| change    | 选择的状态发生变化的时候触发	 | r |

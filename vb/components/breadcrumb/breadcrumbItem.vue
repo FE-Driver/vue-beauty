@@ -1,15 +1,8 @@
 <template>
   <span>
-    <template v-if="typeof this.href === 'string'">
-      <span class="ant-breadcrumb-link">
-        <slot></slot>
-      </span>
-    </template>
-    <template v-else>
-      <span class="ant-breadcrumb-link">
-        <slot></slot>
-      </span>
-    </template>
+    <component :is="href?'a':'span'" class="ant-breadcrumb-link" :href="href">
+      <slot></slot>
+    </component>
     <span class="ant-breadcrumb-separator">{{ separator }}</span>
   </span>
 </template>
@@ -19,8 +12,10 @@ export default {
   data: () => ({
     separator: '',
   }),
-
-  mounted: function() {
+  props: {
+    href: String
+  },
+  mounted() {
     this.separator = this.$parent.separator;
   }
 }
