@@ -1,28 +1,23 @@
 <template lang="html">
     <div :class="prefixCls">
-        <v-checkbox
-                :class="prefixCls + '-item'"
-                v-for="(option, index) in ori_data"
-                :key="index"
-                v-model="option.checked"
-                :disabled="!!option.disabled"
-                @click="toggleChecked(index)"
-        >
-            {{ option[label] }}
-        </v-checkbox>
+        <v-checkbox v-for="item in data" :true-value="item[keyField]" :key="item[keyField]" :disabled="item.disabled">{{item[label]}}</v-checkbox>
+        <slot></slot>
     </div>
 </template>
 
-<script lang="babel">
-    import vCheckbox from './checkbox'
+<script>
+    import vCheckbox from './checkbox';
     import emitter from '../../mixins/emitter';
 
     export default {
         name: 'CheckboxGroup',
         mixins: [emitter],
+        components: {
+            vCheckbox
+        },
         props: {
             data: Array,
-            keyFiled: {
+            keyField: {
                 type: String,
                 default: 'value'
             },
@@ -35,57 +30,53 @@
                 default: () => []
             }
         },
-        data: function () {
+        data() {
             return {
-                prefixCls: 'ant-checkbox-group',
-                ori_data: JSON.parse(JSON.stringify(this.data)),
-                currentValue: this.value
+                prefixCls: 'ant-checkbox-group'
+            }
+        },
+        mounted() {
+            this.setChecked();
+            this.$on('checkbox.change',(checked,value) => {
+                if(checked){
+                    if(!this.innerValue.includes(value)){
+                        this.innerValue.push(value);
+                    }
+                }else{
+                    const i  = this.innerValue.indexOf(value);
+                    if( i !== -1) {
+                        this.innerValue.splice(i,1);
+                    }
+                }
+            })
+        },
+        computed: {
+            innerValue() {
+                return this.value;
             }
         },
         watch: {
-            value: function(value) {
-                this.currentValue = value;
+            value(val){
                 this.setChecked();
             },
-            currentValue: function(value) {
+            innerValue(value){
                 this.$emit('change',value);
                 this.$emit('input',value);
                 this.dispatch('FormItem', 'form.change', [value]);
-            },
-            data: function(value) {
-                this.ori_data = JSON.parse(JSON.stringify(value));
-                this.setChecked();
             }
-        },
-        mounted: function () {
-            this.setChecked();
         },
         methods: {
-            setChecked: function () {
-                for (let [index, item] of this.ori_data.entries()) {
-                    if(this.currentValue.includes(item[this.keyFiled])) {
-                        this.$set(this.ori_data[index], 'checked', true);
-                    } else {
-                        this.$set(this.ori_data[index], 'checked', false);
-                    }
-                }
-            },
-            toggleChecked: function (index) {
-                if(this.currentValue.includes(this.ori_data[index][this.keyFiled])) {
-                    for (let [i, item] of this.currentValue.entries()) {
-                        if (this.currentValue[i] == this.ori_data[index][this.keyFiled]) {
-                            this.currentValue.splice(i,1);
-                            break;
+            setChecked() {
+                for(const child of this.$children){
+                    if(child.$options.name === 'Checkbox'){
+                        if(this.innerValue.includes(child.trueValue)){
+                            child.innerValue = child.trueValue;
+                        }else{
+                             child.innerValue = child.falseValue;
                         }
                     }
-                } else {
-                    this.currentValue.push(this.ori_data[index][this.keyFiled]);
                 }
-
             }
-        },
-        components: {
-            vCheckbox
         }
     }
 </script>

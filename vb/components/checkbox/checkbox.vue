@@ -1,8 +1,8 @@
 <template lang="html">
     <label :class="prefixCls + '-wrapper'">
-        <span :class="[prefixCls, {[prefixCls + '-checked']: currentValue && !indeterminate,  [prefixCls + '-indeterminate']: indeterminate, [prefixCls + '-disabled']: disabled}]">
+        <span :class="checkboxCls">
             <span :class="prefixCls + '-inner'"></span>
-            <input type="checkbox" :class="prefixCls + '-input'" @click="_change" :value="currentValue">
+            <input type="checkbox" :class="prefixCls + '-input'" v-model="innerValue" :true-value="trueValue" :false-value="falseValue">
         </span>
         <span v-if="$slots && $slots.default">
             <slot></slot>
@@ -10,12 +10,14 @@
     </label>
 </template>
 
-<script lang="babel">
+<script>
+    import emitter from '../../mixins/emitter';
+
     export default {
         name: 'Checkbox',
+        mixins: [emitter],
         props: {
             value: {
-                type: Boolean,
                 default: false
             },
             indeterminate: {
@@ -25,28 +27,47 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            trueValue: {
+                default: true
+            },
+            falseValue: {
+                default: false
             }
         },
         data() {
             return {
                 prefixCls: 'ant-checkbox',
-                currentValue: this.value
+                parentIsGroup: false,
+                innerValue: this.value
             }
         },
-        methods: {
-            _change () {
-                if (this.disabled) return;
-                this.currentValue = !this.currentValue;
-                this.$emit("click", this.currentValue);
-            }
+        mounted () {
+          if(this.$parent.$options.name == 'CheckboxGroup')  {
+            this.parentIsGroup = true;
+          }
+        },
+        computed: {
+            checkboxCls() {
+                return [
+                    this.prefixCls, 
+                    {
+                        [this.prefixCls + '-checked']: !this.indeterminate && (this.innerValue === this.trueValue),  
+                        [this.prefixCls + '-indeterminate']: this.indeterminate, 
+                        [this.prefixCls + '-group-item']: this.parentIsGroup,
+                        [this.prefixCls + '-disabled']: this.disabled
+                    }
+                ]
+            },
         },
         watch: {
-            value: function(value) {
-                this.currentValue = value;
+            value(value) {
+                this.innerValue = value;
             },
-            currentValue: function(value) {
+            innerValue(value) {
                 this.$emit("change", value);
                 this.$emit("input", value);
+                this.dispatch('CheckboxGroup', 'checkbox.change', [this.trueValue === value, this.trueValue]);
             }
         }
     }
