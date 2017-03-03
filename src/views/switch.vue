@@ -27,6 +27,7 @@
           describe="最简单的用法。"
         >
           <v-switch :on-change="_change"></v-switch>
+          <v-switch :checked="0" :true-value="0" :false-value="1" :on-change="_change"></v-switch>
           <template slot="js">
           export default {
             methods:{
@@ -137,6 +138,16 @@ export default {
           explain: '开关大小（"default" or "small"）',
           type: 'string',
           default: 'default'
+        },{
+          parameter: 'true-value',
+          explain: '选中时的值',
+          type: 'Any',
+          default: 'false'
+        },{
+          parameter: 'false-value',
+          explain: '没有选中时的值',
+          type: 'Any',
+          default: 'false'
         }
       ],
       disabled: true
