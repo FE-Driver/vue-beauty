@@ -23,7 +23,20 @@
           describe="简单的 checkbox。"
         >
           <v-checkbox>checkbox</v-checkbox>
-
+          <v-checkbox :checked="checkStatus" :true-value="0" :false-value="1" :on-change="onChange">checkbox</v-checkbox>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                checkStatus: 0,
+                onChange(e){
+                  console.log(e.checked)
+                  this.checkStatus = e.checked
+                },
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
@@ -34,7 +47,7 @@
             <v-checkbox
               :checked="checked"
               :disabled="disabled"
-              :on-change="onChange">
+              :on-change="change">
               <span v-if="!checked">取消</span><span v-if="checked">选中</span>-
               <span v-if="!disabled">可用</span><span v-if="disabled">不可用</span>
             </v-checkbox>
@@ -46,12 +59,11 @@
           <template slot="js">
           export default {
             data: function() {
-              let self = this;
               return {
                 checked: false,
                 disabled: false,
-                onChange(e){
-                  self.checked = e.checked
+                change(e){
+                  this.checked = e.checked
                 }
               }
             }
@@ -130,13 +142,17 @@ import apiTable from '../components/apiTable'
 
 export default {
   data: function () {
-    let self = this;
-
     return {
+      checkStatus: 0,
       checked: false,
       disabled: false,
       onChange(e){
-        self.checked = e.checked
+        console.log(e.checked)
+        this.checkStatus = e.checked
+      },
+      change(e){
+        console.log(e.checked)
+        this.checked = e.checked
       },
       checkGroup: (values) => {
         console.log(values);
@@ -167,6 +183,16 @@ export default {
           explain: '变化时回调函数',
           type: 'Function',
           default: '无'
+        },{
+          parameter: 'true-value',
+          explain: '选中时的值',
+          type: 'Any',
+          default: 'false'
+        },{
+          parameter: 'false-value',
+          explain: '没有选中时的值',
+          type: 'Any',
+          default: 'false'
         }
       ],
       apiGroup: [{

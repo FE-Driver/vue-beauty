@@ -1,8 +1,8 @@
 <template lang="html">
   <label class="ant-checkbox-wrapper" >
-    <span class="ant-checkbox" :class="{'ant-checkbox-checked': checked, 'ant-checkbox-disabled': disabled}" @click="_check">
+    <span class="ant-checkbox" :class="{'ant-checkbox-checked': checked === trueValue, 'ant-checkbox-disabled': disabled}">
       <span class="ant-checkbox-inner"></span>
-      <input type="checkbox" class="ant-checkbox-input">
+      <input type="checkbox" class="ant-checkbox-input" v-model="checked" :disabled="disabled"  :true-value="trueValue" :false-value="falseValue">
     </span>
     <span 
       v-if="_slotContents && _slotContents.default">
@@ -16,7 +16,6 @@ export default {
   name:'v-checkbox',
   props: {
     checked: {
-      type: Boolean,
       // twoWay: true,
       default: false
     },
@@ -28,12 +27,16 @@ export default {
       type: Function,
       default: () => {}
     },
-    value: String
+    value: String,
+    trueValue: {
+      default: true
+    },
+    falseValue: {
+      default: false
+    }
   },
-  methods: {
-    _check () {
-      if (this.disabled) return;
-      this.checked = !this.checked
+  watch: {
+    checked(){
       this.onChange(this)
     }
   }
