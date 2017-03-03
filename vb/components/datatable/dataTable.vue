@@ -9,7 +9,7 @@
                     <thead :class="prefix + '-thead'">
                     <tr>
                         <th v-if="checkType" :class="prefix + '-selection-column'">
-                            <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState" @click="checkAllChange"></v-checkbox>
+                            <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState" @change="checkAllChange"></v-checkbox>
                         </th>
                         <template v-for="(column,index) in columns">
                             <th :class="column.className">
