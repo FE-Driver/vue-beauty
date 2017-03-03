@@ -2,7 +2,7 @@
     <label :class="prefixCls + '-wrapper'">
         <span :class="checkboxCls">
             <span :class="prefixCls + '-inner'"></span>
-            <input type="checkbox" :class="prefixCls + '-input'" v-model="innerValue" :true-value="trueValue" :false-value="falseValue">
+            <input type="checkbox" :class="prefixCls + '-input'"  v-model="innerValue" :true-value="trueValue" :false-value="falseValue" :disabled="disabled">
         </span>
         <span v-if="$slots && $slots.default">
             <slot></slot>
