@@ -107,7 +107,6 @@
                 <v-pagination
                         v-model="pageNumber"
                         :total="total"
-                        @change="pageChange"
                         :show-size-changer="true"
                         @sizechange="pageSizeChange"
                         :page-size-options="pageSizeOptions"
@@ -126,7 +125,7 @@
 
 </template>
 
-<script lang="babel">
+<script>
     import vPagination from '../pagination'
     import vSpin from '../spin'
     import vIcon from '../icon'
@@ -238,11 +237,21 @@
                 rowSelectionStates: [],
                 tableBodyScrollLeft: 0,
                 tableBodyWidth: "100%",
-                tableBodyHeight: null
+                tableBodyHeight: null,
+                pageNumber: this.pageNum,
+                pageSizeT: this.pageSize,
+                paramsName:{}
             }
         },
         created: function () {
             //初始加载数据
+            this.paramsName = Object.assign({},{
+                pageNumber: 'pageNo',
+                pageSize: 'pageSize',
+                total: 'totalCount',
+                results: 'result',
+                sortColumns: 'sortColumns'
+            },this.responseParamsName);
             this.getSortParams();
             this.loadData({pageNum: this.pageNumber});
         },
@@ -278,16 +287,18 @@
             pageChange: function (page) {
                 this.pageNumber = page;
                 //不直接修改pageNum,传递给loadData,待数据加载成功之后修改pageNum
-                this.loadData({pageNum: this.pageNumber});
+                this.loadData({pageNum: page});
             },
             /**
              * 修改分页大小
              * @param pageSize
              */
             pageSizeChange: function (current, pageSize) {
-                this.pageNumber = current;
+//             pageSizeChange改变会同时触发pagenumber改变，为了避免重复loaddata，增加标志位
+                this.tempCurrent = current;
+                //this.pageNumber = current;
                 this.pageSizeT = pageSize;
-                this.loadData({pageNum: this.pageNumber});
+                this.loadData();
             },
             /**
              * 排序
@@ -347,6 +358,7 @@
              * @param params
              */
             loadData: function (params) {
+                this.pageSizeChangeAction = false;
                 params = Object.assign({}, params);
                 var self = this;
                 self.loading = true;
@@ -359,31 +371,31 @@
                 let dataPromise = self.data(remoteParams);
 
                 dataPromise.then((response) => {
-                            const data = response;
-                            let results = data[self.paramsName.results];
+                    const data = response.data;
+                let results = data[self.paramsName.results];
 
-                            //处理treeTable数据
-                            if (self.treeTable) {
-                                self.dealTreeData(results);
-                            } else {
-                                self.current = results;
-                            }
+                //处理treeTable数据
+                if (self.treeTable) {
+                    self.dealTreeData(results);
+                } else {
+                    self.current = results;
+                }
 
-                            self.total = data[self.paramsName.total] * 1;
-                            self.pageNumber = data[self.paramsName.pageNumber] * 1;
+                self.total = data[self.paramsName.total] * 1;
+                //  seslf.pageNumber = data[self.paramsName.pageNumber] * 1;
 //                服务端返回的pagesize不可信，暂时注释
 //                    self.pageSize = data[self.paramsName.pageSize]*1;
 
 //                    重置选择状态
-                            self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+                self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
 
-                            self.loading = false;
+                self.loading = false;
 //                    重新计算并设置表格尺寸
-                            self.calculateSize();
-                        }, (response) => {
-                            // error callback
-                            self.loading = false;
-                        }
+                self.calculateSize();
+            }, (response) => {
+                    // error callback
+                    self.loading = false;
+                }
                 );
             },
             rowSelectionChange: function (index) {
@@ -404,7 +416,7 @@
                 });
             },
             reload(){
-                this.loadData({pageNum:this.pageNumber});
+                this.loadData();
             },
             scrollTableBody: function (e) {
                 const target = e.target || e.srcElement;
@@ -608,35 +620,35 @@
 
                 this.$http.post(url, remoteParams, {emulateJSON: true}).then((response) => {
                     const data = response.body.data;
-                    let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
+                let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
 
-                    if (results.length) {
-                        item.loadChildren = true;
-                        item.children = self.transAsyncTreeData(results, item.level);
+                if (results.length) {
+                    item.loadChildren = true;
+                    item.children = self.transAsyncTreeData(results, item.level);
 //                        插入到父节点后面
-                        var pindex = self.current.findIndex(function (value, index, arr) {
-                                    return value.id == item.id;
-                                }) + 1;
+                    var pindex = self.current.findIndex(function (value, index, arr) {
+                                return value.id == item.id;
+                            }) + 1;
 
-                        if (pindex == 0) {
-                            return false;
-                        }
+                    if (pindex == 0) {
+                        return false;
+                    }
 
 //                    向父节点后面插入子节点数据
-                        var newCurrent = self.current.slice(0, pindex).concat(results, self.current.slice(pindex));
-                        self.current = newCurrent;
+                    var newCurrent = self.current.slice(0, pindex).concat(results, self.current.slice(pindex));
+                    self.current = newCurrent;
 
 //                    向rowSelectionStates数组中插入子节点数据
-                        var newRowSelectionStates = self.rowSelectionStates.slice(0, pindex).concat(new Array(results.length || 0).fill(false), self.rowSelectionStates.slice(pindex));
-                        self.rowSelectionStates = newRowSelectionStates;
+                    var newRowSelectionStates = self.rowSelectionStates.slice(0, pindex).concat(new Array(results.length || 0).fill(false), self.rowSelectionStates.slice(pindex));
+                    self.rowSelectionStates = newRowSelectionStates;
 
-                        self.expandChildren(item);
+                    self.expandChildren(item);
 
-                        self.loading = false;
+                    self.loading = false;
 //                    重新计算并设置表格尺寸
-                        self.calculateSize();
-                    }
-                }, (response) => {
+                    self.calculateSize();
+                }
+            }, (response) => {
                     // error callback
                     self.loading = false;
                 });
@@ -680,27 +692,14 @@
                     }
                 }
                 return checkAllState;
-            },
-            //Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value.
-            pageNumber:function () {
-                return this.pageNum*1;
-            },
-            pageSizeT:function () {
-                return this.pageSize*1;
-            },
-            paramsName:function () {
-                return Object.assign({},{
-                    pageNumber: 'pageNo',
-                    pageSize: 'pageSize',
-                    total: 'totalCount',
-                    results: 'result',
-                    sortColumns: 'sortColumns'
-                },this.responseParamsName);
             }
         },
         watch:{
             pageNumber:function () {
-                this.reload();
+                this.$nextTick(() => {
+//                    当pagenumber和临时标志位不相等的时候，表示手动触发了pageNumber改变，发送请求
+                    (this.tempCurrent != this.pageNumber) && this.reload();
+                });
             }
         },
         components: {
