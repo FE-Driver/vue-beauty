@@ -49,7 +49,7 @@ export default {
         },
         checkStatus(){
             return this.defaultValue === this.trueValue;
-        },
+        }
     },
     watch: {
         value(val) {
