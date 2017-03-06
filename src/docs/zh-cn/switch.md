@@ -1,17 +1,17 @@
 <script>
   export default {
     data: ()=> ({
-      checked: true,
+      checked:true,
+      checkStatus:1,
       disabled: false
     }),
     methods: {
       _toogle() {
         this.disabled = !this.disabled
       },
-      change(r) {
-        console.log("status",this.checked);
-        //do xxx
-      },
+      getStatus(){
+        this.$message.info("当前状态码为：" + this.checkStatus);
+      }
     }
   }
 </script>
@@ -68,7 +68,7 @@
     }),
     methods: {
       _toogle() {
-
+        this.disabled = !this.disabled
       }
     }
   };
@@ -112,26 +112,29 @@
 ```
 :::
 
+
 ::: demo
 <summary>
   #### 自定义状态值
   属性名称：`true-value`  `false-value`
   以下例子定义：选中时为 1 ，未选中时为 0
+  组件当前状态为选中
 </summary>
 
 ```html
 <template>
-  <v-switch v-model="checked" true-value="1" false-value="0" @change="change"></v-switch>
+  <v-switch v-model="checkStatus" :true-value="1" :false-value="0"></v-switch>
+  <v-button @click="getStatus" size="small" type="primary">获取状态码</v-button>
 </template>
 
 <script>
   export default {
     data: ()=> ({
-      checked: true
+      checkStatus: 1
     }),
     methods: {
-      change(r) {
-        //do xxx
+      getStatus(){
+        this.$message.info("当前状态码为：" + this.checkStatus);
       }
     }
   };
@@ -143,15 +146,11 @@
 ### Switch Props
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
-| value    | 指定当前是否选中	 | boolean | false |
-| disabeled  | 指定当前是否被禁用 | boolean | false |
-| size    | 开关大小（"default" or "small"） | string | default |
+| value    | 指定当前是否选中	 | Boolean | false |
+| disabeled  | 指定当前是否被禁用 | Boolean | false |
+| size    | 开关大小（"default" or "small"） | String | default |
 | slot:checkedChildren  | 选中时的内容	 | slot node | - |
 | slot:unCheckedChildren    | 非选中时的内容	 | slot node | - |
-| true-value   | 选中时自定义值	 | string | - |
-| false-value   | 未选中时自定义值	 | string | - |
+| true-value   | 选中时自定义值	 |  Any | - |
+| false-value   | 未选中时自定义值	 | Any | - |
 
-### Events
-| 事件        | 说明           | 参数               |
-|------------|----------------|-------------------|
-| change    | 选择的状态发生变化的时候触发	 | r |
