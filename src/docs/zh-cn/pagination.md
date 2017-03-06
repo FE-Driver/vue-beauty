@@ -99,7 +99,7 @@ export default {
       :total="100"
       :default-page-size="5"
       :page-size="10"
-      :on-change="loadPage"
+      @change="loadPage"
       :show-size-changer="true"
       @sizechange="pageSizeChange"
       :show-quick-jumper="true"
