@@ -1,5 +1,5 @@
 <template lang="html">
-    <label :class="prefixCls + '-wrapper'">
+    <label :class="prefixCls + '-wrapper'" @click="click">
         <span :class="checkboxCls">
             <span :class="prefixCls + '-inner'"></span>
             <input type="checkbox" :class="prefixCls + '-input'"  v-model="innerValue" :true-value="trueValue" :false-value="falseValue" :disabled="disabled">
@@ -68,6 +68,12 @@
                 this.$emit("change", value);
                 this.$emit("input", value);
                 this.dispatch('CheckboxGroup', 'checkbox.change', [this.trueValue === value, this.trueValue]);
+            }
+        },
+        methods: {
+            click(e) {
+                if(e.target.tagName !== 'INPUT') return;
+                this.$emit("click");
             }
         }
     }

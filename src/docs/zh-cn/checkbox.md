@@ -51,7 +51,7 @@ export default {
                 this.allChecked = false;
                 this.indeterminate = false;
             } else {
-                this.fruits = this.allFruits;
+                this.fruits = JSON.parse(JSON.stringify(this.allFruits));
                 this.allChecked = true;
                 this.indeterminate = false;
             }
@@ -291,7 +291,7 @@ export default {
 <template>
     <div>
         <p>
-            <v-checkbox :indeterminate="indeterminate" v-model="allChecked" @click.native="checkAll">全选</v-checkbox>
+            <v-checkbox :indeterminate="indeterminate" v-model="allChecked" @click="checkAll">全选</v-checkbox>
         </p>
         <p style="margin-bottom: 16px;">
             <v-checkbox-group :data="options" v-model="fruits" @change="setState"></v-checkbox-group>
@@ -321,7 +321,7 @@ export default {
                     this.allChecked = false;
                     this.indeterminate = false;
                 } else {
-                    this.fruits = this.allFruits;
+                    this.fruits = JSON.parse(JSON.stringify(this.allFruits));
                     this.allChecked = true;
                     this.indeterminate = false;
                 }
@@ -366,6 +366,7 @@ export default {
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | change    | 值发生变化的时候触发 | value |
+| click    | 点击的时候触发 | - |
 
 ### Checkbox Group Events
 | 事件        | 说明           | 参数        |
