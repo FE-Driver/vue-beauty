@@ -61,8 +61,13 @@ export default {
 <template>
 <div class="box">
     <div class="top">
-        <v-tooltip content="top-start 文字提示" placement="top-start" :controlled="controlled">
+        <v-tooltip placement="top-start" :controlled="controlled">
              <v-button>上左</v-button>
+             <template slot="content">
+                <p>top-start 文字提示</p>
+                <p>top-start 文字提示</p>
+                <p>top-start 文字提示</p>
+             </template>
         </v-tooltip>
         <v-tooltip content="top 文字提示,初始可见" placement="top" :visible="visible">
             <v-button>上边</v-button>
@@ -185,9 +190,11 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `top-start` `top-end` `bottom-start` `bottom-end` `left-start` `left-end` `right-start` `right-end` | string     | top    |
+| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `top-start` `top-end` `bottom-start` `bottom-end` `left-start` `left-end` `right-start` `right-end` | String     | top    |
+| content | 显示的内容 | String/Number	 |  - |
+| content:slot | 显示的内容 | Slot Node	 |  - |
 | visible | 初始状态是否显示tooltip | Boolean |  false |
-| delay | 鼠标移入后延时多少才显示tooltip,单位:毫秒| number |  0 |
+| delay | 鼠标移入后延时多少才显示tooltip,单位:毫秒| Number |  0 |
 | disabled | tooltip是否可用 | Boolean |  false |
 | controlled | 保持tooltop显示 | Boolean |  false |
 
