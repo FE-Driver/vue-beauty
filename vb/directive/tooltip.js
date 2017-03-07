@@ -46,10 +46,8 @@ export default {
             if (el.vm){
                 if(!binding.controled) {
                     if (directClose) {
-                        console.log('direct')
                         el.vm.show = false;
                     } else {
-                        console.log('time out')
                         // 延时关闭,给tip本身的鼠标事件留出时间
                         el.closeTimer = setTimeout(() => {
                             // show设置为false,触发view改变
