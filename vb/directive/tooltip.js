@@ -42,14 +42,21 @@ export default {
         /**
          * 关闭方法
          */
-        function closeTooltip(el,binding){
+        function closeTooltip(el,binding,directClose=false){
             if (el.vm){
-                if(!binding.controled)
-                    // 延时关闭,给tip本身的鼠标事件留出时间
-                    el.closeTimer = setTimeout(() => {
-                        // show设置为false,触发view改变
+                if(!binding.controled) {
+                    if (directClose) {
+                        console.log('direct')
                         el.vm.show = false;
-                }, 100);
+                    } else {
+                        console.log('time out')
+                        // 延时关闭,给tip本身的鼠标事件留出时间
+                        el.closeTimer = setTimeout(() => {
+                            // show设置为false,触发view改变
+                            el.vm.show = false;
+                        }, 100);
+                    }
+                }
             }
         }
 
@@ -75,9 +82,9 @@ export default {
             // 给tip组件本身绑定鼠标事件,鼠标移上去之后停止关闭操作（从而允许复制tip中的内容）,鼠标移开后关闭
             el.vm.$el.addEventListener('mouseover', () => {
                 clearTimeout(el.closeTimer);
-        });
-            el.vm.$el.addEventListener('mouseout', function(){closeTooltip(el,binding)});
-            el.vm.$el.addEventListener('click', function(){closeTooltip(el,binding)});
+            });
+            el.vm.$el.addEventListener('mouseleave', function(){closeTooltip(el,binding,true)});
+            el.vm.$el.addEventListener('click', function(){closeTooltip(el,binding,true)});
 
             //设置tooltip的位置
             const offset = getOffset(el);
@@ -174,15 +181,6 @@ export default {
             },
 
             /**
-             *被绑定元素所在的模板更新时调用
-             * @param value
-             */
-            update: function (bind) {
-                //this.value = value;
-                // 值更新时的工作
-            },
-
-            /**
              *指令与元素解绑时调用
              * @param binding
              */
@@ -190,7 +188,7 @@ export default {
                 // 清理工作
                 // 例如，删除 bind() 添加的事件监听器
                 /*this.el.removeEventListener(binding.openTrigger,function(){openTooltip(el,binding)});
-                 this.el.removeEventListener(binding.closeTrigger, function(){closeTooltip(el)});*/
+                 this.el.removeEventListener(binding.closeTrigger, function(){closeTooltip(el,binding)});*/
             },
         });
     }
