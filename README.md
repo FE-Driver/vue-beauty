@@ -5,11 +5,8 @@ Beautiful  UI components build with vue and ant design
 - [Ant.Design官网](http://beta.ant.design/)
 - 本项目采用vue2和ant deisgn2.0进行开发
 
-## 已完成组件
-- Alert 警告提示
-- Button 按钮
-- Card 卡片
-- Rate 评分
+## 警告（WARNING）
+任在开放中，不建议在生产环境使用（still developing,not suggesting to use in production）
 
 
 **(持续更新中。。。)**
