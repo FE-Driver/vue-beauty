@@ -6,7 +6,7 @@ Beautiful  UI components build with vue and ant design
 - 本项目采用vue2和ant deisgn2.0进行开发
 
 ## 警告（WARNING）
-任在开放中，不建议在生产环境使用（still developing,not suggesting to use in production）
+您可以通过 `npm install vue-beauty@beta -S` 或者 `yarn add vue-beauty@beta` 来体验，但不推荐在生产环境使用（still developing,not suggesting to use in production）
 
 
 **(持续更新中。。。)**
