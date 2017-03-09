@@ -32,6 +32,17 @@
 </template>
 
 <script>
+  const IsAllMatch = function(obj,conditions){
+    let res = true;
+    for(let [key,val] of Object.entries(conditions)){
+      if(obj[key] !== val){
+        res = false;
+        break;
+      }
+    }
+    return res;
+  }
+
   export default {
     name: 'v-nav-menu',
     data:()=>({
@@ -135,17 +146,39 @@
           this.timer[index] = setTimeout(() => this.setOpen(index,status),300);
         }
       },
-      setOpen(index,status){
+      setOpen(index,status = true){
         this.$set(`data[${index}].open`,status);
       },
-      select(index){
+      setCheck(conditions,status = true){
+        let res = false;
         for(let i=0;i<this.data.length;i++){
-          if(i == index){
-            this.$set(`data[${i}].selected`,true);
-          }else{
-            this.$set(`data[${i}].selected`,false);
+          res = IsAllMatch(this.data[i],conditions);
+          if(res){
+            if(status){
+              this.select(i);
+              let parent = this.$parent,key = this.key;
+              while(parent && parent.$options.name == 'v-nav-menu'){
+                parent.setOpen(key);
+                key = parent.key;
+                parent = parent.$parent;
+              }
+            }else{
+              this.$set(`data[${i}].selected`,false);
+            }
+            break;
           }
         }
+        if(!res){
+          for(let child of this.$children){
+            res  = child.setCheck(conditions,status);
+            if(res) break;
+          }
+        }
+        return res;
+      },
+      select(index){
+        this.setAllSelected(false);
+        this.$set(`data[${index}].selected`,true);
         this.$dispatch('nodeSelected',this,this,this.key,[this.data[index]]);
       }
     }

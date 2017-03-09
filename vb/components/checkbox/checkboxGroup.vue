@@ -36,7 +36,7 @@ export default {
       change: (e) => {
         let temp = []
         for (let e of this.$children) {
-          if (e.checked) {
+          if (e.checked === e.trueValue) {
             temp.push(e.value)
           }
         }

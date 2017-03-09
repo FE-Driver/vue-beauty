@@ -246,6 +246,13 @@
     >
       <h3>NavMenu props</h3>
     </api-table>
+    <api-table
+      title=""
+      type="methods"
+      :content='methodsCont'
+    >
+      <h3>NavMenu methods</h3>
+    </api-table>
   </div>
 
 </template>
@@ -408,6 +415,14 @@ export default {
             'String: vertical horizontal inline',
             'vertical'
           ]
+      ],
+      methodsCont: [
+        [
+          'setCheck',
+          '根据条件对象筛选节点，并设置节点的选中状态',
+          'conditions: Object,status: Boolean = true',
+          'isSuccess: Boolean'
+        ]
       ]
     }
   },
