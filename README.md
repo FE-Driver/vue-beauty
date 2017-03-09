@@ -7,7 +7,7 @@
 # vue-beauty [![npm](http://img.shields.io/npm/v/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![NPM downloads](http://img.shields.io/npm/dm/vue-beauty.svg)](https://www.npmjs.com/package/vue-beauty) [![MIT License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.npmjs.com/package/vue-beauty)
 Beautiful  UI components build with vue and ant design
 
-- vue2.0版本请关注next分支
+- 目前主分支基于vue1.0开发，vue2.0版本请关注next分支
 
 ## 特性
 - 丰富的组件，涵盖常用场景
@@ -16,9 +16,9 @@ Beautiful  UI components build with vue and ant design
 - 基于ant design样式优化
 
 ## 引入
-使用npm
+使用npm或者yarn
 ```
-npm install vue-beauty -S
+npm install vue-beauty -S  OR  yarn add vue-beauty
 
 import Vue from 'vue'
 //import css
@@ -37,6 +37,7 @@ Vue.use(alert)
 <link rel="stylesheet" href="vue-beauty.min.css"> 
 <script type="text/javascript" src="vue-beauty.min.js"></script> 
 ```
+您可以通过 `npm install vue-beauty@beta -S  OR  yarn add vue-beauty@beta` 来体验vue2.0的组件库，但不推荐在生产环境使用。  
 更多说明，请查看我们的[在线文档](https://fe-driver.github.io/vue-beauty)。
 
 ## 浏览器支持
