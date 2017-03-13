@@ -42,11 +42,14 @@
             clickRow:function(obj){
                 this.clickRowMsg = "当前点击第"+obj.index+"行";
             },
+            refreshTable:function(){
+                this.$refs.xtable.refresh();
+            },
             reloadTable:function(){
                 this.$refs.xtable.reload();
             },
             go2:function(){
-                this.pageno = 2;
+                this.$refs.xtable.goto(2);
             }
         }
     }
@@ -284,9 +287,9 @@
       
 </v-data-table>
 <br>
-<v-button @click="reloadTable">刷新表格</v-button>
+<v-button @click="refreshTable">刷新表格</v-button>
+<v-button @click="reloadTable">重载表格</v-button>
 <v-button @click="go2">跳转到第二页</v-button>
-
 <script>
     import axios from 'axios'
     export default {
@@ -319,11 +322,14 @@
             }
         },
         methods:{
+            refreshTable:function(){
+                this.$refs.xtable.refresh();
+            },
             reloadTable:function(){
                 this.$refs.xtable.reload();
             },
             go2:function(){
-                this.pageno = 2;
+                this.$refs.xtable.goto(2);
             }
         }
     }

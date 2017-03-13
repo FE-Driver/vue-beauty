@@ -9,7 +9,8 @@
                     <thead :class="prefix + '-thead'">
                     <tr>
                         <th v-if="checkType" :class="prefix + '-selection-column'">
-                            <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState" @change="checkAllChange"></v-checkbox>
+                            <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState"
+                                        @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
                         </th>
                         <template v-for="(column,index) in columns">
                             <th :class="column.className">
@@ -40,7 +41,8 @@
                         <thead :class="prefix + '-thead'">
                         <tr>
                             <th v-if="checkType" :class="prefix + '-selection-column'">
-                                <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState" @click="checkAllChange"></v-checkbox>
+                                <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState"
+                                            @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
                             </th>
 
                             <template v-for="(column,index) in columns">
@@ -67,7 +69,8 @@
                         <template v-for="(item,index) in current">
                             <tr v-show="!treeTable || item.vshow" @click="clickRow(index)">
                                 <td v-if="checkType" :class="prefix + '-selection-column'">
-                                    <v-checkbox v-if="checkType=='checkbox'" v-model="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
+                                    <v-checkbox v-if="checkType=='checkbox'" v-model="rowSelectionStates[index]"
+                                                @click.native.stop="rowSelectionChange(index)"></v-checkbox>
                                 </td>
                                 <td v-for="(column,cindex) in columns">
                                     <template v-if="treeTable && cindex==treeTableOption.position">
@@ -77,7 +80,8 @@
                                               :class="prefix + '-row-expand-icon ' + prefix + '-row-' + item.vopen"></span>
                                     </template>
 
-                                    <slot name="td" :content="item[column.field]" :item="item" :column="column" :index="index" :cindex="cindex">
+                                    <slot name="td" :content="item[column.field]" :item="item" :column="column"
+                                          :index="index" :cindex="cindex">
                                         {{item[column.field]}}
                                     </slot>
 
@@ -240,18 +244,18 @@
                 tableBodyHeight: null,
                 pageNumber: this.pageNum,
                 pageSizeT: this.pageSize,
-                paramsName:{}
+                paramsName: {}
             }
         },
         created: function () {
             //初始加载数据
-            this.paramsName = Object.assign({},{
+            this.paramsName = Object.assign({}, {
                 pageNumber: 'pageNo',
                 pageSize: 'pageSize',
                 total: 'totalCount',
                 results: 'result',
                 sortColumns: 'sortColumns'
-            },this.responseParamsName);
+            }, this.responseParamsName);
             this.getSortParams();
             this.loadData({pageNum: this.pageNumber});
         },
@@ -358,7 +362,6 @@
              * @param params
              */
             loadData: function (params) {
-                this.pageSizeChangeAction = false;
                 params = Object.assign({}, params);
                 var self = this;
                 self.loading = true;
@@ -366,57 +369,75 @@
 //                const url = this.data;
                 const remoteParams = Object.assign({}, this.sortParams);
                 remoteParams[this.paramsName.pageNumber] = params.pageNum || self.pageNumber;
-                remoteParams[this.paramsName.pageSize] = this.pageSizeT;
+                remoteParams[this.paramsName.pageSize] = params.pageSize || this.pageSizeT;
+
+                if(params.pageNum){
+                    self.pageNumber = params.pageNum;
+                }
+                if(params.pageSize){
+                    self.pageSizeT = params.pageSize;
+                }
 
                 let dataPromise = self.data(remoteParams);
 
                 dataPromise.then((response) => {
-                    const data = response.data;
-                let results = data[self.paramsName.results];
+                            const data = response.data;
+                            let results = data[self.paramsName.results];
 
-                //处理treeTable数据
-                if (self.treeTable) {
-                    self.dealTreeData(results);
-                } else {
-                    self.current = results;
-                }
+                            //处理treeTable数据
+                            if (self.treeTable) {
+                                self.dealTreeData(results);
+                            } else {
+                                self.current = results;
+                            }
 
-                self.total = data[self.paramsName.total] * 1;
-                //  seslf.pageNumber = data[self.paramsName.pageNumber] * 1;
-//                服务端返回的pagesize不可信，暂时注释
-//                    self.pageSize = data[self.paramsName.pageSize]*1;
+                            self.total = data[self.paramsName.total] * 1;
 
 //                    重置选择状态
-                self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+                            self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
 
-                self.loading = false;
+                            self.loading = false;
 //                    重新计算并设置表格尺寸
-                self.calculateSize();
-            }, (response) => {
-                    // error callback
-                    self.loading = false;
-                }
+                            self.calculateSize();
+                        }, (response) => {
+                            // error callback
+                            self.loading = false;
+                        }
                 );
             },
             rowSelectionChange: function (index) {
-                this.$emit('checkrow',{
-                    index:index,
-                    checked:this.rowSelectionStates[index],
-                    row:this.current[index]
+                this.$emit('checkrow', {
+                    index: index,
+                    checked: this.rowSelectionStates[index],
+                    row: this.current[index]
                 });
             },
             checkAllChange: function (e) {
                 this.rowSelectionStates = new Array(this.current.length || 0).fill(e);
-                this.$emit('checkall',e);
+                this.$emit('checkall', e);
             },
-            clickRow:function (index) {
-                this.$emit('clickrow',{
-                    index:index,
-                    row:this.current[index]
+            clickRow: function (index) {
+                this.$set(this.rowSelectionStates,index,!this.rowSelectionStates[index]);
+                this.$emit('clickrow', {
+                    index: index,
+                    row: this.current[index]
                 });
             },
-            reload(){
+            //刷新表格数据（使用现有参数）
+            refresh(){
                 this.loadData();
+            },
+            //重新加载数据（重置到第一页）
+            reload(){
+                this.pageNumber = 1;
+            },
+            //跳转到第几页
+            goto(pageNumber){
+                if(typeof pageNumber == 'number'){
+                    this.pageNumber = pageNumber;
+                }else{
+                    console.warn("Datatable's goto api using wrong parameters");
+                }
             },
             scrollTableBody: function (e) {
                 const target = e.target || e.srcElement;
@@ -456,7 +477,7 @@
                             el.style.width = tbody_ths[index].offsetWidth + 'px'
                         }
                     }
-                }else{
+                } else {
                     this.$nextTick(function () {
                         this.fixHeaderWidth();
                     });
@@ -620,35 +641,35 @@
 
                 this.$http.post(url, remoteParams, {emulateJSON: true}).then((response) => {
                     const data = response.body.data;
-                let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
+                    let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
 
-                if (results.length) {
-                    item.loadChildren = true;
-                    item.children = self.transAsyncTreeData(results, item.level);
+                    if (results.length) {
+                        item.loadChildren = true;
+                        item.children = self.transAsyncTreeData(results, item.level);
 //                        插入到父节点后面
-                    var pindex = self.current.findIndex(function (value, index, arr) {
-                                return value.id == item.id;
-                            }) + 1;
+                        var pindex = self.current.findIndex(function (value, index, arr) {
+                                    return value.id == item.id;
+                                }) + 1;
 
-                    if (pindex == 0) {
-                        return false;
-                    }
+                        if (pindex == 0) {
+                            return false;
+                        }
 
 //                    向父节点后面插入子节点数据
-                    var newCurrent = self.current.slice(0, pindex).concat(results, self.current.slice(pindex));
-                    self.current = newCurrent;
+                        var newCurrent = self.current.slice(0, pindex).concat(results, self.current.slice(pindex));
+                        self.current = newCurrent;
 
 //                    向rowSelectionStates数组中插入子节点数据
-                    var newRowSelectionStates = self.rowSelectionStates.slice(0, pindex).concat(new Array(results.length || 0).fill(false), self.rowSelectionStates.slice(pindex));
-                    self.rowSelectionStates = newRowSelectionStates;
+                        var newRowSelectionStates = self.rowSelectionStates.slice(0, pindex).concat(new Array(results.length || 0).fill(false), self.rowSelectionStates.slice(pindex));
+                        self.rowSelectionStates = newRowSelectionStates;
 
-                    self.expandChildren(item);
+                        self.expandChildren(item);
 
-                    self.loading = false;
+                        self.loading = false;
 //                    重新计算并设置表格尺寸
-                    self.calculateSize();
-                }
-            }, (response) => {
+                        self.calculateSize();
+                    }
+                }, (response) => {
                     // error callback
                     self.loading = false;
                 });
@@ -665,11 +686,6 @@
                 return results;
             }
         },
-        events: {
-            reload: function () {
-                this.reload();
-            }
-        },
         computed: {
             sizeClass: function () {
                 return this.prefix + "-" + this.size;
@@ -681,24 +697,30 @@
                     return "";
                 }
             },
-            checkAllState: function () {
-                let checkAllState = false;
-                for (var i = 0; i < this.rowSelectionStates.length; i++) {
-                    if (this.rowSelectionStates[i] == false) {
-                        checkAllState = false;
-                        break;
-                    } else {
-                        checkAllState = true;
-                    }
+            checkIndeterminate:function () {
+                if(this.rowSelectionStates.includes(true) && this.rowSelectionStates.includes(false)){
+                    return true;
+                }else{
+                    return false;
                 }
-                return checkAllState;
+            },
+            checkAllState: function () {
+                // 包含至少一个false
+                if(this.rowSelectionStates.includes(false)){
+                    // 全部包含false
+                    if(!this.rowSelectionStates.includes(true)){
+                        return false;
+                    }
+                }else{
+                    return true;
+                }
             }
         },
-        watch:{
-            pageNumber:function () {
+        watch: {
+            pageNumber: function () {
                 this.$nextTick(() => {
 //                    当pagenumber和临时标志位不相等的时候，表示手动触发了pageNumber改变，发送请求
-                    (this.tempCurrent != this.pageNumber) && this.reload();
+                    (this.tempCurrent != this.pageNumber) && this.refresh();
                 });
             }
         },
