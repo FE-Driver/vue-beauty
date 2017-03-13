@@ -179,8 +179,10 @@
         },
         watch: {
             value(val){
-                this.labels = this.multiple?[]:'';
-                this.initVal();
+                if(!this.search){
+                    this.labels = this.multiple?[]:'';
+                    this.initVal();
+                }
                 this.$emit('change',val)
             },
             searchVal(val){
