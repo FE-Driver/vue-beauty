@@ -179,6 +179,8 @@
         },
         watch: {
             value(val){
+                this.labels = this.multiple?[]:'';
+                this.initVal();
                 this.$emit('change',val)
             },
             searchVal(val){
@@ -279,7 +281,9 @@
                     this.labels = [];
                     if(!this.value) this.value = [];
                 }
-
+                this.initVal();
+            },
+            initVal(){
                 this.mapOptions(([type, path, item])=> {
                     let selected = false;
                     if(this.multiple && this.value.includes(item[this.key])){
