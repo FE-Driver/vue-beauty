@@ -12,9 +12,9 @@
                             <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState"
                                         @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
                         </th>
-                        <template v-for="(column,index) in columns">
+                        <template v-for="(column,cindex) in columns">
                             <th :class="column.className">
-                                <slot name="th" :title="column.title" :column="column" :index="index">
+                                <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                     {{column.title}}
                                 </slot>
                                 <template v-if="column.sort">
@@ -45,9 +45,9 @@
                                             @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
                             </th>
 
-                            <template v-for="(column,index) in columns">
+                            <template v-for="(column,cindex) in columns">
                                 <th :style="{width:column.width}" :class="column.className">
-                                    <slot name="th" :title="column.title" :column="column" :index="index">
+                                    <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
                                     <template v-if="column.sort">
@@ -406,7 +406,7 @@
                 );
             },
             rowSelectionChange: function (index) {
-                this.$emit('checkrow', {
+                this.$emit('clickrow', {
                     index: index,
                     checked: this.rowSelectionStates[index],
                     row: this.current[index]
@@ -418,10 +418,7 @@
             },
             clickRow: function (index) {
                 this.$set(this.rowSelectionStates,index,!this.rowSelectionStates[index]);
-                this.$emit('clickrow', {
-                    index: index,
-                    row: this.current[index]
-                });
+                this.rowSelectionChange(index);
             },
             //刷新表格数据（使用现有参数）
             refresh(){

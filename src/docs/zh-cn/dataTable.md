@@ -28,16 +28,12 @@
                 ],
                 pageno:1,
                 checkAllMsg:null,
-                checkRowMsg:null,
                 clickRowMsg:null
             }
         },
         methods:{
             checkAll:function(value){
                 this.checkAllMsg = "当前全选状态是："+value
-            },
-            checkRow:function(obj){
-                this.checkRowMsg = "当前操作第"+obj.index+"行；选中状态是："+obj.checked;
             },
             clickRow:function(obj){
                 this.clickRowMsg = "当前点击第"+obj.index+"行";
@@ -140,7 +136,7 @@
 ```html
 <v-data-table :data='loadData' :columns='columns'>
     <template slot="th" scope="props">
-        <strong v-if="props.index==0">操作操作操作</strong>
+        <strong v-if="props.cindex==0">操作操作按钮</strong>
         <strong v-else v-html="props.title"></strong>
     </template>
     <template slot="td" scope="props">
@@ -203,10 +199,9 @@
 ```html
 
 <v-alert v-if="checkAllMsg" :message="checkAllMsg"></v-alert>
-<v-alert v-if="checkRowMsg" :message="checkRowMsg"></v-alert>
 <v-alert v-if="clickRowMsg" :message="clickRowMsg"></v-alert>
 
-<v-data-table :data='loadData' :columns='columns' check-type="checkbox" @checkall="checkAll" @checkrow="checkRow" @clickRow="clickRow">
+<v-data-table :data='loadData' :columns='columns' check-type="checkbox" @checkall="checkAll" @clickrow="clickRow">
       
 </v-data-table>
 
@@ -240,15 +235,11 @@
                 ],
                 checkAllMsg:null,
                 checkRowMsg:null,
-                clickRowMsg:null
             }
         },
         methods:{
             checkAll:function(value){
                 this.checkAllMsg = "当前全选状态是："+value
-            },
-            checkRow:function(obj){
-                this.checkRowMsg = "当前操作第"+obj.index+"行；选中状态是："+obj.checked;
             },
             clickRow:function(obj){
                 this.clickRowMsg = "当前点击第"+obj.index+"行";
@@ -358,29 +349,46 @@
 ### data arguments
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| pageNo | 页数 | Number | — |
+| pageNo | 页数 | Number | - |
 | pageSize | 分页大小 | Number | 10 |
 | sortColumns | 排序列 | 'field order field order' | false |
 
 ### Columns Object
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| title | 列名 | String | — |
+| title | 列名 | String | - |
 | field | 字段名（对应data中的字段名） | String | - |
 | sort | 是否排序 | Boolean | false |
-| width | 列宽 | 合法的CSS尺寸,如120px或5% | — |
-| className | 自定义类名 | String | — |
+| width | 列宽 | 合法的CSS尺寸,如120px或5% | - |
+| className | 自定义类名 | String | - |
+
+### th Slot Props
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |---------- |-------- |
+| cindex | 当前列索引 | Number | - |
+| column | 当前列对象 | Object | - |
+| title | 当前列标题 | String | - |
+
+### td Slot Props
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |---------- |-------- |
+| index | 当前行索引 | Number | - |
+| cindex | 当前列索引 | Number | - |
+| column | 当前列对象 | Object | - |
+| content | 当前单元格内容 | String | - |
+| item | 当前行内容对象 | Object | - |
 
 ### Datatable Events
 | 事件        | 说明           | 参数        | 参数说明        |
 |------------|----------------|------------|------------|
 | checkall    | 全选时触发 | value | 是否选中，布尔值 |
-| checkrow    | 选中某一行的checkbox时触发 | object | {index:选中行的索引,checked:是否选中,row:行数据} |
-| clickrow    | 点击某一行时触发 | object | {index:点击行的索引,row:行数据} |
+| clickrow    | 点击某一行时触发 | object | {index:选中行的索引,checked:是否选中,row:行数据} |
 
 ### API Methods
 | method        | 说明           | 参数        | 参数说明        |
 |------------|----------------|------------|------------|
-| reload    | 重新加载数据 | - | - |
+| refresh    | 刷新表格数据（使用datatable的当前参数） | - | - |
+| reload    | 重新加载数据（重置到第一页） | - | - |
+| goto    | 跳转页数 | pageNumber | 整数 |
 
 
