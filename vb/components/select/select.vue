@@ -179,7 +179,13 @@
         },
         watch: {
             value(val){
-                if(!this.search){
+                if(this.search){
+                    if(this.multiple && !val.length){
+                        this.labels = [];
+                    }else if(!this.multiple && !val){
+                        this.labels = '';
+                    }
+                }else{
                     this.labels = this.multiple?[]:'';
                     this.initVal();
                 }
@@ -215,23 +221,10 @@
                 handler(val){
                     this.ori_options = JSON.parse(JSON.stringify(val));
 
-                    this.mapOptions(([type, path, item])=> {
-                        let selected = false;
-                        if(this.multiple && this.value.includes(item[this.key])){
-                            selected = true;
-                        }else if(!this.multiple && this.value === item[this.key]){
-                            selected = true;
-                        }
-                        if(type == 'item'){
-                            this.$set(`ori_options[${path}].selected`, selected);
-                            this.$set(`ori_options[${path}].show`, true);
-                        }else{
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].selected`, selected);
-                            this.$set(`ori_options[${path[0]}].data[${path[1]}].show`, true);
-                        }
-                    },(i,group)=> {
-                        this.$set(`ori_options[${i}].show`, true);
-                    })
+                    if(!this.search){
+                        this.labels = this.multiple?[]:'';
+                    }
+                    this.initVal();
                 },
                 deep: true
             }
