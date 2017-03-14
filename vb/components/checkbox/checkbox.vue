@@ -73,7 +73,7 @@
         methods: {
             click(e) {
                 if(e.target.tagName !== 'INPUT') return;
-                this.$emit("click");
+                this.$emit("click",this.innerValue);
             }
         }
     }
