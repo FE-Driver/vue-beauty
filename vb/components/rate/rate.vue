@@ -12,8 +12,11 @@
 </template>
 
 <script lang="babel">
+    import emitter from '../../mixins/emitter';
+    
     export default {
         name: 'Rate',
+        mixins: [emitter],
         data() {
             return {
                 prefixCls: 'ant-rate',

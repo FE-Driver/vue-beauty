@@ -33,7 +33,7 @@ import notification from './notification'
 import form from './form'
 import tooltip from './tooltip'
 import tooltipd from '../directive/tooltip'
-import dataTable from './dataTable'
+import dataTable from './data-table'
 import tree from './tree'
 import locale from '../locale'
 
