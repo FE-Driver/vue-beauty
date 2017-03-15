@@ -207,7 +207,7 @@
             },
             searchVal(val){
                 if(this.multiple){
-                    this.multipleSearchStyle = val?{width: this.$refs.searchMirror.offsetWidth + 'px'}:{}
+                    setTimeout(()=>{this.multipleSearchStyle = val?{width: this.$refs.searchMirror.offsetWidth + 'px'}:{}},5);
                 }
                 if(this.remoteMethod) return this.remoteMethod(val);
                 if(val){
