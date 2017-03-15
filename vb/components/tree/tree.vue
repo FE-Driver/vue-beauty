@@ -190,6 +190,9 @@
       getCheckedNodes(){
         return this.getNodes(this.dataSource,{checked: true,childrenCheckedStatus:2});
       },
+      getHalfCheckedNodes(){
+        return this.getNodes(this.dataSource,{checked: true,childrenCheckedStatus:1});
+      },
       getChildrenCheckedStatus(children){
           let checkNum = 0,child_childrenAllChecked = true;
           for(let child of children){
