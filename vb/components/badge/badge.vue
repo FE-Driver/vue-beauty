@@ -97,10 +97,10 @@
                     'ant-scroll-number',
                     {[`${prefix}-count`]: !this.dot && this.count},
                     {[`${prefix}-dot`]: this.dot || this.dotLeave},
-                    {[`${prefix}-zoom-enter`]: this.dotEnter},
-                    {[`${prefix}-zoom-enter-active`]: this.dotEnter},
-                    {[`${prefix}-zoom-leave`]: this.dotLeave},
-                    {[`${prefix}-zoom-leave-active`]: this.dotLeave},
+                    {[`${prefix}-zoom-enter`]: this.dotEnter && !this.count},
+                    {[`${prefix}-zoom-enter-active`]: this.dotEnter && !this.count},
+                    {[`${prefix}-zoom-leave`]: this.dotLeave && !this.count},
+                    {[`${prefix}-zoom-leave-active`]: this.dotLeave && !this.count},
                 ]
             },
             num() {
