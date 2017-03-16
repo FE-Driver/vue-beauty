@@ -1,9 +1,45 @@
 <template lang="html">
     <span :class="badgeCls">
         <slot></slot>
-        <sup v-if="!status && (dot || count)" :class="countCls" :style="countStyle">{{ dot?'':num }}</sup>
+        <sup v-if="!status && (dot || count)" :class="countCls" :style="countStyle">
+            <span v-if="!dot && count<10 && count>0 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)'}">
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+            </span>
+
+            <span v-if="!dot && count>=10 && count<100 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/10)*100+1000)+'%)'}">
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+            </span>
+            <span v-if="!dot && count>=10 && count<100 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)'}">
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+            </span>
+
+            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/100)*100+1000)+'%)'}">
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+            </span>
+            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/10)*100+1000)+'%)'}">
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+            </span>
+            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)'}">
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+                <p v-for="n in 10">{{n-1}}</p>
+            </span>
+            <span v-if="!dot && (count >= overflowCount)">
+                {{ num }}
+            </span>
+        </sup>
         <template v-if="status">
-            <span :class="statusCls"></span> 
+            <span :class="statusCls"></span>
             <span class="ant-badge-status-text">{{text}}</span>
         </template>
     </span>
@@ -62,7 +98,40 @@
             },
             num() {
                 return this.count > this.overflowCount?this.overflowCount + '+':this.count
-            }
-        }
+            },
+        },
+        watch: {
+            dot(newValue) {
+                let dotShow = document.querySelectorAll("sup[class='ant-scroll-number ant-badge-dot']");
+                if (newValue === false){
+                    dotShow[2].classList.value = "ant-scroll-number ant-badge-dot";
+                }else {
+                    dotShow[2].classList.value = "ant-scroll-number ant-badge-dot";
+                }
+                console.log(dotShow)
+            },
+        },
     }
 </script>
+<style scoped lang="less">
+
+    /*@keyframes showOrHide{*/
+        /*from{*/
+            /*visibility: visible;*/
+        /*}*/
+        /*to{*/
+            /*visibility: hidden;*/
+        /*}*/
+    /*}*/
+    .show {
+        -webkit-animation: show 1s linear;
+    }
+    @-webkit-keyframes show {
+        from{
+            visibility: hidden;
+        }
+        to{
+            visibility: visible;
+        }
+    }
+</style>
