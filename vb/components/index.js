@@ -1,4 +1,5 @@
 import '../utils/polyfill'
+import { defaultPrefix } from  '../utils/config'
 
 import alert from './alert'
 import breadcrumb from './breadcrumb'
@@ -102,7 +103,7 @@ notification.install = function (Vue) {
 for (let item of Object.values(components)) {
     if (!item.install && item.name) {
         item.install = function (Vue, prefix) {
-            prefix = prefix || 'v';
+            prefix = prefix || defaultPrefix;
             Vue.component(prefix+item.name, item)
         }
     }
