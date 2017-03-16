@@ -8,28 +8,28 @@
                 <p v-for="n in 10">{{n-1}}</p>
             </span>
 
-            <span v-if="!dot && count>=10 && count<100 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/10)*100+1000)+'%)'}">
+            <span v-if="!dot && count>=10 && count<100 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/10)*100+1000)+'%)',float: 'left'}">
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
             </span>
-            <span v-if="!dot && count>=10 && count<100 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)'}">
+            <span v-if="!dot && count>=10 && count<100 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)',float: 'left'}">
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
             </span>
 
-            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/100)*100+1000)+'%)'}">
+            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/100)*100+1000)+'%)',float: 'left'}">
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
             </span>
-            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/10)*100+1000)+'%)'}">
+            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(Math.floor(num/10)*100+1000)+'%)',float: 'left'}">
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
             </span>
-            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)'}">
+            <span v-if="!dot && count<1000 && count>99 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)',float: 'left'}">
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
