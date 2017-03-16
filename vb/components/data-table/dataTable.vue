@@ -381,28 +381,31 @@
                 let dataPromise = self.data(remoteParams);
 
                 dataPromise.then((response) => {
-                            const data = response.data;
-                            let results = data[self.paramsName.results];
-
-                            //处理treeTable数据
-                            if (self.treeTable) {
-                                self.dealTreeData(results);
-                            } else {
-                                self.current = results;
-                            }
-
-                            self.total = data[self.paramsName.total] * 1;
-
-//                    重置选择状态
-                            self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
-
-                            self.loading = false;
-//                    重新计算并设置表格尺寸
-                            self.calculateSize();
-                        }, (response) => {
-                            // error callback
-                            self.loading = false;
+                        if(!response) {
+                            return;
                         }
+                        const data = response;
+                        let results = data[self.paramsName.results];
+
+                        //处理treeTable数据
+                        if (self.treeTable) {
+                            self.dealTreeData(results);
+                        } else {
+                            self.current = results;
+                        }
+
+                        self.total = data[self.paramsName.total] * 1;
+
+                        //重置选择状态
+                        self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+
+                        self.loading = false;
+                        //重新计算并设置表格尺寸
+                        self.calculateSize();
+                    }, (response) => {
+                        // error callback
+                        self.loading = false;
+                    }
                 );
             },
             rowSelectionChange: function (index) {
@@ -486,7 +489,7 @@
                 var rect = self.$el.getBoundingClientRect();
                 var winHeight = window.innerHeight;
                 var tableBodyHeight = winHeight - this.bottomGap - rect.top - footerHeight;
-//                    在可见首屏范围内且计算高度至少200时处理，否则不处理
+                //在可见首屏范围内且计算高度至少200时处理，否则不处理
                 if (rect.top > 0 && tableBodyHeight >= 200) {
                     this.tableBodyHeight = tableBodyHeight;
                     this.getBodyWidth();
