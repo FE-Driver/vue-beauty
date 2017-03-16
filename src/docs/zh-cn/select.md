@@ -340,6 +340,41 @@
 ```
 :::
 
+
+::: demo
+<summary>
+  #### 标签
+  tags select，随意输入的内容（scroll the menu）。
+</summary>
+
+```html
+<template>
+    <v-select tags style="width: 120px;" :data="options" ></v-select>
+    
+</template>
+
+<script>
+     export default {
+         data: ()=> ({
+            xxx:'ff',
+             options: [{
+                 value: '1',
+                 label: 'lady'
+             }, {
+                 value: '2',
+                 label: '小强',
+                 disabled: true
+             }, {
+                 value: '3',
+                 label: '小明'
+             }]
+         })
+     }
+</script>
+```
+:::
+
+
 ::: demo
 <summary>
   #### 远程搜索
