@@ -41,13 +41,13 @@
                             <li v-if="searchVal && remoteMethod && !data.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
                             <li v-if="searchVal && !remoteMethod && !searchFound" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
                             <template v-for="(option,i) in ori_data">
-                                <template v-if="option.data">
+                                <template v-if="option.options">
                                     <li v-show="option.show" class=" ant-select-dropdown-menu-item-group">
                                         <div class="ant-select-dropdown-menu-item-group-title">
                                             {{option[groupLabel]}}
                                         </div>
-                                        <ul v-if="option.data.length" class="ant-select-dropdown-menu-item-group-list">
-                                            <li v-show="option.show" v-for="(item,index) in option.data" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,index])">
+                                        <ul v-if="option.options.length" class="ant-select-dropdown-menu-item-group-list">
+                                            <li v-show="option.show" v-for="(item,index) in option.options" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,index])">
                                                 <template v-if="!$scopedSlots.default">
                                                     {{item[label]}}
                                                 </template>
@@ -220,7 +220,7 @@
                         if(type == 'item'){
                             this.$set(this.ori_data[path],'show',isIncluded);
                         }else{
-                            this.$set(this.ori_data[path[0]].data[path[1]],'show',isIncluded);
+                            this.$set(this.ori_data[path[0]].options[path[1]],'show',isIncluded);
                             if(isIncluded) show = true;
                         }
                     },(i,group)=> {
@@ -246,8 +246,8 @@
                             this.$set(this.ori_data[path],'selected',selected);
                             this.$set(this.ori_data[path],'show',true);
                         }else{
-                            this.$set(this.ori_data[path[0]].data[path[1]],'selected',selected);
-                            this.$set(this.ori_data[path[0]].data[path[1]],'show',true);
+                            this.$set(this.ori_data[path[0]].options[path[1]],'selected',selected);
+                            this.$set(this.ori_data[path[0]].options[path[1]],'show',true);
                         }
                     },(i,group)=> {
                         this.$set(this.ori_data[i],'show',true);
@@ -283,9 +283,9 @@
         methods: {
             mapData(callback,groupCallback){
                 for(let [i,opt] of this.ori_data.entries()){
-                    if(opt.data){
-                        if(opt.data.length){
-                            for(let [j,item] of opt.data.entries()){
+                    if(opt.options){
+                        if(opt.options.length){
+                            for(let [j,item] of opt.options.entries()){
                                 const res = callback(['groupItem', [i,j], item])
                                 if(res) break;
                             }
@@ -311,8 +311,8 @@
                         this.$set(this.ori_data[path],'selected',selected);
                         this.$set(this.ori_data[path],'show',true);
                     }else{
-                        this.$set(this.ori_data[path[0]].data[path[1]],'selected',selected);
-                        this.$set(this.ori_data[path[0]].data[path[1]],'show',true);
+                        this.$set(this.ori_data[path[0]].options[path[1]],'selected',selected);
+                        this.$set(this.ori_data[path[0]].options[path[1]],'show',true);
                     }
                 },(i,group)=> {
                     this.$set(this.ori_data[i],'show',true);
@@ -329,7 +329,7 @@
                         }
                     }else{
                         for(let [key,val] of Object.entries(opt)){
-                            this.$set(this.ori_data[path[0]].data[path[1]],key,val);
+                            this.$set(this.ori_data[path[0]].options[path[1]],key,val);
                         }
                     }
                 },(i,group)=> {
@@ -394,7 +394,7 @@
                         if(type == 'item'){
                             this.$set(this.ori_data[path],'selected',false);
                         }else{
-                            this.$set(this.ori_data[path[0]].data[path[1]],'selected',false);
+                            this.$set(this.ori_data[path[0]].options[path[1]],'selected',false);
                         }
                         return true;
                     }
@@ -405,7 +405,7 @@
                 if(typeof path == 'number'){
                     opt = this.ori_data[path]
                 }else{
-                    opt = this.ori_data[path[0]].data[path[1]]
+                    opt = this.ori_data[path[0]].options[path[1]]
                 }
                 if(opt.disabled) return;
                 this.searchVal = '';
