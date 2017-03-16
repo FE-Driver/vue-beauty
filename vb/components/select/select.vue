@@ -10,7 +10,7 @@
                         </li>
                         <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
-                                <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="isSearchFocus = true" @blur="searchBlur" ref="searchInput">
+                                <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="isSearchFocus = true" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
                                 <span class="ant-select-search__field__mirror" ref="searchMirror">{{searchVal}}</span>
                             </div>
                         </li>
@@ -207,7 +207,7 @@
             },
             searchVal(val){
                 if(this.multiple){
-                    this.multipleSearchStyle = val?{width: this.$refs.searchMirror.offsetWidth + 'px'}:{}
+                    this.$nextTick(()=>{this.multipleSearchStyle = val?{width: this.$refs.searchMirror.offsetWidth + 2+'px'}:{}});
                 }
                 if(this.remoteMethod) return this.remoteMethod(val);
                 if(val){
@@ -379,6 +379,11 @@
                 this.currentValue = '';
                 this.labels = '';
                 this.setData({selected: false});
+            },
+            handleInputDelete () {
+                if (this.multiple && this.currentValue.length && this.searchVal === '') {
+                    this.remove(this.currentValue.length - 1,this.labels[this.currentValue.length-1]);
+                }
             },
             remove(i,text){
                 this.labels.splice(i,1);
