@@ -1,7 +1,7 @@
 <template lang="html">
     <span :class="badgeCls">
         <slot></slot>
-        <sup v-if="!status && (dot || count)" :class="countCls" :style="countStyle">
+        <sup v-if="showDot || dotLeave" :class="countCls" :style="countStyle">
             <span v-if="!dot && count<10 && count>0 && count<overflowCount" class="ant-scroll-number-only" :style="{transform: 'translateY(-'+(num%10*100+1000)+'%)'}">
                 <p v-for="n in 10">{{n-1}}</p>
                 <p v-for="n in 10">{{n-1}}</p>
@@ -51,7 +51,10 @@
     export default {
         name: 'Badge',
         data:()=> ({
-            defaultSlot: false
+            defaultSlot: false,
+            dotEnter: false,
+            dotLeave: false,
+            animationTime: 300,
         }),
         props: {
             count: {
@@ -92,46 +95,34 @@
             countCls() {
                 return [
                     'ant-scroll-number',
-                    {[`${prefix}-count`]: !this.dot},
-                    {[`${prefix}-dot`]: this.dot}
+                    {[`${prefix}-count`]: !this.dot && this.count},
+                    {[`${prefix}-dot`]: this.dot || this.dotLeave},
+                    {[`${prefix}-zoom-enter`]: this.dotEnter},
+                    {[`${prefix}-zoom-enter-active`]: this.dotEnter},
+                    {[`${prefix}-zoom-leave`]: this.dotLeave},
+                    {[`${prefix}-zoom-leave-active`]: this.dotLeave},
                 ]
             },
             num() {
                 return this.count > this.overflowCount?this.overflowCount + '+':this.count
             },
+            showDot() {
+                return !this.status && (this.dot || this.count);
+            }
         },
         watch: {
-            dot(newValue) {
-                let dotShow = document.querySelectorAll("sup[class='ant-scroll-number ant-badge-dot']");
-                if (newValue === false){
-                    dotShow[2].classList.value = "ant-scroll-number ant-badge-dot";
-                }else {
-                    dotShow[2].classList.value = "ant-scroll-number ant-badge-dot";
+            showDot(value) {
+                let that = this,
+                    action = 'dotEnter';
+                if (!value) {
+                    action = 'dotLeave';
                 }
-                console.log(dotShow)
-            },
-        },
+                /* 控制动画Class */
+                that[action] = true;
+                setTimeout(function () {
+                    that[action] = false;
+                }, that.animationTime);
+            }
+        }
     }
 </script>
-<style scoped lang="less">
-
-    /*@keyframes showOrHide{*/
-        /*from{*/
-            /*visibility: visible;*/
-        /*}*/
-        /*to{*/
-            /*visibility: hidden;*/
-        /*}*/
-    /*}*/
-    .show {
-        -webkit-animation: show 1s linear;
-    }
-    @-webkit-keyframes show {
-        from{
-            visibility: hidden;
-        }
-        to{
-            visibility: visible;
-        }
-    }
-</style>
