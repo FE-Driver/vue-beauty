@@ -83,17 +83,17 @@
         data() {
             return {
                 prefix: 'ant-select',
-                currentValue: this.value,
+                innerValue: this.multiple && !this.value ? [] : this.value,
                 searchVal: '',
                 multipleSearchStyle: {},
                 searchFound: false,
                 show: false,
                 style: {},
-                labels: '',
+                labels: this.multiple ? [] : '',
                 ori_data: JSON.parse(JSON.stringify(this.data)),
                 isSearchFocus: false,
                 dropdownHeight: 0,
-                container: null
+                container: null,
             }
         },
         props: {
@@ -169,11 +169,6 @@
             remoteMethod: Function
         },
         mounted() {
-            if(this.multiple){
-                this.labels = [];
-                if(!this.currentValue) this.currentValue = [];
-            }
-
             this.initVal();
             this.container = this.popupContainer()
 
@@ -193,15 +188,15 @@
             window.removeEventListener('click',this.closeDropdown);
         },
         watch: {
-            currentValue(val){
+            innerValue(val){
                 this.$emit('change',val);
                 this.$emit('input',val);
                 this.dispatch('FormItem', 'form.change', [val]);
             },
             value(val){
-                if(this.currentValue !== val){
+                if(this.innerValue !== val){
                     this.labels = this.multiple?[]:'';
-                    this.currentValue = val;
+                    this.innerValue = val;
                     this.initVal();
                 }
             },
@@ -237,9 +232,9 @@
 
                     this.mapData(([type, path, item])=> {
                         let selected = false;
-                        if(this.multiple && this.currentValue.includes(item[this.keyFiled])){
+                        if(this.multiple && this.innerValue.includes(item[this.keyFiled])){
                             selected = true;
-                        }else if(!this.multiple && this.currentValue === item[this.keyFiled]){
+                        }else if(!this.multiple && this.innerValue === item[this.keyFiled]){
                             selected = true;
                         }
                         if(type == 'item'){
@@ -300,10 +295,10 @@
             initVal(){
                 this.mapData(([type, path, item])=> {
                     let selected = false;
-                    if(this.multiple && this.currentValue.includes(item[this.keyFiled])){
+                    if(this.multiple && this.innerValue.includes(item[this.keyFiled])){
                         selected = true;
                         this.labels.push(item[this.label]);
-                    }else if(!this.multiple && this.currentValue === item[this.keyFiled]){
+                    }else if(!this.multiple && this.innerValue === item[this.keyFiled]){
                         selected = true;
                         this.labels = item[this.label];
                     }
@@ -376,18 +371,18 @@
                 },300)
             },
             clear(){
-                this.currentValue = '';
+                this.innerValue = '';
                 this.labels = '';
                 this.setData({selected: false});
             },
             handleInputDelete () {
-                if (this.multiple && this.currentValue.length && this.searchVal === '') {
-                    this.remove(this.currentValue.length - 1,this.labels[this.currentValue.length-1]);
+                if (this.multiple && this.innerValue.length && this.searchVal === '') {
+                    this.remove(this.innerValue.length - 1,this.labels[this.innerValue.length-1]);
                 }
             },
             remove(i,text){
                 this.labels.splice(i,1);
-                this.currentValue.splice(i,1);
+                this.innerValue.splice(i,1);
 
                 this.mapData(([type, path, item])=> {
                     if(item[this.label] == text){
@@ -414,15 +409,15 @@
                     if(opt.selected){
                         const j = this.labels.indexOf(opt[this.label]);
                         this.labels.splice(j,1);
-                        this.currentValue.splice(j,1);
+                        this.innerValue.splice(j,1);
                     }else{
-                        this.currentValue.push(opt[this.keyFiled]);
+                        this.innerValue.push(opt[this.keyFiled]);
                         this.labels.push(opt[this.label]);
                     }
                     opt.selected = !opt.selected;
                 }else{
                     opt.selected = true;
-                    this.currentValue = opt[this.keyFiled];
+                    this.innerValue = opt[this.keyFiled];
                     this.labels = opt[this.label];
                 }
             }
