@@ -165,7 +165,7 @@
 <template>
     <v-select style="width: 100%" :data="options" v-model="value">
         <template scope="props">
-            {{props.option.label}}-{{props.option.value}}
+            {{props.data.label}}-{{props.data.value}}
         </template>
     </v-select>
 </template>
@@ -456,7 +456,7 @@
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | value    | 指定默认选中的条目 | string/array | - |
-| default:slot | 自定义下拉框选项内容,可使用的变量：option | scopedSlot | - |
+| default:slot | 自定义下拉框选项内容,可使用的变量：data | scopedSlot node | - |
 | keyField | 选项的value的字段名 | string | value |
 | label | 选项显示的文本的字段名 | string | label |
 | groupLabel | 分组title的字段名 | string | label |

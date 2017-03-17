@@ -4,6 +4,20 @@
         <div class="ant-row">
             <div class="aside-container ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
                 <v-menu mode="inline">
+                    <v-submenu title="开发指南">
+                        <v-menu-item>
+                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/start" target="_blank">起步(1.0)</a>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/css" target="_blank">全局CSS样式</a>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/polyfill" target="_blank">Polyfill</a>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/contribute" target="_blank">参与贡献(1.0)</a>
+                        </v-menu-item>
+                    </v-submenu>
                     <v-submenu title="General">
                         <v-menu-item>
                             <router-link :to="{ name:'button'}">Button 按钮</router-link>
@@ -29,6 +43,9 @@
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
+                        </v-menu-item>
+                        <v-menu-item>
+                            <router-link :to="{ name:'menu'}">Menu 导航菜单</router-link>
                         </v-menu-item>
                         <v-menu-item>
                             <router-link :to="{ name:'pagination'}">Pagination 分页</router-link>

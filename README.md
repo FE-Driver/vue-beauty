@@ -46,7 +46,7 @@ Beautiful  UI components build with vue and ant design
 
 ## 命名规范
 - 文件，目录均以横线连接(如data-table)
-- 组件的name均以小写开头，驼峰式(如treeSelect)
+- 组件的name均以大写开头，驼峰式(如TreeSelect)
 
 ## 感谢
 - 感谢为这个项目做过贡献的所有朋友。

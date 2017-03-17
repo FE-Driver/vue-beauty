@@ -51,7 +51,7 @@
                                                 <template v-if="!$scopedSlots.default">
                                                     {{item[label]}}
                                                 </template>
-                                                <slot v-else :option="item"></slot>
+                                                <slot v-else :data="item"></slot>
                                             </li>
                                         </ul>
                                     </li>
@@ -61,7 +61,7 @@
                                         <template v-if="!$scopedSlots.default">
                                             {{option[label]}}
                                         </template>
-                                        <slot v-else :option="option"></slot>
+                                        <slot v-else :data="option"></slot>
                                     </li>
                                 </template>
                             </template>
