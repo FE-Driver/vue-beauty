@@ -54,7 +54,6 @@
 
 <script lang="babel">
     import emitter from '../../mixins/emitter';
-    import onWindowResize from '../../utils/resize';
 
     export default{
         name: 'Tabs',
@@ -99,12 +98,11 @@
             }
         },
         created() {
-            let that = this;
-            onWindowResize(function () {
-                that.screenWH = that.getClientWH(document.body);
-            });
-            this.$on('tabs.disabledItem', function(tabPane) {
-                that.disableTab.call(that, tabPane.tabKey, tabPane.disabled);
+            window.addEventListener('resize',()=> {
+                this.screenWH = this.getClientWH(document.body);
+            })
+            this.$on('tabs.disabledItem', (tabPane)=> {
+                this.disableTab(tabPane.tabKey, tabPane.disabled);
             });
         },
         mounted() {
