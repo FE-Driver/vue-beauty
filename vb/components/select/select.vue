@@ -48,20 +48,14 @@
                                         </div>
                                         <ul v-if="option.options.length" class="ant-select-dropdown-menu-item-group-list">
                                             <li v-show="option.show" v-for="(item,index) in option.options" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,index])">
-                                                <template v-if="!$scopedSlots.default">
-                                                    {{item[label]}}
-                                                </template>
-                                                <slot v-else :data="item"></slot>
+                                                <slot :data="option">{{item[label]}}</slot>
                                             </li>
                                         </ul>
                                     </li>
                                 </template>
                                 <template v-else>
                                     <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
-                                        <template v-if="!$scopedSlots.default">
-                                            {{option[label]}}
-                                        </template>
-                                        <slot v-else :data="option"></slot>
+                                        <slot :data="option">{{option[label]}}</slot>
                                     </li>
                                 </template>
                             </template>

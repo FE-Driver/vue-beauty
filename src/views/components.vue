@@ -3,142 +3,11 @@
     <div class="main-wrapper page-container">
         <div class="ant-row">
             <div class="aside-container ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
-                <v-menu mode="inline">
-                    <v-submenu title="开发指南">
-                        <v-menu-item>
-                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/start" target="_blank">起步(1.0)</a>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/css" target="_blank">全局CSS样式</a>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/polyfill" target="_blank">Polyfill</a>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <a href="https://fe-driver.github.io/vue-beauty/#!/components/contribute" target="_blank">参与贡献(1.0)</a>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="General">
-                        <v-menu-item>
-                            <router-link :to="{ name:'button'}">Button 按钮</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'icon'}">Icon 图标</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Layout">
-                        <v-menu-item>
-                            <router-link :to="{ name:'grid'}">Grid 栅格</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'layout'}">Layout 布局</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'morePanel'}">MorePanel 更多条件</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Navigation">
-                        <v-menu-item>
-                            <router-link :to="{ name:'affix'}">Affix 固钉</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'breadcrumb'}">Breadcrumb 面包屑</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'menu'}">Menu 导航菜单</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'pagination'}">Pagination 分页</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'steps'}">Steps 步骤条</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'tabs'}">Tabs 标签页</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Data Entry">
-                        <v-menu-item>
-                            <router-link :to="{ name:'cascader'}">Cascader 级联选择</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'datePicker'}">DatePicker 日期选择框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'form'}">Form 表单</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'input'}">Input 输入框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'inputNumber'}">InputNumber 数字输入框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'rate'}">Rate 评分</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'radio'}">Radio 单选框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'checkbox'}">Checkbox 多选框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'select'}">Select 选择器</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'switch'}">Switch 开关</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'timePicker'}">TimePicker 时间选择框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'upload'}">Upload 上传</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Data display">
-                        <v-menu-item>
-                            <router-link :to="{ name:'badge'}">Badge 徽标数</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'card'}">Card 卡片</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'tag'}">Tag 标签</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'tooltip'}">Tooltip 文字提示</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'dataTable'}">DataTable 数据表格</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'tree'}">Tree 树形控件</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Feedback">
-                        <v-menu-item>
-                            <router-link :to="{ name:'alert'}">Alert 警告提示</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'message'}">Message 全局提示</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'modal'}">Modal 对话框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'notification'}">Notification 通知提醒框</router-link>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <router-link :to="{ name:'spin'}">Spin加载中</router-link>
-                        </v-menu-item>
-                    </v-submenu>
-                    <v-submenu title="Other">
-                    </v-submenu>
-                    <v-submenu title="Directive">
-                        <v-menu-item>
-                            <router-link :to="{ name:'tooltipd'}">Tooltip 文字提示</router-link>
-                        </v-menu-item>
-                    </v-submenu>
+                <v-menu mode="inline" :data="menuData" :expand="true">
+                    <template scope="{data}">
+                        <a v-if="data.href" :href="data.href" style="display:inline" :target="data.target">{{data.title}}</a>
+                        <router-link v-else :to="data.link" style="display:inline" :target="data.target">{{data.title}}</router-link>
+                    </template>
                 </v-menu>
             </div>
             <div class="main-container ant-col-xs-24 ant-col-sm-24 ant-col-md-18 ant-col-lg-20">
@@ -152,7 +21,159 @@
 <script>
 
 export default {
-
+    data:()=> ({
+        menuData: [{
+            title: "开发指南",
+            children: [{
+                title: '起步(1.0)',
+                href: 'https://fe-driver.github.io/vue-beauty/#!/components/start',
+                target: '_blank'
+            },{
+                title: '全局CSS样式',
+                href: 'https://fe-driver.github.io/vue-beauty/#!/components/css',
+                target: '_blank'
+            },{
+                title: 'Polyfill',
+                href: 'https://fe-driver.github.io/vue-beauty/#!/components/polyfill',
+                target: '_blank'
+            },{
+                title: '参与贡献(1.0)',
+                href: 'https://fe-driver.github.io/vue-beauty/#!/components/contribute',
+                target: '_blank'
+            }]
+        },{
+            title: "组件",
+            groups: [{
+                groupTitle: 'General',
+                list: [{
+                    title: 'Button 按钮',
+                    link: { name:'button'}
+                },{
+                    title: 'Icon 图标',
+                    link: { name:'icon'}
+                }]
+            },{
+                groupTitle: 'Layout',
+                list: [{
+                    title: 'Grid 栅格',
+                    link: { name:'grid'}
+                },{
+                    title: 'Layout 布局',
+                    link: { name:'layout'}
+                },{
+                    title: 'MorePanel 更多条件',
+                    link: { name:'morePanel'}
+                }]
+            },{
+                groupTitle: 'Navigation',
+                list: [{
+                    title: 'Affix 固钉',
+                    link: { name:'affix'}
+                },{
+                    title: 'Breadcrumb 面包屑',
+                    link: { name:'breadcrumb'}
+                },{
+                    title: 'Menu 导航菜单',
+                    link: { name:'menu'}
+                },{
+                    title: 'Pagination 分页',
+                    link: { name:'pagination'}
+                },{
+                    title: 'Steps 步骤条',
+                    link: { name:'steps'}
+                },{
+                    title: 'Tabs 标签页',
+                    link: { name:'tabs'}
+                }]
+            },{
+                groupTitle: 'Data Entry',
+                list: [{
+                    title: 'Cascader 级联选择',
+                    link: { name:'cascader'}
+                },{
+                    title: 'DatePicker 日期选择框',
+                    link: { name:'datePicker'}
+                },{
+                    title: 'Form 表单',
+                    link: { name:'form'}
+                },{
+                    title: 'Input 输入框',
+                    link: { name:'input'}
+                },{
+                    title: 'InputNumber 数字输入框',
+                    link: { name:'inputNumber'}
+                },{
+                    title: 'Rate 评分',
+                    link: { name:'rate'}
+                },{
+                    title: 'Radio 单选框',
+                    link: { name:'radio'}
+                },{
+                    title: 'Checkbox 多选框',
+                    link: { name:'checkbox'}
+                },{
+                    title: 'Select 选择器',
+                    link: { name:'select'}
+                },{
+                    title: 'Switch 开关',
+                    link: { name:'switch'}
+                },{
+                    title: 'TimePicker 时间选择框',
+                    link: { name:'timePicker'}
+                },{
+                    title: 'Upload 上传',
+                    link: { name:'upload'}
+                }]
+            },{
+                groupTitle: 'Data display',
+                list: [{
+                    title: 'Badge 徽标数',
+                    link: { name:'badge'}
+                },{
+                    title: 'Card 卡片',
+                    link: { name:'card'}
+                },{
+                    title: 'Tag 标签',
+                    link: { name:'tag'}
+                },{
+                    title: 'Tooltip 文字提示',
+                    link: { name:'tooltip'}
+                },{
+                    title: 'DataTable 数据表格',
+                    link: { name:'dataTable'}
+                },{
+                    title: 'Tree 树形控件(未完成)',
+                    link: { name:'tree'}
+                }]
+            },{
+                groupTitle: 'Feedback',
+                list: [{
+                    title: 'Alert 警告提示',
+                    link: { name:'alert'}
+                },{
+                    title: 'Message 全局提示',
+                    link: { name:'message'}
+                },{
+                    title: 'Modal 对话框',
+                    link: { name:'modal'}
+                },{
+                    title: 'Notification 通知提醒框',
+                    link: { name:'notification'}
+                },{
+                    title: 'Spin加载中',
+                    link: { name:'spin'}
+                }]
+            },{
+                groupTitle: 'Other'
+            }]
+        },{
+            title: "Directive",
+            children: [{
+                title: 'Tooltip 文字提示',
+                link: { name:'tooltipd'}
+            }]
+        }]
+    })
 }
 
 </script>
