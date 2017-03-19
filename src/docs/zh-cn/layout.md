@@ -1,4 +1,4 @@
-<style scoped>
+<style>
     .components-layout-demo-basic {
         text-align: center;
         margin: 2rem;
@@ -46,8 +46,12 @@
     }
     #components-layout-demo-side .ant-layout-sider-collapsed .anticon {
         font-size: 16px;
+        margin-left: 8px;
     }
     #components-layout-demo-side .ant-layout-sider-collapsed .nav-text {
+        display: none;
+    }
+    #components-layout-demo-side .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
         display: none;
     }
     #components-layout-demo-custom-trigger .trigger {
@@ -73,18 +77,99 @@
         display: none;
     }
 </style>
-
 <script>
     export default {
         data() {
             return {
                 collapsed: false,
                 customCollapsed: false,
+                menuData1: [{
+                    title: 'nav 1'
+                },{
+                    title: 'nav 2',
+                    selected: true
+                },{
+                    title: 'nav 3'
+                }],
+                menuData2: [{
+                    title: 'subnav 1',
+                    icon: 'user',
+                    expand: true,
+                    children: [{
+                        title: 'option1',
+                        selected: true
+                    },{
+                        title: 'option2'
+                    },{
+                        title: 'option3'
+                    },{
+                        title: 'option4'
+                    }]
+                },{
+                    title: 'subnav 2',
+                    icon: 'laptop',
+                    children: [{
+                        title: 'option5'
+                    },{
+                        title: 'option6'
+                    },{
+                        title: 'option7'
+                    },{
+                        title: 'option8'
+                    }]
+                },{
+                    title: 'subnav 3',
+                    icon: 'notification',
+                    children: [{
+                        title: 'option9'
+                    },{
+                        title: 'option10'
+                    },{
+                        title: 'option11'
+                    },{
+                        title: 'option12'
+                    }]
+                }],
+                menuData3: [{
+                    title: 'User',
+                    icon: 'user',
+                    children: [{
+                        title: 'Tome'
+                    },{
+                        title: 'Bill'
+                    },{
+                        title: 'Alex'
+                    }]
+                },{
+                    title: 'Team',
+                    icon: 'team',
+                    children: [{
+                        title: 'Team1'
+                    },{
+                        title: 'Team2'
+                    }]
+                },{
+                    title: 'File',
+                    icon: 'file',
+                    selected: true
+                }],
+                menuData4: [{
+                    title: 'nav 1',
+                    icon: 'user',
+                    selected: true
+                },{
+                    title: 'nav 2',
+                    icon: 'video-camera'
+                },{
+                    title: 'nav 3',
+                    icon: 'upload'
+                }]
             }
         },
         methods: {
-            onCollapse() {
-                console.log("onCollapse！")
+            onCollapse(collapsed) {
+                this.collapsed = collapsed;
+                console.log("onCollapse！");
             },
             toggle() {
                 this.customCollapsed = !this.customCollapsed;
@@ -199,11 +284,7 @@
         <v-layout class="layout">
             <v-header>
             <div class="logo"></div>
-                <v-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
-                    <v-menu-item>nav 1</v-menu-item>
-                    <v-menu-item>nav 2</v-menu-item>
-                    <v-menu-item>nav 3</v-menu-item>
-                </v-menu>
+                <v-menu theme="dark" mode="horizontal" :data="menuData1" :style="{lineHeight: '64px'}"></v-menu>
             </v-header>
             <v-content :style="{ padding: '0 50px' }">
                 <v-breadcrumb :style="{ margin: '12px 0' }">
@@ -230,6 +311,22 @@
         float: left;
     }
 </style>
+<script>
+    export default {
+        data() {
+            return {
+                menuData1: [{
+                    title: 'nav 1'
+                },{
+                    title: 'nav 2',
+                    selected: true
+                },{
+                    title: 'nav 3'
+                }]
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -245,11 +342,7 @@
         <v-layout>
             <v-header>
                 <div class="logo"></div>
-                <v-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
-                    <v-menu-item>nav 1</v-menu-item>
-                    <v-menu-item>nav 2</v-menu-item>
-                    <v-menu-item>nav 3</v-menu-item>
-                </v-menu>
+                <v-menu theme="dark" mode="horizontal" :data="menuData1" :style="{lineHeight: '64px'}"></v-menu>
             </v-header>
             <v-content :style="{ padding: '0 50px' }">
                 <v-breadcrumb :style="{ margin: '12px 0' }">
@@ -259,26 +352,7 @@
                 </v-breadcrumb>
                 <v-layout style="background: #fff; padding: 24px 0;">
                     <v-sider :width="200" style="background: #fff">
-                        <v-menu mode="inline">
-                            <v-submenu icon="user" title="subnav 1">
-                                <v-menu-item>option1</v-menu-item>  
-                                <v-menu-item>option2</v-menu-item>
-                                <v-menu-item>option3</v-menu-item>  
-                                <v-menu-item>option4</v-menu-item>
-                            </v-submenu>
-                            <v-submenu icon="laptop" title="subnav 2">
-                                <v-menu-item>option5</v-menu-item>  
-                                <v-menu-item>option6</v-menu-item>
-                                <v-menu-item>option7</v-menu-item>  
-                                <v-menu-item>option8</v-menu-item>  
-                            </v-submenu>
-                            <v-submenu icon="notification" title="subnav 3">
-                                <v-menu-item>option9</v-menu-item>  
-                                <v-menu-item>option10</v-menu-item>
-                                <v-menu-item>option11</v-menu-item>  
-                                <v-menu-item>option12</v-menu-item>  
-                            </v-submenu>
-                        </v-menu>
+                        <v-menu mode="inline" :data="menuData2"></v-menu>
                     </v-sider>
                     <v-content :style="{ padding: '0 24px', minHeight: 280 }">Content</v-content>
                 </v-layout>
@@ -300,6 +374,160 @@
         float: left;
     }
 </style>
+<script>
+    export default {
+        data() {
+            return {
+                menuData1: [{
+                    title: 'nav 1'
+                },{
+                    title: 'nav 2',
+                    selected: true
+                },{
+                    title: 'nav 3'
+                }],
+                menuData2: [{
+                    title: 'subnav 1',
+                    icon: 'user',
+                    expand: true,
+                    children: [{
+                        title: 'option1',
+                        selected: true
+                    },{
+                        title: 'option2'
+                    },{
+                        title: 'option3'
+                    },{
+                        title: 'option4'
+                    }]
+                },{
+                    title: 'subnav 2',
+                    icon: 'laptop',
+                    children: [{
+                        title: 'option5'
+                    },{
+                        title: 'option6'
+                    },{
+                        title: 'option7'
+                    },{
+                        title: 'option8'
+                    }]
+                },{
+                    title: 'subnav 3',
+                    icon: 'notification',
+                    children: [{
+                        title: 'option9'
+                    },{
+                        title: 'option10'
+                    },{
+                        title: 'option11'
+                    },{
+                        title: 'option12'
+                    }]
+                }]
+            }
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
+  #### 顶部-侧边布局-通栏
+  同样拥有顶部导航及侧边栏，区别是两边未留边距，多用于应用型的网站。
+</summary>
+
+```html
+<template>
+    <div id="components-layout-demo-top-side">
+        <v-layout>
+            <v-header>
+                <div class="logo"></div>
+                <v-menu theme="dark" mode="horizontal" :data="menuData1" style="line-height: 64px"></v-menu>
+            </v-header>
+            <v-layout>
+                <v-sider :width="200" style="background: #fff">
+                    <v-menu mode="inline" :data="menuData2" style="height:100%"></v-menu>
+                </v-sider>
+                <v-layout style="padding:0 24px 24px">
+                    <v-breadcrumb style="margin:12px 0">
+                        <v-breadcrumb-item>Home</v-breadcrumb-item>
+                        <v-breadcrumb-item href="">List</v-breadcrumb-item>
+                        <v-breadcrumb-item href="">App</v-breadcrumb-item>
+                    </v-breadcrumb>
+                    <v-content style="background: #fff; padding: 24px; margin: 0; min-height: 280px">Content</v-content>
+                </v-layout>
+            </v-layout>
+        </v-layout>
+    </div>
+</template>
+
+<style>
+    #components-layout-demo-top-side .logo {
+        width: 120px;
+        height: 31px;
+        background: #333;
+        border-radius: 6px;
+        margin: 16px 28px 16px 0;
+        float: left;
+    }
+</style>
+<script>
+    export default {
+        data() {
+            return {
+                menuData1: [{
+                    title: 'nav 1'
+                },{
+                    title: 'nav 2',
+                    selected: true
+                },{
+                    title: 'nav 3'
+                }],
+                menuData2: [{
+                    title: 'subnav 1',
+                    icon: 'user',
+                    expand: true,
+                    children: [{
+                        title: 'option1',
+                        selected: true
+                    },{
+                        title: 'option2'
+                    },{
+                        title: 'option3'
+                    },{
+                        title: 'option4'
+                    }]
+                },{
+                    title: 'subnav 2',
+                    icon: 'laptop',
+                    children: [{
+                        title: 'option5'
+                    },{
+                        title: 'option6'
+                    },{
+                        title: 'option7'
+                    },{
+                        title: 'option8'
+                    }]
+                },{
+                    title: 'subnav 3',
+                    icon: 'notification',
+                    children: [{
+                        title: 'option9'
+                    },{
+                        title: 'option10'
+                    },{
+                        title: 'option11'
+                    },{
+                        title: 'option12'
+                    }]
+                }]
+            }
+        }
+    }
+</script>
 ```
 :::
 
@@ -315,31 +543,15 @@
         <v-layout>
             <v-sider collapsible :collapsed="collapsed" @collapse="onCollapse">
                 <div class="logo"></div>
-                <v-menu theme="dark" mode="inline">
-                    <v-menu-item>
-                        <v-icon type="user"></v-icon>
-                        <span class="nav-text">nav 1</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="video-camera"></v-icon>
-                        <span class="nav-text">nav 2</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="upload"></v-icon>
-                        <span class="nav-text">nav 3</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="user"></v-icon>
-                        <span class="nav-text">nav 4</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="heart-o"></v-icon>
-                        <span class="nav-text">nav 5</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="team"></v-icon>
-                        <span class="nav-text">nav 6</span>
-                    </v-menu-item>
+                <v-menu theme="dark" :mode="collapsed?'vertical':'inline'" :data="menuData3">
+                    <template scope="{data}">
+                        <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
+                        <span :class="{'nav-text':data.icon}">{{data.title}}</span>
+                    </template>
+                    <template scope="{data}" slot="sub">
+                        <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
+                        <span class="nav-text">{{data.title}}</span>
+                    </template>
                 </v-menu>
             </v-sider>
             <v-layout>
@@ -380,11 +592,35 @@
         data() {
             return {
                 collapsed: false,
+                menuData3: [{
+                    title: 'User',
+                    icon: 'user',
+                    children: [{
+                        title: 'Tome'
+                    },{
+                        title: 'Bill'
+                    },{
+                        title: 'Alex'
+                    }]
+                },{
+                    title: 'Team',
+                    icon: 'team',
+                    children: [{
+                        title: 'Team1'
+                    },{
+                        title: 'Team2'
+                    }]
+                },{
+                    title: 'File',
+                    icon: 'file',
+                    selected: true
+                }]
             }
         },
         methods: {
-            onCollapse() {
-                console.log("onCollapse！")
+            onCollapse(collapsed) {
+                this.collapsed = collapsed;
+                console.log("onCollapse！");
             }
         }
     }
@@ -402,33 +638,13 @@
 <template>
     <div id="components-layout-demo-custom-trigger"> 
         <v-layout>
-            <v-sider collapsible :collapsed="customCollapsed" :trigger="false" :collapsed-width="100">
+            <v-sider collapsible :collapsed="customCollapsed" :trigger="false" :collapsed-width="64">
                 <div class="logo"></div>
-                <v-menu theme="dark" mode="inline">
-                    <v-menu-item>
-                        <v-icon type="user"></v-icon>
-                        <span class="nav-text">nav 1</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="video-camera"></v-icon>
-                        <span class="nav-text">nav 2</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="upload"></v-icon>
-                        <span class="nav-text">nav 3</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="user"></v-icon>
-                        <span class="nav-text">nav 4</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="heart-o"></v-icon>
-                        <span class="nav-text">nav 5</span>
-                    </v-menu-item>
-                    <v-menu-item>
-                        <v-icon type="team"></v-icon>
-                        <span class="nav-text">nav 6</span>
-                    </v-menu-item>
+                <v-menu theme="dark" mode="inline" :data="menuData4">
+                    <template scope="{data}">
+                        <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
+                        <span class="nav-text">{{data.title}}</span>
+                    </template>
                 </v-menu>
             </v-sider>
             <v-layout>
@@ -481,6 +697,17 @@
         data() {
             return {
                 customCollapsed: false,
+                menuData4: [{
+                    title: 'nav 1',
+                    icon: 'user',
+                    selected: true
+                },{
+                    title: 'nav 2',
+                    icon: 'video-camera'
+                },{
+                    title: 'nav 3',
+                    icon: 'upload'
+                }]
             }
         },
         methods: {
