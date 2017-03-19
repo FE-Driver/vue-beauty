@@ -70,7 +70,7 @@
 
 </template>
 
-<script>
+<script lang="babel">
 import emitter from '../../mixins/emitter';
 
   const IsAllMatch = function(obj,conditions){
