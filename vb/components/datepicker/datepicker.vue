@@ -168,7 +168,7 @@
                 default: ()=>[{},{}]
             }
         },
-        data: function() {
+        data() {
             return {
                 prefix: 'ant-calendar',
                 container: null,
@@ -242,7 +242,6 @@
             })
 
             window.addEventListener('resize',this.resize);
-            window.addEventListener('click',this.closeDropdown);
             if(this.range && !this.style.width){
                 this.$set('style.width','240px')
             }
@@ -267,12 +266,12 @@
         },
         beforeDestroy(){
             this.container.removeChild(this.$els.container);
-            window.removeEventListener('click',this.closeDropdown);
             window.removeEventListener('resize',this.resize);
         },
         watch: {
             show(val) {
                 this.hidePanel();
+                val && this.$els.container.focus();
             },
             now1() {
                 this.updateAll();
