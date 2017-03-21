@@ -153,7 +153,7 @@ export default {
 
 ```html
 <template>                   
-    <v-menu mode="horizontal" :data="horizontalMnueData"  @itemclick="itemclick"></v-menu>
+    <v-menu mode="horizontal" :data="horizontalMnueData"  @item-click="itemclick"></v-menu>
 </template> 
 <script>
 export default {
@@ -555,6 +555,12 @@ export default {
 | 方法名     |   说明	   | 参数      | 返回值  |
 |---------- |-------------- |----------  |-------- |
 | setCheck | 根据条件对象筛选节点，并设置节点的选中状态 | conditions: Object,status: Boolean = true | isSuccess: Boolean |
+
+### Menu Events
+
+| 事件     |   说明	   | 参数      |
+|---------- |-------------- |----------  |-------- |
+| item-click | 点击Menu Item时触发 | 从根到叶的数组，包含路径上的每个节点的数据 |
 
 ### Menu:Data Prop
 

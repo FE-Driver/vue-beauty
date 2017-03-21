@@ -128,17 +128,13 @@ import emitter from '../../mixins/emitter';
            this.$set(item, 'expand', true);
         }
       }
-      this.$on('nodeSelected',(ori,current,id,dataPath)=>{
+      this.$on('nodeSelected',(ori,id,dataPath)=>{
         if(this.type == 'root') {
-          if(this === current){
-            this.$emit('itemclick',dataPath);
-          }else{
-            this.setAllSelected(false);
-            this.$emit('itemclick',[this.data[id],...dataPath]);
-          }
+          this.setAllSelected(false);
+          this.$emit('item-click',[this.data[id],...dataPath]);
           this.broadcast('Menu', 'cancelSelected', [ori]);
-        }else if(this !== current){
-          this.dispatch('Menu', 'nodeSelected', [ori,this,this.id,[this.data[id],...dataPath]]);
+        }else{
+          this.dispatch('Menu', 'nodeSelected', [ori,this.id,[this.data[id],...dataPath]]);
         }
       })
       this.$on('cancelSelected',ori=>{
@@ -227,7 +223,12 @@ import emitter from '../../mixins/emitter';
         if(disabled) return;
         this.setAllSelected(false);
         this.$set(this.data[index], 'selected', true);
-        this.dispatch('Menu', 'nodeSelected', [this,this,this.id,[this.data[index]]]);
+        if(this.type == 'root') {
+          this.$emit('item-click',[this.data[index]]);
+          this.broadcast('Menu', 'cancelSelected', [this]);
+        }else{
+          this.dispatch('Menu', 'nodeSelected', [this,this.id,[this.data[index]]]);
+        }
       }
     }
   }
