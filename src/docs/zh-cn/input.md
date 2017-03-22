@@ -207,6 +207,7 @@ export default {
 | value | value 值 | any | - |
 | size | 控件大小，默认值为 default 。{"large","default","small"}注：标准表单内的输入框大小限制为 large。 | String | default |
 | disabled    | 是否禁用状态，默认为 false | Boolean | false |
+| debounce    | 延迟输入状态变化的时间（ms） | Number | 0 |
 | slot:before | input前面加前缀修饰 | slot node | - |
 | slot:after | input后面加后缀修饰	 | slot node | - |
 

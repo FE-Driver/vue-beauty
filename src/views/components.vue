@@ -5,8 +5,8 @@
             <div class="aside-container ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
                 <v-menu mode="inline" :data="menuData" :expand="true">
                     <template scope="{data}">
-                        <a v-if="data.href" :href="data.href" style="display:inline" :target="data.target">{{data.title}}</a>
-                        <router-link v-else :to="data.link" style="display:inline" :target="data.target">{{data.title}}</router-link>
+                        <a v-if="data.href" :href="data.href" style="display:inline" :target="data.target">{{data.name}}</a>
+                        <router-link v-else :to="data.link" style="display:inline" :target="data.target">{{data.name}}</router-link>
                     </template>
                 </v-menu>
             </div>
@@ -23,153 +23,153 @@
 export default {
     data:()=> ({
         menuData: [{
-            title: "开发指南",
+            name: "开发指南",
             children: [{
-                title: '起步(1.0)',
+                name: '起步(1.0)',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/start',
                 target: '_blank'
             },{
-                title: '全局CSS样式',
+                name: '全局CSS样式',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/css',
                 target: '_blank'
             },{
-                title: 'Polyfill',
+                name: 'Polyfill',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/polyfill',
                 target: '_blank'
             },{
-                title: '参与贡献(1.0)',
+                name: '参与贡献(1.0)',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/contribute',
                 target: '_blank'
             }]
         },{
-            title: "组件",
+            name: "组件",
             groups: [{
-                groupTitle: 'General',
+                groupName: 'General',
                 list: [{
-                    title: 'Button 按钮',
+                    name: 'Button 按钮',
                     link: { name:'button'}
                 },{
-                    title: 'Icon 图标',
+                    name: 'Icon 图标',
                     link: { name:'icon'}
                 }]
             },{
-                groupTitle: 'Layout',
+                groupName: 'Layout',
                 list: [{
-                    title: 'Grid 栅格',
+                    name: 'Grid 栅格',
                     link: { name:'grid'}
                 },{
-                    title: 'Layout 布局',
+                    name: 'Layout 布局',
                     link: { name:'layout'}
                 },{
-                    title: 'MorePanel 更多条件',
+                    name: 'MorePanel 更多条件',
                     link: { name:'morePanel'}
                 }]
             },{
-                groupTitle: 'Navigation',
+                groupName: 'Navigation',
                 list: [{
-                    title: 'Affix 固钉',
+                    name: 'Affix 固钉',
                     link: { name:'affix'}
                 },{
-                    title: 'Breadcrumb 面包屑',
+                    name: 'Breadcrumb 面包屑',
                     link: { name:'breadcrumb'}
                 },{
-                    title: 'Menu 导航菜单',
+                    name: 'Menu 导航菜单',
                     link: { name:'menu'}
                 },{
-                    title: 'Pagination 分页',
+                    name: 'Pagination 分页',
                     link: { name:'pagination'}
                 },{
-                    title: 'Steps 步骤条',
+                    name: 'Steps 步骤条',
                     link: { name:'steps'}
                 },{
-                    title: 'Tabs 标签页',
+                    name: 'Tabs 标签页',
                     link: { name:'tabs'}
                 }]
             },{
-                groupTitle: 'Data Entry',
+                groupName: 'Data Entry',
                 list: [{
-                    title: 'Cascader 级联选择',
+                    name: 'Cascader 级联选择',
                     link: { name:'cascader'}
                 },{
-                    title: 'DatePicker 日期选择框',
+                    name: 'DatePicker 日期选择框',
                     link: { name:'datePicker'}
                 },{
-                    title: 'Form 表单',
+                    name: 'Form 表单',
                     link: { name:'form'}
                 },{
-                    title: 'Input 输入框',
+                    name: 'Input 输入框',
                     link: { name:'input'}
                 },{
-                    title: 'InputNumber 数字输入框',
+                    name: 'InputNumber 数字输入框',
                     link: { name:'inputNumber'}
                 },{
-                    title: 'Rate 评分',
+                    name: 'Rate 评分',
                     link: { name:'rate'}
                 },{
-                    title: 'Radio 单选框',
+                    name: 'Radio 单选框',
                     link: { name:'radio'}
                 },{
-                    title: 'Checkbox 多选框',
+                    name: 'Checkbox 多选框',
                     link: { name:'checkbox'}
                 },{
-                    title: 'Select 选择器',
+                    name: 'Select 选择器',
                     link: { name:'select'}
                 },{
-                    title: 'Switch 开关',
+                    name: 'Switch 开关',
                     link: { name:'switch'}
                 },{
-                    title: 'TimePicker 时间选择框',
+                    name: 'TimePicker 时间选择框',
                     link: { name:'timePicker'}
                 },{
-                    title: 'Upload 上传',
+                    name: 'Upload 上传',
                     link: { name:'upload'}
                 }]
             },{
-                groupTitle: 'Data display',
+                groupName: 'Data display',
                 list: [{
-                    title: 'Badge 徽标数',
+                    name: 'Badge 徽标数',
                     link: { name:'badge'}
                 },{
-                    title: 'Card 卡片',
+                    name: 'Card 卡片',
                     link: { name:'card'}
                 },{
-                    title: 'Tag 标签',
+                    name: 'Tag 标签',
                     link: { name:'tag'}
                 },{
-                    title: 'Tooltip 文字提示',
+                    name: 'Tooltip 文字提示',
                     link: { name:'tooltip'}
                 },{
-                    title: 'DataTable 数据表格',
+                    name: 'DataTable 数据表格',
                     link: { name:'dataTable'}
                 },{
-                    title: 'Tree 树形控件(未完成)',
+                    name: 'Tree 树形控件(未完成)',
                     link: { name:'tree'}
                 }]
             },{
-                groupTitle: 'Feedback',
+                groupName: 'Feedback',
                 list: [{
-                    title: 'Alert 警告提示',
+                    name: 'Alert 警告提示',
                     link: { name:'alert'}
                 },{
-                    title: 'Message 全局提示',
+                    name: 'Message 全局提示',
                     link: { name:'message'}
                 },{
-                    title: 'Modal 对话框',
+                    name: 'Modal 对话框',
                     link: { name:'modal'}
                 },{
-                    title: 'Notification 通知提醒框',
+                    name: 'Notification 通知提醒框',
                     link: { name:'notification'}
                 },{
-                    title: 'Spin加载中',
+                    name: 'Spin加载中',
                     link: { name:'spin'}
                 }]
             },{
-                groupTitle: 'Other'
+                groupName: 'Other'
             }]
         },{
-            title: "Directive",
+            name: "Directive",
             children: [{
-                title: 'Tooltip 文字提示',
+                name: 'Tooltip 文字提示',
                 link: { name:'tooltipd'}
             }]
         }]
@@ -291,7 +291,7 @@ export default {
         padding-bottom: 50px;
     }
 
-    .aside-container .ant-menu-item a, .aside-container .ant-menu-submenu-title span, .aside-container > .ant-menu-item {
+    .aside-container .ant-menu-item a, .aside-container .ant-menu-submenu-name span, .aside-container > .ant-menu-item {
         font-size: 14px;
         text-overflow: ellipsis;
         overflow: hidden;

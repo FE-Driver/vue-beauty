@@ -84,84 +84,84 @@
                 collapsed: false,
                 customCollapsed: false,
                 menuData1: [{
-                    title: 'nav 1'
+                    name: 'nav 1'
                 },{
-                    title: 'nav 2',
+                    name: 'nav 2',
                     selected: true
                 },{
-                    title: 'nav 3'
+                    name: 'nav 3'
                 }],
                 menuData2: [{
-                    title: 'subnav 1',
+                    name: 'subnav 1',
                     icon: 'user',
                     expand: true,
                     children: [{
-                        title: 'option1',
+                        name: 'option1',
                         selected: true
                     },{
-                        title: 'option2'
+                        name: 'option2'
                     },{
-                        title: 'option3'
+                        name: 'option3'
                     },{
-                        title: 'option4'
+                        name: 'option4'
                     }]
                 },{
-                    title: 'subnav 2',
+                    name: 'subnav 2',
                     icon: 'laptop',
                     children: [{
-                        title: 'option5'
+                        name: 'option5'
                     },{
-                        title: 'option6'
+                        name: 'option6'
                     },{
-                        title: 'option7'
+                        name: 'option7'
                     },{
-                        title: 'option8'
+                        name: 'option8'
                     }]
                 },{
-                    title: 'subnav 3',
+                    name: 'subnav 3',
                     icon: 'notification',
                     children: [{
-                        title: 'option9'
+                        name: 'option9'
                     },{
-                        title: 'option10'
+                        name: 'option10'
                     },{
-                        title: 'option11'
+                        name: 'option11'
                     },{
-                        title: 'option12'
+                        name: 'option12'
                     }]
                 }],
                 menuData3: [{
-                    title: 'User',
+                    name: 'User',
                     icon: 'user',
                     children: [{
-                        title: 'Tome'
+                        name: 'Tome'
                     },{
-                        title: 'Bill'
+                        name: 'Bill'
                     },{
-                        title: 'Alex'
+                        name: 'Alex'
                     }]
                 },{
-                    title: 'Team',
+                    name: 'Team',
                     icon: 'team',
                     children: [{
-                        title: 'Team1'
+                        name: 'Team1'
                     },{
-                        title: 'Team2'
+                        name: 'Team2'
                     }]
                 },{
-                    title: 'File',
+                    name: 'File',
                     icon: 'file',
                     selected: true
                 }],
                 menuData4: [{
-                    title: 'nav 1',
+                    name: 'nav 1',
                     icon: 'user',
                     selected: true
                 },{
-                    title: 'nav 2',
+                    name: 'nav 2',
                     icon: 'video-camera'
                 },{
-                    title: 'nav 3',
+                    name: 'nav 3',
                     icon: 'upload'
                 }]
             }
@@ -316,12 +316,12 @@
         data() {
             return {
                 menuData1: [{
-                    title: 'nav 1'
+                    name: 'nav 1'
                 },{
-                    title: 'nav 2',
+                    name: 'nav 2',
                     selected: true
                 },{
-                    title: 'nav 3'
+                    name: 'nav 3'
                 }]
             }
         }
@@ -379,50 +379,50 @@
         data() {
             return {
                 menuData1: [{
-                    title: 'nav 1'
+                    name: 'nav 1'
                 },{
-                    title: 'nav 2',
+                    name: 'nav 2',
                     selected: true
                 },{
-                    title: 'nav 3'
+                    name: 'nav 3'
                 }],
                 menuData2: [{
-                    title: 'subnav 1',
+                    name: 'subnav 1',
                     icon: 'user',
                     expand: true,
                     children: [{
-                        title: 'option1',
+                        name: 'option1',
                         selected: true
                     },{
-                        title: 'option2'
+                        name: 'option2'
                     },{
-                        title: 'option3'
+                        name: 'option3'
                     },{
-                        title: 'option4'
+                        name: 'option4'
                     }]
                 },{
-                    title: 'subnav 2',
+                    name: 'subnav 2',
                     icon: 'laptop',
                     children: [{
-                        title: 'option5'
+                        name: 'option5'
                     },{
-                        title: 'option6'
+                        name: 'option6'
                     },{
-                        title: 'option7'
+                        name: 'option7'
                     },{
-                        title: 'option8'
+                        name: 'option8'
                     }]
                 },{
-                    title: 'subnav 3',
+                    name: 'subnav 3',
                     icon: 'notification',
                     children: [{
-                        title: 'option9'
+                        name: 'option9'
                     },{
-                        title: 'option10'
+                        name: 'option10'
                     },{
-                        title: 'option11'
+                        name: 'option11'
                     },{
-                        title: 'option12'
+                        name: 'option12'
                     }]
                 }]
             }
@@ -478,50 +478,50 @@
         data() {
             return {
                 menuData1: [{
-                    title: 'nav 1'
+                    name: 'nav 1'
                 },{
-                    title: 'nav 2',
+                    name: 'nav 2',
                     selected: true
                 },{
-                    title: 'nav 3'
+                    name: 'nav 3'
                 }],
                 menuData2: [{
-                    title: 'subnav 1',
+                    name: 'subnav 1',
                     icon: 'user',
                     expand: true,
                     children: [{
-                        title: 'option1',
+                        name: 'option1',
                         selected: true
                     },{
-                        title: 'option2'
+                        name: 'option2'
                     },{
-                        title: 'option3'
+                        name: 'option3'
                     },{
-                        title: 'option4'
+                        name: 'option4'
                     }]
                 },{
-                    title: 'subnav 2',
+                    name: 'subnav 2',
                     icon: 'laptop',
                     children: [{
-                        title: 'option5'
+                        name: 'option5'
                     },{
-                        title: 'option6'
+                        name: 'option6'
                     },{
-                        title: 'option7'
+                        name: 'option7'
                     },{
-                        title: 'option8'
+                        name: 'option8'
                     }]
                 },{
-                    title: 'subnav 3',
+                    name: 'subnav 3',
                     icon: 'notification',
                     children: [{
-                        title: 'option9'
+                        name: 'option9'
                     },{
-                        title: 'option10'
+                        name: 'option10'
                     },{
-                        title: 'option11'
+                        name: 'option11'
                     },{
-                        title: 'option12'
+                        name: 'option12'
                     }]
                 }]
             }
@@ -546,11 +546,11 @@
                 <v-menu theme="dark" :mode="collapsed?'vertical':'inline'" :data="menuData3">
                     <template scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
-                        <span :class="{'nav-text':data.icon}">{{data.title}}</span>
+                        <span :class="{'nav-text':data.icon}">{{data.name}}</span>
                     </template>
                     <template scope="{data}" slot="sub">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
-                        <span class="nav-text">{{data.title}}</span>
+                        <span class="nav-text">{{data.name}}</span>
                     </template>
                 </v-menu>
             </v-sider>
@@ -593,25 +593,25 @@
             return {
                 collapsed: false,
                 menuData3: [{
-                    title: 'User',
+                    name: 'User',
                     icon: 'user',
                     children: [{
-                        title: 'Tome'
+                        name: 'Tome'
                     },{
-                        title: 'Bill'
+                        name: 'Bill'
                     },{
-                        title: 'Alex'
+                        name: 'Alex'
                     }]
                 },{
-                    title: 'Team',
+                    name: 'Team',
                     icon: 'team',
                     children: [{
-                        title: 'Team1'
+                        name: 'Team1'
                     },{
-                        title: 'Team2'
+                        name: 'Team2'
                     }]
                 },{
-                    title: 'File',
+                    name: 'File',
                     icon: 'file',
                     selected: true
                 }]
@@ -643,7 +643,7 @@
                 <v-menu theme="dark" mode="inline" :data="menuData4">
                     <template scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
-                        <span class="nav-text">{{data.title}}</span>
+                        <span class="nav-text">{{data.name}}</span>
                     </template>
                 </v-menu>
             </v-sider>
@@ -698,14 +698,14 @@
             return {
                 customCollapsed: false,
                 menuData4: [{
-                    title: 'nav 1',
+                    name: 'nav 1',
                     icon: 'user',
                     selected: true
                 },{
-                    title: 'nav 2',
+                    name: 'nav 2',
                     icon: 'video-camera'
                 },{
-                    title: 'nav 3',
+                    name: 'nav 3',
                     icon: 'upload'
                 }]
             }
