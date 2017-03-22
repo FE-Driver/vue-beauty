@@ -1,50 +1,50 @@
 <script>
 const data = [{
-    title: '导航一',
+    name: '导航一',
     icon: 'mail',
     groups: [{
-        groupTitle: "分组1",
+        groupName: "分组1",
         list: [{
-            title: "选项1"
+            name: "选项1"
         },{
-            title: "选项2"
+            name: "选项2"
         }]
     }, {
-        groupTitle: "分组2",
+        groupName: "分组2",
         list: [{
-            title: "选项3"
+            name: "选项3"
         },{
-            title: "选项4"
+            name: "选项4"
         }]
     }]
 },{
-    title: '导航二',
+    name: '导航二',
     icon: 'appstore',
     expand: true,
     children: [{
-        title: "选项5",
+        name: "选项5",
         selected: true
     },{
-        title: "选项6"
+        name: "选项6"
     },{
-        title: "三级导航",
+        name: "三级导航",
         children: [{
-            title: "选项7"
+            name: "选项7"
         },{
-            title: "选项8"
+            name: "选项8"
         }]
     }]
 },{
-    title: '导航三',
+    name: '导航三',
     icon: 'setting',
     children: [{
-        title: "选项9"
+        name: "选项9"
     },{
-        title: "选项10"
+        name: "选项10"
     },{
-        title: "选项11"
+        name: "选项11"
     },{
-        title: "选项12"
+        name: "选项12"
     }]
 }]
 export default {
@@ -52,32 +52,32 @@ export default {
         mode: 'inline',
         theme: 'dark',
         horizontalMnueData: [{
-            title: '导航一',
+            name: '导航一',
             icon: 'mail'
         },{
-            title: '导航二',
+            name: '导航二',
             icon: 'appstore',
             disabled: true
         },{
-            title: '导航三-子菜单',
+            name: '导航三-子菜单',
             icon: 'setting',
             groups: [{
-                groupTitle: "分组1",
+                groupName: "分组1",
                 list: [{
-                    title: "选项1"
+                    name: "选项1"
                 },{
-                    title: "选项2"
+                    name: "选项2"
                 }]
             }, {
-                groupTitle: "分组2",
+                groupName: "分组2",
                 list: [{
-                    title: "选项3"
+                    name: "选项3"
                 },{
-                    title: "选项4"
+                    name: "选项4"
                 }]
             }]
         },{
-            title: '导航四-链接',
+            name: '导航四-链接',
             href: "http://www.alipay.com/",
             target: '_blank'
         }],
@@ -86,41 +86,41 @@ export default {
         themeMenuData: JSON.parse(JSON.stringify(data)),
         modeMenuData: JSON.parse(JSON.stringify(data)),
         customMenuData: [{
-            title: "首页",
+            name: "首页",
             icon: 'home',
             selected: true,
             disabled: true,
             href: '/components/card'
         },{
-            title: "安装指南",
+            name: "安装指南",
             icon: 'mail',
             children: [{
                 href: {
-                    title: 'menu',
+                    name: 'menu',
                     query: {
                         src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
                     }
                 },
-                title: "快速上手"
+                name: "快速上手"
             },{
                 href: "/development",
-                title: "开发指南",
+                name: "开发指南",
                 disabled: true
             }]
         },{
-            title: "基础组件",
+            name: "基础组件",
             icon: 'folder',
             groups: [{
-                groupTitle: "Basic",
+                groupName: "Basic",
                 list: [{
                     href: "/components/layout",
-                    title: "布局"
+                    name: "布局"
                 }]
             },{
-                groupTitle: "Form",
+                groupName: "Form",
                 list: [{
                     href: "/components/radio",
-                    title: "按钮"
+                    name: "按钮"
                 }]
             }]
         }]
@@ -159,32 +159,32 @@ export default {
 export default {
     data:()=> ({
         horizontalMnueData: [{
-            title: '导航一',
+            name: '导航一',
             icon: 'mail'
         },{
-            title: '导航二',
+            name: '导航二',
             icon: 'appstore',
             disabled: true
         },{
-            title: '导航三-子菜单',
+            name: '导航三-子菜单',
             icon: 'setting',
             groups: [{
-                groupTitle: "分组1",
+                groupName: "分组1",
                 list: [{
-                    title: "选项1"
+                    name: "选项1"
                 },{
-                    title: "选项2"
+                    name: "选项2"
                 }]
             }, {
-                groupTitle: "分组2",
+                groupName: "分组2",
                 list: [{
-                    title: "选项3"
+                    name: "选项3"
                 },{
-                    title: "选项4"
+                    name: "选项4"
                 }]
             }]
         },{
-            title: '导航四-链接',
+            name: '导航四-链接',
             href: "http://www.alipay.com/",
             target: '_blank'
         }]
@@ -209,49 +209,49 @@ export default {
 export default {
     data:()=> ({
         inlineMenuData: [{
-            title: '导航一',
+            name: '导航一',
             icon: 'mail',
             groups: [{
-                groupTitle: "分组1",
+                groupName: "分组1",
                 list: [{
-                    title: "选项1"
+                    name: "选项1"
                 },{
-                    title: "选项2"
+                    name: "选项2"
                 }]
             }, {
-                groupTitle: "分组2",
+                groupName: "分组2",
                 list: [{
-                    title: "选项3"
+                    name: "选项3"
                 },{
-                    title: "选项4"
+                    name: "选项4"
                 }]
             }]
         },{
-            title: '导航二',
+            name: '导航二',
             icon: 'appstore',
             children: [{
-                title: "选项5"
+                name: "选项5"
             },{
-                title: "选项6"
+                name: "选项6"
             },{
-                title: "三级导航",
+                name: "三级导航",
                 children: [{
-                    title: "选项7"
+                    name: "选项7"
                 },{
-                    title: "选项8"
+                    name: "选项8"
                 }]
             }]
         },{
-            title: '导航三',
+            name: '导航三',
             icon: 'setting',
             children: [{
-                title: "选项9"
+                name: "选项9"
             },{
-                title: "选项10"
+                name: "选项10"
             },{
-                title: "选项11"
+                name: "选项11"
             },{
-                title: "选项12"
+                name: "选项12"
             }]
         }]
     })
@@ -275,49 +275,49 @@ export default {
 export default {
     data:()=> ({
         verticalMenuData: [{
-            title: '导航一',
+            name: '导航一',
             icon: 'mail',
             groups: [{
-                groupTitle: "分组1",
+                groupName: "分组1",
                 list: [{
-                    title: "选项1"
+                    name: "选项1"
                 },{
-                    title: "选项2"
+                    name: "选项2"
                 }]
             }, {
-                groupTitle: "分组2",
+                groupName: "分组2",
                 list: [{
-                    title: "选项3"
+                    name: "选项3"
                 },{
-                    title: "选项4"
+                    name: "选项4"
                 }]
             }]
         },{
-            title: '导航二',
+            name: '导航二',
             icon: 'appstore',
             children: [{
-                title: "选项5"
+                name: "选项5"
             },{
-                title: "选项6"
+                name: "选项6"
             },{
-                title: "三级导航",
+                name: "三级导航",
                 children: [{
-                    title: "选项7"
+                    name: "选项7"
                 },{
-                    title: "选项8"
+                    name: "选项8"
                 }]
             }]
         },{
-            title: '导航三',
+            name: '导航三',
             icon: 'setting',
             children: [{
-                title: "选项9"
+                name: "选项9"
             },{
-                title: "选项10"
+                name: "选项10"
             },{
-                title: "选项11"
+                name: "选项11"
             },{
-                title: "选项12"
+                name: "选项12"
             }]
         }]
     })
@@ -347,49 +347,49 @@ export default {
     data:()=> ({
         theme: 'dark',
         themeMenuData: [{
-            title: '导航一',
+            name: '导航一',
             icon: 'mail',
             groups: [{
-                groupTitle: "分组1",
+                groupName: "分组1",
                 list: [{
-                    title: "选项1"
+                    name: "选项1"
                 },{
-                    title: "选项2"
+                    name: "选项2"
                 }]
             }, {
-                groupTitle: "分组2",
+                groupName: "分组2",
                 list: [{
-                    title: "选项3"
+                    name: "选项3"
                 },{
-                    title: "选项4"
+                    name: "选项4"
                 }]
             }]
         },{
-            title: '导航二',
+            name: '导航二',
             icon: 'appstore',
             children: [{
-                title: "选项5"
+                name: "选项5"
             },{
-                title: "选项6"
+                name: "选项6"
             },{
-                title: "三级导航",
+                name: "三级导航",
                 children: [{
-                    title: "选项7"
+                    name: "选项7"
                 },{
-                    title: "选项8"
+                    name: "选项8"
                 }]
             }]
         },{
-            title: '导航三',
+            name: '导航三',
             icon: 'setting',
             children: [{
-                title: "选项9"
+                name: "选项9"
             },{
-                title: "选项10"
+                name: "选项10"
             },{
-                title: "选项11"
+                name: "选项11"
             },{
-                title: "选项12"
+                name: "选项12"
             }]
         }]
     })
@@ -416,49 +416,49 @@ export default {
     data:()=> ({
         mode: 'inline',
         modeMenuData: [{
-            title: '导航一',
+            name: '导航一',
             icon: 'mail',
             groups: [{
-                groupTitle: "分组1",
+                groupName: "分组1",
                 list: [{
-                    title: "选项1"
+                    name: "选项1"
                 },{
-                    title: "选项2"
+                    name: "选项2"
                 }]
             }, {
-                groupTitle: "分组2",
+                groupName: "分组2",
                 list: [{
-                    title: "选项3"
+                    name: "选项3"
                 },{
-                    title: "选项4"
+                    name: "选项4"
                 }]
             }]
         },{
-            title: '导航二',
+            name: '导航二',
             icon: 'appstore',
             children: [{
-                title: "选项5"
+                name: "选项5"
             },{
-                title: "选项6"
+                name: "选项6"
             },{
-                title: "三级导航",
+                name: "三级导航",
                 children: [{
-                    title: "选项7"
+                    name: "选项7"
                 },{
-                    title: "选项8"
+                    name: "选项8"
                 }]
             }]
         },{
-            title: '导航三',
+            name: '导航三',
             icon: 'setting',
             children: [{
-                title: "选项9"
+                name: "选项9"
             },{
-                title: "选项10"
+                name: "选项10"
             },{
-                title: "选项11"
+                name: "选项11"
             },{
-                title: "选项12"
+                name: "选项12"
             }]
         }]
     })
@@ -479,14 +479,14 @@ export default {
     <v-menu style="width:240px" :data="customMenuData">
         <template scope="{data}">
             <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
-            <router-link :to="data.href" style="display:inline">{{'item-' + data.title}}</router-link>
+            <router-link :to="data.href" style="display:inline">{{'item-' + data.name}}</router-link>
         </template>
         <template scope="{data}" slot="sub">
             <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
-            <span>{{'sub-' + data.title}}</span>
+            <span>{{'sub-' + data.name}}</span>
         </template>
         <template scope="{data}" slot="group">
-            {{'group-' + data.groupTitle}}
+            {{'group-' + data.groupName}}
         </template>
     </v-menu>
 </template>
@@ -494,41 +494,41 @@ export default {
 export default {
     data:()=> ({
         customMenuData: [{
-            title: "首页",
+            name: "首页",
             icon: 'home',
             selected: true,
             disabled: true,
             href: '/components/card'
         },{
-            title: "安装指南",
+            name: "安装指南",
             icon: 'mail',
             children: [{
                 href: {
-                    title: 'menu',
+                    name: 'menu',
                     query: {
                         src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
                     }
                 },
-                title: "快速上手"
+                name: "快速上手"
             },{
                 href: "/development",
-                title: "开发指南",
+                name: "开发指南",
                 disabled: true
             }]
         },{
-            title: "基础组件",
+            name: "基础组件",
             icon: 'folder',
             groups: [{
-                groupTitle: "Basic",
+                groupName: "Basic",
                 list: [{
                     href: "/components/layout",
-                    title: "布局"
+                    name: "布局"
                 }]
             },{
-                groupTitle: "Form",
+                groupName: "Form",
                 list: [{
                     href: "/components/radio",
-                    title: "按钮"
+                    name: "按钮"
                 }]
             }]
         }]
@@ -546,9 +546,9 @@ export default {
 | data | 可嵌套的节点属性的数组，生成menu的数据 | Array | - |
 | theme | 主题颜色 | String: `light` `dark` | light |
 | expand | 设为true会展开所有第一级的菜单 | Boolean | false |
-| default:scopedSlot | 自定义MenuItem Title的内容，传入的参数:data | Slot Node | - |
-| sub:scopedSlot | 自定义SubMenu Title的内容，传入的参数:data | Slot Node | - |
-| group:scopedSlot | 自定义Group Title的内容，传入的参数:data | Slot Node | - |
+| default:scopedSlot | 自定义MenuItem Name的内容，传入的参数:data | Slot Node | - |
+| sub:scopedSlot | 自定义SubMenu Name的内容，传入的参数:data | Slot Node | - |
+| group:scopedSlot | 自定义Group Name的内容，传入的参数:data | Slot Node | - |
 
 ### Menu Methods
 
@@ -566,7 +566,7 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| title | 标题 | String | - |
+| name | 标题 | String | - |
 | disabled | 是否禁用 | Boolean | false |
 | expand | 是否展开(只有SubMenu上可设置) | Boolean | false |
 | selected | 选中效果(只有MenuItem上可设置) | Boolean | false |
@@ -580,6 +580,6 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| groupTitle | 标题 | String | - |
+| groupName | 标题 | String | - |
 | list | 同data | Object | - |
 

@@ -1,12 +1,12 @@
 <template>
-    <input v-if="!hasbefore && !hasafter && type!='textarea'" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
+    <input v-if="!hasbefore && !hasafter && type!='textarea'" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" autocomplete="off" @blur="blur"/>
     <span v-else :class="wrapClasses">
         <span v-if="hasbefore" class="ant-input-group-addon">
             <slot name="before"></slot>
         </span>
-        <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" @blur="blur">
+        <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" @blur="blur">
         </textarea>
-        <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="content" @input="handleInput" autocomplete="off" @blur="blur"/>
+        <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" autocomplete="off" @blur="blur"/>
         <span v-if="hasafter" class="ant-input-group-addon">
             <slot name="after"></slot>
         </span>
@@ -36,6 +36,10 @@
                 type: String,
                 default: 'default'
             },
+            debounce: {
+                type: Number,
+                default: 0
+            },
             disabled: {
                 type: Boolean,
                 default: false
@@ -45,16 +49,17 @@
         },
         data() {
             return {
+                debounceTimer: null,
                 prefix: 'ant-input',
                 hasslot: false,
                 hasbefore: false,
                 hasafter: false,
-                content: this.value
+                innerValue: this.value
             }
         },
         watch: {
             value(val) {
-                this.content = val
+                this.innerValue = val
             }
         },
         computed: {
@@ -90,17 +95,20 @@
         },
         methods: {
             handleInput(event) {
-                this.setCurrentValue(event.target.value);
+                if(this.debounceTimer) clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(()=>{
+                    this.setCurrentValue(event.target.value);
+                }, this.debounce);
             },
             setCurrentValue(value) {
-                if (value === this.content) return;
-                this.content = value
+                if (value === this.innerValue) return;
+                this.innerValue = value
                 this.$emit('input', value)
                 this.dispatch('FormItem', 'form.change', [value]);
             },
             blur() {
-                this.$emit('blur', this.content)
-                this.dispatch('FormItem', 'form.blur', [this.content]);
+                this.$emit('blur', this.innerValue)
+                this.dispatch('FormItem', 'form.blur', [this.innerValue]);
             }
         }
     }

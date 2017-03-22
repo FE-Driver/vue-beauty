@@ -4,7 +4,7 @@
       <li v-for="(item, index) in data" :class="prefix + '-item-group'">
         <div :class="prefix + '-item-group-title'">
             <slot :data="item" name="group">
-              {{item.groupTitle}}
+              {{item.groupName}}
             </slot>
         </div>
         <Menu :data="item.list" type="item-group-list" :mode="mode" :level="level" :id="index">
@@ -26,16 +26,16 @@
         <li v-if="!item.children && !item.groups" :class="[prefix+'-item',{[prefix+'-item-disabled']: item.disabled,[prefix+'-item-selected']: item.selected}]" :style="paddingSty" @click="select(index,item.disabled)">
           <slot :data="item">
             <i v-if="item.icon" :class="'anticon anticon-' + item.icon"></i>
-            <a v-if="item.href" :href="item.href" style="display:inline" :target="item.target">{{item.title}}</a>
-            <template v-else>{{item.title}}</template>
+            <a v-if="item.href" :href="item.href" style="display:inline" :target="item.target">{{item.name}}</a>
+            <template v-else>{{item.name}}</template>
           </slot>
         </li>
         <li v-else :class="[prefix+'-submenu',prefix+'-submenu-'+mode,{[prefix+'-submenu-open']: item.expand}]" @mouseover="mouseTriggerOpen(item.disabled,index,true)" @mouseout="mouseTriggerOpen(item.disabled,index,false)">
-          <div :class="[prefix+'-submenu-title',{[prefix+'-submenu-disabled']: item.disabled}]" :style="paddingSty" :title="item.title" @click="clickTriggerOpen(item.disabled,index)">
+          <div :class="[prefix+'-submenu-title',{[prefix+'-submenu-disabled']: item.disabled}]" :style="paddingSty" :title="item.name" @click="clickTriggerOpen(item.disabled,index)">
             <span>
               <slot :data="item" name="sub">
                 <i v-if="item.icon" :class="'anticon anticon-' + item.icon"></i>
-                <span>{{item.title}}</span>
+                <span>{{item.name}}</span>
               </slot>
             </span>
           </div>
@@ -213,8 +213,11 @@ import emitter from '../../mixins/emitter';
         }
         if(!res){
           for(let child of this.$children){
-            res  = child.setCheck(conditions,status);
-            if(res) break;
+            //如果使用者自定义了选项 可能会有其他类型的子组件
+            if(child.$options.name == 'Menu' && child.setCheck){
+              res  = child.setCheck(conditions,status);
+              if(res) break;
+            }
           }
         }
         return res;
