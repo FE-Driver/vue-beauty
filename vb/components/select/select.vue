@@ -191,7 +191,9 @@
                 if(this.innerValue !== val){
                     this.labels = this.multiple?[]:'';
                     this.innerValue = val;
-                    this.initVal();
+                    this.$nextTick(() => {
+                        this.initVal();
+                    })
                 }
             },
             searchVal(val){
@@ -223,7 +225,6 @@
             data: {
                 handler(val){
                     this.ori_data = JSON.parse(JSON.stringify(val));
-
                     this.mapData(([type, path, item])=> {
                         let selected = false;
                         if(this.multiple && this.innerValue.includes(item[this.keyFiled])){
