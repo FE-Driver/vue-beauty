@@ -48,17 +48,16 @@
                                     </div>
                                     <ul v-if="option.data && option.data.length" class="ant-select-dropdown-menu-item-group-list">
                                         <li v-show="option.show" v-for="item in option.data" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': item.disabled}, {'ant-select-dropdown-menu-item-selected': item.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select([i,$index])">
-                                            {{item[label]}}
-                                            <span v-if="item.icon" style="float: right"><span class="anticon anticon-{{item.icon}}"></span></span>
+                                            <component v-if="customOption" :is="customOption" :item="item"></component>
+                                            <template v-else>{{item[label]}}</template>
                                         </li>
                                     </ul>
                                 </li>
                             </template>
                             <template v-else>
-                                <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]"
-                                role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
-                                    {{option[label]}}
-                                    <span v-if="option.icon" style="float: right"><span class="anticon anticon-{{option.icon}}"></span></span>
+                                <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
+                                    <component v-if="customOption" :is="customOption" :item="option"></component>
+                                    <template v-else>{{option[label]}}</template>
                                 </li>
                             </template>
                         </template>
@@ -156,7 +155,8 @@
                 type: String,
                 default: '加载中...'
             },
-            remoteMethod: Function
+            remoteMethod: Function,
+            customOption: Function
         },
         ready() {
             this.init();
