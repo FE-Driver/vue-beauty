@@ -66,8 +66,19 @@ app.use(staticPath, express.static('./static'))
 
 var uri = 'http://localhost:' + port
 
-devMiddleware.waitUntilValid(function () {
+var _resolve
+var readyPromise = new Promise(resolve => {
+  _resolve = resolve
+})
+
+console.log('> Starting dev server...')
+devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
+  // when env is testing, don't need open it
+  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+    opn(uri)
+  }
+  _resolve()
 })
 
 app.post('/upload', (req, res) => {
@@ -95,14 +106,11 @@ app.post('/upload', (req, res) => {
   })
 })
 
-module.exports = app.listen(port, function (err) {
-  if (err) {
-    console.log(err)
-    return
-  }
+var server = app.listen(port)
 
-  // when env is testing, don't need open it
-  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-    opn(uri)
+module.exports = {
+  ready: readyPromise,
+  close: () => {
+    server.close()
   }
-})
+}

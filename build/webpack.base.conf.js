@@ -134,15 +134,19 @@ module.exports = {
         loader: 'vue-markdown-loader',
         options: md
       },
-      /*{
+      {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: "pre",
-        include: [resolve('src'), resolve('test')],
+        //include: [resolve('src'), resolve('vb'), resolve('test')],
+        include: [
+          resolve('src/docs/zh-cn/progress.md'),
+          resolve('vb/components/progress')
+        ],
         options: {
           formatter: require('eslint-friendly-formatter')
         }
-      },*/
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
