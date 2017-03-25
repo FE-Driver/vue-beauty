@@ -1,42 +1,43 @@
-import '../utils/polyfill'
-import { defaultPrefix } from  '../utils/config'
+import '../utils/polyfill';
+import config from '../utils/config';
 
-import alert from './alert'
-import breadcrumb from './breadcrumb'
-import button from './button'
-import icon from './icon'
-import card from './card'
-import rate from './rate'
-import menu from './menu'
-import affix from './affix'
-import { steps, step } from './steps'
-import pagination from './pagination'
-import tag from './tag'
-import vSwitch from './switch'
-import { col, row } from './grid'
-import { layout, sider, header, content, footer } from './layout'
-import spin from './spin'
-import cascader from './cascader'
-import badge from './badge'
-import input from './input'
-import inputNumber from './inputNumber'
-import select from './select'
-import timePicker from './timePicker'
-import tabs from './tabs'
-import datePicker from './datePicker'
-import message from './message'
-import modal from './modal'
-import morePanel from './morePanel'
-import radio from './radio'
-import checkbox from './checkbox'
-import upload from './upload'
-import notification from './notification'
-import form from './form'
-import tooltip from './tooltip'
-import tooltipd from '../directive/tooltip'
-import dataTable from './data-table'
-import tree from './tree'
-import locale from '../locale'
+import alert from './alert';
+import breadcrumb from './breadcrumb';
+import button from './button';
+import icon from './icon';
+import card from './card';
+import rate from './rate';
+import menu from './menu';
+import affix from './affix';
+import { steps, step } from './steps';
+import pagination from './pagination';
+import tag from './tag';
+import vSwitch from './switch';
+import { col, row } from './grid';
+import { layout, sider, header, content, footer } from './layout';
+import spin from './spin';
+import cascader from './cascader';
+import badge from './badge';
+import input from './input';
+import inputNumber from './inputNumber';
+import select from './select';
+import timePicker from './timePicker';
+import tabs from './tabs';
+import datePicker from './datePicker';
+import message from './message';
+import modal from './modal';
+import morePanel from './morePanel';
+import radio from './radio';
+import checkbox from './checkbox';
+import upload from './upload';
+import notification from './notification';
+import form from './form';
+import tooltip from './tooltip';
+import tooltipd from '../directive/tooltip';
+import dataTable from './data-table';
+import tree from './tree';
+import progressLine from './progress';
+import locale from '../locale';
 
 const components = {
     breadcrumb,
@@ -86,23 +87,23 @@ const components = {
     message,
     datePicker,
     dataTable,
-    tree
+    tree,
+    progressLine,
 };
 
 message.install = function (Vue) {
-    Vue.$message = Vue.prototype.$message = message
+    Vue.$message = Vue.prototype.$message = message;
 };
 
 notification.install = function (Vue) {
-    Vue.$notification = Vue.prototype.$notification = notification
+    Vue.$notification = Vue.prototype.$notification = notification;
 };
 
-for (let item of Object.values(components)) {
+for (const item of Object.values(components)) {
     if (!item.install && item.name) {
-        item.install = function (Vue, prefix) {
-            prefix = prefix || defaultPrefix;
-            Vue.component(prefix+item.name, item)
-        }
+        item.install = function (Vue, prefix = config.componentNamePrefix) {
+            Vue.component(prefix + item.name, item);
+        };
     }
 }
 
@@ -111,28 +112,28 @@ const install = function (Vue, opts = {}) {
     locale.use(opts.locale);
     locale.i18n(opts.i18n);
 
-    for (let item of Object.values(components)) {
+    for (const item of Object.values(components)) {
         if (item.install) {
-            Vue.use(item, opts.prefix)
+            Vue.use(item, opts.prefix);
         }
     }
 };
 
 //注册全局方法
-notification.install = function(Vue){
-    Vue.$notification = Vue.prototype.$notification = notification
+notification.install = function (Vue) {
+    Vue.$notification = Vue.prototype.$notification = notification;
 };
 
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue)
+    install(window.Vue);
 }
 
 export default {
     version: '2.0.0-alpha.0',
     install,
-    ...components
-}
+    ...components,
+};
 
 /* function isFlexSupported(style) {
     return 'flex' in style ||

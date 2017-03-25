@@ -181,6 +181,11 @@ export default [
                 path: 'tree',
                 name: 'tree',
                 component: require('./docs/zh-cn/tree.md')
+            },
+            {
+                path: 'progress',
+                name: 'progress',
+                component: require('./docs/zh-cn/progress.md')
             }
         ]
   }

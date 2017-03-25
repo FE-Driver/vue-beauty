@@ -160,6 +160,9 @@ export default {
                     name: 'Notification 通知提醒框',
                     link: { name:'notification'}
                 },{
+                    name: 'Progress 进度条',
+                    link: { name:'progress'}
+                },{
                     name: 'Spin加载中',
                     link: { name:'spin'}
                 }]

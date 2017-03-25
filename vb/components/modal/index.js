@@ -1,10 +1,10 @@
 import "./style/index.less"
 import vModal from './modal.vue'
 import confirm from './confirm'
-import { defaultPrefix } from  '../../utils/config'
+import config from  '../../utils/config'
 
 vModal.install = function (Vue, prefix) {
-    prefix = prefix || defaultPrefix;
+    prefix = prefix || config.componentNamePrefix;
     Vue.component(prefix + vModal.name, vModal);
     Vue.$modal = Vue.prototype.$modal = {
         confirm(props) {
