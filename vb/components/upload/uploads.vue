@@ -23,9 +23,9 @@
 </template>
 
 <script lang="babel">
-import AjaxUpload from './ajaxUploader.vue'
-import UploadList from './uploadList.vue'
-import getFileItem from './getFileItem'
+import AjaxUpload from './ajax-uploader.vue'
+import UploadList from './upload-list.vue'
+import getFileItem from './get-file-item'
 
 // Fix IE file.status problem
 // via coping a new Object

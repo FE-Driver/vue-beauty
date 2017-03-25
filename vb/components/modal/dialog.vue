@@ -33,7 +33,7 @@
     </div>
 </template>
 <script lang="babel">
-    import KeyCode from '../../utils/KeyCode'
+    import KeyCode from '../../utils/key-code'
     let uuid = 0;
     export default {
         name: 'Dialog',

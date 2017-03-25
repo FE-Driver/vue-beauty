@@ -1,4 +1,4 @@
 import "./style/inputNumber.less"
-import vInputNumber from './inputNumber.vue'
+import vInputNumber from './input-number.vue'
 
 export default vInputNumber

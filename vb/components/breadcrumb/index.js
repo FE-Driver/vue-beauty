@@ -1,6 +1,6 @@
 import './style/index.less';
 import breadcrumb from './breadcrumb.vue';
-import breadcrumbItem from './breadcrumbItem.vue';
+import breadcrumbItem from './breadcrumb-item.vue';
 
 breadcrumb.item = breadcrumbItem;
 

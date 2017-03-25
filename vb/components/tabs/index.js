@@ -1,6 +1,6 @@
 import "./style/index.less"
 import tabs from './tabs.vue'
-import tabPane from './tabPane.vue'
+import tabPane from './tab-pane.vue'
 
 tabs.pane = tabPane;
 

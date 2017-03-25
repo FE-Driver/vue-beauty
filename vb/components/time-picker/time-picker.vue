@@ -14,7 +14,7 @@
 <script lang="babel">
     import {t} from '../../locale'
     import emitter from '../../mixins/emitter';
-    import timePickerOption from './timePickerOption'
+    import timePickerOption from './time-picker-option'
     import {getOffset, closeByElement} from '../../utils/fn'
 
     export default {

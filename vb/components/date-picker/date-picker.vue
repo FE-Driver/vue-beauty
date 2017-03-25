@@ -94,7 +94,7 @@
     import Locale from '../../mixins/locale'
     import {getOffset} from '../../utils/fn'
     import emitter from '../../mixins/emitter';
-    import timePickerPanel from '../timePicker/timePickerOption.vue'
+    import timePickerPanel from '../time-picker/time-picker-option.vue'
     const _t = Locale.methods.t
 
     export default {
