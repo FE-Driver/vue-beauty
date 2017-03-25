@@ -136,5 +136,5 @@ export default{
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | :事件 | 显示或关闭tip的触发事件,支持hover或focus | String |  hover |
-| .位置 | 气泡框位置，可选 `top` `left` `right` `bottom` `topstart` `topend` `bottomstart` `bottomend` `leftstart` `leftend` `rightstart` `rightend` | string     | top    |
+| .位置 | 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | string     | top    |
 | .controlled | 是否保持tooltip的显示 | -- |  -- |

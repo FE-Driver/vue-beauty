@@ -141,7 +141,9 @@ module.exports = {
         //include: [resolve('src'), resolve('vb'), resolve('test')],
         include: [
           resolve('src/docs/zh-cn/progress.md'),
-          resolve('vb/components/progress')
+          resolve('vb/components/progress'),
+          resolve('src/docs/zh-cn/popover.md'),
+          resolve('vb/components/popover'),
         ],
         options: {
           formatter: require('eslint-friendly-formatter')

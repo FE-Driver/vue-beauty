@@ -9,11 +9,18 @@ export default {
             type: String,
             default: 'bottom'
         },
-
+        boundariesPadding: {
+            type: Number,
+            default: 5
+        },
         reference: Object,
         popper: Object,
         offset: {
             default: 0
+        },
+        value: {
+            type: Boolean,
+            default: false
         },
         transition: String,
         options: {
@@ -21,24 +28,46 @@ export default {
             default () {
                 return {
                     gpuAcceleration: false,
-                    boundariesElement: 'body'
+                    boundariesElement: 'body'    // todo 暂时注释，发现在 vue 2 里方向暂时可以自动识别了，待验证(还是有问题的)
                 };
             }
-        }
+        },
+        // visible: {
+        //     type: Boolean,
+        //     default: false
+        // }
+    },
+    data () {
+        return {
+            visible: this.value
+        };
     },
     watch: {
-        isVisible(val) {
+        value: {
+            immediate: true,
+            handler(val) {
+                this.visible = val;
+                this.$emit('input', val);
+            }
+        },
+        visible(val) {
             if (val) {
                 this.updatePopper();
             } else {
                 this.destroyPopper();
                 this.$emit('hide');
             }
+            this.$emit('input', val);
         }
+    },
+    computed: {
+        _placement() {
+            return this.placement.replace(/Left|Top/g, '-start').replace(/Right|Bottom/g, '-end');
+        },
     },
     methods: {
         createPopper() {
-            if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this.placement)) {
+            if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this._placement)) {
                 return;
             }
 
@@ -52,8 +81,9 @@ export default {
                 this.popperJS.destroy();
             }
 
-            options.placement = this.placement;
+            options.placement = this._placement;
             options.offset = this.offset;
+
             this.popperJS = new Popper(reference, popper, options);
             this.popperJS.onCreate(popper => {
                 this.resetTransformOrigin(popper);
@@ -63,7 +93,6 @@ export default {
         },
         updatePopper() {
             this.popperJS ? this.popperJS.update() : this.createPopper();
-
         },
         doDestroy() {
             if (this.visible) return;

@@ -136,6 +136,9 @@ export default {
                     name: 'Tag 标签',
                     link: { name:'tag'}
                 },{
+                    name: 'Popover 气泡卡片',
+                    link: { name:'popover'}
+                },{
                     name: 'Tooltip 文字提示',
                     link: { name:'tooltip'}
                 },{

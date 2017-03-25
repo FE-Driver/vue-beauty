@@ -33,10 +33,11 @@ import upload from './upload';
 import notification from './notification';
 import form from './form';
 import tooltip from './tooltip';
-import tooltipd from '../directive/tooltip';
+import tooltipd from '../directives/tooltip';
 import dataTable from './data-table';
 import tree from './tree';
 import progressLine from './progress';
+import Popover from './popover';
 import locale from '../locale';
 
 const components = {
@@ -89,6 +90,7 @@ const components = {
     dataTable,
     tree,
     progressLine,
+    Popover,
 };
 
 message.install = function (Vue) {

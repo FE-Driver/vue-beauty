@@ -3,8 +3,8 @@
         <div :class="[prefixCls + '-rel']" ref="reference">
             <slot></slot>
         </div>
-        <transition name="fade" >
-            <div :class="[prefixCls + '-popper']" ref="popper" v-show="!disabled && isVisible">
+        <transition name="fade">
+            <div :class="[prefixCls + '-popper']" ref="popper" v-show="!disabled && (visible || always)">
                 <div :class="[prefixCls + '-content']">
                     <div :class="[prefixCls + '-arrow']"></div>
                     <div :class="[prefixCls + '-inner']"><slot name="content">{{ content }}</slot></div>
@@ -13,69 +13,67 @@
         </transition>
     </div>
 </template>
-
-<script lang="babel">
+<script>
     import Popper from '../../mixins/popper';
-    const prefixCls = 'ant-tooltip';
-    const placements = ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']
+
+    const placements = ['top', 'topLeft', 'topRight', 'bottom', 'bottomLeft', 'bottomRight', 'left', 'leftTop', 'leftBottom', 'right', 'rightTop', 'rightBottom'];
 
     export default {
         name: 'Tooltip',
         mixins: [Popper],
         props: {
             placement: {
-                default: 'top',
-                validator: function(value) {
-                    for (let i = 0; i < placements.length; i++) {
-                        if (value === placements[i]) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
+                validator(value) {
+                    return placements.includes(value);
+                },
+                default: 'bottom',
             },
             content: {
                 type: [String, Number],
-                default: ''
+                default: '',
             },
             delay: {
                 type: Number,
-                default: 0
+                default: 0,
             },
             disabled: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             controlled: {    // under this prop,Tooltip will not close when mouseleave
                 type: Boolean,
-                default: false
+                default: false,
             },
-            visible: {    // under this prop,Tooltip will not close when mouseleave
+            initVisible: {
                 type: Boolean,
-                default: false
-            }
+                default: false,
+            },
+            always: {
+                type: Boolean,
+                default: false,
+            },
         },
-        data () {
+        data() {
             return {
-                prefixCls: prefixCls,
-                isVisible: false,
+                prefixCls: 'ant-tooltip',
             };
         },
         methods: {
             handleShowPopper() {
                 this.timeout = setTimeout(() => {
-                    this.isVisible = true;
+                    this.visible = true;
                 }, this.delay);
             },
             handleClosePopper() {
                 clearTimeout(this.timeout);
                 if (!this.controlled) {
-                    this.isVisible = false;
+                    this.visible = false;
                 }
-            }
+            },
         },
-        mounted () {
-            this.isVisible = this.visible;
+        mounted() {
+            this.visible = this.initVisible;
         },
     };
 </script>
+

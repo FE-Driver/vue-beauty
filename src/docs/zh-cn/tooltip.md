@@ -26,18 +26,10 @@
 <script>
 
 export default {
-    data: function () {
-        return {
-          disabled: true,
-          visible : true,
-          delay :1000,
-          controlled : true
-        }
-    },
     methods: {
-        popperHide :function() {
+        popperHide() {
             console.log('tooltip hide');
-          }
+        }
     }
 }
 </script>
@@ -59,75 +51,68 @@ export default {
 
 ```html
 <template>
-<div class="box">
-    <div class="top">
-        <v-tooltip placement="top-start" :controlled="controlled">
-             <v-button>上左</v-button>
-             <template slot="content">
-                <p>top-start 文字提示</p>
-                <p>top-start 文字提示</p>
-                <p>top-start 文字提示</p>
-             </template>
-        </v-tooltip>
-        <v-tooltip content="top 文字提示,初始可见" placement="top" :visible="visible">
-            <v-button>上边</v-button>
-        </v-tooltip>
-        <v-tooltip content="top-end 不可用tooltip" placement="top-end" :disabled="disabled">
-            <v-button>上右</v-button>
-        </v-tooltip>
-    </div>
-    <div class="left">
-        <v-tooltip content="left-start 文字提示" placement="left-start" @hide="popperHide">
-            <v-button>左上</v-button>
-         </v-tooltip>
-         <v-tooltip content="left 文字提示" placement="left">
-            <v-button>左边</v-button>
-         </v-tooltip>
-         <v-tooltip content="left-end 文字提示" placement="left-end">
-            <v-button>左下</v-button>
-         </v-tooltip>
-    </div>
+    <div class="box">
+        <div class="top">
+            <v-tooltip placement="topLeft" controlled>
+                <v-button>上左</v-button>
+                <template slot="content">
+                    <p>topLeft 文字提示</p>
+                    <p>topLeft 文字提示</p>
+                    <p>topLeft 文字提示</p>
+                </template>
+            </v-tooltip>
+            <v-tooltip content="top 文字提示,初始可见" placement="top" init-visible>
+                <v-button>上边</v-button>
+            </v-tooltip>
+            <v-tooltip content="topRight 不可用tooltip" placement="topRight" disabled>
+                <v-button>上右</v-button>
+            </v-tooltip>
+        </div>
+        <div class="left">
+            <v-tooltip content="leftTop 文字提示" placement="leftTop" @hide="popperHide">
+                <v-button>左上</v-button>
+            </v-tooltip>
+            <v-tooltip content="left 文字提示" placement="left">
+                <v-button>左边</v-button>
+            </v-tooltip>
+            <v-tooltip content="leftBottom 文字提示" placement="leftBottom">
+                <v-button>左下</v-button>
+            </v-tooltip>
+        </div>
 
-    <div class="right">
-        <v-tooltip content="right-start 文字提示" placement="right-start">
-            <v-button>右上</v-button>
-        </v-tooltip>
-        <v-tooltip content="right 文字提示" placement="right">
-            <v-button>右边</v-button>
-        </v-tooltip>
-        <v-tooltip content="right-end 文字提示" placement="right-end">
-            <v-button>右下</v-button>
-        </v-tooltip>
+        <div class="right">
+            <v-tooltip content="rightTop 文字提示" placement="rightTop">
+                <v-button>右上</v-button>
+            </v-tooltip>
+            <v-tooltip content="right 文字提示" placement="right">
+                <v-button>右边</v-button>
+            </v-tooltip>
+            <v-tooltip content="rightBottom 文字提示" placement="rightBottom">
+                <v-button>右下</v-button>
+            </v-tooltip>
+        </div>
+        <div class="bottom">
+            <v-tooltip content="bottomLeft 文字提示" placement="bottomLeft">
+                <v-button>下左</v-button>
+            </v-tooltip>
+            <v-tooltip content="bottom 文字提示" placement="bottom">
+                <v-button>下边</v-button>
+            </v-tooltip>
+            <v-tooltip content="bottomRight 文字提示" placement="bottomRight">
+                <v-button>下右</v-button>
+                <div slot="content">
+                    <span style="color:#AAA">自定义提示内容</span>
+                <div>
+            </v-tooltip>
+        </div>
     </div>
-    <div class="bottom">
-        <v-tooltip content="bottom-start 文字提示" placement="bottom-start">
-            <v-button>下左</v-button>
-        </v-tooltip>
-        <v-tooltip content="bottom 文字提示" placement="bottom">
-            <v-button>下边</v-button>
-        </v-tooltip>
-        <v-tooltip content="bottom-end 文字提示" placement="bottom-end">
-            <v-button>下右</v-button>
-            <div slot="content">
-                <span style="color:#AAA">自定义提示内容</span>
-            <div>
-        </v-tooltip>
-    </div>
-</div>
 </template>
 <script>
 export default {
-    data: function () {
-        return {
-          visible : false,
-          disabled : true,
-          controlled : true
-        }
-    },
     methods: {
-        popperHide :function() {
+        popperHide() {
             console.log('tooltip hide');
-          }
+        }
     }
   }
 </script>
@@ -168,20 +153,9 @@ export default {
 </summary>
 
 ```html
-<template>
-<v-tooltip content="延时1秒展示" placement="top-start" :delay="delay">
+<v-tooltip content="延时1秒展示" placement="topLeft" :delay="1000">
     <v-button>延时展示</v-button>
 </v-tooltip>
-</template>
-<script>
-export default {
-    data: function () {
-        return {
-            delay: 1000
-        }
-    },
-  }
-</script>
 ```
 :::
 
@@ -190,10 +164,10 @@ export default {
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `top-start` `top-end` `bottom-start` `bottom-end` `left-start` `left-end` `right-start` `right-end` | String     | top    |
+| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | String     | top    |
 | content | 显示的内容 | String/Number	 |  - |
 | content:slot | 显示的内容 | Slot Node	 |  - |
-| visible | 初始状态是否显示tooltip | Boolean |  false |
+| init-visible | 初始状态是否显示tooltip | Boolean |  false |
 | delay | 鼠标移入后延时多少才显示tooltip,单位:毫秒| Number |  0 |
 | disabled | tooltip是否可用 | Boolean |  false |
 | controlled | 保持tooltop显示 | Boolean |  false |
