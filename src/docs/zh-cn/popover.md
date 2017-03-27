@@ -211,5 +211,6 @@ export default {
 | title    | 卡片标题 | String | - |
 | placement | 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | String | top |
 | trigger | 触发行为，可选 `hover/focus/click` | String | hover |
+| overlay-style | 卡片样式 | String/Object | - |
 | title:slot | 卡片标题，优先级高于title prop | Slot Node | - |
 | content:slot | 卡片内容 | Slot Node | - |

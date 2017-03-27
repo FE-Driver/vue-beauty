@@ -1,8 +1,10 @@
 <template>
-    <div class="ant-popover-wrapper" style="display:inline-block" ref="reference" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave" @click="handleClick" @mousedown="handleFocus(false)" @mouseup="handleBlur(false)" v-clickoutside="handleClose">
-        <slot></slot>
+    <div class="ant-popover-wrapper" style="display:inline-block" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave" v-clickoutside="handleClose">
+        <div @click="handleClick" style="display:inline-block" ref="reference" @mousedown="handleFocus(false)" @mouseup="handleBlur(false)">
+            <slot></slot>
+        </div>
         <transition name="fade">
-            <div ref="popper" :class="`ant-popover ant-popover-placement-${placement}`" v-show="visible">
+            <div ref="popper" :class="`ant-popover ant-popover-placement-${placement}`" v-show="visible" :style="overlayStyle">
                 <div class="ant-popover-content">
                     <div class="ant-popover-arrow"></div>
                     <div class="ant-popover-inner">
@@ -32,6 +34,7 @@
         }),
         props: {
             title: String,
+            overlayStyle: [Object, String],
             placement: {
                 validator(value) {
                     return placements.includes(value);
@@ -97,7 +100,6 @@
             },
         },
         mounted() {
-            document.body.appendChild(this.$refs.popper);
             // if trigger and children is input or textarea,listen focus & blur event
             if (this.trigger === 'focus') {
                 const $children = this.getInputChildren();
