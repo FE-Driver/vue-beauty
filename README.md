@@ -5,26 +5,28 @@ Beautiful  UI components build with vue and ant design
 - [Ant.Design官网](http://beta.ant.design/)
 - 本项目采用vue2和ant deisgn2.0进行开发
 
-## 警告（WARNING）
-您可以通过 `npm install vue-beauty@beta -S` 或者 `yarn add vue-beauty@beta` 来体验，但不推荐在生产环境使用（still developing,not suggesting to use in production）
-
-
-**(持续更新中。。。)**
+## 如何体验（How to experience）
+Still developing,not suggesting to use in production!
+- clone本项目，并切换到next分支，本地编译后(npm run build)，然后用npm或yarn直接从本地文件系统进行安装(推荐)
+- clone本项目，并切换到next分支，然后在您的项目手动引入[issue160](https://github.com/FE-Driver/vue-beauty/issues/160)
+- 也可以通过 `npm install vue-beauty@beta -S` 或者 `yarn add vue-beauty@beta` 来体验，但不推荐在生产环境使用，并且npm包更新得并不及时
 
 ## 目录结构
 <pre>
     VUE-BEAUTY/
     |-- build               存放webpack的配置
-    |-- components          存放组件
-    |   |-- rate            rate组件
-    |   |   `-- style       存放组件的样式
-    |   |-- style           组件的通用基础样式
-    |   `--utils            一些工具方法
+    |-- vb                  组件库
+    |   |-- components      组件
+    |   |-- directives      指令
+    |   |-- locale          多语言
+    |   |-- mixins          混合
+    |   |-- style           核心样式
+    |   |-- utils           工具方法
+    |   `-- index.js        入口
     `-- src                 存放文档
         |-- views           视图页面
         |-- docs            组件文档
         |-- components      业务组件
-        |-- views           组件的说明文档
         |-- main.js         入口
         `-- routers.js      路由
 </pre>
@@ -40,7 +42,7 @@ Beautiful  UI components build with vue and ant design
 
 ## 开发步骤
 - 到[ant-design2.0](https://github.com/ant-design/ant-design/tree/master/components)官网拷贝相应的样式到对应组件的style文件夹下，并在组件vue文件里面引入
-- 开发完组件后，需要在components/index.js里面导出
+- 开发完组件后，需要在vb/components/index.js里面导出
 - 到src/docs下编写组件的使用文档
 - 同时在下列文件：src/routers.js、src/views/components.vue，添加组件的路由和链接
 
