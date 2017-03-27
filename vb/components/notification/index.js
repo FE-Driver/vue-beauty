@@ -54,6 +54,9 @@ export default {
   warning (config) {
     return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, 'warning')
   },
+  open (config) {
+    return notice(config.message, config.description, config.duration, config.onClose, config.selfKey, '')
+  },
   close (selfKey) {
     close(selfKey)
   },

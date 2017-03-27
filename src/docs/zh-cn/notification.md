@@ -23,7 +23,7 @@
         },
         methods: {
             openNotification() {
-                this.$notification.info({
+                this.$notification.open({
                   message: '这是标题',
                   description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
                   onClose: close
@@ -88,7 +88,7 @@
     export default {
         methods: {
             openNotification() {
-                this.$notification.info({
+                this.$notification.open({
                   message: '这是标题',
                   description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
                   onClose: close

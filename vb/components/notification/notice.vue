@@ -3,7 +3,7 @@
     <div class="ant-notification-notice" transition="notification">
         <div class="ant-notification-notice-content">
             <div :class="type ? `${prefixCls}-with-icon`: ''">
-                <icon v-if="type" :class="[`${prefixCls}-icon ${prefixCls}-icon-${this.type}`]" :type="iconType"></icon>
+                <i v-if="type" :class="`${prefixCls}-icon ${prefixCls}-icon-${type} anticon anticon-${iconType}`"></i>
                 <div class="ant-notification-notice-message" v-text="message"></div>
                 <div class="ant-notification-notice-description" v-text="description"></div>
             </div>
@@ -16,8 +16,6 @@
 </template>
 
 <script lang="babel">
-    import icon from '../icon'
-    const prefixCls = 'ant-notification-notice'
     export default {
         props: {
             message: {
@@ -44,9 +42,9 @@
                 default : 4.5
             }
         },
-        data: function () {
+        data() {
             return {
-              prefixCls: prefixCls,
+              prefixCls: 'ant-notification-notice',
               closeTimer:null
             }
         },
@@ -82,9 +80,5 @@
                 this.$emit('close', this.selfKey)
             }
         },
-        components: {
-            icon
-        }
     }
-
 </script>
