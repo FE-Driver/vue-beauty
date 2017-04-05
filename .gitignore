@@ -2,7 +2,8 @@
 node_modules/
 dist/
 npm-debug.log*
-yarn-error.log
+yarn-debug.log*
+yarn-error.log*
 selenium-debug.log
 package/style.js
 package/style.min.js

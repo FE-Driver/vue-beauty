@@ -46,7 +46,10 @@
                 }];
             },
             siderStyle() {
-                return {flex: `0 0 ${this.currentCollapsed ? this.collapsedWidth : this.width}px`};
+                return {
+                    flex: `0 0 ${this.currentCollapsed ? this.collapsedWidth : this.width}px`,
+                    width: `${this.currentCollapsed ? this.collapsedWidth : this.width}px`
+                };
             }
         },
         watch: {
