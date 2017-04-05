@@ -1,12 +1,10 @@
 <template>
-    <input v-if="!hasbefore && !hasafter && type!='textarea'" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" autocomplete="off" @blur="blur"/>
+    <input v-if="!hasbefore && !hasafter" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" autocomplete="off" @blur="blur"/>
     <span v-else :class="wrapClasses">
         <span v-if="hasbefore" class="ant-input-group-addon">
             <slot name="before"></slot>
         </span>
-        <textarea v-if="type ==='textarea'" type="textarea" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" @blur="blur">
-        </textarea>
-        <input v-else :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" autocomplete="off" @blur="blur"/>
+        <input :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled" :value="innerValue" @input="handleInput" autocomplete="off" @blur="blur"/>
         <span v-if="hasafter" class="ant-input-group-addon">
             <slot name="after"></slot>
         </span>
