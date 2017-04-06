@@ -1,403 +1,481 @@
 <template lang="html">
+    <div>
+        <section class="markdown">
+            <h1>Layout 布局</h1>
+            <p>
+                协助进行页面级整体布局。
+            </p>
 
-  <div>
+            <h2>设计规则</h2>
+            <h3>尺寸</h3>
+            <p>
+                一级导航项偏左靠近 logo 放置，辅助菜单偏右放置。
+            </p>
+            <ul>
+                <li>顶部导航（大部分系统）：一级导航高度 64px，二级导航 48px。</li>
+                <li>顶部导航（展示类页面）：一级导航高度 80px，二级导航 56px。</li>
+                <li>顶部导航高度的范围计算公式为：48+8n。</li>
+                <li>侧边导航宽度的范围计算公式：200+8n。</li>
+            </ul>
 
-    <section class="markdown">
-      <h1>Layout 布局</h1>
-      <p>
-        可协助进行页面级整体布局。
-      </p>
-      <h2>概述</h2>
-      <ul>
-        <li>Layout：布局容器，其下可嵌套 Header Sider Content Footer 或 Layout 本身。</li>
-        <li>Header：顶部布局，自带默认样式。</li>
-        <li>Sider：侧边栏，自带默认样式及基本功能。</li>
-        <li>Content：内容部分，自带默认样式。</li>
-        <li>Footer：底部布局，自带默认样式。</li>
-      </ul>
-      <blockquote><p>注意：采用 flex 布局实现，请注意<a href="http://caniuse.com/#search=flex">浏览器兼容性</a>问题。</p></blockquote>
-      <h2>组件演示</h2>
-    </section>
+            <h3>交互</h3>
+            <ul>
+                <li>一级导航和末级的导航需要在可视化的层面被强调出来；</li>
+                <li>当前项应该在呈现上优先级最高</li>
+                <li>当导航收起的时候，当前项的样式自动赋予给它的上一个层级；</li>
+                <li>左侧导航栏的收放交互同时支持手风琴和全展开的样式，根据业务的要求进行适当的选择。</li>
+            </ul>
 
-    <v-row>
+            <h3>视觉</h3>
+            <p>导航样式上需要根据信息层级合理的选择样式：</p>
+            <ul>
+                <li>
+                    <b>大色块强调</b>
+                    <p>建议用于底色为深色系时，当前页面父级的导航项。</p>
+                </li>
+                <li>
+                    <b>高亮火柴棍</b>
+                    <p>当导航栏底色为浅色系时使用，可用于当前页面对应导航项，建议尽量在导航路径的最终项使用。</p>
+                </li>
+                <li>
+                    <b>字体高亮变色</b>
+                    <p>从可视化层面，字体高亮的视觉强化力度低于大色块，通常在当前项的上一级使用。</p>
+                </li>
+                <li>
+                    <b>字体放大</b>
+                    <p>12px、14px 是导航的标准字号，14 号字体用在一、二级导航中。字号可以考虑导航项的等级做相应选择。</p>
+                </li>
+            </ul>
 
-      <v-col>
+            <h2>概述</h2>
+            <ul>
+                <li>Layout：布局容器，其下可嵌套 Header Sider Content Footer 或 Layout 本身，可以放在任何父容器中。</li>
+                <li>Header：顶部布局，自带默认样式，其下可嵌套任何元素，只能放在 Layout 中。</li>
+                <li>Sider：侧边栏，自带默认样式及基本功能，其下可嵌套任何元素，只能放在 Layout 中。</li>
+                <li>Content：内容部分，自带默认样式，其下可嵌套任何元素，只能放在 Layout 中。</li>
+                <li>Footer：底部布局，自带默认样式，其下可嵌套任何元素，只能放在 Layout 中。</li>
+            </ul>
+            <blockquote><p>注意：采用 flex 布局实现，请注意<a href="http://caniuse.com/#search=flex">浏览器兼容性</a>问题。</p></blockquote>
+            <h2>组件演示</h2>
+        </section>
 
-        <code-box
-          title="基本结构"
-          describe="典型的页面布局。"
-        >
-        <div class="components-layout-demo-basic"> 
-            <v-layout>
-                <v-header>Header</v-header>
-                <v-content>Content</v-content>
-                <v-footer>Footer</v-footer>
-            </v-layout>
-        </div>
+        <v-row>
+            <v-col>
+                <code-box title="基本结构"
+                          describe="典型的页面布局。">
+                    <div class="components-layout-demo-basic">
+                        <v-layout>
+                            <v-header>Header</v-header>
+                            <v-content>Content</v-content>
+                            <v-footer>Footer</v-footer>
+                        </v-layout>
+                    </div>
 
-        <div class="components-layout-demo-basic"> 
-            <v-layout>
-                <v-header>Header</v-header>
-                <v-layout>
-                    <v-sider>Sider</v-sider>
-                    <v-content>Content</v-content>
-                </v-layout>
-                <v-footer>Footer</v-footer>
-            </v-layout>
-        </div>
+                    <div class="components-layout-demo-basic">
+                        <v-layout>
+                            <v-header>Header</v-header>
+                            <v-layout>
+                                <v-sider>Sider</v-sider>
+                                <v-content>Content</v-content>
+                            </v-layout>
+                            <v-footer>Footer</v-footer>
+                        </v-layout>
+                    </div>
 
-        <div class="components-layout-demo-basic"> 
-            <v-layout>
-                <v-header>Header</v-header>
-                <v-layout>
-                    <v-content>Content</v-content>
-                    <v-sider>Sider</v-sider>
-                </v-layout>
-                <v-footer>Footer</v-footer>
-            </v-layout>
-        </div>
+                    <div class="components-layout-demo-basic">
+                        <v-layout>
+                            <v-header>Header</v-header>
+                            <v-layout>
+                                <v-content>Content</v-content>
+                                <v-sider>Sider</v-sider>
+                            </v-layout>
+                            <v-footer>Footer</v-footer>
+                        </v-layout>
+                    </div>
 
-        <div class="components-layout-demo-basic"> 
-            <v-layout>
-                    <v-sider>Sider</v-sider>
-                    <v-content>
-                        <v-header>Header</v-header>
-                        <v-content>Content</v-content>
-                        <v-footer>Footer</v-footer>
-                    </v-content>
-            </v-layout>
-        </div>
-        </code-box>
+                    <div class="components-layout-demo-basic">
+                        <v-layout>
+                            <v-sider>Sider</v-sider>
+                            <v-content>
+                                <v-header>Header</v-header>
+                                <v-content>Content</v-content>
+                                <v-footer>Footer</v-footer>
+                            </v-content>
+                        </v-layout>
+                    </div>
+                </code-box>
 
-       <code-box
-          title="上中下布局"
-          describe="最基本的『上-中-下』布局。"
-        >
-        <div id="components-layout-demo-top"> 
-            <v-layout class="layout">
-                <v-header>
-                    <div class="logo"></div>
-                    <v-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
-                        <v-menu-item>nav 1</v-menu-item>
-                        <v-menu-item>nav 2</v-menu-item>
-                        <v-menu-item>nav 3</v-menu-item>
-                    </v-menu>
-                </v-header>
-                <v-content :style="{ padding: '0 50px' }">
-                    <v-breadcrumbs :style="{ margin: '12px 0' }">
-                        <v-breadcrumb name="Home"></v-breadcrumb>
-                        <v-breadcrumb href="" name="List"></v-breadcrumb>
-                        <v-breadcrumb href="" name="App"></v-breadcrumb>
-                    </v-breadcrumbs>
-                    <div style="background: #fff; padding: 24px; min-height: 280px">Content</div>
-                </v-content>
-                <v-footer :style="{ textAlign: 'center' }">
-                    Ant Design ©2016 Created by Ant UED
-                </v-footer>
-            </v-layout>
-        </div>
-        </code-box>
+                <code-box title="上中下布局"
+                          describe="最基本的『上-中-下』布局。">
+                    <div id="components-layout-demo-top">
+                        <v-layout class="layout">
+                            <v-header>
+                                <div class="logo"></div>
+                                <v-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
+                                    <v-menu-item>nav 1</v-menu-item>
+                                    <v-menu-item>nav 2</v-menu-item>
+                                    <v-menu-item>nav 3</v-menu-item>
+                                </v-menu>
+                            </v-header>
+                            <v-content :style="{ padding: '0 50px' }">
+                                <v-breadcrumbs :style="{ margin: '12px 0' }">
+                                    <v-breadcrumb name="Home"></v-breadcrumb>
+                                    <v-breadcrumb href="" name="List"></v-breadcrumb>
+                                    <v-breadcrumb href="" name="App"></v-breadcrumb>
+                                </v-breadcrumbs>
+                                <div style="background: #fff; padding: 24px; min-height: 280px">Content</div>
+                            </v-content>
+                            <v-footer :style="{ textAlign: 'center' }">
+                                Ant Design ©2016 Created by Ant UED
+                            </v-footer>
+                        </v-layout>
+                    </div>
+                </code-box>
 
-        <code-box
-          title="顶部-侧边布局"
-          describe="多用在同时拥有顶部导航及侧边栏的页面。"
-        >
-        <div id="components-layout-demo-top-side">
-            <v-layout>
-                <v-header>
-                    <div class="logo"></div>
-                    <v-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
-                        <v-menu-item>nav 1</v-menu-item>
-                        <v-menu-item>nav 2</v-menu-item>
-                        <v-menu-item>nav 3</v-menu-item>
-                    </v-menu>
-                </v-header>
-                <v-content :style="{ padding: '0 50px' }">
-                    <v-breadcrumbs :style="{ margin: '12px 0' }">
-                        <v-breadcrumb name="Home"></v-breadcrumb>
-                        <v-breadcrumb href="" name="List"></v-breadcrumb>
-                        <v-breadcrumb href="" name="App"></v-breadcrumb>
-                    </v-breadcrumbs>
-                    <v-layout style="background: #fff; padding: 24px 0;">
-                        <v-sider :width="200" style="background: #fff">
-                            <v-menu mode="inline" style="width:240px" :expand="true">
-                                <v-sub-menu title="subnav1" icon="user">
-                                    <v-menu-item>option1</v-menu-item>
-                                    <v-menu-item>option2</v-menu-item>
-                                    <v-menu-item>option3</v-menu-item>
-                                    <v-menu-item>option4</v-menu-item>
-                                </v-sub-menu>
-                                <v-sub-menu title="subnav2" icon="laptop">
-                                    <v-menu-item>option5</v-menu-item>
-                                    <v-menu-item>option6</v-menu-item>
-                                    <v-menu-item>option7</v-menu-item>
-                                    <v-menu-item>option8</v-menu-item>
-                                </v-sub-menu>
-                                <v-sub-menu title="subnav3" icon="notification">
-                                    <v-menu-item>option9</v-menu-item>
-                                    <v-menu-item>option10</v-menu-item>
-                                    <v-menu-item>option11</v-menu-item>
-                                    <v-menu-item>option12</v-menu-item>
-                                </v-sub-menu>
-                            </v-menu>
-                        </v-sider>
-                        <v-content :style="{ padding: '0 24px', minHeight: 280 }">Content</v-content>
-                    </v-layout>
-                </v-content>
-                <v-footer :style="{ textAlign: 'center' }">
-                    Ant Design ©2016 Created by Ant UED
-                </v-footer>
-            </v-layout>
-        </div>
-        </code-box>
+                <code-box title="顶部-侧边布局"
+                          describe="多用在同时拥有顶部导航及侧边栏的页面。">
+                    <div id="components-layout-demo-top-side">
+                        <v-layout>
+                            <v-header>
+                                <div class="logo"></div>
+                                <v-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
+                                    <v-menu-item>nav 1</v-menu-item>
+                                    <v-menu-item>nav 2</v-menu-item>
+                                    <v-menu-item>nav 3</v-menu-item>
+                                </v-menu>
+                            </v-header>
+                            <v-content :style="{ padding: '0 50px' }">
+                                <v-breadcrumbs :style="{ margin: '12px 0' }">
+                                    <v-breadcrumb name="Home"></v-breadcrumb>
+                                    <v-breadcrumb href="" name="List"></v-breadcrumb>
+                                    <v-breadcrumb href="" name="App"></v-breadcrumb>
+                                </v-breadcrumbs>
+                                <v-layout style="background: #fff; padding: 24px 0;">
+                                    <v-sider :width="200" style="background: #fff">
+                                        <v-menu mode="inline" style="width:240px" :expand="true">
+                                            <v-sub-menu title="subnav1" icon="user">
+                                                <v-menu-item>option1</v-menu-item>
+                                                <v-menu-item>option2</v-menu-item>
+                                                <v-menu-item>option3</v-menu-item>
+                                                <v-menu-item>option4</v-menu-item>
+                                            </v-sub-menu>
+                                            <v-sub-menu title="subnav2" icon="laptop">
+                                                <v-menu-item>option5</v-menu-item>
+                                                <v-menu-item>option6</v-menu-item>
+                                                <v-menu-item>option7</v-menu-item>
+                                                <v-menu-item>option8</v-menu-item>
+                                            </v-sub-menu>
+                                            <v-sub-menu title="subnav3" icon="notification">
+                                                <v-menu-item>option9</v-menu-item>
+                                                <v-menu-item>option10</v-menu-item>
+                                                <v-menu-item>option11</v-menu-item>
+                                                <v-menu-item>option12</v-menu-item>
+                                            </v-sub-menu>
+                                        </v-menu>
+                                    </v-sider>
+                                    <v-content :style="{ padding: '0 24px', minHeight: 280 }">Content</v-content>
+                                </v-layout>
+                            </v-content>
+                            <v-footer :style="{ textAlign: 'center' }">
+                                Ant Design ©2016 Created by Ant UED
+                            </v-footer>
+                        </v-layout>
+                    </div>
+                </code-box>
 
-         <code-box
-          title="侧边布局"
-          describe="多用在两列式布局。"
-        >
-        <div id="components-layout-demo-side"> 
-            <v-layout>
-                <v-sider collapsible :collapsed="collapsed" @collapse="onCollapse">
-                    <div class="logo"></div>
-                    <v-menu theme="dark" mode="inline">
-                        <v-menu-item>
-                            <v-icon type="user"></v-icon>
-                            <span class="nav-text">nav 1</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="video-camera"></v-icon>
-                            <span class="nav-text">nav 2</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="upload"></v-icon>
-                            <span class="nav-text">nav 3</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="user"></v-icon>
-                            <span class="nav-text">nav 4</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="heart-o"></v-icon>
-                            <span class="nav-text">nav 5</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="team"></v-icon>
-                            <span class="nav-text">nav 6</span>
-                        </v-menu-item>
-                    </v-menu>
-                </v-sider>
-                <v-layout>
-                    <v-header :style="{ background: '#fff', padding: 0 }"></v-header>
-                    <v-content :style="{ padding: '0 50px' }">
-                        <v-breadcrumbs :style="{ margin: '12px 0' }">
-                            <v-breadcrumb name="Home"></v-breadcrumb>
-                            <v-breadcrumb href="" name="List"></v-breadcrumb>
-                            <v-breadcrumb href="" name="App"></v-breadcrumb>
-                        </v-breadcrumbs>
-                        <div style="padding: 24px; background: #fff; min-height: 360px;">Content</div>
-                    </v-content>
-                    <v-footer :style="{ textAlign: 'center' }">
-                        Ant Design ©2016 Created by Ant UED
-                    </v-footer>
-                </v-layout>
-            </v-layout>
-        </div>
-        <template slot="js">
-            export default {
-                data() {
-                    return {
-                        collapsed: false,
-                    }
-                },
-                methods: {
-                    onCollapse(val) {
-                        console.log("collapse state:",val)
-                    }
-                }
-            }
-        </template>
-        </code-box>
+                <code-box title="侧边布局"
+                          describe="多用在两列式布局。">
+                    <div id="components-layout-demo-side">
+                        <v-layout>
+                            <v-sider collapsible :collapsed="collapsed" @collapse="onCollapse">
+                                <div class="logo"></div>
+                                <v-menu theme="dark" mode="inline">
+                                    <v-menu-item>
+                                        <v-icon type="user"></v-icon>
+                                        <span class="nav-text">nav 1</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="video-camera"></v-icon>
+                                        <span class="nav-text">nav 2</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="upload"></v-icon>
+                                        <span class="nav-text">nav 3</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="user"></v-icon>
+                                        <span class="nav-text">nav 4</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="heart-o"></v-icon>
+                                        <span class="nav-text">nav 5</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="team"></v-icon>
+                                        <span class="nav-text">nav 6</span>
+                                    </v-menu-item>
+                                </v-menu>
+                            </v-sider>
+                            <v-layout>
+                                <v-header :style="{ background: '#fff', padding: 0 }"></v-header>
+                                <v-content :style="{ padding: '0 50px' }">
+                                    <v-breadcrumbs :style="{ margin: '12px 0' }">
+                                        <v-breadcrumb name="Home"></v-breadcrumb>
+                                        <v-breadcrumb href="" name="List"></v-breadcrumb>
+                                        <v-breadcrumb href="" name="App"></v-breadcrumb>
+                                    </v-breadcrumbs>
+                                    <div style="padding: 24px; background: #fff; min-height: 360px;">Content</div>
+                                </v-content>
+                                <v-footer :style="{ textAlign: 'center' }">
+                                    Ant Design ©2016 Created by Ant UED
+                                </v-footer>
+                            </v-layout>
+                        </v-layout>
+                    </div>
+                    <template slot="js">
+                        export default {
+                            data() {
+                                return {
+                                    collapsed: false,
+                                }
+                            },
+                            methods: {
+                                onCollapse(val) {
+                                    console.log("collapse state:",val)
+                                }
+                            }
+                        }
+                    </template>
+                </code-box>
 
-        <code-box
-          title="自定义触发器"
-          describe="要使用自定义触发器，可以设置 :trigger="false" 来隐藏默认设定。"
-        >
-        <div id="components-layout-demo-custom-trigger"> 
-            <v-layout>
-                <v-sider collapsible :collapsed="customCollapsed" :trigger="false" :collapsed-width="100">
-                    <div class="logo"></div>
-                    <v-menu theme="dark" mode="inline">
-                        <v-menu-item>
-                            <v-icon type="user"></v-icon>
-                            <span class="nav-text">nav 1</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="video-camera"></v-icon>
-                            <span class="nav-text">nav 2</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="upload"></v-icon>
-                            <span class="nav-text">nav 3</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="user"></v-icon>
-                            <span class="nav-text">nav 4</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="heart-o"></v-icon>
-                            <span class="nav-text">nav 5</span>
-                        </v-menu-item>
-                        <v-menu-item>
-                            <v-icon type="team"></v-icon>
-                            <span class="nav-text">nav 6</span>
-                        </v-menu-item>
-                    </v-menu>
-                </v-sider>
-                <v-layout>
-                    <v-header :style="{ background: '#fff', padding: 0 }">
-                        <v-icon class="trigger" :type="this.customCollapsed ? 'menu-unfold' : 'menu-fold'" @click.native="toggle"></v-icon>
-                    </v-header>
-                    <v-content :style="{ padding: '0 50px' }">
-                        <v-breadcrumbs :style="{ margin: '12px 0' }">
-                            <v-breadcrumb name="Home"></v-breadcrumb>
-                            <v-breadcrumb href="" name="List"></v-breadcrumb>
-                            <v-breadcrumb href="" name="App"></v-breadcrumb>
-                        </v-breadcrumbs>
-                        <div style="padding: 24px; background: #fff; min-height: 360px;">Content</div>
-                    </v-content>
-                    <v-footer :style="{ textAlign: 'center' }">
-                        Ant Design ©2016 Created by Ant UED
-                    </v-footer>
-                </v-layout>
-            </v-layout>
-        </div>
-        <template slot="js">
-            export default {
-                data() {
-                    return {
-                        customCollapsed: false,
-                    }
-                },
-                methods: {
-                    toggle() {
-                        this.customCollapsed = !this.customCollapsed;
-                    }
-                }
-            }
-        </template>
-        </code-box>
-
-      </v-col>
-
-    </v-row>
+                <code-box title="自定义触发器"
+                          describe="要使用自定义触发器，可以设置 :trigger='false'来隐藏默认设定。">
+                    <div id="components-layout-demo-custom-trigger">
+                        <v-layout>
+                            <v-sider collapsible :collapsed="customCollapsed" :trigger="false" :collapsed-width="100">
+                                <div class="logo"></div>
+                                <v-menu theme="dark" mode="inline">
+                                    <v-menu-item>
+                                        <v-icon type="user"></v-icon>
+                                        <span class="nav-text">nav 1</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="video-camera"></v-icon>
+                                        <span class="nav-text">nav 2</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="upload"></v-icon>
+                                        <span class="nav-text">nav 3</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="user"></v-icon>
+                                        <span class="nav-text">nav 4</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="heart-o"></v-icon>
+                                        <span class="nav-text">nav 5</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="team"></v-icon>
+                                        <span class="nav-text">nav 6</span>
+                                    </v-menu-item>
+                                </v-menu>
+                            </v-sider>
+                            <v-layout>
+                                <v-header :style="{ background: '#fff', padding: 0 }">
+                                    <v-icon class="trigger" :type="this.customCollapsed ? 'menu-unfold' : 'menu-fold'"
+                                            @click.native="toggle"></v-icon>
+                                </v-header>
+                                <v-content :style="{ padding: '0 50px' }">
+                                    <v-breadcrumbs :style="{ margin: '12px 0' }">
+                                        <v-breadcrumb name="Home"></v-breadcrumb>
+                                        <v-breadcrumb href="" name="List"></v-breadcrumb>
+                                        <v-breadcrumb href="" name="App"></v-breadcrumb>
+                                    </v-breadcrumbs>
+                                    <div style="padding: 24px; background: #fff; min-height: 360px;">Content</div>
+                                </v-content>
+                                <v-footer :style="{ textAlign: 'center' }">
+                                    Ant Design ©2016 Created by Ant UED
+                                </v-footer>
+                            </v-layout>
+                        </v-layout>
+                    </div>
+                    <template slot="js">
+                        export default {
+                            data() {
+                                return {
+                                    customCollapsed: false,
+                                }
+                            },
+                            methods: {
+                                toggle() {
+                                    this.customCollapsed = !this.customCollapsed;
+                                }
+                            }
+                        }
+                    </template>
+                </code-box>
 
 
-    <api-table
-      :content='content'
-    >
-      <h3>Sider</h3>
-    </api-table>
+                <code-box title="响应式布局"
+                          describe="Layout.Sider 支持响应式布局。说明：配置 breakpoint 属性即生效，视窗宽度小于 breakpoint 时 Sider 缩小为 collapsedWidth 宽度，若将 collapsedWidth 设置为零，会出现特殊 trigger。">
+                    <div id="components-layout-demo-responsive">
+                        <v-layout>
+                            <v-sider breakpoint="lg" :collapsed-width="0">
+                                <div class="logo"></div>
+                                <v-menu theme="dark" mode="inline">
+                                    <v-menu-item>
+                                        <v-icon type="user"></v-icon>
+                                        <span class="nav-text">nav 1</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="video-camera"></v-icon>
+                                        <span class="nav-text">nav 2</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="upload"></v-icon>
+                                        <span class="nav-text">nav 3</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="user"></v-icon>
+                                        <span class="nav-text">nav 4</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="heart-o"></v-icon>
+                                        <span class="nav-text">nav 5</span>
+                                    </v-menu-item>
+                                    <v-menu-item>
+                                        <v-icon type="team"></v-icon>
+                                        <span class="nav-text">nav 6</span>
+                                    </v-menu-item>
+                                </v-menu>
+                            </v-sider>
+                            <v-layout>
+                                <v-header :style="{ background: '#fff', padding: 0 }">
+                                </v-header>
+                                <v-content :style="{ padding: '0 50px' }">
+                                    <v-breadcrumbs :style="{ margin: '12px 0' }">
+                                        <v-breadcrumb name="Home"></v-breadcrumb>
+                                        <v-breadcrumb href="" name="List"></v-breadcrumb>
+                                        <v-breadcrumb href="" name="App"></v-breadcrumb>
+                                    </v-breadcrumbs>
+                                    <div style="padding: 24px; background: #fff; min-height: 360px;">Content</div>
+                                </v-content>
+                                <v-footer :style="{ textAlign: 'center' }">
+                                    Ant Design ©2016 Created by Ant UED
+                                </v-footer>
+                            </v-layout>
+                        </v-layout>
+                    </div>
+                </code-box>
+            </v-col>
 
-    <api-table
-      title=""
-      type="events"
-      :content='eventContent'
-    >
-      <h3>Sider Events</h3>
-    </api-table>
+        </v-row>
 
-  </div>
+        <api-table :content='content'>
+            <h3>Sider</h3>
+        </api-table>
+
+        <api-table title="" type="events" :content='eventContent'>
+            <h3>Sider Events</h3>
+        </api-table>
+    </div>
 
 </template>
 
-<script>
+<script lang="babel">
 
-import codeBox from '../components/codeBox'
-import apiTable from '../components/apiTable'
+    import codeBox from '../components/codeBox'
+    import apiTable from '../components/apiTable'
 
-export default {
-  data: function () {
-    return {
-        collapsed: false,
-        customCollapsed: false,
-        content: [
-            [
-                'collapsible',
-                '是否可收起',
-                'boolean',
-                'false'
-            ],
-            [
-                'collapsed',
-                '当前收起状态',
-                'boolean',
-                'false'
-            ],
-            [
-                'trigger',
-                '是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger',
-                'boolean',
-                '-'
-            ],
-            [
-                'width',
-                '宽度',
-                'number',
-                '200'
-            ],
-            [
-                'collapsedWidth',
-                '收缩宽度，仅当 collapsed:true 时生效',
-                'number',
-                '64'
-            ],
-        ],
-        eventContent: [
-          ['collapse',
-          '展开-收起时触发',
-          'collapsed，当前收起状态']
-        ]
+    export default {
+        data: function () {
+            return {
+                collapsed: false,
+                customCollapsed: false,
+                content: [[
+                    'collapsible',
+                    '是否可收起',
+                    'boolean',
+                    'false'
+                ], [
+                    'collapsed',
+                    '当前收起状态',
+                    'boolean',
+                    'false'
+                ], [
+                    'trigger',
+                    '是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger',
+                    'boolean',
+                    '-'
+                ], [
+                    'width',
+                    '宽度',
+                    'number',
+                    '200'
+                ], [
+                    'collapsedWidth',
+                    '收缩宽度，仅当 collapsed:true 时生效',
+                    'number',
+                    '64'
+                ], [
+                    'breakpoint',
+                    '触发响应式布局的断点',
+                    "string { 'xs', 'sm', 'md', 'lg', 'xl' }",
+                    '-'
+                ]],
+                eventContent: [[
+                    'collapse',
+                    '展开-收起时触发',
+                    'collapsed，当前收起状态'
+                ]]
+            }
+        },
+        methods: {
+            onCollapse(val) {
+                console.log("collapse state:", val)
+            },
+            toggle() {
+                this.customCollapsed = !this.customCollapsed;
+            }
+        },
+        components: {
+            codeBox,
+            apiTable
+        }
     }
-  },
-  methods: {
-    onCollapse(val) {
-        console.log("collapse state:",val)
-    },
-    toggle() {
-        this.customCollapsed = !this.customCollapsed;
-    }
-  },
-  components: {
-    codeBox,
-    apiTable
-  }
-}
+
 </script>
 
 <style scoped lang="less">
-  .components-layout-demo-basic {
+    .components-layout-demo-basic {
         text-align: center;
         margin: 2rem;
     }
+
     .components-layout-demo-basic .ant-layout-header,
     .components-layout-demo-basic .ant-layout-footer {
         background: #7dbcea;
         color: #fff;
     }
+
     .components-layout-demo-basic .ant-layout-footer {
         line-height: 1.5;
     }
+
     .components-layout-demo-basic .ant-layout-sider {
         background: #3ba0e9;
         color: #fff;
         line-height: 120px;
     }
+
     .components-layout-demo-basic .ant-layout-content {
         background: rgba(16, 142, 233, 1);
         color: #fff;
         min-height: 120px;
         line-height: 120px;
     }
+
     #components-layout-demo-top .logo {
         width: 120px;
         height: 31px;
@@ -406,6 +484,7 @@ export default {
         margin: 16px 24px 16px 0;
         float: left;
     }
+
     #components-layout-demo-top-side .logo {
         width: 120px;
         height: 31px;
@@ -414,38 +493,69 @@ export default {
         margin: 16px 28px 16px 0;
         float: left;
     }
+
     #components-layout-demo-side .logo {
         height: 32px;
         background: #333;
         border-radius: 6px;
         margin: 16px;
     }
+
     #components-layout-demo-side .ant-layout-sider-collapsed .anticon {
         font-size: 16px;
     }
+
     #components-layout-demo-side .ant-layout-sider-collapsed .nav-text {
         display: none;
     }
+
     #components-layout-demo-custom-trigger .trigger {
         font-size: 18px;
         line-height: 64px;
         padding: 0 16px;
         cursor: pointer;
         transition: color .3s;
-     }
+    }
+
     #components-layout-demo-custom-trigger .trigger:hover {
         color: #108ee9;
     }
+
     #components-layout-demo-custom-trigger .logo {
         height: 32px;
         background: #333;
         border-radius: 6px;
         margin: 16px;
     }
+
     #components-layout-demo-custom-trigger .ant-layout-sider-collapsed .anticon {
         font-size: 16px;
     }
+
     #components-layout-demo-custom-trigger .ant-layout-sider-collapsed .nav-text {
+        display: none;
+    }
+
+    #components-layout-demo-responsive .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 16px;
+        cursor: pointer;
+        transition: color .3s;
+    }
+    #components-layout-demo-responsive .trigger:hover {
+        color: #108ee9;
+    }
+    #components-layout-demo-responsive .logo {
+        height: 32px;
+        background: #333;
+        border-radius: 6px;
+        margin: 16px;
+    }
+    #components-layout-demo-responsive .ant-layout-sider-collapsed .anticon {
+        font-size: 16px;
+    }
+    #components-layout-demo-responsive .ant-layout-sider-collapsed .nav-text {
         display: none;
     }
 </style>
