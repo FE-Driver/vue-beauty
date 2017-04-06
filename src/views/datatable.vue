@@ -318,8 +318,8 @@
                     },
                     {
                         parameter: 'otherParams',
-                        explain: '发送请求时需要额外附带的参数,后续完善文档',
-                        type: 'object',
+                        explain: '发送请求时需要额外附带的参数,如果传入function，需要该function执行后返回一个对象,后续完善文档',
+                        type: 'object|function',
                         default: '{}'
                     },
                     {

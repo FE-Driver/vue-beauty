@@ -182,7 +182,7 @@
             },
             // 发送请求时需要额外附带的参数
             otherParams:{
-                type: Object,
+                type: [Object, Function],
                 default: function () {
                     return {}
                 }
@@ -370,7 +370,7 @@
                 this.loading = true;
                 //拼装请求参数
                 const url = this.dataSource;
-                const remoteParams = Object.assign({}, this.sortParams, this.otherParams);
+                const remoteParams = Object.assign({}, this.sortParams, typeof this.otherParams === 'object' ? this.otherParams : this.otherParams());
                 remoteParams[this.paramsName.pageNumber] = params.pageNum || self.pageNum;
                 remoteParams[this.paramsName.pageSize] = this.pageSize;
 
@@ -611,7 +611,7 @@
                 this.loading = true;
                 //拼装请求参数
                 const url = this.dataSource;
-                const remoteParams = Object.assign({parentid:item.id}, this.sortParams, this.otherParams);
+                const remoteParams = Object.assign({parentid:item.id}, this.sortParams, typeof this.otherParams === 'object' ? this.otherParams : this.otherParams());
 
                 const response = await this.$http[this.httpType](url, remoteParams,{emulateJSON:true}).catch(()=> {
                     this.loading = false;
@@ -662,7 +662,9 @@
         },
         events:{
             reload:function (pageNum) {
-                this.reload(pageNum);
+                this.$nextTick(()=>{
+                    this.reload(pageNum);
+                })
             }
         },
         computed:{
