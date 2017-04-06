@@ -76,6 +76,29 @@
     #components-layout-demo-custom-trigger .ant-layout-sider-collapsed .nav-text {
         display: none;
     }
+
+    #components-layout-demo-responsive .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 16px;
+        cursor: pointer;
+        transition: color .3s;
+    }
+    #components-layout-demo-responsive .trigger:hover {
+        color: #108ee9;
+    }
+    #components-layout-demo-responsive .logo {
+        height: 32px;
+        background: #333;
+        border-radius: 6px;
+        margin: 16px;
+    }
+    #components-layout-demo-responsive .ant-layout-sider-collapsed .anticon {
+        font-size: 16px;
+    }
+    #components-layout-demo-responsive .ant-layout-sider-collapsed .nav-text {
+        display: none;
+    }
 </style>
 <script>
     export default {
@@ -163,6 +186,17 @@
                 },{
                     name: 'nav 3',
                     icon: 'upload'
+                }],
+                menuData5: [{
+                    name: 'nav 1',
+                    icon: 'user',
+                    selected: true
+                },{
+                    name: 'nav 2',
+                    icon: 'video-camera'
+                },{
+                    name: 'nav 3',
+                    icon: 'upload'
                 }]
             }
         },
@@ -180,15 +214,53 @@
 
 # Layout 布局
 
-可协助进行页面级整体布局。
+协助进行页面级整体布局。
 
-## 概述
+## 设计规则
 
-- `Layout`：布局容器，其下可嵌套 `Header` `Sider` `Content` `Footer` 或 `Layout` 本身。
-- `Header`：顶部布局，自带默认样式。
-- `Sider`：侧边栏，自带默认样式及基本功能。
-- `Content`：内容部分，自带默认样式。
-- `Footer`：底部布局，自带默认样式。
+### 尺寸
+
+一级导航项偏左靠近 logo 放置，辅助菜单偏右放置。
+
+- 顶部导航（大部分系统）：一级导航高度 `64px`，二级导航 `48px`。
+- 顶部导航（展示类页面）：一级导航高度 `80px`，二级导航 `56px`。
+- 顶部导航高度的范围计算公式为：`48+8n`。
+- 侧边导航宽度的范围计算公式：`200+8n`。
+
+### 交互
+
+- 一级导航和末级的导航需要在可视化的层面被强调出来；
+- 当前项应该在呈现上优先级最高；
+- 当导航收起的时候，当前项的样式自动赋予给它的上一个层级；
+- 左侧导航栏的收放交互同时支持手风琴和全展开的样式，根据业务的要求进行适当的选择。
+
+### 视觉
+
+导航样式上需要根据信息层级合理的选择样式：
+
+- **大色块强调**
+
+  建议用于底色为深色系时，当前页面父级的导航项。
+
+- **高亮火柴棍**
+
+  当导航栏底色为浅色系时使用，可用于当前页面对应导航项，建议尽量在导航路径的最终项使用。
+
+- **字体高亮变色**
+
+  从可视化层面，字体高亮的视觉强化力度低于大色块，通常在当前项的上一级使用。
+
+- **字体放大**
+
+  `12px`、`14px` 是导航的标准字号，14 号字体用在一、二级导航中。字号可以考虑导航项的等级做相应选择。
+
+## 组件概述
+
+- `Layout`：布局容器，其下可嵌套 `Header` `Sider` `Content` `Footer` 或 `Layout` 本身，可以放在任何父容器中。
+- `Header`：顶部布局，自带默认样式，其下可嵌套任何元素，只能放在 `Layout` 中。
+- `Sider`：侧边栏，自带默认样式及基本功能，其下可嵌套任何元素，只能放在 `Layout` 中。
+- `Content`：内容部分，自带默认样式，其下可嵌套任何元素，只能放在 `Layout` 中。
+- `Footer`：底部布局，自带默认样式，其下可嵌套任何元素，只能放在 `Layout` 中。
 
 > 注意：采用 flex 布局实现，请注意[浏览器兼容性](http://caniuse.com/#search=flex)问题。
 
@@ -196,7 +268,7 @@
 
 ::: demo
 <summary>
-  #### 基本
+  #### 基本结构
   典型的页面布局。
 </summary>
 
@@ -283,7 +355,7 @@
     <div id="components-layout-demo-top"> 
         <v-layout class="layout">
             <v-header>
-            <div class="logo"></div>
+                <div class="logo"></div>
                 <v-menu theme="dark" mode="horizontal" :data="menuData1" :style="{lineHeight: '64px'}"></v-menu>
             </v-header>
             <v-content :style="{ padding: '0 50px' }">
@@ -667,7 +739,7 @@
     </div>
 </template>
 
-<style>    
+<style>
     #components-layout-demo-custom-trigger .trigger {
         font-size: 18px;
         line-height: 64px;
@@ -720,6 +792,92 @@
 ```
 :::
 
+::: demo
+<summary>
+  #### 响应式布局
+  Layout.Sider 支持响应式布局。
+  > 说明：配置 `breakpoint` 属性即生效，视窗宽度小于 `breakpoint` 时 Sider 缩小为 `collapsedWidth` 宽度，若将 `collapsedWidth` 设置为零，会出现特殊 trigger。
+</summary>
+
+```html
+<template>
+    <div id="components-layout-demo-responsive"> 
+        <v-layout>
+            <v-sider breakpoint="lg" :collapsed-width="0">
+                <div class="logo"></div>
+                <v-menu theme="dark" mode="inline" :data="menuData5">
+                    <template scope="{data}">
+                        <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
+                        <span class="nav-text">{{data.name}}</span>
+                    </template>
+                </v-menu>
+            </v-sider>
+            <v-layout>
+                <v-header :style="{ background: '#fff', padding: 0 }">
+                </v-header>
+                <v-content :style="{ padding: '0 50px' }">
+                    <v-breadcrumb :style="{ margin: '12px 0' }">
+                        <v-breadcrumb-item>Home</v-breadcrumb-item>
+                        <v-breadcrumb-item href="">List</v-breadcrumb-item>
+                        <v-breadcrumb-item href="">App</v-breadcrumb-item>
+                    </v-breadcrumb>
+                    <div style="padding: 24px; background: #fff; min-height: 360px;">Content</div>
+                </v-content>
+                <v-footer :style="{ textAlign: 'center' }">
+                    Ant Design ©2016 Created by Ant UED
+                </v-footer>
+            </v-layout>
+        </v-layout>
+    </div>
+</template>
+
+<style>
+    #components-layout-demo-responsive .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 16px;
+        cursor: pointer;
+        transition: color .3s;
+    }
+    #components-layout-demo-responsive .trigger:hover {
+        color: #108ee9;
+    }
+    #components-layout-demo-responsive .logo {
+        height: 32px;
+        background: #333;
+        border-radius: 6px;
+        margin: 16px;
+    }
+    #components-layout-demo-responsive .ant-layout-sider-collapsed .anticon {
+        font-size: 16px;
+    }
+    #components-layout-demo-responsive .ant-layout-sider-collapsed .nav-text {
+        display: none;
+    }
+</style>
+
+<script>
+    export default {
+        data() {
+            return {
+                menuData5: [{
+                    name: 'nav 1',
+                    icon: 'user',
+                    selected: true
+                },{
+                    name: 'nav 2',
+                    icon: 'video-camera'
+                },{
+                    name: 'nav 3',
+                    icon: 'upload'
+                }]
+            }
+        }
+    }
+</script>
+```
+:::
+
 ## API
 
 ### Sider Props
@@ -731,6 +889,7 @@
 | trigger | 是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger | boolean | - |
 | width | 宽度 | number | `200` |
 | collapsedWidth | 收缩宽度，仅当 `collapsed: true` 时生效 | number | `64` |
+| breakpoint | 触发响应式布局的断点 | Enum { 'xs', 'sm', 'md', 'lg', 'xl' }  | - |
 
 ### Sider Events
 
