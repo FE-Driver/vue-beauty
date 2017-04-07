@@ -62,6 +62,10 @@ export default [{
         name: 'affix',
         component: require('./docs/zh-cn/affix.md'),
     }, {
+        path: 'backTop',
+        name: 'backTop',
+        component: require('./docs/zh-cn/back-top.md'),
+    }, {
         path: 'steps',
         name: 'steps',
         component: require('./docs/zh-cn/steps.md'),

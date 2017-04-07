@@ -73,6 +73,9 @@ export default {
                     name: 'Breadcrumb 面包屑',
                     link: { name:'breadcrumb'}
                 },{
+                    name: 'BackTop 回到顶部',
+                    link: { name:'backTop'}
+                },{
                     name: 'Menu 导航菜单',
                     link: { name:'menu'}
                 },{

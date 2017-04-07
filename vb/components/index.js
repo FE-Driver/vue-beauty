@@ -9,6 +9,7 @@ import card from './card';
 import rate from './rate';
 import menu from './menu';
 import affix from './affix';
+import backTop from './back-top';
 import { steps, step } from './steps';
 import pagination from './pagination';
 import tag from './tag';
@@ -53,6 +54,7 @@ const components = {
     footer,
     menu,
     affix,
+    backTop,
     steps,
     step,
     pagination,
