@@ -55,7 +55,7 @@
         }
       }
     },
-    ready(){
+    created(){
       this.setKey();
       this.preHandle();
       
@@ -110,6 +110,13 @@
           }
         }
       })
+    },
+    compiled() {
+      for(let [i,item] of this.dataSource.entries()){
+        if(item.checked && item.childrenCheckedStatus === 2){
+          this.$broadcast('parentChecked',true,this.key+'.'+i);
+        }
+      }
     },
     methods: {
       setKey(){
