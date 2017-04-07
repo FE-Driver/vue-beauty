@@ -122,7 +122,7 @@ import emitter from '../../mixins/emitter';
         default: 1
       }
     },
-    mounted(){
+    created(){
       if(this.expand) {
         for(const item of this.data){
            this.$set(item, 'expand', true);
