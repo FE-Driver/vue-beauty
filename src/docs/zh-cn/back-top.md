@@ -120,16 +120,18 @@
 
 ```html
 <template>
-    <div id="back-top-target">
-        <v-back-top style="position: absolute;bottom: 260px; right: 180px;" :visibility-height="400" :target="getTarget">
+    <div style="position: relative;">
+        <div id="back-top-target">
+            <div>向下滚动后，见右下角绿色按钮</div>
+            <div>向下滚动后，见右下角绿色按钮</div>
+            <div>向下滚动后，见右下角绿色按钮</div>
+            <div>向下滚动后，见右下角绿色按钮</div>
+            <div>向下滚动后，见右下角绿色按钮t</div>
+            <div>向下滚动后，见右下角绿色按钮</div>
+        </div>
+        <v-back-top style="position: absolute;margin-top: -100px;right: 80px;" :visibility-height="400" :target="getTarget">
             <div :style="customStyle">UP</div>
         </v-back-top>
-        <div>向下滚动后，见右下角绿色按钮</div>
-        <div>custom target test</div>
-        <div>custom target test</div>
-        <div>custom target test</div>
-        <div>custom target test</div>
-        <div>custom target test</div>
     </div>
 </template>
 <style>
