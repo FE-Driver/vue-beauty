@@ -7,9 +7,9 @@
                 <div class="ant-popover-message-title">{{ title }}</div>
             </div>
             <div class="ant-popover-buttons">
-                <button type="button" class="ant-btn ant-btn-ghost ant-btn-sm" @click="doCancel"><span>{{ cancelText }}</span>
+                <button type="button" class="ant-btn ant-btn-ghost ant-btn-sm" @click="doCancel"><span>{{ localeCancelText }}</span>
                 </button>
-                <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="doConfirm"><span>{{ okText }}</span>
+                <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="doConfirm"><span>{{ localeOkText }}</span>
                 </button>
             </div>
         </template>
@@ -18,21 +18,21 @@
 
 <script lang="babel">
     import vPopover from '../popover/popover.vue';
+    import Locale from '../../mixins/locale';
 
     export default {
         name: 'Popconfirm',
+        mixins: [ Locale ],
         props: {
             title: {
                 type: String,
                 default: ''
             },
             okText: {
-                type: String,
-                default: '确 定'
+                type: String
             },
             cancelText: {
-                type: String,
-                default: '取 消'
+                type: String
             },
             placement: {
                 type: String,
@@ -46,6 +46,14 @@
         data: function () {
             return {
                 innerVisible: this.visible
+            }
+        },
+        computed: {
+            localeOkText () {
+                return this.okText || this.t('popconfirm.okText');
+            },
+            localeCancelText () {
+                return this.cancelText || this.t('popconfirm.cancelText');
             }
         },
         watch: {

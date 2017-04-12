@@ -25,7 +25,11 @@ export default {
     modal: {
         okText: 'OK',
         cancelText: 'Cancel',
-        justOkText: 'Got it!',
+        justOkText: 'Got it!'
+    },
+    popconfirm: {
+        okText: 'Yes',
+        cancelText: 'No'
     },
     input: {
         placeholder: 'plese enter'

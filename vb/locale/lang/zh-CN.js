@@ -27,6 +27,10 @@ export default {
         cancelText: '取消',
         justOkText: '知道了'
     },
+    popconfirm: {
+        okText: '是',
+        cancelText: '否'
+    },
     input: {
         placeholder: '请输入'
     }
