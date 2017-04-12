@@ -1,10 +1,9 @@
 import vModal from './modal'
 import vIcon from '../icon'
 import vButton from '../button'
-import {getConfirmLocale} from './locale'
+import Locale from '../../mixins/locale';
 
 export default function (config = {}) {
-    const runtimeLocale = getConfirmLocale();
     const props = Object.assign({
         iconType: 'question-circle',
         width: 416,
@@ -15,10 +14,6 @@ export default function (config = {}) {
         okLoading: false,
         cancelLoading: false
     });
-
-    props.okText = props.okText ||
-        (props.okCancel ? runtimeLocale.okText : runtimeLocale.justOkText);
-    props.cancelText = props.cancelText || runtimeLocale.cancelText;
 
     // 默认为 true，保持向下兼容
     if (!('okCancel' in props)) {
@@ -53,11 +48,11 @@ export default function (config = {}) {
                             <div :class="prefixCls + '-content'">{{ content }}</div>
                         </div>
                         <div :class="prefixCls + '-btns'" v-if="!okCancel">
-                            <v-button :type="'primary'" :size="'large'" @click="_onOk" :loading="okLoading">{{ okText }}</v-button>
+                            <v-button :type="'primary'" :size="'large'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>
                         </div>
                         <div :class="prefixCls + '-btns'" v-else>
-                            <v-button :type="'ghost'" :size="'large'" @click="_onCancel" :loading="cancelLoading">{{ cancelText }}</v-button>
-                            <v-button :type="'primary'" :size="'large'" @click="_onOk" :loading="okLoading">{{ okText }}</v-button>
+                            <v-button :type="'ghost'" :size="'large'" @click="_onCancel" :loading="cancelLoading">{{ localeCancelText }}</v-button>
+                            <v-button :type="'primary'" :size="'large'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>
                         </div>
                     </div>
                 </v-modal>
@@ -73,6 +68,7 @@ export default function (config = {}) {
     // TODO: avoid new
     new _Modal({ // eslint-disable-line
         el: div,
+        mixins: [ Locale ],
         data: props,
         methods: {
             _onOk () {
@@ -114,6 +110,13 @@ export default function (config = {}) {
             this.visible = true;
         },
         computed: {
+            localeOkText () {
+                return this.okText || (this.okCancel ? this.t('modal.okText') : this.t('modal.justOkText'));
+            },
+            localeCancelText () {
+                return this.cancelText || this.t('modal.cancelText');
+
+            },
             wrapClasses () {
                 return `${this.prefixCls} ${this.prefixCls}-${this.type}`;
             }

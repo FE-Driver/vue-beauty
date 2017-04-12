@@ -15,10 +15,10 @@
         <template slot="footer">
             <slot name="footer">
                 <v-button key="cancel" type="ghost" size="large" @click="_handleCancel">
-                    {{cancelText}}
+                    {{ localeCancelText }}
                 </v-button>
                 <v-button key="confirm" type="primary" size="large" :loading="confirmLoading" @click="_handleOk">
-                    {{okText}}
+                    {{ localeOkText }}
                 </v-button>
             </slot>
         </template>
@@ -28,6 +28,7 @@
     import  KeyCode from '../../utils/key-code'
     import vDialog from './dialog'
     import vButton from '../button'
+    import Locale from '../../mixins/locale';
 
     let mousePosition;
 
@@ -41,6 +42,7 @@
 
     export default {
         name: 'Modal',
+        mixins: [ Locale ],
         props: {
             visible: {
                 type: Boolean,
@@ -60,12 +62,10 @@
                 default: 520
             },
             okText: {
-                type: String,
-                default: '确 定'
+                type: String
             },
             cancelText: {
-                type: String,
-                default: '取 消'
+                type: String
             },
             maskClosable: {
                 type: Boolean,
@@ -91,6 +91,15 @@
         data() {
             return {
                 mousePosition: {}
+            }
+        },
+
+        computed: {
+            localeOkText () {
+                return this.okText || this.t('modal.okText');
+            },
+            localeCancelText () {
+                return this.cancelText || this.t('modal.cancelText');
             }
         },
 
