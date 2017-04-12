@@ -18,8 +18,8 @@ export default {
 
 ::: demo
 <summary>
-  #### 基础
-  最简单的用法
+  #### 基本
+  最简单的用法。
 </summary>
 
 ```html
@@ -32,7 +32,6 @@ export default {
   </v-affix>
 </template>
 ```
-
 :::
 
 ::: demo
@@ -56,7 +55,6 @@ export default {
 }
 </script>
 ```
-
 :::
 
 ## API
@@ -66,6 +64,6 @@ export default {
 | offsetBottom | 距离窗口底部达到指定偏移量后触发 | Number | - |
 
 ## Affix Events
-| 参数        | 说明           | 类型               | 默认值       |
-|------------|----------------|-------------------|-------------|
-| onChange | 固定状态改变时触发的回调函数 | Function( Boolean ) | 无 |
+| 参数        | 说明           | 回调参数               |
+|------------|----------------|-------------------|
+| change | 固定状态改变时触发的事件 | 事件对象 |

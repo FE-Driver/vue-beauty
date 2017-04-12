@@ -157,5 +157,9 @@ export default [{
         path: 'popover',
         name: 'popover',
         component: require('./docs/zh-cn/popover.md'),
+    }, {
+        path: 'popconfirm',
+        name: 'popconfirm',
+        component: require('./docs/zh-cn/popconfirm.md'),
     }],
 }];

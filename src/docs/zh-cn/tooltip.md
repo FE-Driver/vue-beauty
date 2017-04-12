@@ -1,6 +1,6 @@
 <style scoped>
     .box {
-        width: 500px;
+        /* width: 500px; */
     }
     .top {
         margin-left: 125px;

@@ -39,6 +39,7 @@ import dataTable from './data-table';
 import tree from './tree';
 import progressLine from './progress';
 import Popover from './popover';
+import Popconfirm from './popconfirm';
 import locale from '../locale';
 
 const components = {
@@ -93,6 +94,7 @@ const components = {
     tree,
     progressLine,
     Popover,
+    Popconfirm,
 };
 
 message.install = function (Vue) {

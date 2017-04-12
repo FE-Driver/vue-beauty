@@ -169,6 +169,9 @@ export default {
                     name: 'Progress 进度条',
                     link: { name:'progress'}
                 },{
+                    name: 'Popconfirm 气泡确认框',
+                    link: { name: 'popconfirm'}
+                },{
                     name: 'Spin加载中',
                     link: { name:'spin'}
                 }]
