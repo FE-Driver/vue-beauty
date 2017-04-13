@@ -144,6 +144,8 @@ module.exports = {
           resolve('vb/components/progress'),
           resolve('src/docs/zh-cn/popover.md'),
           resolve('vb/components/popover'),
+          // resolve('vb/components/back-top'),
+          resolve('vb/components/popconfirm'),
         ],
         options: {
           formatter: require('eslint-friendly-formatter')

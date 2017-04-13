@@ -17,69 +17,69 @@
 </template>
 
 <script lang="babel">
-    import vPopover from '../popover/popover.vue';
+    import vPopover from '../popover/popover';
     import Locale from '../../mixins/locale';
 
     export default {
         name: 'Popconfirm',
-        mixins: [ Locale ],
+        mixins: [Locale],
         props: {
             title: {
                 type: String,
-                default: ''
+                default: '',
             },
             okText: {
-                type: String
+                type: String,
             },
             cancelText: {
-                type: String
+                type: String,
             },
             placement: {
                 type: String,
-                default: 'top'
+                default: 'top',
             },
             visible: {
                 type: Boolean,
-                default: false
-            }
+                default: false,
+            },
         },
-        data: function () {
+        data() {
             return {
-                innerVisible: this.visible
-            }
+                innerVisible: this.visible,
+            };
         },
         computed: {
-            localeOkText () {
+            localeOkText() {
                 return this.okText || this.t('popconfirm.okText');
             },
-            localeCancelText () {
+            localeCancelText() {
                 return this.cancelText || this.t('popconfirm.cancelText');
-            }
+            },
         },
         watch: {
             visible(value) {
                 this.innerVisible = value;
             },
             innerVisible(value) {
-                this.$emit("change", value);
-            }
+                this.$emit('change', value);
+            },
         },
         methods: {
-            doCancel: function () {
+            doCancel() {
                 if (this.innerVisible) {
                     this.innerVisible = false;
                 }
-                this.$emit("cancel", this.innerVisible);
+                this.$emit('cancel', this.innerVisible);
             },
-            doConfirm: function () {
+            doConfirm() {
                 if (this.innerVisible) {
                     this.innerVisible = false;
                 }
-                this.$emit("confirm", this.innerVisible);
-            }
+                this.$emit('confirm', this.innerVisible);
+            },
         },
         components: {
-            vPopover
-        }
-    }
+            vPopover,
+        },
+    };
 </script>

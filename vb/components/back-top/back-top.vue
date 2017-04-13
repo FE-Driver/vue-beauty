@@ -20,11 +20,11 @@
     };
 
     function getRequestAnimationFrame() {
+        let func = () => {};
         if (typeof window !== 'undefined' && window.requestAnimationFrame) {
-            return window.requestAnimationFrame;
-        } else {
-            return () => {};
+            func = window.requestAnimationFrame;
         }
+        return func;
     }
     const reqAnimFrame = getRequestAnimationFrame();
 
@@ -37,16 +37,16 @@
         data: () => ({
             prefix: 'ant-back-top',
             visible: false,
-            scrollEvent: null
+            scrollEvent: null,
         }),
         props: {
             visibilityHeight: {
                 type: Number,
-                default: 400
+                default: 400,
             },
             target: {
-                type: Function
-            }
+                type: Function,
+            },
         },
         mounted() {
             this.handleScroll();
@@ -55,11 +55,11 @@
         beforeDestroy() {
             const targetNode = (this.target || getDefaultTarget)();
             if (targetNode) {
-                targetNode.removeEventListener('scroll', this.handleScroll)
+                targetNode.removeEventListener('scroll', this.handleScroll);
             }
         },
         methods: {
-            handleScroll(){
+            handleScroll() {
                 const scrollTop = this.getScroll((this.target || getDefaultTarget)(), true);
                 this.visible = scrollTop > this.visibilityHeight;
             },
@@ -105,11 +105,13 @@
             getCurrentScrollTop() {
                 const targetNode = (this.target || getDefaultTarget)();
                 if (targetNode === window) {
-                    return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+                    return window.pageYOffset ||
+                        document.body.scrollTop ||
+                        document.documentElement.scrollTop;
                 }
                 return targetNode.scrollTop;
-            }
-        }
-    }
+            },
+        },
+    };
 
 </script>

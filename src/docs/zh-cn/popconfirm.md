@@ -24,10 +24,10 @@
     export default {
         methods: {
             confirm: function() {
-                this.$message.info('点击了确定');
+                this.$message.info('点击了是');
             },
             cancel: function() {
-                this.$message.info('点击了取消');
+                this.$message.info('点击了否');
             }
         }
     }
@@ -62,10 +62,10 @@
     export default{
         methods: {
             confirm: function() {
-                this.$message.info('点击了确定');
+                this.$message.info('点击了是');
             },
             cancel: function() {
-                this.$message.info('点击了取消');
+                this.$message.info('点击了否');
             }
         }
     }
