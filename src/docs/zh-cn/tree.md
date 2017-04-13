@@ -4,12 +4,13 @@ export default {
     return {
       treeData: [{
         title: 'parent 1',
+        expanded: true,
         selected: true,
-        node: [{
+        children: [{
           title: 'parent 1-0',
-          expand: true,
+          expanded: true,
           disabled: true,
-          node: [{
+          children: [{
             title: 'leaf',
             disableCheckbox: true
           }, {
@@ -18,11 +19,38 @@ export default {
         }, {
           title: 'parent 1-1',
           checked: true,
-          node: [{
+          children: [{
             title: "<span style='color: #08c'>sss</span>"
           }]
         }]
-      }]
+      }],
+      treeData1: [{
+        title: '0-0',
+        expanded: true,
+        children: [{
+          title: '0-0-0',
+          expanded: true,
+          children: [{
+            title: '0-0-0-0',
+          }, {
+            title: '0-0-0-1',
+          }]
+        }, {
+          title: '0-0-1',
+          children: [{
+            title: '0-0-1-0'
+          }]
+        }]
+      }, {
+        title: '0-1',
+        children: [{
+          title: '0-1-0'
+        }, {
+          title: '0-1-2'
+        }]
+      }, {
+        title: '0-2',
+      }],
     }
   },
   methods: {
@@ -39,7 +67,7 @@ export default {
 # Tree 树形控件
 
 ## 何时使用
-文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。
+文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用`树控件`可以完整展现其中的层级关系，并具有展开收起选择等交互功能。
 
 ## 代码演示
 
@@ -51,14 +79,7 @@ export default {
 
 ```html
 <template>
-  <v-tree
-    :data="treeData"
-    :checkable="true"
-    :multiple="true"
-    :on-select="selectFn"
-    :on-check="checkFn"
-  >
-  </v-tree>
+  <v-tree :data="treeData" checkable multiple @select="selectFn" @check="checkFn"></v-tree>
 </template>
 
 <script>
@@ -67,12 +88,13 @@ export default {
     return {
       treeData: [{
         title: 'parent 1',
+        expanded: true,
         selected: true,
-        node: [{
+        children: [{
           title: 'parent 1-0',
-          expand: true,
+          expanded: true,
           disabled: true,
-          node: [{
+          children: [{
             title: 'leaf',
             disableCheckbox: true
           }, {
@@ -81,7 +103,7 @@ export default {
         }, {
           title: 'parent 1-1',
           checked: true,
-          node: [{
+          children: [{
             title: "<span style='color: #08c'>sss</span>"
           }]
         }]
@@ -102,12 +124,68 @@ export default {
 
 :::
 
-## API
+::: demo
+<summary>
+  #### 拖动示例
+  将节点拖拽到其他节点内部或前后。
+</summary>
 
+```html
+<template>
+  <v-tree :data="treeData1" draggable></v-tree>
+  </v-tree>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      treeData1: [{
+        title: '0-0',
+        expanded: true,
+        children: [{
+          title: '0-0-0',
+          expanded: true,
+          children: [{
+            title: '0-0-0-0',
+          }, {
+            title: '0-0-0-1',
+          }]
+        }, {
+          title: '0-0-1',
+          children: [{
+            title: '0-0-1-0'
+          }]
+        }]
+      }, {
+        title: '0-1',
+        children: [{
+          title: '0-1-0'
+        }, {
+          title: '0-1-2'
+        }]
+      }, {
+        title: '0-2',
+      }],
+    }
+  }
+}
+</script>
+```
+
+:::
+
+## API
+### Tree Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| data | 可嵌套的节点属性的数组，生成tree的数据 | array | [ ] |
-| multiple | 支持点选多个节点 | boolean | false |
-| checkable | 节点前添加 Checkbox 复选框 | boolean | false |
-| onCheck | 点击复选框触发 | function(nodeArray) | - |
-| onSelect | 点击树节点触发	 | function(nodeArray) | - |
+| data | 可嵌套的节点属性的数组，生成tree的数据 | Array | [] |
+| multiple | 支持点选多个节点 | Boolean | false |
+| checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
+| draggable | 设置节点可拖拽 | Boolean | false |
+
+### Tree Events
+| 事件        | 说明           | 参数        |
+|------------|----------------|------------|
+| check    | 点击复选框触发 | childrenArray |
+| select    | 点击树节点触发 | childrenArray |

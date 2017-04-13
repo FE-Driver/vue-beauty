@@ -148,7 +148,7 @@ export default {
                     name: 'DataTable 数据表格',
                     link: { name:'dataTable'}
                 },{
-                    name: 'Tree 树形控件(未完成)',
+                    name: 'Tree 树形控件',
                     link: { name:'tree'}
                 }]
             },{
