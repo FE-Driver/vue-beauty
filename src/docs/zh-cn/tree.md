@@ -184,6 +184,24 @@ export default {
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
 | draggable | 设置节点可拖拽 | Boolean | false |
 
+### Data Props
+| 属性        | 说明           | 类型               | 默认值       |
+|------------|----------------|-------------------|-------------|
+| disabled	 | 禁掉响应	 | Boolean | false |
+| disableCheckbox    | 禁掉 checkbox | Boolean | false |
+| title | 标题	 | String/element string | '---' |
+| expanded | 是否展开子节点	| Boolean | false |
+| selected | 是否选中子节点	| Boolean | false |
+| checked | 是否勾选(如果勾选，子节点也会全部勾选)	| Boolean | false |
+| children | 子节点属性数组(同data)	| Array | - |
+
+### Tree Methods
+| 方法名      | 说明          | 参数      | 返回值  |
+|---------- |-------------- |----------  |-------- |
+| getCheckedNodes | 获取被勾选的节点 | - | 节点数组 |
+| getHalfCheckedNodes | 获取被半选的节点 | - | 节点数组 |
+| getSelectedNodes | 获取被选中的节点 | - | 节点数组 |
+
 ### Tree Events
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|

@@ -399,6 +399,9 @@ export default {
       getCheckedNodes() {
         return this.getNodes(this.data, { checked: true, childrenCheckedStatus: 2 });
       },
+      getHalfCheckedNodes(){
+        return this.getNodes(this.data, {checked: true,childrenCheckedStatus:1});
+      },
       getChildrenCheckedStatus(children) {
         let checkNum = 0,
             child_childrenAllChecked = true;
