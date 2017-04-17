@@ -2,14 +2,14 @@
 Beautiful  UI components build with vue and ant design
 
 - [Vue官网](http://vuejs.org/)
-- [Ant.Design官网](http://beta.ant.design/)
+- [Ant.Design官网](http://ant.design/)
 - 本项目采用vue2和ant deisgn2.0进行开发
 
 ## 如何体验（How to experience）
 Still developing,not suggesting to use in production!
 - clone本项目，并切换到next分支，本地编译后(npm run build)，然后用npm或yarn直接从本地文件系统进行安装(推荐)
 - clone本项目，并切换到next分支，然后在您的项目手动引入[issue160](https://github.com/FE-Driver/vue-beauty/issues/160)
-- 也可以通过 `npm install vue-beauty@beta -S` 或者 `yarn add vue-beauty@beta` 来体验，但不推荐在生产环境使用，并且npm包更新得并不及时
+- 也可以通过 `npm install vue-beauty@next -S` 或者 `yarn add vue-beauty@next` 来体验，但不推荐在生产环境使用，并且npm包更新得并不及时
 
 ## 目录结构
 <pre>
