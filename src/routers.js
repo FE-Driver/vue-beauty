@@ -165,5 +165,9 @@ export default [{
         path: 'transfer',
         name: 'transfer',
         component: require('./docs/zh-cn/transfer.md'),
+    }, {
+        path: 'timeline',
+        name: 'timeline',
+        component: require('./docs/zh-cn/timeline.md'),
     }],
 }];

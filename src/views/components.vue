@@ -139,9 +139,6 @@ export default {
                     name: 'Card 卡片',
                     link: { name:'card'}
                 },{
-                    name: 'Tag 标签',
-                    link: { name:'tag'}
-                },{
                     name: 'Popover 气泡卡片',
                     link: { name:'popover'}
                 },{
@@ -150,6 +147,12 @@ export default {
                 },{
                     name: 'DataTable 数据表格',
                     link: { name:'dataTable'}
+                },{
+                    name: 'Tag 标签',
+                    link: { name:'tag'}
+                },{
+                    name: 'Timeline 时间轴',
+                    link: { name:'timeline'}
                 },{
                     name: 'Tree 树形控件',
                     link: { name:'tree'}

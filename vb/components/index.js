@@ -41,6 +41,7 @@ import progressLine from './progress';
 import popover from './popover';
 import popconfirm from './popconfirm';
 import transfer from './transfer';
+import timeline from './timeline';
 import locale from '../locale';
 
 const components = {
@@ -97,6 +98,8 @@ const components = {
     popover,
     popconfirm,
     transfer,
+    timeline,
+    timelineItem: timeline.item,
 };
 
 message.install = function (Vue) {
