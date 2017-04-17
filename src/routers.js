@@ -161,5 +161,9 @@ export default [{
         path: 'popconfirm',
         name: 'popconfirm',
         component: require('./docs/zh-cn/popconfirm.md'),
+    }, {
+        path: 'transfer',
+        name: 'transfer',
+        component: require('./docs/zh-cn/transfer.md'),
     }],
 }];

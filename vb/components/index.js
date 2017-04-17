@@ -38,8 +38,9 @@ import tooltipd from '../directives/tooltip';
 import dataTable from './data-table';
 import tree from './tree';
 import progressLine from './progress';
-import Popover from './popover';
-import Popconfirm from './popconfirm';
+import popover from './popover';
+import popconfirm from './popconfirm';
+import transfer from './transfer';
 import locale from '../locale';
 
 const components = {
@@ -93,8 +94,9 @@ const components = {
     dataTable,
     tree,
     progressLine,
-    Popover,
-    Popconfirm,
+    popover,
+    popconfirm,
+    transfer,
 };
 
 message.install = function (Vue) {

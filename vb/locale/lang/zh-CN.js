@@ -33,5 +33,9 @@ export default {
     },
     input: {
         placeholder: '请输入'
-    }
+    },
+    transfer: {
+        searchPlaceholder: '请输入搜索内容',
+        notFoundContent: '列表为空'
+    },
 }

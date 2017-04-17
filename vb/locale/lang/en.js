@@ -33,5 +33,9 @@ export default {
     },
     input: {
         placeholder: 'plese enter'
-    }
+    },
+    transfer: {
+        searchPlaceholder: 'Search here',
+        notFoundContent: 'Not Found'
+    },
 }

@@ -121,6 +121,9 @@ export default {
                     name: 'Switch 开关',
                     link: { name:'switch'}
                 },{
+                    name: 'Transfer 穿梭框',
+                    link: { name:'transfer'}
+                },{
                     name: 'TimePicker 时间选择框',
                     link: { name:'timePicker'}
                 },{
