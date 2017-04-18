@@ -139,6 +139,9 @@ export default {
                     name: 'Card 卡片',
                     link: { name:'card'}
                 },{
+                    name: 'Carousel 走马灯',
+                    link: { name:'carousel'}
+                },{
                     name: 'Popover 气泡卡片',
                     link: { name:'popover'}
                 },{

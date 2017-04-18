@@ -42,6 +42,7 @@ import popover from './popover';
 import popconfirm from './popconfirm';
 import transfer from './transfer';
 import timeline from './timeline';
+import carousel from './carousel';
 import locale from '../locale';
 
 const components = {
@@ -100,6 +101,8 @@ const components = {
     transfer,
     timeline,
     timelineItem: timeline.item,
+    carousel,
+    carouselItem: carousel.item,
 };
 
 message.install = function (Vue) {

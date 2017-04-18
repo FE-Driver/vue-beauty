@@ -169,5 +169,9 @@ export default [{
         path: 'timeline',
         name: 'timeline',
         component: require('./docs/zh-cn/timeline.md'),
+    }, {
+        path: 'carousel',
+        name: 'carousel',
+        component: require('./docs/zh-cn/carousel.md'),
     }],
 }];

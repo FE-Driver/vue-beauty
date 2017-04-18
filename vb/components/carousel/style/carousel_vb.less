@@ -1,0 +1,62 @@
+.@{ant-prefix}-carousel {
+    &-arrow {
+        border: none;
+        outline: 0;
+        padding: 0;
+        margin: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+        transform: translateY(-50%);
+        transition: .2s;
+        background-color: rgba(31,45,61,.11);
+        color: #fff;
+        text-align: center;
+        font-size: 1em;
+        font-family: inherit;
+        line-height: inherit;
+
+        &:hover {
+            background-color: rgba(31, 45, 61, 0.5);
+        }
+
+        &-hover {
+            display: inherit;
+            opacity: 0;
+        }
+
+        &-always {
+            display: inherit;
+        }
+
+        &.left {
+            left: 16px;
+        }
+        &.right {
+            right: 16px;
+        }
+    }
+    &:hover &-arrow {
+        opacity: 1;
+    }
+
+    & &-dots-outside {
+        bottom: -10px;
+
+        & > li > button {
+            background: #8391a5;
+        }
+        & > li.slick-active > button {
+            background: #8391a5;
+        }
+    }
+
+    & &-dots-none {
+        display: none;
+    }
+}
