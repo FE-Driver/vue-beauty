@@ -6,7 +6,7 @@
                     <div :class="prefixCls + '-bg'" :style="{width: percent + '%', height: strokeWidth + 'px'}"></div>
                 </div>
             </div>
-            <span  v-if="showInfo" :class="prefixCls + '-text'" style="float: right">
+            <span v-if="showInfo" :class="prefixCls + '-text'" style="float: right">
                 <template v-if="format"> {{ format(percent) }} </template>
                 <i v-else-if="progressStatusIcon" :class="`anticon anticon-${progressStatusIcon}`"></i>
                 <template v-else> {{ percent }}% </template>

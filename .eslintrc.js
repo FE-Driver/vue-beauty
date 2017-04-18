@@ -45,5 +45,6 @@ module.exports = {
     'no-plusplus': 0,
     'guard-for-in': 0,
     'consistent-return': 0,
+    'no-mixed-operators': 0,
   }
 }

@@ -1,5 +1,5 @@
 import './style/index.less';
 import progressLine from './progress-line';
-// import progressCircle from './ProgressCircle';
+import progressCircle from './progress-circle';
 
-export default progressLine;
+export { progressLine, progressCircle };

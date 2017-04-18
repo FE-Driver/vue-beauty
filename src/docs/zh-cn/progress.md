@@ -28,7 +28,7 @@
 ::: demo
 <summary>
   #### 小型进度条
-  通过设置strokeWidth,可以更灵活地使用进度条
+  适合放在较狭窄的区域内。
 </summary>
 
 ```html
@@ -53,12 +53,77 @@
 
 :::
 
+::: demo
+<summary>
+  #### 进度圈
+  圈形的进度。
+</summary>
+
+```html
+<v-progress-circle :percent="75" :stroke-width="3"></v-progress-circle>
+<v-progress-circle :percent="70" status="exception"></v-progress-circle>
+<v-progress-circle :percent="100"></v-progress-circle>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 小型进度圈
+  小一号的圈形进度。
+</summary>
+
+```html
+<v-progress-circle :percent="30" :width="80"></v-progress-circle>
+<v-progress-circle :percent="70" :width="80" status="exception"></v-progress-circle>
+<v-progress-circle :percent="100" :width="80"></v-progress-circle>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 自定义文字格式
+  `format` 属性指定格式。
+</summary>
+
+```html
+<v-progress-circle :percent="75" :format="percent => `${percent}天`"></v-progress-circle>
+<v-progress-circle :percent="100" :format="() => '完成'"></v-progress-circle>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 仪表盘
+  仪表盘样式的进度条。
+</summary>
+
+```html
+<v-progress-circle dashboard :percent="75"></v-progress-circle>
+```
+
+:::
+
 ## API
-## Progress Props
+## ProgressLine Props
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | percent    | 百分比	 | Number | 0 |
 | format | 内容的模板函数	 | Function(percent) | - |
 | status    | 状态，可选：`success` `exception` `active` `normal`	 | String | normal |
-| show-info    | 是否显示进度数值或状态图标	 | Boolean | true |
-| stroke-width    | 进度条线的宽度，单位 px	 | Number | 10 |
+| showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
+| strokeWidth   | 进度条线的宽度，单位 px	 | Number | 10 |
+
+## ProgressCircle Props
+| 参数        | 说明           | 类型               | 默认值       |
+|------------|----------------|-------------------|-------------|
+| percent    | 百分比	 | Number | 0 |
+| format | 内容的模板函数	 | Function(percent) | - |
+| status    | 状态，可选：`success` `exception` `active` `normal`	 | String | normal |
+| showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
+| strokeWidth    | 圆形进度条线的宽度，单位是进度条画布宽度的百分比	 | Number | 6 |
+| width    | 圆形进度条画布宽度，单位 px	 | Number | 132 |
+| trailColor    | 进度圈背景颜色	 | String | #f3f3f3 |
+| dashboard    | 是否是仪表盘样式 | Boolean | false |

@@ -37,7 +37,7 @@ import tooltip from './tooltip';
 import tooltipd from '../directives/tooltip';
 import dataTable from './data-table';
 import tree from './tree';
-import progressLine from './progress';
+import { progressLine, progressCircle } from './progress';
 import popover from './popover';
 import popconfirm from './popconfirm';
 import transfer from './transfer';
@@ -96,6 +96,7 @@ const components = {
     dataTable,
     tree,
     progressLine,
+    progressCircle,
     popover,
     popconfirm,
     transfer,
