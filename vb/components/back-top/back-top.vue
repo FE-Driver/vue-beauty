@@ -11,12 +11,14 @@
 <script lang="babel">
     const easeInOutCubic = (t, b, c, d) => {
         const cc = c - b;
-        t /= d / 2;
-        if (t < 1) {
-            return cc / 2 * t * t * t + b;
+        let tt = t / (d / 2);
+        let result = 0;
+        if (tt < 1) {
+            result = cc / 2 * tt * tt * tt + b;
         } else {
-            return cc / 2 * ((t -= 2) * t * t + 2) + b;
+            result = cc / 2 * ((tt -= 2) * tt * tt + 2) + b;
         }
+        return result;
     };
 
     function getRequestAnimationFrame() {

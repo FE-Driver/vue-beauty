@@ -1,4 +1,4 @@
-import backTop from './back-top.vue'
-import './style/index.less'
+import backTop from './back-top';
+import './style/index.less';
 
-export default backTop
+export default backTop;
