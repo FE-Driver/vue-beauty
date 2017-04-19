@@ -103,7 +103,7 @@
         mixins: [ Locale, emitter],
         props: {
             placeholder: {
-                type: String, 
+                type: String,
                 default: ()=> _t('datePicker.placeholder')
             },
             //是否显示范围
@@ -120,7 +120,7 @@
             //输入的时间
             value: [String,Array],
             position: {
-                type:String, 
+                type:String,
                 default:'absolute'
             },
             popupContainer: {
@@ -128,7 +128,7 @@
                 default: ()=> document.body
             },
             showTime: {
-                type: Boolean, 
+                type: Boolean,
                 default: false
             },
             //选择最大范围限制,以天为单位（只有range为true的时候才起作用）
@@ -204,7 +204,6 @@
                 } else {
                     if(this.value){
                         val = this.stringify(this.parse(this.value, false));
-
                         if(this.showTime){
                             val = val + ' ' + this.timeVal[0];
                         }
@@ -235,6 +234,7 @@
                 }
             }
             if(this.showTime){
+                this.timeBtnEnable = !!this.value;
                 let temp = ['00:00','00:00'];
                 if(this.range){
                     if(this.startTime){
@@ -248,8 +248,9 @@
                 }else{
                     if(this.value){
                         let time = this.value.split(' ')[1];
-                        if(time) temp[0] = time;
+                        if(time) temp[0] = (time || '00:00').substr(0, 5);
                     }
+                    this.timeVal = temp;
                 }
             }
         },
@@ -276,13 +277,13 @@
             },
             label(val) {
                 this.timeBtnEnable = val?true:false;
-                
                 if(this.range){
                     let time = val.split(' ~ ');
                     this.$emit('input',[time[0],time[1]]);
                     this.$emit('change',time[0],time[1] || '');
                     this.dispatch('FormItem', 'form.change', [time[0],time[1] || '']);
                 }else{
+                    this.$emit('input',val);
                     this.$emit('change',val);
                     this.dispatch('FormItem', 'form.change', [val]);
                 }
@@ -413,7 +414,6 @@
                     this[no === 1 ? 'startTime' : 'endTime'] = this.getOutTime(item.time);
                 }else{
                     this.$emit('input',this.getOutTime(item.time))
-
                     if(!this.showTime) this.closeDropdown();
                 }
             },
@@ -443,7 +443,10 @@
             },
             //根据输出类型，获取输出的时间
             getOutTime(time) {
-                var type = this.value ? typeof(this.value) : typeof(this.startTime);
+//                var type = this.value ? typeof(this.value) : typeof(this.startTime);
+                // TODO: 疑问，这里的逻辑判断近乎 Magic 并且在旧的版本引发了 bug：清除时间然后再选会报错
+                let type = typeof(this.value);
+                if(!this.value && this.startTime) type = typeof(this.startTime);
                 if (type === 'number') {
                     return time.getTime();
                 } else if (type === 'object') {
