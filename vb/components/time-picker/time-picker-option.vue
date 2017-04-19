@@ -9,21 +9,21 @@
                 <div :class="prefix+'-select'">
                     <ul @mouseover="createSelection($refs.timePickerPanel, 0, 2)">
                         <template v-for="index in 24">
-                            <li v-if="showLi(index, 'H')" @click="timePicker('H', $event)" :class="selectedCls(H, index, 'H')" v-text="(index<10?'0':'')+index"></li>
+                            <li v-if="showLi(index, 'H')" @click="timePicker('H', $event)" :class="selectedCls(H, index, 'H')" v-text="(index<10?'0':'')+(index-1)"></li>
                         </template>
                     </ul>
                 </div>
                 <div :class="prefix+'-select'">
                     <ul @mouseover="createSelection($refs.timePickerPanel, 3, 5)">
                         <template v-for="index in 60">
-                            <li v-if="showLi(index, 'M')" @click="timePicker('M', $event)" :class="selectedCls(M, index, 'M')" v-text="(index<10?'0':'')+index"></li>
+                            <li v-if="showLi(index, 'M')" @click="timePicker('M', $event)" :class="selectedCls(M, index, 'M')" v-text="(index<10?'0':'')+(index-1)"></li>
                         </template>
                     </ul>
                 </div>
                 <div :class="prefix+'-select'" v-if="hasSeconds">
                     <ul @mouseover="createSelection($refs.timePickerPanel, 6, 8)">
                         <template v-for="index in 60">
-                            <li v-if="showLi(index, 'S')" @click="timePicker('S', $event)" :class="selectedCls(S, index, 'S')" v-text="(index<10?'0':'')+index"></li>
+                            <li v-if="showLi(index, 'S')" @click="timePicker('S', $event)" :class="selectedCls(S, index, 'S')" v-text="(index<10?'0':'')+(index-1)"></li>
                         </template>
                     </ul>
                 </div>
