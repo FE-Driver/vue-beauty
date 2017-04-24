@@ -108,8 +108,9 @@
 @btn-default-bg         : #fff;
 @btn-default-border     : @border-color-base;
 
-@btn-danger-color      : #fff;
-@btn-danger-bg         : @red-6;
+@btn-danger-color      : @error-color;
+@btn-danger-bg         : @background-color-base;
+@btn-danger-border     : @border-color-base;
 
 @btn-disable-color      : @disabled-color;
 @btn-disable-bg         : @background-color-base;
@@ -129,6 +130,10 @@
 @btn-circle-size-sm     : @btn-height-sm;
 
 @btn-group-border       : @primary-7;
+
+// Radio buttons
+@radio-button-bg           : @btn-default-bg;
+@radio-button-color        : @btn-default-color;
 
 // Media queries breakpoints
 // Extra small screen / phone
@@ -194,6 +199,7 @@
 @label-required-color        : @highlight-color;
 @label-color                 : @text-color;
 @form-item-margin-bottom     : 24px;
+@form-item-trailing-colon    : true;
 
 // Input
 // ---

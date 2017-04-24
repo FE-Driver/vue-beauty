@@ -91,7 +91,7 @@
             }
         },
         props: {
-            keyFiled: {
+            clue: {
                 type: String,
                 default: 'value'
             },
@@ -227,9 +227,9 @@
                     this.ori_data = JSON.parse(JSON.stringify(val));
                     this.mapData(([type, path, item])=> {
                         let selected = false;
-                        if(this.multiple && this.innerValue.includes(item[this.keyFiled])){
+                        if(this.multiple && this.innerValue.includes(item[this.clue])){
                             selected = true;
-                        }else if(!this.multiple && this.innerValue === item[this.keyFiled]){
+                        }else if(!this.multiple && this.innerValue === item[this.clue]){
                             selected = true;
                         }
                         if(type == 'item'){
@@ -290,10 +290,10 @@
             initVal(){
                 this.mapData(([type, path, item])=> {
                     let selected = false;
-                    if(this.multiple && this.innerValue.includes(item[this.keyFiled])){
+                    if(this.multiple && this.innerValue.includes(item[this.clue])){
                         selected = true;
                         this.labels.push(item[this.label]);
-                    }else if(!this.multiple && this.innerValue === item[this.keyFiled]){
+                    }else if(!this.multiple && this.innerValue === item[this.clue]){
                         selected = true;
                         this.labels = item[this.label];
                     }
@@ -406,13 +406,13 @@
                         this.labels.splice(j,1);
                         this.innerValue.splice(j,1);
                     }else{
-                        this.innerValue.push(opt[this.keyFiled]);
+                        this.innerValue.push(opt[this.clue]);
                         this.labels.push(opt[this.label]);
                     }
                     opt.selected = !opt.selected;
                 }else{
                     opt.selected = true;
-                    this.innerValue = opt[this.keyFiled];
+                    this.innerValue = opt[this.clue];
                     this.labels = opt[this.label];
                 }
             }

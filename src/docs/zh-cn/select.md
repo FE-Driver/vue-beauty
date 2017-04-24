@@ -457,7 +457,7 @@
 |------------|----------------|-------------------|-------------|
 | value    | 指定默认选中的条目 | string/array | - |
 | default:scopedSlot | 自定义下拉框选项内容,传入的参数：data | slot node | - |
-| keyField | 选项的value的字段名 | string | value |
+| clue | 选项的value的字段名 | string | value |
 | label | 选项显示的文本的字段名 | string | label |
 | groupLabel | 分组title的字段名 | string | label |
 | data | 下拉框的数据 | array | [] |
@@ -479,7 +479,7 @@
 ### Data Props
 | 属性        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
-| value | 选项的值(该字段可通过select的keyField属性修改)	 | string/number/object | - |
+| value | 选项的值(该字段可通过select的clue属性修改)	 | string/number/object | - |
 | label    | 选项的标签或组名(作为标签时可通过select的label属性修改；作为组名时只支持一级,可通过select的groupLabel属性修改) | string | - |
 | disabled | 是否禁用	 | boolean | false |
 | options | 分组的数据	| array | - |

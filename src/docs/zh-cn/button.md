@@ -27,17 +27,18 @@
 ::: demo
 <summary>
   #### 按钮类型
-  按钮有四种类型：主按钮、次按钮、虚线按钮、危险按钮。主按钮在同一个操作区域最多出现一次。
+  按钮有四种类型：主按钮、次按钮、虚线按钮、危险按钮以及四种颜色按钮。主按钮在同一个操作区域最多出现一次。
 </summary>
 
 ```html
 <v-button type="primary">Primary</v-button>
 <v-button>Default</v-button>
 <v-button type="dashed">Dashed</v-button>
+<v-button type="danger">Danger</v-button>
 <v-button type="info">Info</v-button>
 <v-button type="success">Success</v-button>
 <v-button type="warning">Warning</v-button>
-<v-button type="danger">Danger</v-button>
+<v-button type="error">Error</v-button>
 ```
 :::
 
@@ -165,6 +166,7 @@
     <v-button type="primary" ghost>Primary</v-button>
     <v-button ghost>Default</v-button>
     <v-button type="dashed" ghost>Dashed</v-button>
+    <v-button type="danger" ghost>Danger</v-button>
 </div>
 ```
 :::
@@ -206,7 +208,7 @@
 ### Button Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |-------------------------------- |-------- |
-| type | 设置按钮类型 | string | primary dashed info success warning danger 或者不设| - |
+| type | 设置按钮类型 | string | primary dashed info success warning danger error 或者不设| - |
 | html-type | 设置 button 原生的 type 值 | string | 参考 HTML 标准（button reset submit） | button |
 | icon | 设置按钮的图标类型 | string | 参考Icon组件中的type可选值| - |
 | shape | 设置按钮形状 | string | circle circle-outline 或者不设 | - |
