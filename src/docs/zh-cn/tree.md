@@ -2,6 +2,9 @@
 export default {
   data() {
     return {
+      selectNode: null,
+      modalVisible: false,
+      newTitle: '',
       treeData: [{
         title: 'parent 1',
         expanded: true,
@@ -24,7 +27,34 @@ export default {
           }]
         }]
       }],
-      treeData1: [{
+      dragData: [{
+        title: '0-0',
+        expanded: true,
+        children: [{
+          title: '0-0-0',
+          expanded: true,
+          children: [{
+            title: '0-0-0-0',
+          }, {
+            title: '0-0-0-1',
+          }]
+        }, {
+          title: '0-0-1',
+          children: [{
+            title: '0-0-1-0'
+          }]
+        }]
+      }, {
+        title: '0-1',
+        children: [{
+          title: '0-1-0'
+        }, {
+          title: '0-1-2'
+        }]
+      }, {
+        title: '0-2',
+      }],
+      editData: [{
         title: '0-0',
         expanded: true,
         children: [{
@@ -59,6 +89,28 @@ export default {
     },
     checkFn(data) {
       console.log(data);
+    },
+    select(selectedNodes) {
+      this.selectNode = selectedNodes[0];
+    },
+    changeTitle() {
+      if (!this.newTitle) return this.$message.warning('您还未填写新的名称！');
+      this.$refs.tree.editNode(this.selectNode.clue, { title: this.newTitle });
+      this.newTitle = '';
+      this.modalVisible = false;
+    },
+    addTopNode() {
+      this.$refs.tree.addNode('0', {
+        title: '顶级节点'
+      });
+    },
+    addNode() {
+      this.$refs.tree.addNode(this.selectNode.clue, {
+        title: `${this.selectNode.title}的节点`
+      });
+    },
+    delNode() {
+      this.$refs.tree.delNode(this.selectNode.clue);
     }
   }
 }
@@ -116,7 +168,7 @@ export default {
     },
     checkFn(data) {
       console.log(data);
-    }
+    },
   }
 }
 </script>
@@ -132,7 +184,7 @@ export default {
 
 ```html
 <template>
-  <v-tree :data="treeData1" draggable></v-tree>
+  <v-tree :data="dragData" draggable></v-tree>
   </v-tree>
 </template>
 
@@ -140,7 +192,7 @@ export default {
 export default {
   data() {
     return {
-      treeData1: [{
+      dragData: [{
         title: '0-0',
         expanded: true,
         children: [{
@@ -175,6 +227,92 @@ export default {
 
 :::
 
+::: demo
+<summary>
+  #### 编辑模式
+  节点增、删、改
+</summary>
+
+```html
+<template>
+  <v-button-group>
+      <v-button type="primary" icon="plus-square" @click="addTopNode" title="增加一个顶级节点"></v-button>
+      <v-button type="primary" icon="edit" :disabled="!selectNode" @click="modalVisible = true" title="编辑节点(改名)"></v-button>
+      <v-button type="primary" icon="plus" :disabled="!selectNode" @click='addNode' title="插入一个子节点"></v-button>
+      <v-button type="primary" icon="close" :disabled="!selectNode" @click='delNode' title="删除节点"></v-button>
+  </v-button-group>
+  <v-tree :data="editData" @select="select" ref="tree"></v-tree>
+  <v-modal title="更改名称" :visible="modalVisible" @ok="changeTitle" @cancel="modalVisible = false">
+    <v-input placeholder="请输入新的名称" v-model="newTitle"></v-input>
+  </v-modal>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectNode: null,
+      modalVisible: false,
+      newTitle: '',
+      editData: [{
+        title: '0-0',
+        expanded: true,
+        children: [{
+          title: '0-0-0',
+          expanded: true,
+          children: [{
+            title: '0-0-0-0',
+          }, {
+            title: '0-0-0-1',
+          }]
+        }, {
+          title: '0-0-1',
+          children: [{
+            title: '0-0-1-0'
+          }]
+        }]
+      }, {
+        title: '0-1',
+        children: [{
+          title: '0-1-0'
+        }, {
+          title: '0-1-2'
+        }]
+      }, {
+        title: '0-2',
+      }],
+    }
+  },
+  methods: {
+    select(selectedNodes) {
+      this.selectNode = selectedNodes[0];
+    },
+    changeTitle() {
+      if (!this.newTitle) return this.$message.warning('您还未填写新的名称！');
+      this.$refs.tree.editNode(this.selectNode.clue, { title: this.newTitle });
+      this.newTitle = '';
+      this.modalVisible = false;
+    },
+    addTopNode() {
+      this.$refs.tree.addNode('0', {
+        title: '顶级节点'
+      });
+    },
+    addNode() {
+      this.$refs.tree.addNode(this.selectNode.clue, {
+        title: `${this.selectNode.title}的节点`
+      });
+    },
+    delNode() {
+      this.$refs.tree.delNode(this.selectNode.clue);
+    }
+  }
+}
+</script>
+```
+
+:::
+
 ## API
 ### Tree Props
 | 参数      | 说明          | 类型      | 默认值  |
@@ -183,6 +321,7 @@ export default {
 | multiple | 支持点选多个节点 | Boolean | false |
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
 | draggable | 设置节点可拖拽 | Boolean | false |
+| canDrop | 用来判断拖拽时是否能drop的函数,参数: sourceNode, targetNode, dropPosition。dropPosition的值有-1(插入到目标节点前面),0(插入到目标节点里面),1(插入到目标节点后面) | Function | () => true |
 
 ### Data Props
 | 属性        | 说明           | 类型               | 默认值       |
@@ -201,6 +340,9 @@ export default {
 | getCheckedNodes | 获取被勾选的节点 | - | 节点数组 |
 | getHalfCheckedNodes | 获取被半选的节点 | - | 节点数组 |
 | getSelectedNodes | 获取被选中的节点 | - | 节点数组 |
+| editNode | 编辑某个节点 | clue, data | - |
+| addNode | 在某个下面增加一个节点 | clue, data | - |
+| delNode | 删除某个节点 | clue | - |
 
 ### Tree Events
 | 事件        | 说明           | 参数        |

@@ -42,6 +42,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        canDrop: {
+            type: Function,
+            default: () => true,
+        },
     },
     data: () => ({
         prefixCls: 'ant-tree',
@@ -141,8 +145,10 @@ export default {
         });
         this.$on('dragdrop', (sourceClue, targetClue, dropPosition) => {
             if (this.clue !== '0') return this.dispatch('Tree', 'dragdrop', [sourceClue, targetClue, dropPosition]);
+            // 直接父级是否是同一个
+            const sameTree = sourceClue.substr(0, sourceClue.length - 1) === targetClue.substr(0, targetClue.length - 1);
             sourceClue = sourceClue.split('-');
-            let sourceData = this.data, _sourceData, lastSourceIndex = sourceClue[sourceClue.length - 1];
+            let sourceData = this.data, _sourceData, lastSourceIndex = sourceClue[sourceClue.length - 1] * 1;
             for (let i = 1; i < sourceClue.length - 1; i++) {
                 const index = sourceClue[i];
                 if (i === 1) {
@@ -159,7 +165,7 @@ export default {
 
             targetClue = targetClue.split('-');
             let targetData = this.data;
-            let targetIndex = targetClue[targetClue.length-1];
+            let targetIndex = targetClue[targetClue.length-1] * 1;
 
             for(let i = 1;i< targetClue.length - 1;i++){
               const index = targetClue[i];
@@ -169,6 +175,15 @@ export default {
                 targetData = targetData.children[index];
               }
             }
+            let canDrop;
+            if (targetClue.length > 2) {
+              canDrop = this.canDrop(sourceData, targetData.children[targetIndex], dropPosition);
+            } else {
+              canDrop = this.canDrop(sourceData, targetData[targetIndex], dropPosition);
+            }
+            if (!canDrop) return;
+
+            let sourcePositionChange = false;
             switch(dropPosition) {
               case 0:
                 if(targetClue.length > 2){
@@ -184,14 +199,17 @@ export default {
                 break;
               case -1:
               case 1:
+                const p = targetIndex + (dropPosition === -1 ? 0 : dropPosition);
                 if(targetClue.length > 2){
-                  targetData.children.splice(targetIndex + dropPosition, 0, _sourceData);
+                  targetData.children.splice(p, 0, _sourceData);
                 }else{
-                  targetData.splice(targetIndex + dropPosition, 0, _sourceData);
+                  targetData.splice(p, 0, _sourceData);
                 }
+                sourcePositionChange = sameTree && p <= lastSourceIndex;
                 break;
             }
 
+            if(sourcePositionChange) lastSourceIndex++;
             if (sourceClue.length > 2) {
                 if (sourceData.children.length === 1) {
                     this.$delete(sourceData, 'children');
@@ -423,6 +441,58 @@ export default {
         } else {
           return 0;
         }
+      },
+      edit(path, action, data) {
+        path = path.split('-');
+        const isTopNode = path.length === 2;
+
+        let node = this.data;
+        const lastIndex = path.pop();
+
+        if(!isTopNode) node = node[path[1]];
+        path.splice(0,2);
+
+        for( let i of path) {
+          node = node.children[i];
+        }
+        switch (action) {
+          case 'delete':
+            if(isTopNode) {
+              node.splice(lastIndex,1);
+            }else{
+              node.children.splice(lastIndex,1);
+            }
+            break;
+          case 'add':
+            let child;
+            if(isTopNode) {
+              child = node[lastIndex];
+            }else{
+              child = node.children[lastIndex];
+            }
+            if(child.children){
+              child.children.push(data);
+            }else{
+              this.$set(child, 'children', [data]);
+            }
+            break;
+          case 'edit':
+            node = isTopNode ? node[lastIndex] : node.children[lastIndex];
+
+            for(const [key, val] of Object.entries(data)) {
+              node[key] = val;
+            }
+        }
+      },
+      editNode(path, data) {
+        this.edit(path, 'edit', data);
+      },
+      addNode(path, data) {
+        if(path === '0') return this.data.push(data);
+        this.edit(path, 'add', data);
+      },
+      delNode(path) {
+        this.edit(path, 'delete');
       }
     }
 }
