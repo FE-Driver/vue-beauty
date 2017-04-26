@@ -429,7 +429,11 @@
             },
             //重新加载数据（重置到第一页）
             reload(){
-                this.pageNumber = 1;
+                if(this.pageNumber === 1){
+                    this.loadData();
+                }else{
+                    this.pageNumber = 1;
+                }
             },
             //跳转到第几页
             goto(pageNumber){
