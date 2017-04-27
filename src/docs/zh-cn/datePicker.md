@@ -110,7 +110,7 @@ export default {
 </summary>
 
 ```html
-<template>                         
+<template>
     <v-date-picker v-model="date" size="sm"></v-date-picker>
     <v-date-picker v-model="date"></v-date-picker>
     <v-date-picker v-model="rangeDate" range size="lg"></v-date-picker>
@@ -172,7 +172,7 @@ export default {
 
 ```html
 <template>  
-    <v-date-picker clearable show-time v-model="time"></v-date-picker>
+    <v-date-picker clearable show-time v-model="time" @change="change"></v-date-picker>
     <v-date-picker range show-time v-model="rangeTime" clearable></v-date-picker>
 </template>
 <script>
@@ -251,7 +251,6 @@ export default {
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | value  | 默认日期,当range为true时为数组[开始时间，结束时间] | string/array | - |
-| style | 自定义输入框样式 | object | {width:'100px'} |
 | size | 输入框大小，lg 高度为 32px，sm 为 22px，默认是 28px | string | - |
 | placeholder  | 占位提示符 | string | 请选择日期 |
 | position | 下拉框的定位方式(absolute、fixed) | string | absolute |

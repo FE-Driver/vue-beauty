@@ -1,5 +1,5 @@
 <template>
-    <span :class="prefix+'-picker'" :style="style">
+    <span :class="prefix+'-picker'" :style="styleObject" ref="test">
         <span>
             <input :value="label" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size}]" @click.stop="click" @mousedown="$event.preventDefault()">
             <i v-if="clearable&&label" @click.stop="clear" class="anticon anticon-cross-circle ant-calendar-picker-clear"></i>
@@ -111,11 +111,6 @@
                 type: Boolean,
                 default: false
             },
-            //显示宽度
-            style: {
-                type: Object,
-                default: ()=>({width:'100px'})
-            },
             size: String,
             //输入的时间
             value: [String,Array],
@@ -156,6 +151,8 @@
         },
         data() {
             return {
+                // 显示宽度
+                styleObject: {},
                 prefix: 'ant-calendar',
                 container: null,
                 timeSelected: false,
@@ -222,16 +219,19 @@
 
             window.addEventListener('resize',this.resize);
             window.addEventListener('click',this.closeDropdown);
-            if(!this.style.minWidth){
+            if(!this.$refs.test.style.minWidth){
                 if(this.showTime){
                     if(this.range){
-                        this.$set(this.style, 'minWidth', '255px')
+                        this.$set(this.styleObject, 'minWidth', '255px')
                     }else{
-                        this.$set(this.style, 'minWidth', '140px')
+                        this.$set(this.styleObject, 'minWidth', '140px')
                     }
                 }else if(this.range){
-                    this.$set(this.style, 'minWidth', '180px')
+                    this.$set(this.styleObject, 'minWidth', '180px')
                 }
+            }
+            if(!this.$refs.test.style.width){
+                this.$set(this.styleObject, 'width', '100px')
             }
             if(this.showTime){
                 this.timeBtnEnable = !!this.value;
