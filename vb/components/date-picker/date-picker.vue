@@ -382,8 +382,8 @@
             },
             //点击时间输入框的时候触发
             click() {
-                this.time1 = this.parse(this.startTime) || this.parse(this.value);
-                this.now1 = this.parse(this.startTime) || this.parse(this.value) || new Date();
+                this.time1 = this.parse(this.startTime) || this.parse(this.range ? this.value[0] : this.value);
+                this.now1 = this.parse(this.startTime) || this.parse(this.range ? this.value[0] : this.value) || new Date();
                 if (this.range) {
                     this.initRanges();
                     this.time2 = this.parse(this.endTime);
