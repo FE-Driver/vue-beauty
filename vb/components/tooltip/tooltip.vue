@@ -1,13 +1,13 @@
 <template>
-    <div :class="[prefixCls]" @mouseenter="handleShowPopper" @mouseleave="handleClosePopper">
-        <div :class="[prefixCls + '-rel']" ref="reference">
+    <div class="ant-tooltip-wrapper" style="display:inline-block" @mouseenter="handleShowPopper" @mouseleave="handleClosePopper">
+        <div style="display:inline-block" ref="reference">
             <slot></slot>
         </div>
         <transition name="fade">
-            <div :class="[prefixCls + '-popper']" ref="popper" v-show="!disabled && (visible || always)">
-                <div :class="[prefixCls + '-content']">
-                    <div :class="[prefixCls + '-arrow']"></div>
-                    <div :class="[prefixCls + '-inner']"><slot name="content">{{ content }}</slot></div>
+            <div :class="`ant-tooltip  ant-tooltip-placement-${placement}`" ref="popper" v-show="!disabled && (visible || always)">
+                <div class="ant-tooltip-content">
+                    <div class="ant-tooltip-arrow"></div>
+                    <div class="ant-tooltip-inner"><slot name="content">{{ content }}</slot></div>
                 </div>
             </div>
         </transition>
@@ -26,7 +26,7 @@
                 validator(value) {
                     return placements.includes(value);
                 },
-                default: 'bottom',
+                default: 'top',
             },
             content: {
                 type: [String, Number],
