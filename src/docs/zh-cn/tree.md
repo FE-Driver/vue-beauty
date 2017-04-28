@@ -313,6 +313,51 @@ export default {
 
 :::
 
+::: demo
+<summary>
+  #### 连接线
+  带连接线的树。
+</summary>
+
+```html
+<template>
+  <v-tree :data="treeData" show-line></v-tree>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      treeData: [{
+        title: 'parent 1',
+        expanded: true,
+        selected: true,
+        children: [{
+          title: 'parent 1-0',
+          expanded: true,
+          disabled: true,
+          children: [{
+            title: 'leaf',
+            disableCheckbox: true
+          }, {
+            title: 'leaf',
+          }]
+        }, {
+          title: 'parent 1-1',
+          checked: true,
+          children: [{
+            title: "<span style='color: #08c'>sss</span>"
+          }]
+        }]
+      }]
+    }
+  },
+}
+</script>
+```
+
+:::
+
 ## API
 ### Tree Props
 | 参数      | 说明          | 类型      | 默认值  |
@@ -320,6 +365,7 @@ export default {
 | data | 可嵌套的节点属性的数组，生成tree的数据 | Array | [] |
 | multiple | 支持点选多个节点 | Boolean | false |
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
+| showLine | 是否展示连接线 | Boolean | false |
 | draggable | 设置节点可拖拽 | Boolean | false |
 | canDrop | 用来判断拖拽时是否能drop的函数,参数: sourceNode, targetNode, dropPosition。dropPosition的值有-1(插入到目标节点前面),0(插入到目标节点里面),1(插入到目标节点后面) | Function | () => true |
 

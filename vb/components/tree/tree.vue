@@ -46,6 +46,10 @@ export default {
             type: Function,
             default: () => true,
         },
+        showLine: {
+            type: Boolean,
+            default: false,
+        },
     },
     data: () => ({
         prefixCls: 'ant-tree',
@@ -56,7 +60,16 @@ export default {
     }),
     computed: {
         treeCls() {
-            return this.clue === '0' ? this.prefixCls : `${this.prefixCls}-child-tree`;
+            if (this.clue === '0') {
+                return [
+                    this.prefixCls,
+                    { [`${this.prefixCls}-show-line`]: this.showLine },
+                ];
+            }
+            return [
+                `${this.prefixCls}-child-tree`,
+                { [`${this.prefixCls}-line`]: this.showLine },
+            ];
         },
         dropOverCls() {
             let res;
