@@ -81,6 +81,11 @@ export default {
       }, {
         title: '0-2',
       }],
+      asyncData: [
+        { title: 'pNode 01', children: []},
+        { title: 'pNode 02', children: []},
+        { title: 'pNode 03'},
+      ]
     }
   },
   methods: {
@@ -111,7 +116,19 @@ export default {
     },
     delNode() {
       this.$refs.tree.delNode(this.selectNode.clue);
-    }
+    },
+    getData(node) {
+      console.log(node);
+      return new Promise(resolve => {
+        setTimeout(()=>{
+          resolve([
+            { title: `leaf ${node.clue}-0`},
+            { title: `leaf ${node.clue}-1`},
+            { title: `leaf ${node.clue}-2`},
+          ])
+        }, 1000)
+      })
+    },
   }
 }
 </script>
@@ -220,6 +237,49 @@ export default {
         title: '0-2',
       }],
     }
+  }
+}
+</script>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 异步数据加载
+  点击展开节点，动态加载数据。
+</summary>
+
+```html
+<template>
+  <v-tree :data="asyncData" :async="getData"></v-tree>
+  </v-tree>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      asyncData: [
+        { title: 'pNode 01', children: []},
+        { title: 'pNode 02', children: []},
+        { title: 'pNode 03'},
+      ]
+    }
+  },
+  methods: {
+    getData(node) {
+      console.log(node);
+      return new Promise(resolve => {
+        setTimeout(()=>{
+          resolve([
+            { title: `leaf ${node.clue}-0`},
+            { title: `leaf ${node.clue}-1`},
+            { title: `leaf ${node.clue}-2`},
+          ])
+        }, 1000)
+      })
+    },
   }
 }
 </script>
@@ -359,7 +419,7 @@ export default {
 :::
 
 ## API
-### Tree Props
+### Tree Props 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | data | 可嵌套的节点属性的数组，生成tree的数据 | Array | [] |
@@ -367,7 +427,8 @@ export default {
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
 | draggable | 设置节点可拖拽 | Boolean | false |
-| canDrop | 用来判断拖拽时是否能drop的函数,参数: sourceNode, targetNode, dropPosition。dropPosition的值有-1(插入到目标节点前面),0(插入到目标节点里面),1(插入到目标节点后面) | Function | () => true |
+| canDrop | 用来判断拖拽时是否能drop的函数,dropPosition的值有-1(插入到目标节点前面),0(插入到目标节点里面),1(插入到目标节点后面) | Function(sourceNode, targetNode, dropPosition) | () => true |
+| async | 异步加载数据 | Function(node) | - |
 
 ### Data Props
 | 属性        | 说明           | 类型               | 默认值       |

@@ -6,6 +6,7 @@
         <span :class="prefixCls + '-checkbox-inner'"></span>
       </span>
       <a :title="item.title" :class="selectHandleCls(item)" @click.prevent="setSelect(item.disabled, index)" :draggable="draggable" @dragstart="dragstart(index,$event)" @dragend="dragend">
+        <span class="ant-tree-iconEle ant-tree-icon_loading ant-tree-icon__open" v-if="item.loading"></span>
         <span :class="prefixCls + '-title'" v-html="item.title"></span>
       </a>
       <transition name="slide-up">
@@ -50,6 +51,7 @@ export default {
             type: Boolean,
             default: false,
         },
+        async: Function,
     },
     data: () => ({
         prefixCls: 'ant-tree',
@@ -322,47 +324,54 @@ export default {
         ];
       },
       selectHandleCls(item) {
-        const wrap = `${this.prefixCls}-node-content-wrapper`;
+          const wrap = `${this.prefixCls}-node-content-wrapper`;
 
-        return [
-          wrap,
-          `${wrap}-normal`,
-          {
-            [`${this.prefixCls}-node-selected`]: !item.disable && item.selected,
-            draggable: this.draggable
-          }
-        ];
+          return [
+              wrap,
+              `${wrap}-normal`,
+              {
+                  [`${this.prefixCls}-node-selected`]: !item.disable && item.selected,
+                  draggable: this.draggable,
+              },
+          ];
       },
       setKey() {
-        for (let i = 0; i < this.data.length; i++) {
-          this.data[i].clue = `${this.clue}-${i}`;
-        }
+          for (let i = 0; i < this.data.length; i++) {
+              this.data[i].clue = `${this.clue}-${i}`;
+          }
       },
       preHandle() {
-        for (let [i, item] of this.data.entries()) {
-          if (!item.children || !item.children.length) {
-            this.$set(this.data[i], 'isLeaf', true);
-            this.$set(this.data[i], 'childrenCheckedStatus', 2);
-            continue;
-          }
+          for (const [i, item] of this.data.entries()) {
+              if (!item.children) {
+                  this.$set(item, 'isLeaf', true);
+                  this.$set(item, 'childrenCheckedStatus', 2);
+                  continue;
+              }
 
-          this.$set(this.data[i], 'isLeaf', false);
-          if (item.checked && !item.childrenCheckedStatus) {
-            this.$set(this.data[i], 'childrenCheckedStatus', 2);
-            this.broadcast('Tree', 'parentChecked', { status: true, clue: `${this.clue}-${i}` });
-          } else {
-            let status = this.getChildrenCheckedStatus(item.children);
-            this.$set(this.data[i], 'childrenCheckedStatus', status);
-            
-            if (status !== 0) {
-              this.$set(this.data[i] ,'checked', true);
-            }
+              this.$set(item, 'isLeaf', false);
+              if (item.checked && !item.childrenCheckedStatus) {
+                  this.$set(item, 'childrenCheckedStatus', 2);
+                  this.broadcast('Tree', 'parentChecked', { status: true, clue: `${this.clue}-${i}` });
+              } else {
+                  const status = this.getChildrenCheckedStatus(item.children);
+                  this.$set(item, 'childrenCheckedStatus', status);
+
+                  if (status !== 0) {
+                      this.$set(item, 'checked', true);
+                  }
+              }
           }
-        }
       },
-      setExpand(disabled, index) {
+      async setExpand(disabled, index) {
         if (!disabled) {
-          this.$set(this.data[index], 'expanded', !this.data[index].expanded);
+          const expanded = !this.data[index].expanded;
+          this.$set(this.data[index], 'expanded', expanded);
+          if(expanded && !this.data[index].children.length && this.async) {
+            this.$set(this.data[index], 'loading', true);
+            const data = await this.async(this.data[index]);
+            this.data[index].children = data;
+            this.$set(this.data[index], 'loading', false);
+          }
         }
       },
       setSelect(disabled, index) {
