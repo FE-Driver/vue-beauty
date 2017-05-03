@@ -200,11 +200,12 @@
                 }]
             }
         },
-        methods: {
-            onCollapse(collapsed) {
-                this.collapsed = collapsed;
-                console.log("onCollapse！");
+        watch: {
+            collapsed(val) {
+                console.log(val);
             },
+        },
+        methods: {
             toggle() {
                 this.customCollapsed = !this.customCollapsed;
             }
@@ -613,7 +614,7 @@
 <template>
     <div id="components-layout-demo-side"> 
         <v-layout>
-            <v-sider collapsible :collapsed="collapsed" @collapse="onCollapse">
+            <v-sider collapsible v-model="collapsed">
                 <div class="logo"></div>
                 <v-menu theme="dark" :mode="collapsed?'vertical':'inline'" :data="menuData3">
                     <template scope="{data}">
@@ -689,12 +690,11 @@
                 }]
             }
         },
-        methods: {
-            onCollapse(collapsed) {
-                this.collapsed = collapsed;
-                console.log("onCollapse！");
-            }
-        }
+        watch: {
+            collapsed(val) {
+                console.log(val);
+            },
+        },
     }
 </script>
 ```
@@ -884,11 +884,11 @@
 
 | 成员      | 说明                                     | 类型       | 默认值 |
 |----------|-----------------------------------------|------------|-------|
-| collapsible | 是否可收起 | boolean | `false`  |
-| collapsed | 当前收起状态 | boolean | `false` |
-| trigger | 是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger | boolean | - |
-| width | 宽度 | number | `200` |
-| collapsedWidth | 收缩宽度，仅当 `collapsed: true` 时生效 | number | `64` |
+| collapsed | 当前收起状态，可用v-model | Boolean | `false` |
+| collapsible | 是否可收起 | Boolean | `false`  |
+| trigger | 是否显示trigger，collapsible 为 true 时有效，设置为 false 时隐藏 trigger | Boolean | - |
+| width | 宽度 | Number | `200` |
+| collapsedWidth | 收缩宽度，仅当 `collapsed: true` 时生效 | Number | `64` |
 | breakpoint | 触发响应式布局的断点 | Enum { 'xs', 'sm', 'md', 'lg', 'xl' }  | - |
 
 ### Sider Events

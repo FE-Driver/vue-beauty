@@ -22,38 +22,42 @@
 
     export default{
         name: 'Sider',
-        data(){
+        data() {
             return {
                 prefixCls: 'ant-layout-sider',
                 innerCollapsed: this.collapsed,
                 below: false,
-                mql: null
-            }
+                mql: null,
+            };
         },
         props: {
             collapsible: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             collapsed: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             trigger: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             width: {
                 type: Number,
-                default: 200
+                default: 200,
             },
             collapsedWidth: {
                 type: Number,
-                default: 64
+                default: 64,
             },
             breakpoint: {
-                type: String
-            }
+                type: String,
+            },
+        },
+        model: {
+            prop: 'collapsed',
+            event: 'collapse',
         },
         created() {
             let matchMedia;
@@ -77,8 +81,8 @@
         },
         computed: {
             siderCls() {
-                let prefixCls = this.prefixCls;
-                let siderWidth = this.innerCollapsed ? this.collapsedWidth : this.width;
+                const prefixCls = this.prefixCls;
+                const siderWidth = this.innerCollapsed ? this.collapsedWidth : this.width;
                 return [prefixCls, {
                     [`${prefixCls}-collapsed`]: this.innerCollapsed,
                     [`${prefixCls}-has-trigger`]: this.collapsible && this.trigger,
@@ -87,7 +91,7 @@
                 }];
             },
             siderStyle() {
-                let siderWidth = this.innerCollapsed ? this.collapsedWidth : this.width;
+                const siderWidth = this.innerCollapsed ? this.collapsedWidth : this.width;
                 return {
                     flex: `0 0 ${siderWidth}px`,
                     width: `${siderWidth}px`,
@@ -95,15 +99,15 @@
             },
             zeroWidthTrigger() {
                 return this.collapsedWidth === 0 || this.collapsedWidth === '0';
-            }
+            },
         },
         watch: {
             collapsed(value) {
                 this.innerCollapsed = value;
             },
             innerCollapsed(value) {
-                this.$emit("collapse", value);
-            }
+                this.$emit('collapse', value);
+            },
         },
         methods: {
             toggle() {
@@ -112,9 +116,9 @@
             responsiveHandler() {
                 this.below = this.mql.matches;
                 if (this.innerCollapsed !== this.mql.matches) {
-                    this.innerCollapsed =  this.mql.matches;
+                    this.innerCollapsed = this.mql.matches;
                 }
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
