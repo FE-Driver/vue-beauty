@@ -2,15 +2,15 @@
 export default {
     data() {
         return {
-            activeIndex: ['1','2'],
+            activeIndex: ['1'],
             accordionActiveIndex: ['1','2'],
             activeIndexMore:['1'],
             activeIndexSimple:['1'],
         }
     },
     methods: {
-        onChange(data) {
-            console.log("collapse change event!!! " + data.index + data.status);
+        onChange(index, status) {
+            console.log(`第${index}个面板发生变化，目前状态: ${status}`);
         },
     },
     watch: {
@@ -29,35 +29,35 @@ export default {
 
 ## 何时使用
 
-对复杂区域进行分组和隐藏，保持页面的整洁。
-手风琴 是一种特殊的折叠面板，只允许单个内容区域展开。
+- 对复杂区域进行分组和隐藏，保持页面的整洁。
+- `手风琴` 是一种特殊的折叠面板，只允许单个内容区域展开。
 
 ## 代码演示
 ::: demo
 <summary>
   #### 折叠面板
-  可以同时展开多个面板，这个例子展开了第一个和第二个。 
+  可以同时展开多个面板，这个例子默认展开了第一个。
 </summary>
 
 ```html
 <template>
     <v-collapse @change="onChange" v-model="activeIndex">
-        <v-collapse-item header="This is panel header 1" index="1">
+        <v-panel header="This is panel header 1" index="1">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 2" index="2">
+        </v-panel>
+        <v-panel header="This is panel header 2" index="2">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 3" index="3">
+        </v-panel>
+        <v-panel header="This is panel header 3" index="3">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
+        </v-panel>
     </v-collapse>
 </template>
 <script>
 export default {
     data() {
         return {
-            activeIndex:['1','2'],
+            activeIndex:['1'],
         }
     },
     methods: {
@@ -78,21 +78,21 @@ export default {
 ::: demo
 <summary>
   #### 手风琴
-  手风琴，每次只打开一个tab。默认打开传入数组的第一个。
+  手风琴，每次只打开一个tab。默认打开第一个。
 </summary>
 
 ```html
 <template>
-    <v-collapse @change="onChange" v-model="accordionActiveIndex" accordion>
-        <v-collapse-item header="This is panel header 1" index="1">
+    <v-collapse @change="onChange" accordion>
+        <v-panel header="This is panel header 1" index="1">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 2" index="2">
+        </v-panel>
+        <v-panel header="This is panel header 2" index="2">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 3" index="3">
+        </v-panel>
+        <v-panel header="This is panel header 3" index="3">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
+        </v-panel>
     </v-collapse>
 </template>
 <script>
@@ -120,44 +120,6 @@ export default {
 
 ::: demo
 <summary>
-  #### 简洁风格
-  一套没有边框的简洁样式
-</summary>
-
-```html
-<template>
-    <v-collapse @change="onChange" :active-index="activeIndexSimple" :bordered="false">
-        <v-collapse-item header="This is panel header 1" index="1">
-            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 2" index="2">
-            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 3" index="3">
-            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-    </v-collapse>
-</template>
-<script>
-export default {
-    data() {
-        return {
-            activeIndexSimple:['1'],
-        }
-    },
-    methods: {
-        onChange(data) {
-            console.log("collapse change event!!! " + data.index + data.status);
-        },
-    },
-}
-</script>
-```
-
-:::
-
-::: demo
-<summary>
   #### 嵌套模式
   可在单个面板里面嵌套
 </summary>
@@ -165,18 +127,18 @@ export default {
 ```html
 <template>
     <v-collapse @change="onChange" :active-index="activeIndexMore">
-        <v-collapse-item header="This is panel header 1" index="1">
+        <v-panel header="This is panel header 1" index="1">
             <v-collapse :active-index="activeIndexMore">
-                <v-collapse-item header="This is panel header 1-1" index="1">
+                <v-panel header="This is panel header 1-1" index="1">
                     A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-                </v-collapse-item>
-                <v-collapse-item header="This is panel header 1-2" index="2">
+                </v-panel>
+                <v-panel header="This is panel header 1-2" index="2">
                     A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-                </v-collapse-item>
+                </v-panel>
             </v-collapse>
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item index="2">
+        </v-panel>
+        <v-panel index="2">
             <template slot="header">
                 <div>
                     This is panel header 2
@@ -185,10 +147,10 @@ export default {
                 </div>
             </template>
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 3" index="3">
+        </v-panel>
+        <v-panel header="This is panel header 3" index="3">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
+        </v-panel>
     </v-collapse>
 </template>
 <script>
@@ -211,17 +173,55 @@ export default {
 
 ::: demo
 <summary>
-  #### 自定义标题
-  可针对每个标题进行自定义
+  #### 简洁风格
+  一套没有边框的简洁样式
+</summary>
+
+```html
+<template>
+    <v-collapse @change="onChange" :active-index="activeIndexSimple" :bordered="false">
+        <v-panel header="This is panel header 1" index="1">
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
+        </v-panel>
+        <v-panel header="This is panel header 2" index="2">
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
+        </v-panel>
+        <v-panel header="This is panel header 3" index="3">
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
+        </v-panel>
+    </v-collapse>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            activeIndexSimple:['1'],
+        }
+    },
+    methods: {
+        onChange(data) {
+            console.log("collapse change event!!! " + data.index + data.status);
+        },
+    },
+}
+</script>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 自定义面板
+  自定义各个面板的背景色、圆角和边距。
 </summary>
 
 ```html
 <template>
     <v-collapse @change="onChange" :active-index="activeIndexMore">
-        <v-collapse-item header="This is panel header 1" index="1">
+        <v-panel header="This is panel header 1" index="1">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item index="2">
+        </v-panel>
+        <v-panel index="2">
             <template slot="header">
                 <div>
                     This is panel header 2
@@ -230,10 +230,10 @@ export default {
                 </div>
             </template>
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
-        <v-collapse-item header="This is panel header 3" index="3">
+        </v-panel>
+        <v-panel header="This is panel header 3" index="3">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-collapse-item>
+        </v-panel>
     </v-collapse>
 </template>
 <script>

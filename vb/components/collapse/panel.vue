@@ -16,8 +16,9 @@
 
 <script lang="babel">
     import emitter from '../../mixins/emitter';
+
     export default {
-        name: 'CollapseItem',
+        name: 'Panel',
         mixins: [emitter],
         data: () => ({
             prefix: 'ant-collapse',
@@ -31,30 +32,22 @@
             this.setChecked();
         },
         computed: {
-            innerValue(){
+            innerValue() {
                 return JSON.parse(JSON.stringify(this.$parent.innerActiveIndex));
             },
         },
         watch: {
-            innerValue(value){
+            innerValue() {
                 this.setChecked();
             },
         },
         methods: {
             handleOpen() {
-                this.dispatch('Collapse', 'item.change', [this.index,this.open]);
+                this.dispatch('Collapse', 'item.change', [this.index, this.open]);
             },
             setChecked() {
-                this.open=false;
-                if (this.innerValue) {
-                    for (let key of this.innerValue) {
-                        if (this.index == key) {
-                            this.open = true
-                        }
-                    }
-                }
+                this.open = this.innerValue.includes(this.index);
             },
-        }
-    }
-
+        },
+    };
 </script>

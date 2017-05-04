@@ -1,7 +1,6 @@
-import "./style/index.less"
-import collapse from './collapse.vue'
-import collapseItem from './item.vue'
+import './style/index.less';
+import collapse from './collapse';
+import panel from './panel';
 
-collapse.item = collapseItem
-export default collapse
-
+collapse.panel = panel;
+export default collapse;

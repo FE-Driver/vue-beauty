@@ -5,13 +5,12 @@
 </template>
 
 <script>
-    import item from './item'
     export default {
         name: 'Collapse',
         props: {
             accordion: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             activeIndex: {
                 type: Array,
@@ -25,17 +24,10 @@
         model: {
             prop: 'activeIndex',
         },
-        data(){
-            if(this.accordion){
-                return {
-                    innerActiveIndex:[JSON.parse( JSON.stringify(this.activeIndex[0]))],
-                }
-            }else{
-                return {
-                    innerActiveIndex:JSON.parse( JSON.stringify(this.activeIndex) ),
-                }
-            }
-            
+        data() {
+            return {
+                innerActiveIndex: this.accordion ? [this.activeIndex[0]] : [...this.activeIndex],
+            };
         },
         mounted() {
             this.$on('item.change',(index,status) => {
@@ -58,7 +50,7 @@
                         }
                     }
                 }
-                this.$emit('change',{index:index,status:!status});
+                this.$emit('change', index, !status);
             })
         },
         watch: {
@@ -69,14 +61,6 @@
                 this.$emit('input',value);
             }
         },
-        methods: {
-            
-        }
     }
 
 </script>
-<style lang="less" scoped>
-.ant-collapse-borderless > .ant-collapse-item{
-    border-bottom:0 none;
-}
-</style>

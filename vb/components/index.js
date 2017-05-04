@@ -88,7 +88,7 @@ const components = {
     checkbox,
     checkboxGroup: checkbox.group,
     collapse,
-    collapseItem:collapse.item,
+    panel: collapse.panel,
     upload,
     notification,
     tooltip,
