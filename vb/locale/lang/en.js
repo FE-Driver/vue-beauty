@@ -38,4 +38,7 @@ export default {
         searchPlaceholder: 'Search here',
         notFoundContent: 'Not Found'
     },
+    treeSelect: {
+        placeholder: 'please select',
+    },
 }

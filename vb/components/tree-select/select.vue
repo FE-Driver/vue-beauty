@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapCls" style="width: 120px;" @click.stop="openDropdown" ref="inputArea">
-        <span :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="true" tabindex="0">
+    <div :class="wrapCls" style="width: 120px;" ref="inputArea" v-clickoutside="closeDropdown">
+        <span @click="toggleDropdown" :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="true" tabindex="0">
             <ul v-if="multiple" class="ant-select-selection__rendered">
                 <li v-for="(item,index) in innerValue" unselectable="unselectable" class="ant-select-selection__choice" :title="item.text" style="-webkit-user-select: none;">
                     <span class="ant-select-selection__choice__remove" @click="clearSingle(index)"></span>
@@ -15,7 +15,7 @@
             <div v-else class="ant-select-selection__rendered">
                 <span v-show="innerValue.length" v-text="innerValue.length?innerValue[0].text:''"></span>
             </div>
-            <span class="ant-select-search__field__placeholder" v-show="!innerValue.length" style="padding-left:8px">请选择</span>
+            <span class="ant-select-search__field__placeholder" v-show="!innerValue.length" style="padding-left:8px">{{placeholder}}</span>
             <span v-if="allowClear && innerValue.length" class="ant-select-selection__clear" @click.stop="clearSelected"></span>
             <span class="ant-select-arrow" unselectable="unselectable" style="-webkit-user-select: none;"><b></b></span>
         </span>
@@ -35,8 +35,10 @@
 </template>
 <script>
     import { getOffset } from '../../utils/fn';
+    import clickoutside from '../../directives/clickoutside';
 
     export default {
+        directives: { clickoutside },
         data() {
             return {
                 prefix: 'ant-select',
@@ -56,6 +58,7 @@
                 type: Function,
                 default: () => document.body,
             },
+            placeholder: String,
             position: {
                 type: String,
                 default: 'absolute',
@@ -74,7 +77,7 @@
             },
         },
         mounted() {
-            document.addEventListener('click', () => this.open = false);
+            //document.addEventListener('click', () => this.open = false);
             this.container = this.popupContainer();
             this.$refs.dropdown.style.position = this.position;
             this.container.appendChild(this.$refs.dropdown);
@@ -147,8 +150,11 @@
                     minWidth: `${p.right - p.left}px`,
                 };
             },
-            openDropdown() {
+            toggleDropdown() {
                 this.open = !this.open;
+            },
+            closeDropdown() {
+                this.open = false;
             },
             clearSelected() {
                 this.$emit('clear', this.innerValue);

@@ -38,4 +38,7 @@ export default {
         searchPlaceholder: '请输入搜索内容',
         notFoundContent: '列表为空'
     },
+    treeSelect: {
+        placeholder: '请选择',
+    },
 }
