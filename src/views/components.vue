@@ -121,11 +121,14 @@ export default {
                     name: 'Switch 开关',
                     link: { name:'switch'}
                 },{
-                    name: 'Transfer 穿梭框',
-                    link: { name:'transfer'}
+                    name: 'TreeSelect 树选择',
+                    link: { name:'treeSelect'}
                 },{
                     name: 'TimePicker 时间选择框',
                     link: { name:'timePicker'}
+                },{
+                    name: 'Transfer 穿梭框',
+                    link: { name:'transfer'}
                 },{
                     name: 'Upload 上传',
                     link: { name:'upload'}

@@ -173,5 +173,9 @@ export default [{
         path: 'carousel',
         name: 'carousel',
         component: require('./docs/zh-cn/carousel.md'),
+    }, {
+        path: 'treeSelect',
+        name: 'treeSelect',
+        component: require('./docs/zh-cn/tree-select.md'),
     }],
 }];

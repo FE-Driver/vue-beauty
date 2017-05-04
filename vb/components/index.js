@@ -43,6 +43,7 @@ import popconfirm from './popconfirm';
 import transfer from './transfer';
 import timeline from './timeline';
 import carousel from './carousel';
+import treeSelect from './tree-select';
 import locale from '../locale';
 
 const components = {
@@ -104,6 +105,7 @@ const components = {
     timelineItem: timeline.item,
     carousel,
     carouselItem: carousel.item,
+    treeSelect,
 };
 
 message.install = function (Vue) {

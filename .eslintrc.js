@@ -47,5 +47,6 @@ module.exports = {
     'no-new': 0,
     'consistent-return': 0,
     'no-mixed-operators': 0,
+    'no-return-assign': 0,
   }
 }
