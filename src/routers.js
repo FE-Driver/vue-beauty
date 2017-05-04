@@ -34,6 +34,10 @@ export default [{
         name: 'cascader',
         component: require('./docs/zh-cn/cascader.md'),
     }, {
+        path: 'collapse',
+        name: 'collapse',
+        component: require('./docs/zh-cn/collapse.md'),
+    }, {
         path: 'button',
         name: 'button',
         component: require('./docs/zh-cn/button.md'),

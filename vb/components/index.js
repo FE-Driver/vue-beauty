@@ -30,6 +30,7 @@ import modal from './modal';
 import morePanel from './more-panel';
 import radio from './radio';
 import checkbox from './checkbox';
+import collapse from './collapse';
 import upload from './upload';
 import notification from './notification';
 import form from './form';
@@ -45,6 +46,7 @@ import timeline from './timeline';
 import carousel from './carousel';
 import treeSelect from './tree-select';
 import locale from '../locale';
+
 
 const components = {
     breadcrumb,
@@ -85,6 +87,8 @@ const components = {
     radioGroup: radio.group,
     checkbox,
     checkboxGroup: checkbox.group,
+    collapse,
+    collapseItem:collapse.item,
     upload,
     notification,
     tooltip,

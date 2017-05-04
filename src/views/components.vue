@@ -145,6 +145,9 @@ export default {
                     name: 'Carousel 走马灯',
                     link: { name:'carousel'}
                 },{
+                    name: 'Collapse 折叠面板',
+                    link: { name:'collapse'}
+                },{
                     name: 'Popover 气泡卡片',
                     link: { name:'popover'}
                 },{
