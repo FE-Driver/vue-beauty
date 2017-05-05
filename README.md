@@ -7,9 +7,15 @@ Beautiful  UI components build with vue and ant design
 
 ## 如何体验（How to experience）
 Still developing,not suggesting to use in production!
-- clone本项目，并切换到next分支，本地编译后(npm run build)，然后用npm或yarn直接从本地文件系统进行安装(推荐)
-- clone本项目，并切换到next分支，然后在您的项目手动引入[issue160](https://github.com/FE-Driver/vue-beauty/issues/160)
-- 也可以通过 `npm install vue-beauty@next -S` 或者 `yarn add vue-beauty@next` 来体验，但不推荐在生产环境使用，并且npm包更新得并不及时
+- clone本项目，并切换到next分支
+- 安装依赖(yarn)，并打包(npm run package)
+- 在你的项目中引入
+````javascript
+import 'relativePath/vue-beauty/package/style/vue-beauty.min.css';
+import vueBeauty from 'relativePath/vue-beauty';
+
+vue.use(vueBeauty);
+````
 
 ## 目录结构
 <pre>
