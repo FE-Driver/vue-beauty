@@ -14,11 +14,11 @@
             },
             activeIndex: {
                 type: Array,
-                default: () => []
+                default: () => [],
             },
-            bordered:{
+            bordered: {
                 type: Boolean,
-                default: true
+                default: true,
             },
         },
         model: {
@@ -30,37 +30,31 @@
             };
         },
         mounted() {
-            this.$on('item.change',(index,status) => {
+            this.$on('item.change', (index, status) => {
                 if (this.accordion) {
-                    for (let item of this.$children) {
-                        if (item.index===index) {
-                            this.innerActiveIndex = [index];
+                    this.innerActiveIndex = status ? [] : [index];
+                } else {
+                    if (status) {
+                        const i = this.innerActiveIndex.indexOf(index);
+                        if (i !== -1) {
+                            this.innerActiveIndex.splice(i, 1);
                         }
-                    }
-                    status = false;
-                }else{
-                    if(status){
-                        const i  = this.innerActiveIndex.indexOf(index);
-                        if( i !== -1) {
-                            this.innerActiveIndex.splice(i,1);
-                        }
-                    }else{
-                        if(!this.innerActiveIndex.includes(index)){
+                    } else {
+                        if (!this.innerActiveIndex.includes(index)) {
                             this.innerActiveIndex.push(index);
                         }
                     }
                 }
                 this.$emit('change', index, !status);
-            })
+            });
         },
         watch: {
-            activeIndex(val){
+            activeIndex(val) {
                 this.innerActiveIndex = val;
             },
-            innerActiveIndex(value){
-                this.$emit('input',value);
-            }
+            innerActiveIndex(value) {
+                this.$emit('input', value);
+            },
         },
-    }
-
+    };
 </script>
