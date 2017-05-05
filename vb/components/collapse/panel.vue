@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="ant-collapse-item" :class="{'ant-collapse-item-active': open}" :style="customPanelStyle">
+    <div class="ant-collapse-item" :class="{'ant-collapse-item-active': open}">
         <div class="ant-collapse-header" @click="handleOpen" :aria-expanded="open">
             <i class="arrow"></i>
             <slot name="header">{{header}}</slot>
@@ -27,7 +27,6 @@
         props: {
             index: String,
             header: String,
-            customPanelStyle: Object,
         },
         mounted() {
             this.setChecked();

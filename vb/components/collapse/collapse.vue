@@ -33,17 +33,13 @@
             this.$on('item.change', (index, status) => {
                 if (this.accordion) {
                     this.innerActiveIndex = status ? [] : [index];
-                } else {
-                    if (status) {
-                        const i = this.innerActiveIndex.indexOf(index);
-                        if (i !== -1) {
-                            this.innerActiveIndex.splice(i, 1);
-                        }
-                    } else {
-                        if (!this.innerActiveIndex.includes(index)) {
-                            this.innerActiveIndex.push(index);
-                        }
+                } else if (status) {
+                    const i = this.innerActiveIndex.indexOf(index);
+                    if (i !== -1) {
+                        this.innerActiveIndex.splice(i, 1);
                     }
+                } else if (!this.innerActiveIndex.includes(index)) {
+                    this.innerActiveIndex.push(index);
                 }
                 this.$emit('change', index, !status);
             });

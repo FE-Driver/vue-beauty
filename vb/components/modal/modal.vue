@@ -25,7 +25,7 @@
     </v-dialog>
 </template>
 <script lang="babel">
-    import  KeyCode from '../../utils/key-code'
+    import KeyCode from '../../utils/key-code'
     import vDialog from './dialog'
     import vButton from '../button'
     import Locale from '../../mixins/locale';

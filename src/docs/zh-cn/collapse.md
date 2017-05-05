@@ -85,8 +85,6 @@ export default {
 <summary>
   #### 手风琴
   手风琴，每次只打开一个tab。
-  传入activeIndex 则默认打开第一个。
-  不传则默认不展开。
 </summary>
 
 ```html
@@ -212,27 +210,21 @@ export default {
 
 ::: demo
 <summary>
-  #### 自定义面板标题
-  除了可以通过 header 属性以外，还可以通过具名 slot 来实现自定义面板的标题内容，以实现增加按钮等效果。
+  #### 自定义面板
+  自定义各个面板的头部、背景色、圆角和边距。
 </summary>
 
 ```html
 <template>
-    <v-collapse @change="onChange" :active-index="activeIndexMore">
-        <v-panel header="This is panel header 1" index="1">
+    <v-collapse @change="onChange" :active-index="activeIndexMore" :bordered="false">
+        <v-panel index="1" :style="customPanelStyle">
+            <v-button type="primary" icon="search" slot="header"><span>搜索</span></v-button>
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
         </v-panel>
-        <v-panel index="2">
-            <template slot="header">
-                <div>
-                    This is panel header 2
-                    <i class="">?^%$####</i>
-                    <v-button type="primary" icon="search"><span>搜索</span></v-button>
-                </div>
-            </template>
+        <v-panel header="This is panel header 2" index="2" :style="customPanelStyle">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
         </v-panel>
-        <v-panel header="This is panel header 3" index="3">
+        <v-panel header="This is panel header 3" index="3" :style="customPanelStyle">
             A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
         </v-panel>
     </v-collapse>
@@ -242,6 +234,12 @@ export default {
     data() {
         return {
             activeIndexMore:['1'],
+            customPanelStyle: {
+                background: '#f7f7f7',
+                borderRadius: '4px',
+                marginBottom: '24px',
+                border: 0,
+            },
         }
     },
     methods: {
@@ -251,29 +249,6 @@ export default {
     },
 }
 </script>
-```
-:::
-
-::: demo
-<summary>
-  #### 自定义面板
-  自定义各个面板的背景色、圆角和边距。
-</summary>
-
-```html
-<template>
-    <v-collapse @change="onChange" :active-index="activeIndexMore" :bordered="false">
-        <v-panel header="This is panel header 1" index="1" :custom-panel-style="customPanelStyle">
-            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-panel>
-        <v-panel header="This is panel header 2" index="2" :custom-panel-style="customPanelStyle">
-            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-panel>
-        <v-panel header="This is panel header 3" index="3" :custom-panel-style="customPanelStyle">
-            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-        </v-panel>
-    </v-collapse>
-</template>
 ```
 :::
 
@@ -291,15 +266,15 @@ export default {
 
 | 事件      | 说明                                     | 回调参数 |
 |----------|-----------------------------------------|-------|
-| change | 展开-收起时触发 | data 当前面板的index和当前面板status |
+| change | 展开-收起时触发 | index, status |
 
 ### Collapse Panel Props
 
 | 成员      | 说明                                     | 类型       | 默认值 |
 |----------|-----------------------------------------|------------|-------|
 | index | 当前索引 | Number| [] |
-| header | 标题内容，可使用slot(name="header") | String | 无 |
-| slot:header | 自定义标题内容 | slot node | 无 |
+| header | 标题内容 | String | 无 |
+| slot:header | 自定义标题内容 | Slot Node | 无 |
 
 
 
