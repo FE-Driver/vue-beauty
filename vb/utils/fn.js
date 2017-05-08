@@ -37,19 +37,3 @@ export function getOffset(element, container = document.body) {
     bottom: el_rect.bottom + top - clientTop
   }
 }
-
-
-let closest = function (elem, fn) {
-  return elem && elem !== document && (fn(elem) ? true : closest(elem.parentNode, fn))
-}
-//判断是否点击了目标元素elem 可以是一个元素数组
-export function closeByElement(target, elem) {
-  if (!(elem instanceof Array)) {
-    elem = [elem]
-  }
-  return closest(target, el => {
-    return elem.some(d => {
-      return el === d
-    })
-  })
-}
