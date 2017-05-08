@@ -1,6 +1,6 @@
 <template>
-    <span :class="pickerCls">
-        <input type="text" :placeholder="label?'':placeholder" :class="inpCls" value="" readonly="" autocomplete="off" @click.stop="toggleMenu">
+    <span :class="pickerCls" v-clickoutside="closeDropdown">
+        <input type="text" :placeholder="label?'':placeholder" :class="inpCls" value="" readonly="" autocomplete="off" @click="toggleMenu">
         <span class="ant-cascader-picker-label">{{label}}</span>
         <i v-if="allowClear && defaultValue.length" class="anticon anticon-cross-circle ant-cascader-picker-clear" @click.stop="clear"></i>
         <i class="anticon anticon-down ant-cascader-picker-arrow"></i>
@@ -15,14 +15,16 @@
 </template>
 
 <script lang="babel">
-    import vmenu from './menu.vue'
-    import {getOffset} from '../../utils/fn'
+    import vmenu from './menu.vue';
+    import  {getOffset } from '../../utils/fn';
     import emitter from '../../mixins/emitter';
+    import clickoutside from '../../directives/clickoutside';
 
     export default {
-        name:'Cascader',
+        name: 'Cascader',
+        directives: { clickoutside },
         mixins: [emitter],
-        data: ()=>({
+        data: () => ({
             prefix: 'ant-cascader',
             defaultValue: [],
             style: {},
@@ -75,15 +77,9 @@
                     this.setPosition();
                 }, 200)
             })
-
-            this.clickListener = ()=>{
-                this.setOpen(false)
-            }
-            window.addEventListener('click',this.clickListener);
         },
         beforeDestroy(){
             this.container.removeChild(this.$refs.menu);
-            window.removeEventListener('click',this.clickListener);
         },
         watch: {
             path(val){
@@ -163,8 +159,8 @@
                 }
                 return res;
             },
-            setOpen(status){
-                this.open = status;
+            closeDropdown() {
+                this.open = false;
             },
             toggleMenu(){
                 if(this.disabled) return;
