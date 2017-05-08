@@ -1,7 +1,7 @@
 <template>
-    <span :class="prefix+'-picker'" :style="styleObject" ref="test">
+    <span :class="prefix+'-picker'" :style="styleObject" ref="wapper" v-clickoutside="closeDropdown">
         <span>
-            <input :value="label" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size}]" @click.stop="click" @mousedown="$event.preventDefault()">
+            <input :value="label" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size}]" @click="click" @mousedown="$event.preventDefault()">
             <i v-if="clearable&&label" @click.stop="clear" class="anticon anticon-cross-circle ant-calendar-picker-clear"></i>
             <span class="ant-calendar-picker-icon"></span>
         </span>
@@ -91,14 +91,17 @@
 </template>
 
 <script lang="babel">
-    import Locale from '../../mixins/locale'
-    import {getOffset} from '../../utils/fn'
+    import Locale from '../../mixins/locale';
+    import { getOffset } from '../../utils/fn';
     import emitter from '../../mixins/emitter';
-    import timePickerPanel from '../time-picker/time-picker-option.vue'
-    const _t = Locale.methods.t
+    import timePickerPanel from '../time-picker/time-picker-option';
+    import clickoutside from '../../directives/clickoutside';
+
+    const _t = Locale.methods.t;
 
     export default {
         name: 'DatePicker',
+        directives: { clickoutside },
         components: {timePickerPanel},
         mixins: [ Locale, emitter],
         props: {
@@ -218,8 +221,7 @@
             })
 
             window.addEventListener('resize',this.resize);
-            window.addEventListener('click',this.closeDropdown);
-            if(!this.$refs.test.style.minWidth){
+            if(!this.$refs.wapper.style.minWidth){
                 if(this.showTime){
                     if(this.range){
                         this.$set(this.styleObject, 'minWidth', '255px')
@@ -230,7 +232,7 @@
                     this.$set(this.styleObject, 'minWidth', '180px')
                 }
             }
-            if(!this.$refs.test.style.width){
+            if(!this.$refs.wapper.style.width){
                 this.$set(this.styleObject, 'width', '100px')
             }
             if(this.showTime){
@@ -256,7 +258,6 @@
         },
         beforeDestroy(){
             this.container.removeChild(this.$refs.container);
-            window.removeEventListener('click',this.closeDropdown);
             window.removeEventListener('resize',this.resize);
         },
         watch: {
