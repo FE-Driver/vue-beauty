@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapCls" @click.stop="toggleDropdown">
-        <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0">
+    <div :class="wrapCls" v-clickoutside="closeDropdown">
+        <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" @click="toggleDropdown">
             <div class="ant-select-selection__rendered">
                 <template v-if="labels">
                     <ul v-if="multiple">
@@ -67,13 +67,15 @@
     </div>
 </template>
 <script lang="babel">
-    import {t} from '../../locale'
-    import {getOffset} from '../../utils/fn'
+    import { t } from '../../locale';
+    import { getOffset } from '../../utils/fn';
     import emitter from '../../mixins/emitter';
+    import clickoutside from '../../directives/clickoutside';
     
     export default {
         name: 'Select',
         mixins: [emitter],
+        directives: { clickoutside },
         data() {
             return {
                 prefix: 'ant-select',
@@ -175,11 +177,9 @@
                     this.setPosition();
                 }, 200)
             })
-            window.addEventListener('click',this.closeDropdown);
         },
         beforeDestroy(){
             this.container.removeChild(this.$refs.dropdown);
-            window.removeEventListener('click',this.closeDropdown);
         },
         watch: {
             innerValue(val){
