@@ -204,6 +204,8 @@ export default {
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | type    | 【必须】声明 input 类型，同原生 input 标签的 type 属性。另外提供 type="textarea"。 | String | text |
+| id    | 输入框的 id | String | - |
+| placeholder    | 选择框默认文字 | String | 0 |
 | value | value 值 | any | - |
 | size | 控件大小，默认值为 default 。{"large","default","small"}注：标准表单内的输入框大小限制为 large。 | String | default |
 | disabled    | 是否禁用状态，默认为 false | Boolean | false |
