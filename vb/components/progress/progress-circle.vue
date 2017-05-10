@@ -14,7 +14,7 @@
                       :d="pathString" stroke-linecap='round' :stroke-width="strokeWidth" fill-opacity='0' :style="strokePathStyle"/>
             </svg>
 
-            <span v-if="showInfo" :class="prefixCls + '-text'">
+            <span v-if="showInfo" :class="prefixCls + '-text'" :style="`color:${strokeColor}`">
                 <template v-if="format"> {{ format(percent) }} </template>
                 <template v-else>
                     <template v-if="progressStatus === 'exception' || progressStatus === 'success'">

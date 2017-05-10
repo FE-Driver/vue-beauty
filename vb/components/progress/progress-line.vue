@@ -2,11 +2,11 @@
     <div :class="wrapClasses">
         <div>
             <div :class="prefixCls + '-outer'">
-                <div :class="prefixCls + '-inner'">
-                    <div :class="prefixCls + '-bg'" :style="{width: percent + '%', height: strokeWidth + 'px'}"></div>
+                <div :class="prefixCls + '-inner'" :style="`background-color:${trailColor}`">
+                    <div :class="prefixCls + '-bg'" :style="{width: percent + '%', height: strokeWidth + 'px', backgroundColor: strokeColor}"></div>
                 </div>
             </div>
-            <span v-if="showInfo" :class="prefixCls + '-text'" style="float: right">
+            <span v-if="showInfo" :class="prefixCls + '-text'" :style="`float: right;color:${strokeColor}`">
                 <template v-if="format"> {{ format(percent) }} </template>
                 <i v-else-if="progressStatusIcon" :class="`anticon anticon-${progressStatusIcon}`"></i>
                 <template v-else> {{ percent }}% </template>
@@ -37,6 +37,22 @@
                     return value >= 0 && value <= 100;
                 },
             },
+            normalColor: {
+                type: String,
+                default: '#108ee9',
+            },
+            successColor: {
+                type: String,
+                default: '#00a854',
+            },
+            exceptionColor: {
+                type: String,
+                default: '#f04134',
+            },
+            trailColor: {
+                type: String,
+                default: '#f7f7f7',
+            },
             format: Function,
             strokeWidth: {
                 type: Number,
@@ -48,6 +64,9 @@
                 if (this.percent === 100) return 'success';
 
                 return this.status || 'normal';
+            },
+            strokeColor() {
+                return this[`${this.progressStatus}Color`];
             },
             wrapClasses() {
                 return [
