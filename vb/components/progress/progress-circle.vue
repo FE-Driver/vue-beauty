@@ -9,11 +9,9 @@
 
             <svg class="ant-progress-circle" viewBox='0 0 100 100'>
                 <path class="ant-progress-circle-trail"
-                      :d="pathString" :stroke="trailColor"
-                      :stroke-width="strokeWidth" fill-opacity='0':style="trailPathStyle"/>
+                      :d="pathString" :stroke-width="strokeWidth" fill-opacity='0':style="trailPathStyle"/>
                 <path class="ant-progress-circle-path"
-                      :d="pathString" stroke-linecap='round'
-                      :stroke="strokeColor" :stroke-width="strokeWidth" fill-opacity='0' :style="strokePathStyle"/>
+                      :d="pathString" stroke-linecap='round' :stroke-width="strokeWidth" fill-opacity='0' :style="strokePathStyle"/>
             </svg>
 
             <span v-if="showInfo" :class="prefixCls + '-text'">
@@ -30,11 +28,6 @@
 </template>
 
 <script lang="babel">
-    const statusColorMap = {
-        normal: '#108ee9',
-        exception: '#ff5500',
-        success: '#87d068',
-    };
 
     export default {
         name: 'ProgressCircle',
@@ -67,9 +60,21 @@
                 type: Number,
                 default: 6,
             },
+            normalColor: {
+                type: String,
+                default: '#108ee9',
+            },
+            successColor: {
+                type: String,
+                default: '#00a854',
+            },
+            exceptionColor: {
+                type: String,
+                default: '#f04134',
+            },
             trailColor: {
                 type: String,
-                default: '#f3f3f3',
+                default: '#f7f7f7',
             },
             dashboard: {
                 type: Boolean,
@@ -86,7 +91,7 @@
                 ];
             },
             strokeColor() {
-                return statusColorMap[this.progressStatus];
+                return this[`${this.progressStatus}Color`];
             },
             radius() {
                 return 50 - this.strokeWidth / 2;
@@ -101,6 +106,7 @@
                 const gapDegree = this.dashboard ? 75 : 0;
 
                 return {
+                    stroke: this.trailColor,
                     strokeDasharray: `${len - gapDegree}px ${len}px`,
                     strokeDashoffset: `-${gapDegree / 2}px`,
                     transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
@@ -111,6 +117,7 @@
                 const gapDegree = this.dashboard ? 75 : 0;
 
                 return {
+                    stroke: this.strokeColor,
                     strokeDasharray: `${this.percent / 100 * (len - gapDegree)}px ${len}px`,
                     strokeDashoffset: `-${gapDegree / 2}px`,
                     transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',

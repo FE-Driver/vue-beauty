@@ -121,9 +121,12 @@
 |------------|----------------|-------------------|-------------|
 | percent    | 百分比	 | Number | 0 |
 | format | 内容的模板函数	 | Function(percent) | - |
-| status    | 状态，可选：`success` `exception` `active` `normal`	 | String | normal |
+| status    | 状态，可选：`success` `exception` `normal`	 | String | normal |
 | showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
 | strokeWidth    | 圆形进度条线的宽度，单位是进度条画布宽度的百分比	 | Number | 6 |
 | width    | 圆形进度条画布宽度，单位 px	 | Number | 132 |
+| normalColor    | 进度圈背景颜色	 | String | #f3f3f3 |
+| exceptionColor    | 进度圈背景颜色	 | String | #f3f3f3 |
+| successColor    | 进度圈背景颜色	 | String | #f3f3f3 |
 | trailColor    | 进度圈背景颜色	 | String | #f3f3f3 |
 | dashboard    | 是否是仪表盘样式 | Boolean | false |
