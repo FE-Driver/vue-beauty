@@ -195,9 +195,9 @@ export default {
             }
             let canDrop;
             if (targetClue.length > 2) {
-              canDrop = this.canDrop(sourceData, targetData.children[targetIndex], dropPosition);
+              canDrop = this.canDrop(_sourceData, targetData.children[targetIndex], dropPosition);
             } else {
-              canDrop = this.canDrop(sourceData, targetData[targetIndex], dropPosition);
+              canDrop = this.canDrop(_sourceData, targetData[targetIndex], dropPosition);
             }
             if (!canDrop) return;
 
