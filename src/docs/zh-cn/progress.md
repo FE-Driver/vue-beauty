@@ -111,7 +111,7 @@
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | percent    | 百分比	 | Number | 0 |
-| format | 内容的模板函数	 | Function(percent) | - |
+| format | 内容的模板函数	 | String/Function(percent) | - |
 | status    | 状态，可选：`success` `exception` `active` `normal`	 | String | normal |
 | showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
 | infoColor    | 进度数值或状态图标的颜色	 | String | - |
@@ -126,7 +126,7 @@
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
 | percent    | 百分比	 | Number | 0 |
-| format | 内容的模板函数	 | Function(percent) | - |
+| format | 内容的模板函数	 | String/Function(percent) | - |
 | status    | 状态，可选：`success` `exception` `normal`	 | String | normal |
 | showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
 | infoColor    | 进度数值或状态图标的颜色	 | String | - |

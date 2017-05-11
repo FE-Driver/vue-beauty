@@ -11077,7 +11077,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { __WEBPACK_IMPORTED
             type: Number,
             default: 0
         },
-        format: Function,
+        format: [Function, String],
         strokeWidth: {
             type: Number,
             default: 6
@@ -11219,7 +11219,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { __WEBPACK_IMPORTED
             default: '#f7f7f7'
         },
         infoColor: String,
-        format: Function,
+        format: [Function, String],
         strokeWidth: {
             type: Number,
             default: 10
@@ -25339,7 +25339,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), (_vm.showInfo) ? _c('span', {
     class: _vm.prefixCls + '-text',
     style: (("float: right;color:" + (_vm.infoColor || _vm.strokeColor)))
-  }, [(_vm.format) ? [_vm._v(" " + _vm._s(_vm.format(_vm.percent)) + " ")] : (_vm.progressStatusIcon) ? _c('i', {
+  }, [(_vm.format) ? [_vm._v(" " + _vm._s(typeof _vm.format === 'function' ? _vm.format(_vm.percent) : _vm.format) + " ")] : (_vm.progressStatusIcon) ? _c('i', {
     class: ("anticon anticon-" + _vm.progressStatusIcon)
   }) : [_vm._v(" " + _vm._s(_vm.percent) + "% ")]], 2) : _vm._e()])])
 },staticRenderFns: []}
@@ -25390,7 +25390,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), (_vm.showInfo) ? _c('span', {
     class: _vm.prefixCls + '-text',
     style: (("color:" + (_vm.infoColor || _vm.strokeColor)))
-  }, [(_vm.format) ? [_vm._v(" " + _vm._s(_vm.format(_vm.percent)) + " ")] : [(_vm.progressStatus === 'exception' || _vm.progressStatus === 'success') ? [_c('i', {
+  }, [(_vm.format) ? [_vm._v(" " + _vm._s(typeof _vm.format === 'function' ? _vm.format(_vm.percent) : _vm.format) + " ")] : [(_vm.progressStatus === 'exception' || _vm.progressStatus === 'success') ? [_c('i', {
     class: ("anticon anticon-" + _vm.progressStatusIcon)
   })] : [_vm._v(" " + _vm._s(_vm.percent) + "% ")]]], 2) : _vm._e()])])
 },staticRenderFns: []}

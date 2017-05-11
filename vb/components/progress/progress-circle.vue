@@ -15,7 +15,7 @@
             </svg>
 
             <span v-if="showInfo" :class="prefixCls + '-text'" :style="`color:${infoColor || strokeColor}`">
-                <template v-if="format"> {{ format(percent) }} </template>
+                <template v-if="format"> {{ typeof format === 'function'? format(percent) : format}} </template>
                 <template v-else>
                     <template v-if="progressStatus === 'exception' || progressStatus === 'success'">
                         <i :class='`anticon anticon-${progressStatusIcon}`'></i>
@@ -55,7 +55,7 @@
                 type: Number,
                 default: 0,
             },
-            format: Function,
+            format: [Function, String],
             strokeWidth: {
                 type: Number,
                 default: 6,
