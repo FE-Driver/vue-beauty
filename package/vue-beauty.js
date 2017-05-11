@@ -12527,6 +12527,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { __WEBPACK_IMPORTED
             default: true
         }
     },
+    model: {
+        prop: 'activeTabKey',
+        event: 'change'
+    },
     data: function data() {
         return {
             prefixCls: 'ant-tabs',

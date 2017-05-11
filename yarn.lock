@@ -3682,9 +3682,9 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "http://registry.npm.taobao.org/pluralize/download/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
-popper.js@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.npmjs.org/popper.js/-/popper.js-1.9.2.tgz#e97910bc10f19851c2c75159e43cf12c316dc61d"
+popper.js@^0.6.4:
+  version "0.6.4"
+  resolved "https://registry.npmjs.org/popper.js/-/popper.js-0.6.4.tgz#1837c4760af54d2bb20b66f9c09b92993d84c629"
 
 postcss-calc@^5.2.0:
   version "5.3.1"

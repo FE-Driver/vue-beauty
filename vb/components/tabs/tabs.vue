@@ -78,6 +78,10 @@
                 default: true
             }
         },
+        model: {
+            prop: 'activeTabKey',
+            event: 'change',
+        },
         data() {
             return {
                 prefixCls: 'ant-tabs',
