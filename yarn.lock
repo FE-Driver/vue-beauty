@@ -3682,9 +3682,9 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "http://registry.npm.taobao.org/pluralize/download/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
-popper.js@^0.6.4:
-  version "0.6.4"
-  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-0.6.4.tgz#1837c4760af54d2bb20b66f9c09b92993d84c629"
+popper.js@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.npmjs.org/popper.js/-/popper.js-1.9.2.tgz#e97910bc10f19851c2c75159e43cf12c316dc61d"
 
 postcss-calc@^5.2.0:
   version "5.3.1"
@@ -4958,9 +4958,9 @@ webidl-conversions@^2.0.0:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/webidl-conversions/download/webidl-conversions-2.0.1.tgz#3bf8258f7d318c7443c36f2e169402a1a6703506"
 
-webpack-bundle-analyzer@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.6.0.tgz#9b8052d6aa26004f49ab76e88c45445ecd03f15a"
+webpack-bundle-analyzer@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.npmjs.org/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.7.0.tgz#9a8320a9e33917ade47aa1369013bbf4d4a9f5af"
   dependencies:
     acorn "^5.0.3"
     chalk "^1.1.3"

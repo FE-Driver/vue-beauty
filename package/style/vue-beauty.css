@@ -6926,8 +6926,6 @@ textarea.ant-input {
   display: block !important;
 }
 .ant-input-group .ant-input {
-  position: relative;
-  z-index: 2;
   float: left;
   width: 100%;
   margin-bottom: 0;
@@ -6966,23 +6964,21 @@ textarea.ant-input {
   right: 0;
   bottom: 0;
 }
-.ant-input-group > span > .ant-input:first-child,
 .ant-input-group > .ant-input:first-child,
 .ant-input-group-addon:first-child {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-.ant-input-group > span > .ant-input:first-child .ant-select .ant-select-selection,
 .ant-input-group > .ant-input:first-child .ant-select .ant-select-selection,
 .ant-input-group-addon:first-child .ant-select .ant-select-selection {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-.ant-input-group > .ant-input-preSuffix-wrapper:not(:first-child) .ant-input {
+.ant-input-group > .ant-input-affix-wrapper:not(:first-child) .ant-input {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-.ant-input-group > .ant-input-preSuffix-wrapper:not(:last-child) .ant-input {
+.ant-input-group > .ant-input-affix-wrapper:not(:last-child) .ant-input {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -7012,7 +7008,13 @@ textarea.ant-input {
   padding: 1px 7px;
   height: 22px;
 }
-.ant-input-group .ant-input-preSuffix-wrapper {
+.ant-input-group-lg .ant-select-selection--single {
+  height: 32px;
+}
+.ant-input-group-sm .ant-select-selection--single {
+  height: 22px;
+}
+.ant-input-group .ant-input-affix-wrapper {
   display: table-cell;
   width: 100%;
   float: left;
@@ -7021,58 +7023,73 @@ textarea.ant-input {
   border-radius: 0;
   border-right-width: 0;
   vertical-align: middle;
+  float: none;
+  display: inline-block;
 }
 .ant-input-group.ant-input-group-compact .ant-input {
   float: none;
   z-index: auto;
 }
 .ant-input-group.ant-input-group-compact > .ant-select > .ant-select-selection,
-.ant-input-group.ant-input-group-compact > .ant-calendar-picker .ant-input {
+.ant-input-group.ant-input-group-compact > .ant-calendar-picker .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-select-auto-complete .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-cascader-picker .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-mention-wrapper .ant-mention-editor,
+.ant-input-group.ant-input-group-compact > .ant-time-picker .ant-time-picker-input {
   border-radius: 0;
   border-right-width: 0;
 }
 .ant-input-group.ant-input-group-compact > *:first-child,
 .ant-input-group.ant-input-group-compact > .ant-select:first-child > .ant-select-selection,
-.ant-input-group.ant-input-group-compact > .ant-calendar-picker:first-child .ant-input {
+.ant-input-group.ant-input-group-compact > .ant-calendar-picker:first-child .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-select-auto-complete:first-child .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-cascader-picker:first-child .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-mention-wrapper:first-child .ant-mention-editor,
+.ant-input-group.ant-input-group-compact > .ant-time-picker:first-child .ant-time-picker-input {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 .ant-input-group.ant-input-group-compact > *:last-child,
 .ant-input-group.ant-input-group-compact > .ant-select:last-child > .ant-select-selection,
-.ant-input-group.ant-input-group-compact > .ant-calendar-picker:last-child .ant-input {
+.ant-input-group.ant-input-group-compact > .ant-calendar-picker:last-child .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-select-auto-complete:last-child .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-cascader-picker:last-child .ant-input,
+.ant-input-group.ant-input-group-compact > .ant-mention-wrapper:last-child .ant-mention-editor,
+.ant-input-group.ant-input-group-compact > .ant-time-picker:last-child .ant-time-picker-input {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   border-right-width: 1px;
 }
-.ant-input-preSuffix-wrapper {
+.ant-input-affix-wrapper {
   position: relative;
   display: inline-block;
   width: 100%;
 }
-.ant-input-preSuffix-wrapper .ant-input {
+.ant-input-affix-wrapper .ant-input {
   z-index: 1;
 }
-.ant-input-preSuffix-wrapper:hover .ant-input {
+.ant-input-affix-wrapper:hover .ant-input {
   border-color: #49a9ee;
 }
-.ant-input-preSuffix-wrapper .ant-input-prefix,
-.ant-input-preSuffix-wrapper .ant-input-suffix {
+.ant-input-affix-wrapper .ant-input-prefix,
+.ant-input-affix-wrapper .ant-input-suffix {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
-  line-height: 1.2;
+  line-height: 0;
+  color: rgba(0, 0, 0, 0.65);
 }
-.ant-input-preSuffix-wrapper .ant-input-prefix {
+.ant-input-affix-wrapper .ant-input-prefix {
   left: 7px;
 }
-.ant-input-preSuffix-wrapper .ant-input-suffix {
+.ant-input-affix-wrapper .ant-input-suffix {
   right: 7px;
 }
-.ant-input-preSuffix-wrapper .ant-input:not(:first-child) {
+.ant-input-affix-wrapper .ant-input:not(:first-child) {
   padding-left: 24px;
 }
-.ant-input-preSuffix-wrapper .ant-input:not(:last-child) {
+.ant-input-affix-wrapper .ant-input:not(:last-child) {
   padding-right: 24px;
 }
 @font-face {
@@ -10208,6 +10225,145 @@ span.ant-radio + * {
     animation-play-state: running;
   }
 }*/
+.ant-collapse {
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  border-bottom: 0;
+}
+.ant-collapse > .ant-collapse-item {
+  border-bottom: 1px solid #d9d9d9;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  height: 38px;
+  line-height: 38px;
+  padding-left: 32px;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  position: relative;
+  transition: all .3s;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header:active {
+  background-color: #ecf6fd !important;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow {
+  font-size: 12px;
+  font-size: 9px \9;
+  transform: scale(0.75) rotate(0);
+  /* IE6-IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+  zoom: 1;
+  font-style: normal;
+  vertical-align: baseline;
+  text-align: center;
+  text-transform: none;
+  line-height: 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  color: rgba(0, 0, 0, 0.43);
+  display: inline-block;
+  font-weight: bold;
+  line-height: 40px;
+  vertical-align: middle;
+  transition: transform 0.24s;
+  top: 0;
+  left: 16px;
+  /* stylelint-disable declaration-block-no-duplicate-properties */
+  top: 16px \9;
+  left: 0 \9;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
+}
+:root .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow {
+  filter: none;
+}
+:root .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow {
+  font-size: 12px;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow:before {
+  display: block;
+  font-family: "anticon" !important;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow:before {
+  content: "\E61F";
+}
+.ant-collapse-anim-active {
+  transition: height 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.ant-collapse-content {
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 0 16px;
+  background-color: #fff;
+}
+.ant-collapse-content > .ant-collapse-content-box {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.ant-collapse-content-inactive {
+  display: none;
+}
+.ant-collapse-item:last-child > .ant-collapse-content {
+  border-radius: 0 0 4px 4px;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow {
+  display: inline-block;
+  font-size: 12px;
+  font-size: 9px \9;
+  transform: scale(0.75) rotate(90deg);
+  /* IE6-IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=0.00000000000000006123, M12=-1, M21=1, M22=0.00000000000000006123)";
+  zoom: 1;
+}
+:root .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow {
+  filter: none;
+}
+:root .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow {
+  font-size: 12px;
+}
+.ant-collapse-borderless {
+  background-color: #fff;
+  border: 0;
+}
+.ant-collapse-borderless > .ant-collapse-item-active {
+  border: 0;
+}
+.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
+  background-color: transparent;
+  border-top: 1px solid #d9d9d9;
+}
+.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-header {
+  transition: all .3s;
+}
+.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-header:hover {
+  background-color: #f7f7f7;
+}
+@font-face {
+  font-family: "Helvetica Neue For Number";
+  src: local("Helvetica Neue");
+  unicode-range: U+30-39;
+}
+/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+  .@{className}-enter,
+  .@{className}-appear {
+    .motion-common(@duration);
+    animation-play-state: paused;
+  }
+  .@{className}-leave {
+    .motion-common-leave(@duration);
+    animation-play-state: paused;
+  }
+  .@{className}-enter.@{className}-enter-active,
+  .@{className}-appear.@{className}-appear-active {
+    animation-name: ~"@{keyframeName}In";
+    animation-play-state: running;
+  }
+  .@{className}-leave.@{className}-leave-active {
+    animation-name: ~"@{keyframeName}Out";
+    animation-play-state: running;
+  }
+}*/
 .ant-upload {
   font-size: 12px;
   outline: 0;
@@ -12883,7 +13039,7 @@ tr.ant-table-expanded-row:hover {
   src: local("Helvetica Neue");
   unicode-range: U+30-39;
 }
-/*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
 /**
@@ -12901,6 +13057,12 @@ html {
 }
 /* Sections
    ========================================================================== */
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+  margin: 0;
+}
 /**
  * Add the correct display in IE 9-.
  */
@@ -13079,14 +13241,22 @@ svg:not(:root) {
 /* Forms
    ========================================================================== */
 /**
- * Remove the margin in Firefox and Safari.
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
  */
 button,
 input,
 optgroup,
 select,
 textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
   margin: 0;
+  /* 2 */
 }
 /**
  * Show the overflow in IE.
@@ -13136,6 +13306,12 @@ button:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
+}
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
 }
 /**
  * 1. Correct the text wrapping in Edge and IE.
@@ -17311,7 +17487,350 @@ span.ant-transfer-list-search-action {
     animation-play-state: running;
   }
 }*/
-/*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
+.ant-select-tree-checkbox {
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+  vertical-align: middle;
+}
+.ant-select-tree-checkbox-wrapper:hover .ant-select-tree-checkbox .ant-select-tree-checkbox-inner,
+.ant-select-tree-checkbox:hover .ant-select-tree-checkbox-inner,
+.ant-select-tree-checkbox-focused .ant-select-tree-checkbox-inner {
+  border-color: #108ee9;
+}
+.ant-select-tree-checkbox-inner {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  background-color: #fff;
+  transition: all .3s;
+}
+.ant-select-tree-checkbox-inner:after {
+  transform: rotate(45deg) scale(0);
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  display: table;
+  width: 5px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+  content: ' ';
+  transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
+}
+.ant-select-tree-checkbox-input {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.ant-select-tree-checkbox-indeterminate .ant-select-tree-checkbox-inner:after {
+  content: ' ';
+  transform: scale(1);
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  width: 8px;
+  height: 1px;
+}
+.ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner:after {
+  transform: rotate(45deg) scale(1);
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  display: table;
+  width: 5px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+  content: ' ';
+  transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+}
+.ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner,
+.ant-select-tree-checkbox-indeterminate .ant-select-tree-checkbox-inner {
+  background-color: #108ee9;
+  border-color: #108ee9;
+}
+.ant-select-tree-checkbox-disabled.ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner:after {
+  animation-name: none;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+.ant-select-tree-checkbox-disabled .ant-select-tree-checkbox-inner {
+  border-color: #d9d9d9 !important;
+  background-color: #f3f3f3;
+}
+.ant-select-tree-checkbox-disabled .ant-select-tree-checkbox-inner:after {
+  animation-name: none;
+  border-color: #f3f3f3;
+}
+.ant-select-tree-checkbox-disabled + span {
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.ant-select-tree-checkbox-wrapper {
+  cursor: pointer;
+  font-size: 12px;
+  display: inline-block;
+}
+.ant-select-tree-checkbox-wrapper:not(:last-child) {
+  margin-right: 8px;
+}
+.ant-select-tree-checkbox-wrapper + span,
+.ant-select-tree-checkbox + span {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.ant-select-tree-checkbox-group {
+  font-size: 12px;
+}
+.ant-select-tree-checkbox-group-item {
+  display: inline-block;
+}
+@media \0screen {
+  .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner:before,
+  .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner:after {
+    font-family: 'anticon';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\E632";
+    font-weight: bold;
+    font-size: 8px;
+    border: 0;
+    color: #fff;
+    left: 2px;
+    top: 3px;
+    position: absolute;
+  }
+}
+.ant-select-tree {
+  margin: 0;
+  padding: 8px;
+  font-size: 12px;
+}
+.ant-select-tree li {
+  padding: 0;
+  margin: 8px 0;
+  list-style: none;
+  white-space: nowrap;
+  outline: 0;
+}
+.ant-select-tree li.filter-node > a {
+  font-weight: bold !important;
+}
+.ant-select-tree li ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+}
+.ant-select-tree li a {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: none;
+  vertical-align: top;
+  color: rgba(0, 0, 0, 0.65);
+  transition: all 0.3s ease;
+}
+.ant-select-tree li a:hover {
+  background-color: #ecf6fd;
+}
+.ant-select-tree li a.ant-select-tree-node-selected {
+  background-color: #ecf6fd;
+}
+.ant-select-tree li span.ant-select-tree-checkbox {
+  margin: 2px 4px 0 0;
+}
+.ant-select-tree li span.ant-select-tree-switcher,
+.ant-select-tree li span.ant-select-tree-iconEle {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  border: 0 none;
+  cursor: pointer;
+  outline: none;
+}
+.ant-select-tree li span.ant-select-tree-icon_loading:after {
+  display: inline-block;
+  font-family: 'anticon';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\E64D";
+  font-weight: bold;
+  animation: loadingCircle 1s infinite linear;
+  margin-top: 8px;
+}
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-switcher-noop {
+  cursor: auto;
+}
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_open:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_open:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_open:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_open:after {
+  font-size: 12px;
+  font-size: 7px \9;
+  transform: scale(0.58333333) rotate(0deg);
+  /* IE6-IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+  zoom: 1;
+  display: inline-block;
+  font-family: 'anticon';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\E606";
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.65);
+  transition: transform .3s ease;
+}
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_open:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_open:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_open:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_open:after {
+  filter: none;
+}
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_open:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_open:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_open:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_open:after {
+  font-size: 12px;
+}
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_close,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_close,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_close,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_close {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+}
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_close:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_close:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_close:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_close:after {
+  font-size: 12px;
+  font-size: 7px \9;
+  transform: scale(0.58333333) rotate(0deg);
+  /* IE6-IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+  zoom: 1;
+  display: inline-block;
+  font-family: 'anticon';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\E606";
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.65);
+  transition: transform .3s ease;
+}
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_close:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_close:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_close:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_close:after {
+  filter: none;
+}
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_close:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_close:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_close:after,
+:root .ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_close:after {
+  font-size: 12px;
+}
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-roots_close:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-center_close:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-bottom_close:after,
+.ant-select-tree li span.ant-select-tree-switcher.ant-select-tree-noline_close:after {
+  transform: rotate(270deg) scale(0.59);
+}
+.ant-select-tree-child-tree {
+  display: none;
+}
+.ant-select-tree-child-tree-open {
+  display: block;
+}
+.ant-select-tree-treenode-disabled > span,
+.ant-select-tree-treenode-disabled > a,
+.ant-select-tree-treenode-disabled > a span {
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.ant-select-tree-icon__open {
+  margin-right: 2px;
+  vertical-align: top;
+}
+.ant-select-tree-icon__close {
+  margin-right: 2px;
+  vertical-align: top;
+}
+.ant-select-tree-dropdown .ant-select-dropdown-search {
+  display: block;
+  padding: 4px;
+}
+.ant-select-tree-dropdown .ant-select-dropdown-search .ant-select-search__field__wrap {
+  width: 100%;
+}
+.ant-select-tree-dropdown .ant-select-dropdown-search .ant-select-search__field {
+  padding: 4px 7px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  outline: none;
+}
+.ant-select-tree-dropdown .ant-select-dropdown-search.ant-select-search--hide {
+  display: none;
+}
+.ant-select-tree-dropdown .ant-select-not-found {
+  cursor: not-allowed;
+  color: rgba(0, 0, 0, 0.25);
+  padding: 7px 16px;
+  display: block;
+}
+@font-face {
+  font-family: "Helvetica Neue For Number";
+  src: local("Helvetica Neue");
+  unicode-range: U+30-39;
+}
+/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+  .@{className}-enter,
+  .@{className}-appear {
+    .motion-common(@duration);
+    animation-play-state: paused;
+  }
+  .@{className}-leave {
+    .motion-common-leave(@duration);
+    animation-play-state: paused;
+  }
+  .@{className}-enter.@{className}-enter-active,
+  .@{className}-appear.@{className}-appear-active {
+    animation-name: ~"@{keyframeName}In";
+    animation-play-state: running;
+  }
+  .@{className}-leave.@{className}-leave-active {
+    animation-name: ~"@{keyframeName}Out";
+    animation-play-state: running;
+  }
+}*/
+/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
 /**
@@ -17329,6 +17848,12 @@ html {
 }
 /* Sections
    ========================================================================== */
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+  margin: 0;
+}
 /**
  * Add the correct display in IE 9-.
  */
@@ -17507,14 +18032,22 @@ svg:not(:root) {
 /* Forms
    ========================================================================== */
 /**
- * Remove the margin in Firefox and Safari.
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
  */
 button,
 input,
 optgroup,
 select,
 textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
   margin: 0;
+  /* 2 */
 }
 /**
  * Show the overflow in IE.
@@ -17564,6 +18097,12 @@ button:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
+}
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
 }
 /**
  * 1. Correct the text wrapping in Edge and IE.

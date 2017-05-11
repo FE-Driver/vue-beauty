@@ -4,9 +4,9 @@
             <slot></slot>
         </div>
         <div role="tablist" :class="prefixCls + '-bar'" tabindex="0">
-            <div v-if="(!!$slots && $slots.tabBarExtraContent) || (type === 'editable-card' && !hideAdd)" style="float: right;">
+            <div v-if="(!!$slots && $slots.extra) || (type === 'editable-card' && !hideAdd)" style="float: right;">
                 <div class="ant-tabs-extra-content">
-                    <slot name="tabBarExtraContent"></slot>
+                    <slot name="extra"></slot>
                     <span v-if="type === 'editable-card' && !hideAdd" @click="onAdd">
                         <i :class="`anticon anticon-plus ${prefixCls}-new-tab`"></i>
                     </span>
@@ -60,7 +60,6 @@
         mixins: [emitter],
         props: {
             activeTabKey: String,
-            tabBarExtraContent: String,
             type: {
                 type: String,
                 default: 'line'

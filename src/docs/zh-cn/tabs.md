@@ -207,7 +207,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 ```html
 <template>
     <v-tabs active-tab-key="1">
-        <v-button slot="tabBarExtraContent" style="margin-right: 5px;">额外的操作</v-button>
+        <v-button slot="extra" style="margin-right: 5px;">额外的操作</v-button>
         <v-tab-pane tab-key="1" tab="选项卡一">选项卡一内容</v-tab-pane>
         <v-tab-pane tab-key="2" tab="选项卡二">选项卡二内容</v-tab-pane>
         <v-tab-pane tab-key="3" tab="选项卡三">选项卡三内容</v-tab-pane>
@@ -472,7 +472,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 | 参数             | 说明                                         | 类型     | 默认值        |
 |------------------|----------------------------------------------|----------|---------------|
 | activeTabKey        | 当前激活 tab 面板的 tabKey                      | string   | - |
-| slot : tabBarExtraContent | tab bar 上额外的元素                       | slot node | - |
+| slot : extra | tab bar 上额外的元素                       | slot node | - |
 | type | 页签的基本样式，可选 `line`、`card` `editable-card` 类型   | string   | `line` |
 | size | 大小，提供 `default` 和 `small` 两种大小，仅当 `type="line"` 时生效。  | string   | `default`|
 | position | 页签位置，可选值有 `top` `right` `bottom` `left`  | string   | `top` |

@@ -6,7 +6,7 @@
                     <div :class="prefixCls + '-bg'" :style="{width: percent + '%', height: strokeWidth + 'px', backgroundColor: strokeColor}"></div>
                 </div>
             </div>
-            <span v-if="showInfo" :class="prefixCls + '-text'" :style="`float: right;color:${strokeColor}`">
+            <span v-if="showInfo" :class="prefixCls + '-text'" :style="`float: right;color:${infoColor || strokeColor}`">
                 <template v-if="format"> {{ format(percent) }} </template>
                 <i v-else-if="progressStatusIcon" :class="`anticon anticon-${progressStatusIcon}`"></i>
                 <template v-else> {{ percent }}% </template>
@@ -41,6 +41,10 @@
                 type: String,
                 default: '#108ee9',
             },
+            activeColor: {
+                type: String,
+                default: '#108ee9',
+            },
             successColor: {
                 type: String,
                 default: '#00a854',
@@ -53,6 +57,7 @@
                 type: String,
                 default: '#f7f7f7',
             },
+            infoColor: String,
             format: Function,
             strokeWidth: {
                 type: Number,

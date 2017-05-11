@@ -114,8 +114,10 @@
 | format | 内容的模板函数	 | Function(percent) | - |
 | status    | 状态，可选：`success` `exception` `active` `normal`	 | String | normal |
 | showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
+| infoColor    | 进度数值或状态图标的颜色	 | String | - |
 | strokeWidth   | 进度条线的宽度，单位 px	 | Number | 10 |
 | normalColor    | 自定义进度normal时的颜色	 | String | #108ee9 |
+| activeColor    | 自定义进度active时的颜色	 | String | #108ee9 |
 | exceptionColor    | 自定义进度exception时的颜色	 | String | #f04134 |
 | successColor    | 自定义进度success时的颜色	 | String | #00a854 |
 | trailColor    | 进度背景颜色	 | String | #f7f7f7 |
@@ -127,6 +129,7 @@
 | format | 内容的模板函数	 | Function(percent) | - |
 | status    | 状态，可选：`success` `exception` `normal`	 | String | normal |
 | showInfo    | 是否显示进度数值或状态图标	 | Boolean | true |
+| infoColor    | 进度数值或状态图标的颜色	 | String | - |
 | strokeWidth    | 圆形进度条线的宽度，单位是进度条画布宽度的百分比	 | Number | 6 |
 | width    | 圆形进度条画布宽度，单位 px	 | Number | 132 |
 | normalColor    | 自定义进度圈normal时的颜色	 | String | #108ee9 |
