@@ -56,17 +56,27 @@ export default {
 
 ::: demo
 <summary>
+  #### 更多
+  更多分页。
+</summary>
+
+```html
+<template>
+  <v-pagination :total="500"></v-pagination>
+</template>
+```
+
+:::
+
+::: demo
+<summary>
   #### 改变
   改变每页显示条目数。
 </summary>
 
 ```html
 <template>
-  <v-pagination
-      :show-size-changer="true"
-      @sizechange="pageSizeChange"
-      :total="50">
-  </v-pagination>
+  <v-pagination show-size-changer @sizechange="pageSizeChange" :total="50"></v-pagination>
 </template>
 <script>
 export default {
@@ -83,8 +93,22 @@ export default {
 
 ::: demo
 <summary>
-  #### 小尺寸
-  小尺寸分页。
+  #### 跳转
+  快速跳转到某一页。
+</summary>
+
+```html
+<template>
+  <v-pagination show-quick-jumper :total="500"></v-pagination>
+</template>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 迷你
+  迷你版本。
 </summary>
 
 ```html
@@ -100,9 +124,9 @@ export default {
       :default-page-size="5"
       :page-size="10"
       @change="loadPage"
-      :show-size-changer="true"
+      show-size-changer
       @sizechange="pageSizeChange"
-      :show-quick-jumper="true"
+      show-quick-jumper
       size="small"
       :simple="false">
   </v-pagination>
@@ -124,66 +148,28 @@ export default {
 
 ::: demo
 <summary>
+  #### 简洁
+  简单的翻页。
+</summary>
+
+```html
+<template>
+  <v-pagination simple></v-pagination>
+  <v-pagination simple :total="500"></v-pagination>
+</template>
+```
+
+:::
+
+::: demo
+<summary>
   #### 受控
   受控制的页码。
 </summary>
 
 ```html
 <template>
-  <v-pagination
-      :current="3"
-      :total="50">
-  </v-pagination>
-</template>
-```
-
-:::
-
-::: demo
-<summary>
-  #### 更多
-  更多分页。
-</summary>
-
-```html
-<template>
-  <v-pagination
-      :total="500">
-  </v-pagination>
-</template>
-```
-
-:::
-
-::: demo
-<summary>
-  #### 跳至
-  快速跳转分页。
-</summary>
-
-```html
-<template>
-  <v-pagination
-      :show-quick-jumper="true"
-      :total="500">
-  </v-pagination>
-</template>
-```
-
-:::
-
-::: demo
-<summary>
-  #### 简单
-  简单分页。
-</summary>
-
-```html
-<template>
-  <v-pagination
-      :simple="true"
-      :total="500">
-  </v-pagination>
+  <v-pagination :value="3" :total="50"></v-pagination>
 </template>
 ```
 
@@ -192,20 +178,14 @@ export default {
 ::: demo
 <summary>
   #### 总数
-  通过设置 showTotal 展示总共有多少数据。
+  通过设置 `showTotal` 展示总共有多少数据。
 </summary>
 
 ```html
 <template>
-  <v-pagination
-      :show-total="showTotal"
-      :total="50">
-  </v-pagination>
+  <v-pagination :show-total="showTotal" :total="50"></v-pagination>
   <br>
-  <v-pagination
-      :show-total="showTotal2"
-      :total="50">
-  </v-pagination>
+  <v-pagination :show-total="showTotal2" :total="50"></v-pagination>
 </template>
 <script>
 export default {
@@ -229,14 +209,13 @@ export default {
 |------------|----------------|-------------------|-------------|
 | value    | 当前页数 | Number | 1 |
 | total | 数据总数 | Number | 0 |
-| defaultPageSize | 初始的每页条数 | Number | 10 |
 | pageSize    | 每页条数 | Number | 10 |
 | showSizeChanger | 是否可以改变 pageSize | Boolean | false |
 | pageSizeOptions | 指定每页可以显示多少条 | Array | [10, 20, 30, 40] |
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |
 | size | 当为「small」时，是小尺寸分页 | String | 无 |
 | simple | 当添加该属性时，显示为简单分页 | Object | 无 |
-| showTotal    | 用于显示总共有多少条数据 | Function | 无 |
+| showTotal    | 用于显示总共有多少条数据 | Function(total, totalPages) | 无 |
 
 ### Pagination Events
 | 事件        | 说明           | 参数        |

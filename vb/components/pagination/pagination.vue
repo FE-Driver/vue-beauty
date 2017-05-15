@@ -12,15 +12,17 @@
 
             <div
                 :title="pageTitle"
-                :class="prefixCls + `-simple-pager`">
+                :class="prefixCls + `-simple-pager`" :style="{marginRight: total?'8px':0}">
                 <input
                     type="text"
                     v-model="currentForSimple"
                     @keyup.prevent="_handleKeyUp($event)"
                     @keydown.down.up.prevent
                     @change="_handleKeyUp">
-                <span class="ant-pagination-slash">／</span>
-                {{allPages}}
+                <template v-if="total">
+                    <span class="ant-pagination-slash">／</span>
+                    {{allPages}}
+                </template>
             </div>
 
             <li
@@ -134,26 +136,19 @@
 </template>
 
 <script lang="babel">
-    import vSelect from '../select'
+    import vSelect from '../select';
+
     export default {
         name: 'Pagination',
 
         props: {
             value: {
                 type: Number,
-                default: 1
-            },
-            prefixCls: {
-                type: String,
-                default: 'ant-pagination'
+                default: 1,
             },
             total: {
                 type: Number,
                 default: 0
-            },
-            defaultPageSize: {
-                type: Number,
-                default: 10
             },
             pageSize: {
                 type: Number,
@@ -185,12 +180,11 @@
         },
         data() {
             return {
-                currentForSimple: 1,
-                current:1,
-                currentPageSize: this.pageSize
-            }
-        },
-        mounted () {
+                currentForSimple: this.value,
+                current: this.value,
+                currentPageSize: this.pageSize,
+                prefixCls: 'ant-pagination',
+            };
         },
         watch: {
             currentPageSize() {
@@ -209,17 +203,15 @@
             }
         },
         created() {
-            this.totalText = this.showTotal && this.showTotal(this.total,this.allPages);
-            this.options = this.pageSizeOptions.map(function(item, index) {
-                return {
-                    value: item,
-                    label: `${item}条/页`
-                }
-            })
+            this.totalText = this.showTotal && this.showTotal(this.total, this.allPages);
+            this.options = this.pageSizeOptions.map(item => ({
+                value: item,
+                label: `${item}条/页`,
+            }));
         },
         computed: {
             allPages() {
-                return Math.floor((this.total - 1) / Number(this.currentPageSize)) + 1;
+                return Math.ceil(this.total / this.currentPageSize);
             },
             pageList() {
                 let biger = this.allPages <= 9;
@@ -258,13 +250,16 @@
                 return right;
             },
             pageTitle() {
-                return this.current + '/' + this.allPages
-            }
+                if (this.allPages) {
+                    return this.current;
+                }
+                return `${this.current}/${this.allPages}`;
+            },
         },
         methods: {
             _handleChange(page) {
-                if(this._isValid(page)) {
-                    if(page > this.allPages) {
+                if (this._isValid(page)) {
+                    if (this.total && page > this.allPages) {
                         page = this.allPages;
                     }
                     this.current = page;
@@ -326,5 +321,4 @@
             vSelect
         }
     }
-
 </script>
