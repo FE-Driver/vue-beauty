@@ -36,7 +36,7 @@
         <ul
             v-else
             :class="[prefixCls, {'mini':!!size}]">
-            <span :class="prefixCls + '-total-text'">{{totalText}}</span>
+            <span :class="prefixCls + '-total-text'" v-if="totalText">{{totalText}}</span>
             <li
                 title="上一页"
                 @click="_prev"
