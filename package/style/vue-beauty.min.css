@@ -2570,7 +2570,7 @@
   visibility: hidden;
 }
 .ant-pagination-total-text {
-  float: left;
+  display: inline-block;
   height: 30px;
   line-height: 30px;
   margin-right: 10px;
@@ -2584,7 +2584,7 @@
   line-height: 28px;
   text-align: center;
   list-style: none;
-  float: left;
+  display: inline-block;
   border: 1px solid #d9d9d9;
   background-color: #fff;
   margin-right: 8px;
@@ -2592,7 +2592,7 @@
 }
 .ant-pagination-item a {
   text-decoration: none;
-  color: #666;
+  color: rgba(0, 0, 0, 0.65);
   transition: none;
   margin: 0 6px;
 }
@@ -2616,7 +2616,7 @@
   content: "\2022\2022\2022";
   display: block;
   letter-spacing: 2px;
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   text-align: center;
 }
 .ant-pagination-jump-prev:hover:after,
@@ -2657,13 +2657,12 @@
 .ant-pagination-jump-next {
   font-family: Arial;
   cursor: pointer;
-  color: #666;
+  color: rgba(0, 0, 0, 0.65);
   border-radius: 4px;
   list-style: none;
   min-width: 28px;
   height: 28px;
   line-height: 28px;
-  float: left;
   text-align: center;
   transition: all 0.3s ease;
   display: inline-block;
@@ -2675,7 +2674,7 @@
 }
 .ant-pagination-prev a,
 .ant-pagination-next a {
-  color: #666;
+  color: rgba(0, 0, 0, 0.65);
 }
 .ant-pagination-prev a:after,
 .ant-pagination-next a:after {
@@ -2688,7 +2687,7 @@
   zoom: 1;
   display: block;
   height: 26px;
-  line-height: 26px;
+  line-height: 27px;
   font-family: "anticon";
   text-align: center;
 }
@@ -2709,7 +2708,6 @@
   color: #108ee9;
 }
 .ant-pagination-prev a:after {
-  margin-top: -0.5px;
   content: "\E620";
   display: block;
 }
@@ -2724,25 +2722,25 @@
   border-color: #d9d9d9;
 }
 .ant-pagination-disabled:hover a {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
 }
 .ant-pagination-disabled a {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-pagination-slash {
   margin: 0 10px 0 5px;
 }
 .ant-pagination-options {
-  float: left;
+  display: inline-block;
   margin-left: 15px;
 }
 .ant-pagination-options-size-changer {
-  float: left;
+  display: inline-block;
   margin-right: 10px;
 }
 .ant-pagination-options-quick-jumper {
-  float: left;
+  display: inline-block;
   height: 28px;
   line-height: 28px;
 }
@@ -2813,7 +2811,7 @@ textarea.ant-pagination-options-quick-jumper input {
   font-size: 18px;
 }
 .ant-pagination-simple .ant-pagination-simple-pager {
-  float: left;
+  display: inline-block;
   margin-right: 8px;
 }
 .ant-pagination-simple .ant-pagination-simple-pager input {
@@ -2872,6 +2870,12 @@ textarea.ant-pagination-options-quick-jumper input {
   padding: 1px 7px;
   height: 22px;
   width: 44px;
+}
+@media only screen and (max-width: 1024px) {
+  .ant-pagination-item-after-jump-prev,
+  .ant-pagination-item-before-jump-next {
+    display: none;
+  }
 }
 @font-face {
   font-family: "Helvetica Neue For Number";
@@ -13849,9 +13853,9 @@ samp {
 }
 @font-face {
   font-family: 'anticon';
-  src: url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.eot');
+  src: url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.eot');
   /* IE9*/
-  src: url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.eot?#iefix') format('embedded-opentype'), /* chrome、firefox */ url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.woff') format('woff'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.ttf') format('truetype'), /* iOS 4.1- */ url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.svg#iconfont') format('svg');
+  src: url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.eot?#iefix') format('embedded-opentype'), /* chrome、firefox */ url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff') format('woff'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.ttf') format('truetype'), /* iOS 4.1- */ url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.svg#iconfont') format('svg');
 }
 .anticon {
   display: inline-block;
@@ -14685,6 +14689,9 @@ samp {
 }
 .anticon-shake:before {
   content: "\E94F";
+}
+.anticon-fork:before {
+  content: "\E6F2";
 }
 .anticon-spin:before {
   display: inline-block;
@@ -18640,9 +18647,9 @@ samp {
 }
 @font-face {
   font-family: 'anticon';
-  src: url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.eot');
+  src: url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.eot');
   /* IE9*/
-  src: url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.eot?#iefix') format('embedded-opentype'), /* chrome、firefox */ url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.woff') format('woff'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.ttf') format('truetype'), /* iOS 4.1- */ url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.svg#iconfont') format('svg');
+  src: url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.eot?#iefix') format('embedded-opentype'), /* chrome、firefox */ url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff') format('woff'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.ttf') format('truetype'), /* iOS 4.1- */ url('https://at.alicdn.com/t/font_zck90zmlh7hf47vi.svg#iconfont') format('svg');
 }
 .anticon {
   display: inline-block;
@@ -19476,6 +19483,9 @@ samp {
 }
 .anticon-shake:before {
   content: "\E94F";
+}
+.anticon-fork:before {
+  content: "\E6F2";
 }
 .anticon-spin:before {
   display: inline-block;
