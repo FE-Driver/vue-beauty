@@ -29,8 +29,7 @@ export default {
                 link: { name: 'start' },
             }, {
                 name: '全局CSS样式',
-                href: 'https://fe-driver.github.io/vue-beauty/#!/components/css',
-                target: '_blank',
+                link: { name: 'css' },
             }, {
                 name: 'Polyfill',
                 link: { name: 'polyfill' },

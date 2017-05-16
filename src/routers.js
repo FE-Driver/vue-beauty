@@ -18,6 +18,10 @@ export default [{
         name: 'polyfill',
         component: require('./docs/zh-cn/polyfill.md'),
     }, {
+        path: 'css',
+        name: 'css',
+        component: require('./docs/zh-cn/css.md'),
+    }, {
         path: 'tag',
         name: 'tag',
         component: require('./docs/zh-cn/tag.md'),
