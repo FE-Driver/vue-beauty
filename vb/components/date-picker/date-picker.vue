@@ -109,14 +109,22 @@
                 type: String,
                 default: ()=> _t('datePicker.placeholder')
             },
-            //是否显示范围
+            // 是否显示范围
             range: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             size: String,
-            //输入的时间
-            value: [String,Array],
+            // 输入的时间
+            value: {
+                type: [String, Array],
+                validator(val) {
+                    if (val instanceof Array) {
+                        return val.length === 2;
+                    }
+                    return true;
+                },
+            },
             position: {
                 type:String,
                 default:'absolute'
