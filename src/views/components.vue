@@ -33,8 +33,7 @@ export default {
                 target: '_blank',
             }, {
                 name: 'Polyfill',
-                href: 'https://fe-driver.github.io/vue-beauty/#!/components/polyfill',
-                target: '_blank',
+                link: { name: 'polyfill' },
             }, {
                 name: '参与贡献',
                 link: { name: 'contribute' },

@@ -14,6 +14,10 @@ export default [{
         name: 'contribute',
         component: require('./docs/zh-cn/contribute.md'),
     }, {
+        path: 'polyfill',
+        name: 'polyfill',
+        component: require('./docs/zh-cn/polyfill.md'),
+    }, {
         path: 'tag',
         name: 'tag',
         component: require('./docs/zh-cn/tag.md'),
