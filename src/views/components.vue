@@ -36,9 +36,8 @@ export default {
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/polyfill',
                 target: '_blank',
             }, {
-                name: '参与贡献(1.0)',
-                href: 'https://fe-driver.github.io/vue-beauty/#!/components/contribute',
-                target: '_blank',
+                name: '参与贡献',
+                link: { name: 'contribute' },
             }],
         }, {
             name: '更新日志',

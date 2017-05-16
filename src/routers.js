@@ -10,6 +10,10 @@ export default [{
         name: 'start',
         component: require('./docs/zh-cn/start.md'),
     }, {
+        path: 'contribute',
+        name: 'contribute',
+        component: require('./docs/zh-cn/contribute.md'),
+    }, {
         path: 'tag',
         name: 'tag',
         component: require('./docs/zh-cn/tag.md'),
