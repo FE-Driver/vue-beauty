@@ -6,6 +6,10 @@ export default [{
     path: '/components',
     component: require('./views/components.vue'),
     children: [{
+        path: 'start',
+        name: 'start',
+        component: require('./docs/zh-cn/start.md'),
+    }, {
         path: 'tag',
         name: 'tag',
         component: require('./docs/zh-cn/tag.md'),

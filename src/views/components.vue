@@ -21,187 +21,191 @@
 <script>
 
 export default {
-    data:()=> ({
+    data: () => ({
         menuData: [{
-            name: "开发指南",
+            name: '开发指南',
             children: [{
-                name: '起步(1.0)',
-                href: 'https://fe-driver.github.io/vue-beauty/#!/components/start',
-                target: '_blank'
-            },{
+                name: '起步',
+                link: { name: 'start' },
+            }, {
                 name: '全局CSS样式',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/css',
-                target: '_blank'
-            },{
+                target: '_blank',
+            }, {
                 name: 'Polyfill',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/polyfill',
-                target: '_blank'
-            },{
+                target: '_blank',
+            }, {
                 name: '参与贡献(1.0)',
                 href: 'https://fe-driver.github.io/vue-beauty/#!/components/contribute',
-                target: '_blank'
-            }]
-        },{
-            name: "组件",
+                target: '_blank',
+            }],
+        }, {
+            name: '更新日志',
+            href: 'https://github.com/FE-Driver/vue-beauty/releases',
+            target: '_blank',
+
+        }, {
+            name: 'Components',
             groups: [{
                 groupName: 'General',
                 list: [{
                     name: 'Button 按钮',
-                    link: { name:'button'}
-                },{
+                    link: { name: 'button' },
+                }, {
                     name: 'Icon 图标',
-                    link: { name:'icon'}
-                }]
-            },{
+                    link: { name: 'icon' },
+                }],
+            }, {
                 groupName: 'Layout',
                 list: [{
                     name: 'Grid 栅格',
-                    link: { name:'grid'}
-                },{
+                    link: { name: 'grid' },
+                }, {
                     name: 'Layout 布局',
-                    link: { name:'layout'}
-                },{
+                    link: { name: 'layout' },
+                }, {
                     name: 'MorePanel 更多条件',
-                    link: { name:'morePanel'}
-                }]
-            },{
+                    link: { name: 'morePanel' },
+                }],
+            }, {
                 groupName: 'Navigation',
                 list: [{
                     name: 'Affix 固钉',
-                    link: { name:'affix'}
-                },{
+                    link: { name: 'affix' },
+                }, {
                     name: 'Breadcrumb 面包屑',
-                    link: { name:'breadcrumb'}
-                },{
+                    link: { name: 'breadcrumb' },
+                }, {
                     name: 'BackTop 回到顶部',
-                    link: { name:'backTop'}
-                },{
+                    link: { name: 'backTop' },
+                }, {
                     name: 'Menu 导航菜单',
-                    link: { name:'menu'}
-                },{
+                    link: { name: 'menu' },
+                }, {
                     name: 'Pagination 分页',
-                    link: { name:'pagination'}
-                },{
+                    link: { name: 'pagination' },
+                }, {
                     name: 'Steps 步骤条',
-                    link: { name:'steps'}
-                },{
+                    link: { name: 'steps' },
+                }, {
                     name: 'Tabs 标签页',
-                    link: { name:'tabs'}
-                }]
-            },{
+                    link: { name: 'tabs' },
+                }],
+            }, {
                 groupName: 'Data Entry',
                 list: [{
                     name: 'Cascader 级联选择',
-                    link: { name:'cascader'}
-                },{
+                    link: { name: 'cascader' },
+                }, {
                     name: 'DatePicker 日期选择框',
-                    link: { name:'datePicker'}
-                },{
+                    link: { name: 'datePicker' },
+                }, {
                     name: 'Form 表单',
-                    link: { name:'form'}
-                },{
+                    link: { name: 'form' },
+                }, {
                     name: 'Input 输入框',
-                    link: { name:'input'}
-                },{
+                    link: { name: 'input' },
+                }, {
                     name: 'InputNumber 数字输入框',
-                    link: { name:'inputNumber'}
-                },{
+                    link: { name: 'inputNumber' },
+                }, {
                     name: 'Rate 评分',
-                    link: { name:'rate'}
-                },{
+                    link: { name: 'rate' },
+                }, {
                     name: 'Radio 单选框',
-                    link: { name:'radio'}
-                },{
+                    link: { name: 'radio' },
+                }, {
                     name: 'Checkbox 多选框',
-                    link: { name:'checkbox'}
-                },{
+                    link: { name: 'checkbox' },
+                }, {
                     name: 'Select 选择器',
-                    link: { name:'select'}
-                },{
+                    link: { name: 'select' },
+                }, {
                     name: 'Switch 开关',
-                    link: { name:'switch'}
-                },{
+                    link: { name: 'switch' },
+                }, {
                     name: 'TreeSelect 树选择',
-                    link: { name:'treeSelect'}
-                },{
+                    link: { name: 'treeSelect' },
+                }, {
                     name: 'TimePicker 时间选择框',
-                    link: { name:'timePicker'}
-                },{
+                    link: { name: 'timePicker' },
+                }, {
                     name: 'Transfer 穿梭框',
-                    link: { name:'transfer'}
-                },{
+                    link: { name: 'transfer' },
+                }, {
                     name: 'Upload 上传',
-                    link: { name:'upload'}
-                }]
-            },{
+                    link: { name: 'upload' },
+                }],
+            }, {
                 groupName: 'Data display',
                 list: [{
                     name: 'Badge 徽标数',
-                    link: { name:'badge'}
-                },{
+                    link: { name: 'badge' },
+                }, {
                     name: 'Card 卡片',
-                    link: { name:'card'}
-                },{
+                    link: { name: 'card' },
+                }, {
                     name: 'Carousel 走马灯',
-                    link: { name:'carousel'}
-                },{
+                    link: { name: 'carousel' },
+                }, {
                     name: 'Collapse 折叠面板',
-                    link: { name:'collapse'}
-                },{
+                    link: { name: 'collapse' },
+                }, {
                     name: 'Popover 气泡卡片',
-                    link: { name:'popover'}
-                },{
+                    link: { name: 'popover' },
+                }, {
                     name: 'Tooltip 文字提示',
-                    link: { name:'tooltip'}
-                },{
+                    link: { name: 'tooltip' },
+                }, {
                     name: 'DataTable 数据表格',
-                    link: { name:'dataTable'}
-                },{
+                    link: { name: 'dataTable' },
+                }, {
                     name: 'Tag 标签',
-                    link: { name:'tag'}
-                },{
+                    link: { name: 'tag' },
+                }, {
                     name: 'Timeline 时间轴',
-                    link: { name:'timeline'}
-                },{
+                    link: { name: 'timeline' },
+                }, {
                     name: 'Tree 树形控件',
-                    link: { name:'tree'}
-                }]
-            },{
+                    link: { name: 'tree' },
+                }],
+            }, {
                 groupName: 'Feedback',
                 list: [{
                     name: 'Alert 警告提示',
-                    link: { name:'alert'}
-                },{
+                    link: { name: 'alert' },
+                }, {
                     name: 'Message 全局提示',
-                    link: { name:'message'}
-                },{
+                    link: { name: 'message' },
+                }, {
                     name: 'Modal 对话框',
-                    link: { name:'modal'}
-                },{
+                    link: { name: 'modal' },
+                }, {
                     name: 'Notification 通知提醒框',
-                    link: { name:'notification'}
-                },{
+                    link: { name: 'notification' },
+                }, {
                     name: 'Progress 进度条',
-                    link: { name:'progress'}
-                },{
+                    link: { name: 'progress' },
+                }, {
                     name: 'Popconfirm 气泡确认框',
-                    link: { name: 'popconfirm'}
-                },{
+                    link: { name: 'popconfirm' },
+                }, {
                     name: 'Spin加载中',
-                    link: { name:'spin'}
-                }]
-            },{
-                groupName: 'Other'
-            }]
-        },{
-            name: "Directive",
+                    link: { name: 'spin' },
+                }],
+            }, {
+                groupName: 'Other',
+            }],
+        }, {
+            name: 'Directives',
             children: [{
                 name: 'Tooltip 文字提示',
-                link: { name:'tooltipd'}
-            }]
-        }]
-    })
-}
+                link: { name: 'tooltipd' },
+            }],
+        }],
+    }),
+};
 
 </script>
 
