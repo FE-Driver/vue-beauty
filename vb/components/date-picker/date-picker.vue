@@ -202,7 +202,6 @@
                     if (this.startTime && this.endTime) {
                         startTime = this.stringify(this.parse(this.startTime, false));
                         endTime = this.stringify(this.parse(this.endTime, false));
-
                         if(this.showTime){
                             startTime = startTime + ' ' + this.timeVal[0];
                             endTime = endTime + ' ' + this.timeVal[1];
@@ -220,48 +219,46 @@
                 return val;
             }
         },
-        mounted(){
-            this.container = this.popupContainer()
+        mounted() {
+            this.container = this.popupContainer();
             this.$refs.container.style.position = this.position;
             this.container.appendChild(this.$refs.container);
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 this.setPosition();
-            })
+            });
 
-            window.addEventListener('resize',this.resize);
-            if(!this.$refs.wapper.style.minWidth){
-                if(this.showTime){
-                    if(this.range){
-                        this.$set(this.styleObject, 'minWidth', '255px')
-                    }else{
-                        this.$set(this.styleObject, 'minWidth', '140px')
+            window.addEventListener('resize', this.resize);
+            if (!this.$refs.wapper.style.minWidth) {
+                if (this.showTime) {
+                    if (this.range) {
+                        this.$set(this.styleObject, 'minWidth', '255px');
+                    } else {
+                        this.$set(this.styleObject, 'minWidth', '140px');
                     }
-                }else if(this.range){
-                    this.$set(this.styleObject, 'minWidth', '180px')
+                } else if (this.range) {
+                    this.$set(this.styleObject, 'minWidth', '180px');
                 }
             }
-            if(!this.$refs.wapper.style.width){
-                this.$set(this.styleObject, 'width', '100px')
+            if (!this.$refs.wapper.style.width) {
+                this.$set(this.styleObject, 'width', '100px');
             }
-            if(this.showTime){
+            if (this.showTime) {
                 this.timeBtnEnable = !!this.value;
-                let temp = ['00:00','00:00'];
-                if(this.range){
-                    if(this.startTime){
-                        let start = this.startTime.split(' ')[1];
-                        if(start) temp[0] = start;
+                const temp = ['00:00', '00:00'];
+                if (this.range) {
+                    if (this.startTime) {
+                        const start = this.startTime.split(' ')[1];
+                        if (start) temp[0] = start;
                     }
-                    if(this.endTime){
-                        let end = this.endTime.split(' ')[1];
-                        if(end) temp[1] = end;
+                    if (this.endTime) {
+                        const end = this.endTime.split(' ')[1];
+                        if (end) temp[1] = end;
                     }
-                }else{
-                    if(this.value){
-                        let time = this.value.split(' ')[1];
-                        if(time) temp[0] = (time || '00:00').substr(0, 5);
-                    }
-                    this.timeVal = temp;
+                } else if (this.value) {
+                    const time = this.value.split(' ')[1];
+                    if (time) temp[0] = (time || '00:00').substr(0, 5);
                 }
+                this.timeVal = temp;
             }
         },
         beforeDestroy() {
