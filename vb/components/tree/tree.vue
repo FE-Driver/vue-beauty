@@ -142,9 +142,7 @@ export default {
               this.$emit('check', this.getCheckedNodes());
             });
           }
-          if (this === params.origin) {
-            return;
-          }
+          if (this === params.origin) return;
 
           for (let [i, item] of this.data.entries()) {
             if (`${this.clue}-${i}` === params.clue) {
@@ -153,10 +151,10 @@ export default {
               if (temp !== item.childrenCheckedStatus) {
                 this.$set(this.data[i], 'checked', !!temp);
                 this.$set(this.data[i], 'childrenCheckedStatus', temp);
+              }
 
-                if (this.clue !== '0') {
-                  this.dispatch('Tree', 'childChecked', { origin: this, clue: this.clue });
-                }
+              if (this.clue !== '0') {
+                this.dispatch('Tree', 'childChecked', { origin: this, clue: this.clue });
               }
             }
           }
@@ -401,9 +399,7 @@ export default {
         }
       },
       setCheck(disabled, index) {
-        if (disabled) {
-          return;
-        }
+        if (disabled) return;
 
         const checked = !this.data[index].checked;
         this.$set(this.data[index], 'checked', checked);

@@ -60,7 +60,7 @@
     "eslint-plugin-html": "^2.0.3",
     "eslint-plugin-import": "^2.2.0",
     "eventsource-polyfill": "^0.9.6",
-    "express": "^4.15.2",
+    "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "formidable": "^1.1.1",

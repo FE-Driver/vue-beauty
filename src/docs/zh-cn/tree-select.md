@@ -30,16 +30,25 @@ export default {
             title: 'my leaf',
           }, {
             title: 'your leaf',
+          }, {
+            title: 'self leaf',
           }]
         }, {
           title: 'parent 1-1',
           children: [{
             title: "<span style='color: #08c'>sss</span>"
           }]
+        }, {
+          title: 'parent 1-2',
         }]
       }],
     }
   },
+  methods: {
+    onCheck(data) {
+      console.log(data)
+    }
+  }
 }
 </script>
 
@@ -101,7 +110,7 @@ export default {
 
 ```html
 <template>
-  <v-tree-select :data="treeData2" allow-clear multiple style="width:300px"></v-tree-select>
+  <v-tree-select :data="treeData2" allow-clear multiple style="width:300px" @check="onCheck"></v-tree-select>
 </template>
 
 <script>
@@ -118,16 +127,25 @@ export default {
             title: 'my leaf',
           }, {
             title: 'your leaf',
+          }, {
+            title: 'self leaf',
           }]
         }, {
           title: 'parent 1-1',
           children: [{
             title: "<span style='color: #08c'>sss</span>"
           }]
+        }, {
+          title: 'parent 1-2',
         }]
       }],
     }
   },
+  methods: {
+    onCheck(data) {
+      console.log(data)
+    }
+  }
 }
 </script>
 ```
