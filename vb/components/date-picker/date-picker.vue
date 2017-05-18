@@ -264,18 +264,18 @@
                 }
             }
         },
-        beforeDestroy(){
+        beforeDestroy() {
             this.container.removeChild(this.$refs.container);
-            window.removeEventListener('resize',this.resize);
+            window.removeEventListener('resize', this.resize);
         },
         watch: {
-            resize(){
+            resize() {
                 clearTimeout(this.resizeTimer);
-                this.resizeTimer = setTimeout(()=> {
+                this.resizeTimer = setTimeout(() => {
                     this.setPosition();
-                }, 200)
+                }, 200);
             },
-            show(val) {
+            show() {
                 this.hidePanel();
             },
             now1() {
@@ -285,42 +285,41 @@
                 this.updateAll();
             },
             label(val) {
-                this.timeBtnEnable = val?true:false;
-                if(this.range){
-                    let time = val.split(' ~ ');
-                    this.$emit('input',[time[0],time[1]]);
-                    this.$emit('change',time[0],time[1] || '');
-                    this.dispatch('FormItem', 'form.change', [time[0],time[1] || '']);
-                }else{
-                    this.$emit('input',val);
-                    this.$emit('change',val);
+                this.timeBtnEnable = !!val;
+                if (this.range) {
+                    const time = val.split(' ~ ');
+                    this.$emit('input', [time[0], time[1]]);
+                    this.$emit('change', time[0], time[1] || '');
+                    this.dispatch('FormItem', 'form.change', [time[0], time[1] || '']);
+                } else {
+                    this.$emit('input', val);
+                    this.$emit('change', val);
                     this.dispatch('FormItem', 'form.change', [val]);
                 }
-            }
+            },
         },
         methods: {
-            optionClose(){
+            optionClose() {
                 this.timeSelected = false;
             },
-            selectTime(){
-                if(!this.timeBtnEnable) return;
+            selectTime() {
+                if (!this.timeBtnEnable) return;
                 this.timeSelected = !this.timeSelected;
             },
-            setPosition(){
-                if(!this.$el){
-                    return
-                }
-                let p = getOffset(this.$el, this.container);
+            setPosition() {
+                if (!this.$el) return;
+
+                const p = getOffset(this.$el, this.container);
 
                 this.containerStyle = {
-                    top: p.bottom + 4 + 'px',
-                    left: p.left + 'px'
-                }
+                    top: `${p.bottom + 4}px`,
+                    left: `${p.left}px`,
+                };
             },
-            //转换输入的时间
+            // 转换输入的时间
             parse(time, isLast) {
                 if (time) {
-                    var tmpTime = new Date(time);
+                    const tmpTime = new Date(time);
                     if (isLast === undefined) {
                         return tmpTime;
                     } else if (isLast) {

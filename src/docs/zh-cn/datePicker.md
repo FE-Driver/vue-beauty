@@ -1,17 +1,24 @@
 <script>
 export default {
     data:()=> ({
-        date: '2015-12-06',
-        rangeDate: ['2015-12-06','2016-12-06'],
-        time: '2015-12-06 23:12',
-        rangeTime: ['2015-12-06 23:12','2016-12-06 23:12']
+        date1: '2015-12-06',
+        date2: '2015-12-06',
+        date3: '2015-12-06',
+        date4: '2015-12-06',
+        rangeDate1: ['2015-12-06','2016-12-06'],
+        rangeDate2: ['2015-12-06','2016-12-06'],
+        rangeDate3: ['2015-12-06','2016-12-06'],
+        time1: '2015-12-06 23:12',
+        time2: '2015-12-06 23:12',
+        rangeTime1: ['2015-12-06 23:12','2016-12-06 23:12'],
+        rangeTime2: ['2015-12-06 23:12','2016-12-06 23:12']
     }),
     watch: {
-        date(val){
-            console.log(val)
+        date1(val){
+            console.log('watch:', val)
         },
-        rangeDate(val){
-            console.log(val)
+        rangeDate1(val){
+            console.log('watch:', val)
         }
     },
     methods: {
@@ -19,10 +26,10 @@ export default {
             console.log('confirm')
         },
         change(time) {
-            console.log(time)
+            console.log('change:', time)
         },
         rangeChange(startTime, endTime) {
-            console.log(startTime, endTime)
+            console.log('change:', startTime, endTime)
         },
         range (start, end){
             const result = [];
@@ -70,32 +77,32 @@ export default {
 
 ```html
 <template>                        
-    <v-date-picker v-model="date" clearable @change="change"></v-date-picker>
-    <v-date-picker v-model="rangeDate" range clearable @confirm="confirm" @change="rangeChange"></v-date-picker>
+    <v-date-picker v-model="date1" clearable @change="change"></v-date-picker>
+    <v-date-picker v-model="rangeDate1" range clearable @confirm="confirm" @change="rangeChange"></v-date-picker>
 </template>
 <script>
 export default {
     data:()=> ({
-        date: '2015-12-06'
-        rangeDate: ['2015-12-06','2016-12-06']
-    }),,
+        date1: '2015-12-06'
+        rangeDate1: ['2015-12-06','2016-12-06']
+    }),
     watch: {
-        date(val){
-            console.log(val)
+        date1(val){
+            console.log('watch:', val)
         },
-        rangeDate(val){
-            console.log(val)
+        rangeDate1(val){
+            console.log('watch:', val)
         }
-    }
+    },
     methods: {
         confirm() {
             console.log('confirm')
         },
         change(time) {
-            console.log(time)
+            console.log('change:', time)
         },
         rangeChange(startTime, endTime) {
-            console.log(startTime, endTime)
+            console.log('change:', startTime, endTime)
         }
     }
 }
@@ -111,24 +118,17 @@ export default {
 
 ```html
 <template>
-    <v-date-picker v-model="date" size="sm"></v-date-picker>
-    <v-date-picker v-model="date"></v-date-picker>
-    <v-date-picker v-model="rangeDate" range size="lg"></v-date-picker>
+    <v-date-picker v-model="date2" size="sm"></v-date-picker>
+    <v-date-picker v-model="date3"></v-date-picker>
+    <v-date-picker v-model="rangeDate2" range size="lg"></v-date-picker>
 </template>
 <script>
 export default {
     data:()=> ({
-        date: '2015-12-06'
-        rangeDate: ['2015-12-06','2016-12-06']
-    }),
-    watch: {
-        date(val){
-            console.log(val)
-        },
-        rangeDate(val){
-            console.log(val)
-        }
-    }
+        date2: '2015-12-06'
+        date3: '2015-12-06'
+        rangeDate2: ['2015-12-06','2016-12-06']
+    })
 }
 </script>
 ```
@@ -141,24 +141,16 @@ export default {
 </summary>
 
 ```html
-<template>                        
-    <v-date-picker v-model="date" format="yyyy/MM/dd"></v-date-picker>
-    <v-date-picker range v-model="rangeDate" format="yyyy/MM/dd"></v-date-picker>
+<template>
+    <v-date-picker v-model="date4" format="yyyy/MM/dd"></v-date-picker>
+    <v-date-picker range v-model="rangeDate3" format="yyyy/MM/dd"></v-date-picker>
 </template>
 <script>
 export default {
     data:()=> ({
-        date: '2015-12-06'
-        rangeDate: ['2015-12-06','2016-12-06']
-    }),
-    watch: {
-        date(val){
-            console.log(val)
-        },
-        rangeDate(val){
-            console.log(val)
-        }
-    }
+        date4: '2015-12-06'
+        rangeDate3: ['2015-12-06','2016-12-06']
+    })
 }
 </script>
 ```
@@ -172,15 +164,20 @@ export default {
 
 ```html
 <template>  
-    <v-date-picker clearable show-time v-model="time" @change="change"></v-date-picker>
-    <v-date-picker range show-time v-model="rangeTime" clearable></v-date-picker>
+    <v-date-picker clearable show-time v-model="time1" @change="change"></v-date-picker>
+    <v-date-picker range show-time v-model="rangeTime1" clearable></v-date-picker>
 </template>
 <script>
 export default {
     data:()=> ({
-        time: '2015-12-06 23:12',
-        rangeTime: ['2015-12-06 23:12','2016-12-06 23:12']
-    })
+        time1: '2015-12-06 23:12',
+        rangeTime1: ['2015-12-06 23:12','2016-12-06 23:12']
+    }),
+    methods: {
+        change(time) {
+            console.log('change:', time)
+        }
+    }
 }
 </script>
 ```
@@ -194,14 +191,14 @@ export default {
 
 ```html
 <template>                        
-    <v-date-picker v-model="time" show-time :disabled-date="disabledDate" :disabled-time="disabledTime()"></v-date-picker>
-    <v-date-picker v-model="rangeTime" range show-time :disabled-date="disabledDate" :disabled-time="disabledRangeTime()"></v-date-picker>
+    <v-date-picker v-model="time2" show-time :disabled-date="disabledDate" :disabled-time="disabledTime()"></v-date-picker>
+    <v-date-picker v-model="rangeTime2" range show-time :disabled-date="disabledDate" :disabled-time="disabledRangeTime()"></v-date-picker>
 </template>
 <script>
 export default {
     data:()=> ({
-        time: '2015-12-06 23:12',
-        rangeTime: ['2015-12-06 23:12','2016-12-06 23:12']
+        time2: '2015-12-06 23:12',
+        rangeTime2: ['2015-12-06 23:12','2016-12-06 23:12']
     }),
     methods: {
         range (start, end){
