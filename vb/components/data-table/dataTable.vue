@@ -141,49 +141,49 @@
         props: {
             size: {
                 type: String,
-                default: "middle"
+                default: 'middle',
             },
             //接口地址
             data: {
                 type: Function,
-                required: true
+                required: true,
             },
             //表头信息
             columns: {
                 type: Array,
-                required: true
+                required: true,
             },
             pagination: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             //分页大小
             pageSize: {
                 type: Number,
-                default: 10
+                default: 10,
             },
             //当前页数
             pageNum: {
                 type: Number,
-                default: 1
+                default: 1,
             },
             pageSizeOptions: {
                 type: Array,
-                default: function () {
+                default() {
                     return [10, 20, 30, 40, 50];
-                }
+                },
             },
             // 接口数据结构中各项参数的名称
             responseParamsName: {
                 type: Object,
-                default: function () {
-                    return {}
-                }
+                default() {
+                    return {};
+                },
             },
             //行选择配置
             checkType: {
                 type: String,
-                validator: function (value) {
+                validator(value) {
                     return value == "checkbox" || value == "radio";
                 }
             },
@@ -204,7 +204,7 @@
             },
             treeTableOption: {
                 type: Object,
-                default: function () {
+                default() {
                     return {
                         idKey: "id",
                         pidKey: "pid",
@@ -221,7 +221,7 @@
          我们应当使用一个函数作为 data 选项，让这个函数返回一个新对象
          不能直接简单地把一个对象作为组件的data选项,这会导致所有的实例将共享同一个 data 对象！
          */
-        data: function () {
+        data() {
             return {
                 //当前分页数据,默认没有
                 current: [],
@@ -247,7 +247,7 @@
                 paramsName: {}
             }
         },
-        created: function () {
+        created() {
             //初始加载数据
             this.paramsName = Object.assign({}, {
                 pageNumber: 'pageNo',
@@ -259,22 +259,21 @@
             this.getSortParams();
             this.loadData({pageNum: this.pageNumber});
         },
-        mounted: function () {
-            this.$nextTick(function () {
-                var self = this;
-                //获取表格实际宽度
+        mounted() {
+            this.$nextTick(() => {
+                // 获取表格实际宽度
                 this.calculateSize();
 
                 if (!this.bindResize) {
-                    window.addEventListener("resize", function () {
-                        self.calculateSize();
+                    window.addEventListener('resize', () => {
+                        this.calculateSize();
                     }, false);
-                    self.bindResize = true;
+                    this.bindResize = true;
                 }
             });
         },
         methods: {
-            clickCheck: function (index, event) {
+            clickCheck(index, event) {
                 //组装消息
                 const item = this.items[index];
                 const msg = Object.assign({
@@ -288,7 +287,7 @@
              * 翻页
              * @param page
              */
-            pageChange: function (page) {
+            pageChange(page) {
                 this.pageNumber = page;
                 //不直接修改pageNum,传递给loadData,待数据加载成功之后修改pageNum
                 this.loadData({pageNum: page});
@@ -297,18 +296,15 @@
              * 修改分页大小
              * @param pageSize
              */
-            pageSizeChange: function (current, pageSize) {
-//             pageSizeChange改变会同时触发pagenumber改变，为了避免重复loaddata，增加标志位
-                this.tempCurrent = current;
-                //this.pageNumber = current;
+            pageSizeChange(current, pageSize) {
                 this.pageSizeT = pageSize;
-                this.loadData();
+                if (current === this.pageNumber) this.loadData();
             },
             /**
              * 排序
              * @param pageSize
              */
-            sort: function (column, order) {
+            sort(column, order) {
                 if (this.sortModel == "single") {
                     this.setCurrentSort(column, order);
                 } else {
@@ -318,7 +314,7 @@
                 this.loadData();
             },
 //            单参数排序模式
-            setCurrentSort: function (sortColumn, order) {
+            setCurrentSort(sortColumn, order) {
 
                 for (var column of this.columns) {
                     if (typeof column.sort == 'string') {
@@ -332,7 +328,7 @@
                 sortParams[this.paramsName.sortColumns] = `${sortColumn.field} ${sortColumn.sort} `;
                 this.sortParams = sortParams;
             },
-            setSortParams: function (sortColumn, order) {
+            setSortParams(sortColumn, order) {
                 sortColumn.sort = order;
 
                 var sortStr = "";
@@ -345,7 +341,7 @@
                 sortParams[this.paramsName.sortColumns] = sortStr;
                 this.sortParams = sortParams;
             },
-            getSortParams: function () {
+            getSortParams() {
                 var sortStr = "";
                 for (var column of this.columns) {
                     if (typeof column.sort == 'string') {
@@ -361,7 +357,7 @@
              * 加载数据
              * @param params
              */
-            loadData: function (params) {
+            loadData(params) {
                 params = Object.assign({}, params);
                 var self = this;
                 self.loading = true;
@@ -408,18 +404,18 @@
                     }
                 );
             },
-            rowSelectionChange: function (index) {
+            rowSelectionChange(index) {
                 this.$emit('clickrow', {
                     index: index,
                     checked: this.rowSelectionStates[index],
                     row: this.current[index]
                 });
             },
-            checkAllChange: function (e) {
+            checkAllChange(e) {
                 this.rowSelectionStates = new Array(this.current.length || 0).fill(e);
                 this.$emit('checkall', e);
             },
-            clickRow: function (index) {
+            clickRow(index) {
                 this.$set(this.rowSelectionStates,index,!this.rowSelectionStates[index]);
                 this.rowSelectionChange(index);
             },
@@ -443,12 +439,12 @@
                     console.warn("Datatable's goto api using wrong parameters");
                 }
             },
-            scrollTableBody: function (e) {
+            scrollTableBody(e) {
                 const target = e.target || e.srcElement;
                 this.tableBodyScrollLeft = target.scrollLeft;
             },
             //计算并设置表格尺寸
-            calculateSize: function () {
+            calculateSize() {
                 if (!this.$el) {
                     return
                 }
@@ -464,14 +460,14 @@
                     }
                 });
             },
-            getBodyWidth: function () {
+            getBodyWidth() {
                 //设置表头表格总宽度
                 var tbody = this.$refs.tbody;
                 tbody && (this.tableBodyWidth = tbody.offsetWidth + "px");
                 //设置表头th宽度
                 this.fixHeaderWidth();
             },
-            fixHeaderWidth: function () {
+            fixHeaderWidth() {
                 var theader_ths = this.$el.querySelectorAll('div.ant-table-header table>thead>tr>th')
                 var tbody_ths = this.$el.querySelectorAll("div.ant-table-body table>thead>tr>th")
 
@@ -487,7 +483,7 @@
                     });
                 }
             },
-            fixGapHeight: function (footerHeight) {
+            fixGapHeight(footerHeight) {
                 var self = this;
                 //获取挂载元素在屏幕上的位置
                 var rect = self.$el.getBoundingClientRect();
@@ -499,7 +495,7 @@
                     this.getBodyWidth();
                 }
             },
-            dealTreeData: function (results) {
+            dealTreeData(results) {
                 this.originData = results.slice();
                 this.newData = [];
                 var trData = this.transTreeData(0);
@@ -507,7 +503,7 @@
                 this.current = this.newData;
             },
             //处理数据，将一维数组转化为层级结构
-            transTreeData: function (pid) {
+            transTreeData(pid) {
                 var self = this;
                 var TreeTableOpt = this.treeTableOption;
                 var results = [];
@@ -525,7 +521,7 @@
                 return results;
             },
             //输出排序后的一维数组
-            sortTrData: function (trData) {
+            sortTrData(trData) {
                 var self = this;
                 for (var i = 0; i < trData.length; i++) {
                     var obj = trData[i];
@@ -542,7 +538,7 @@
                 }
             },
             //对象排序
-            sortData: function (a, b) {
+            sortData(a, b) {
                 var name = this.treeTableOption.sortKey;
                 if (this.treeTableOption.order == "asc") {
                     return a[name] > b[name] ? 1 : -1;
@@ -551,7 +547,7 @@
                 }
             },
 //            查找子节点
-            findChildren: function (pid) {
+            findChildren(pid) {
                 var self = this;
                 var results = [];
                 var origindata = this.originData;
@@ -563,7 +559,7 @@
                 return results;
             },
 //            获取节点层级
-            getLevel: function (id) {
+            getLevel(id) {
                 var self = this;
                 var origindata = this.originData;
                 var TreeTableOpt = this.treeTableOption;
@@ -588,7 +584,7 @@
              * @param item
              * @param isRecursion 是否递归，关闭节点时需要递归关闭子节点
              */
-            toggle: function (item) {
+            toggle(item) {
                 var self = this;
 
                 if (item.vopen == "collapsed") {
@@ -602,7 +598,7 @@
              * 折叠或打开节点
              * @param item
              */
-            expand: function (item) {
+            expand(item) {
                 var self = this;
 
 //                if (self.treeTableOption.isAsync && !item.loadChildren) {
@@ -611,7 +607,7 @@
 //                    self.expandChildren(item);
 //                }
             },
-            collapse: function (item) {
+            collapse(item) {
                 var self = this;
                 item.vopen = "collapsed";
                 var vshow = false;
@@ -625,7 +621,7 @@
                 }
                 this.calculateSize();
             },
-            expandChildren: function (item) {
+            expandChildren(item) {
                 var self = this;
                 item.vopen = "expanded";
                 var vshow = true;
@@ -636,7 +632,7 @@
                 }
                 this.calculateSize();
             },
-            loadChildren: function (item) {
+            loadChildren(item) {
                 var self = this;
                 self.loading = true;
                 //拼装请求参数
@@ -678,7 +674,7 @@
                     self.loading = false;
                 });
             },
-            transAsyncTreeData: function (results, level) {
+            transAsyncTreeData(results, level) {
                 var self = this;
                 for (var i = 0; i < results.length; i++) {
                     var obj = results[i];
@@ -691,10 +687,10 @@
             }
         },
         computed: {
-            sizeClass: function () {
+            sizeClass() {
                 return this.prefix + "-" + this.size;
             },
-            scrollClass: function () {
+            scrollClass() {
                 if (this.tableBodyHeight) {
                     return this.prefix + "-scroll";
                 } else {
@@ -708,7 +704,7 @@
                     return false;
                 }
             },
-            checkAllState: function () {
+            checkAllState() {
                 // 包含至少一个false
                 if(this.rowSelectionStates.includes(false)){
                     // 全部包含false
@@ -721,11 +717,8 @@
             }
         },
         watch: {
-            pageNumber: function () {
-                this.$nextTick(() => {
-//                    当pagenumber和临时标志位不相等的时候，表示手动触发了pageNumber改变，发送请求
-                    (this.tempCurrent != this.pageNumber) && this.refresh();
-                });
+            pageNumber() {
+                this.refresh();
             }
         },
         components: {
@@ -737,6 +730,3 @@
         }
     }
 </script>
-
-<style lang="less">
-</style>

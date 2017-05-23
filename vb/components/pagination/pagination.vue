@@ -188,19 +188,20 @@
         },
         watch: {
             currentPageSize() {
-                let current = this.current;
-                let newCurrent = this.allPages;
-                current = current > newCurrent ? newCurrent : current;
-                this.current =  current;
-                this.$emit('sizechange', current, Number(this.currentPageSize))
+                this.$nextTick(() => {
+                    let current = this.current;
+                    current = current > this.allPages ? this.allPages : current;
+                    this.current = current;
+                    this.$emit('sizechange', current, Number(this.currentPageSize));
+                });
             },
             current(val) {
-                this.$emit('input',val);
-                this.$emit('change',val);
+                this.$emit('input', val);
+                this.$emit('change', val);
             },
-            value(){
+            value() {
                 this.current = this.value;
-            }
+            },
         },
         created() {
             this.totalText = this.showTotal && this.showTotal(this.total, this.allPages);
