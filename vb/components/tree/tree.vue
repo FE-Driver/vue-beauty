@@ -57,7 +57,19 @@
     },
     created(){
       this.setKey();
-      this.preHandle();
+      for(let [i,item] of this.dataSource.entries()){
+        if(!item.node || !item.node.length){
+          this.$set(`dataSource[${i}].isLeaf`,true);
+          this.$set(`dataSource[${i}].childrenCheckedStatus`,2);
+          continue;
+        }
+        if(item.checked && !item.childrenCheckedStatus){
+          this.$set(`dataSource[${i}].childrenCheckedStatus`,2);
+        }else{
+          this.$set(`dataSource[${i}].childrenCheckedStatus`,0);
+          this.$set(`dataSource[${i}].checked`,false);
+        }
+      }
       
       this.$on('nodeSelected',(ori,selected)=>{
         if(this.key !== '0') return true;
@@ -115,6 +127,10 @@
       for(let [i,item] of this.dataSource.entries()){
         if(item.checked && item.childrenCheckedStatus === 2){
           this.$broadcast('parentChecked',true,this.key+'.'+i);
+        } else if(item.childrenCheckedStatus === 0) {
+          let status = this.getChildrenCheckedStatus(item.node);
+          this.$set(`dataSource[${i}].childrenCheckedStatus`,status);
+          if(status !== 0) this.$set(`dataSource[${i}].checked`,true);
         }
       }
     },
