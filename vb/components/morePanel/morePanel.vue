@@ -33,6 +33,10 @@
             controlStyle:{
                 type:Object,
                 default: ()=>({})
+            },
+            is_collapse:{
+                type: Boolean,
+                default: true,
             }
         },
         watch:{
@@ -49,6 +53,7 @@
             }
         },
         ready(){
+            this.collapse = this.is_collapse;
             this.panelPR = this.$els.panelControl.offsetWidth + 'px'
             this.ifShowBtn();
 

@@ -288,6 +288,27 @@
                 }else{
                     this.$emit('change',val);
                 }
+            },
+            time() {
+                if(this.showTime){
+                    let temp = ['00:00','00:00'];
+                    if(this.range){
+                        if(this.startTime){
+                            let start = this.startTime.split(' ')[1];
+                            if(start) temp[0] = start.substr(0,5);
+                        }
+                        if(this.endTime){
+                            let end = this.endTime.split(' ')[1];
+                            if(end) temp[1] = endsubstr(0,5);
+                        }
+                    }else{
+                        if(this.time){
+                            let time = this.time.split(' ')[1];
+                            if(time) temp[0] = time.substr(0,5);
+                        }
+                    }
+                    this.timeVal = temp;
+                }
             }
         },
         methods: {
@@ -419,7 +440,8 @@
             //确认
             confirm() {
                 this.closeDropdown();
-                this.$emit('confirm');
+                let time = this.value.split(' ~ ');
+                this.$emit('confirm',time[0],time[1] || '');
             },
             closeDropdown() {
                 this.show = false;

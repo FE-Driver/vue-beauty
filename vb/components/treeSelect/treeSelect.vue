@@ -1,6 +1,6 @@
 <template>
     <span style="display:inline-block;position:relative">
-        <base-select :value="value" :popup-container="popupContainer" :open.sync="open" :position="position" :multiple="multiple" :allow-clear="allowClear" :on-clear="clear" v-ref:select>
+        <base-select :value.sync="value" :popup-container="popupContainer" :open.sync="open" :position="position" :multiple="multiple" :allow-clear="allowClear" :on-clear="clear" v-ref:select>
             <v-tree :data-source="data" :on-select="select" :on-check="check" :multiple="multiple" :checkable="treeCheckable" v-ref:tree></v-tree>
         </base-select>
     </span>

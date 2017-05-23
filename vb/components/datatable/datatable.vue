@@ -1,7 +1,7 @@
 <template lang="html">
 
-    <div :class="[prefix, sizeClass, borderClass]">
-        <div :class="[contentClass, scrollClass]">
+    <div :class="[prefix, 'ant-table-middle', 'ant-table-bordered']">
+        <div :class="['ant-table-content', ' ant-table-scroll']">
 
             <div v-if="tableBodyHeight" class="{{prefix}}-header" :style="{left:-tableBodyScrollLeft+'px',width:tableBodyWidth}">
                 <table :style="{width:tableBodyWidth}">
@@ -54,7 +54,7 @@
                                 <tr v-show="!treeTable || item.vshow">
                                     <td v-if="rowSelection" class="{{prefix}}-selection-column">
                                         <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
-                                        <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
+                                        <v-radio v-if="rowSelection.type=='radio'" :checked.sync="rowSelectionStates[index]" :on-change="rowSelectionChange(index)">选择</v-radio>
                                     </td>
                                     <td v-for="(cindex,column) in columns">
                                         <template v-if="treeTable && cindex==treeTableOption.position">
