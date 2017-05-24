@@ -1,13 +1,13 @@
 <template>
     <div>
         <transition name="fade">
-            <div v-if="visible" :class="prefixCls + '-mask'"></div>
+            <div v-if="visible && hasMask" :class="prefixCls + '-mask'"></div>
         </transition>
         <transition name="zoom" @before-enter="beforeEnter" @after-leave="afterLeave">
             <div ref="dialog" :class="[prefixCls + '-wrap', wrapClassName]"
                  role="dialog" :aria-labelledby="titleId" v-if="visible"
                  tabindex="-1" @click="_onMaskClick" @keydown="_onKeyDown">
-                <div role="document" :style="[modalStyle, {width: width +'px'}]"
+                <div role="document" :style="[{width: width +'px'}, modalStyle]"
                      :class="prefixCls" @click="innerClick">
                     <div :class="prefixCls + '-content'">
                         <button v-if="closable" aria-label="Close"
@@ -76,7 +76,11 @@
             },
             visible: Boolean,
             zIndex: Number,
-            mousePosition: Object
+            mousePosition: Object,
+            hasMask: {
+                type: Boolean,
+                default: true
+            },
         },
         methods: {
             beforeEnter: function (el) {

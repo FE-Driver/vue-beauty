@@ -686,11 +686,12 @@
 ### Modal Props
 | 参数       | 说明           | 类型             | 默认值       |
 |------------|----------------|------------------|--------------|
-| visible    | 对话框是否可见 | boolean          | `false`  |
-| title      | 标题           | string | 无           |
-| closable   | 是否显示右上角的关闭按钮 | boolean    | `true`        |
-| maskClosable | 点击蒙层是否允许关闭 | boolean   | `true`       |
-| confirmLoading | 确定按钮 loading | boolean    | `false`  |
+| visible    | 对话框是否可见 | boolean          | false  |
+| title      | 标题           | string | -   |
+| closable   | 是否显示右上角的关闭按钮 | boolean    | true   |
+| hasMask | 是否显示蒙层 | boolean   | true  |
+| maskClosable | 点击蒙层是否允许关闭 | boolean   | true   |
+| confirmLoading | 确定按钮 loading | boolean    | false  |
 | okText     | 确认按钮文字    | string           | `确定`      |
 | cancelText | 取消按钮文字    | string           | `取消`       |
 | slot:footer     | 底部内容       | string | 确定取消按钮 |
@@ -701,8 +702,8 @@
 ### Modal Events
 | 事件名称 | 说明 | 回调参数 |
 |---------- |-------- |---------- |
-| ok       | 点击确定时触发       | 无           |
-| cancel   | 点击遮罩层或右上角叉或取消按钮时触发  | 无         |
+| ok       | 点击确定时触发       | -   |
+| cancel   | 点击遮罩层或右上角叉或取消按钮时触发  | -  |
 
 ### Vue.$modal.xxx()
 
@@ -719,11 +720,11 @@
 | 参数       | 说明           | 类型             | 默认值       |
 |------------|----------------|------------------|--------------|
 | iconType   | 图标 Icon 类型    | string | question-circle |
-| title      | 标题           | string | 无           |
-| content    | 内容           | string | 无           |
+| title      | 标题           | string | -  |
+| content    | 内容           | string | -  |
 | width      | 宽度           | number | 416           |
 | okText     | 确认按钮文字    | string           | 确定(只有确定按钮时为`知道了`)       |
 | cancelText | 取消按钮文字    | string           | 取消       |
-| onOk       | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭      | function         | 无           |
-| onCancel   | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭       | function         | 无           |
-| maskClosable | 点击蒙层是否允许关闭 | boolean   | `false`    |
+| onOk       | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭      | function         | -  |
+| onCancel   | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭       | function         | -   |
+| maskClosable | 点击蒙层是否允许关闭 | boolean   | false   |

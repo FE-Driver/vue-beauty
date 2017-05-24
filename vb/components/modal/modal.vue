@@ -10,6 +10,7 @@
             :modal-style="modalStyle"
             :has-footer="hasFooter"
             :wrap-class-name="wrapClassName"
+            :has-mask="hasMask"
             :mouse-position="mousePosition">
         <slot></slot>
         <template slot="footer">
@@ -85,7 +86,11 @@
                 type: Boolean,
                 default: true
             },
-            wrapClassName: String
+            wrapClassName: String,
+            hasMask: {
+                type: Boolean,
+                default: true
+            },
         },
 
         data() {
