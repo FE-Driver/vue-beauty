@@ -44,7 +44,7 @@ export default [{
     }, {
         path: 'inputNumber',
         name: 'inputNumber',
-        component: require('./docs/zh-cn/inputNumber.md'),
+        component: require('./docs/zh-cn/input-number.md'),
     }, {
         path: 'cascader',
         name: 'cascader',
@@ -100,11 +100,11 @@ export default [{
     }, {
         path: 'timePicker',
         name: 'timePicker',
-        component: require('./docs/zh-cn/timePicker.md'),
+        component: require('./docs/zh-cn/time-picker.md'),
     }, {
         path: 'datePicker',
         name: 'datePicker',
-        component: require('./docs/zh-cn/datePicker.md'),
+        component: require('./docs/zh-cn/date-picker.md'),
     }, {
         path: 'pagination',
         name: 'pagination',
@@ -124,7 +124,7 @@ export default [{
     }, {
         path: 'morePanel',
         name: 'morePanel',
-        component: require('./docs/zh-cn/morePanel.md'),
+        component: require('./docs/zh-cn/more-panel.md'),
     }, {
         path: 'select',
         name: 'select',
@@ -164,7 +164,7 @@ export default [{
     }, {
         path: 'dataTable',
         name: 'dataTable',
-        component: require('./docs/zh-cn/dataTable.md'),
+        component: require('./docs/zh-cn/data-table.md'),
     }, {
         path: 'tree',
         name: 'tree',
