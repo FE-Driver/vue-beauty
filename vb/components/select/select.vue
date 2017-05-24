@@ -90,104 +90,112 @@
                 isSearchFocus: false,
                 dropdownHeight: 0,
                 container: null,
-            }
+            };
         },
         props: {
             clue: {
                 type: String,
-                default: 'value'
+                default: 'value',
             },
             label: {
                 type: String,
-                default: 'label'
+                default: 'label',
             },
             groupLabel: {
                 type: String,
-                default: 'label'
+                default: 'label',
             },
             multiple: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             notFoundContent: {
                 type: String,
-                default: ()=>t('select.notFoundContent')
+                default: () => t('select.notFoundContent'),
             },
             placement: {
                 type: String,
-                default: 'bottom'
+                default: 'bottom',
             },
             search: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             maxHeight: {
                 type: Number,
-                default: 300
+                default: 300,
             },
             disabled: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             allowClear: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             value: {
                 type: [Number, String, Array],
-                default: ''
+                default: '',
             },
             placeholder: {
                 type: String,
-                default: ()=>t('select.placeholder')
+                default: () => t('select.placeholder'),
             },
             data: {
                 type: Array,
-                default: ()=> []
+                default: () => [],
             },
             popupContainer: {
                 type: Function,
-                default: ()=> document.body
+                default: () => document.body,
             },
             size: String,
             position: {
-                type: String, 
-                default: 'absolute'
+                type: String,
+                default: 'absolute',
             },
             loading: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             loadingText: {
                 type: String,
-                default: ()=>t('select.loadingText')
+                default: () => t('select.loadingText'),
             },
-            remoteMethod: Function
+            remoteMethod: Function,
+            optionOnChange: {
+                type: Boolean,
+                default: false,
+            },
         },
         mounted() {
             this.initVal();
-            this.container = this.popupContainer()
+            this.container = this.popupContainer();
 
             this.$refs.dropdown.style.position = this.position;
             this.container.appendChild(this.$refs.dropdown);
 
-            window.addEventListener('resize',()=> {
+            window.addEventListener('resize', () => {
                 clearTimeout(this.resizeTimer);
-                this.resizeTimer = setTimeout(()=> {
+                this.resizeTimer = setTimeout(() => {
                     this.setPosition();
-                }, 200)
-            })
+                }, 200);
+            });
         },
-        beforeDestroy(){
+        beforeDestroy() {
             this.container.removeChild(this.$refs.dropdown);
         },
         watch: {
-            innerValue(val){
-                this.$emit('change',val);
-                this.$emit('input',val);
+            innerValue(val) {
+                this.$emit('input', val);
                 this.dispatch('FormItem', 'form.change', [val]);
+                if (this.optionOnChange) {
+                    this.$emit('change', this.getOption(val));
+                } else {
+                    this.$emit('change', val);
+                }
             },
-            value(val){
+            value(val) {
                 if(this.innerValue !== val){
                     this.labels = this.multiple?[]:'';
                     this.innerValue = val;
@@ -271,6 +279,27 @@
             }
         },
         methods: {
+            getOption(val) {
+                let res, selected = val;
+                if (this.multiple) {
+                    res = [];
+                    selected = [...val];
+                }
+                this.mapData(([type, path, item]) => {
+                    if (this.multiple) {
+                        const i = selected.indexOf(item[this.clue]);
+                        if (i !== -1) {
+                            res.push({ ...item });
+                            selected.splice(i, 1);
+                            if (!selected.length) return true;
+                        }
+                    } else if (item[this.clue] === val) {
+                        res = { ...item };
+                        return true;
+                    }
+                });
+                return res;
+            },
             mapData(callback,groupCallback){
                 for(let [i,opt] of this.ori_data.entries()){
                     if(opt.options){

@@ -472,6 +472,7 @@
 | size | 选择框大小，可选 lg sm	 | string | - |
 | loading    | 呈现加载样式（一般用于从远程获取数据）	 | boolean| false |
 | loadingText | 加载时显示的文字 | string | 加载中... |
+| optionOnChange | 指定change事件返回的数据是否是选中的整个option数据 | boolean | false |
 | remoteMethod | 远程搜索方法	 | function | - |
 | position | 下拉框的定位方式（absolute,fixed）	 | string | absolute |
 | popupContainer | 下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | function | () => document.body |
@@ -487,4 +488,4 @@
 ### Select Events
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
-| change    | 选择的值发生变化的时候触发 | value |
+| change    | 选择的值发生变化的时候触发，默认返回value，如需返回整个option，请设置optionOnChange | value |
