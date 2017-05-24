@@ -9,7 +9,8 @@
             <div :class="[prefix,{[prefix+'-range']:range},{[prefix+'-time']:showTime}]">
                 <div class="ant-calendar-top" v-if="range&&!en">
                     <template v-for="item in ranges">
-                        <i v-if="$index"></i><a v-text="item.name" :class="item.active?'on':''" @click="selectRange($index)"></a>
+                        <i v-if="$index"></i>
+                        <a v-text="item.name" :class="item.active?'on':''" @click="selectRange($index)"></a>
                     </template>
                 </div>
                 <div class="ant-calendar-date-panel">
@@ -51,11 +52,15 @@
                                 <time-picker-panel prefix="ant-calendar-time-picker" :time-value.sync="timeVal[no]" :selected.sync="timeSelected" :disabled-h="disabledTime[no].disabledHours" :disabled-m="disabledTime[no].disabledMinutes" local-format="HH:mm"></time-picker-panel>
                             </div>
                             <div class="ant-calendar-year-panel" transition="fade" v-if="this['showYear'+(no+1)]">
-                                <span class="ant-calendar-year-panel-prev"  @click="changeYearRange(no+1,-1)"><a class="anticon anticon-up"></a></span>
+                                <span class="ant-calendar-year-panel-prev" @click="changeYearRange(no+1,-1)">
+                                    <a class="anticon anticon-up"></a>
+                                </span>
                                 <span class="ant-calendar-year-panel-cell" v-for="item in this['years'+(no+1)]" :class="item.status" @click="selectYear($index,no+1)" style="width:33.33%; display:inline-block;padding:9px 0">
                                     <a class="ant-calendar-year-panel-year">{{item.year+(en?"":"年")}}</a>
                                 </span>
-                                <span class="ant-calendar-year-panel-next"  @click="changeYearRange(no+1,1)"><a class="anticon anticon-down"></a></span>
+                                <span class="ant-calendar-year-panel-next" @click="changeYearRange(no+1,1)">
+                                    <a class="anticon anticon-down"></a>
+                                </span>
                             </div>
                             <div class="ant-calendar-month-panel" transition="fade" v-if="this['showMonth'+(no+1)]">
                                 <div class="ant-calendar-month-panel-body">
@@ -299,7 +304,7 @@
                         }
                         if(this.endTime){
                             let end = this.endTime.split(' ')[1];
-                            if(end) temp[1] = endsubstr(0,5);
+                            if(end) temp[1] = end.substr(0,5);
                         }
                     }else{
                         if(this.time){
@@ -723,7 +728,7 @@
             },
             //清除时间
             clear() {
-                this.time1 = this.time2 = this.startTime = this.endTime = this.time = null;
+                this.time1 = this.time2 = this.startTime = this.endTime = this.time = '';
                 this.timeVal = ["00:00","00:00"];
                 this.timeSelected = false;
                 this.now1 = new Date();
@@ -733,57 +738,62 @@
     }
 </script>
 <style scoped lang="less">
-    .ant-calendar{
-        .ant-calendar-year-panel,.ant-calendar-month-panel{
-            top: 34px;
-        }
-        .ant-calendar-month-panel-table{
-            height:208px;
-        }
-    }
-    .ant-calendar-range.ant-calendar-time .ant-calendar-time-picker{
+.ant-calendar {
+    .ant-calendar-year-panel,
+    .ant-calendar-month-panel {
         top: 34px;
     }
-    .ant-calendar-top {
-        color: #616161;
-        padding: 8px;
-        border-bottom: 1px solid #f3f3f3;
-
-        a{
-            display: inline-block;
-            vertical-align: middle;
-            height: 16px;
-            cursor: pointer;
-
-            &:hover {
-                color: #77BDFB;
-            }
-            &.on{
-                font-weight: bold;
-                color: #1284e7;
-            }
-        }
-        i{
-            content: '|';
-            display: inline-block;
-            width: 1px;
-            margin: 0 10px;
-            height: 16px;
-            background: #616161;
-            vertical-align: middle;
-        }
+    .ant-calendar-month-panel-table {
+        height: 208px;
     }
-    .ant-calendar-year-panel-prev,.ant-calendar-year-panel-next {
-        display: block;
-        height: 20px;
-        text-align: center;
+}
 
-        a{
-            color: #666
-        }
+.ant-calendar-range.ant-calendar-time .ant-calendar-time-picker {
+    top: 34px;
+}
+
+.ant-calendar-top {
+    color: #616161;
+    padding: 8px;
+    border-bottom: 1px solid #f3f3f3;
+
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        height: 16px;
+        cursor: pointer;
+
         &:hover {
-            background-color: #eaf8fe;
-            cursor: pointer;
+            color: #77BDFB;
+        }
+        &.on {
+            font-weight: bold;
+            color: #1284e7;
         }
     }
+    i {
+        content: '|';
+        display: inline-block;
+        width: 1px;
+        margin: 0 10px;
+        height: 16px;
+        background: #616161;
+        vertical-align: middle;
+    }
+}
+
+.ant-calendar-year-panel-prev,
+.ant-calendar-year-panel-next {
+    display: block;
+    height: 20px;
+    text-align: center;
+
+    a {
+        color: #666
+    }
+    &:hover {
+        background-color: #eaf8fe;
+        cursor: pointer;
+    }
+}
 </style>

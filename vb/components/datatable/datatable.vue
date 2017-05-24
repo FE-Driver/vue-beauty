@@ -1,15 +1,17 @@
 <template lang="html">
 
-    <div :class="[prefix, 'ant-table-middle', 'ant-table-bordered']">
-        <div :class="['ant-table-content', ' ant-table-scroll']">
+    <!--<div :class="[prefix, 'ant-table-middle', 'ant-table-bordered']">
+        <div :class="['ant-table-content', ' ant-table-scroll']">-->
+        <div :class="[prefix, sizeClass, borderClass]">
+           <div :class="[contentClass, scrollClass]">
 
             <div v-if="tableBodyHeight" class="{{prefix}}-header" :style="{left:-tableBodyScrollLeft+'px',width:tableBodyWidth}">
                 <table :style="{width:tableBodyWidth}">
                     <thead class="{{prefix}}-thead">
                         <tr>
                             <th v-if="rowSelection" class="{{prefix}}-selection-column">
-                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="checkAllState" :on-change="checkAllChange"></v-checkbox>
-                                <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
+                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="checkAllState" @click="checkAllChange"></v-checkbox>
+                                <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio> -->
                             </th>
                             <template v-for="column in columns">
                                 <th :style="{width:column.width}" class="{{column.className}}">
@@ -33,7 +35,7 @@
                         <thead class="{{prefix}}-thead">
                         <tr>
                             <th v-if="rowSelection" class="{{prefix}}-selection-column">
-                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="checkAllState" :on-change="checkAllChange"></v-checkbox>
+                                <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="checkAllState" @click="checkAllChange"></v-checkbox>
                                 <!--<v-radio v-if="rowSelection.type=='radio'" :on-change="rowSelectionChange"></v-radio>-->
                             </th>
                             <template v-for="column in columns">
@@ -50,7 +52,7 @@
                         </tr>
                         </thead>
                         <tbody class="{{prefix}}-tbody" v-show="current.length">
-                            <template v-for="(index, item) in current">
+                            <template v-for="(index, item) in current" track-by="$index">
                                 <tr v-show="!treeTable || item.vshow">
                                     <td v-if="rowSelection" class="{{prefix}}-selection-column">
                                         <v-checkbox v-if="rowSelection.type=='checkbox'" :checked.sync="rowSelectionStates[index]" @click="rowSelectionChange(index)"></v-checkbox>
@@ -257,9 +259,11 @@
 //                排序模式:single和multi,单参数和多参数
                 sortModel:'single',
                 rowSelectionStates:[],
+                checkAllState: false,
                 tableBodyScrollLeft:0,
                 tableBodyWidth:"100%",
-                tableBodyHeight:null
+                tableBodyHeight:null,
+                changeEvent: true,
             }
         },
         created: function () {
@@ -407,9 +411,9 @@
                 }
             },
             checkAllChange:function (e) {
-                this.rowSelectionStates = new Array(this.current.length || 0).fill(e.checked);
+                this.rowSelectionStates = new Array(this.current.length || 0).fill(e.target.checked);
                 if(this.rowSelection.onSelectAll){
-                    this.rowSelection.onSelectAll(e.checked, this.current);
+                    this.rowSelection.onSelectAll(e.target.checked, this.current);
                 }
             },
             datatable(fn,...rest){
@@ -678,17 +682,31 @@
                     return "";
                 }
             },
-            checkAllState:function () {
-                let checkAllState = false;
-                for (var i = 0; i < this.rowSelectionStates.length; i++) {
+            // checkAllState:function () {
+            //     let checkAllState = false;
+            //     for (var i = 0; i < this.rowSelectionStates.length; i++) {
+            //         if (this.rowSelectionStates[i] == false){
+            //             checkAllState = false;
+            //             break;
+            //         }else{
+            //             checkAllState = true;
+            //         }
+            //     }
+            //     return checkAllState;
+            // }
+        },
+        watch: {
+            rowSelectionStates() {
+                let state = false;
+                 for (var i = 0; i < this.rowSelectionStates.length; i++) {
                     if (this.rowSelectionStates[i] == false){
-                        checkAllState = false;
+                        state = false;
                         break;
-                    }else{
-                        checkAllState = true;
+                    } else {
+                        state = true;
                     }
                 }
-                return checkAllState;
+                this.checkAllState = state;
             }
         },
         components: {
@@ -702,4 +720,5 @@
 </script>
 
 <style lang="less">
+
 </style>
