@@ -101,7 +101,11 @@ export default {
       return {[`${this.prefixCls}-drag-container`]: this.drag}
     }
   },
-
+  watch: {
+    fileList() {
+      this.defaultFileList = this.fileList.concat();
+    }
+  },
   methods: {
     _onStart (file) {
       let targetItem;

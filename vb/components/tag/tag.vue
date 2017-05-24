@@ -6,11 +6,6 @@
     </div>
   </transition>
 </template>
-
-<style>
-
-</style>
-
 <script lang="babel">
   export default{
     name: 'Tag',

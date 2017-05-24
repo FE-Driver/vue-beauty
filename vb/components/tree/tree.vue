@@ -5,10 +5,10 @@
       <span v-if="checkable" :class="checkboxCls(item)" @click.prevent="setCheck(item.disabled || item.disableCheckbox, index)">
         <span :class="prefixCls + '-checkbox-inner'"></span>
       </span>
-      <a :title="item.title" :class="selectHandleCls(item)" @click.prevent="setSelect(item.disabled, index)" :draggable="draggable" @dragstart="dragstart(index,$event)" @dragend="dragend">
+      <span :title="item.title" :class="selectHandleCls(item)" @click.prevent="setSelect(item.disabled, index)" :draggable="draggable" @dragstart="dragstart(index,$event)" @dragend="dragend">
         <span class="ant-tree-iconEle ant-tree-icon_loading ant-tree-icon__open" v-if="item.loading"></span>
         <span :class="prefixCls + '-title'" v-html="item.title"></span>
-      </a>
+      </span>
       <transition name="slide-up">
         <tree v-if="!item.isLeaf" :prefix-cls="prefixCls" :data="item.children" :clue="`${clue}-${index}`" :multiple="multiple" :checkable="checkable" :class="`${prefixCls}-child-tree-open`" v-show="item.expanded" :draggable="draggable"></tree>
       </transition>
