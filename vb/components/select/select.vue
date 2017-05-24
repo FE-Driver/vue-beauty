@@ -175,14 +175,10 @@
             this.$refs.dropdown.style.position = this.position;
             this.container.appendChild(this.$refs.dropdown);
 
-            window.addEventListener('resize', () => {
-                clearTimeout(this.resizeTimer);
-                this.resizeTimer = setTimeout(() => {
-                    this.setPosition();
-                }, 200);
-            });
+            window.addEventListener('resize', this.setPosition);
         },
         beforeDestroy() {
+            window.removeEventListener('resize', this.setPosition);
             this.container.removeChild(this.$refs.dropdown);
         },
         watch: {
@@ -231,28 +227,33 @@
                 }
             },
             data: {
-                handler(val){
+                handler(val) {
                     this.ori_data = JSON.parse(JSON.stringify(val));
-                    this.mapData(([type, path, item])=> {
+                    this.mapData(([type, path, item]) => {
                         let selected = false;
-                        if(this.multiple && this.innerValue.includes(item[this.clue])){
+                        if (this.multiple && this.innerValue.includes(item[this.clue])) {
                             selected = true;
-                        }else if(!this.multiple && this.innerValue === item[this.clue]){
+                        } else if (!this.multiple && this.innerValue === item[this.clue]) {
                             selected = true;
                         }
-                        if(type == 'item'){
-                            this.$set(this.ori_data[path],'selected',selected);
-                            this.$set(this.ori_data[path],'show',true);
-                        }else{
-                            this.$set(this.ori_data[path[0]].options[path[1]],'selected',selected);
-                            this.$set(this.ori_data[path[0]].options[path[1]],'show',true);
+                        if (type === 'item') {
+                            this.$set(this.ori_data[path], 'selected', selected);
+                            this.$set(this.ori_data[path], 'show', true);
+                        } else {
+                            this.$set(this.ori_data[path[0]].options[path[1]], 'selected', selected);
+                            this.$set(this.ori_data[path[0]].options[path[1]], 'show', true);
                         }
-                    },(i,group)=> {
-                        this.$set(this.ori_data[i],'show',true);
-                    })
+                    }, (i) => {
+                        this.$set(this.ori_data[i], 'show', true);
+                    });
+                    if (this.show) {
+                        this.$nextTick(() => {
+                            this.setPosition();
+                        });
+                    }
                 },
-                deep: true
-            }
+                deep: true,
+            },
         },
         computed: {
             wrapCls(){
@@ -337,7 +338,7 @@
                     this.$set(this.ori_data[i],'show',true);
                 })
             },
-            getDropdownHeight(){
+            getDropdownHeight() {
                 this.dropdownHeight = parseFloat(getComputedStyle(this.$refs.dropdown, null).height);
             },
             setData(opt,groupOpt){
@@ -359,33 +360,33 @@
                     }
                 }) 
             },
-            setPosition(){
-                if(!this.$el) return;
-                let p = getOffset(this.$el, this.container);
+            setPosition() {
+                this.getDropdownHeight();
+                if (!this.$el) return;
+                const p = getOffset(this.$el, this.container);
 
                 this.style = {
-                    top: (this.placement == 'top'? p.top-this.dropdownHeight - 4 : p.bottom + 4) + 'px',
-                    left: p.left + 'px',
-                    width: p.right - p.left + 'px',
-                    maxHeight: this.maxHeight + 'px'
-                }
+                    top: `${this.placement === 'top' ? p.top - this.dropdownHeight - 4 : p.bottom + 4}px`,
+                    left: `${p.left}px`,
+                    width: `${p.right - p.left}px`,
+                    maxHeight: `${this.maxHeight}px`,
+                };
             },
-            closeDropdown(){
+            closeDropdown() {
                 this.show = false;
             },
-            toggleDropdown(){
-                if(this.disabled) return;
-                if(this.search){
+            toggleDropdown() {
+                if (this.disabled) return;
+                if (this.search) {
                     this.show = true;
                     this.$refs.searchInput.focus();
-                }else{
-                    this.show = !this.show
+                } else {
+                    this.show = !this.show;
                 }
-                if(!this.dropdownHeight && this.show){
-                    this.$nextTick(()=>{
-                        this.getDropdownHeight();
+                if (this.show) {
+                    this.$nextTick(() => {
                         this.setPosition();
-                    })
+                    });
                 }
             },
             searchBlur(){
