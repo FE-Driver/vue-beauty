@@ -71,63 +71,62 @@
     }
 
     function preventDefault (e) {
-        e.preventDefault()
+        e.preventDefault();
     }
 
     export default {
-        name:'InputNumber',
+        name: 'InputNumber',
         mixins: [emitter],
         props: {
             max: {
-                type: [Number, String],
-                default: Infinity
+                type: Number,
+                default: Infinity,
             },
             min: {
-                type: [Number, String],
-                default: -Infinity
+                type: Number,
+                default: -Infinity,
             },
-            size: [Number, String],
-            value: [Number, String],
+            size: String,
+            value: Number,
             step: {
-                type: [Number, String],
-                default: 1
+                type: Number,
+                default: 1,
             },
-            defaultValue: [Number, String],
             autoFocus: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             disabled: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             readOnly: {
                 type: Boolean,
-                default: false
+                default: false,
             },
-            change: Function
+            change: Function,
         },
-        data () {
+        data() {
             return {
                 prefixCls: 'ant-input-number',
                 noop: () => {},
-                preventDefault: preventDefault,
+                preventDefault,
                 upDisabledClass: '',
                 downDisabledClass: '',
-                currentValue: this.defaultValue,
+                currentValue: this.value,
                 relValue: this.value,
-            }
+            };
         },
 
         computed: {
-            sizeClass () {
+            sizeClass() {
                 if (this.size === 'large') {
                     return 'ant-input-number-lg'
                 } else if (this.size === 'small') {
                     return 'ant-input-number-sm'
                 }
             },
-            wrapClasses () {
+            wrapClasses() {
                 return [
                     this.prefixCls,
                     {[this.sizeClass]: !!this.sizeClass},
@@ -141,7 +140,7 @@
             value(val) {
                 this.relValue = val
             },
-            relValue (val) {
+            relValue(val) {
                 if (isValueNumber(val)) {
                     val = Number(val)
                     if (val >= this.max) {
@@ -158,7 +157,7 @@
                 }
             }
         },
-        mounted () {
+        mounted() {
             if (!this.currentValue) {
                 this.currentValue = this.min
             }
@@ -170,7 +169,7 @@
 
         methods: {
             handleInput(event) {
-                this._setValue(event.target.value);
+                this._setValue(event.target.value * 1);
             },
 
             _setValue (value) {
@@ -191,7 +190,7 @@
                 }
             },
 
-            _onFocus () {
+            _onFocus() {
                 this.focused = true
             },
 
@@ -234,5 +233,4 @@
             }
         }
     }
-
 </script>
