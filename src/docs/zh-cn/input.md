@@ -167,7 +167,7 @@ export default {
     <v-input-group compact>
         <v-select placeholder="请选择" :data="options" v-model="value"></v-select>
         <v-input value="Input content" style="width: 50%"></v-input>
-        <v-input-number min="1" max="10"></v-input-number>
+        <v-input-number :min="1" :max="10"></v-input-number>
     </v-input-group>
 
     <br />

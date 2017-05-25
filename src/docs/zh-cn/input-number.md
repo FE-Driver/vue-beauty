@@ -34,7 +34,7 @@ export default {
 </summary>
 
 ```html
-<v-input-number ::min="1" ::max="10" v-model="value" :change="_handleChange"></v-input-number>
+<v-input-number :min="1" :max="10" v-model="value" :change="_handleChange"></v-input-number>
 <script>
 export default {
     data() {
@@ -61,7 +61,7 @@ export default {
 
 ```html
 <template>
-    <v-input-number ::min="1" ::max="10" :disabled="disabled" :change="_handleChange"></v-input-number>
+    <v-input-number :min="1" :max="10" :disabled="disabled" :change="_handleChange"></v-input-number>
     <br>
     <br>
     <v-button @click="_toggle" type="primary">Toggle disabled</v-button>
