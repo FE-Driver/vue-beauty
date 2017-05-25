@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'vue-beauty': './vb/components/index.js',
+        'vue-beauty': './vb/index.js',
         style: './vb/index.js'
     },
     output: {
