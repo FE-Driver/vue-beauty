@@ -27,7 +27,7 @@ export default {
       type: Function,
       default: () => {}
     },
-    value: String,
+    value: [ String,Number ],
     trueValue: {
       default: true
     },
