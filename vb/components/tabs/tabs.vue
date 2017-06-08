@@ -103,7 +103,7 @@
         created() {
             window.addEventListener('resize',()=> {
                 this.screenWH = this.getClientWH(document.body);
-            })
+            });
             this.$on('tabs.disabledItem', (tabPane)=> {
                 this.disableTab(tabPane.tabKey, tabPane.disabled);
             });
@@ -325,7 +325,16 @@
             },
             onRemove(tabKey) {
                 this.$emit("remove", tabKey);
-            }
+            },
+            updateActiveIndex(activatedTabKey) {
+                for (let i = 0; i < this.tabs.length; i++) {
+                    if (this.tabs[i].tabKey == activatedTabKey) {
+                        this.activeIndex = i;
+                        this.selectTab(i);
+                        break;
+                    }
+                }
+            },
         },
         computed: {
             isVertical() {
@@ -397,10 +406,14 @@
             },
             activeTabKey(value) {
                 this.activatedTabKey = value;
+                this.updateActiveIndex(value);
             },
             activatedTabKey(value) {
                 this.$emit('change', value);
-            }
+            },
+            activeIndex(value) {
+                this.$emit('index-change', value);
+            },
         }
     }
 </script>
