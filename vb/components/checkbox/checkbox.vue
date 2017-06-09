@@ -72,9 +72,11 @@
         },
         methods: {
             click(e) {
-                if(e.target.tagName !== 'INPUT') return;
-                this.$emit("click",this.innerValue);
-            }
-        }
-    }
+                if (e.target.tagName !== 'INPUT') return;
+                this.$nextTick(() => {
+                    this.$emit('click', this.innerValue);
+                });
+            },
+        },
+    };
 </script>
