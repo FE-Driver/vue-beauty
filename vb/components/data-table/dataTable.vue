@@ -115,6 +115,7 @@
                         @sizechange="pageSizeChange"
                         :page-size-options="pageSizeOptions"
                         :page-size="pageSizeT"
+                        :size="paginationSize"
                 ></v-pagination>
             </div>
             <div :class="prefix + '-description'">
@@ -141,7 +142,7 @@
         props: {
             size: {
                 type: String,
-                default: 'middle',
+                default: 'large',
             },
             //接口地址
             data: {
@@ -728,7 +729,11 @@
                 }else{
                     return true;
                 }
-            }
+            },
+            paginationSize() {
+                if (this.size === 'large') return '';
+                return 'small';
+            },
         },
         watch: {
             pageNumber() {
