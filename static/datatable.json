@@ -1,0 +1,17 @@
+{
+    "result":[
+        {"name":"杰克","sex":"男","id":1},
+        {"name":"露丝","sex":"女","id":2},
+        {"name":"杰瑞","sex":"男","id":3},
+        {"name":"苏可","sex":"男","id":4},
+        {"name":"玛丽","sex":"女","id":5},
+        {"name":"杰西卡","sex":"女","id":6},
+        {"name":"贝利","sex":"男","id":7},
+        {"name":"路易斯","sex":"男","id":8},
+        {"name":"艾伦","sex":"男","id":9},
+        {"name":"三笠","sex":"女","id":10}
+    ],
+    "totalCount":11,
+    "pageSize":10,
+    "pageNo":1
+}

@@ -3,8 +3,10 @@
     export default {
         data: function () {
             return {
-                loadData:function (pramas) {
-                    return axios.post("truck/search",pramas);
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
                 },
                 columns:[
                     {title:"姓名",field:'name'},
@@ -61,6 +63,28 @@
 
 ## 代码演示
 
+### 数据-datatable.json
+
+````javascript
+    {
+        "result":[
+            {"name":"杰克","sex":"男","id":1},
+            {"name":"露丝","sex":"女","id":2},
+            {"name":"杰瑞","sex":"男","id":3},
+            {"name":"苏可","sex":"男","id":4},
+            {"name":"玛丽","sex":"女","id":5},
+            {"name":"杰西卡","sex":"女","id":6},
+            {"name":"贝利","sex":"男","id":7},
+            {"name":"路易斯","sex":"男","id":8},
+            {"name":"艾伦","sex":"男","id":9},
+            {"name":"三笠","sex":"女","id":10}
+        ],
+        "totalCount":11,
+        "pageSize":10,
+        "pageNo":1
+    }
+````
+
 ::: demo
 <summary>
   #### 基本
@@ -68,16 +92,17 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns'>  
-</v-data-table>
+<v-data-table :data='loadData' :columns='columns' stripe></v-data-table>
 
 <script>
     import axios from 'axios'
     export default {
         data: function () {
             return {
-                loadData:function (pramas) {
-                    return axios.post("truck/search",pramas);
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
                 },
                 columns:[
                     {title:"姓名",field:'name'},
@@ -116,7 +141,7 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns'>
+<v-data-table :data='loadData' :columns='columns' bordered>
     <template slot="th" scope="props">
         <strong v-html="props.title"></strong>
     </template>
@@ -210,8 +235,10 @@
     export default {
         data: function () {
             return {
-                loadData:function (pramas) {
-                    return axios.post("truck/search",pramas);
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
                 },
                 columns:[
                     {title:"姓名",field:'name'},
@@ -286,8 +313,10 @@
     export default {
         data: function () {
             return {
-                loadData:function (pramas) {
-                    return axios.post("truck/search",pramas);
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
                 },
                 columns:[
                     {title:"姓名",field:'name'},
@@ -336,6 +365,8 @@
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | data | 获取表格数据的函数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见data arguments | Function | - |
+| bordered | 是否展示外边框和列边框 | Boolean | false |
+| stripe | 是否显示间隔斑马纹 | Boolean | false |
 | columns | 表头配置，类型为对象数据，具体请见下表：Columns Object | Array | - |
 | pagination | 是否启用分页 | Boolean | false |
 | pageSize | 分页大小 | Number | 10 |

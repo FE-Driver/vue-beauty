@@ -31,7 +31,7 @@
   }
 
   &-thead > tr > th {
-    background: @table-head-background-color;
+    background: #f3f3f3;
     font-weight: bold;
     transition: background .3s ease;
     text-align: left;
@@ -81,6 +81,9 @@
       line-height: 30px;
     }
   }
+ &.@{table-prefix-cls}-stripe .@{table-prefix-cls}-body tr:nth-child(2n) td {
+   background-color: #f9f9f9;
+ }
 
   &.@{table-prefix-cls}-bordered &-footer {
     border: 1px solid @border-color-split;

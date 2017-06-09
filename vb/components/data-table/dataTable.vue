@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div :class="[prefix, sizeClass, borderClass]">
+    <div :class="tableCls">
         <div :class="[contentClass, scrollClass]">
 
             <div v-if="tableBodyHeight" :class="prefix + '-header'"
@@ -157,6 +157,16 @@
                 type: Boolean,
                 default: true,
             },
+            // 斑马纹
+            stripe: {
+                type: Boolean,
+                default: false,
+            },
+            // 斑马纹
+            bordered: {
+                type: Boolean,
+                default: false,
+            },
             //分页大小
             pageSize: {
                 type: Number,
@@ -229,7 +239,6 @@
                 total: 0,
                 // class前缀
                 prefix: 'ant-table',
-                borderClass: "ant-table-bordered",
                 contentClass: "ant-table-content",
                 // 默认加载第一页
                 defaultCurrent: 1,
@@ -687,8 +696,13 @@
             }
         },
         computed: {
-            sizeClass() {
-                return this.prefix + "-" + this.size;
+            tableCls() {
+                return [
+                    this.prefix, 
+                    `${this.prefix}-${this.size}`, 
+                    {[`${this.prefix}-bordered`]: this.bordered},
+                    {[`${this.prefix}-stripe`]: this.stripe}
+                ];
             },
             scrollClass() {
                 if (this.tableBodyHeight) {
