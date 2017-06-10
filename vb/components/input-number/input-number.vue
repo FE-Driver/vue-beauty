@@ -169,6 +169,16 @@
 
         methods: {
             handleInput(event) {
+                const e = event;
+                if (isValueNumber(e.target.value)) {
+                    e.target.value = e.target.value > this.max ? this.max : e.target.value;
+                    e.target.value = e.target.value < this.min ? this.min : e.target.value;
+
+                    this.currentValue = e.target.value;
+                } else {
+                    e.target.value = this.currentValue;
+                }
+
                 this._setValue(event.target.value * 1);
             },
 
@@ -182,11 +192,12 @@
                 this.dispatch('FormItem', 'form.blur', [value]);
             },
 
-            _onKeyDown (e) {
+            _onKeyDown(e) {
+                e.target.value = this.currentValue;
                 if (e.keyCode === 38) {
-                    this._up(e)
+                    this._up(e);
                 } else if (e.keyCode === 40) {
-                    this._down(e)
+                    this._down(e);
                 }
             },
 
@@ -196,9 +207,6 @@
 
             _onBlur (event) {
                 this.focused = false
-                if ( !isValueNumber(event.target.value) ) {
-                    event.target.value = this.relValue
-                }
             },
 
             _step (type, e) {
