@@ -176,9 +176,8 @@
 
                     this.currentValue = e.target.value;
                 } else {
-                    e.target.value = this.currentValue;
+                    e.target.value = this.relValue;
                 }
-
                 this._setValue(event.target.value * 1);
             },
 
