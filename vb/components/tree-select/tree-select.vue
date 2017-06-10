@@ -115,6 +115,7 @@
                     uids.push(item.uid);
                 }
                 this.resetTreeData(uids, this.data);
+                this.$emit('clear', null);
             },
             resetTreeData(uids, data) {
                 for (let i = 0; i < data.length; i++) {
