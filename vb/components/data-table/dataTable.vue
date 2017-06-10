@@ -412,11 +412,14 @@
                 );
             },
             rowSelectionChange(index) {
-                this.$emit('clickrow', {
-                    index: index,
-                    checked: this.rowSelectionStates[index],
-                    row: this.current[index]
-                });
+                // firefox上checkbox对应的值没有立即更新，延时获取
+                setTimeout(() => {
+                    this.$emit('clickrow', {
+                        index: index,
+                        checked: this.rowSelectionStates[index],
+                        row: this.current[index]
+                    });
+                }, 200);
             },
             checkAllChange(e) {
                 this.rowSelectionStates = new Array(this.current.length || 0).fill(e);

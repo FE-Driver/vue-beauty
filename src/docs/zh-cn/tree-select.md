@@ -47,6 +47,12 @@ export default {
   methods: {
     onCheck(data) {
       console.log(data)
+    },
+    onSelect(data) {
+      console.log(data);
+    },
+    onClear(data) {
+      console.log('clear', data);
     }
   }
 }
@@ -69,7 +75,7 @@ export default {
 
 ```html
 <template>
-  <v-tree-select :data="treeData1" allow-clear style="width:300px"></v-tree-select>
+  <v-tree-select :data="treeData1" allow-clear style="width:300px" @select="onSelect" @clear="onClear"></v-tree-select>
 </template>
 
 <script>
@@ -96,6 +102,14 @@ export default {
       }],
     }
   },
+  methods: {
+      onSelect(data) {
+        console.log(data);
+      },
+      onClear(data) {
+        console.log('clear', data);
+      }
+    }
 }
 </script>
 ```
@@ -110,7 +124,7 @@ export default {
 
 ```html
 <template>
-  <v-tree-select :data="treeData2" allow-clear multiple style="width:300px" @check="onCheck"></v-tree-select>
+  <v-tree-select :data="treeData2" allow-clear multiple style="width:300px" @check="onCheck" @clear="onClear"></v-tree-select>
 </template>
 
 <script>
@@ -144,6 +158,9 @@ export default {
   methods: {
     onCheck(data) {
       console.log(data)
+    },
+    onClear(data) {
+      console.log('clear', data);
     }
   }
 }
@@ -167,3 +184,4 @@ export default {
 |------------|----------------|------------|
 | check    | 点击复选框触发 | childrenArray |
 | select    | 点击树节点触发 | childrenArray |
+| clear    | 点击清除按钮触发 | null |

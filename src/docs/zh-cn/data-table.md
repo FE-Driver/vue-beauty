@@ -38,6 +38,7 @@
                 this.checkAllMsg = "当前全选状态是："+value
             },
             clickRow:function(obj){
+                console.log(obj);
                 this.clickRowMsg = "当前点击第"+obj.index+"行";
             },
             refreshTable:function(){
@@ -269,6 +270,7 @@
                 this.checkAllMsg = "当前全选状态是："+value
             },
             clickRow:function(obj){
+                console.log(obj);
                 this.clickRowMsg = "当前点击第"+obj.index+"行";
             }
         }
