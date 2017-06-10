@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        <div v-if="pagination && total" :class="prefix + '-footer'">
+        <div v-if="pagination && total" class="clearfix" style="margin:16px 0">
             <div :class="prefix + '-pagination'">
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
@@ -118,13 +118,10 @@
                         :size="paginationSize"
                 ></v-pagination>
             </div>
-            <div :class="prefix + '-description'">
+            <div :class="prefix + '-description pull-left'">
                 共有{{total}}条数据
             </div>
-            <div class="clearfix"></div>
         </div>
-
-
     </div>
 
 
