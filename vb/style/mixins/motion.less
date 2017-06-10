@@ -24,10 +24,12 @@
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 
@@ -35,9 +37,11 @@
   .@{className}-enter-active {
     animation-duration: @duration;
     animation-name: ~"@{keyframeName}In";
+    pointer-events: none;
   }
   .@{className}-leave-active {
     animation-duration: @duration;
     animation-name: ~"@{keyframeName}Out";
+    pointer-events: none;
   }
 }
