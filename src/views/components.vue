@@ -119,6 +119,9 @@ export default {
                     name: 'Select 选择器',
                     link: { name: 'select' },
                 }, {
+                    name: 'Slider 滑动输入条',
+                    link: { name: 'slider' },
+                }, {
                     name: 'Switch 开关',
                     link: { name: 'switch' },
                 }, {

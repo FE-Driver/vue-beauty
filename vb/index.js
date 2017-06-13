@@ -8,6 +8,7 @@ import button from './components/button';
 import icon from './components/icon';
 import card from './components/card';
 import rate from './components/rate';
+import slider from './components/slider';
 import menu from './components/menu';
 import affix from './components/affix';
 import backTop from './components/back-top';
@@ -68,6 +69,7 @@ const components = {
     step,
     pagination,
     rate,
+    slider,
     alert,
     icon,
     button,
@@ -170,6 +172,7 @@ export {
     step,
     pagination,
     rate,
+    slider,
     alert,
     icon,
     button,

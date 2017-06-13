@@ -130,6 +130,10 @@ export default [{
         name: 'select',
         component: require('./docs/zh-cn/select.md'),
     }, {
+        path: 'slider',
+        name: 'slider',
+        component: require('./docs/zh-cn/slider.md'),
+    }, {
         path: 'rate',
         name: 'rate',
         component: require('./docs/zh-cn/rate.md'),
