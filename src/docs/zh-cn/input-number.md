@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-## InputNumber 数字输入框
+# InputNumber 数字输入框
 
 通过鼠标或键盘，输入范围内的数值。
 
@@ -25,7 +25,7 @@ export default {
 
 当需要获取标准数值时。
 
-### 组件演示
+## 组件演示
 
 ::: demo
 <summary>
@@ -122,6 +122,7 @@ export default {
 :::
 
 ## API
+
 ### Input Props
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|

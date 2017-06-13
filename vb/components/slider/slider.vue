@@ -225,6 +225,7 @@
                 }
                 this[handle] = value;
                 this.$emit('change', this.getValue());
+                this.$emit('input', this.getValue());
             },
 
             onTouchStart(e) {

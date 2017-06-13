@@ -60,14 +60,14 @@ export default {
 }
 </script>
 
-## DatePicker 日期选择框
+# DatePicker 日期选择框
 
 输入或选择日期的控件。
 
-### 何时使用
+## 何时使用
 当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。
 
-### 代码演示
+## 代码演示
 
 ::: demo
 <summary>

@@ -11,7 +11,7 @@
         height: 16px;
         line-height: 1;
         font-size: 16px;
-        color: @disabled-color;
+        color: rgba(0, 0, 0, 0.3);
     }
     
     .icon-wrapper .anticon:first-child {
@@ -23,7 +23,7 @@
     }
     
     .anticon.anticon-highlight {
-        color: #666;
+        color: rgba(0, 0, 0, 0.6);
     }
 </style>
 
@@ -34,6 +34,7 @@
                 disabled: false,
                 sliderValue: 30,
                 sliderRange: [20, 50],
+                customIconValue: 30,
                 synValue: 2,
                 synFloatValue: 0.2,
                 marks: {
@@ -45,6 +46,9 @@
             };
         },
         methods: {
+            customIconChange(value) {
+                
+            },
             tipFormatter(value) {
                 return `${value}%`;
             },
@@ -61,15 +65,15 @@
     };
 </script>
 
-## Slider 滑动输入条
+# Slider 滑动输入条
 
 滑动型输入器，展示当前值和可选范围。
 
-### 何时使用
+## 何时使用
  
  当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。
 
-### 代码演示
+## 代码演示
 
 ::: demo
 <summary>
@@ -111,11 +115,21 @@
 ```html
 <template>
     <div class="icon-wrapper">
-        <v-icon type="frown-o"></v-icon>
-        <v-slider :value="30"></v-slider>
-        <v-icon type="smile-o"></v-icon>
+        <v-icon type="frown-o" :class="customIconValue <= 50 ? 'anticon-highlight' : ''"></v-icon>
+        <v-slider v-model="customIconValue"></v-slider>
+        <v-icon type="smile-o" :class="customIconValue > 50 ? 'anticon-highlight' : ''"></v-icon>
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                customIconValue: 30,
+            };
+        },
+    };
+</script>
 
 <style>
     .icon-wrapper {
@@ -130,7 +144,7 @@
         height: 16px;
         line-height: 1;
         font-size: 16px;
-        color: @disabled-color;
+        color: rgba(0, 0, 0, 0.3);
     }
     
     .icon-wrapper .anticon:first-child {
@@ -142,7 +156,7 @@
     }
     
     .anticon.anticon-highlight {
-        color: #666;
+        color: rgba(0, 0, 0, 0.6);
     }
 </style>
 ```
@@ -296,9 +310,9 @@
 | disabled       | 值为 `true` 时，滑块为禁用状态 | boolean             | false
 | tip-formatter   | Slider 会把当前值传给 `tip-formatter`，并在 Tooltip 中显示 `tip-formatter` 的返回值，若为 null，则隐藏 Tooltip。 | Function\|null | IDENTITY
 
-## Affix Events
+### Slider Events
 | 参数        | 说明           | 回调参数           |
 |------------|----------------|-------------------|
-| before-change | 当 `Slider` 的值发生改变前触发的事件 | value |
+| before-change | 当 Slider 的值发生改变前触发的事件 | value |
 | change | 当 Slider 的值发生改变时触发的事件 | value |
 | after-change | 与 `onmouseup` 触发时机一致 | value |
