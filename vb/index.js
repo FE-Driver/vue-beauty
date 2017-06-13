@@ -9,6 +9,7 @@ import icon from './components/icon';
 import card from './components/card';
 import rate from './components/rate';
 import menu from './components/menu';
+import dropdown from './components/dropdown';
 import affix from './components/affix';
 import backTop from './components/back-top';
 import { steps, step } from './components/steps';
@@ -62,6 +63,8 @@ const components = {
     content,
     footer,
     menu,
+    dropdown,
+    dropdownMenu: dropdown.menu,
     affix,
     backTop,
     steps,

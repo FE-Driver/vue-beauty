@@ -80,6 +80,9 @@ export default {
                     name: 'Menu 导航菜单',
                     link: { name: 'menu' },
                 }, {
+                    name: 'Dropdown 下拉菜单',
+                    link: { name:'dropdown'}
+                },{
                     name: 'Pagination 分页',
                     link: { name: 'pagination' },
                 }, {

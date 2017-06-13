@@ -70,6 +70,10 @@ export default [{
         name: 'menu',
         component: require('./docs/zh-cn/menu.md'),
     }, {
+        path: 'dropdown',
+        name: 'dropdown',
+        component: require('./docs/zh-cn/dropdown.md'),
+    }, {
         path: 'grid',
         name: 'grid',
         component: require('./docs/zh-cn/grid.md'),
