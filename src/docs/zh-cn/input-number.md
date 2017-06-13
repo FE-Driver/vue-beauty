@@ -34,7 +34,7 @@ export default {
 </summary>
 
 ```html
-<v-input-number :min="1" :max="10" v-model="value" :change="_handleChange"></v-input-number>
+<v-input-number :min="1" :max="1000" v-model="value" :change="_handleChange"></v-input-number>
 <script>
 export default {
     data() {

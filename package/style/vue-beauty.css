@@ -12,10 +12,12 @@
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
@@ -1680,10 +1682,12 @@ samp {
 .fade-enter-active {
   animation-duration: 0.2s;
   animation-name: antFadeIn;
+  pointer-events: none;
 }
 .fade-leave-active {
   animation-duration: 0.2s;
   animation-name: antFadeOut;
+  pointer-events: none;
 }
 .fade-enter,
 .fade-appear {
@@ -1712,10 +1716,12 @@ samp {
 .move-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveUpIn;
+  pointer-events: none;
 }
 .move-up-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveUpOut;
+  pointer-events: none;
 }
 .move-up-enter,
 .move-up-appear {
@@ -1728,10 +1734,12 @@ samp {
 .move-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveDownIn;
+  pointer-events: none;
 }
 .move-down-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveDownOut;
+  pointer-events: none;
 }
 .move-down-enter,
 .move-down-appear {
@@ -1744,10 +1752,12 @@ samp {
 .move-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveLeftIn;
+  pointer-events: none;
 }
 .move-left-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveLeftOut;
+  pointer-events: none;
 }
 .move-left-enter,
 .move-left-appear {
@@ -1760,10 +1770,12 @@ samp {
 .move-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveRightIn;
+  pointer-events: none;
 }
 .move-right-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveRightOut;
+  pointer-events: none;
 }
 .move-right-enter,
 .move-right-appear {
@@ -1882,10 +1894,12 @@ samp {
 .slide-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideUpIn;
+  pointer-events: none;
 }
 .slide-up-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideUpOut;
+  pointer-events: none;
 }
 .slide-up-enter,
 .slide-up-appear {
@@ -1898,10 +1912,12 @@ samp {
 .slide-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideDownIn;
+  pointer-events: none;
 }
 .slide-down-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideDownOut;
+  pointer-events: none;
 }
 .slide-down-enter,
 .slide-down-appear {
@@ -1914,10 +1930,12 @@ samp {
 .slide-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideLeftIn;
+  pointer-events: none;
 }
 .slide-left-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideLeftOut;
+  pointer-events: none;
 }
 .slide-left-enter,
 .slide-left-appear {
@@ -1930,10 +1948,12 @@ samp {
 .slide-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideRightIn;
+  pointer-events: none;
 }
 .slide-right-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideRightOut;
+  pointer-events: none;
 }
 .slide-right-enter,
 .slide-right-appear {
@@ -2071,10 +2091,12 @@ samp {
 .zoom-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomIn;
+  pointer-events: none;
 }
 .zoom-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomOut;
+  pointer-events: none;
 }
 .zoom-enter,
 .zoom-appear {
@@ -2087,10 +2109,12 @@ samp {
 .zoom-big-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomBigIn;
+  pointer-events: none;
 }
 .zoom-big-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomBigOut;
+  pointer-events: none;
 }
 .zoom-big-enter,
 .zoom-big-appear {
@@ -2103,10 +2127,12 @@ samp {
 .zoom-big-fast-enter-active {
   animation-duration: 0.1s;
   animation-name: antZoomBigIn;
+  pointer-events: none;
 }
 .zoom-big-fast-leave-active {
   animation-duration: 0.1s;
   animation-name: antZoomBigOut;
+  pointer-events: none;
 }
 .zoom-big-fast-enter,
 .zoom-big-fast-appear {
@@ -2119,10 +2145,12 @@ samp {
 .zoom-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomUpIn;
+  pointer-events: none;
 }
 .zoom-up-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomUpOut;
+  pointer-events: none;
 }
 .zoom-up-enter,
 .zoom-up-appear {
@@ -2135,10 +2163,12 @@ samp {
 .zoom-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomDownIn;
+  pointer-events: none;
 }
 .zoom-down-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomDownOut;
+  pointer-events: none;
 }
 .zoom-down-enter,
 .zoom-down-appear {
@@ -2151,10 +2181,12 @@ samp {
 .zoom-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomLeftIn;
+  pointer-events: none;
 }
 .zoom-left-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomLeftOut;
+  pointer-events: none;
 }
 .zoom-left-enter,
 .zoom-left-appear {
@@ -2167,10 +2199,12 @@ samp {
 .zoom-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomRightIn;
+  pointer-events: none;
 }
 .zoom-right-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomRightOut;
+  pointer-events: none;
 }
 .zoom-right-enter,
 .zoom-right-appear {
@@ -2496,10 +2530,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-btn {
@@ -3955,10 +3991,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-rate {
@@ -4037,10 +4075,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-menu {
@@ -4508,10 +4548,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-steps {
@@ -4824,10 +4866,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-pagination {
@@ -5163,10 +5207,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-select {
@@ -5706,10 +5752,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-tag {
@@ -5899,10 +5947,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-switch {
@@ -6019,10 +6069,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-row {
@@ -8152,10 +8204,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-layout {
@@ -8244,10 +8298,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-spin {
@@ -8425,10 +8481,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-cascader {
@@ -8791,10 +8849,12 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-input-search-icon {
@@ -9356,10 +9416,12 @@ textarea.ant-input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-input-number {
@@ -9661,10 +9723,12 @@ textarea.ant-input-number {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-time-picker-panel {
@@ -9941,10 +10005,12 @@ textarea.ant-time-picker-input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-nav-container {
@@ -10403,10 +10469,12 @@ textarea.ant-time-picker-input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-calendar-picker-container {
@@ -11933,10 +12001,12 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-confirm .ant-modal-header {
@@ -12055,10 +12125,12 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-radio-group {
@@ -12266,10 +12338,12 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-checkbox {
@@ -12419,10 +12493,12 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-collapse {
@@ -12553,10 +12629,12 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-upload {
@@ -12909,10 +12987,12 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-notification {
@@ -13079,10 +13159,12 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 legend {
@@ -13567,10 +13649,12 @@ form .ant-cascader-picker {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-tooltip {
@@ -13704,10 +13788,12 @@ form .ant-cascader-picker {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-table {
@@ -13733,7 +13819,7 @@ form .ant-cascader-picker {
   overflow: hidden;
 }
 .ant-table-thead > tr > th {
-  background: #f7f7f7;
+  background: #f3f3f3;
   font-weight: bold;
   transition: background .3s ease;
   text-align: left;
@@ -13782,13 +13868,15 @@ form .ant-cascader-picker {
 }
 .ant-table-footer {
   padding: 8px;
-  background: #f7f7f7;
   position: relative;
   top: -1px;
   border-radius: 0 0 4px 4px;
 }
 .ant-table-footer .ant-table-description {
   line-height: 30px;
+}
+.ant-table.ant-table-stripe .ant-table-body tr:nth-child(2n) td {
+  background-color: #f9f9f9;
 }
 .ant-table.ant-table-bordered .ant-table-footer {
   border: 1px solid #e9e9e9;
@@ -13988,8 +14076,8 @@ form .ant-cascader-picker {
   margin-right: 4px;
 }
 .ant-table-pagination {
-  position: absolute;
-  right: 0;
+  float: right;
+  margin-right: -8px;
 }
 .ant-table-filter-dropdown {
   min-width: 96px;
@@ -14255,10 +14343,12 @@ tr.ant-table-expanded-row:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-tree-checkbox {
@@ -14706,10 +14796,12 @@ tr.ant-table-expanded-row:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-progress {
@@ -14846,10 +14938,12 @@ tr.ant-table-expanded-row:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-popover {
@@ -16715,10 +16809,12 @@ samp {
 .fade-enter-active {
   animation-duration: 0.2s;
   animation-name: antFadeIn;
+  pointer-events: none;
 }
 .fade-leave-active {
   animation-duration: 0.2s;
   animation-name: antFadeOut;
+  pointer-events: none;
 }
 .fade-enter,
 .fade-appear {
@@ -16747,10 +16843,12 @@ samp {
 .move-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveUpIn;
+  pointer-events: none;
 }
 .move-up-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveUpOut;
+  pointer-events: none;
 }
 .move-up-enter,
 .move-up-appear {
@@ -16763,10 +16861,12 @@ samp {
 .move-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveDownIn;
+  pointer-events: none;
 }
 .move-down-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveDownOut;
+  pointer-events: none;
 }
 .move-down-enter,
 .move-down-appear {
@@ -16779,10 +16879,12 @@ samp {
 .move-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveLeftIn;
+  pointer-events: none;
 }
 .move-left-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveLeftOut;
+  pointer-events: none;
 }
 .move-left-enter,
 .move-left-appear {
@@ -16795,10 +16897,12 @@ samp {
 .move-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveRightIn;
+  pointer-events: none;
 }
 .move-right-leave-active {
   animation-duration: 0.2s;
   animation-name: antMoveRightOut;
+  pointer-events: none;
 }
 .move-right-enter,
 .move-right-appear {
@@ -16917,10 +17021,12 @@ samp {
 .slide-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideUpIn;
+  pointer-events: none;
 }
 .slide-up-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideUpOut;
+  pointer-events: none;
 }
 .slide-up-enter,
 .slide-up-appear {
@@ -16933,10 +17039,12 @@ samp {
 .slide-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideDownIn;
+  pointer-events: none;
 }
 .slide-down-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideDownOut;
+  pointer-events: none;
 }
 .slide-down-enter,
 .slide-down-appear {
@@ -16949,10 +17057,12 @@ samp {
 .slide-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideLeftIn;
+  pointer-events: none;
 }
 .slide-left-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideLeftOut;
+  pointer-events: none;
 }
 .slide-left-enter,
 .slide-left-appear {
@@ -16965,10 +17075,12 @@ samp {
 .slide-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideRightIn;
+  pointer-events: none;
 }
 .slide-right-leave-active {
   animation-duration: 0.2s;
   animation-name: antSlideRightOut;
+  pointer-events: none;
 }
 .slide-right-enter,
 .slide-right-appear {
@@ -17106,10 +17218,12 @@ samp {
 .zoom-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomIn;
+  pointer-events: none;
 }
 .zoom-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomOut;
+  pointer-events: none;
 }
 .zoom-enter,
 .zoom-appear {
@@ -17122,10 +17236,12 @@ samp {
 .zoom-big-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomBigIn;
+  pointer-events: none;
 }
 .zoom-big-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomBigOut;
+  pointer-events: none;
 }
 .zoom-big-enter,
 .zoom-big-appear {
@@ -17138,10 +17254,12 @@ samp {
 .zoom-big-fast-enter-active {
   animation-duration: 0.1s;
   animation-name: antZoomBigIn;
+  pointer-events: none;
 }
 .zoom-big-fast-leave-active {
   animation-duration: 0.1s;
   animation-name: antZoomBigOut;
+  pointer-events: none;
 }
 .zoom-big-fast-enter,
 .zoom-big-fast-appear {
@@ -17154,10 +17272,12 @@ samp {
 .zoom-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomUpIn;
+  pointer-events: none;
 }
 .zoom-up-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomUpOut;
+  pointer-events: none;
 }
 .zoom-up-enter,
 .zoom-up-appear {
@@ -17170,10 +17290,12 @@ samp {
 .zoom-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomDownIn;
+  pointer-events: none;
 }
 .zoom-down-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomDownOut;
+  pointer-events: none;
 }
 .zoom-down-enter,
 .zoom-down-appear {
@@ -17186,10 +17308,12 @@ samp {
 .zoom-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomLeftIn;
+  pointer-events: none;
 }
 .zoom-left-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomLeftOut;
+  pointer-events: none;
 }
 .zoom-left-enter,
 .zoom-left-appear {
@@ -17202,10 +17326,12 @@ samp {
 .zoom-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomRightIn;
+  pointer-events: none;
 }
 .zoom-right-leave-active {
   animation-duration: 0.2s;
   animation-name: antZoomRightOut;
+  pointer-events: none;
 }
 .zoom-right-enter,
 .zoom-right-appear {
@@ -17360,10 +17486,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-popover {
@@ -18961,10 +19089,12 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-transfer {
@@ -19132,10 +19262,12 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-timeline {
@@ -19223,10 +19355,12 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-carousel .slick-slider {
@@ -19483,10 +19617,12 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-select-tree-checkbox {
@@ -19822,10 +19958,12 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
+    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
+    pointer-events: none;
   }
 }*/
 .ant-tooltip {

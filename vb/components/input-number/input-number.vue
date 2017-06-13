@@ -115,6 +115,7 @@
                 downDisabledClass: '',
                 currentValue: this.value,
                 relValue: this.value,
+                keyCode: null,
             };
         },
 
@@ -171,9 +172,10 @@
             handleInput(event) {
                 const e = event;
                 if (isValueNumber(e.target.value)) {
-                    e.target.value = e.target.value > this.max ? this.max : e.target.value;
-                    e.target.value = e.target.value < this.min ? this.min : e.target.value;
-
+                    if (this.keyCode !== 8) {
+                        e.target.value = e.target.value > this.max ? this.max : e.target.value;
+                        e.target.value = e.target.value < this.min ? this.min : e.target.value;
+                    }
                     this.currentValue = e.target.value;
                 } else {
                     e.target.value = this.relValue;
@@ -192,6 +194,7 @@
             },
 
             _onKeyDown(e) {
+                this.keyCode = e.keyCode;
                 e.target.value = this.currentValue;
                 if (e.keyCode === 38) {
                     this._up(e);
