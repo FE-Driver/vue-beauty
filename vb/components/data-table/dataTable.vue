@@ -119,7 +119,9 @@
                 ></v-pagination>
             </div>
             <div :class="prefix + '-description pull-left'">
-                共有{{total}}条数据
+                <slot name="footerinfo">
+                    共有{{total}}条数据
+                </slot>
             </div>
         </div>
     </div>
@@ -163,7 +165,7 @@
             // 边框
             bordered: {
                 type: Boolean,
-                default: true,
+                default: false,
             },
             //分页大小
             pageSize: {

@@ -391,7 +391,7 @@
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | data | 获取表格数据的函数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见data arguments | Function | - |
-| bordered | 是否展示外边框和列边框 | Boolean | true |
+| bordered | 是否展示外边框和列边框 | Boolean | false |
 | stripe | 是否显示间隔斑马纹 | Boolean | false |
 | size | 尺寸，`large`、`middle`、`small` | String | large |
 | columns | 表头配置，类型为对象数据，具体请见下表：Columns Object | Array | - |
