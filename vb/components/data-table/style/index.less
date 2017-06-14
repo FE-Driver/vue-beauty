@@ -9,11 +9,11 @@
   color: @text-color;
   overflow: hidden;
   position: relative;
-  border-radius: @border-radius-base @border-radius-base 0 0;
   overflow: hidden;
 
   &-content {
     overflow: auto;
+    border-radius: @border-radius-base;
   }
 
   &-body {
@@ -26,7 +26,6 @@
     border-collapse: separate;
     border-spacing: 0;
     text-align: left;
-    border-radius: @border-radius-base @border-radius-base 0 0;
     overflow: hidden;
   }
 
@@ -248,10 +247,6 @@
 
     .@{table-prefix-cls}-content {
       border: 1px solid @border-color-split;
-    }
-
-    .@{table-prefix-cls}-body table {
-      border-bottom: 1px solid @border-color-split;
     }
 
     &.@{table-prefix-cls}-fixed-header {

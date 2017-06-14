@@ -8,6 +8,11 @@
                         return res.data;
                     });
                 },
+                simpleColumns:[
+                    {title:"姓名",field:'name'},
+                    {title:"性别",field:'sex'},
+                    {title:"编号",field:'id'}
+                ],
                 columns:[
                     {title:"姓名",field:'name'},
                     {title:"性别",field:'sex'},
@@ -93,7 +98,7 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns' stripe></v-data-table>
+<v-data-table :data='loadData' :columns='simpleColumns'></v-data-table>
 
 <script>
     import axios from 'axios'
@@ -108,22 +113,41 @@
                 columns:[
                     {title:"姓名",field:'name'},
                     {title:"性别",field:'sex'},
+                    {title:"编号",field:'id'}
+                ]
+            }
+        },
+        methods:{
+            
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
+  #### 边框和斑马线
+  边框表格和斑马线效果
+</summary>
+
+```html
+<v-data-table :data='loadData' :columns='simpleColumns' stripe bordered></v-data-table>
+
+<script>
+    import axios from 'axios'
+    export default {
+        data: function () {
+            return {
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
+                },
+                columns:[
                     {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true,width:"200px"},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"}
+                    {title:"性别",field:'sex'},
+                    {title:"编号",field:'id'}
                 ]
             }
         },
@@ -183,7 +207,7 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns' :height="300">
+<v-data-table :data='loadData' :columns='columns' :height="300" bordered>
       
 </v-data-table>
 ```
@@ -367,7 +391,7 @@
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | data | 获取表格数据的函数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见data arguments | Function | - |
-| bordered | 是否展示外边框和列边框 | Boolean | false |
+| bordered | 是否展示外边框和列边框 | Boolean | true |
 | stripe | 是否显示间隔斑马纹 | Boolean | false |
 | size | 尺寸，`large`、`middle`、`small` | String | large |
 | columns | 表头配置，类型为对象数据，具体请见下表：Columns Object | Array | - |

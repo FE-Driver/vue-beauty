@@ -160,10 +160,10 @@
                 type: Boolean,
                 default: false,
             },
-            // 斑马纹
+            // 边框
             bordered: {
                 type: Boolean,
-                default: false,
+                default: true,
             },
             //分页大小
             pageSize: {
