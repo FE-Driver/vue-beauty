@@ -1,9 +1,9 @@
 <template lang="html">
 
-    <div :class="tableCls">
-        <div :class="[contentClass, scrollClass]">
+    <div :class="tableCls" :style="{height:tableBodyHeight+'px'}">
+        <div :class="[contentClass]" @scroll="scrollTableBody">
 
-            <div v-if="tableBodyHeight" :class="prefix + '-header'"
+            <div :class="prefix + '-header'"
                  :style="{left:-tableBodyScrollLeft+'px',width:tableBodyWidth}">
                 <table :style="{width:tableBodyWidth}">
                     <thead :class="prefix + '-thead'">
@@ -34,7 +34,7 @@
                 </table>
             </div>
 
-            <div :class="prefix + '-body'" :style="{height:tableBodyHeight+'px'}" @scroll="scrollTableBody">
+            <div :class="prefix + '-body'">
                 <v-spin :spinning="loading">
                     <table ref="tbody">
 
@@ -69,7 +69,7 @@
                         <template v-for="(item,index) in current">
                             <tr v-show="!treeTable || item.vshow" @click="clickRow(index)">
                                 <td v-if="checkType" :class="prefix + '-selection-column'">
-                                    <v-checkbox v-if="checkType=='checkbox'" v-model="rowSelectionStates[index]"
+                                    <v-checkbox v-if="checkType=='checkbox'" v-model="item['vb_dt_checked']"
                                                 @click.native.stop="rowSelectionChange(index)"></v-checkbox>
                                 </td>
                                 <td v-for="(column,cindex) in columns">
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        <div v-if="pagination && total" class="clearfix" style="margin:16px 0">
+        <div v-if="pagination && total" :class="prefix + '-footer'">
             <div :class="prefix + '-pagination'">
                 <!--todo select组件有bug,导致自定义pageSizeOptions修改每页条数时报错,修改分页重发请求功能后续开发-->
                 <v-pagination
@@ -119,7 +119,7 @@
                 ></v-pagination>
             </div>
             <div :class="prefix + '-description pull-left'">
-                <slot name="footerinfo">
+                <slot name="footerinfo" :total="total" pageNumber="pageNumber">
                     共有{{total}}条数据
                 </slot>
             </div>
@@ -143,10 +143,19 @@
                 type: String,
                 default: 'large',
             },
-            //接口地址
+            // 数据加载函数，返回值必须是Promise;
+            // 默认情况下必须传递data参数；如果使用本地数据渲染表格，业务代码中将获取本地数据包装为Promise即可。
+            // currentData用于向外暴露表格当前渲染的数据，业务开发中也可以直接修改currentData，从而重新渲染表格（仅推荐用于客户端排序、数据过滤等场景）
             data: {
                 type: Function,
                 required: true,
+            },
+            // 当前表格数据
+            currentData: {
+                type: Array,
+                default() {
+                    return [];
+                },
             },
             //表头信息
             columns: {
@@ -196,6 +205,11 @@
                 validator(value) {
                     return value == "checkbox" || value == "radio";
                 }
+            },
+            // 点击行选中
+            rowClickChecked: {
+                type: Boolean,
+                default: false,
             },
             //距离viewport底部的距离
             bottomGap: {
@@ -389,8 +403,7 @@
                         if(!response) {
                             return;
                         }
-                        const data = response;
-                        let results = data[self.paramsName.results];
+                        let results = response[self.paramsName.results];
 
                         //处理treeTable数据
                         if (self.treeTable) {
@@ -399,10 +412,15 @@
                             self.current = results;
                         }
 
-                        self.total = data[self.paramsName.total] * 1;
+                        // 将数据更新至父组件
+                        self.$emit('update:currentData', self.current.slice());
+
+                        self.checkType && self.patchCheckSatatus(false);
+
+                        self.total = response[self.paramsName.total] * 1;
 
                         //重置选择状态
-                        self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
+//                        self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
 
                         self.loading = false;
                         //重新计算并设置表格尺寸
@@ -413,23 +431,44 @@
                     }
                 );
             },
+            /**
+             * 补充checked数据
+             * @param params
+             */
+            patchCheckSatatus(value){
+                this.rowSelectionStates = [];
+                for (var item of this.current) {
+                    item['vb_dt_checked'] = value;
+                    this.rowSelectionStates.push(value);
+                }
+
+                // 将数据更新至父组件
+                this.$emit('update:currentData', this.current.slice());
+            },
             rowSelectionChange(index) {
                 // firefox上checkbox对应的值没有立即更新，延时获取
                 setTimeout(() => {
+                    this.$set(this.rowSelectionStates,index,this.current[index]['vb_dt_checked']);
+
                     this.$emit('clickrow', {
                         index: index,
                         checked: this.rowSelectionStates[index],
                         row: this.current[index]
                     });
+                    // 将数据更新至父组件
+                    this.$emit('update:currentData', this.current.slice());
                 }, 200);
             },
             checkAllChange(e) {
-                this.rowSelectionStates = new Array(this.current.length || 0).fill(e);
+                this.patchCheckSatatus(e);
                 this.$emit('checkall', e);
             },
             clickRow(index) {
-                this.$set(this.rowSelectionStates,index,!this.rowSelectionStates[index]);
-                this.rowSelectionChange(index);
+                // 点击行后是否选中
+                if(this.rowClickChecked){
+                    this.current[index]['vb_dt_checked'] = !this.current[index]['vb_dt_checked']
+                    this.rowSelectionChange(index);
+                }
             },
             //刷新表格数据（使用现有参数）
             refresh(){
@@ -462,14 +501,13 @@
                 }
 
                 this.$nextTick(function () {
-                    var footerHeight = 56;
                     if (this.height) {
-                        this.tableBodyHeight = this.height - footerHeight;
-                        this.getBodyWidth();
+                        this.tableBodyHeight = this.height;
                     } else if (this.bottomGap > 0) {
                         //未设置height属性时，处理bottomGap属性（height属性优先）
-                        this.fixGapHeight(footerHeight);
+                        this.fixGapHeight();
                     }
+                    this.getBodyWidth();
                 });
             },
             getBodyWidth() {
@@ -500,11 +538,10 @@
                 //获取挂载元素在屏幕上的位置
                 var rect = self.$el.getBoundingClientRect();
                 var winHeight = window.innerHeight;
-                var tableBodyHeight = winHeight - this.bottomGap - rect.top - footerHeight;
+                var tableBodyHeight = winHeight - this.bottomGap - rect.top;
                 //在可见首屏范围内且计算高度至少200时处理，否则不处理
                 if (rect.top > 0 && tableBodyHeight >= 200) {
                     this.tableBodyHeight = tableBodyHeight;
-                    this.getBodyWidth();
                 }
             },
             dealTreeData(results) {
@@ -707,13 +744,6 @@
                     {[`${this.prefix}-stripe`]: this.stripe}
                 ];
             },
-            scrollClass() {
-                if (this.tableBodyHeight) {
-                    return this.prefix + "-scroll";
-                } else {
-                    return "";
-                }
-            },
             checkIndeterminate:function () {
                 if(this.rowSelectionStates.includes(true) && this.rowSelectionStates.includes(false)){
                     return true;
@@ -740,7 +770,12 @@
         watch: {
             pageNumber() {
                 this.refresh();
-            }
+            },
+            currentData(val) {
+                if(val){
+                    this.current = this.currentData;
+                }
+            },
         },
         components: {
             vPagination,

@@ -7,11 +7,14 @@
 .@{table-prefix-cls} {
   font-size: @font-size-base;
   color: @text-color;
-  overflow: hidden;
+  height: 100%;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   &-content {
+    flex: 1;
     overflow: auto;
     border-radius: @border-radius-base;
   }
@@ -70,10 +73,9 @@
   }
 
   &-footer {
-    padding: 8px;
+    height: 50px;
+    padding: 10px 0;
     position: relative;
-    top: -1px;
-    border-radius: 0 0 @border-radius-base @border-radius-base;
 
     .@{table-prefix-cls}-description{
       line-height: 30px;
@@ -82,10 +84,6 @@
  &.@{table-prefix-cls}-stripe .@{table-prefix-cls}-body tr:nth-child(2n) td {
    background-color: #f9f9f9;
  }
-
-  &.@{table-prefix-cls}-bordered &-footer {
-    border: 1px solid @border-color-split;
-  }
 
   &-title {
     padding: 16px 8px;
@@ -129,9 +127,11 @@
   }
 
   &-header {
+    position: absolute;
+    top: 0;
+    z-index: 1;
     background: @table-head-background-color;
     overflow: hidden;
-    height: 40px;
     border-radius: @border-radius-base @border-radius-base 0 0;
   }
 
@@ -249,8 +249,8 @@
       border: 1px solid @border-color-split;
     }
 
-    &.@{table-prefix-cls}-fixed-header {
-      border: 1px solid @border-color-split;
+    .@{table-prefix-cls}-header {
+      margin: 1px 0 0 1px;
       table {
         border: 0;
       }
@@ -411,26 +411,6 @@
 
   .@{table-prefix-cls}-row-indent + .@{table-prefix-cls}-row-expand-icon {
     margin-right: 3px;
-  }
-
-  &-scroll {
-    overflow: hidden !important;
-
-    .@{table-prefix-cls}-header{
-      position: relative;
-      z-index: 99;
-      width: 100%;
-    }
-    .@{table-prefix-cls}-body{
-      margin-top: -40px;
-      overflow: scroll;
-    }
-
-
-    table {
-      width: auto;
-      min-width: 100%;
-    }
   }
 
   &-body-inner {

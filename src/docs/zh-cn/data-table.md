@@ -35,7 +35,8 @@
                 ],
                 pageno:1,
                 checkAllMsg:null,
-                clickRowMsg:null
+                clickRowMsg:null,
+                mydata: [],
             }
         },
         methods:{
@@ -54,8 +55,27 @@
             },
             go2:function(){
                 this.$refs.xtable.goto(2);
-            }
-        }
+            },
+             edit:function(){
+                 this.mydata = [
+                     {"name":"x杰克","sex":"男","id":1},
+                     {"name":"x露丝","sex":"女","id":2},
+                     {"name":"x杰瑞","sex":"男","id":3},
+                     {"name":"x苏可","sex":"男","id":4},
+                     {"name":"x玛丽","sex":"女","id":5},
+                     {"name":"杰西卡","sex":"女","id":6},
+                     {"name":"贝利","sex":"男","id":7},
+                     {"name":"路易斯","sex":"男","id":8},
+                     {"name":"艾伦","sex":"男","id":9},
+                     {"name":"三笠","sex":"女","id":10}    
+                 ];
+             }
+        },
+        watch: {
+            mydata: function (val) {
+              console.log(val);
+            },
+          }
     }
 </script>
 
@@ -66,6 +86,8 @@
 ## 何时使用
 - 当有大量结构化的数据需要展现时；
 - 当需要对数据进行排序、分页、自定义操作等复杂行为时。
+- datatable内部默认使用flex布局，当外部容器使用固定高度或flex布局时，表格头部和底部会自动固定，中间区域自动滚动。
+- bottomGap属性已被废弃，建议使用flex布局实现相同效果。
 
 ## 代码演示
 
@@ -98,7 +120,9 @@
 </summary>
 
 ```html
+<div style='height:300px;overflow: hidden;'>
 <v-data-table :data='loadData' :columns='simpleColumns'></v-data-table>
+</div>
 
 <script>
     import axios from 'axios'
@@ -251,7 +275,7 @@
 <v-alert v-if="checkAllMsg" :message="checkAllMsg"></v-alert>
 <v-alert v-if="clickRowMsg" :message="clickRowMsg"></v-alert>
 
-<v-data-table :data='loadData' :columns='columns' check-type="checkbox" @checkall="checkAll" @clickrow="clickRow">
+<v-data-table :data='loadData' :columns='columns' check-type="checkbox" @checkall="checkAll" @clickrow="clickRow" :current-data.sync='mydata'>
       
 </v-data-table>
 
@@ -327,13 +351,14 @@
 
 ```html
 
-<v-data-table ref="xtable" :data='loadData' :columns='columns' :page-num="pageno">
+<v-data-table ref="xtable" :data='loadData' :columns='columns' :page-num="pageno" :current-data.sync='mydata'>
       
 </v-data-table>
 <br>
 <v-button @click="refreshTable">刷新表格</v-button>
 <v-button @click="reloadTable">重载表格</v-button>
 <v-button @click="go2">跳转到第二页</v-button>
+<v-button @click="edit">修改当前数据</v-button>
 <script>
     import axios from 'axios'
     export default {
@@ -344,6 +369,7 @@
                         return res.data;
                     });
                 },
+                mydata: [],
                 columns:[
                     {title:"姓名",field:'name'},
                     {title:"性别",field:'sex'},
@@ -376,6 +402,20 @@
             },
             go2:function(){
                 this.$refs.xtable.goto(2);
+            },
+            edit:function(){
+                this.mydata = [
+                    {"name":"x杰克","sex":"男","id":1},
+                    {"name":"x露丝","sex":"女","id":2},
+                    {"name":"x杰瑞","sex":"男","id":3},
+                    {"name":"x苏可","sex":"男","id":4},
+                    {"name":"x玛丽","sex":"女","id":5},
+                    {"name":"杰西卡","sex":"女","id":6},
+                    {"name":"贝利","sex":"男","id":7},
+                    {"name":"路易斯","sex":"男","id":8},
+                    {"name":"艾伦","sex":"男","id":9},
+                    {"name":"三笠","sex":"女","id":10}    
+                ];
             }
         }
     }
@@ -390,7 +430,8 @@
 ### Datatable Props
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| data | 获取表格数据的函数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见data arguments | Function | - |
+| data | 获取表格数据的函数，初始化必需参数，返回值必须是Promise对象,该函数默认接收一个请求参数，参数构造请见data arguments | Function | - |
+| currentData.sync | 表格当前数据,业务开发中也可以直接修改currentData,从而重新渲染表格（仅推荐用于客户端排序、数据过滤等场景） | Array | [] |
 | bordered | 是否展示外边框和列边框 | Boolean | false |
 | stripe | 是否显示间隔斑马纹 | Boolean | false |
 | size | 尺寸，`large`、`middle`、`small` | String | large |
@@ -403,6 +444,10 @@
 | height | 表格高度，注意是指表格整体高度（包含表头、表格和底部分页） | Number | - |
 | bottomGap | 距离viewport底部的间隙距离 | Number | - |
 | responseParamsName | 接口数据的关键字段命名，目前支持total和results,分别表示总数字段和结果字段 | Object | {total:'totalCount',results: 'result'} |
+| rowClickChecked | 点击表格行是否选中checkbox | Boolean | false |
+
+### currentData与checked状态说明
+currentData返回当前表格数据，需要使用sync修饰符保持双向同步，在翻页、点击checkbox、点击全选按钮时会更新，其中包含每行的checked状态，具体对应字段为`vb_dt_checked`,获取方法为`currentData[index]['vb_dt_checked']`。
 
 ### data arguments
 | 参数      | 说明          | 类型      | 默认值  |
@@ -435,6 +480,15 @@
 | column | 当前列对象 | Object | - |
 | content | 当前单元格内容 | String | - |
 | item | 当前行内容对象 | Object | - |
+
+### emptytext Slot
+暂无参数
+
+### footerinfo Slot Props
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |---------- |-------- |
+| total | 数据总条数 | Number | - |
+| pageNumber | 当前页数 | Number | - |
 
 ### Datatable Events
 | 事件        | 说明           | 参数        | 参数说明        |
