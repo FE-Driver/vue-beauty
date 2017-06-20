@@ -435,10 +435,10 @@
              * 补充checked数据
              * @param params
              */
-            patchCheckSatatus(value){
+            patchCheckSatatus(value) {
                 this.rowSelectionStates = [];
-                for (var item of this.current) {
-                    item['vb_dt_checked'] = value;
+                for (const item of this.current) {
+                    item.vb_dt_checked = value;
                     this.rowSelectionStates.push(value);
                 }
 
@@ -448,12 +448,12 @@
             rowSelectionChange(index) {
                 // firefox上checkbox对应的值没有立即更新，延时获取
                 setTimeout(() => {
-                    this.$set(this.rowSelectionStates,index,this.current[index]['vb_dt_checked']);
+                    this.$set(this.rowSelectionStates, index, this.current[index].vb_dt_checked);
 
                     this.$emit('clickrow', {
-                        index: index,
+                        index,
                         checked: this.rowSelectionStates[index],
-                        row: this.current[index]
+                        row: this.current[index],
                     });
                     // 将数据更新至父组件
                     this.$emit('update:currentData', this.current.slice());
@@ -463,27 +463,36 @@
                 this.patchCheckSatatus(e);
                 this.$emit('checkall', e);
             },
+            getCheckedData() {
+                const res = [];
+                for (const item of this.current) {
+                    if (item.vb_dt_checked) {
+                        res.push({ ...item });
+                    }
+                }
+                return res;
+            },
             clickRow(index) {
                 // 点击行后是否选中
-                if(this.rowClickChecked){
-                    this.current[index]['vb_dt_checked'] = !this.current[index]['vb_dt_checked']
-                    this.rowSelectionChange(index);
+                if (this.rowClickChecked) {
+                    this.current[index].vb_dt_checked = !this.current[index].vb_dt_checked;
                 }
+                this.rowSelectionChange(index);
             },
-            //刷新表格数据（使用现有参数）
-            refresh(){
+            // 刷新表格数据（使用现有参数）
+            refresh() {
                 this.loadData();
             },
-            //重新加载数据（重置到第一页）
-            reload(){
-                if(this.pageNumber === 1){
+            // 重新加载数据（重置到第一页）
+            reload() {
+                if (this.pageNumber === 1) {
                     this.loadData();
-                }else{
+                } else {
                     this.pageNumber = 1;
                 }
             },
-            //跳转到第几页
-            goto(pageNumber){
+            // 跳转到第几页
+            goto(pageNumber) {
                 if(typeof pageNumber == 'number'){
                     this.pageNumber = pageNumber;
                 }else{

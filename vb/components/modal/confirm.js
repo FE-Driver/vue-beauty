@@ -59,7 +59,7 @@ export default function (config = {}) {
             </div>
         `,
 
-        components: {vModal, vIcon, vButton}
+        components: { vModal, vIcon, vButton },
     });
 
     const div = document.createElement('div');
@@ -68,23 +68,25 @@ export default function (config = {}) {
     // TODO: avoid new
     new _Modal({ // eslint-disable-line
         el: div,
-        mixins: [ Locale ],
+        mixins: [Locale],
         data: props,
         methods: {
             _onOk () {
-                let okFn = this.onOk;
+                const okFn = this.onOk;
 
                 if (okFn) {
-                    let ret = okFn();
+                    const ret = okFn();
                     if (ret && ret.then) {
                         /* It's unnecessary to set loading=false, for the Modal will be unmounted after close. */
                         this.okLoading = true;
-                        ret.then(_close)
+                        ret.then(_close).catch(() => {
+                            this.okLoading = false;
+                        });
                     } else {
-                        _close()
+                        _close();
                     }
                 } else {
-                    _close()
+                    _close();
                 }
             },
 
@@ -110,17 +112,16 @@ export default function (config = {}) {
             this.visible = true;
         },
         computed: {
-            localeOkText () {
+            localeOkText() {
                 return this.okText || (this.okCancel ? this.t('modal.okText') : this.t('modal.justOkText'));
             },
-            localeCancelText () {
+            localeCancelText() {
                 return this.cancelText || this.t('modal.cancelText');
-
             },
-            wrapClasses () {
+            wrapClasses() {
                 return `${this.prefixCls} ${this.prefixCls}-${this.type}`;
-            }
-        }
+            },
+        },
     });
 
     return {

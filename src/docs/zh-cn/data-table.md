@@ -502,5 +502,6 @@ currentData返回当前表格数据，需要使用sync修饰符保持双向同�
 | refresh    | 刷新表格数据（使用datatable的当前参数） | - | - |
 | reload    | 重新加载数据（重置到第一页） | - | - |
 | goto    | 跳转页数 | pageNumber | 整数 |
+| getCheckedData  | 获取被选中的数据集合 | - | - |
 
 
