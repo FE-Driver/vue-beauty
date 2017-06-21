@@ -13,7 +13,7 @@
                     <template v-for="(column,cindex) in columns">
                         <th :class="column.className">
                             <slot name="th" :title="column.title" :column="column" :cindex="cindex">
-                                {{column.title}}{{scrollbarWidth}}
+                                {{column.title}}
                             </slot>
                             <template v-if="column.sort">
                                 <div :class="prefix + '-column-sorter'">
@@ -713,8 +713,6 @@
                 //设置表头表格总宽度
                 var tbody = this.$refs.tbody;
                 tbody && (this.tableBodyWidth = tbody.offsetWidth + "px");
-                //设置表头th宽度
-                this.fixHeaderWidth();
             },
              // 修正各个表头的宽度
             fixHeaderWidth() {
@@ -1015,6 +1013,11 @@
         watch: {
             pageNumber() {
                 this.refresh();
+            },
+            current(){
+                this.$nextTick(() => {
+                    this.fixHeaderWidth();
+                });
             },
             currentData(val) {
                 if(val){

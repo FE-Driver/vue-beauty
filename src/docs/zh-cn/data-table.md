@@ -8,30 +8,24 @@
                         return res.data;
                     });
                 },
-                simpleColumns:[
-                    {title:"姓名",field:'name'},
-                    {title:"性别",field:'sex'},
-                    {title:"编号",field:'id'}
-                ],
                 columns:[
-                    {title:"姓名",field:'name'},
-                    {title:"性别",field:'sex'},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true,width:"200px"},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"}
+                    {title:"歌名",field:'name'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
+                ],
+                longColumns:[
+                    {title:"歌名",field:'name'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
+                    {title:"操作",field:'action'},
                 ],
                 pageno:1,
                 checkAllMsg:null,
@@ -58,16 +52,66 @@
             },
              edit:function(){
                  this.mydata = [
-                     {"name":"x杰克","sex":"男","id":1},
-                     {"name":"x露丝","sex":"女","id":2},
-                     {"name":"x杰瑞","sex":"男","id":3},
-                     {"name":"x苏可","sex":"男","id":4},
-                     {"name":"x玛丽","sex":"女","id":5},
-                     {"name":"杰西卡","sex":"女","id":6},
-                     {"name":"贝利","sex":"男","id":7},
-                     {"name":"路易斯","sex":"男","id":8},
-                     {"name":"艾伦","sex":"男","id":9},
-                     {"name":"三笠","sex":"女","id":10}    
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
+                     {
+                       "name": "无地自容",
+                       "time": "05:40",
+                       "singer": "黑豹乐队",
+                       "album": "黑豹1"
+                     },
                  ];
              }
         },
@@ -96,16 +140,19 @@
 ````javascript
     {
         "result":[
-            {"name":"杰克","sex":"男","id":1},
-            {"name":"露丝","sex":"女","id":2},
-            {"name":"杰瑞","sex":"男","id":3},
-            {"name":"苏可","sex":"男","id":4},
-            {"name":"玛丽","sex":"女","id":5},
-            {"name":"杰西卡","sex":"女","id":6},
-            {"name":"贝利","sex":"男","id":7},
-            {"name":"路易斯","sex":"男","id":8},
-            {"name":"艾伦","sex":"男","id":9},
-            {"name":"三笠","sex":"女","id":10}
+            {
+                "name": "高级动物",
+                "time": "03:37",
+                "singer": "窦唯",
+                "album": "摇滚中国乐势力"
+            },
+            {
+                "name": "谁伴我闯荡 - (电影《Beyond日记》插曲)",
+                "time": "04:13",
+                "singer": "Beyond",
+                "album": "25周年精选"
+            },
+            .....
         ],
         "totalCount":11,
         "pageSize":10,
@@ -121,7 +168,7 @@
 
 ```html
 <div style='height:300px;overflow: hidden;'>
-<v-data-table :data='loadData' :columns='simpleColumns'></v-data-table>
+<v-data-table :data='loadData' :columns='columns'></v-data-table>
 </div>
 
 <script>
@@ -135,9 +182,10 @@
                     });
                 },
                 columns:[
-                    {title:"姓名",field:'name'},
-                    {title:"性别",field:'sex'},
-                    {title:"编号",field:'id'}
+                    {title:"歌名",field:'name'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
                 ]
             }
         },
@@ -156,30 +204,7 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='simpleColumns' stripe bordered></v-data-table>
-
-<script>
-    import axios from 'axios'
-    export default {
-        data: function () {
-            return {
-                loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
-                        return res.data;
-                    });
-                },
-                columns:[
-                    {title:"姓名",field:'name'},
-                    {title:"性别",field:'sex'},
-                    {title:"编号",field:'id'}
-                ]
-            }
-        },
-        methods:{
-            
-        }
-    }
-</script>
+<v-data-table :data='loadData' :columns='columns' stripe bordered></v-data-table>
 ```
 :::
 
@@ -210,14 +235,17 @@
 ```html
 <v-data-table :data='loadData' :columns='columns' size="middle">
     <template slot="th" scope="props">
-        <strong v-if="props.cindex==0">操作按钮</strong>
+        <strong v-if="props.column.field=='album'">操作</strong>
         <strong v-else v-html="props.title"></strong>
     </template>
     <template slot="td" scope="props">
-        <v-button-group v-if="props.cindex==0" size="small">
+        <div v-if="props.column.field=='album'">
+            <v-icon type="play-circle"></v-icon>
+            <v-icon type="download"></v-icon>
             <v-icon type="link"></v-icon>
-            <v-icon type="cloud-download"></v-icon>
-        </v-button-group>
+            <v-icon type="heart-o"></v-icon>
+            <v-icon type="share-alt"></v-icon>
+        </div>
         <span v-else v-html="props.content"></span>
     </template>     
 </v-data-table>
@@ -244,8 +272,17 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns' :fixed-left="2" :fixed-right="2">
-    
+<v-data-table :data='loadData' :columns='longColumns' :fixed-left="1" :fixed-right="1">
+    <template slot="td" scope="props">
+        <div v-if="props.column.field=='action'">
+            <v-icon type="play-circle"></v-icon>
+            <v-icon type="download"></v-icon>
+            <v-icon type="link"></v-icon>
+            <v-icon type="heart-o"></v-icon>
+            <v-icon type="share-alt"></v-icon>
+        </div>
+        <span v-else v-html="props.content"></span>
+    </template>    
 </v-data-table>
 ```
 :::
@@ -302,26 +339,6 @@
                         return res.data;
                     });
                 },
-                columns:[
-                    {title:"姓名",field:'name'},
-                    {title:"性别",field:'sex'},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true,width:"200px"},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"}
-                ],
                 checkAllMsg:null,
                 checkRowMsg:null,
             }
@@ -383,26 +400,6 @@
                     });
                 },
                 mydata: [],
-                columns:[
-                    {title:"姓名",field:'name'},
-                    {title:"性别",field:'sex'},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true,width:"200px"},
-                    {title:"姓名",field:'name'},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"},
-                    {title:"姓名",field:'name',sort:true},
-                    {title:"id",field:'id',className:"test dd"}
-                ],
                 pageno:1
             }
         },
@@ -418,16 +415,19 @@
             },
             edit:function(){
                 this.mydata = [
-                    {"name":"x杰克","sex":"男","id":1},
-                    {"name":"x露丝","sex":"女","id":2},
-                    {"name":"x杰瑞","sex":"男","id":3},
-                    {"name":"x苏可","sex":"男","id":4},
-                    {"name":"x玛丽","sex":"女","id":5},
-                    {"name":"杰西卡","sex":"女","id":6},
-                    {"name":"贝利","sex":"男","id":7},
-                    {"name":"路易斯","sex":"男","id":8},
-                    {"name":"艾伦","sex":"男","id":9},
-                    {"name":"三笠","sex":"女","id":10}    
+                    {
+                      "name": "无地自容",
+                      "time": "05:40",
+                      "singer": "黑豹乐队",
+                      "album": "黑豹1"
+                    },
+                    {
+                      "name": "无地自容",
+                      "time": "05:40",
+                      "singer": "黑豹乐队",
+                      "album": "黑豹1"
+                    },
+                    ......
                 ];
             }
         }
@@ -519,5 +519,6 @@ currentData返回当前表格数据，需要使用sync修饰符保持双向同�
 | reload    | 重新加载数据（重置到第一页） | - | - |
 | goto    | 跳转页数 | pageNumber | 整数 |
 | getCheckedData  | 获取被选中的数据集合 | - | - |
+| fixHeaderWidth  | 修正表头宽度 | - | 该方法用于修正表头宽度，用于特定情况下表头宽度不正确的情况（数据变化后组件默认会自动重新计算） |
 
 
