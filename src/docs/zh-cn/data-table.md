@@ -210,13 +210,13 @@
 ```html
 <v-data-table :data='loadData' :columns='columns' size="middle">
     <template slot="th" scope="props">
-        <strong v-if="props.cindex==0">操作操作按钮</strong>
+        <strong v-if="props.cindex==0">操作按钮</strong>
         <strong v-else v-html="props.title"></strong>
     </template>
     <template slot="td" scope="props">
         <v-button-group v-if="props.cindex==0" size="small">
-            <v-button type="primary" icon="cloud"></v-button>
-            <v-button type="primary" icon="cloud-download"></v-button>
+            <v-icon type="link"></v-icon>
+            <v-icon type="cloud-download"></v-icon>
         </v-button-group>
         <span v-else v-html="props.content"></span>
     </template>     
@@ -240,11 +240,11 @@
 ::: demo
 <summary>
   #### 固定列
-  设置`fixedLeft`，表示左侧固定几列。
+  设置`fixedLeft`，表示左侧固定几列。设置`fixedRight`，表示右侧固定几列。
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns' :fixed-left="3">
+<v-data-table :data='loadData' :columns='columns' :fixed-left="2" :fixed-right="2">
     
 </v-data-table>
 ```
@@ -509,6 +509,7 @@ currentData返回当前表格数据，需要使用sync修饰符保持双向同�
 |------------|----------------|------------|------------|
 | checkall    | 全选时触发 | value | 是否选中，布尔值 |
 | clickrow    | 点击某一行时触发 | object | {index:选中行的索引,checked:是否选中,row:行数据} |
+| dataloaded    | 数据加载完成后触发（初始化和翻页都会触发） | Array | 加载成功的数据 |
 
 ### API Methods
 | method        | 说明           | 参数        | 参数说明        |

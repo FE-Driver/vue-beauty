@@ -13,7 +13,7 @@
                     <template v-for="(column,cindex) in columns">
                         <th :class="column.className">
                             <slot name="th" :title="column.title" :column="column" :cindex="cindex">
-                                {{column.title}}
+                                {{column.title}}{{scrollbarWidth}}
                             </slot>
                             <template v-if="column.sort">
                                 <div :class="prefix + '-column-sorter'">
@@ -32,7 +32,7 @@
             </table>
         </div>
 
-        <div :class="[contentClass]" @scroll="scrollTableBody">
+        <div ref="content" :class="[contentClass]" @scroll="scrollTableBody" @mouseout="mouseOutTable">
 
             <div :class="prefix + '-body'">
                 <v-spin :spinning="loading" style="min-height:200px">
@@ -66,7 +66,7 @@
 
                         <tbody :class="prefix + '-tbody'" v-show="current.length">
                         <template v-for="(item,index) in current">
-                            <tr v-show="!treeTable || item.vshow" @click="clickRow(index)">
+                            <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mousemove="hoverRow(index)" :class="index===hoverIndex ? prefix + '-row-hover' : ''">
                                 <td v-if="checkType" :class="prefix + '-selection-column'">
                                     <v-checkbox v-model="item['vb_dt_checked']"
                                                 @click.native.stop="rowSelectionChange(index)"></v-checkbox>
@@ -133,7 +133,7 @@
 
                             <tbody :class="prefix + '-tbody'" v-show="current.length">
                             <template v-for="(item,index) in current">
-                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)">
+                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mousemove="hoverRow(index)" :class="index===hoverIndex ? prefix + '-row-hover' : ''">
                                     <td v-if="checkType" :class="prefix + '-selection-column'">
                                         <v-checkbox v-if="checkType=='checkbox'" v-model="item['vb_dt_checked']" @click.native.stop="rowSelectionChange(index)"></v-checkbox>
                                     </td>
@@ -144,6 +144,50 @@
                                             <span v-if="item.isparent" @click="toggle(item)"
                                                   :class="prefix + '-row-expand-icon ' + prefix + '-row-' + item.vopen"></span>
                                         </template>
+
+                                        <slot name="td" :content="item[column.field]" :item="item" :column="column"
+                                              :index="index" :cindex="cindex">
+                                            {{item[column.field]}}
+                                        </slot>
+
+                                    </td>
+                                </tr>
+                            </template>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="fixedRight && current.length" :class="prefix + '-fixed-right'" :style="{right:-tableBodyScrollLeft+'px'}">
+                <div :class="prefix + '-body-outer'">
+                    <div :class="prefix + '-body-inner'">
+                        <table :class="prefix + '-fixed'">
+
+                            <colgroup ref="fixedRightCols">
+                                <template v-for="(column,cindex) in columns">
+                                    <col v-if="cindex >= columns.length - fixedRight">
+                                </template>
+                            </colgroup>
+
+                            <thead :class="prefix + '-thead'">
+                            <tr>
+                                <template v-for="(column,cindex) in columns">
+                                    <th v-if="cindex >= columns.length - fixedRight" :class="column.className">
+                                        <slot name="th" :title="column.title" :column="column" :cindex="cindex">
+                                            {{column.title}}
+                                        </slot>
+                                    </th>
+                                </template>
+                            </tr>
+                            </thead>
+
+                            <tbody :class="prefix + '-tbody'" v-show="current.length">
+                            <template v-for="(item,index) in current">
+                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mousemove="hoverRow(index)" :class="index===hoverIndex ? prefix + '-row-hover' : ''">
+                                    <td v-if="cindex >= columns.length - fixedRight" v-for="(column,cindex) in columns">
 
                                         <slot name="td" :content="item[column.field]" :item="item" :column="column"
                                               :index="index" :cindex="cindex">
@@ -175,6 +219,27 @@
 
                             <template v-for="(column,cindex) in columns">
                                 <th style="display:inline-block;overflow:hidden" v-if="cindex < fixedLeft" :class="column.className">
+                                    <slot name="th" :title="column.title" :column="column" :cindex="cindex">
+                                        {{column.title}}
+                                    </slot>
+                                </th>
+                            </template>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="fixedRight" :class="prefix + '-fixed-right'" :style="{paddingRight:(isFixScrollbar ? scrollbarWidth : 0)+'px'}">
+            <div :class="prefix + '-body-outer'">
+                <div :class="prefix + '-body-inner'">
+                    <table :class="prefix + '-fixed'" ref="fixedRightHeader">
+
+                        <thead :class="prefix + '-thead'">
+                        <tr>
+                            <template v-for="(column,cindex) in columns">
+                                <th style="display:inline-block;overflow:hidden" v-if="cindex >= columns.length - fixedRight" :class="column.className">
                                     <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
@@ -308,6 +373,11 @@
                 type: Number,
                 default: 0
             },
+            // 右侧固定列
+            fixedRight: {
+                type: Number,
+                default: 0
+            },
             //是否启用树形表格
             treeTable: {
                 type: Boolean,
@@ -355,7 +425,12 @@
                 tableBodyHeight: null,
                 pageNumber: this.pageNum,
                 pageSizeT: this.pageSize,
-                paramsName: {}
+                paramsName: {},
+                //是否修正滚动条宽度误差（在fixedRight模式下，右侧固定表头由于定位基点不同，需要修正滚动条宽度误差，仅限于存在竖向滚动条时）
+                isFixScrollbar:false,
+                //滚动条宽度
+                scrollbarWidth:15,
+                hoverIndex:null,
             }
         },
         created() {
@@ -369,6 +444,7 @@
             }, this.responseParamsName);
             this.getSortParams();
             this.loadData({pageNum: this.pageNumber});
+            this.scrollbarWidth = this.getScrollbarWidth();
         },
         mounted() {
             this.$nextTick(() => {
@@ -384,6 +460,24 @@
             });
         },
         methods: {
+            getScrollbarWidth(){
+                var outer = document.createElement("div");
+                outer.style.visibility = "hidden";
+                outer.style.width = "100px";
+                outer.style.position = "fixed";
+                document.body.appendChild(outer);
+                var widthNoScroll = outer.offsetWidth;
+                // force scrollbars
+                outer.style.overflow = "scroll";
+                // add innerdiv
+                var inner = document.createElement("div");
+                inner.style.width = "100%";
+                outer.appendChild(inner);
+                var widthWithScroll = inner.offsetWidth;
+                // remove divs
+                outer.parentNode.removeChild(outer);
+                return widthNoScroll - widthWithScroll;
+            },
             clickCheck(index, event) {
                 //组装消息
                 const item = this.items[index];
@@ -503,13 +597,12 @@
 
                         // 将数据更新至父组件
                         self.$emit('update:currentData', self.current.slice());
+                        // 专门发送dataloaded事件
+                        self.$emit('dataloaded', self.current.slice());
 
                         self.checkType && self.patchCheckSatatus(false);
 
                         self.total = response[self.paramsName.total] * 1;
-
-                        //重置选择状态
-//                        self.rowSelectionStates = new Array(self.current.length || 0).fill(false);
 
                         self.loading = false;
                         //重新计算并设置表格尺寸
@@ -568,6 +661,12 @@
                 }
                 this.rowSelectionChange(index);
             },
+            hoverRow(index) {
+                this.hoverIndex = index;
+            },
+            mouseOutTable(){
+                this.hoverIndex = null;
+            },
             // 刷新表格数据（使用现有参数）
             refresh() {
                 this.loadData();
@@ -606,6 +705,8 @@
                         this.fixGapHeight();
                     }
                     this.getBodyWidth();
+                    //检测是否有滚动条
+                    this.isFixScrollbar = this.$refs.content.scrollHeight > this.$refs.content.clientHeight;
                 });
             },
             getBodyWidth() {
@@ -615,19 +716,32 @@
                 //设置表头th宽度
                 this.fixHeaderWidth();
             },
+             // 修正各个表头的宽度
             fixHeaderWidth() {
                 var theader = this.$refs.theader;
                 var theader_ths = theader && theader.querySelectorAll('thead>tr>th');
                 var tbody = this.$refs.tbody;
                 var tbody_ths = tbody && tbody.querySelectorAll("thead>tr>th");
-                var fixedLeftHeader = this.$refs.fixedLeftHeader;
-                var fixedLeft_ths = fixedLeftHeader && fixedLeftHeader.querySelectorAll("thead>tr>th");
-                var fixedLeft_colgroup = this.$refs.fixedLeftCols;
-                var fixedLeft_cols = fixedLeft_colgroup && fixedLeft_colgroup.querySelectorAll("col");
 
-                var condition = this.fixedLeft ?
-                        (theader && theader_ths.length && tbody && tbody_ths.length && fixedLeftHeader && fixedLeft_ths.length && fixedLeft_colgroup && fixedLeft_cols.length) :
-                        (theader && theader_ths.length && tbody && tbody_ths.length);
+                var condition = !!(theader && theader_ths.length && tbody && tbody_ths.length);
+
+                if(this.fixedLeft){
+                    var fixedLeftHeader = this.$refs.fixedLeftHeader;
+                    var fixedLeft_ths = fixedLeftHeader && fixedLeftHeader.querySelectorAll("thead>tr>th");
+                    var fixedLeft_colgroup = this.$refs.fixedLeftCols;
+                    var fixedLeft_cols = fixedLeft_colgroup && fixedLeft_colgroup.querySelectorAll("col");
+
+                    condition = condition && !!(fixedLeftHeader && fixedLeft_ths.length && fixedLeft_colgroup && fixedLeft_cols.length);
+                }
+
+                if(this.fixedRight){
+                    var fixedRightHeader = this.$refs.fixedRightHeader;
+                    var fixedRight_ths = fixedRightHeader && fixedRightHeader.querySelectorAll("thead>tr>th");
+                    var fixedRight_colgroup = this.$refs.fixedRightCols;
+                    var fixedRight_cols = fixedRight_colgroup && fixedRight_colgroup.querySelectorAll("col");
+
+                    condition = condition && !!(fixedRightHeader && fixedRight_ths.length && fixedRight_colgroup && fixedRight_cols.length);
+                }
 
                 if(condition){
                     for (let [index,el] of theader_ths.entries()) {
@@ -639,8 +753,21 @@
                     if(this.fixedLeft){
                         if (fixedLeft_ths.length) {
                             for (let [index,el] of fixedLeft_ths.entries()) {
-                                el.style.width = tbody_ths[index].offsetWidth + 'px';
-                                fixedLeft_cols[index].style.width = tbody_ths[index].offsetWidth + 'px';
+                                var w = tbody_ths[index].offsetWidth + 'px';
+                                el.style.width = w;
+                                fixedLeft_cols[index].style.width = w;
+                            }
+                        }
+                    }
+
+                    if(this.fixedRight){
+                        if (fixedRight_ths.length) {
+                            for (let [index,el] of fixedRight_ths.entries()) {
+                                // 从右侧开始计算
+                                var i = tbody_ths.length - this.fixedRight + index;
+                                var w = tbody_ths[i].offsetWidth + 'px';
+                                el.style.width = w;
+                                fixedRight_cols[index].style.width = w;
                             }
                         }
                     }
