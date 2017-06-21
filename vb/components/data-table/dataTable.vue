@@ -1,48 +1,47 @@
 <template lang="html">
 
     <div :class="tableCls" :style="{height:tableBodyHeight+'px'}">
-        <div :class="[contentClass]" @scroll="scrollTableBody">
 
-            <div :class="prefix + '-header'"
-                 :style="{left:-tableBodyScrollLeft+'px',width:tableBodyWidth}">
-                <table :style="{width:tableBodyWidth}">
-                    <thead :class="prefix + '-thead'">
-                    <tr>
-                        <th v-if="checkType" :class="prefix + '-selection-column'">
-                            <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState"
-                                        @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
-                        </th>
-                        <template v-for="(column,cindex) in columns">
-                            <th :class="column.className">
-                                <slot name="th" :title="column.title" :column="column" :cindex="cindex">
-                                    {{column.title}}
-                                </slot>
-                                <template v-if="column.sort">
-                                    <div :class="prefix + '-column-sorter'">
+        <div :class="prefix + '-header'" :style="{left:-tableBodyScrollLeft+'px',width:tableBodyWidth}">
+            <table ref="theader" :style="{width:tableBodyWidth}">
+                <thead :class="prefix + '-thead'">
+                <tr>
+                    <th v-if="checkType" :class="prefix + '-selection-column'">
+                        <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState"
+                                    @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
+                    </th>
+                    <template v-for="(column,cindex) in columns">
+                        <th :class="column.className">
+                            <slot name="th" :title="column.title" :column="column" :cindex="cindex">
+                                {{column.title}}
+                            </slot>
+                            <template v-if="column.sort">
+                                <div :class="prefix + '-column-sorter'">
                                         <span @click="sort(column,'asc')"
                                               :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
                                               title="↑"><v-icon type="caret-up"></v-icon></span>
-                                        <span @click="sort(column,'desc')"
-                                              :class="prefix + '-column-sorter-down '+ (column.sort == 'desc' ? 'on' : 'off')"
-                                              title="↓"><v-icon type="caret-down"></v-icon></span>
-                                    </div>
-                                </template>
-                            </th>
-                        </template>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
+                                    <span @click="sort(column,'desc')"
+                                          :class="prefix + '-column-sorter-down '+ (column.sort == 'desc' ? 'on' : 'off')"
+                                          title="↓"><v-icon type="caret-down"></v-icon></span>
+                                </div>
+                            </template>
+                        </th>
+                    </template>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div :class="[contentClass]" @scroll="scrollTableBody">
 
             <div :class="prefix + '-body'">
-                <v-spin :spinning="loading">
+                <v-spin :spinning="loading" style="min-height:200px">
                     <table ref="tbody">
 
                         <thead :class="prefix + '-thead'">
                         <tr>
                             <th v-if="checkType" :class="prefix + '-selection-column'">
-                                <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState"
-                                            @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
+                                <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState" @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
                             </th>
 
                             <template v-for="(column,cindex) in columns">
@@ -69,7 +68,7 @@
                         <template v-for="(item,index) in current">
                             <tr v-show="!treeTable || item.vshow" @click="clickRow(index)">
                                 <td v-if="checkType" :class="prefix + '-selection-column'">
-                                    <v-checkbox v-if="checkType=='checkbox'" v-model="item['vb_dt_checked']"
+                                    <v-checkbox v-model="item['vb_dt_checked']"
                                                 @click.native.stop="rowSelectionChange(index)"></v-checkbox>
                                 </td>
                                 <td v-for="(column,cindex) in columns">
@@ -91,7 +90,7 @@
 
                         </tbody>
 
-                        <tbody :class="prefix + '-tbody'" v-if="current.length==0">
+                        <tbody :class="prefix + '-tbody'" v-if="initFlag && current.length==0">
                         <tr>
                             <td :colspan="checkType ? columns.length+1 : columns.length" style="text-align:center">
                                 <slot name="emptytext">
@@ -102,6 +101,89 @@
                         </tbody>
                     </table>
                 </v-spin>
+            </div>
+
+            <div v-if="fixedLeft && current.length" :class="prefix + '-fixed-left'" :style="{left:tableBodyScrollLeft+'px'}">
+                <div :class="prefix + '-body-outer'">
+                    <div :class="prefix + '-body-inner'">
+                        <table :class="prefix + '-fixed'">
+
+                            <colgroup ref="fixedLeftCols">
+                                <col v-if="checkType" />
+                                <template v-for="(column,cindex) in columns">
+                                    <col v-if="cindex < fixedLeft">
+                                </template>
+                            </colgroup>
+
+                            <thead :class="prefix + '-thead'">
+                            <tr>
+                                <th v-if="checkType" :class="prefix + '-selection-column'">
+                                    <v-checkbox v-if="checkType=='checkbox'"></v-checkbox>
+                                </th>
+
+                                <template v-for="(column,cindex) in columns">
+                                    <th v-if="cindex < fixedLeft" :class="column.className">
+                                        <slot name="th" :title="column.title" :column="column" :cindex="cindex">
+                                            {{column.title}}
+                                        </slot>
+                                    </th>
+                                </template>
+                            </tr>
+                            </thead>
+
+                            <tbody :class="prefix + '-tbody'" v-show="current.length">
+                            <template v-for="(item,index) in current">
+                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)">
+                                    <td v-if="checkType" :class="prefix + '-selection-column'">
+                                        <v-checkbox v-if="checkType=='checkbox'" v-model="item['vb_dt_checked']" @click.native.stop="rowSelectionChange(index)"></v-checkbox>
+                                    </td>
+                                    <td v-if="cindex < fixedLeft" v-for="(column,cindex) in columns">
+                                        <template v-if="treeTable && cindex==treeTableOption.position">
+                                        <span :class="prefix + '-row-indent indent-level-' + item.level"
+                                              :style="{'padding-left':item.paddingLeft}"></span>
+                                            <span v-if="item.isparent" @click="toggle(item)"
+                                                  :class="prefix + '-row-expand-icon ' + prefix + '-row-' + item.vopen"></span>
+                                        </template>
+
+                                        <slot name="td" :content="item[column.field]" :item="item" :column="column"
+                                              :index="index" :cindex="cindex">
+                                            {{item[column.field]}}
+                                        </slot>
+
+                                    </td>
+                                </tr>
+                            </template>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="fixedLeft" :class="prefix + '-fixed-left'">
+            <div :class="prefix + '-body-outer'">
+                <div :class="prefix + '-body-inner'">
+                    <table :class="prefix + '-fixed'" ref="fixedLeftHeader">
+
+                        <thead :class="prefix + '-thead'">
+                        <tr>
+                            <th style="display:inline-block;overflow:hidden" v-if="checkType" :class="prefix + '-selection-column'">
+                                <v-checkbox v-if="checkType=='checkbox'" :value="checkAllState" @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
+                            </th>
+
+                            <template v-for="(column,cindex) in columns">
+                                <th style="display:inline-block;overflow:hidden" v-if="cindex < fixedLeft" :class="column.className">
+                                    <slot name="th" :title="column.title" :column="column" :cindex="cindex">
+                                        {{column.title}}
+                                    </slot>
+                                </th>
+                            </template>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -221,6 +303,11 @@
                 type: Number,
                 default: null
             },
+            // 左侧固定列
+            fixedLeft: {
+                type: Number,
+                default: 0
+            },
             //是否启用树形表格
             treeTable: {
                 type: Boolean,
@@ -249,6 +336,7 @@
             return {
                 //当前分页数据,默认没有
                 current: [],
+                initFlag: false,
                 // 默认总数
                 total: 0,
                 // class前缀
@@ -400,6 +488,7 @@
                 let dataPromise = self.data(remoteParams);
 
                 dataPromise.then((response) => {
+                        this.initFlag = true;
                         if(!response) {
                             return;
                         }
@@ -527,20 +616,40 @@
                 this.fixHeaderWidth();
             },
             fixHeaderWidth() {
-                var theader_ths = this.$el.querySelectorAll('div.ant-table-header table>thead>tr>th')
-                var tbody_ths = this.$el.querySelectorAll("div.ant-table-body table>thead>tr>th")
+                var theader = this.$refs.theader;
+                var theader_ths = theader && theader.querySelectorAll('thead>tr>th');
+                var tbody = this.$refs.tbody;
+                var tbody_ths = tbody && tbody.querySelectorAll("thead>tr>th");
+                var fixedLeftHeader = this.$refs.fixedLeftHeader;
+                var fixedLeft_ths = fixedLeftHeader && fixedLeftHeader.querySelectorAll("thead>tr>th");
+                var fixedLeft_colgroup = this.$refs.fixedLeftCols;
+                var fixedLeft_cols = fixedLeft_colgroup && fixedLeft_colgroup.querySelectorAll("col");
 
-                if (theader_ths.length && tbody_ths.length) {
+                var condition = this.fixedLeft ?
+                        (theader && theader_ths.length && tbody && tbody_ths.length && fixedLeftHeader && fixedLeft_ths.length && fixedLeft_colgroup && fixedLeft_cols.length) :
+                        (theader && theader_ths.length && tbody && tbody_ths.length);
+
+                if(condition){
                     for (let [index,el] of theader_ths.entries()) {
                         if (index != theader_ths.length - 1) {
-                            el.style.width = tbody_ths[index].offsetWidth + 'px'
+                            el.style.width = tbody_ths[index].offsetWidth + 'px';
                         }
                     }
-                } else {
-                    this.$nextTick(function () {
+
+                    if(this.fixedLeft){
+                        if (fixedLeft_ths.length) {
+                            for (let [index,el] of fixedLeft_ths.entries()) {
+                                el.style.width = tbody_ths[index].offsetWidth + 'px';
+                                fixedLeft_cols[index].style.width = tbody_ths[index].offsetWidth + 'px';
+                            }
+                        }
+                    }
+                }else{
+                    setTimeout(() => {
                         this.fixHeaderWidth();
-                    });
+                    },100);
                 }
+
             },
             fixGapHeight(footerHeight) {
                 var self = this;

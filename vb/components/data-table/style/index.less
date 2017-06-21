@@ -15,6 +15,7 @@
 
   &-content {
     flex: 1;
+    position: relative;
     overflow: auto;
     border-radius: @border-radius-base;
   }
@@ -123,7 +124,6 @@
   &-thead > tr > th.@{table-prefix-cls}-selection-column,
   &-tbody > tr > td.@{table-prefix-cls}-selection-column {
     text-align: center;
-    width: 60px;
   }
 
   &-header {
@@ -260,6 +260,14 @@
       .@{table-prefix-cls}-fixed-right {
         border-left: 1px solid @border-color-split;
       }
+    }
+
+    >.@{table-prefix-cls}-fixed-left {
+      border-left: 1px solid @border-color-split;
+      border-top: 1px solid @border-color-split;
+    }
+    >.@{table-prefix-cls}-fixed-right {
+      border-left: 1px solid @border-color-split;
     }
 
     .@{table-prefix-cls}-thead > tr > th {
@@ -453,7 +461,7 @@
 
   &-fixed-left {
     left: 0;
-    box-shadow: @shadow-1-right;
+    box-shadow: 2px -2px 5px @shadow-color;
     .@{table-prefix-cls}-header {
       overflow-y: hidden;
     }

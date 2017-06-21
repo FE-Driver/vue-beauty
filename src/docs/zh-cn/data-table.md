@@ -239,6 +239,19 @@
 
 ::: demo
 <summary>
+  #### 固定列
+  设置`fixedLeft`，表示左侧固定几列。
+</summary>
+
+```html
+<v-data-table :data='loadData' :columns='columns' :fixed-left="3">
+    
+</v-data-table>
+```
+:::
+
+::: demo
+<summary>
   #### 自适应高度
   设置bottomGap，表示表格底部距离viewport底部的间距，进而实现表格自适应高度。为了保证表格数据可见，自适应计算的最小高度是200px。
   注意：bottomGap仅对第一屏显示的table有效果；height属性和bottomGap同时使用时，height属性优先。
@@ -445,6 +458,7 @@
 | bottomGap | 距离viewport底部的间隙距离 | Number | - |
 | responseParamsName | 接口数据的关键字段命名，目前支持total和results,分别表示总数字段和结果字段 | Object | {total:'totalCount',results: 'result'} |
 | rowClickChecked | 点击表格行是否选中checkbox | Boolean | false |
+| fixedLeft | 左侧固定列数 | Number | 0 |
 
 ### currentData与checked状态说明
 currentData返回当前表格数据，需要使用sync修饰符保持双向同步，在翻页、点击checkbox、点击全选按钮时会更新，其中包含每行的checked状态，具体对应字段为`vb_dt_checked`,获取方法为`currentData[index]['vb_dt_checked']`。
