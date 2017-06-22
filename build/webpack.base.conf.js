@@ -1,3 +1,4 @@
+var webpack = require('webpack')
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
@@ -178,5 +179,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin()
+  ]
 }

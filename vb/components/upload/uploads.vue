@@ -58,7 +58,7 @@ export default {
     },
     name: {
       type: String,
-      default: ''
+      default: 'file',
     },
     action: {
       type: String,
