@@ -35,7 +35,7 @@
         <div ref="content" :class="[contentClass]" @scroll="scrollTableBody" @mouseout="mouseOutTable">
 
             <div :class="prefix + '-body'">
-                <v-spin :spinning="loading" style="min-height:200px">
+                <v-spin :spinning="loading" :style="{minHeight: loading?'200px':'auto'}">
                     <table ref="tbody">
 
                         <thead :class="prefix + '-thead'">
