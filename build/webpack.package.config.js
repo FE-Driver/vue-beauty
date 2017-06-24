@@ -43,5 +43,8 @@ module.exports = {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, 
             loader: 'url-loader?limit=8192'
         }]
-    }
+    },
+    plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin()
+    ]
 }
