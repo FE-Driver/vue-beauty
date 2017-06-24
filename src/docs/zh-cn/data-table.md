@@ -9,13 +9,16 @@
                     });
                 },
                 columns:[
-                    {title:"歌名",field:'name'},
+                    {title:"歌名",field:'name',sort:'asc'},
                     {title:"时长",field:'time'},
                     {title:"歌手",field:'singer'},
                     {title:"专辑",field:'album'},
                 ],
                 longColumns:[
-                    {title:"歌名",field:'name'},
+                    {title:"歌名",field:'name',sort:'asc'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
                     {title:"时长",field:'time'},
                     {title:"歌手",field:'singer'},
                     {title:"专辑",field:'album'},
@@ -233,7 +236,7 @@
 </summary>
 
 ```html
-<v-data-table :data='loadData' :columns='columns' size="middle">
+<v-data-table :data='loadData' :columns='columns' size="small" bordered>
     <template slot="th" scope="props">
         <strong v-if="props.column.field=='album'">操作</strong>
         <strong v-else v-html="props.title"></strong>
@@ -447,7 +450,7 @@
 | currentData.sync | 表格当前数据,业务开发中也可以直接修改currentData,从而重新渲染表格（仅推荐用于客户端排序、数据过滤等场景） | Array | [] |
 | bordered | 是否展示外边框和列边框 | Boolean | false |
 | stripe | 是否显示间隔斑马纹 | Boolean | false |
-| size | 尺寸，`large`、`middle`、`small` | String | large |
+| size | 尺寸，`large`、`small` | String | large |
 | columns | 表头配置，类型为对象数据，具体请见下表：Columns Object | Array | - |
 | pagination | 是否启用分页 | Boolean | false |
 | pageSize | 分页大小 | Number | 10 |

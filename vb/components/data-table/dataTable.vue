@@ -52,7 +52,7 @@
                                     <template v-if="column.sort">
                                         <div :class="prefix + '-column-sorter'">
                                             <span @click="sort(column,'asc')"
-                                                  :class="prefix + '-column-sorter-up' + (column.sort == 'asc' ? 'on' : 'off')"
+                                                  :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
                                                   title="↑"><v-icon type="caret-up"></v-icon></span>
                                             <span @click="sort(column,'desc')"
                                                   :class="prefix + '-column-sorter-down ' + (column.sort == 'desc' ? 'on' : 'off')"
@@ -66,7 +66,7 @@
 
                         <tbody :class="prefix + '-tbody'" v-show="current.length">
                         <template v-for="(item,index) in current">
-                            <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mousemove="hoverRow(index)" :class="index===hoverIndex ? prefix + '-row-hover' : ''">
+                            <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mouseover="hoverRow(index)" :class="getRowClass(index)">
                                 <td v-if="checkType" :class="prefix + '-selection-column'">
                                     <v-checkbox v-model="item['vb_dt_checked']"
                                                 @click.native.stop="rowSelectionChange(index)"></v-checkbox>
@@ -133,7 +133,7 @@
 
                             <tbody :class="prefix + '-tbody'" v-show="current.length">
                             <template v-for="(item,index) in current">
-                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mousemove="hoverRow(index)" :class="index===hoverIndex ? prefix + '-row-hover' : ''">
+                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mouseover="hoverRow(index)" :class="getRowClass(index)">
                                     <td v-if="checkType" :class="prefix + '-selection-column'">
                                         <v-checkbox v-if="checkType=='checkbox'" v-model="item['vb_dt_checked']" @click.native.stop="rowSelectionChange(index)"></v-checkbox>
                                     </td>
@@ -186,7 +186,7 @@
 
                             <tbody :class="prefix + '-tbody'" v-show="current.length">
                             <template v-for="(item,index) in current">
-                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mousemove="hoverRow(index)" :class="index===hoverIndex ? prefix + '-row-hover' : ''">
+                                <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mouseover="hoverRow(index)" :class="getRowClass(index)">
                                     <td v-if="cindex >= columns.length - fixedRight" v-for="(column,cindex) in columns">
 
                                         <slot name="td" :content="item[column.field]" :item="item" :column="column"
@@ -222,6 +222,16 @@
                                     <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
+                                    <template v-if="column.sort">
+                                        <div :class="prefix + '-column-sorter'">
+                                            <span @click="sort(column,'asc')"
+                                                  :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
+                                                  title="↑"><v-icon type="caret-up"></v-icon></span>
+                                            <span @click="sort(column,'desc')"
+                                                  :class="prefix + '-column-sorter-down ' + (column.sort == 'desc' ? 'on' : 'off')"
+                                                  title="↓"><v-icon type="caret-down"></v-icon></span>
+                                        </div>
+                                    </template>
                                 </th>
                             </template>
                         </tr>
@@ -243,6 +253,16 @@
                                     <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
+                                    <template v-if="column.sort">
+                                        <div :class="prefix + '-column-sorter'">
+                                            <span @click="sort(column,'asc')"
+                                                  :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
+                                                  title="↑"><v-icon type="caret-up"></v-icon></span>
+                                            <span @click="sort(column,'desc')"
+                                                  :class="prefix + '-column-sorter-down ' + (column.sort == 'desc' ? 'on' : 'off')"
+                                                  title="↓"><v-icon type="caret-down"></v-icon></span>
+                                        </div>
+                                    </template>
                                 </th>
                             </template>
                         </tr>
@@ -282,6 +302,7 @@
     import vIcon from '../icon'
     import vCheckbox from '../checkbox'
     import vRadio from '../radio'
+    import {debounce} from 'lodash'
 
     export default {
         name: 'DataTable',
@@ -444,20 +465,25 @@
             }, this.responseParamsName);
             this.getSortParams();
             this.loadData({pageNum: this.pageNumber});
-            this.scrollbarWidth = this.getScrollbarWidth();
+
+            if(this.fixedRight){
+                this.scrollbarWidth = this.getScrollbarWidth();
+            }
+
+            if (!this.bindResize) {
+                window.addEventListener('resize', () => {
+                    this.calculateSize();
+                }, false);
+                this.bindResize = true;
+            }
         },
         mounted() {
-            this.$nextTick(() => {
-                // 获取表格实际宽度
+            this.$nextTick(function () {
                 this.calculateSize();
-
-                if (!this.bindResize) {
-                    window.addEventListener('resize', () => {
-                        this.calculateSize();
-                    }, false);
-                    this.bindResize = true;
-                }
             });
+        },
+        updated() {
+            this.debounceCalculate();
         },
         methods: {
             getScrollbarWidth(){
@@ -605,8 +631,6 @@
                         self.total = response[self.paramsName.total] * 1;
 
                         self.loading = false;
-                        //重新计算并设置表格尺寸
-                        self.calculateSize();
                     }, (response) => {
                         // error callback
                         self.loading = false;
@@ -664,6 +688,13 @@
             hoverRow(index) {
                 this.hoverIndex = index;
             },
+            getRowClass(index){
+                var clazz = {};
+                if((this.fixedLeft || this.fixedRight) && index===this.hoverIndex){
+                    clazz[this.prefix + '-row-hover'] = true;
+                }
+                return clazz;
+            },
             mouseOutTable(){
                 this.hoverIndex = null;
             },
@@ -691,23 +722,24 @@
                 const target = e.target || e.srcElement;
                 this.tableBodyScrollLeft = target.scrollLeft;
             },
+            // 延时计算尺寸，用于组件内部re-render变化时重新计算
+            debounceCalculate:debounce(function() {
+                this.calculateSize();
+            },200),
             //计算并设置表格尺寸
             calculateSize() {
                 if (!this.$el) {
                     return
                 }
 
-                this.$nextTick(function () {
-                    if (this.height) {
-                        this.tableBodyHeight = this.height;
-                    } else if (this.bottomGap > 0) {
-                        //未设置height属性时，处理bottomGap属性（height属性优先）
-                        this.fixGapHeight();
-                    }
-                    this.getBodyWidth();
-                    //检测是否有滚动条
-                    this.isFixScrollbar = this.$refs.content.scrollHeight > this.$refs.content.clientHeight;
-                });
+                if (this.height) {
+                    this.tableBodyHeight = this.height;
+                } else if (this.bottomGap > 0) {
+                    //未设置height属性时，处理bottomGap属性（height属性优先）
+                    this.fixGapHeight();
+                }
+                this.getBodyWidth();
+                this.fixHeaderWidth();
             },
             getBodyWidth() {
                 //设置表头表格总宽度
@@ -733,6 +765,9 @@
                 }
 
                 if(this.fixedRight){
+
+                    this.isFixScrollbar = this.$refs.content ? this.$refs.content.scrollHeight > this.$refs.content.clientHeight : false;
+
                     var fixedRightHeader = this.$refs.fixedRightHeader;
                     var fixedRight_ths = fixedRightHeader && fixedRightHeader.querySelectorAll("thead>tr>th");
                     var fixedRight_colgroup = this.$refs.fixedRightCols;
@@ -958,8 +993,6 @@
                         self.expandChildren(item);
 
                         self.loading = false;
-//                    重新计算并设置表格尺寸
-                        self.calculateSize();
                     }
                 }, (response) => {
                     // error callback
@@ -1016,7 +1049,7 @@
             },
             current(){
                 this.$nextTick(() => {
-                    this.fixHeaderWidth();
+                    this.calculateSize();
                 });
             },
             currentData(val) {
