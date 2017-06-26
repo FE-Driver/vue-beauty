@@ -36,7 +36,7 @@
                 :max="max"
                 :min="min"
                 :value="relValue"
-                @input="handleInput" />
+                @input="handleInput">
         </div>
     </div>
 </template>
@@ -45,7 +45,7 @@
     import emitter from '../../mixins/emitter';
 
     function isValueNumber (value) {
-        return !isNaN(Number(value))
+        return !isNaN(Number(value));
     }
     //自定义运算，解决精度问题
     function calNum (num1, num2,symb) {
@@ -143,7 +143,7 @@
             },
             relValue(val) {
                 if (isValueNumber(val)) {
-                    val = Number(val)
+                    val = Number(val);
                     if (val >= this.max) {
                         this.upDisabledClass = `${this.prefixCls}-handler-up-disabled`
                     } else if (val <= this.min) {
@@ -160,22 +160,18 @@
         },
         mounted() {
             if (!this.currentValue) {
-                this.currentValue = this.min
+                this.currentValue = this.min;
             }
             if (this.relValue == null) {
-                this.relValue = this.currentValue
+                this.relValue = this.currentValue;
             }
-            this.focused = this.autoFocus
+            this.focused = this.autoFocus;
         },
 
         methods: {
             handleInput(event) {
                 const e = event;
                 if (isValueNumber(e.target.value)) {
-                    if (this.keyCode !== 8) {
-                        e.target.value = e.target.value > this.max ? this.max : e.target.value;
-                        e.target.value = e.target.value < this.min ? this.min : e.target.value;
-                    }
                     this.currentValue = e.target.value;
                 } else {
                     e.target.value = this.relValue;
@@ -190,7 +186,7 @@
                     this.change(value)
                 }
                 this.$emit('input', value)
-                this.dispatch('FormItem', 'form.blur', [value]);
+                this.dispatch('FormItem', 'form.change', [value]);
             },
 
             _onKeyDown(e) {
@@ -204,11 +200,18 @@
             },
 
             _onFocus() {
-                this.focused = true
+                this.focused = true;
             },
 
-            _onBlur (event) {
-                this.focused = false
+            _onBlur (e) {
+                if (e.target.value > this.max) {
+                    e.target.value = this.max;
+                } else if (e.target.value < this.min) {
+                    e.target.value = this.min;
+                }
+                this.currentValue = e.target.value;
+                this.focused = false;
+                this.dispatch('FormItem', 'form.blur', [this.currentValue]);
             },
 
             _step (type, e) {
