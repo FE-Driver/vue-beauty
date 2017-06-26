@@ -73,14 +73,11 @@
                                 </td>
                                 <td v-for="(column,cindex) in columns">
                                     <template v-if="treeTable && cindex==treeTableOption.position">
-                                        <span :class="prefix + '-row-indent indent-level-' + item.level"
-                                              :style="{'padding-left':item.paddingLeft}"></span>
-                                        <span v-if="item.isparent" @click="toggle(item)"
-                                              :class="prefix + '-row-expand-icon ' + prefix + '-row-' + item.vopen"></span>
+                                        <span :class="prefix + '-row-indent indent-level-' + item.level" :style="{'padding-left':item.paddingLeft}"></span>
+                                        <span v-if="item.isparent" @click="toggle(item,index)" :class="prefix + '-row-expand-icon ' + prefix + '-row-' + (item.vopen ? 'expanded' : 'collapsed')"></span>
                                     </template>
 
-                                    <slot name="td" :content="item[column.field]" :item="item" :column="column"
-                                          :index="index" :cindex="cindex">
+                                    <slot name="td" :content="item[column.field]" :item="item" :column="column" :index="index" :cindex="cindex">
                                         {{item[column.field]}}
                                     </slot>
 
@@ -139,10 +136,8 @@
                                     </td>
                                     <td v-if="cindex < fixedLeft" v-for="(column,cindex) in columns">
                                         <template v-if="treeTable && cindex==treeTableOption.position">
-                                        <span :class="prefix + '-row-indent indent-level-' + item.level"
-                                              :style="{'padding-left':item.paddingLeft}"></span>
-                                            <span v-if="item.isparent" @click="toggle(item)"
-                                                  :class="prefix + '-row-expand-icon ' + prefix + '-row-' + item.vopen"></span>
+                                            <span :class="prefix + '-row-indent indent-level-' + item.level" :style="{'padding-left':item.paddingLeft}"></span>
+                                            <span v-if="item.isparent" @click="toggle(item,index)" :class="prefix + '-row-expand-icon ' + prefix + '-row-' + (item.vopen ? 'expanded' : 'collapsed')"></span>
                                         </template>
 
                                         <slot name="td" :content="item[column.field]" :item="item" :column="column"
@@ -404,18 +399,10 @@
                 type: Boolean,
                 default: false
             },
-            treeTableOption: {
+            treeOption: {
                 type: Object,
                 default() {
-                    return {
-                        idKey: "id",
-                        pidKey: "pid",
-                        indent: 4,
-                        position: 0,
-                        sortKey: null, //启用客户端节点排序，指定排序的字段
-                        order: "asc", //排序的顺序,
-                        isAsync: false
-                    };
+                    return {};
                 }
             }
         },
@@ -455,7 +442,7 @@
             }
         },
         created() {
-            //初始加载数据
+            //数据请求参数配置
             this.paramsName = Object.assign({}, {
                 pageNumber: 'pageNo',
                 pageSize: 'pageSize',
@@ -463,6 +450,19 @@
                 results: 'result',
                 sortColumns: 'sortColumns'
             }, this.responseParamsName);
+
+            //treetable配置项
+            this.treeTableOption = Object.assign({},{
+                idKey: "id",
+                pidKey: "pid",
+                indent: 4,
+                position: 0,
+                sortKey: null, //启用客户端节点排序，指定排序的字段
+                order: "asc", //排序的顺序,
+                isAsync: false,
+                loadChildren: null
+            },this.treeOption);
+
             this.getSortParams();
             this.loadData({pageNum: this.pageNumber});
 
@@ -593,7 +593,6 @@
                 var self = this;
                 self.loading = true;
                 //拼装请求参数
-//                const url = this.data;
                 const remoteParams = Object.assign({}, this.sortParams);
                 remoteParams[this.paramsName.pageNumber] = params.pageNum || self.pageNumber;
                 remoteParams[this.paramsName.pageSize] = params.pageSize || this.pageSizeT;
@@ -610,6 +609,7 @@
                 dataPromise.then((response) => {
                         this.initFlag = true;
                         if(!response) {
+                            self.loading = false;
                             return;
                         }
                         let results = response[self.paramsName.results];
@@ -840,8 +840,8 @@
                     obj['children'] = self.transTreeData(obj[TreeTableOpt.idKey]);
                     obj['level'] = self.getLevel(obj.id);
                     obj.vshow = (obj.level > 1 ? false : true);
-                    obj.vopen = (obj.level > 0 ? 'collapsed' : 'expanded');
-                    obj.paddingLeft = ((obj.level - 1) * 5 * self.treeTableOption.indent) + "px";
+                    obj.vopen = (obj.level > 0 ? false : true);
+                    obj.paddingLeft = ((obj.level - 1) * 12 * self.treeTableOption.indent) + "px";
                     results.push(obj);
                 }
                 TreeTableOpt.sortKey && results.sort(self.sortData);
@@ -911,32 +911,29 @@
              * @param item
              * @param isRecursion 是否递归，关闭节点时需要递归关闭子节点
              */
-            toggle(item) {
-                var self = this;
-
-                if (item.vopen == "collapsed") {
-                    this.expand(item);
-                } else if (item.vopen == "expanded") {
+            toggle(item,index) {
+                if (item.vopen == false) {
+                    this.expand(item,index);
+                } else if (item.vopen == true) {
                     this.collapse(item);
                 }
-
             },
             /**
              * 折叠或打开节点
              * @param item
              */
-            expand(item) {
+            expand(item,index) {
                 var self = this;
 
-//                if (self.treeTableOption.isAsync && !item.loadChildren) {
-//                    self.loadChildren(item);
-//                } else {
-//                    self.expandChildren(item);
-//                }
+                if (self.treeTableOption.isAsync && !item.childrenLoaded) {
+                    self.loadChildren(item,index);
+                } else {
+                    self.expandChildren(item);
+                }
             },
             collapse(item) {
                 var self = this;
-                item.vopen = "collapsed";
+                item.vopen = false;
                 var vshow = false;
 
                 var children = item.children || [];
@@ -948,66 +945,62 @@
                 }
                 this.calculateSize();
             },
-            expandChildren(item) {
-                var self = this;
-                item.vopen = "expanded";
+            expandChildren(parent) {
+                parent.vopen = true;
                 var vshow = true;
 
-                var children = item.children || [];
+                var children = parent.children || [];
                 for (var i = 0; i < children.length; i++) {
                     children[i].vshow = vshow;
                 }
-                this.calculateSize();
             },
-            loadChildren(item) {
+            loadChildren(parent,pIndex) {
+                if(!this.treeTableOption.loadChildren){
+                    console.error("datatable:treetable need loadChildren function");
+                    return;
+                }
+
                 var self = this;
                 self.loading = true;
                 //拼装请求参数
-                const url = this.data;
-                const remoteParams = Object.assign({parentid: item.id}, this.sortParams, this.otherParams);
+                const remoteParams = Object.assign({parentid: parent.id}, this.sortParams);
 
-                this.$http.post(url, remoteParams, {emulateJSON: true}).then((response) => {
-                    const data = response.body.data;
-                    let results = self.formatter ? self.formatter(data[self.paramsName.results]) : data[self.paramsName.results];
-
+                var childrenPromise = this.treeTableOption.loadChildren(remoteParams);
+                childrenPromise.then((response) => {
+                    let results = response[self.paramsName.results];
                     if (results.length) {
-                        item.loadChildren = true;
-                        item.children = self.transAsyncTreeData(results, item.level);
-//                        插入到父节点后面
-                        var pindex = self.current.findIndex(function (value, index, arr) {
-                                    return value.id == item.id;
-                                }) + 1;
+                        parent.childrenLoaded = true;
+                        parent.children = self.transAsyncTreeData(results, parent.level);
 
-                        if (pindex == 0) {
-                            return false;
-                        }
+                        var pindex = pIndex + 1;
 
-//                    向父节点后面插入子节点数据
+                        //向父节点后面插入子节点数据
                         var newCurrent = self.current.slice(0, pindex).concat(results, self.current.slice(pindex));
                         self.current = newCurrent;
 
-//                    向rowSelectionStates数组中插入子节点数据
+                        //向rowSelectionStates数组中插入子节点数据
                         var newRowSelectionStates = self.rowSelectionStates.slice(0, pindex).concat(new Array(results.length || 0).fill(false), self.rowSelectionStates.slice(pindex));
                         self.rowSelectionStates = newRowSelectionStates;
 
-                        self.expandChildren(item);
-
-                        self.loading = false;
+                        self.expandChildren(parent);
                     }
-                }, (response) => {
-                    // error callback
+                    self.loading = false;
+                },(response) => {
                     self.loading = false;
                 });
+
             },
             transAsyncTreeData(results, level) {
                 var self = this;
                 for (var i = 0; i < results.length; i++) {
                     var obj = results[i];
                     obj['level'] = level + 1;
-                    obj.vopen = 'collapsed';
+                    obj.vopen = false;
                     obj.vshow = true;
-                    obj.paddingLeft = ((obj.level - 1) * 5 * self.treeTableOption.indent) + "px";
+                    obj.paddingLeft = ((obj.level - 1) * 12 * self.treeTableOption.indent) + "px";
                 }
+
+                this.treeTableOption.sortKey && results.sort(self.sortData);
                 return results;
             }
         },

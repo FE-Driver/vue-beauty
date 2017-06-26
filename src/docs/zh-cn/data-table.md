@@ -34,6 +34,14 @@
                 checkAllMsg:null,
                 clickRowMsg:null,
                 mydata: [],
+                treeOption:{
+                    isAsync:true,
+                    loadChildren:function(pramas){
+                        return axios.get("static/static/children.json",pramas).then(res =>{
+                            return res.data;
+                        });
+                    }
+                }
             }
         },
         methods:{
@@ -165,13 +173,91 @@
 
 ::: demo
 <summary>
+  #### 树状表格
+  以树形结构显示的表格，需要开启`tree-table`属性，需要时还可配置`treeTableOption`。
+  树状表格支持客户端自动分层和服务器异步加载两种模式，默认使用的客户端自动分层模式（不支持两种模式混用），只需在返回数据中指定每行数据的id值和pid关系，组件会自动组织层级关系并进行显示。
+</summary>
+
+```html
+<v-data-table :data='loadData' :columns='columns' tree-table></v-data-table>
+
+<script>
+    import axios from 'axios'
+    export default {
+        data: function () {
+            return {
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
+                },
+                columns:[
+                    {title:"歌名",field:'name'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
+                ]
+            }
+        },
+        methods:{
+            
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
+  #### 异步树状表格
+  异步加载的树状，除了打开`tree-table`开关，还需要配置`treeOption`。其中的`isAsync`必须设置为`true`，还必须配置`loadChildren`函数（返回值为promise）。
+</summary>
+
+```html
+<v-data-table :data='loadData' :columns='columns' tree-table :tree-option='treeOption'></v-data-table>
+
+<script>
+    import axios from 'axios'
+    export default {
+        data: function () {
+            return {
+                loadData(pramas) {
+                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                        return res.data;
+                    });
+                },
+                columns:[
+                    {title:"歌名",field:'name'},
+                    {title:"时长",field:'time'},
+                    {title:"歌手",field:'singer'},
+                    {title:"专辑",field:'album'},
+                ],
+                treeOption:{
+                    isAsync:true,
+                    loadChildren:function(pramas){
+                        return axios.get("static/static/children.json",pramas).then(res =>{
+                            return res.data;
+                        });
+                    }
+                }
+        },
+        methods:{
+            
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
   #### 基本
   最基本用法，配置好data和columns即可。
 </summary>
 
 ```html
 <div style='height:300px;overflow: hidden;'>
-<v-data-table :data='loadData' :columns='columns'></v-data-table>
+    <v-data-table :data='loadData' :columns='columns'></v-data-table>
 </div>
 
 <script>
@@ -463,6 +549,8 @@
 | rowClickChecked | 点击表格行是否选中checkbox | Boolean | false |
 | fixedLeft | 左侧固定列数 | Number | 0 |
 | fixedRight | 右侧固定列数 | Number | 0 |
+| treeTable | 是否启用树状表格 | Boolean | false |
+| treeOption | 树状表格配置 | Object | {idKey: "id",pidKey: "pid",indent: 4,position: 0,sortKey: null, order: "asc",isAsync: false,loadChildren: null} |
 
 ### currentData与checked状态说明
 currentData返回当前表格数据，需要使用sync修饰符保持双向同步，在翻页、点击checkbox、点击全选按钮时会更新，其中包含每行的checked状态，具体对应字段为`vb_dt_checked`,获取方法为`currentData[index]['vb_dt_checked']`。
@@ -482,6 +570,25 @@ currentData返回当前表格数据，需要使用sync修饰符保持双向同�
 | sort | 是否排序 | Boolean | false |
 | width | 列宽 | 合法的CSS尺寸,如120px或5% | - |
 | className | 自定义类名 | String | - |
+
+
+### treeOption
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |---------- |-------- |
+| idKey | 数据项中的id主键名 | String | 'id' |
+| pidKey | 数据项中的pid主键名 | String | 'pid' |
+| indent | 子节点显示缩进距离(12px为1单位) | Number | 4 |
+| position | 折叠按钮显示列(以0开头，checkbox列不算) | Number | 0 |
+| sortKey | 数据排序字段（在客户端分层模式下，您可能需要对数据显示做排序） | String | '' |
+| order | 排序方式，配合sortKey使用 | 'asc'或'desc' | 'asc' |
+| isAsync | 是否异步加载子节点 | Boolean | false |
+| loadChildren | 加载子节点的函数，返回值必须是promise，该函数默认接收一个请求参数，参数构造请见loadChildren arguments | Function | null |
+
+### loadChildren arguments
+| 参数      | 说明          | 类型      | 默认值  |
+|---------- |-------------- |---------- |-------- |
+| parentid | parent id值 | Number | - |
+| sortColumns | 排序列 | 'field order field order' | false |
 
 ### th Slot Props
 | 参数      | 说明          | 类型      | 默认值  |
@@ -507,6 +614,7 @@ currentData返回当前表格数据，需要使用sync修饰符保持双向同�
 |---------- |-------------- |---------- |-------- |
 | total | 数据总条数 | Number | - |
 | pageNumber | 当前页数 | Number | - |
+
 
 ### Datatable Events
 | 事件        | 说明           | 参数        | 参数说明        |

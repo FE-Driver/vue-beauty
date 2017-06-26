@@ -1,0 +1,36 @@
+{
+    "result": [
+        {
+            "id": 101,
+            "name": "他大舅",
+            "time": "03:37",
+            "singer": "wyqbailey",
+            "album": "他大舅他二舅都是他舅",
+            "isparent":true
+        },
+        {
+            "id": 102,
+            "name": "他二舅",
+            "time": "03:37",
+            "singer": "wyqbailey",
+            "album": "他大舅他二舅都是他舅"
+        },
+        {
+            "id": 103,
+            "name": "他三舅",
+            "time": "03:37",
+            "singer": "wyqbailey",
+            "album": "他大舅他二舅都是他舅"
+        },
+        {
+            "id": 104,
+            "name": "他四舅",
+            "time": "03:37",
+            "singer": "wyqbailey",
+            "album": "他大舅他二舅都是他舅"
+        }
+    ],
+    "totalCount":15,
+    "pageSize":10,
+    "pageNo":1
+}
