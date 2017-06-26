@@ -104,7 +104,6 @@
                 type: Boolean,
                 default: false,
             },
-            change: Function,
         },
         data() {
             return {
@@ -181,11 +180,9 @@
 
             _setValue (value) {
                 if (value === this.relValue) return;
-                this.relValue = value
-                if ( this.change ) {
-                    this.change(value)
-                }
-                this.$emit('input', value)
+                this.relValue = value;
+                this.$emit('input', value);
+                this.$emit('change', value);
                 this.dispatch('FormItem', 'form.change', [value]);
             },
 
