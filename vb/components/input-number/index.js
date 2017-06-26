@@ -1,4 +1,4 @@
-import "./style/inputNumber.less"
-import vInputNumber from './input-number.vue'
+import './style/index.less';
+import inputNumber from './input-number';
 
-export default vInputNumber
+export default inputNumber;
