@@ -186,7 +186,9 @@
                 this.$emit('input', val);
                 this.dispatch('FormItem', 'form.change', [val]);
                 if (this.optionOnChange) {
-                    this.$emit('change', this.getOption(val));
+                    this.$nextTick(() => {
+                        this.$emit('change', this.getOption(val));
+                    });
                 } else {
                     this.$emit('change', val);
                 }
