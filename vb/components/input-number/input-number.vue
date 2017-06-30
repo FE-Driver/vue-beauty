@@ -180,7 +180,6 @@
             },
 
             _setValue (value) {
-                debugger
                 if (value === this.relValue) return;
                 this.relValue = value;
                 this.$emit('input', value);
