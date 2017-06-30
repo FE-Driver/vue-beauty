@@ -87,7 +87,7 @@
                 default: -Infinity,
             },
             size: String,
-            value: Number,
+            value: [Number, String],
             step: {
                 type: Number,
                 default: 1,
@@ -175,10 +175,12 @@
                 } else {
                     e.target.value = this.relValue;
                 }
-                this._setValue(event.target.value * 1);
+                let curValue = event.target.value === '' ?  event.target.value : (event.target.value * 1);
+                this._setValue(curValue);
             },
 
             _setValue (value) {
+                debugger
                 if (value === this.relValue) return;
                 this.relValue = value;
                 this.$emit('input', value);
@@ -201,11 +203,14 @@
             },
 
             _onBlur (e) {
-                if (e.target.value > this.max) {
-                    e.target.value = this.max;
-                } else if (e.target.value < this.min) {
-                    e.target.value = this.min;
+                if (e.target.value != '') {
+                    if (e.target.value > this.max) {
+                        e.target.value = this.max;
+                    } else if (e.target.value < this.min) {
+                        e.target.value = this.min;
+                    }
                 }
+
                 this.currentValue = e.target.value;
                 this.focused = false;
                 this.dispatch('FormItem', 'form.blur', [this.currentValue]);
@@ -237,7 +242,7 @@
 
             _up (e) {
                 if (this.upDisabledClass) {
-                    return
+                    return;
                 }
                 this._step('up', e)
             }
