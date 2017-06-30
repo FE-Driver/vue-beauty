@@ -189,7 +189,6 @@
 
             _onKeyDown(e) {
                 this.keyCode = e.keyCode;
-                e.target.value = this.currentValue;
                 if (e.keyCode === 38) {
                     this._up(e);
                 } else if (e.keyCode === 40) {
