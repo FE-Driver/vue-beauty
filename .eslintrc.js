@@ -48,5 +48,8 @@ module.exports = {
     'consistent-return': 0,
     'no-mixed-operators': 0,
     'no-return-assign': 0,
+    'max-len': 0,
+    'no-unused-expressions': 0,
+    'import/no-dynamic-require': 0,
   }
 }

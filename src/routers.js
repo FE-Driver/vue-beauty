@@ -4,206 +4,206 @@ export default [{
     redirect: '/components/button',
 }, {
     path: '/components',
-    component: require('./views/components.vue'),
+    component: resolve => require(['./views/components.vue'], resolve),
     children: [{
         path: 'start',
         name: 'start',
-        component: require('./docs/zh-cn/start.md'),
+        component: resolve => require(['./docs/zh-cn/start.md'], resolve),
     }, {
         path: 'contribute',
         name: 'contribute',
-        component: require('./docs/zh-cn/contribute.md'),
+        component: resolve => require(['./docs/zh-cn/contribute.md'], resolve),
     }, {
         path: 'polyfill',
         name: 'polyfill',
-        component: require('./docs/zh-cn/polyfill.md'),
+        component: resolve => require(['./docs/zh-cn/polyfill.md'], resolve),
     }, {
         path: 'css',
         name: 'css',
-        component: require('./docs/zh-cn/css.md'),
+        component: resolve => require(['./docs/zh-cn/css.md'], resolve),
     }, {
         path: 'tag',
         name: 'tag',
-        component: require('./docs/zh-cn/tag.md'),
+        component: resolve => require(['./docs/zh-cn/tag.md'], resolve),
     }, {
         path: 'tabs',
         name: 'tabs',
-        component: require('./docs/zh-cn/tabs.md'),
+        component: resolve => require(['./docs/zh-cn/tabs.md'], resolve),
     }, {
         path: 'alert',
         name: 'alert',
-        component: require('./docs/zh-cn/alert.md'),
+        component: resolve => require(['./docs/zh-cn/alert.md'], resolve),
     }, {
         path: 'breadcrumb',
         name: 'breadcrumb',
-        component: require('./docs/zh-cn/breadcrumb.md'),
+        component: resolve => require(['./docs/zh-cn/breadcrumb.md'], resolve),
     }, {
         path: 'input',
         name: 'input',
-        component: require('./docs/zh-cn/input.md'),
+        component: resolve => require(['./docs/zh-cn/input.md'], resolve),
     }, {
         path: 'inputNumber',
         name: 'inputNumber',
-        component: require('./docs/zh-cn/input-number.md'),
+        component: resolve => require(['./docs/zh-cn/input-number.md'], resolve),
     }, {
         path: 'cascader',
         name: 'cascader',
-        component: require('./docs/zh-cn/cascader.md'),
+        component: resolve => require(['./docs/zh-cn/cascader.md'], resolve),
     }, {
         path: 'collapse',
         name: 'collapse',
-        component: require('./docs/zh-cn/collapse.md'),
+        component: resolve => require(['./docs/zh-cn/collapse.md'], resolve),
     }, {
         path: 'button',
         name: 'button',
-        component: require('./docs/zh-cn/button.md'),
+        component: resolve => require(['./docs/zh-cn/button.md'], resolve),
     }, {
         path: 'icon',
         name: 'icon',
-        component: require('./docs/zh-cn/icon.md'),
+        component: resolve => require(['./docs/zh-cn/icon.md'], resolve),
     }, {
         path: 'badge',
         name: 'badge',
-        component: require('./docs/zh-cn/badge.md'),
+        component: resolve => require(['./docs/zh-cn/badge.md'], resolve),
     }, {
         path: 'menu',
         name: 'menu',
-        component: require('./docs/zh-cn/menu.md'),
+        component: resolve => require(['./docs/zh-cn/menu.md'], resolve),
     }, {
         path: 'dropdown',
         name: 'dropdown',
-        component: require('./docs/zh-cn/dropdown.md'),
+        component: resolve => require(['./docs/zh-cn/dropdown.md'], resolve),
     }, {
         path: 'grid',
         name: 'grid',
-        component: require('./docs/zh-cn/grid.md'),
+        component: resolve => require(['./docs/zh-cn/grid.md'], resolve),
     }, {
         path: 'layout',
         name: 'layout',
-        component: require('./docs/zh-cn/layout.md'),
+        component: resolve => require(['./docs/zh-cn/layout.md'], resolve),
     }, {
         path: 'affix',
         name: 'affix',
-        component: require('./docs/zh-cn/affix.md'),
+        component: resolve => require(['./docs/zh-cn/affix.md'], resolve),
     }, {
         path: 'backTop',
         name: 'backTop',
-        component: require('./docs/zh-cn/back-top.md'),
+        component: resolve => require(['./docs/zh-cn/back-top.md'], resolve),
     }, {
         path: 'steps',
         name: 'steps',
-        component: require('./docs/zh-cn/steps.md'),
+        component: resolve => require(['./docs/zh-cn/steps.md'], resolve),
     }, {
         path: 'card',
         name: 'card',
-        component: require('./docs/zh-cn/card.md'),
+        component: resolve => require(['./docs/zh-cn/card.md'], resolve),
     }, {
         path: 'switch',
         name: 'switch',
-        component: require('./docs/zh-cn/switch.md'),
+        component: resolve => require(['./docs/zh-cn/switch.md'], resolve),
     }, {
         path: 'timePicker',
         name: 'timePicker',
-        component: require('./docs/zh-cn/time-picker.md'),
+        component: resolve => require(['./docs/zh-cn/time-picker.md'], resolve),
     }, {
         path: 'datePicker',
         name: 'datePicker',
-        component: require('./docs/zh-cn/date-picker.md'),
+        component: resolve => require(['./docs/zh-cn/date-picker.md'], resolve),
     }, {
         path: 'pagination',
         name: 'pagination',
-        component: require('./docs/zh-cn/pagination.md'),
+        component: resolve => require(['./docs/zh-cn/pagination.md'], resolve),
     }, {
         path: 'message',
         name: 'message',
-        component: require('./docs/zh-cn/message.md'),
+        component: resolve => require(['./docs/zh-cn/message.md'], resolve),
     }, {
         path: 'modal',
         name: 'modal',
-        component: require('./docs/zh-cn/modal.md'),
+        component: resolve => require(['./docs/zh-cn/modal.md'], resolve),
     }, {
         path: 'notification',
         name: 'notification',
-        component: require('./docs/zh-cn/notification.md'),
+        component: resolve => require(['./docs/zh-cn/notification.md'], resolve),
     }, {
         path: 'morePanel',
         name: 'morePanel',
-        component: require('./docs/zh-cn/more-panel.md'),
+        component: resolve => require(['./docs/zh-cn/more-panel.md'], resolve),
     }, {
         path: 'select',
         name: 'select',
-        component: require('./docs/zh-cn/select.md'),
+        component: resolve => require(['./docs/zh-cn/select.md'], resolve),
     }, {
         path: 'slider',
         name: 'slider',
-        component: require('./docs/zh-cn/slider.md'),
+        component: resolve => require(['./docs/zh-cn/slider.md'], resolve),
     }, {
         path: 'rate',
         name: 'rate',
-        component: require('./docs/zh-cn/rate.md'),
+        component: resolve => require(['./docs/zh-cn/rate.md'], resolve),
     }, {
         path: 'spin',
         name: 'spin',
-        component: require('./docs/zh-cn/spin.md'),
+        component: resolve => require(['./docs/zh-cn/spin.md'], resolve),
     }, {
         path: 'radio',
         name: 'radio',
-        component: require('./docs/zh-cn/radio.md'),
+        component: resolve => require(['./docs/zh-cn/radio.md'], resolve),
     }, {
         path: 'checkbox',
         name: 'checkbox',
-        component: require('./docs/zh-cn/checkbox.md'),
+        component: resolve => require(['./docs/zh-cn/checkbox.md'], resolve),
     }, {
         path: 'upload',
         name: 'upload',
-        component: require('./docs/zh-cn/upload.md'),
+        component: resolve => require(['./docs/zh-cn/upload.md'], resolve),
     }, {
         path: 'tooltip',
         name: 'tooltip',
-        component: require('./docs/zh-cn/tooltip.md'),
+        component: resolve => require(['./docs/zh-cn/tooltip.md'], resolve),
     }, {
         path: 'form',
         name: 'form',
-        component: require('./docs/zh-cn/form.md'),
+        component: resolve => require(['./docs/zh-cn/form.md'], resolve),
     }, {
         path: 'tooltipd',
         name: 'tooltipd',
-        component: require('./docs/zh-cn/tooltipd.md'),
+        component: resolve => require(['./docs/zh-cn/tooltipd.md'], resolve),
     }, {
         path: 'dataTable',
         name: 'dataTable',
-        component: require('./docs/zh-cn/data-table.md'),
+        component: resolve => require(['./docs/zh-cn/data-table.md'], resolve),
     }, {
         path: 'tree',
         name: 'tree',
-        component: require('./docs/zh-cn/tree.md'),
+        component: resolve => require(['./docs/zh-cn/tree.md'], resolve),
     }, {
         path: 'progress',
         name: 'progress',
-        component: require('./docs/zh-cn/progress.md'),
+        component: resolve => require(['./docs/zh-cn/progress.md'], resolve),
     }, {
         path: 'popover',
         name: 'popover',
-        component: require('./docs/zh-cn/popover.md'),
+        component: resolve => require(['./docs/zh-cn/popover.md'], resolve),
     }, {
         path: 'popconfirm',
         name: 'popconfirm',
-        component: require('./docs/zh-cn/popconfirm.md'),
+        component: resolve => require(['./docs/zh-cn/popconfirm.md'], resolve),
     }, {
         path: 'transfer',
         name: 'transfer',
-        component: require('./docs/zh-cn/transfer.md'),
+        component: resolve => require(['./docs/zh-cn/transfer.md'], resolve),
     }, {
         path: 'timeline',
         name: 'timeline',
-        component: require('./docs/zh-cn/timeline.md'),
+        component: resolve => require(['./docs/zh-cn/timeline.md'], resolve),
     }, {
         path: 'carousel',
         name: 'carousel',
-        component: require('./docs/zh-cn/carousel.md'),
+        component: resolve => require(['./docs/zh-cn/carousel.md'], resolve),
     }, {
         path: 'treeSelect',
         name: 'treeSelect',
-        component: require('./docs/zh-cn/tree-select.md'),
+        component: resolve => require(['./docs/zh-cn/tree-select.md'], resolve),
     }],
 }];
