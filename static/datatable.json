@@ -1,0 +1,96 @@
+{
+    "result": [
+        {
+            "id": 1,
+            "pid": 0,
+            "name": "高级动物",
+            "time": "03:37",
+            "singer": "窦唯",
+            "album": "摇滚中国乐势力",
+            "isparent":true
+        },
+        {
+            "id": 2,
+            "pid": 0,
+            "name": "谁伴我闯荡 - (电影《Beyond日记》插曲)",
+            "time": "04:13",
+            "singer": "Beyond",
+            "album": "25周年精选"
+        },
+        {
+            "id": 3,
+            "pid": 0,
+            "name": "一无所有",
+            "time": "05:35",
+            "singer": "崔健",
+            "album": "一无所有"
+        },
+        {
+            "id": 4,
+            "pid": 0,
+            "name": "无地自容",
+            "time": "03:37",
+            "singer": "秦勇/南京交警组合",
+            "album": "梦想星搭档 第二季"
+        },
+        {
+            "id": 5,
+            "pid": 0,
+            "name": "我爱你亲爱的姑娘",
+            "time": "03:49",
+            "singer": "布衣乐队",
+            "album": "那么久"
+        },
+        {
+            "id": 6,
+            "pid": 0,
+            "name": "梦回唐朝",
+            "time": "07:11",
+            "singer": "唐朝",
+            "album": "中国大摇滚"
+        },
+        {
+            "id": 7,
+            "pid": 0,
+            "name": "无地自容MV",
+            "time": "05:40",
+            "singer": "黑豹乐队",
+            "album": "黑豹1"
+        },
+        {
+            "id": 8,
+            "pid": 1,
+            "name": "黄河谣",
+            "time": "05:57",
+            "singer": "野孩子",
+            "album": "黄河谣"
+        },
+        {
+            "id": 9,
+            "pid": 1,
+            "name": "兰州 兰州MV",
+            "time": "06:33",
+            "singer": "低苦艾",
+            "album": "兰州 兰州"
+        },
+        {
+            "id": 10,
+            "pid": 9,
+            "name": "再见杰克",
+            "time": "04:33",
+            "singer": "痛仰乐队",
+            "album": "不要停止我的音乐"
+        },
+        {
+            "id": 11,
+            "pid": 9,
+            "name": "钟鼓楼",
+            "time": "08:30",
+            "singer": "何勇",
+            "album": "摇滚中国乐势力"
+        }
+    ],
+    "totalCount":15,
+    "pageSize":10,
+    "pageNo":1
+}
