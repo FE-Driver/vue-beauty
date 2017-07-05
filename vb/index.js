@@ -178,6 +178,7 @@ export {
     slider,
     alert,
     icon,
+    dropdown,
     button,
     tabs,
     card,
