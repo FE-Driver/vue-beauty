@@ -32,13 +32,39 @@
         methods: {
             onMouseDown() {
                 if (this.disabled) return;
-                window.addEventListener('mouseup', this.onDragEnd);
+                let eventMask = document.querySelector('#v-slider-event-mask');
+                if (!eventMask) {
+                    eventMask = document.createElement('div');
+                    eventMask.id = 'v-slider-event-mask';
+                    eventMask.style.cssText = [
+                        'width:100%',
+                        'height:100%',
+                        'position:absolute',
+                        'z-index:1000',
+                        'top:0',
+                        'left:0',
+                        'cursor:pointer',
+                    ].join(';');
+                    document.body.appendChild(eventMask);
+                    eventMask.addEventListener('mouseup', this.onDragEnd);
+                } else {
+                    eventMask.style.display = 'block';
+                }
             },
 
             onDragEnd() {
                 if (this.$children[0]) this.$children[0].visible = false;
-                window.removeEventListener('mouseup', this.onDragEnd);
+                const eventMask = document.querySelector('#v-slider-event-mask');
+                if (eventMask) {
+                    eventMask.style.display = 'none';
+                }
             },
+        },
+        beforeDestroy() {
+            const eventMask = document.querySelector('#v-slider-event-mask');
+            if (eventMask) {
+                document.body.removeChild(eventMask);
+            }
         },
     };
 </script>
