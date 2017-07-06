@@ -20,14 +20,14 @@
         data() {
             return {
                 prefixCls: 'ant-col',
-            }
+            };
         },
         computed: {
-            classes () {
+            classes() {
                 const props = this;
                 const prefixCls = this.prefixCls;
                 let sizeClassObj = {};
-                ['xs', 'sm', 'md', 'lg'].forEach(size => {
+                ['xs', 'sm', 'md', 'lg'].forEach((size) => {
                     let sizeProps = {};
                     if (typeof props[size] === 'number') {
                         sizeProps.span = props[size];
@@ -49,9 +49,9 @@
                     this.push ? `${prefixCls}-push-${this.push}` : '',
                     this.pull ? `${prefixCls}-pull-${this.pull}` : '',
                     this.order ? `${prefixCls}-order-${this.order}` : '',
-                    sizeClassObj
-                ]
-            }
-        }
-    }
+                    sizeClassObj,
+                ];
+            },
+        },
+    };
 </script>
