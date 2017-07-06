@@ -728,3 +728,4 @@
 | onOk       | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭      | function         | -  |
 | onCancel   | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭       | function         | -   |
 | maskClosable | 点击蒙层是否允许关闭 | boolean   | false   |
+| modalStyle | 可用于设置浮层的样式，调整浮层位置等 | object   | - |

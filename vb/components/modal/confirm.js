@@ -1,6 +1,6 @@
-import vModal from './modal'
-import vIcon from '../icon'
-import vButton from '../button'
+import vModal from './modal';
+import vIcon from '../icon';
+import vButton from '../button';
 import Locale from '../../mixins/locale';
 
 export default function (config = {}) {
@@ -8,16 +8,17 @@ export default function (config = {}) {
         iconType: 'question-circle',
         width: 416,
         visible: false,
-        maskClosable: false
+        maskClosable: false,
+        modalStyle: {},
     }, config, {
         prefixCls: 'ant-confirm',
         okLoading: false,
-        cancelLoading: false
+        cancelLoading: false,
     });
 
     // 默认为 true，保持向下兼容
     if (!('okCancel' in props)) {
-        props.okCancel = true
+        props.okCancel = true;
     }
 
     let instance;
@@ -25,8 +26,8 @@ export default function (config = {}) {
     function _close() {
         instance.visible = false;
         setTimeout(() => {
-            instance.$destroy(true)
-        }, 350)
+            instance.$destroy(true);
+        }, 350);
     }
 
     const _Modal = this.extend({
@@ -40,6 +41,7 @@ export default function (config = {}) {
                         :mask-closable="maskClosable"
                         :has-footer="false"
                         :width="width"
+                        :modal-style = "modalStyle"
                         @cancel="_onCancel">
                     <div :class="prefixCls + '-body-wrapper'">
                         <div :class="prefixCls + '-body'">
@@ -91,21 +93,21 @@ export default function (config = {}) {
             },
 
             _onCancel () {
-                let cancelFn = this.onCancel;
+                const cancelFn = this.onCancel;
 
                 if (cancelFn) {
-                    let ret = cancelFn();
+                    const ret = cancelFn();
                     if (ret && ret.then) {
                         /* It's unnecessary to set loading=false, for the Modal will be unmounted after close. */
                         this.cancelLoading = true;
-                        ret.then(_close)
+                        ret.then(_close);
                     } else {
-                        _close()
+                        _close();
                     }
                 } else {
-                    _close()
+                    _close();
                 }
-            }
+            },
         },
         mounted() {
             instance = this;

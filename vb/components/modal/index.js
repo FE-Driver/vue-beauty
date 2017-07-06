@@ -1,24 +1,24 @@
-import "./style/index.less"
-import vModal from './modal.vue'
-import confirm from './confirm'
-import config from  '../../utils/config'
+import './style/index.less';
+import vModal from './modal';
+import confirm from './confirm';
+import globalConfig from '../../utils/config';
 
 vModal.install = function (Vue, prefix) {
-    prefix = prefix || config.componentNamePrefix;
+    prefix = prefix || globalConfig.componentNamePrefix;
     Vue.component(prefix + vModal.name, vModal);
     Vue.$modal = Vue.prototype.$modal = {
         confirm(props) {
             const config = Object.assign({
                 type: 'confirm',
-                okCancel: true
+                okCancel: true,
             }, props);
-            return confirm.call(Vue, config)
+            return confirm.call(Vue, config);
         },
         info(props) {
-            const config =  Object.assign({
+            const config = Object.assign({
                 type: 'info',
                 iconType: 'info-circle',
-                okCancel: false
+                okCancel: false,
             }, props);
             return confirm.call(Vue, config);
         },
@@ -26,27 +26,27 @@ vModal.install = function (Vue, prefix) {
             const config = Object.assign({
                 type: 'success',
                 iconType: 'check-circle',
-                okCancel: false
+                okCancel: false,
             }, props);
-            return confirm.call(Vue, config)
+            return confirm.call(Vue, config);
         },
         error(props) {
             const config = Object.assign({
                 type: 'error',
                 iconType: 'cross-circle',
-                okCancel: false
+                okCancel: false,
             }, props);
-            return confirm.call(Vue, config)
+            return confirm.call(Vue, config);
         },
         warning(props) {
             const config = Object.assign({
                 type: 'warning',
                 iconType: 'exclamation-circle',
-                okCancel: false
+                okCancel: false,
             }, props);
-            return confirm.call(Vue, config)
-        }
-    }
+            return confirm.call(Vue, config);
+        },
+    };
 };
 
-export default vModal
+export default vModal;

@@ -26,9 +26,8 @@
     </v-dialog>
 </template>
 <script lang="babel">
-    import KeyCode from '../../utils/key-code'
-    import vDialog from './dialog'
-    import vButton from '../button'
+    import vDialog from './dialog';
+    import vButton from '../button';
     import Locale from '../../mixins/locale';
 
     let mousePosition;
@@ -36,94 +35,94 @@
     document.addEventListener('click', (e) => {
         mousePosition = {
             x: e.pageX,
-            y: e.pageY
+            y: e.pageY,
         };
-        setTimeout(() => mousePosition = null, 20)
+        setTimeout(() => mousePosition = null, 20);
     }, true);
 
     export default {
         name: 'Modal',
-        mixins: [ Locale ],
+        mixins: [Locale],
         props: {
             visible: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             confirmLoading: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             title: String,
             closable: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             width: {
                 type: Number,
-                default: 520
+                default: 520,
             },
             okText: {
-                type: String
+                type: String,
             },
             cancelText: {
-                type: String
+                type: String,
             },
             maskClosable: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             prefixCls: {
                 type: String,
-                default: 'ant-modal'
+                default: 'ant-modal',
             },
             modalStyle: {
                 type: Object,
                 default() {
                     return {};
-                }
+                },
             },
             hasFooter: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             wrapClassName: String,
             hasMask: {
                 type: Boolean,
-                default: true
+                default: true,
             },
         },
 
         data() {
             return {
-                mousePosition: {}
-            }
+                mousePosition: {},
+            };
         },
 
         computed: {
-            localeOkText () {
+            localeOkText() {
                 return this.okText || this.t('modal.okText');
             },
-            localeCancelText () {
+            localeCancelText() {
                 return this.cancelText || this.t('modal.cancelText');
-            }
+            },
         },
 
         watch: {
             visible() {
                 this.mousePosition = mousePosition;
-            }
+            },
         },
 
         methods: {
-            _handleCancel () {
-                this.$emit("cancel")
+            _handleCancel() {
+                this.$emit('cancel');
             },
 
-            _handleOk () {
-                this.$emit("ok")
-            }
+            _handleOk() {
+                this.$emit('ok');
+            },
         },
 
-        components: {vDialog, vButton},
-    }
+        components: { vDialog, vButton },
+    };
 </script>
