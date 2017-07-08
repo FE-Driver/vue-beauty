@@ -11,18 +11,14 @@
                                     @click="checkAllChange" :indeterminate="checkIndeterminate"></v-checkbox>
                     </th>
                     <template v-for="(column,cindex) in columns">
-                        <th :class="column.className">
+                        <th :class="column.className" @click="column.sort && sort(column)" :style="{cursor:column.sort?'pointer':'text'}">
                             <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                 {{column.title}}
                             </slot>
                             <template v-if="column.sort">
                                 <div :class="prefix + '-column-sorter'">
-                                        <span @click="sort(column,'asc')"
-                                              :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
-                                              title="↑"><v-icon type="caret-up"></v-icon></span>
-                                    <span @click="sort(column,'desc')"
-                                          :class="prefix + '-column-sorter-down '+ (column.sort == 'desc' ? 'on' : 'off')"
-                                          title="↓"><v-icon type="caret-down"></v-icon></span>
+                                    <span @click="sort(column,'asc')" :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')" title="↑"><v-icon type="caret-up"></v-icon></span>
+                                    <span @click="sort(column,'desc')" :class="prefix + '-column-sorter-down '+ (column.sort == 'desc' ? 'on' : 'off')" title="↓"><v-icon type="caret-down"></v-icon></span>
                                 </div>
                             </template>
                         </th>
@@ -45,7 +41,7 @@
                             </th>
 
                             <template v-for="(column,cindex) in columns">
-                                <th :style="{width:column.width}" :class="column.className">
+                                <th :style="{width:column.width,cursor:column.sort?'pointer':'text'}" :class="column.className" @click="column.sort && sort(column)">
                                     <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
@@ -68,8 +64,7 @@
                         <template v-for="(item,index) in current">
                             <tr v-show="!treeTable || item.vshow" @click="clickRow(index)" @mouseover="hoverRow(index)" :class="getRowClass(index)">
                                 <td v-if="checkType" :class="prefix + '-selection-column'">
-                                    <v-checkbox v-model="item['vb_dt_checked']"
-                                                @click.native.stop="rowSelectionChange(index)"></v-checkbox>
+                                    <v-checkbox v-show="!treeTable || item.level ==1" v-model="item['vb_dt_checked']" @click.native.stop="rowSelectionChange(index)"></v-checkbox>
                                 </td>
                                 <td v-for="(column,cindex) in columns">
                                     <template v-if="treeTable && cindex==treeTableOption.position">
@@ -213,7 +208,7 @@
                             </th>
 
                             <template v-for="(column,cindex) in columns">
-                                <th style="display:inline-block;overflow:hidden" v-if="cindex < fixedLeft" :class="column.className">
+                                <th style="display:inline-block;overflow:hidden" v-if="cindex < fixedLeft" :class="column.className" @click="column.sort && sort(column)" :style="{cursor:column.sort?'pointer':'text'}">
                                     <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
@@ -244,7 +239,7 @@
                         <thead :class="prefix + '-thead'">
                         <tr>
                             <template v-for="(column,cindex) in columns">
-                                <th style="display:inline-block;overflow:hidden" v-if="cindex >= columns.length - fixedRight" :class="column.className">
+                                <th style="display:inline-block;overflow:hidden" v-if="cindex >= columns.length - fixedRight" :class="column.className" @click="column.sort && sort(column)"  :style="{cursor:column.sort?'pointer':'text'}">
                                     <slot name="th" :title="column.title" :column="column" :cindex="cindex">
                                         {{column.title}}
                                     </slot>
@@ -546,6 +541,19 @@
             },
 //            单参数排序模式
             setCurrentSort(sortColumn, order) {
+                if(!order){
+                    switch (sortColumn.sort) {
+                        case 'asc' :
+                            order = 'desc';
+                            break;
+                        case 'desc':
+                            order = true;
+                            break;
+                        default:
+                            order = 'asc';
+                            break;
+                    }
+                }
 
                 for (var column of this.columns) {
                     if (typeof column.sort == 'string') {
@@ -556,7 +564,9 @@
                 this.currentSort = sortColumn;
                 sortColumn.sort = order;
                 var sortParams = {};
-                sortParams[this.paramsName.sortColumns] = `${sortColumn.field} ${sortColumn.sort} `;
+                if(order == 'asc' || order == 'desc'){
+                    sortParams[this.paramsName.sortColumns] = `${sortColumn.field} ${sortColumn.sort} `;
+                }
                 this.sortParams = sortParams;
             },
             setSortParams(sortColumn, order) {
@@ -1042,6 +1052,7 @@
             },
             current(){
                 this.$nextTick(() => {
+                    this.$refs.content.scrollLeft = 0;
                     this.calculateSize();
                 });
             },
