@@ -204,8 +204,14 @@
                 if (e.target.value != '') {
                     if (e.target.value > this.max) {
                         e.target.value = this.max;
+                        this.$emit('input', e.target.value);
+                        this.$emit('change', e.target.value);
+                        this.dispatch('FormItem', 'form.change', [e.target.value]);
                     } else if (e.target.value < this.min) {
                         e.target.value = this.min;
+                        this.$emit('input', e.target.value);
+                        this.$emit('change', e.target.value);
+                        this.dispatch('FormItem', 'form.change', [e.target.value]);
                     }
                 }
 
