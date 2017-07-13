@@ -211,9 +211,9 @@ async-validator@^1.7.1:
   dependencies:
     babel-runtime "6.x"
 
-async@^2.1.2:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/async/-/async-2.4.0.tgz#4990200f18ea5b837c2cc4f8c031a6985c385611"
+async@^2.1.2, async@^2.4.1:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
     lodash "^4.14.0"
 
@@ -232,15 +232,15 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-autoprefixer@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-7.1.1.tgz#97bc854c7d0b979f8d6489de547a0d17fb307f6d"
+autoprefixer@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-7.1.2.tgz#fbeaf07d48fd878e0682bf7cbeeade728adb2b18"
   dependencies:
-    browserslist "^2.1.3"
-    caniuse-lite "^1.0.30000670"
+    browserslist "^2.1.5"
+    caniuse-lite "^1.0.30000697"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
-    postcss "^6.0.1"
+    postcss "^6.0.6"
     postcss-value-parser "^3.2.3"
 
 aws-sign2@~0.6.0:
@@ -719,9 +719,9 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-preset-env@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.npmjs.org/babel-preset-env/-/babel-preset-env-1.5.2.tgz#cd4ae90a6e94b709f97374b33e5f8b983556adef"
+babel-preset-env@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/babel-preset-env/-/babel-preset-env-1.6.0.tgz#2de1c782a780a0a5d605d199c957596da43c44e4"
   dependencies:
     babel-plugin-check-es2015-constants "^6.22.0"
     babel-plugin-syntax-trailing-function-commas "^6.22.0"
@@ -956,12 +956,12 @@ browserslist@^1.3.6, browserslist@^1.5.2, browserslist@^1.7.6:
     caniuse-db "^1.0.30000639"
     electron-to-chromium "^1.2.7"
 
-browserslist@^2.1.2, browserslist@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.npmjs.org/browserslist/-/browserslist-2.1.3.tgz#302dc8e5e44f3d5937850868aab13e11cac3dbc7"
+browserslist@^2.1.2, browserslist@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.npmjs.org/browserslist/-/browserslist-2.1.5.tgz#e882550df3d1cd6d481c1a3e0038f2baf13a4711"
   dependencies:
-    caniuse-lite "^1.0.30000670"
-    electron-to-chromium "^1.3.11"
+    caniuse-lite "^1.0.30000684"
+    electron-to-chromium "^1.3.14"
 
 buffer-shims@~1.0.0:
   version "1.0.0"
@@ -1029,9 +1029,9 @@ caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
   version "1.0.30000670"
   resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000670.tgz#90d33b79e3090e25829c311113c56d6b1788bf43"
 
-caniuse-lite@^1.0.30000670:
-  version "1.0.30000670"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000670.tgz#c94f7dbf0b68eaadc46d3d203f46e82e7801135e"
+caniuse-lite@^1.0.30000684, caniuse-lite@^1.0.30000697:
+  version "1.0.30000700"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000700.tgz#6084871ec75c6fa62327de97622514f95d9db26a"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1539,12 +1539,6 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
 
-debug@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
-  dependencies:
-    ms "0.7.1"
-
 debug@2.6.7:
   version "2.6.7"
   resolved "https://registry.npmjs.org/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
@@ -1575,9 +1569,9 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.npmjs.org/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
-deepmerge@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-1.4.4.tgz#40ef393c91af09d16a887e755337844230ad14c9"
+deepmerge@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-1.5.0.tgz#00bc5b88fd23b8130f9f5049071c3420e07a5465"
 
 defined@^1.0.0:
   version "1.0.0"
@@ -1733,9 +1727,9 @@ ejs@^2.5.6:
   version "2.5.6"
   resolved "https://registry.npmjs.org/ejs/-/ejs-2.5.6.tgz#479636bfa3fe3b1debd52087f0acb204b4f19c88"
 
-electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.11:
-  version "1.3.11"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.11.tgz#744761df1d67b492b322ce9aa0aba5393260eb61"
+electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.14:
+  version "1.3.15"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.15.tgz#08397934891cbcfaebbd18b82a95b5a481138369"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -1757,9 +1751,9 @@ encodeurl@~1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.1.tgz#79e3d58655346909fe6f0f45a5de68103b294d20"
 
-enhanced-resolve@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-3.1.0.tgz#9f4b626f577245edcf4b2ad83d86e17f4f421dec"
+enhanced-resolve@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-3.3.0.tgz#950964ecc7f0332a42321b673b38dc8ff15535b3"
   dependencies:
     graceful-fs "^4.1.2"
     memory-fs "^0.4.0"
@@ -1917,9 +1911,9 @@ eslint-import-resolver-webpack@^0.8.3:
     resolve "^1.2.0"
     semver "^5.3.0"
 
-eslint-loader@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.npmjs.org/eslint-loader/-/eslint-loader-1.8.0.tgz#8261f08cca4bd2ea263b77733e93cf0f21e20aa9"
+eslint-loader@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/eslint-loader/-/eslint-loader-1.9.0.tgz#7e1be9feddca328d3dcfaef1ad49d5beffe83a13"
   dependencies:
     loader-fs-cache "^1.0.0"
     loader-utils "^1.0.2"
@@ -1927,11 +1921,11 @@ eslint-loader@^1.8.0:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-module-utils@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/eslint-module-utils/-/eslint-module-utils-2.0.0.tgz#a6f8c21d901358759cdc35dbac1982ae1ee58bce"
+eslint-module-utils@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/eslint-module-utils/-/eslint-module-utils-2.1.1.tgz#abaec824177613b8a95b299639e1b6facf473449"
   dependencies:
-    debug "2.2.0"
+    debug "^2.6.8"
     pkg-dir "^1.0.0"
 
 eslint-plugin-html@^2.0.3:
@@ -1940,16 +1934,16 @@ eslint-plugin-html@^2.0.3:
   dependencies:
     htmlparser2 "^3.8.2"
 
-eslint-plugin-import@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.6.1.tgz#f580be62bb809421d46e338372764afcc9f59bf6"
+eslint-plugin-import@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.7.0.tgz#21de33380b9efb55f5ef6d2e210ec0e07e7fa69f"
   dependencies:
     builtin-modules "^1.1.1"
     contains-path "^0.1.0"
     debug "^2.6.8"
     doctrine "1.5.0"
     eslint-import-resolver-node "^0.3.1"
-    eslint-module-utils "^2.0.0"
+    eslint-module-utils "^2.1.1"
     has "^1.0.1"
     lodash.cond "^4.3.0"
     minimatch "^3.0.3"
@@ -2139,12 +2133,12 @@ extglob@^0.3.1:
   dependencies:
     is-extglob "^1.0.0"
 
-extract-text-webpack-plugin@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/extract-text-webpack-plugin/-/extract-text-webpack-plugin-2.1.2.tgz#756ef4efa8155c3681833fbc34da53b941746d6c"
+extract-text-webpack-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/extract-text-webpack-plugin/-/extract-text-webpack-plugin-3.0.0.tgz#90caa7907bc449f335005e3ac7532b41b00de612"
   dependencies:
-    async "^2.1.2"
-    loader-utils "^1.0.2"
+    async "^2.4.1"
+    loader-utils "^1.1.0"
     schema-utils "^0.3.0"
     webpack-sources "^1.0.1"
 
@@ -3068,9 +3062,9 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-less-loader@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.npmjs.org/less-loader/-/less-loader-4.0.4.tgz#b4a8c43843e65c67d2ea2eb1465b5c4233d5006a"
+less-loader@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.npmjs.org/less-loader/-/less-loader-4.0.5.tgz#ae155a7406cac6acd293d785587fcff0f478c4dd"
   dependencies:
     clone "^2.1.1"
     loader-utils "^1.1.0"
@@ -3435,10 +3429,6 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
-
-ms@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
 ms@0.7.3:
   version "0.7.3"
@@ -4142,7 +4132,7 @@ postcss-zindex@^2.0.1:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.2, postcss@^5.0.21, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.16:
+postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.16:
   version "5.2.17"
   resolved "https://registry.npmjs.org/postcss/-/postcss-5.2.17.tgz#cf4f597b864d65c8a492b2eabe9d706c879c388b"
   dependencies:
@@ -4151,13 +4141,13 @@ postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
-postcss@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/postcss/-/postcss-6.0.1.tgz#000dbd1f8eef217aa368b9a212c5fc40b2a8f3f2"
+postcss@^6.0.1, postcss@^6.0.6:
+  version "6.0.6"
+  resolved "https://registry.npmjs.org/postcss/-/postcss-6.0.6.tgz#bba4d58e884fc78c840d1539e10eddaabb8f73bd"
   dependencies:
-    chalk "^1.1.3"
+    chalk "^2.0.1"
     source-map "^0.5.6"
-    supports-color "^3.2.3"
+    supports-color "^4.1.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -4831,7 +4821,7 @@ supports-color@^3.1.0, supports-color@^3.2.3:
   dependencies:
     has-flag "^1.0.0"
 
-supports-color@^4.0.0:
+supports-color@^4.0.0, supports-color@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/supports-color/-/supports-color-4.1.0.tgz#92cc14bb3dad8928ca5656c33e19a19f20af5c7a"
   dependencies:
@@ -5001,7 +4991,7 @@ uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
 
-uglifyjs-webpack-plugin@^0.4.4:
+uglifyjs-webpack-plugin@^0.4.6:
   version "0.4.6"
   resolved "https://registry.npmjs.org/uglifyjs-webpack-plugin/-/uglifyjs-webpack-plugin-0.4.6.tgz#b951f4abb6bd617e66f63eb891498e391763e309"
   dependencies:
@@ -5124,23 +5114,23 @@ vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
 
-vue-loader@^12.2.1:
-  version "12.2.1"
-  resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-12.2.1.tgz#53f27c0973d386768f5a75156f4129b5efc6ba55"
+vue-loader@^13.0.1:
+  version "13.0.1"
+  resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-13.0.1.tgz#265b5c81451079304601e8aff3e95af64fb10c43"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
     js-beautify "^1.6.3"
     loader-utils "^1.1.0"
     lru-cache "^4.0.1"
-    postcss "^5.0.21"
+    postcss "^6.0.1"
     postcss-load-config "^1.1.0"
     postcss-selector-parser "^2.0.0"
     resolve "^1.3.3"
     source-map "^0.5.6"
     vue-hot-reload-api "^2.1.0"
     vue-style-loader "^3.0.0"
-    vue-template-es2015-compiler "^1.2.2"
+    vue-template-es2015-compiler "^1.5.3"
 
 vue-markdown-loader@^1.0.0:
   version "1.0.0"
@@ -5162,20 +5152,20 @@ vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.3.4:
-  version "2.3.4"
-  resolved "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.3.4.tgz#5a88ac2c5e4d5d6218e6aa80e7e221fb7e67894c"
+vue-template-compiler@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.4.1.tgz#20115cf8714f222f9be4111ec75b079a1c9b8197"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue-template-es2015-compiler@^1.2.2:
+vue-template-es2015-compiler@^1.5.3:
   version "1.5.3"
   resolved "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.3.tgz#22787de4e37ebd9339b74223bc467d1adee30545"
 
-vue@^2.3.4:
-  version "2.3.4"
-  resolved "https://registry.npmjs.org/vue/-/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"
+vue@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.npmjs.org/vue/-/vue-2.4.1.tgz#76e0b8eee614613532216b7bfe784e0b5695b160"
 
 watchpack@^1.3.1:
   version "1.3.1"
@@ -5214,9 +5204,9 @@ webpack-dev-middleware@^1.11.0:
     path-is-absolute "^1.0.0"
     range-parser "^1.0.3"
 
-webpack-hot-middleware@^2.18.0:
-  version "2.18.0"
-  resolved "https://registry.npmjs.org/webpack-hot-middleware/-/webpack-hot-middleware-2.18.0.tgz#a16bb535b83a6ac94a78ac5ebce4f3059e8274d3"
+webpack-hot-middleware@^2.18.2:
+  version "2.18.2"
+  resolved "https://registry.npmjs.org/webpack-hot-middleware/-/webpack-hot-middleware-2.18.2.tgz#84dee643f037c3d59c9de142548430371aa8d3b2"
   dependencies:
     ansi-html "0.0.7"
     html-entities "^1.2.0"
@@ -5243,16 +5233,16 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.5.3"
 
-webpack@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/webpack/-/webpack-3.0.0.tgz#ee9bcebf21247f7153cb410168cab45e3a59d4d7"
+webpack@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/webpack/-/webpack-3.2.0.tgz#8b0cae0e1a9fd76bfbf0eab61a8c2ada848c312f"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
     ajv "^5.1.5"
     ajv-keywords "^2.0.0"
     async "^2.1.2"
-    enhanced-resolve "^3.0.0"
+    enhanced-resolve "^3.3.0"
     escope "^3.6.0"
     interpret "^1.0.0"
     json-loader "^0.5.4"
@@ -5265,7 +5255,7 @@ webpack@^3.0.0:
     source-map "^0.5.3"
     supports-color "^3.1.0"
     tapable "~0.2.5"
-    uglifyjs-webpack-plugin "^0.4.4"
+    uglifyjs-webpack-plugin "^0.4.6"
     watchpack "^1.3.1"
     webpack-sources "^1.0.1"
     yargs "^6.0.0"

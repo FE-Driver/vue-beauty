@@ -5,7 +5,7 @@
             <i v-if="clearable&&label" @click.stop="clear" class="anticon anticon-cross-circle ant-calendar-picker-clear"></i>
             <span class="ant-calendar-picker-icon"></span>
         </span>
-        <transition :name="bottomSpace >= 0 ? 'slide-up' : 'slide-down'">
+        <transition :name="bottomSpace <0 ? 'slide-up' : 'slide-down'">
             <div class="ant-calendar-picker-container" :class="{'ant-calendar-picker-container-placement-bottomLeft':left}" v-show="show" tabindex="-1" @blur="show = false" @mousedown="$event.preventDefault()" @keyup.up="changeMonth(-1,1)" @click.stop @keyup.down="changeMonth(1,1)" @keyup.left="changeYear(-1,1)" @keyup.right="changeYear(1,1)" :style="containerStyle" ref="container">
                 <div :class="[prefix,{[prefix+'-range']:range},{[prefix+'-time']:showTime || range}]">
                     <div class="ant-calendar-top" v-if="range">
@@ -309,8 +309,15 @@
 
                 const p = getOffset(this.$el, this.container);
                 const pickerHeight = this.$refs.container.offsetHeight;
-                this.bottomSpace = this.container.getBoundingClientRect().bottom - (p.bottom + pickerHeight);
-                const top = this.bottomSpace >= 0 ? p.bottom + 4 : p.top - pickerHeight - 4;
+                let containerHeight;
+
+                if (this.container === document.body) {
+                    containerHeight = window.innerHeight;
+                } else {
+                    containerHeight = this.container.offsetHeight;
+                }
+                this.bottomSpace = p.bottom + pickerHeight - containerHeight;
+                const top = this.bottomSpace > 0 ? p.top - pickerHeight - 4 : p.bottom + 4;
 
                 this.containerStyle = {
                     top: `${top}px`,
