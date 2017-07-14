@@ -17,3 +17,8 @@ vue-beauty使用了很多ES的最新语法进行开发，以下实例方法您�
 - trimStart
 - trimEnd
 - at
+## DOM collections
+- values
+- keys
+- entries
+- iterator
