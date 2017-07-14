@@ -99,6 +99,53 @@
     #components-layout-demo-responsive .ant-layout-sider-collapsed .nav-text {
         display: none;
     }
+
+    /* Browser mockup code
+     * Contribute: https://gist.github.com/jarthod/8719db9fef8deb937f4f
+     * Live example: https://updown.io
+     */
+
+    .browser-mockup {
+      border-top: 2em solid rgba(230, 230, 230, 0.7);
+      box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+      position: relative;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .browser-mockup:before {
+      display: block;
+      position: absolute;
+      content: '';
+      top: -1.25em;
+      left: 1em;
+      width: 0.5em;
+      height: 0.5em;
+      border-radius: 50%;
+      background-color: #f44;
+      box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+    }
+
+    .browser-mockup.with-url:after {
+      display: block;
+      position: absolute;
+      content: '';
+      top: -1.6em;
+      left: 5.5em;
+      width: calc(100% - 6em);
+      height: 1.2em;
+      border-radius: 2px;
+      background-color: white;
+    }
+
+    .browser-mockup > * {
+      display: block;
+    }
+
+    .browser-content {
+        position: relative;
+        width: 100%;
+        height: 360px;
+    }
 </style>
 <script>
     export default {
@@ -349,6 +396,7 @@
 <summary>
   #### 上下中布局
   最基本的『上-中-下』布局。
+  一般主导航放置于页面的顶端，从左自右依次为：logo、一级导航项、辅助菜单（用户、设置、通知等）。通常将内容放在固定尺寸（例如：1200px）内，整个页面排版稳定，不受用户终端显示器影响；上下级的结构符合用户上下浏览的习惯，也是较为经典的网站导航模式。页面上下切分的方式提高了主工作区域的信息展示效率，但在纵向空间上会有一些牺牲。此外，由于导航栏水平空间的限制，不适合那些一级导航项很多的信息结构。
 </summary>
 
 ```html
@@ -607,7 +655,8 @@
 ::: demo
 <summary>
   #### 侧边布局
-  多用在两列式布局。
+  侧边两列式布局。页面横向空间有限时，侧边导航可收起。
+  侧边导航在页面布局上采用的是左右的结构，一般主导航放置于页面的左侧固定位置，辅助菜单放置于工作区顶部。内容根据浏览器终端进行自适应，能提高横向空间的使用率，但是整个页面排版不稳定。侧边导航的模式层级扩展性强，一、二、三级导航项目可以更为顺畅且具关联性的被展示，同时侧边导航可以固定，使得用户在操作和浏览中可以快速的定位和切换当前位置，有很高的操作效率。但这类导航横向页面内容的空间会被牺牲一部份。
 </summary>
 
 ```html
@@ -874,6 +923,106 @@
                 },{
                     name: 'nav 3',
                     icon: 'upload'
+                }]
+            }
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
+  #### 固定头部
+  一般用于固定顶部导航，方便页面切换。
+</summary>
+
+```html
+<template>
+    <div class="browser-mockup with-url">
+        <iframe class="browser-content" src="/#/demo/layout-fixed" frameborder="0"></iframe>
+    </div>
+</template>
+
+<style>
+    #components-layout-demo-fixed .logo {
+        width: 120px;
+        height: 31px;
+        background: #333;
+        border-radius: 6px;
+        margin: 16px 24px 16px 0;
+        float: left;
+    }
+</style>
+<script>
+    export default {
+        data() {
+            return {
+                menuData6: [{
+                    name: 'nav 1'
+                },{
+                    name: 'nav 2',
+                    selected: true
+                },{
+                    name: 'nav 3'
+                }]
+            }
+        }
+    }
+</script>
+```
+:::
+
+::: demo
+<summary>
+  #### 固定侧边栏
+  当内容较长时，使用固定侧边栏可以提供更好的体验。
+</summary>
+
+```html
+<template>
+    <div class="browser-mockup with-url">
+        <iframe class="browser-content" src="/#/demo/layout-fixed-sider" frameborder="0"></iframe>
+    </div>
+</template>
+
+<style>
+    #components-layout-demo-fixed-sider .logo {
+        height: 32px;
+        background: #333;
+        border-radius: 6px;
+        margin: 16px;
+    }
+</style>
+<script>
+    export default {
+        data() {
+            return {
+                menuData7: [{
+                    name: 'nav 1',
+                    icon: 'user',
+                }, {
+                    name: 'nav 2',
+                    icon: 'video-camera',
+                }, {
+                    name: 'nav 3',
+                    icon: 'upload',
+                }, {
+                    name: 'nav 4',
+                    icon: 'bar-chart',
+                    selected: true,
+                }, {
+                    name: 'nav 5',
+                    icon: 'cloud-o',
+                }, {
+                    name: 'nav 6',
+                    icon: 'appstore-o',
+                }, {
+                    name: 'nav 7',
+                    icon: 'team',
+                }, {
+                    name: 'nav 8',
+                    icon: 'shop',
                 }]
             }
         }

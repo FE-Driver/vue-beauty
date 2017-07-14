@@ -206,4 +206,12 @@ export default [{
         name: 'treeSelect',
         component: resolve => require(['./docs/zh-cn/tree-select.md'], resolve),
     }],
+}, {
+    path: '/demo/layout-fixed',
+    name: 'demo-layout-fixed',
+    component: resolve => require(['./views/layout-fixed.vue'], resolve),
+}, {
+    path: '/demo/layout-fixed-sider',
+    name: 'demo-layout-fixed-sider',
+    component: resolve => require(['./views/layout-fixed-sider.vue'], resolve),
 }];

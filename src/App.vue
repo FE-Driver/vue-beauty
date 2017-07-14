@@ -1,6 +1,5 @@
 <template>
     <div class="page-wrapper">
-
         <header class="clearfix">
             <div class="ant-row">
                 <div class="ant-col-xs-24 ant-col-sm-7 ant-col-md-6 ant-col-lg-4">
@@ -8,28 +7,18 @@
                             alt="logo" src="./assets/VB-logo.png"><span>Vue Beauty</span></a>
                 </div>
             </div>
-
             <div class="nav  ant-col-xs-0 ant-col-sm-17 ant-col-md-18 ant-col-lg-20">
-
             </div>
         </header>
-
         <router-view keep-alive></router-view>
-
     </div>
-
 </template>
 
 <script>
-
-export default {
-}
-
-
+    export default {}
 </script>
 
 <style scoped lang="less">
-
     header {
         transition: opacity .5s;
         background: #fff;
@@ -60,5 +49,4 @@ export default {
             color: #666;
         }
     }
-
 </style>

@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   flex: auto;
-  overflow: auto;
   background: @layout-body-background;
 
   &&-has-sider {
@@ -34,13 +33,14 @@
 
   &-content {
     flex: auto;
-    overflow: auto;
   }
 
   &-sider {
     transition: all .3s @ease-out;
     position: relative;
     background: @layout-sider-background;
+    /* fix firefox can't set width smaller than content on flex item */
+    min-width: 0;
 
     &-has-trigger {
       padding-bottom: @layout-trigger-height;
