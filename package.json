@@ -1,6 +1,6 @@
 {
   "name": "vue-beauty",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "Ant Design components built with Vue.js",
   "author": "G7:FE-driver",
   "main": "package/vue-beauty.min.js",
@@ -89,7 +89,7 @@
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.4.1",
     "webpack": "^3.2.0",
-    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-bundle-analyzer": "^2.8.3",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
