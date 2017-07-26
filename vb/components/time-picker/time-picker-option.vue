@@ -9,21 +9,21 @@
                 <div :class="prefix+'-select'">
                     <ul @mouseover="createSelection($refs.timePickerPanel, 0, 2)">
                         <template v-for="index in 24">
-                            <li v-if="showLi(index, 'H')" @click="timePicker('H', $event)" :class="selectedCls(H, index, 'H')" v-text="(index<11?'0':'')+(index-1)"></li>
+                            <li v-if="showLi(index-1, 'H')" @click="timePicker('H', $event)" :class="selectedCls(H, index-1, 'H')" v-text="(index<11?'0':'')+(index-1)"></li>
                         </template>
                     </ul>
                 </div>
                 <div :class="prefix+'-select'">
                     <ul @mouseover="createSelection($refs.timePickerPanel, 3, 5)">
                         <template v-for="index in 60">
-                            <li v-if="showLi(index, 'M')" @click="timePicker('M', $event)" :class="selectedCls(M, index, 'M')" v-text="(index<11?'0':'')+(index-1)"></li>
+                            <li v-if="showLi(index-1, 'M')" @click="timePicker('M', $event)" :class="selectedCls(M, index-1, 'M')" v-text="(index<11?'0':'')+(index-1)"></li>
                         </template>
                     </ul>
                 </div>
                 <div :class="prefix+'-select'" v-if="hasSeconds">
                     <ul @mouseover="createSelection($refs.timePickerPanel, 6, 8)">
                         <template v-for="index in 60">
-                            <li v-if="showLi(index, 'S')" @click="timePicker('S', $event)" :class="selectedCls(S, index, 'S')" v-text="(index<11?'0':'')+(index-1)"></li>
+                            <li v-if="showLi(index-1, 'S')" @click="timePicker('S', $event)" :class="selectedCls(S, index-1, 'S')" v-text="(index<11?'0':'')+(index-1)"></li>
                         </template>
                     </ul>
                 </div>
@@ -101,8 +101,11 @@
                 }
             },
             defaultValue (val){
-                this.$emit('input',val)
-            }
+                this.$emit('input',val);
+            },
+            value() {
+                this.defaultValue = this.value;
+            },
         },
         methods: {
             timePicker (type, e){

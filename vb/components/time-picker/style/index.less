@@ -5,7 +5,6 @@
 @timepicker-prefix-cls: ~"@{ant-prefix}-time-picker";
 
 .@{timepicker-prefix-cls}-panel {
-  max-width: @time-picker-panel-width;
   z-index: @zindex-picker;
   position: absolute;
 
@@ -38,7 +37,7 @@
       box-sizing: border-box;
       position: relative;
       padding: 6px;
-      border-bottom: 1px solid @border-color-split;
+      border-bottom: @border-width-base @border-style-base @border-color-split;
     }
 
     &-invalid {
@@ -80,7 +79,7 @@
   &-select {
     float: left;
     font-size: @font-size-base;
-    border-left: 1px solid @border-color-split;
+    border-left: @border-width-base @border-style-base @border-color-split;
     box-sizing: border-box;
     width: @time-picker-panel-column-width;
     overflow: hidden;
@@ -108,7 +107,7 @@
       list-style: none;
       box-sizing: border-box;
       margin: 0;
-      padding: 0 0 120px 0;
+      padding: 0 0 120px;
       width: 100%;
     }
 
@@ -116,23 +115,26 @@
       list-style: none;
       box-sizing: content-box;
       margin: 0;
-      padding: 0 0 0 16px;
+      padding: 0 0 0 8px;
       width: 100%;
       height: 24px;
       line-height: 24px;
       text-align: left;
       cursor: pointer;
       user-select: none;
-      transition: background 0.3s ease;
+      transition: background 0.3s;
     }
 
     li:hover {
-      background: @primary-1;
+      background: @item-hover-bg;
     }
 
     li&-option-selected {
-      background: @background-color-base;
+      background: @time-picker-selected-bg;
       font-weight: bold;
+      &:hover {
+        background: @time-picker-selected-bg;
+      }
     }
 
     li&-option-disabled {
@@ -150,7 +152,7 @@
 
   &-addon {
     padding: 8px;
-    border-top: 1px solid @border-color-split;
+    border-top: @border-width-base @border-style-base @border-color-split;
   }
 
   &.slide-up-enter.slide-up-enter-active&-placement-topLeft,
@@ -188,6 +190,9 @@
 
   &-input {
     .input;
+    &[disabled] {
+      .disabled;
+    }
   }
 
   &-large &-input {

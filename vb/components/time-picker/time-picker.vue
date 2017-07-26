@@ -97,7 +97,10 @@
             defaultValue(val){
                 this.$emit('input',val)
                 this.dispatch('FormItem', 'form.change', [val]);
-            }
+            },
+            value() {
+                this.defaultValue = this.value;
+            },
         },
         methods: {
             optionClose (){
