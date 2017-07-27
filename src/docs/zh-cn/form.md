@@ -588,7 +588,7 @@ export default {
 ```html
 <template>
     <v-form direction="horizontal" :model="dynamicValidateForm" ref="dynamicValidateForm">
-        <v-form-item label="邮箱" :label-col="labelCol" :wrapper-col="wrapperCol" prop="email" has-feedback
+        <v-form-item label="邮箱" :label-col="labelCol" :wrapper-col="wrapperCol" prop="email"
             :rules="[
                 { required: true, message: '请输入邮箱地址', trigger: 'blur' },
                 { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
@@ -596,7 +596,7 @@ export default {
         >
             <v-input size="large" v-model="dynamicValidateForm.email"></v-input>
         </v-form-item>
-        <v-form-item :label-col="labelCol" :wrapper-col="wrapperCol" has-feedback
+        <v-form-item :label-col="labelCol" :wrapper-col="wrapperCol"
             v-for="(domain, index) in dynamicValidateForm.domains"
             :label="'域名' + index"
             :key="domain.key"
