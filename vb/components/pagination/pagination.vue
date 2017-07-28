@@ -204,13 +204,15 @@
             },
         },
         created() {
-            this.totalText = this.showTotal && this.showTotal(this.total, this.allPages);
             this.options = this.pageSizeOptions.map(item => ({
                 value: item,
                 label: `${item}条/页`,
             }));
         },
         computed: {
+            totalText() {
+                return this.showTotal && this.showTotal(this.total, this.allPages);
+            },
             allPages() {
                 return Math.ceil(this.total / this.currentPageSize);
             },
