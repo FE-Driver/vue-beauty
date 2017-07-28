@@ -7,11 +7,10 @@
       "regenerator": true
     }]
   ],
-  "comments": false,
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul" ]
+      "plugins": ["istanbul"]
     }
   }
 }

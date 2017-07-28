@@ -6,6 +6,7 @@
   "main": "package/vue-beauty.min.js",
   "scripts": {
     "dev": "node build/dev-server.js",
+    "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
     "package:dev": "webpack --config build/webpack.package.dev.config.js",
@@ -66,7 +67,6 @@
     "file-loader": "^0.11.2",
     "formidable": "^1.1.1",
     "friendly-errors-webpack-plugin": "^1.6.1",
-    "function-bind": "^1.1.0",
     "highlight.js": "^9.12.0",
     "html-webpack-plugin": "^2.29.0",
     "http-proxy-middleware": "^0.17.4",
@@ -85,7 +85,7 @@
     "url-loader": "^0.5.9",
     "vue": "^2.4.2",
     "vue-loader": "^13.0.2",
-    "vue-markdown-loader": "^1.0.0",
+    "vue-markdown-loader": "^2.0.0",
     "vue-router": "^2.7.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.4.2",
@@ -98,10 +98,5 @@
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  }
 }

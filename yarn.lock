@@ -2376,7 +2376,7 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-function-bind@^1.0.2, function-bind@^1.1.0:
+function-bind@^1.0.2:
   version "1.1.0"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
 
@@ -5162,9 +5162,9 @@ vue-loader@^13.0.2:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.5.3"
 
-vue-markdown-loader@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/vue-markdown-loader/-/vue-markdown-loader-1.0.0.tgz#255a2608e388991faa354618e4f4b642ebb7e0db"
+vue-markdown-loader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/vue-markdown-loader/-/vue-markdown-loader-2.0.0.tgz#d3cadbf9c8976a81f2d5e39496d505fd4f31bc96"
   dependencies:
     cheerio "^0.20.0"
     highlight.js "^9.4.0"
