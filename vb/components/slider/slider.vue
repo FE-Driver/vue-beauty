@@ -49,7 +49,7 @@
 </template>
 
 <script lang="babel">
-    import _ from 'lodash';
+    import isEmpty from 'lodash/isEmpty';
     import Pathway from './track';
     import Handle from './handle';
     import Dots from './dots';
@@ -166,7 +166,7 @@
             sliderClasses() {
                 return [
                     this.prefixCls,
-                    { [`${this.prefixCls}-with-marks`]: !_.isEmpty(this.marks) },
+                    { [`${this.prefixCls}-with-marks`]: !isEmpty(this.marks) },
                     { [`${this.prefixCls}-disabled`]: this.disabled },
                     { [this.className]: !!this.className },
                 ];
