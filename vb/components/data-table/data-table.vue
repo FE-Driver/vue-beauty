@@ -17,8 +17,8 @@
                             </slot>
                             <template v-if="column.sort">
                                 <div :class="prefix + '-column-sorter'">
-                                    <span @click="sort(column,'asc')" :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')" title="↑"><v-icon type="caret-up"></v-icon></span>
-                                    <span @click="sort(column,'desc')" :class="prefix + '-column-sorter-down '+ (column.sort == 'desc' ? 'on' : 'off')" title="↓"><v-icon type="caret-down"></v-icon></span>
+                                    <span @click.stop="sort(column,'asc')" :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')" title="↑"><v-icon type="caret-up"></v-icon></span>
+                                    <span @click.stop="sort(column,'desc')" :class="prefix + '-column-sorter-down '+ (column.sort == 'desc' ? 'on' : 'off')" title="↓"><v-icon type="caret-down"></v-icon></span>
                                 </div>
                             </template>
                         </th>
@@ -47,10 +47,10 @@
                                     </slot>
                                     <template v-if="column.sort">
                                         <div :class="prefix + '-column-sorter'">
-                                            <span @click="sort(column,'asc')"
+                                            <span @click.stop="sort(column,'asc')"
                                                   :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
                                                   title="↑"><v-icon type="caret-up"></v-icon></span>
-                                            <span @click="sort(column,'desc')"
+                                            <span @click.stop="sort(column,'desc')"
                                                   :class="prefix + '-column-sorter-down ' + (column.sort == 'desc' ? 'on' : 'off')"
                                                   title="↓"><v-icon type="caret-down"></v-icon></span>
                                         </div>
@@ -214,10 +214,10 @@
                                     </slot>
                                     <template v-if="column.sort">
                                         <div :class="prefix + '-column-sorter'">
-                                            <span @click="sort(column,'asc')"
+                                            <span @click.stop="sort(column,'asc')"
                                                   :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
                                                   title="↑"><v-icon type="caret-up"></v-icon></span>
-                                            <span @click="sort(column,'desc')"
+                                            <span @click.stop="sort(column,'desc')"
                                                   :class="prefix + '-column-sorter-down ' + (column.sort == 'desc' ? 'on' : 'off')"
                                                   title="↓"><v-icon type="caret-down"></v-icon></span>
                                         </div>
@@ -245,10 +245,10 @@
                                     </slot>
                                     <template v-if="column.sort">
                                         <div :class="prefix + '-column-sorter'">
-                                            <span @click="sort(column,'asc')"
+                                            <span @click.stop="sort(column,'asc')"
                                                   :class="prefix + '-column-sorter-up ' + (column.sort == 'asc' ? 'on' : 'off')"
                                                   title="↑"><v-icon type="caret-up"></v-icon></span>
-                                            <span @click="sort(column,'desc')"
+                                            <span @click.stop="sort(column,'desc')"
                                                   :class="prefix + '-column-sorter-down ' + (column.sort == 'desc' ? 'on' : 'off')"
                                                   title="↓"><v-icon type="caret-down"></v-icon></span>
                                         </div>
