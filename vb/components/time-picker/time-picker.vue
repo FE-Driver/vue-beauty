@@ -12,6 +12,7 @@
 </template>
 
 <script lang="babel">
+    import format from 'date-fns/format';
     import { t } from '../../locale';
     import emitter from '../../mixins/emitter';
     import timePickerOption from './time-picker-option';
@@ -101,6 +102,17 @@
             value() {
                 this.defaultValue = this.value;
             },
+            selected(val) {
+                if (val) {
+                    this.$nextTick(() => {
+                        this.setPosition();
+                    });
+                    this.$refs.timePickerOption.defaultValue = this.defaultValue;
+                } else if (this.defaultValue) {
+                    const newDate = new Date(`2017-08-08 ${this.defaultValue}`);
+                    this.defaultValue = format(newDate, 'HH:mm:ss');
+                }
+            },
         },
         methods: {
             optionClose() {
@@ -108,11 +120,6 @@
             },
             toggleDropdown() {
                 this.selected = !this.selected;
-                if (this.selected) {
-                    this.$nextTick(() => {
-                        this.setPosition();
-                    });
-                }
             },
             setPosition() {
                 if (!this.$el) return;

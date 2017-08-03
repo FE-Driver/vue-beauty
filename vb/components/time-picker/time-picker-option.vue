@@ -100,8 +100,21 @@
                     this.createSelection(this.$refs.timePickerPanel);
                 }
             },
-            defaultValue(val) {
-                this.$emit('input', val);
+            defaultValue(newVal) {
+                const newDate = new Date(`2017-08-08 ${newVal}`);
+                if (newDate.getTime()) {
+                    this.$emit('input', newVal);
+                    const tArr = newVal.split(':');
+                    if (tArr[2]) this.S = tArr[2];
+                    if (tArr[0]) this.H = tArr[0];
+                    if (tArr[1]) this.M = tArr[1];
+                    this.$nextTick(() => {
+                        const t = document.getElementsByClassName(`${this.prefix}-select-option-selected`);
+                        for (const i in t) {
+                            this.setScrollTop(t[i]);
+                        }
+                    });
+                }
             },
             value() {
                 this.defaultValue = this.value;

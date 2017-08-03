@@ -34,6 +34,7 @@
   "dependencies": {
     "async-validator": "^1.7.1",
     "core-js": "^2.4.1",
+    "date-fns": "^1.28.5",
     "deepmerge": "^1.5.0",
     "lodash": "^4.17.4",
     "popper.js": "^0.6.4"
