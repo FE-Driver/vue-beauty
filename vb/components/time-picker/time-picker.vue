@@ -47,7 +47,10 @@
                 default: 'absolute',
             },
             size: String,
-            format: String,
+            format: {
+                type: String,
+                default: 'HH:mm:ss',
+            },
             disabled: Boolean,
             value: {
                 type: String,
@@ -110,7 +113,7 @@
                     this.$refs.timePickerOption.defaultValue = this.defaultValue;
                 } else if (this.defaultValue) {
                     const newDate = new Date(`2017-08-08 ${this.defaultValue}`);
-                    this.defaultValue = format(newDate, 'HH:mm:ss');
+                    this.defaultValue = format(newDate, this.format);
                 }
             },
         },
