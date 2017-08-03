@@ -68,7 +68,7 @@
     "formidable": "^1.1.1",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "highlight.js": "^9.12.0",
-    "html-webpack-plugin": "^2.29.0",
+    "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.4",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
@@ -91,7 +91,7 @@
     "vue-template-compiler": "^2.4.2",
     "webpack": "^3.4.1",
     "webpack-bundle-analyzer": "^2.8.3",
-    "webpack-dev-middleware": "^1.11.0",
+    "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
   },
