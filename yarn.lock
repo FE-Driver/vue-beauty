@@ -3361,9 +3361,9 @@ markdown-it@^6.0.5:
     mdurl "~1.0.1"
     uc.micro "^1.0.1"
 
-markdown-it@^8.3.1:
-  version "8.3.1"
-  resolved "https://registry.npmjs.org/markdown-it/-/markdown-it-8.3.1.tgz#2f4b622948ccdc193d66f3ca2d43125ac4ac7323"
+markdown-it@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.npmjs.org/markdown-it/-/markdown-it-8.3.2.tgz#df4b86530d17c3bc9beec3b68d770b92ea17ae96"
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"

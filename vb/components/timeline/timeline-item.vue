@@ -14,8 +14,6 @@
       name: 'TimelineItem',
       data: () => ({
           prefixCls: 'ant-timeline',
-          isLastItem: false,
-          pending: false,
           dot: false,
       }),
       props: {
@@ -26,11 +24,7 @@
       },
       computed: {
           itemClassName() {
-              return [
-                  `${this.prefixCls}-item`,
-                  { [`${this.prefixCls}-item-last`]: this.isLastItem },
-                  { [`${this.prefixCls}-item-pending`]: this.pending },
-              ];
+              return `${this.prefixCls}-item`;
           },
           dotClassName() {
               return [
