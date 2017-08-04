@@ -36,6 +36,8 @@
                             this.$children[lastIndex + 1].pending = true;
                         }
                         break;
+                    } else {
+                        child.isLastItem = false;
                     }
                 }
             },
