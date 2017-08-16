@@ -37,6 +37,9 @@
 ```html
 <template>
     <v-alert type="success" message="成功提示的文案"></v-alert>
+    <v-alert type="success">
+        成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍成功提示的辅助性文字介绍
+    </v-alert>
 </template>
 ```
 :::
@@ -124,7 +127,6 @@
 ### Alert Props
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| **title** | 标题，**必选参数** | String | — | — |
 | type | 主题 | String | success/warning/info/error | info |
 | description | 辅助性文字 | String | — | — |
 | closable | 是否可关闭 | Boolean | — | true |

@@ -1,10 +1,10 @@
 <template>
-    <div :class="[prefixCls, prefixCls + '-' + type, description ? prefixCls + '-with-description' : '', !showIcon ? prefixCls + '-no-icon' : '']"
+    <div :class="[prefixCls, prefixCls + '-' + type, $slots.default || description ? prefixCls + '-with-description' : '', !showIcon ? prefixCls + '-no-icon' : '']"
          transition="bounce">
         <i :class="[prefixCls + '-icon', 'anticon', 'anticon-'+iconClass]"
            v-if="showIcon"></i>
         <span :class="prefixCls + '-message'">{{ message }}</span>
-        <span :class="prefixCls + '-description'">{{ description }}</span>
+        <span :class="prefixCls + '-description'"><slot>{{ description }}</slot></span>
         <a :class="prefixCls + '-close-icon'"
            v-if="closable "
            @click="handleClose ">
@@ -32,64 +32,54 @@
         props: {
             type: {
                 type: String,
-                require: true,
-                default: 'info'
+                default: 'info',
             },
             closable: {
                 type: Boolean,
-                default: false
+                default: false,
             },
-            closeText: {
-                type: String,
-                require: false
-            },
-            message: {
-                type: String,
-                require: true
-            },
-            description: {
-                type: String,
-                require: false
-            },
+            closeText: String,
+            message: String,
+            description: String,
             showIcon: {
                 type: Boolean,
-                default: false
-            }
+                default: false,
+            },
         },
-        data () {
+        data() {
             return {
                 prefixCls: 'ant-alert',
-            }
+            };
         },
         computed: {
-            iconClass(){
-                var iconClass = ''
+            iconClass() {
+                let iconClass = '';
                 switch (this.type) {
                     case 'success':
-                        iconClass = 'check-circle'
-                        break
+                        iconClass = 'check-circle';
+                        break;
                     case 'info':
-                        iconClass = 'info-circle'
-                        break
+                        iconClass = 'info-circle';
+                        break;
                     case 'warning':
-                        iconClass = 'exclamation-circle'
-                        break
+                        iconClass = 'exclamation-circle';
+                        break;
                     case 'error':
-                        iconClass = 'cross-circle'
-                        break
+                        iconClass = 'cross-circle';
+                        break;
+                    default:
                 }
-                if (this.description) {
-                    iconClass += '-o'
+                if (this.description || this.$slots.default) {
+                    iconClass += '-o';
                 }
-                return iconClass
+                return iconClass;
             },
         },
         methods: {
-            handleClose (e) {
-                this.$el.remove()
-                this.$emit("close");
+            handleClose() {
+                this.$el.remove();
+                this.$emit('close');
             },
-        }
-    }
-
+        },
+    };
 </script>
