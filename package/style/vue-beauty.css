@@ -1,4 +1,7 @@
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -12,14 +15,13 @@
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -507,6 +509,7 @@ h4,
 h5,
 h6 {
   color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
 }
 a {
   color: #108ee9;
@@ -1690,7 +1693,6 @@ samp {
 .fade-enter-active {
   animation-duration: 0.2s;
   animation-name: antFadeIn;
-  pointer-events: none;
 }
 .fade-leave-active {
   animation-duration: 0.2s;
@@ -1724,7 +1726,6 @@ samp {
 .move-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveUpIn;
-  pointer-events: none;
 }
 .move-up-leave-active {
   animation-duration: 0.2s;
@@ -1742,7 +1743,6 @@ samp {
 .move-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveDownIn;
-  pointer-events: none;
 }
 .move-down-leave-active {
   animation-duration: 0.2s;
@@ -1760,7 +1760,6 @@ samp {
 .move-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveLeftIn;
-  pointer-events: none;
 }
 .move-left-leave-active {
   animation-duration: 0.2s;
@@ -1778,7 +1777,6 @@ samp {
 .move-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveRightIn;
-  pointer-events: none;
 }
 .move-right-leave-active {
   animation-duration: 0.2s;
@@ -1902,7 +1900,6 @@ samp {
 .slide-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideUpIn;
-  pointer-events: none;
 }
 .slide-up-leave-active {
   animation-duration: 0.2s;
@@ -1920,7 +1917,6 @@ samp {
 .slide-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideDownIn;
-  pointer-events: none;
 }
 .slide-down-leave-active {
   animation-duration: 0.2s;
@@ -1938,7 +1934,6 @@ samp {
 .slide-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideLeftIn;
-  pointer-events: none;
 }
 .slide-left-leave-active {
   animation-duration: 0.2s;
@@ -1956,7 +1951,6 @@ samp {
 .slide-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideRightIn;
-  pointer-events: none;
 }
 .slide-right-leave-active {
   animation-duration: 0.2s;
@@ -2099,7 +2093,6 @@ samp {
 .zoom-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomIn;
-  pointer-events: none;
 }
 .zoom-leave-active {
   animation-duration: 0.2s;
@@ -2117,7 +2110,6 @@ samp {
 .zoom-big-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomBigIn;
-  pointer-events: none;
 }
 .zoom-big-leave-active {
   animation-duration: 0.2s;
@@ -2135,7 +2127,6 @@ samp {
 .zoom-big-fast-enter-active {
   animation-duration: 0.1s;
   animation-name: antZoomBigIn;
-  pointer-events: none;
 }
 .zoom-big-fast-leave-active {
   animation-duration: 0.1s;
@@ -2153,7 +2144,6 @@ samp {
 .zoom-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomUpIn;
-  pointer-events: none;
 }
 .zoom-up-leave-active {
   animation-duration: 0.2s;
@@ -2171,7 +2161,6 @@ samp {
 .zoom-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomDownIn;
-  pointer-events: none;
 }
 .zoom-down-leave-active {
   animation-duration: 0.2s;
@@ -2189,7 +2178,6 @@ samp {
 .zoom-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomLeftIn;
-  pointer-events: none;
 }
 .zoom-left-leave-active {
   animation-duration: 0.2s;
@@ -2207,7 +2195,6 @@ samp {
 .zoom-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomRightIn;
-  pointer-events: none;
 }
 .zoom-right-leave-active {
   animation-duration: 0.2s;
@@ -2351,23 +2338,25 @@ samp {
   overflow: hidden;
 }
 .ant-motion-collapse-active {
-  transition: height .12s, opacity .12s !important;
+  transition: height 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-alert {
   position: relative;
   padding: 8px 48px 8px 38px;
   border-radius: 4px;
   color: rgba(0, 0, 0, 0.65);
   font-size: 12px;
-  line-height: 16px;
-  margin-bottom: 10px;
+  line-height: 1.5;
 }
 .ant-alert.ant-alert-no-icon {
   padding: 8px 48px 8px 16px;
 }
 .ant-alert-icon {
   font-size: 14px;
-  top: 9.5px;
+  top: 10px;
   left: 16px;
   position: absolute;
 }
@@ -2429,7 +2418,6 @@ samp {
   padding: 16px 16px 16px 60px;
   position: relative;
   border-radius: 4px;
-  margin-bottom: 10px;
   color: rgba(0, 0, 0, 0.65);
   line-height: 1.5;
 }
@@ -2499,6 +2487,9 @@ samp {
     transform: scaleY(0);
   }
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-breadcrumb {
   color: rgba(0, 0, 0, 0.43);
   font-size: 12px;
@@ -2524,7 +2515,10 @@ samp {
 .ant-breadcrumb-link > .anticon + span {
   margin-left: 4px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -2538,14 +2532,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-btn {
   display: inline-block;
   margin-bottom: 0;
@@ -3926,6 +3919,9 @@ samp {
 .ant-btn-group > .ant-btn {
   float: left;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-card {
   background: #fff;
   border-radius: 2px;
@@ -3985,7 +3981,10 @@ samp {
     background-position: 100% 50%;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -3999,14 +3998,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-rate {
   margin: 0;
   padding: 0;
@@ -4069,7 +4067,10 @@ samp {
   display: inline-block;
   font-size: 12px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -4083,14 +4084,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-slider {
   position: relative;
   margin: 10px 6px;
@@ -4242,7 +4242,10 @@ samp {
 .ant-slider-disabled .ant-slider-dot {
   cursor: not-allowed !important;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -4256,14 +4259,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-tooltip {
   position: absolute;
   z-index: 1060;
@@ -4381,7 +4383,10 @@ samp {
 .ant-tooltip-placement-bottomRight .ant-tooltip-arrow {
   right: 16px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -4395,14 +4400,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-menu {
   outline: none;
   margin-bottom: 0;
@@ -4873,7 +4877,10 @@ samp {
 .ant-menu-dark .ant-menu-submenu-disabled > .ant-menu-submenu-title {
   color: rgba(255, 255, 255, 0.35) !important;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -4887,14 +4894,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-dropdown {
   position: absolute;
   left: -9999px;
@@ -5144,10 +5150,16 @@ samp {
   background: #108ee9;
   color: #fff;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-affix {
   position: fixed;
   z-index: 10;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-back-top {
   z-index: 10;
   position: fixed;
@@ -5174,7 +5186,10 @@ samp {
   font-size: 20px;
   margin-top: 10px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -5188,14 +5203,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-steps {
   font-size: 0;
   width: 100%;
@@ -5492,7 +5506,10 @@ samp {
   padding-left: 10px;
   margin-left: -10px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -5506,14 +5523,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-pagination {
   font-size: 12px;
 }
@@ -5719,14 +5735,14 @@ samp {
   width: 50px;
 }
 .ant-pagination-options-quick-jumper input::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-pagination-options-quick-jumper input:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-pagination-options-quick-jumper input::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-pagination-options-quick-jumper input:hover {
   border-color: #49a9ee;
@@ -5833,7 +5849,10 @@ textarea.ant-pagination-options-quick-jumper input {
     display: none;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -5847,14 +5866,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-select {
   box-sizing: border-box;
   display: inline-block;
@@ -6062,7 +6080,7 @@ textarea.ant-pagination-options-quick-jumper input {
   top: 50%;
   left: 0;
   right: 9px;
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   line-height: 20px;
   height: 20px;
   max-width: 100%;
@@ -6070,6 +6088,7 @@ textarea.ant-pagination-options-quick-jumper input {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: left;
 }
 .ant-select-search__field__placeholder {
   left: 8px;
@@ -6077,6 +6096,7 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-select-search--inline {
   position: absolute;
   height: 100%;
+  width: 100%;
 }
 .ant-select-selection--multiple .ant-select-search--inline {
   float: left;
@@ -6125,8 +6145,10 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-select-selection--multiple .ant-select-search--inline {
   width: auto;
   padding: 0;
+  max-width: 100%;
 }
 .ant-select-selection--multiple .ant-select-search--inline .ant-select-search__field {
+  max-width: 100%;
   width: 0.75em;
 }
 .ant-select-selection--multiple .ant-select-selection__rendered {
@@ -6378,7 +6400,10 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-select-dropdown-open .ant-select-dropdown {
   display: block;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -6392,14 +6417,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-tag {
   display: inline-block;
   line-height: 20px;
@@ -6573,7 +6597,10 @@ textarea.ant-pagination-options-quick-jumper input {
   border-color: #7265e6;
   color: #fff;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -6587,14 +6614,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-switch {
   position: relative;
   display: inline-block;
@@ -6695,7 +6721,10 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-switch-disabled .ant-switch-inner {
   color: rgba(0, 0, 0, 0.25);
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -6709,14 +6738,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-row {
   position: relative;
   margin-left: 0;
@@ -9241,7 +9269,10 @@ textarea.ant-pagination-options-quick-jumper input {
     order: 0;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -9255,14 +9286,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-layout {
   display: flex;
   flex-direction: column;
@@ -9335,7 +9365,10 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-layout-sider-zero-width-trigger:hover {
   background: #535353;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -9349,14 +9382,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-spin {
   color: #108ee9;
   vertical-align: middle;
@@ -9518,7 +9550,10 @@ textarea.ant-pagination-options-quick-jumper input {
     transform: rotate(405deg);
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -9532,14 +9567,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-cascader {
   font-size: 12px;
 }
@@ -9743,6 +9777,9 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-cascader-menu-item .ant-cascader-menu-item-keyword {
   color: #f04134;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-badge {
   position: relative;
   display: inline-block;
@@ -9886,7 +9923,10 @@ textarea.ant-pagination-options-quick-jumper input {
     transform: scale(0) translateX(-50%);
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -9900,14 +9940,13 @@ textarea.ant-pagination-options-quick-jumper input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-input-search-icon {
   cursor: pointer;
   transition: all .3s;
@@ -10213,14 +10252,14 @@ textarea.ant-pagination-options-quick-jumper input {
   transition: all .3s;
 }
 .ant-input::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-input:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-input::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-input:hover {
   border-color: #49a9ee;
@@ -10460,7 +10499,10 @@ textarea.ant-input {
 .ant-input-affix-wrapper .ant-input {
   min-height: 100%;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -10474,14 +10516,13 @@ textarea.ant-input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-input-number {
   position: relative;
   padding: 4px 7px;
@@ -10502,14 +10543,14 @@ textarea.ant-input {
   width: 80px;
 }
 .ant-input-number::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-input-number:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-input-number::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-input-number:hover {
   border-color: #49a9ee;
@@ -10630,14 +10671,14 @@ textarea.ant-input-number {
   padding: 0 7px;
 }
 .ant-input-number-input::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-input-number-input:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-input-number-input::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-input-number-input[disabled] {
   background-color: #f7f7f7;
@@ -10732,7 +10773,10 @@ textarea.ant-input-number {
   color: #ccc !important;
   cursor: not-allowed;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -10746,16 +10790,14 @@ textarea.ant-input-number {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-time-picker-panel {
-  max-width: 168px;
   z-index: 1050;
   position: absolute;
 }
@@ -10850,21 +10892,21 @@ textarea.ant-input-number {
   list-style: none;
   box-sizing: border-box;
   margin: 0;
-  padding: 0 0 120px 0;
+  padding: 0 0 120px;
   width: 100%;
 }
 .ant-time-picker-panel-select li {
   list-style: none;
   box-sizing: content-box;
   margin: 0;
-  padding: 0 0 0 16px;
+  padding: 0 0 0 8px;
   width: 100%;
   height: 24px;
   line-height: 24px;
   text-align: left;
   cursor: pointer;
   user-select: none;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 }
 .ant-time-picker-panel-select li:hover {
   background: #ecf6fd;
@@ -10872,6 +10914,9 @@ textarea.ant-input-number {
 li.ant-time-picker-panel-select-option-selected {
   background: #f7f7f7;
   font-weight: bold;
+}
+li.ant-time-picker-panel-select-option-selected:hover {
+  background: #f7f7f7;
 }
 li.ant-time-picker-panel-select-option-disabled {
   color: rgba(0, 0, 0, 0.25);
@@ -10943,14 +10988,14 @@ li.ant-time-picker-panel-select-option-disabled:hover {
   transition: all .3s;
 }
 .ant-time-picker-input::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-time-picker-input:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-time-picker-input::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-time-picker-input:hover {
   border-color: #49a9ee;
@@ -10981,6 +11026,15 @@ textarea.ant-time-picker-input {
 .ant-time-picker-input-sm {
   padding: 1px 7px;
   height: 22px;
+}
+.ant-time-picker-input[disabled] {
+  background-color: #f7f7f7;
+  opacity: 1;
+  cursor: not-allowed;
+  color: rgba(0, 0, 0, 0.25);
+}
+.ant-time-picker-input[disabled]:hover {
+  border-color: #e2e2e2;
 }
 .ant-time-picker-large .ant-time-picker-input {
   padding: 6px 7px;
@@ -11014,7 +11068,10 @@ textarea.ant-time-picker-input {
   line-height: 1;
   vertical-align: bottom;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -11028,14 +11085,13 @@ textarea.ant-time-picker-input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-nav-container {
   height: 32px;
 }
@@ -11520,7 +11576,10 @@ textarea.ant-time-picker-input {
 .ant-tabs-vertical > .ant-tabs-content > .ant-tabs-tabpane-inactive {
   display: none;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -11534,14 +11593,13 @@ textarea.ant-time-picker-input {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-calendar-picker-container {
   position: absolute;
   z-index: 1050;
@@ -12080,14 +12138,14 @@ textarea.ant-time-picker-input {
   text-align: center;
 }
 .ant-calendar-range-picker-input::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-calendar-range-picker-input:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-calendar-range-picker-input::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-calendar-range-picker-input[disabled] {
   cursor: not-allowed;
@@ -12167,16 +12225,16 @@ textarea.ant-time-picker-input {
 }
 .ant-calendar-range .ant-calendar-input::-moz-placeholder,
 .ant-calendar-range .ant-calendar-time-picker-input::-moz-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 .ant-calendar-range .ant-calendar-input:-ms-input-placeholder,
 .ant-calendar-range .ant-calendar-time-picker-input:-ms-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-calendar-range .ant-calendar-input::-webkit-input-placeholder,
 .ant-calendar-range .ant-calendar-time-picker-input::-webkit-input-placeholder {
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.25);
 }
 .ant-calendar-range .ant-calendar-input:hover,
 .ant-calendar-range .ant-calendar-time-picker-input:hover {
@@ -12886,6 +12944,9 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   top: 0;
   height: 248px;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-message {
   font-size: 12px;
   position: fixed;
@@ -12928,6 +12989,9 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   top: 1px;
   position: relative;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-modal {
   position: relative;
   width: auto;
@@ -13053,7 +13117,7 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
     flex: 1;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -13067,14 +13131,13 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-confirm .ant-modal-header {
   display: none;
 }
@@ -13136,6 +13199,9 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
 .ant-confirm-success .ant-confirm-body > .anticon {
   color: #00a854;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-more-panel {
   background-color: #fff;
   border-radius: 2px;
@@ -13177,7 +13243,10 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   bottom: -1px;
   margin-left: -1px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -13191,14 +13260,13 @@ li.ant-calendar-time-picker-select-option-disabled:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-radio-group {
   display: inline-block;
   font-size: 12px;
@@ -13390,7 +13458,10 @@ span.ant-radio + * {
   border-color: #d9d9d9;
   box-shadow: none;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -13404,14 +13475,13 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-checkbox {
   white-space: nowrap;
   cursor: pointer;
@@ -13545,7 +13615,10 @@ span.ant-radio + * {
     position: absolute;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -13559,14 +13632,13 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-collapse {
   background-color: #f7f7f7;
   border-radius: 4px;
@@ -13681,7 +13753,10 @@ span.ant-radio + * {
 .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-header:hover {
   background-color: #f7f7f7;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -13695,14 +13770,13 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-upload {
   font-size: 12px;
   outline: 0;
@@ -14039,7 +14113,10 @@ span.ant-radio + * {
     opacity: 0;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -14053,14 +14130,13 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-notification {
   position: fixed;
   z-index: 1010;
@@ -14211,7 +14287,10 @@ span.ant-radio + * {
     max-height: 0;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -14225,14 +14304,13 @@ span.ant-radio + * {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 legend {
   display: block;
   width: 100%;
@@ -14346,7 +14424,7 @@ input[type="checkbox"].disabled {
 .ant-form-item-label {
   text-align: right;
   vertical-align: middle;
-  padding: 7px 0;
+  line-height: 32px;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -14367,12 +14445,13 @@ input[type="checkbox"].disabled {
 .ant-form-item-no-colon .ant-form-item-label label:after {
   content: " ";
 }
-.ant-form-explain {
-  line-height: 1.5;
-}
 .ant-form-explain,
 .ant-form-extra {
   color: rgba(0, 0, 0, 0.43);
+  line-height: 1.5;
+}
+.ant-form-extra {
+  padding-top: 4px;
 }
 .ant-form-text {
   display: inline-block;
@@ -14385,11 +14464,14 @@ input[type="checkbox"].disabled {
 form .has-feedback .ant-input {
   padding-right: 24px;
 }
-form .has-feedback .ant-select-arrow,
-form .has-feedback .ant-select-selection__clear {
+form .has-feedback > .ant-select .ant-select-arrow,
+form .has-feedback > .ant-select .ant-select-selection__clear,
+form .has-feedback :not(.ant-input-group-addon) > .ant-select .ant-select-arrow,
+form .has-feedback :not(.ant-input-group-addon) > .ant-select .ant-select-selection__clear {
   right: 28px;
 }
-form .has-feedback .ant-select-selection-selected-value {
+form .has-feedback > .ant-select .ant-select-selection-selected-value,
+form .has-feedback :not(.ant-input-group-addon) > .ant-select .ant-select-selection-selected-value {
   padding-right: 42px;
 }
 form .has-feedback .ant-cascader-picker-arrow {
@@ -14441,6 +14523,18 @@ form .ant-select,
 form .ant-cascader-picker {
   width: 100%;
 }
+form .ant-select:only-child,
+form .ant-cascader-picker:only-child {
+  display: block;
+}
+form .ant-input-group .ant-select,
+form .ant-input-group .ant-cascader-picker {
+  width: auto;
+}
+form .ant-input-group-addon .ant-select:only-child,
+form .ant-input-group-addon .ant-cascader-picker:only-child {
+  display: inline-block;
+}
 .ant-input-group-wrap .ant-select-selection {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -14462,17 +14556,66 @@ form .ant-cascader-picker {
   border-color: #d9d9d9;
   box-shadow: none;
 }
-.ant-form-vertical .ant-form-item-label {
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label,
+.ant-col-xl-24.ant-form-item-label {
   padding: 0 0 8px;
   display: block;
   text-align: left;
+  line-height: 1.5;
 }
-.ant-form-vertical .ant-form-item-label label:after {
-  content: '';
+.ant-form-vertical .ant-form-item-label label:after,
+.ant-col-24.ant-form-item-label label:after,
+.ant-col-xl-24.ant-form-item-label label:after {
+  display: none;
+}
+@media (max-width: 767px) {
+  .ant-col-xs-24.ant-form-item-label {
+    padding: 0 0 8px;
+    display: block;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .ant-col-xs-24.ant-form-item-label label:after {
+    display: none;
+  }
+}
+@media (max-width: 991px) {
+  .ant-col-sm-24.ant-form-item-label {
+    padding: 0 0 8px;
+    display: block;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .ant-col-sm-24.ant-form-item-label label:after {
+    display: none;
+  }
+}
+@media (max-width: 1199px) {
+  .ant-col-md-24.ant-form-item-label {
+    padding: 0 0 8px;
+    display: block;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .ant-col-md-24.ant-form-item-label label:after {
+    display: none;
+  }
+}
+@media (max-width: 1599px) {
+  .ant-col-lg-24.ant-form-item-label {
+    padding: 0 0 8px;
+    display: block;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .ant-col-lg-24.ant-form-item-label label:after {
+    display: none;
+  }
 }
 .ant-form-inline .ant-form-item {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 16px;
   margin-bottom: 0;
 }
 .ant-form-inline .ant-form-item-with-help {
@@ -14511,6 +14654,7 @@ form .ant-cascader-picker {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "";
+  z-index: 1;
 }
 .has-success.has-feedback:after {
   animation-name: diffZoomIn1 !important;
@@ -14545,6 +14689,9 @@ form .ant-cascader-picker {
   border-color: #ffce3d;
   outline: 0;
   box-shadow: 0 0 0 2px rgba(255, 191, 0, 0.2);
+}
+.has-warning .ant-input-prefix {
+  color: #ffbf00;
 }
 .has-warning .ant-input-group-addon {
   color: #ffbf00;
@@ -14610,6 +14757,9 @@ form .ant-cascader-picker {
   outline: 0;
   box-shadow: 0 0 0 2px rgba(240, 65, 52, 0.2);
 }
+.has-error .ant-input-prefix {
+  color: #f04134;
+}
 .has-error .ant-input-group-addon {
   color: #f04134;
   border-color: #f04134;
@@ -14630,6 +14780,10 @@ form .ant-cascader-picker {
   border-color: #f46e65;
   outline: 0;
   box-shadow: 0 0 0 2px rgba(240, 65, 52, 0.2);
+}
+.has-error .ant-input-group-addon .ant-select-selection {
+  border-color: transparent;
+  box-shadow: none;
 }
 .has-error .ant-calendar-picker-icon:after,
 .has-error .ant-picker-icon:after,
@@ -14657,7 +14811,7 @@ form .ant-cascader-picker {
 .has-error .ant-mention-wrapper .ant-mention-editor:not([disabled]):hover {
   border-color: #f04134;
 }
-.has-error .ant-mention-wrapper.active .ant-mention-editor,
+.has-error .ant-mention-wrapper.ant-mention-active .ant-mention-editor,
 .has-error .ant-mention-wrapper .ant-mention-editor:not([disabled]):focus {
   border-color: #f46e65;
   outline: 0;
@@ -14701,7 +14855,10 @@ form .ant-cascader-picker {
     transform: scale(1);
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -14715,14 +14872,13 @@ form .ant-cascader-picker {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-table {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.65);
@@ -15252,7 +15408,10 @@ tr.ant-table-expanded-row:hover {
 :root .ant-table-next-columns-page:before {
   font-size: 12px;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -15266,14 +15425,13 @@ tr.ant-table-expanded-row:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-tree-checkbox {
   white-space: nowrap;
   cursor: pointer;
@@ -15705,7 +15863,10 @@ tr.ant-table-expanded-row:hover {
   left: 12px;
   margin: 18px 0;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -15719,14 +15880,13 @@ tr.ant-table-expanded-row:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-progress {
   display: inline-block;
 }
@@ -15847,7 +16007,10 @@ tr.ant-table-expanded-row:hover {
     width: 100%;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -15861,14 +16024,13 @@ tr.ant-table-expanded-row:hover {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-popover {
   position: absolute;
   top: 0;
@@ -16070,6 +16232,9 @@ tr.ant-table-expanded-row:hover {
 .ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow {
   bottom: 12px;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -16557,6 +16722,7 @@ h4,
 h5,
 h6 {
   color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
 }
 a {
   color: #108ee9;
@@ -17740,7 +17906,6 @@ samp {
 .fade-enter-active {
   animation-duration: 0.2s;
   animation-name: antFadeIn;
-  pointer-events: none;
 }
 .fade-leave-active {
   animation-duration: 0.2s;
@@ -17774,7 +17939,6 @@ samp {
 .move-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveUpIn;
-  pointer-events: none;
 }
 .move-up-leave-active {
   animation-duration: 0.2s;
@@ -17792,7 +17956,6 @@ samp {
 .move-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveDownIn;
-  pointer-events: none;
 }
 .move-down-leave-active {
   animation-duration: 0.2s;
@@ -17810,7 +17973,6 @@ samp {
 .move-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveLeftIn;
-  pointer-events: none;
 }
 .move-left-leave-active {
   animation-duration: 0.2s;
@@ -17828,7 +17990,6 @@ samp {
 .move-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antMoveRightIn;
-  pointer-events: none;
 }
 .move-right-leave-active {
   animation-duration: 0.2s;
@@ -17952,7 +18113,6 @@ samp {
 .slide-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideUpIn;
-  pointer-events: none;
 }
 .slide-up-leave-active {
   animation-duration: 0.2s;
@@ -17970,7 +18130,6 @@ samp {
 .slide-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideDownIn;
-  pointer-events: none;
 }
 .slide-down-leave-active {
   animation-duration: 0.2s;
@@ -17988,7 +18147,6 @@ samp {
 .slide-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideLeftIn;
-  pointer-events: none;
 }
 .slide-left-leave-active {
   animation-duration: 0.2s;
@@ -18006,7 +18164,6 @@ samp {
 .slide-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antSlideRightIn;
-  pointer-events: none;
 }
 .slide-right-leave-active {
   animation-duration: 0.2s;
@@ -18149,7 +18306,6 @@ samp {
 .zoom-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomIn;
-  pointer-events: none;
 }
 .zoom-leave-active {
   animation-duration: 0.2s;
@@ -18167,7 +18323,6 @@ samp {
 .zoom-big-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomBigIn;
-  pointer-events: none;
 }
 .zoom-big-leave-active {
   animation-duration: 0.2s;
@@ -18185,7 +18340,6 @@ samp {
 .zoom-big-fast-enter-active {
   animation-duration: 0.1s;
   animation-name: antZoomBigIn;
-  pointer-events: none;
 }
 .zoom-big-fast-leave-active {
   animation-duration: 0.1s;
@@ -18203,7 +18357,6 @@ samp {
 .zoom-up-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomUpIn;
-  pointer-events: none;
 }
 .zoom-up-leave-active {
   animation-duration: 0.2s;
@@ -18221,7 +18374,6 @@ samp {
 .zoom-down-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomDownIn;
-  pointer-events: none;
 }
 .zoom-down-leave-active {
   animation-duration: 0.2s;
@@ -18239,7 +18391,6 @@ samp {
 .zoom-left-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomLeftIn;
-  pointer-events: none;
 }
 .zoom-left-leave-active {
   animation-duration: 0.2s;
@@ -18257,7 +18408,6 @@ samp {
 .zoom-right-enter-active {
   animation-duration: 0.2s;
   animation-name: antZoomRightIn;
-  pointer-events: none;
 }
 .zoom-right-leave-active {
   animation-duration: 0.2s;
@@ -18401,9 +18551,9 @@ samp {
   overflow: hidden;
 }
 .ant-motion-collapse-active {
-  transition: height .12s, opacity .12s !important;
+  transition: height 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -18417,14 +18567,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-popover {
   position: absolute;
   top: 0;
@@ -20006,7 +20155,10 @@ samp {
 .ant-btn-group > .ant-btn {
   float: left;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -20020,14 +20172,13 @@ samp {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-transfer {
   position: relative;
   line-height: 1.5;
@@ -20179,7 +20330,10 @@ span.ant-transfer-list-search-action {
     background: transparent;
   }
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -20193,14 +20347,13 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-timeline {
   list-style: none;
   margin: 0;
@@ -20218,9 +20371,6 @@ span.ant-transfer-list-search-action {
   top: 0;
   height: 100%;
   border-left: 2px solid #e9e9e9;
-}
-.ant-timeline-item-pending .ant-timeline-item-tail {
-  display: none;
 }
 .ant-timeline-item-head {
   position: absolute;
@@ -20262,17 +20412,19 @@ span.ant-transfer-list-search-action {
   position: relative;
   top: -3px;
 }
-.ant-timeline-item-last .ant-timeline-item-tail {
-  border-left: 2px dotted #e9e9e9;
+.ant-timeline-item:last-child .ant-timeline-item-tail {
   display: none;
 }
-.ant-timeline-item-last .ant-timeline-item-content {
+.ant-timeline.ant-timeline-pending .ant-timeline-item:nth-last-child(2) .ant-timeline-item-tail {
+  border-left: 2px dotted #e9e9e9;
+}
+.ant-timeline.ant-timeline-pending .ant-timeline-item:nth-last-child(2) .ant-timeline-item-content {
   min-height: 48px;
 }
-.ant-timeline.ant-timeline-pending .ant-timeline-item-last .ant-timeline-item-tail {
-  display: block;
-}
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -20286,14 +20438,13 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-carousel .slick-slider {
   position: relative;
   display: block;
@@ -20534,7 +20685,10 @@ span.ant-transfer-list-search-action {
 .ant-carousel .ant-carousel-dots-none {
   display: none;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -20548,14 +20702,13 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-select-tree-checkbox {
   white-space: nowrap;
   cursor: pointer;
@@ -20875,7 +21028,10 @@ span.ant-transfer-list-search-action {
   padding: 7px 16px;
   display: block;
 }
-/*.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
+/* .make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
   .@{className}-enter,
   .@{className}-appear {
     .motion-common(@duration);
@@ -20889,14 +21045,13 @@ span.ant-transfer-list-search-action {
   .@{className}-appear.@{className}-appear-active {
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
-    pointer-events: none;
   }
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
     pointer-events: none;
   }
-}*/
+} */
 .ant-tooltip {
   position: absolute;
   z-index: 1060;
