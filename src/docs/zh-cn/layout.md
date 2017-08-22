@@ -940,7 +940,7 @@
 ```html
 <template>
     <div class="browser-mockup with-url">
-        <iframe class="browser-content" src="/#/demo/layout-fixed" frameborder="0"></iframe>
+        <iframe class="browser-content" src="./#/demo/layout-fixed" frameborder="0"></iframe>
     </div>
 </template>
 
@@ -982,7 +982,7 @@
 ```html
 <template>
     <div class="browser-mockup with-url">
-        <iframe class="browser-content" src="/#/demo/layout-fixed-sider" frameborder="0"></iframe>
+        <iframe class="browser-content" src="./#/demo/layout-fixed-sider" frameborder="0"></iframe>
     </div>
 </template>
 

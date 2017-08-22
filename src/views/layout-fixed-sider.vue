@@ -3,7 +3,7 @@
         <v-layout>
             <v-sider :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
                 <div class="logo"></div>
-                <v-menu theme="dark" :mode="collapsed?'vertical':'inline'" :data="menuData">
+                <v-menu theme="dark" mode="inline" :data="menuData">
                     <template scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span :class="{'nav-text':data.icon}">{{data.name}}</span>

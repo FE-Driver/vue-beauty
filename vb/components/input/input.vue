@@ -12,7 +12,7 @@
     </span>
     <textarea v-else-if="type ==='textarea'" :id="id" :class="inpClasses" :placeholder="placeholder"
               :disabled="disabled" :value="innerValue" @input="handleInput"
-              @blur="blur" @focus="$emit('focus', $event)">
+              @blur="blur" @focus="$emit('focus', $event)" ref="textarea" :rows="autosize && autosize.minRows ?autosize.minRows:2" :style="{maxHeight: autosize && autosize.maxRows ? `${autosize.maxRows*18+10}px`:'auto'}">
     </textarea>
     <input v-else :id="id" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled"
            :value="innerValue" @input="handleInput" autocomplete="off"
@@ -20,6 +20,7 @@
 </template>
 
 <script lang="babel">
+    import autosize from 'autosize';
     import emitter from '../../mixins/emitter';
     import { t } from '../../locale';
 
@@ -49,8 +50,10 @@
                 type: Boolean,
                 default: false,
             },
-            onPressEnter: Function,
-            autosize: [Boolean, Object],
+            autosize: {
+                type: [Boolean, Object],
+                default: false,
+            },
         },
         data() {
             return {
@@ -88,6 +91,9 @@
             },
         },
         mounted() {
+            if (this.autosize && this.type === 'textarea') {
+                autosize(this.$refs.textarea);
+            }
             this.$nextTick(() => {
                 if (this.$slots) {
                     if (this.$slots.before) {

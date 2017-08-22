@@ -81,6 +81,20 @@ export default {
 
 ::: demo
 <summary>
+  #### 适应文本高度的文本域
+  `autosize` 属性适用于 `textarea` 节点，并且只有高度会自动变化。另外 `autosize` 可以设定为一个对象，指定最小行数和最大行数。
+</summary>
+
+```html
+  <v-input type="textarea" placeholder="Autosize height based on content lines" autosize></v-input>
+  <br><br>
+  <v-input type="textarea" placeholder="Autosize height with minimum and maximum number of lines" :autosize="{ minRows: 2, maxRows: 6 }"></v-input>
+```
+
+:::
+
+::: demo
+<summary>
   #### 前后缀修饰添加
   带有前缀后缀修饰
 </summary>
@@ -210,6 +224,7 @@ export default {
 | value | value 值 | any | - |
 | size | 控件大小，默认值为 default 。{"large","default","small"}注：标准表单内的输入框大小限制为 large。 | String | default |
 | disabled    | 是否禁用状态，默认为 false | Boolean | false |
+| autosize    | 自适应内容高度，可设置为 `true|false` 或对象：`{ minRows: 2, maxRows: 6 }`,仅在type为textarea时生效 | Boolean/Object | false |
 | debounce    | 延迟输入状态变化的时间（ms） | Number | 0 |
 | slot:before | input前面加前缀修饰 | slot node | - |
 | slot:after | input后面加后缀修饰	 | slot node | - |

@@ -33,6 +33,7 @@
   "homepage": "https://github.com/FE-Driver/vue-beauty",
   "dependencies": {
     "async-validator": "^1.8.0",
+    "autosize": "^4.0.0",
     "core-js": "^2.5.0",
     "date-fns": "^1.28.5",
     "deepmerge": "^1.5.1",
