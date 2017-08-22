@@ -133,25 +133,19 @@
 </summary>
 
 ```html
-<template>  
-    <div class="ant-row-flex ant-row-flex-space-around">
-        <v-card title="Card title" style="width:240px">
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-        </v-card>
-
-        <v-card title="Card title" style="width:240px">
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-        </v-card>
-
-        <v-card title="Card title" style="width:240px">
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-        </v-card>
+<template> 
+    <div style="background: #ECECEC;padding: 30px">
+        <v-row :gutter="16">
+            <v-col :span="8">
+                <v-card title="Card title" :bordered="false">Card content</v-card>
+            </v-col>
+            <v-col :span="8">
+                <v-card title="Card title" :bordered="false">Card content</v-card>
+            </v-col>
+            <v-col :span="8">
+                <v-card title="Card title" :bordered="false">Card content</v-card>
+            </v-col>
+        </v-row>
     </div>
 </template>
 ```
@@ -192,14 +186,37 @@
 ```
 :::
 
+::: demo
+<summary>
+  #### 网格型内嵌卡片
+  一种常见的卡片内容区隔模式。
+</summary>
+
+```html
+<template>  
+    <v-card title="Card title" no-hovering>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+        <v-card-grid :style="{width: '25%', textAlign: 'center'}">Content</v-card-grid>
+    </v-card>
+</template>
+```
+:::
+
 ## API
 
 ### Card Props
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
-| title | 卡片标题 | String |  |
-| slot:extra | 卡片右上角的操作区域 | slot node | 无 |
+| title | 卡片标题 | String | - |
+| slot:extra | 卡片右上角的操作区域 | Slot Node | - |
 | bordered | 是否有边框 | Boolean | true | 
-| bodyStyle | 内容区域自定义样式 | Object |  | 
+| bodyStyle | 内容区域自定义样式 | Object | - | 
+| noHovering | 取消鼠标移过浮起 | Boolean | false | 
+| loading | 当卡片内容还在加载中时，可以用 loading 展示一个占位 | Boolean | false | 
 

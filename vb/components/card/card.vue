@@ -1,15 +1,13 @@
 <template>
-    <div :class="[prefixCls, loading ? prefixCls + '-loading' : '', bordered ? prefixCls + '-bordered': '']">
+    <div :class="cardStyle">
         <div :class="prefixCls + '-head'" v-if="title">
-            <h3 :class="prefixCls + '-head-title'">{{title}}</h3>
-        </div>
-        <template v-if="$slots.extra || extra">
-            <div :class="prefixCls + '-extra'">
+            <div :class="prefixCls + '-head-title'">{{title}}</div>
+            <div :class="prefixCls + '-extra'" v-if="$slots.extra || extra">
                 <slot name="extra"></slot>
             </div>
-        </template>
+        </div>
         <div :class="prefixCls + '-body'" :style="bodyStyle">
-            <div v-if="loading">
+            <div v-if="loading" :class="prefixCls + '-loading-content'">
                 <p :class="prefixCls + '-loading-block'" style="width: 94%"></p>
                 <p>
                     <span :class="prefixCls + '-loading-block'" style="width: 28%" ></span>
@@ -45,13 +43,27 @@
             title: String,
             bordered: {
                 type: Boolean,
-                default: true
+                default: true,
             },
             loading: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             bodyStyle: Object,
+            noHovering: {
+                type: Boolean,
+                default: false,
+            },
         },
-    }
+        computed: {
+            cardStyle() {
+                return [
+                    this.prefixCls,
+                    { [`${this.prefixCls}-loading`]: this.loading },
+                    { [`${this.prefixCls}-bordered`]: this.bordered },
+                    { [`${this.prefixCls}-no-hovering`]: this.noHovering },
+                ];
+            },
+        },
+    };
 </script>
