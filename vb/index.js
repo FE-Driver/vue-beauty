@@ -80,6 +80,7 @@ const components = {
     tabs,
     tabPane: tabs.pane,
     card,
+    cardGrid: card.grid,
     vSwitch,
     tag,
     spin,

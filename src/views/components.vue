@@ -104,11 +104,11 @@ export default {
                     name: 'Form 表单',
                     link: { name: 'form' },
                 }, {
-                    name: 'Input 输入框',
-                    link: { name: 'input' },
-                }, {
                     name: 'InputNumber 数字输入框',
                     link: { name: 'inputNumber' },
+                }, {
+                    name: 'Input 输入框',
+                    link: { name: 'input' },
                 }, {
                     name: 'Rate 评分',
                     link: { name: 'rate' },

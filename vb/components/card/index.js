@@ -1,4 +1,7 @@
-import "./style/index.less"
-import card from './card.vue'
+import './style/index.less';
+import card from './card';
+import grid from './card-grid';
 
-export default card
+card.grid = grid;
+
+export default card;
