@@ -5,6 +5,7 @@
       :action="action"
       :name="name"
       :data="data"
+      :header="header"
       :multiple="multiple"
       :on-start="_onStart"
       :on-progress="_onProgress"
@@ -65,6 +66,10 @@ export default {
       default: ''
     },
     data: {
+      type: Object,
+      default: ()=> ({})
+    },
+    header: {
       type: Object,
       default: ()=> ({})
     },

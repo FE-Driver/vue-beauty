@@ -25,6 +25,10 @@ export default {
     name: String,
     multiple: Boolean,
     data: Object,
+    header: {
+      type: Object,
+      default: ()=> ({})
+    },
     onStart:  {
       type: Function,
       default: ()=> {}
@@ -120,6 +124,7 @@ export default {
         filename: this.name,
         file: file,
         data: data,
+        header: this.header,
         onProgress: e => {
           this.onProgress(e, file)
         },

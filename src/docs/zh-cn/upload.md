@@ -3,6 +3,9 @@
     data: ()=> ({
       name: 'file',
       action: '/upload',
+      header:{
+        appkey: 'FDF8F7DSFSD8FSA987A8SF',
+      },
       defaultFileList: [{
         uid: -1,
         name: 'xxx.png',
@@ -65,6 +68,47 @@
     data: ()=> ({
       name: 'file',
       action: '/upload'
+    }),
+    methods: {
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList)
+        }
+        if (info.file.status === 'done') {
+          console.log(info.file.name + ' 上传成功.')
+        } else if (info.file.status === 'error') {
+          console.log(info.file.name + ' 上传失败.')
+        }
+      }
+    }
+  }
+</script>
+```
+:::
+
+::: demo
+<summary>
+  #### 点击上传
+  设置头信息。
+</summary>
+
+```html
+<template>
+  <v-upload :name="name" :action="action" :header='header' @change="onChange">
+    <v-button type="ghost">
+      <v-icon type="upload"></v-icon>点击上传
+    </v-button>
+  </v-upload>
+</template>
+
+<script>
+  export default {
+    data: ()=> ({
+      name: 'file',
+      action: '/upload',
+      header: {
+        appkey: 'FDF8F7DSFSD8FSA987A8SF',
+      },
     }),
     methods: {
       onChange(info) {
@@ -257,6 +301,7 @@
 | action | 必选参数, 上传的地址 | string | - |
 | fileList    | 默认已经上传的文件列表 | object[] | [] |
 | data | 可选参数, 上传所需参数 | object | {} |
+| header | 可选参数, 设置request头信息 | object | {} |
 | beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传。注意：该方法不支持老 IE | (file) => boolean | Promise | - |
 | multiple | 可选参数, 是否支持多选文件 | boolean | false |
 | accept | 可选参数, 接受上传的文件类型, 详见 input accept Attribute | string | - |

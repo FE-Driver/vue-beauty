@@ -55,6 +55,11 @@ export default function upload (option) {
     option.onSuccess(getBody(xhr))
   }
   xhr.open('post', option.action, true)
+  if(option.header){
+    for(const key in option.header){
+      xhr.setRequestHeader(key, option.header[key]);
+    }
+  }
   //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
   xhr.send(formData)
 }
