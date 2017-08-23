@@ -175,7 +175,7 @@
                 showMonth1: false,
                 showMonth2: false,
                 left: false,
-                ranges: [], //选择范围
+                ranges: [], // 选择范围
                 days: this.t('datePicker.days').split(','),
                 months: this.t('datePicker.months').split(','),
                 years1: [],
@@ -188,11 +188,11 @@
                 time2: this.parse(this.endTime, true),
                 now1: this.parse(new Date(), false),
                 now2: this.parse(new Date(), true),
-                timeVal: ['00:00','00:00'],
-                count: this.range ? 2 : 1, //日历数量
+                timeVal: ['00:00', '00:00'],
+                count: this.range ? 2 : 1, // 日历数量
                 startTime: this.range && this.value ? this.value[0] : '',
                 endTime: this.range && this.value ? this.value[1] : '',
-                bottomSpace: 0
+                bottomSpace: 0,
             };
         },
         computed: {
@@ -218,7 +218,7 @@
                     }
                 }
                 return val;
-            }
+            },
         },
         mounted() {
             this.container = this.popupContainer();
@@ -284,6 +284,10 @@
             },
             label(val) {
                 this.timeBtnEnable = !!val;
+                if (!val) {
+                    this.timeSelected = false;
+                    this.timeVal = ['00:00', '00:00'];
+                }
                 if (this.range) {
                     const time = val.split(' ~ ');
                     this.$emit('input', [time[0], time[1]]);
@@ -294,6 +298,10 @@
                     this.$emit('change', val);
                     this.dispatch('FormItem', 'form.change', [val]);
                 }
+            },
+            value(val) {
+                this.startTime = this.range && val ? val[0] : '';
+                this.endTime = this.range && val ? val[1] : '';
             },
         },
         methods: {

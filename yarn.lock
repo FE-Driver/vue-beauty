@@ -1959,9 +1959,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^11.3.1:
-  version "11.3.1"
-  resolved "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.3.1.tgz#c0ab108c9beed503cb999e4c60f4ef98eda0ed30"
+eslint-config-airbnb-base@^11.3.2:
+  version "11.3.2"
+  resolved "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.3.2.tgz#8703b11abe3c88ac7ec2b745b7fdf52e00ae680a"
   dependencies:
     eslint-restricted-globals "^0.1.1"
 
@@ -5340,9 +5340,9 @@ vue-loader@^13.0.4:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.5.3"
 
-vue-markdown-loader@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/vue-markdown-loader/-/vue-markdown-loader-2.0.0.tgz#d3cadbf9c8976a81f2d5e39496d505fd4f31bc96"
+vue-markdown-loader@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/vue-markdown-loader/-/vue-markdown-loader-2.1.0.tgz#112d1921dd56daa29906b7c012623c6c5d6e0d8c"
   dependencies:
     cheerio "^0.20.0"
     highlight.js "^9.4.0"
