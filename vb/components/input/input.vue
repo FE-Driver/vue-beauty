@@ -86,6 +86,7 @@
 
                 return [
                     this.prefix,
+                    { [`${this.prefix}-disabled`]: this.disabled },
                     { [`${this.prefix}-${size}`]: size },
                 ];
             },
