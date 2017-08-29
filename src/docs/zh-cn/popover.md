@@ -1,7 +1,8 @@
 <script>
 export default {
     data: () => ({
-        visible: false
+        visible: false,
+        controlled: false,
     }),
 }
 </script>
@@ -71,6 +72,48 @@ export default {
         <p>Content</P>
     </div>    
 </v-popover>
+```
+
+:::
+
+::: demo
+<summary>
+  #### 保持显示
+  使用controlled保持显示。
+</summary>
+
+```html
+<template>
+    <v-popover title="Title" trigger="hover" :controlled="controlled">
+        <v-button>Hover me</v-button>
+        <div slot="content">
+            <p>Content</P>
+            <p>Content</P>
+        </div>
+    </v-popover>
+    <v-popover title="Title" trigger="focus" :controlled="controlled">
+        <v-button>Focus me</v-button>
+        <div slot="content">
+            <p>Content</P>
+            <p>Content</P
+        </div>
+    </v-popover>
+    <v-popover title="Title" trigger="click" :controlled="controlled">
+        <v-button>Click me</v-button>
+        <div slot="content">
+            <p>Content</P>
+            <p>Content</P>
+        </div>
+    </v-popover>
+    <v-button type="primary" @click="controlled = !controlled">设置controlled</v-button>
+</template>
+<script>
+export default {
+    data: () => ({
+        controlled: false
+    })
+  }
+</script>
 ```
 
 :::
@@ -209,9 +252,16 @@ export default {
 ## Popover Props
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
+| init-visible    | 初始状态是否显示popover | Boolean | false |
 | title    | 卡片标题 | String | - |
 | placement | 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | String | top |
 | trigger | 触发行为，可选 `hover/focus/click` | String | hover |
 | overlay-style | 卡片样式 | String/Object | - |
+| controlled | 保持popover显示 | Boolean | false |
 | title:slot | 卡片标题，优先级高于title prop | Slot Node | - |
 | content:slot | 卡片内容 | Slot Node | - |
+
+### Popover Events
+| 事件        | 说明           | 参数        |
+|------------|----------------|------------|
+| change    | visible发生变化时触发 | visible |

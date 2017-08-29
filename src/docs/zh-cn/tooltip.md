@@ -174,7 +174,7 @@ export default {
 
 ## API
 
-### tooltip Props
+### Tooltip Props
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
@@ -186,8 +186,7 @@ export default {
 | disabled | tooltip是否可用 | Boolean |  false |
 | controlled | 保持tooltop显示 | Boolean |  false |
 
-### tooltip event
-
-| 参数      | 说明          | 类型      | 默认值  |
-|---------- |-------------- |----------  |-------- |
-| hide | tooptip由显示变为隐藏的回调函数 | Function() | -- |
+### Tooltip Events
+| 事件        | 说明           | 参数        |
+|------------|----------------|------------|
+| hide | tooptip由显示变为隐藏时触发 | - |

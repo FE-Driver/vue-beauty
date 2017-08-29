@@ -18,7 +18,7 @@
         </transition>
     </div>
 </template>
-<script lang="babel">
+<script>
     import Popper from '../../mixins/popper';
     import clickoutside from '../../directives/clickoutside';
 
@@ -31,6 +31,7 @@
         data: () => ({
             prefixCls: 'ant-popover',
             isInput: false,
+            visible: false,
         }),
         props: {
             title: String,
@@ -47,16 +48,33 @@
                     return ['click', 'focus', 'hover'].includes(value);
                 },
             },
+            controlled: {
+                type: Boolean,
+                default: false,
+            },
+            initVisible: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        watch: {
+            visible(val) {
+                this.$emit('input', val);
+                this.$emit('change', val);
+            },
+            initVisible(val) {
+                this.visible = val;
+            },
         },
         methods: {
             handleClick() {
-                if (this.trigger !== 'click') {
+                if (this.trigger !== 'click' || (this.controlled && this.visible)) {
                     return false;
                 }
                 this.visible = !this.visible;
             },
             handleClose() {
-                if (this.trigger !== 'click') {
+                if (this.trigger !== 'click' || this.controlled) {
                     return false;
                 }
                 this.visible = false;
@@ -68,7 +86,7 @@
                 this.visible = true;
             },
             handleMouseleave() {
-                if (this.trigger !== 'hover') {
+                if (this.trigger !== 'hover' || this.controlled) {
                     return false;
                 }
                 this.visible = false;
@@ -80,7 +98,7 @@
                 this.visible = true;
             },
             handleBlur(fromInput = true) {
-                if (this.trigger !== 'focus' || (this.isInput && !fromInput)) {
+                if (this.trigger !== 'focus' || (this.isInput && !fromInput) || this.controlled) {
                     return false;
                 }
                 this.visible = false;
@@ -109,6 +127,7 @@
                     this.isInput = true;
                 }
             }
+            this.visible = this.initVisible;
         },
         beforeDestroy() {
             const $children = this.getInputChildren();
