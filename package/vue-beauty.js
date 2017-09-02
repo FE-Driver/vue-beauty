@@ -180,7 +180,7 @@ module.exports = { "default": __webpack_require__(192), __esModule: true };
 /* 2 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.0' };
+var core = module.exports = { version: '2.5.1' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -1952,7 +1952,7 @@ module.exports = function(name){
 /* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var startOfWeek = __webpack_require__(281)
+var startOfWeek = __webpack_require__(282)
 
 /**
  * @category ISO Week Helpers
@@ -2937,7 +2937,7 @@ exports.default = _assign2.default || function (target) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx                = __webpack_require__(26)
-  , invoke             = __webpack_require__(310)
+  , invoke             = __webpack_require__(311)
   , html               = __webpack_require__(92)
   , cel                = __webpack_require__(54)
   , global             = __webpack_require__(5)
@@ -3786,6 +3786,8 @@ var card_style_default = /*#__PURE__*/__webpack_require__.n(card_style);
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/card/card.vue
 
 
+function card__defineProperty(obj, key, value) { if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ var card = ({
     name: 'Card',
     data: function data() {
@@ -3804,23 +3806,34 @@ var card_style_default = /*#__PURE__*/__webpack_require__.n(card_style);
             type: Boolean,
             default: false
         },
-        bodyStyle: Object
+        bodyStyle: Object,
+        noHovering: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        cardStyle: function cardStyle() {
+            return [this.prefixCls, card__defineProperty({}, this.prefixCls + '-loading', this.loading), card__defineProperty({}, this.prefixCls + '-bordered', this.bordered), card__defineProperty({}, this.prefixCls + '-no-hovering', this.noHovering)];
+        }
     }
 });
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-7eb25e9b","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./vb/components/card/card.vue
 var card_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    class: [_vm.prefixCls, _vm.loading ? _vm.prefixCls + '-loading' : '', _vm.bordered ? _vm.prefixCls + '-bordered' : '']
+    class: _vm.cardStyle
   }, [(_vm.title) ? _c('div', {
     class: _vm.prefixCls + '-head'
-  }, [_c('h3', {
+  }, [_c('div', {
     class: _vm.prefixCls + '-head-title'
-  }, [_vm._v(_vm._s(_vm.title))])]) : _vm._e(), _vm._v(" "), (_vm.$slots.extra || _vm.extra) ? [_c('div', {
+  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), (_vm.$slots.extra || _vm.extra) ? _c('div', {
     class: _vm.prefixCls + '-extra'
-  }, [_vm._t("extra")], 2)] : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._t("extra")], 2) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     class: _vm.prefixCls + '-body',
     style: (_vm.bodyStyle)
-  }, [(_vm.loading) ? _c('div', [_c('p', {
+  }, [(_vm.loading) ? _c('div', {
+    class: _vm.prefixCls + '-loading-content'
+  }, [_c('p', {
     class: _vm.prefixCls + '-loading-block',
     staticStyle: {
       "width": "94%"
@@ -3870,7 +3883,7 @@ var card_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm
     staticStyle: {
       "width": "40%"
     }
-  })])]) : _vm._t("default")], 2)], 2)
+  })])]) : _vm._t("default")], 2)])
 }
 var card_staticRenderFns = []
 card_render._withStripped = true
@@ -3924,9 +3937,80 @@ if (false) {(function () {
 
 /* harmony default export */ var components_card_card = (card_Component.exports);
 
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/card/card-grid.vue
+//
+//
+//
+//
+//
+
+/* harmony default export */ var card_grid = ({
+    name: 'CardGrid'
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-13da0be8","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./vb/components/card/card-grid.vue
+var card_grid_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "ant-card-grid"
+  }, [_vm._t("default")], 2)
+}
+var card_grid_staticRenderFns = []
+card_grid_render._withStripped = true
+var card_grid_esExports = { render: card_grid_render, staticRenderFns: card_grid_staticRenderFns }
+/* harmony default export */ var card_card_grid = (card_grid_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-13da0be8", card_grid_esExports)
+  }
+}
+// CONCATENATED MODULE: ./vb/components/card/card-grid.vue
+var card_grid_disposed = false
+var card_grid_normalizeComponent = __webpack_require__(0)
+/* script */
+
+/* template */
+
+/* styles */
+var card_grid___vue_styles__ = null
+/* scopeId */
+var card_grid___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var card_grid___vue_module_identifier__ = null
+var card_grid_Component = card_grid_normalizeComponent(
+  card_grid,
+  card_card_grid,
+  card_grid___vue_styles__,
+  card_grid___vue_scopeId__,
+  card_grid___vue_module_identifier__
+)
+card_grid_Component.options.__file = "vb/components/card/card-grid.vue"
+if (card_grid_Component.esModule && Object.keys(card_grid_Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (card_grid_Component.options.functional) {console.error("[vue-loader] card-grid.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-13da0be8", card_grid_Component.options)
+  } else {
+    hotAPI.reload("data-v-13da0be8", card_grid_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    card_grid_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_card_card_grid = (card_grid_Component.exports);
+
 // CONCATENATED MODULE: ./vb/components/card/index.js
 
 
+
+
+components_card_card.grid = components_card_card_grid;
 
 /* harmony default export */ var components_card = (components_card_card);
 // EXTERNAL MODULE: ./vb/components/rate/style/index.less
@@ -10570,10 +10654,15 @@ var badge_style_default = /*#__PURE__*/__webpack_require__.n(badge_style);
 var input_style = __webpack_require__(272);
 var input_style_default = /*#__PURE__*/__webpack_require__.n(input_style);
 
+// EXTERNAL MODULE: ./node_modules/autosize/dist/autosize.js
+var autosize = __webpack_require__(273);
+var autosize_default = /*#__PURE__*/__webpack_require__.n(autosize);
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/input/input.vue
 
 
 function input__defineProperty(obj, key, value) { if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -10606,8 +10695,10 @@ function input__defineProperty(obj, key, value) { if (key in obj) { define_prope
             type: Boolean,
             default: false
         },
-        onPressEnter: Function,
-        autosize: [Boolean, Object]
+        autosize: {
+            type: [Boolean, Object],
+            default: false
+        }
     },
     data: function data() {
         return {
@@ -10636,12 +10727,15 @@ function input__defineProperty(obj, key, value) { if (key in obj) { define_prope
         inpClasses: function inpClasses() {
             var size = { small: 'sm', large: 'lg' }[this.size];
 
-            return [this.prefix, input__defineProperty({}, this.prefix + '-' + size, size)];
+            return [this.prefix, input__defineProperty({}, this.prefix + '-disabled', this.disabled), input__defineProperty({}, this.prefix + '-' + size, size)];
         }
     },
     mounted: function mounted() {
         var _this = this;
 
+        if (this.autosize && this.type === 'textarea') {
+            autosize_default()(this.$refs.textarea);
+        }
         this.$nextTick(function () {
             if (_this.$slots) {
                 if (_this.$slots.before) {
@@ -10706,11 +10800,16 @@ var input_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_v
   }), _vm._v(" "), (_vm.hasafter) ? _c('span', {
     staticClass: "ant-input-group-addon"
   }, [_vm._t("after")], 2) : _vm._e()]) : (_vm.type === 'textarea') ? _c('textarea', {
+    ref: "textarea",
     class: _vm.inpClasses,
+    style: ({
+      maxHeight: _vm.autosize && _vm.autosize.maxRows ? ((_vm.autosize.maxRows*18+10) + "px") : 'auto'
+    }),
     attrs: {
       "id": _vm.id,
       "placeholder": _vm.placeholder,
-      "disabled": _vm.disabled
+      "disabled": _vm.disabled,
+      "rows": _vm.autosize && _vm.autosize.minRows ? _vm.autosize.minRows : 2
     },
     domProps: {
       "value": _vm.innerValue
@@ -10885,7 +10984,7 @@ components_input_input.group = components_input_input_group;
 
 /* harmony default export */ var components_input = (components_input_input);
 // EXTERNAL MODULE: ./vb/components/input-number/style/index.less
-var input_number_style = __webpack_require__(273);
+var input_number_style = __webpack_require__(274);
 var input_number_style_default = /*#__PURE__*/__webpack_require__.n(input_number_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/input-number/input-number.vue
@@ -10898,20 +10997,21 @@ function input_number__defineProperty(obj, key, value) { if (key in obj) { defin
 function isValueNumber(value) {
     return !isNaN(Number(value));
 }
-//自定义运算，解决精度问题
+// 自定义运算，解决精度问题
 function calNum(num1, num2, symb) {
-    var sq1, sq2, m;
+    var sq1 = void 0;
+    var sq2 = void 0;
     try {
-        sq1 = num1.toString().split(".")[1].length;
+        sq1 = num1.toString().split('.')[1].length;
     } catch (e) {
         sq1 = 0;
     }
     try {
-        sq2 = num2.toString().split(".")[1].length;
+        sq2 = num2.toString().split('.')[1].length;
     } catch (e) {
         sq2 = 0;
     }
-    m = Math.pow(10, Math.max(sq1, sq2));
+    var m = Math.pow(10, Math.max(sq1, sq2));
     if (symb === '+') {
         return (num1 * m + num2 * m) / m;
     } else if (symb === '-') {
@@ -10977,7 +11077,7 @@ function preventDefault(e) {
             }
         },
         wrapClasses: function wrapClasses() {
-            return [this.prefixCls, input_number__defineProperty({}, this.sizeClass, !!this.sizeClass), input_number__defineProperty({}, this.prefixCls + "-disabled", this.disabled), input_number__defineProperty({}, this.prefixCls + "-focused", this.focused)];
+            return [this.prefixCls, input_number__defineProperty({}, this.sizeClass, !!this.sizeClass), input_number__defineProperty({}, this.prefixCls + '-disabled', this.disabled), input_number__defineProperty({}, this.prefixCls + '-focused', this.focused)];
         }
     },
 
@@ -10989,16 +11089,16 @@ function preventDefault(e) {
             if (isValueNumber(val)) {
                 val = Number(val);
                 if (val >= this.max) {
-                    this.upDisabledClass = this.prefixCls + "-handler-up-disabled";
+                    this.upDisabledClass = this.prefixCls + '-handler-up-disabled';
                 } else if (val <= this.min) {
-                    this.downDisabledClass = this.prefixCls + "-handler-down-disabled";
+                    this.downDisabledClass = this.prefixCls + '-handler-down-disabled';
                 } else {
                     this.upDisabledClass = '';
                     this.downDisabledClass = '';
                 }
             } else {
-                this.upDisabledClass = this.prefixCls + "-handler-up-disabled";
-                this.downDisabledClass = this.prefixCls + "-handler-down-disabled";
+                this.upDisabledClass = this.prefixCls + '-handler-up-disabled';
+                this.downDisabledClass = this.prefixCls + '-handler-down-disabled';
             }
         }
     },
@@ -11017,14 +11117,14 @@ function preventDefault(e) {
         handleInput: function handleInput(event) {
             var e = event;
             if (isValueNumber(e.target.value)) {
-                this.currentValue = e.target.value;
+                this.currentValue = e.target.value * 1;
             } else {
                 e.target.value = this.relValue;
             }
             var curValue = event.target.value === '' ? event.target.value : event.target.value * 1;
-            this._setValue(curValue);
+            this.setValue(curValue);
         },
-        _setValue: function _setValue(value) {
+        setValue: function setValue(value) {
             if (value === this.relValue) return;
             this.relValue = value;
             this.$emit('input', value);
@@ -11034,34 +11134,34 @@ function preventDefault(e) {
         _onKeyDown: function _onKeyDown(e) {
             this.keyCode = e.keyCode;
             if (e.keyCode === 38) {
-                this._up(e);
+                this.up(e);
             } else if (e.keyCode === 40) {
-                this._down(e);
+                this.down(e);
             }
         },
         _onFocus: function _onFocus() {
             this.focused = true;
         },
         _onBlur: function _onBlur(e) {
-            if (e.target.value != '') {
+            if (e.target.value !== '') {
                 if (e.target.value > this.max) {
                     e.target.value = this.max;
-                    this.$emit('input', e.target.value);
-                    this.$emit('change', e.target.value);
-                    this.dispatch('FormItem', 'form.change', [e.target.value]);
+                    this.$emit('input', this.max);
+                    this.$emit('change', this.max);
+                    this.dispatch('FormItem', 'form.change', [this.max]);
                 } else if (e.target.value < this.min) {
                     e.target.value = this.min;
-                    this.$emit('input', e.target.value);
-                    this.$emit('change', e.target.value);
-                    this.dispatch('FormItem', 'form.change', [e.target.value]);
+                    this.$emit('input', this.min);
+                    this.$emit('change', this.min);
+                    this.dispatch('FormItem', 'form.change', [this.min]);
                 }
             }
 
-            this.currentValue = e.target.value;
+            this.currentValue = e.target.value * 1;
             this.focused = false;
-            this.dispatch('FormItem', 'form.blur', [this.currentValue]);
+            this.dispatch('FormItem', 'form.blur', [this.currentValue * 1]);
         },
-        _step: function _step(type, e) {
+        makeStep: function makeStep(type) {
             var _this = this;
 
             if (this.disabled) return;
@@ -11070,25 +11170,23 @@ function preventDefault(e) {
             var stepNum = Number(this.step);
 
             if (isNaN(value)) return;
-            if (type == 'down') value = calNum(value, stepNum, '-');else if (type === 'up') value = calNum(value, stepNum, '+');
+            if (type === 'down') value = calNum(value, stepNum, '-');else if (type === 'up') value = calNum(value, stepNum, '+');
 
             if (value > this.max || value < this.min) return;
 
-            this._setValue(value, function () {
+            this.setValue(value, function () {
                 _this.$refs.input.focus();
             });
         },
-        _down: function _down(e) {
-            if (this.downDisabledClass) {
-                return;
-            }
-            this._step('down', e);
+        down: function down(e) {
+            if (this.downDisabledClass) return;
+            this.makeStep('down', e);
         },
-        _up: function _up(e) {
+        up: function up(e) {
             if (this.upDisabledClass) {
                 return;
             }
-            this._step('up', e);
+            this.makeStep('up', e);
         }
     }
 });
@@ -11108,7 +11206,7 @@ var input_number_render = function () {var _vm=this;var _h=_vm.$createElement;va
       "unselectable": "unselectable"
     },
     on: {
-      "click": _vm._up,
+      "click": _vm.up,
       "mouse": function($event) {
         if (!('button' in $event) && _vm._k($event.keyCode, "down", 40)) { return null; }
         _vm.preventDefault($event)
@@ -11133,7 +11231,7 @@ var input_number_render = function () {var _vm=this;var _h=_vm.$createElement;va
         if (!('button' in $event) && _vm._k($event.keyCode, "down", 40)) { return null; }
         _vm.preventDefault($event)
       },
-      "click": _vm._down
+      "click": _vm.down
     }
   }, [_c('span', {
     class: _vm.prefixCls + '-handler-down-inner',
@@ -11228,11 +11326,11 @@ if (false) {(function () {
 
 /* harmony default export */ var components_input_number = (components_input_number_input_number);
 // EXTERNAL MODULE: ./vb/components/time-picker/style/index.less
-var time_picker_style = __webpack_require__(274);
+var time_picker_style = __webpack_require__(275);
 var time_picker_style_default = /*#__PURE__*/__webpack_require__.n(time_picker_style);
 
 // EXTERNAL MODULE: ./node_modules/date-fns/format/index.js
-var date_fns_format = __webpack_require__(275);
+var date_fns_format = __webpack_require__(276);
 var format_default = /*#__PURE__*/__webpack_require__.n(date_fns_format);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/time-picker/time-picker-option.vue
@@ -11818,7 +11916,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_time_picker = (components_time_picker_time_picker);
 // EXTERNAL MODULE: ./vb/components/tabs/style/index.less
-var tabs_style = __webpack_require__(288);
+var tabs_style = __webpack_require__(289);
 var tabs_style_default = /*#__PURE__*/__webpack_require__.n(tabs_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/tabs/tabs.vue
@@ -12512,7 +12610,7 @@ components_tabs_tabs.pane = components_tabs_tab_pane;
 
 /* harmony default export */ var components_tabs = (components_tabs_tabs);
 // EXTERNAL MODULE: ./vb/components/date-picker/style/index.less
-var date_picker_style = __webpack_require__(289);
+var date_picker_style = __webpack_require__(290);
 var date_picker_style_default = /*#__PURE__*/__webpack_require__.n(date_picker_style);
 
 // CONCATENATED MODULE: ./vb/mixins/locale.js
@@ -12625,7 +12723,7 @@ var _t = mixins_locale.methods.t;
             showMonth1: false,
             showMonth2: false,
             left: false,
-            ranges: [], //选择范围
+            ranges: [], // 选择范围
             days: this.t('datePicker.days').split(','),
             months: this.t('datePicker.months').split(','),
             years1: [],
@@ -12639,7 +12737,7 @@ var _t = mixins_locale.methods.t;
             now1: this.parse(new Date(), false),
             now2: this.parse(new Date(), true),
             timeVal: ['00:00', '00:00'],
-            count: this.range ? 2 : 1, //日历数量
+            count: this.range ? 2 : 1, // 日历数量
             startTime: this.range && this.value ? this.value[0] : '',
             endTime: this.range && this.value ? this.value[1] : '',
             bottomSpace: 0
@@ -12741,6 +12839,10 @@ var _t = mixins_locale.methods.t;
         },
         label: function label(val) {
             this.timeBtnEnable = !!val;
+            if (!val) {
+                this.timeSelected = false;
+                this.timeVal = ['00:00', '00:00'];
+            }
             if (this.range) {
                 var time = val.split(' ~ ');
                 this.$emit('input', [time[0], time[1]]);
@@ -12751,6 +12853,10 @@ var _t = mixins_locale.methods.t;
                 this.$emit('change', val);
                 this.dispatch('FormItem', 'form.change', [val]);
             }
+        },
+        value: function value(val) {
+            this.startTime = this.range && val ? val[0] : '';
+            this.endTime = this.range && val ? val[1] : '';
         }
     },
     methods: {
@@ -13576,7 +13682,7 @@ if (false) {
 var date_picker_disposed = false
 function date_picker_injectStyle (ssrContext) {
   if (date_picker_disposed) return
-  __webpack_require__(290)
+  __webpack_require__(291)
 }
 var date_picker_normalizeComponent = __webpack_require__(0)
 /* script */
@@ -13624,7 +13730,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_date_picker = (components_date_picker_date_picker);
 // EXTERNAL MODULE: ./vb/components/message/style/index.less
-var message_style = __webpack_require__(292);
+var message_style = __webpack_require__(293);
 var message_style_default = /*#__PURE__*/__webpack_require__.n(message_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/message/notice.vue
@@ -13996,7 +14102,7 @@ function vb_components_message_notice(content) {
   }
 });
 // EXTERNAL MODULE: ./vb/components/modal/style/index.less
-var modal_style = __webpack_require__(293);
+var modal_style = __webpack_require__(294);
 var modal_style_default = /*#__PURE__*/__webpack_require__.n(modal_style);
 
 // CONCATENATED MODULE: ./vb/utils/key-code.js
@@ -15184,7 +15290,7 @@ components_modal_modal.install = function (Vue, prefix) {
 
 /* harmony default export */ var components_modal = (components_modal_modal);
 // EXTERNAL MODULE: ./vb/components/more-panel/style/index.less
-var more_panel_style = __webpack_require__(294);
+var more_panel_style = __webpack_require__(295);
 var more_panel_style_default = /*#__PURE__*/__webpack_require__.n(more_panel_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/more-panel/more-panel.vue
@@ -15351,7 +15457,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_more_panel = (components_more_panel_more_panel);
 // EXTERNAL MODULE: ./vb/components/radio/style/index.less
-var radio_style = __webpack_require__(295);
+var radio_style = __webpack_require__(296);
 var radio_style_default = /*#__PURE__*/__webpack_require__.n(radio_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/radio/radio.vue
@@ -15687,7 +15793,7 @@ vb_components_radio_radio.group = components_radio_radio_group;
 
 /* harmony default export */ var components_radio = (vb_components_radio_radio);
 // EXTERNAL MODULE: ./vb/components/checkbox/style/index.less
-var checkbox_style = __webpack_require__(296);
+var checkbox_style = __webpack_require__(297);
 var checkbox_style_default = /*#__PURE__*/__webpack_require__.n(checkbox_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/checkbox/checkbox.vue
@@ -16057,7 +16163,7 @@ vb_components_checkbox_checkbox.group = components_checkbox_checkbox_group;
 
 /* harmony default export */ var components_checkbox = (vb_components_checkbox_checkbox);
 // EXTERNAL MODULE: ./vb/components/collapse/style/index.less
-var collapse_style = __webpack_require__(297);
+var collapse_style = __webpack_require__(298);
 var collapse_style_default = /*#__PURE__*/__webpack_require__.n(collapse_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/collapse/collapse.vue
@@ -16318,7 +16424,7 @@ if (false) {(function () {
 components_collapse_collapse.panel = components_collapse_panel;
 /* harmony default export */ var components_collapse = (components_collapse_collapse);
 // EXTERNAL MODULE: ./vb/components/upload/style/index.less
-var upload_style = __webpack_require__(298);
+var upload_style = __webpack_require__(299);
 var upload_style_default = /*#__PURE__*/__webpack_require__.n(upload_style);
 
 // CONCATENATED MODULE: ./vb/components/upload/request.js
@@ -16360,6 +16466,7 @@ function upload(option) {
   }
 
   var formData = new FormData();
+  formData.append('enctype', 'multipart/form-data');
   formData.append(option.filename, option.file);
   if (option.data) {
     for (var key in option.data) {
@@ -16379,6 +16486,11 @@ function upload(option) {
     option.onSuccess(getBody(xhr));
   };
   xhr.open('post', option.action, true);
+  if (option.header) {
+    for (var _key in option.header) {
+      xhr.setRequestHeader(_key, option.header[_key]);
+    }
+  }
   //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
   xhr.send(formData);
 }
@@ -16401,6 +16513,12 @@ function uid() {
     name: String,
     multiple: Boolean,
     data: Object,
+    header: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
     onStart: {
       type: Function,
       default: function _default() {}
@@ -16494,6 +16612,7 @@ function uid() {
         filename: this.name,
         file: file,
         data: data,
+        header: this.header,
         onProgress: function onProgress(e) {
           _this2.onProgress(e, file);
         },
@@ -16768,6 +16887,12 @@ function fileToObject(file) {
         return {};
       }
     },
+    header: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
     accept: {
       type: String,
       default: ''
@@ -16944,6 +17069,7 @@ var uploads_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=
       "action": _vm.action,
       "name": _vm.name,
       "data": _vm.data,
+      "header": _vm.header,
       "multiple": _vm.multiple,
       "on-start": _vm._onStart,
       "on-progress": _vm._onProgress,
@@ -17025,7 +17151,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_upload = (components_upload_uploads);
 // EXTERNAL MODULE: ./vb/components/notification/style/index.less
-var notification_style = __webpack_require__(299);
+var notification_style = __webpack_require__(300);
 var notification_style_default = /*#__PURE__*/__webpack_require__.n(notification_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/notification/notice.vue
@@ -17463,7 +17589,7 @@ function notification__close(selfKey) {
   }
 });
 // EXTERNAL MODULE: ./vb/components/form/style/index.less
-var form_style = __webpack_require__(300);
+var form_style = __webpack_require__(301);
 var form_style_default = /*#__PURE__*/__webpack_require__.n(form_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/form/form.vue
@@ -19138,11 +19264,11 @@ vb_components_form_form.item = components_form_form_item;
 
 /* harmony default export */ var components_form = (vb_components_form_form);
 // EXTERNAL MODULE: ./vb/components/data-table/style/index.less
-var data_table_style = __webpack_require__(301);
+var data_table_style = __webpack_require__(302);
 var data_table_style_default = /*#__PURE__*/__webpack_require__.n(data_table_style);
 
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
-var lodash = __webpack_require__(302);
+var lodash = __webpack_require__(303);
 var lodash_default = /*#__PURE__*/__webpack_require__.n(lodash);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/data-table/data-table.vue
@@ -21053,15 +21179,15 @@ if (false) {(function () {
 
 /* harmony default export */ var components_data_table = (components_data_table_data_table);
 // EXTERNAL MODULE: ./vb/components/tree/style/index.less
-var tree_style = __webpack_require__(303);
+var tree_style = __webpack_require__(304);
 var tree_style_default = /*#__PURE__*/__webpack_require__.n(tree_style);
 
 // EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/promise.js
-var promise = __webpack_require__(304);
+var promise = __webpack_require__(305);
 var promise_default = /*#__PURE__*/__webpack_require__.n(promise);
 
 // EXTERNAL MODULE: ./node_modules/babel-runtime/regenerator/index.js
-var regenerator = __webpack_require__(314);
+var regenerator = __webpack_require__(315);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/tree/tree.vue
@@ -21932,7 +22058,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_tree = (components_tree_tree);
 // EXTERNAL MODULE: ./vb/components/progress/style/index.less
-var progress_style = __webpack_require__(317);
+var progress_style = __webpack_require__(318);
 var progress_style_default = /*#__PURE__*/__webpack_require__.n(progress_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/progress/progress-line.vue
@@ -22305,11 +22431,30 @@ if (false) {(function () {
 
 
 // EXTERNAL MODULE: ./vb/components/popover/style/index.less
-var popover_style = __webpack_require__(318);
+var popover_style = __webpack_require__(319);
 var popover_style_default = /*#__PURE__*/__webpack_require__.n(popover_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/popover/popover.vue
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -22323,7 +22468,8 @@ var popover_placements = ['top', 'topLeft', 'topRight', 'bottom', 'bottomLeft', 
     data: function data() {
         return {
             prefixCls: 'ant-popover',
-            isInput: false
+            isInput: false,
+            visible: false
         };
     },
     props: {
@@ -22341,17 +22487,34 @@ var popover_placements = ['top', 'topLeft', 'topRight', 'bottom', 'bottomLeft', 
             validator: function validator(value) {
                 return ['click', 'focus', 'hover'].includes(value);
             }
+        },
+        controlled: {
+            type: Boolean,
+            default: false
+        },
+        initVisible: {
+            type: Boolean,
+            default: false
+        }
+    },
+    watch: {
+        visible: function visible(val) {
+            this.$emit('input', val);
+            this.$emit('change', val);
+        },
+        initVisible: function initVisible(val) {
+            this.visible = val;
         }
     },
     methods: {
         handleClick: function handleClick() {
-            if (this.trigger !== 'click') {
+            if (this.trigger !== 'click' || this.controlled && this.visible) {
                 return false;
             }
             this.visible = !this.visible;
         },
         handleClose: function handleClose() {
-            if (this.trigger !== 'click') {
+            if (this.trigger !== 'click' || this.controlled) {
                 return false;
             }
             this.visible = false;
@@ -22363,7 +22526,7 @@ var popover_placements = ['top', 'topLeft', 'topRight', 'bottom', 'bottomLeft', 
             this.visible = true;
         },
         handleMouseleave: function handleMouseleave() {
-            if (this.trigger !== 'hover') {
+            if (this.trigger !== 'hover' || this.controlled) {
                 return false;
             }
             this.visible = false;
@@ -22379,7 +22542,7 @@ var popover_placements = ['top', 'topLeft', 'topRight', 'bottom', 'bottomLeft', 
         handleBlur: function handleBlur() {
             var fromInput = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
-            if (this.trigger !== 'focus' || this.isInput && !fromInput) {
+            if (this.trigger !== 'focus' || this.isInput && !fromInput || this.controlled) {
                 return false;
             }
             this.visible = false;
@@ -22408,6 +22571,7 @@ var popover_placements = ['top', 'topLeft', 'topRight', 'bottom', 'bottomLeft', 
                 this.isInput = true;
             }
         }
+        this.visible = this.initVisible;
     },
     beforeDestroy: function beforeDestroy() {
         var $children = this.getInputChildren();
@@ -22532,7 +22696,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_popover = (components_popover_popover);
 // EXTERNAL MODULE: ./vb/components/popconfirm/style/index.less
-var popconfirm_style = __webpack_require__(319);
+var popconfirm_style = __webpack_require__(320);
 var popconfirm_style_default = /*#__PURE__*/__webpack_require__.n(popconfirm_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/popconfirm/popconfirm.vue
@@ -22704,7 +22868,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_popconfirm = (components_popconfirm_popconfirm);
 // EXTERNAL MODULE: ./vb/components/transfer/style/index.less
-var transfer_style = __webpack_require__(320);
+var transfer_style = __webpack_require__(321);
 var transfer_style_default = /*#__PURE__*/__webpack_require__.n(transfer_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/transfer/search.vue
@@ -23681,7 +23845,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_transfer = (components_transfer_transfer);
 // EXTERNAL MODULE: ./vb/components/timeline/style/index.less
-var timeline_style = __webpack_require__(321);
+var timeline_style = __webpack_require__(322);
 var timeline_style_default = /*#__PURE__*/__webpack_require__.n(timeline_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/timeline/timeline.vue
@@ -23885,7 +24049,7 @@ components_timeline_timeline.item = components_timeline_timeline_item;
 
 /* harmony default export */ var components_timeline = (components_timeline_timeline);
 // EXTERNAL MODULE: ./vb/components/carousel/style/index.less
-var carousel_style = __webpack_require__(322);
+var carousel_style = __webpack_require__(323);
 var carousel_style_default = /*#__PURE__*/__webpack_require__.n(carousel_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/carousel/carousel.vue
@@ -24349,7 +24513,7 @@ components_carousel_carousel.item = components_carousel_carousel_item;
 
 /* harmony default export */ var components_carousel = (components_carousel_carousel);
 // EXTERNAL MODULE: ./vb/components/tree-select/style/index.less
-var tree_select_style = __webpack_require__(323);
+var tree_select_style = __webpack_require__(324);
 var tree_select_style_default = /*#__PURE__*/__webpack_require__.n(tree_select_style);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/tree-select/select.vue
@@ -25056,7 +25220,7 @@ if (false) {(function () {
 
 /* harmony default export */ var components_tree_select = (components_tree_select_tree_select);
 // EXTERNAL MODULE: ./vb/directives/style/index.less
-var directives_style = __webpack_require__(324);
+var directives_style = __webpack_require__(325);
 var directives_style_default = /*#__PURE__*/__webpack_require__.n(directives_style);
 
 // CONCATENATED MODULE: ./vb/directives/tooltip.js
@@ -25277,7 +25441,7 @@ var tipVm = void 0;
     }
 });
 // EXTERNAL MODULE: ./package.json
-var package_0 = __webpack_require__(325);
+var package_0 = __webpack_require__(326);
 var package_default = /*#__PURE__*/__webpack_require__.n(package_0);
 
 // CONCATENATED MODULE: ./vb/index.js
@@ -25419,6 +25583,7 @@ var components = {
     tabs: components_tabs,
     tabPane: components_tabs.pane,
     card: components_card,
+    cardGrid: components_card.grid,
     vSwitch: components_switch,
     tag: components_tag,
     spin: components_spin,
@@ -29664,9 +29829,303 @@ __webpack_require__(83)('observable');
 
 /***/ }),
 /* 273 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Autosize 4.0.0
+	license: MIT
+	http://www.jacklmoore.com/autosize
+*/
+(function (global, factory) {
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, module], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
+		factory(exports, module);
+	} else {
+		var mod = {
+			exports: {}
+		};
+		factory(mod.exports, mod);
+		global.autosize = mod.exports;
+	}
+})(this, function (exports, module) {
+	'use strict';
+
+	var map = typeof Map === "function" ? new Map() : (function () {
+		var keys = [];
+		var values = [];
+
+		return {
+			has: function has(key) {
+				return keys.indexOf(key) > -1;
+			},
+			get: function get(key) {
+				return values[keys.indexOf(key)];
+			},
+			set: function set(key, value) {
+				if (keys.indexOf(key) === -1) {
+					keys.push(key);
+					values.push(value);
+				}
+			},
+			'delete': function _delete(key) {
+				var index = keys.indexOf(key);
+				if (index > -1) {
+					keys.splice(index, 1);
+					values.splice(index, 1);
+				}
+			}
+		};
+	})();
+
+	var createEvent = function createEvent(name) {
+		return new Event(name, { bubbles: true });
+	};
+	try {
+		new Event('test');
+	} catch (e) {
+		// IE does not support `new Event()`
+		createEvent = function (name) {
+			var evt = document.createEvent('Event');
+			evt.initEvent(name, true, false);
+			return evt;
+		};
+	}
+
+	function assign(ta) {
+		if (!ta || !ta.nodeName || ta.nodeName !== 'TEXTAREA' || map.has(ta)) return;
+
+		var heightOffset = null;
+		var clientWidth = ta.clientWidth;
+		var cachedHeight = null;
+
+		function init() {
+			var style = window.getComputedStyle(ta, null);
+
+			if (style.resize === 'vertical') {
+				ta.style.resize = 'none';
+			} else if (style.resize === 'both') {
+				ta.style.resize = 'horizontal';
+			}
+
+			if (style.boxSizing === 'content-box') {
+				heightOffset = -(parseFloat(style.paddingTop) + parseFloat(style.paddingBottom));
+			} else {
+				heightOffset = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+			}
+			// Fix when a textarea is not on document body and heightOffset is Not a Number
+			if (isNaN(heightOffset)) {
+				heightOffset = 0;
+			}
+
+			update();
+		}
+
+		function changeOverflow(value) {
+			{
+				// Chrome/Safari-specific fix:
+				// When the textarea y-overflow is hidden, Chrome/Safari do not reflow the text to account for the space
+				// made available by removing the scrollbar. The following forces the necessary text reflow.
+				var width = ta.style.width;
+				ta.style.width = '0px';
+				// Force reflow:
+				/* jshint ignore:start */
+				ta.offsetWidth;
+				/* jshint ignore:end */
+				ta.style.width = width;
+			}
+
+			ta.style.overflowY = value;
+		}
+
+		function getParentOverflows(el) {
+			var arr = [];
+
+			while (el && el.parentNode && el.parentNode instanceof Element) {
+				if (el.parentNode.scrollTop) {
+					arr.push({
+						node: el.parentNode,
+						scrollTop: el.parentNode.scrollTop
+					});
+				}
+				el = el.parentNode;
+			}
+
+			return arr;
+		}
+
+		function resize() {
+			var originalHeight = ta.style.height;
+			var overflows = getParentOverflows(ta);
+			var docTop = document.documentElement && document.documentElement.scrollTop; // Needed for Mobile IE (ticket #240)
+
+			ta.style.height = '';
+
+			var endHeight = ta.scrollHeight + heightOffset;
+
+			if (ta.scrollHeight === 0) {
+				// If the scrollHeight is 0, then the element probably has display:none or is detached from the DOM.
+				ta.style.height = originalHeight;
+				return;
+			}
+
+			ta.style.height = endHeight + 'px';
+
+			// used to check if an update is actually necessary on window.resize
+			clientWidth = ta.clientWidth;
+
+			// prevents scroll-position jumping
+			overflows.forEach(function (el) {
+				el.node.scrollTop = el.scrollTop;
+			});
+
+			if (docTop) {
+				document.documentElement.scrollTop = docTop;
+			}
+		}
+
+		function update() {
+			resize();
+
+			var styleHeight = Math.round(parseFloat(ta.style.height));
+			var computed = window.getComputedStyle(ta, null);
+
+			// Using offsetHeight as a replacement for computed.height in IE, because IE does not account use of border-box
+			var actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(computed.height)) : ta.offsetHeight;
+
+			// The actual height not matching the style height (set via the resize method) indicates that
+			// the max-height has been exceeded, in which case the overflow should be allowed.
+			if (actualHeight !== styleHeight) {
+				if (computed.overflowY === 'hidden') {
+					changeOverflow('scroll');
+					resize();
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+				}
+			} else {
+				// Normally keep overflow set to hidden, to avoid flash of scrollbar as the textarea expands.
+				if (computed.overflowY !== 'hidden') {
+					changeOverflow('hidden');
+					resize();
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+				}
+			}
+
+			if (cachedHeight !== actualHeight) {
+				cachedHeight = actualHeight;
+				var evt = createEvent('autosize:resized');
+				try {
+					ta.dispatchEvent(evt);
+				} catch (err) {
+					// Firefox will throw an error on dispatchEvent for a detached element
+					// https://bugzilla.mozilla.org/show_bug.cgi?id=889376
+				}
+			}
+		}
+
+		var pageResize = function pageResize() {
+			if (ta.clientWidth !== clientWidth) {
+				update();
+			}
+		};
+
+		var destroy = (function (style) {
+			window.removeEventListener('resize', pageResize, false);
+			ta.removeEventListener('input', update, false);
+			ta.removeEventListener('keyup', update, false);
+			ta.removeEventListener('autosize:destroy', destroy, false);
+			ta.removeEventListener('autosize:update', update, false);
+
+			Object.keys(style).forEach(function (key) {
+				ta.style[key] = style[key];
+			});
+
+			map['delete'](ta);
+		}).bind(ta, {
+			height: ta.style.height,
+			resize: ta.style.resize,
+			overflowY: ta.style.overflowY,
+			overflowX: ta.style.overflowX,
+			wordWrap: ta.style.wordWrap
+		});
+
+		ta.addEventListener('autosize:destroy', destroy, false);
+
+		// IE9 does not fire onpropertychange or oninput for deletions,
+		// so binding to onkeyup to catch most of those events.
+		// There is no way that I know of to detect something like 'cut' in IE9.
+		if ('onpropertychange' in ta && 'oninput' in ta) {
+			ta.addEventListener('keyup', update, false);
+		}
+
+		window.addEventListener('resize', pageResize, false);
+		ta.addEventListener('input', update, false);
+		ta.addEventListener('autosize:update', update, false);
+		ta.style.overflowX = 'hidden';
+		ta.style.wordWrap = 'break-word';
+
+		map.set(ta, {
+			destroy: destroy,
+			update: update
+		});
+
+		init();
+	}
+
+	function destroy(ta) {
+		var methods = map.get(ta);
+		if (methods) {
+			methods.destroy();
+		}
+	}
+
+	function update(ta) {
+		var methods = map.get(ta);
+		if (methods) {
+			methods.update();
+		}
+	}
+
+	var autosize = null;
+
+	// Do nothing in Node.js environment and IE8 (or lower)
+	if (typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') {
+		autosize = function (el) {
+			return el;
+		};
+		autosize.destroy = function (el) {
+			return el;
+		};
+		autosize.update = function (el) {
+			return el;
+		};
+	} else {
+		autosize = function (el, options) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], function (x) {
+					return assign(x, options);
+				});
+			}
+			return el;
+		};
+		autosize.destroy = function (el) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], destroy);
+			}
+			return el;
+		};
+		autosize.update = function (el) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], update);
+			}
+			return el;
+		};
+	}
+
+	module.exports = autosize;
+});
 
 /***/ }),
 /* 274 */
@@ -29676,14 +30135,20 @@ __webpack_require__(83)('observable');
 
 /***/ }),
 /* 275 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getDayOfYear = __webpack_require__(276)
-var getISOWeek = __webpack_require__(280)
+var getDayOfYear = __webpack_require__(277)
+var getISOWeek = __webpack_require__(281)
 var getISOYear = __webpack_require__(123)
 var parse = __webpack_require__(20)
-var isValid = __webpack_require__(283)
-var enLocale = __webpack_require__(284)
+var isValid = __webpack_require__(284)
+var enLocale = __webpack_require__(285)
 
 /**
  * @category Common Helpers
@@ -30009,12 +30474,12 @@ module.exports = format
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(20)
-var startOfYear = __webpack_require__(277)
-var differenceInCalendarDays = __webpack_require__(278)
+var startOfYear = __webpack_require__(278)
+var differenceInCalendarDays = __webpack_require__(279)
 
 /**
  * @category Day Helpers
@@ -30042,7 +30507,7 @@ module.exports = getDayOfYear
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(20)
@@ -30075,10 +30540,10 @@ module.exports = startOfYear
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var startOfDay = __webpack_require__(279)
+var startOfDay = __webpack_require__(280)
 
 var MILLISECONDS_IN_MINUTE = 60000
 var MILLISECONDS_IN_DAY = 86400000
@@ -30122,7 +30587,7 @@ module.exports = differenceInCalendarDays
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(20)
@@ -30153,12 +30618,12 @@ module.exports = startOfDay
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(20)
 var startOfISOWeek = __webpack_require__(84)
-var startOfISOYear = __webpack_require__(282)
+var startOfISOYear = __webpack_require__(283)
 
 var MILLISECONDS_IN_WEEK = 604800000
 
@@ -30193,7 +30658,7 @@ module.exports = getISOWeek
 
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(20)
@@ -30237,7 +30702,7 @@ module.exports = startOfWeek
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getISOYear = __webpack_require__(123)
@@ -30275,7 +30740,7 @@ module.exports = startOfISOYear
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isDate = __webpack_require__(122)
@@ -30316,11 +30781,11 @@ module.exports = isValid
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var buildDistanceInWordsLocale = __webpack_require__(285)
-var buildFormatLocale = __webpack_require__(286)
+var buildDistanceInWordsLocale = __webpack_require__(286)
+var buildFormatLocale = __webpack_require__(287)
 
 /**
  * @category Locales
@@ -30333,7 +30798,7 @@ module.exports = {
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports) {
 
 function buildDistanceInWordsLocale () {
@@ -30438,10 +30903,10 @@ module.exports = buildDistanceInWordsLocale
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var buildFormattingTokensRegExp = __webpack_require__(287)
+var buildFormattingTokensRegExp = __webpack_require__(288)
 
 function buildFormatLocale () {
   // Note: in English, the names of days of the week and months are capitalized.
@@ -30532,7 +30997,7 @@ module.exports = buildFormatLocale
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports) {
 
 var commonFormatterKeys = [
@@ -30566,12 +31031,6 @@ module.exports = buildFormattingTokensRegExp
 
 
 /***/ }),
-/* 288 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 289 */
 /***/ (function(module, exports) {
 
@@ -30579,12 +31038,18 @@ module.exports = buildFormattingTokensRegExp
 
 /***/ }),
 /* 290 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(291);
+var content = __webpack_require__(292);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -30604,7 +31069,7 @@ if(false) {
 }
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(64)(undefined);
@@ -30616,12 +31081,6 @@ exports.push([module.i, "\n.ant-calendar .ant-calendar-year-panel[data-v-41fb4af
 
 // exports
 
-
-/***/ }),
-/* 292 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 293 */
@@ -30679,6 +31138,12 @@ exports.push([module.i, "\n.ant-calendar .ant-calendar-year-panel[data-v-41fb4af
 
 /***/ }),
 /* 302 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -47770,29 +48235,29 @@ exports.push([module.i, "\n.ant-calendar .ant-calendar-year-panel[data-v-41fb4af
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48), __webpack_require__(77)(module)))
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(305), __esModule: true };
+module.exports = { "default": __webpack_require__(306), __esModule: true };
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(121);
 __webpack_require__(32);
 __webpack_require__(39);
-__webpack_require__(306);
+__webpack_require__(307);
 module.exports = __webpack_require__(3).Promise;
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47804,11 +48269,11 @@ var LIBRARY            = __webpack_require__(40)
   , $export            = __webpack_require__(8)
   , isObject           = __webpack_require__(27)
   , aFunction          = __webpack_require__(53)
-  , anInstance         = __webpack_require__(307)
-  , forOf              = __webpack_require__(308)
-  , speciesConstructor = __webpack_require__(309)
+  , anInstance         = __webpack_require__(308)
+  , forOf              = __webpack_require__(309)
+  , speciesConstructor = __webpack_require__(310)
   , task               = __webpack_require__(125).set
-  , microtask          = __webpack_require__(311)()
+  , microtask          = __webpack_require__(312)()
   , PROMISE            = 'Promise'
   , TypeError          = global.TypeError
   , process            = global.process
@@ -48000,7 +48465,7 @@ if(!USE_NATIVE){
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(312)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(313)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected){
       var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -48027,7 +48492,7 @@ if(!USE_NATIVE){
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
 __webpack_require__(41)($Promise, PROMISE);
-__webpack_require__(313)(PROMISE);
+__webpack_require__(314)(PROMISE);
 Wrapper = __webpack_require__(3)[PROMISE];
 
 // statics
@@ -48097,7 +48562,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(111)(functio
 });
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports) {
 
 module.exports = function(it, Constructor, name, forbiddenField){
@@ -48107,7 +48572,7 @@ module.exports = function(it, Constructor, name, forbiddenField){
 };
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx         = __webpack_require__(26)
@@ -48137,7 +48602,7 @@ exports.BREAK  = BREAK;
 exports.RETURN = RETURN;
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -48150,7 +48615,7 @@ module.exports = function(O, D){
 };
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -48171,7 +48636,7 @@ module.exports = function(fn, args, that){
 };
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global    = __webpack_require__(5)
@@ -48244,7 +48709,7 @@ module.exports = function(){
 };
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hide = __webpack_require__(15);
@@ -48256,7 +48721,7 @@ module.exports = function(target, src, safe){
 };
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48276,14 +48741,14 @@ module.exports = function(KEY){
 };
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(315);
+module.exports = __webpack_require__(316);
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// This method of obtaining a reference to the global object needs to be
@@ -48304,7 +48769,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(316);
+module.exports = __webpack_require__(317);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -48321,7 +48786,7 @@ if (hadRuntime) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48)))
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -49064,12 +49529,6 @@ if (hadRuntime) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48)))
 
 /***/ }),
-/* 317 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 318 */
 /***/ (function(module, exports) {
 
@@ -49115,9 +49574,15 @@ if (hadRuntime) {
 /* 325 */
 /***/ (function(module, exports) {
 
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports) {
+
 module.exports = {
 	"name": "vue-beauty",
-	"version": "2.0.0-beta.5",
+	"version": "2.0.0-beta.6",
 	"description": "Ant Design components built with Vue.js",
 	"author": "G7:FE-driver",
 	"main": "package/vue-beauty.min.js",
@@ -49150,14 +49615,15 @@ module.exports = {
 	"homepage": "https://github.com/FE-Driver/vue-beauty",
 	"dependencies": {
 		"async-validator": "^1.8.0",
-		"core-js": "^2.5.0",
+		"autosize": "^4.0.0",
+		"core-js": "^2.5.1",
 		"date-fns": "^1.28.5",
 		"deepmerge": "^1.5.1",
 		"lodash": "^4.17.4",
 		"popper.js": "^0.6.4"
 	},
 	"devDependencies": {
-		"autoprefixer": "^7.1.2",
+		"autoprefixer": "^7.1.3",
 		"axios": "^0.16.2",
 		"babel-core": "^6.26.0",
 		"babel-eslint": "^7.2.3",
@@ -49171,9 +49637,9 @@ module.exports = {
 		"clipboard": "^1.7.1",
 		"connect-history-api-fallback": "^1.3.0",
 		"copy-webpack-plugin": "^4.0.1",
-		"css-loader": "^0.28.5",
-		"eslint": "^4.5.0",
-		"eslint-config-airbnb-base": "^11.3.1",
+		"css-loader": "^0.28.7",
+		"eslint": "^4.6.0",
+		"eslint-config-airbnb-base": "^11.3.2",
 		"eslint-friendly-formatter": "^3.0.0",
 		"eslint-import-resolver-webpack": "^0.8.3",
 		"eslint-loader": "^1.9.0",
@@ -49190,7 +49656,7 @@ module.exports = {
 		"http-proxy-middleware": "^0.17.4",
 		"less": "^2.7.2",
 		"less-loader": "^4.0.5",
-		"markdown-it": "^8.3.2",
+		"markdown-it": "^8.4.0",
 		"markdown-it-anchor": "^4.0.0",
 		"markdown-it-container": "^2.0.0",
 		"opn": "^5.1.0",
@@ -49203,7 +49669,7 @@ module.exports = {
 		"url-loader": "^0.5.9",
 		"vue": "^2.4.2",
 		"vue-loader": "^13.0.4",
-		"vue-markdown-loader": "^2.0.0",
+		"vue-markdown-loader": "^2.1.0",
 		"vue-router": "^2.7.0",
 		"vue-style-loader": "^3.0.1",
 		"vue-template-compiler": "^2.4.2",
