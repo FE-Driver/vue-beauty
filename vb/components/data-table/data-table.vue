@@ -287,12 +287,12 @@
 </template>
 
 <script>
-    import vPagination from '../pagination'
-    import vSpin from '../spin'
-    import vIcon from '../icon'
-    import vCheckbox from '../checkbox'
-    import vRadio from '../radio'
-    import {debounce} from 'lodash'
+    import { debounce } from 'lodash';
+    import vPagination from '../pagination';
+    import vSpin from '../spin';
+    import vIcon from '../icon';
+    import vCheckbox from '../checkbox';
+    import vRadio from '../radio';
 
     export default {
         name: 'DataTable',
@@ -636,7 +636,7 @@
                         // 专门发送dataloaded事件
                         self.$emit('dataloaded', self.current.slice());
 
-                        self.checkType && self.patchCheckSatatus(false);
+                        self.checkType && self.initCheckSatatus();
 
                         self.total = response[self.paramsName.total] * 1;
 
@@ -646,6 +646,16 @@
                         self.loading = false;
                     }
                 );
+            },
+            initCheckSatatus() {
+                this.rowSelectionStates = [];
+                for (const item of this.current) {
+                    item.vb_dt_checked = !!item.vb_dt_checked;
+                    this.rowSelectionStates.push(item.vb_dt_checked);
+                }
+
+                // 将数据更新至父组件
+                this.$emit('update:currentData', this.current.slice());
             },
             /**
              * 补充checked数据
@@ -695,7 +705,7 @@
                 }
                 this.rowSelectionChange(index);
             },
-            setChecked(index, status) {
+            setChecked(index, status = true) {
                 this.current[index].vb_dt_checked = status;
                 // firefox上checkbox对应的值没有立即更新，延时获取
                 setTimeout(() => {
@@ -708,14 +718,14 @@
             hoverRow(index) {
                 this.hoverIndex = index;
             },
-            getRowClass(index){
-                var clazz = {};
-                if((this.fixedLeft || this.fixedRight) && index===this.hoverIndex){
-                    clazz[this.prefix + '-row-hover'] = true;
+            getRowClass(index) {
+                const clazz = {};
+                if ((this.fixedLeft || this.fixedRight) && index === this.hoverIndex) {
+                    clazz[`${this.prefix}-row-hover`] = true;
                 }
                 return clazz;
             },
-            mouseOutTable(){
+            mouseOutTable() {
                 this.hoverIndex = null;
             },
             // 刷新表格数据（使用现有参数）
@@ -732,9 +742,9 @@
             },
             // 跳转到第几页
             goto(pageNumber) {
-                if(typeof pageNumber == 'number'){
+                if (typeof pageNumber === 'number') {
                     this.pageNumber = pageNumber;
-                }else{
+                } else {
                     console.warn("Datatable's goto api using wrong parameters");
                 }
             },
@@ -743,26 +753,24 @@
                 this.tableBodyScrollLeft = target.scrollLeft;
             },
             // 延时计算尺寸，用于组件内部re-render变化时重新计算
-            debounceCalculate:debounce(function() {
+            debounceCalculate: debounce(function () {
                 this.calculateSize();
-            },200),
-            //计算并设置表格尺寸
+            }, 200),
+            // 计算并设置表格尺寸
             calculateSize() {
-                if (!this.$el) {
-                    return
-                }
+                if (!this.$el) return;
 
                 if (this.height) {
                     this.tableBodyHeight = this.height;
                 } else if (this.bottomGap > 0) {
-                    //未设置height属性时，处理bottomGap属性（height属性优先）
+                    // 未设置height属性时，处理bottomGap属性（height属性优先）
                     this.fixGapHeight();
                 }
                 this.getBodyWidth();
                 this.fixHeaderWidth();
             },
             getBodyWidth() {
-                //设置表头表格总宽度
+                // 设置表头表格总宽度
                 var tbody = this.$refs.tbody;
                 tbody && (this.tableBodyWidth = tbody.offsetWidth + "px");
             },
