@@ -623,13 +623,14 @@ currentData返回当前表格数据，需要使用sync修饰符保持双向同�
 | clickrow    | 点击某一行时触发 | object | {index:选中行的索引,checked:是否选中,row:行数据} |
 | dataloaded    | 数据加载完成后触发（初始化和翻页都会触发） | Array | 加载成功的数据 |
 
-### API Methods
-| method        | 说明           | 参数        | 参数说明        |
-|------------|----------------|------------|------------|
-| refresh    | 刷新表格数据（使用datatable的当前参数） | - | - |
-| reload    | 重新加载数据（重置到第一页） | - | - |
-| goto    | 跳转页数 | pageNumber | 整数 |
-| getCheckedData  | 获取被选中的数据集合 | - | - |
-| fixHeaderWidth  | 修正表头宽度 | - | 该方法用于修正表头宽度，用于特定情况下表头宽度不正确的情况（数据变化后组件默认会自动重新计算） |
+### Datatable Methods
+| method        | 说明           | 参数        | 参数说明        | 返回值        |
+|------------|----------------|------------|------------|------------|
+| refresh    | 刷新表格数据（使用datatable的当前参数） | - | - | - |
+| reload    | 重新加载数据（重置到第一页） | - | - | - |
+| goto    | 跳转页数 | pageNumber:number | 页数 | - |
+| getCheckedData  | 获取被选中的数据集合 | - | - | - |
+| setChecked  | 设置选中状态 | index:number,status:boolean | 索引，状态 | - |
+| fixHeaderWidth  | 该方法用于修正表头宽度，用于特定情况下表头宽度不正确的情况（数据变化后组件默认会自动重新计算） | - | - | - |
 
 

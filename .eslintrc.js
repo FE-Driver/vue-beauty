@@ -52,5 +52,6 @@ module.exports = {
     'max-len': 0,
     'no-unused-expressions': 0,
     'import/no-dynamic-require': 0,
+    'prefer-destructuring': 0,
   }
 }

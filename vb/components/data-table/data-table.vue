@@ -661,6 +661,19 @@
                 // 将数据更新至父组件
                 this.$emit('update:currentData', this.current.slice());
             },
+            checkAllChange(e) {
+                this.patchCheckSatatus(e);
+                this.$emit('checkall', e);
+            },
+            getCheckedData() {
+                const res = [];
+                for (const item of this.current) {
+                    if (item.vb_dt_checked) {
+                        res.push({ ...item });
+                    }
+                }
+                return res;
+            },
             rowSelectionChange(index) {
                 // firefox上checkbox对应的值没有立即更新，延时获取
                 setTimeout(() => {
@@ -675,25 +688,22 @@
                     this.$emit('update:currentData', this.current.slice());
                 }, 200);
             },
-            checkAllChange(e) {
-                this.patchCheckSatatus(e);
-                this.$emit('checkall', e);
-            },
-            getCheckedData() {
-                const res = [];
-                for (const item of this.current) {
-                    if (item.vb_dt_checked) {
-                        res.push({ ...item });
-                    }
-                }
-                return res;
-            },
             clickRow(index) {
                 // 点击行后是否选中
                 if (this.rowClickChecked) {
                     this.current[index].vb_dt_checked = !this.current[index].vb_dt_checked;
                 }
                 this.rowSelectionChange(index);
+            },
+            setChecked(index, status) {
+                this.current[index].vb_dt_checked = status;
+                // firefox上checkbox对应的值没有立即更新，延时获取
+                setTimeout(() => {
+                    this.$set(this.rowSelectionStates, index, status);
+
+                    // 将数据更新至父组件
+                    this.$emit('update:currentData', this.current.slice());
+                }, 200);
             },
             hoverRow(index) {
                 this.hoverIndex = index;
