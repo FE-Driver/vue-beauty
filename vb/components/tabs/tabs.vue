@@ -28,7 +28,7 @@
                         <div ref="nav" :class="[navPrefixCls, animated ? navPrefixCls + '-animated' : navPrefixCls + '-no-animated']"
                              :style="{ transform: 'translate3d(-' + tabTransform + 'px, 0px, 0px)' }">
                             <div :class="[inkBarPrefixCls, animated ? inkBarPrefixCls + '-animated' : inkBarPrefixCls + '-no-animated']" :style="barStyle"></div>
-                            <div v-for="(tab, index) in tabs" :key="tab.tabKey" role="tab" v-bind:aria-disabled="tab.disabled" v-bind:aria-selected="index == activeIndex"
+                            <div v-for="(tab, index) in tabs" :key="tab.tabKey" role="tab" :aria-disabled="tab.disabled" :aria-selected="index == activeIndex"
                                  :class="[tabPrefixCls, {[tabPrefixCls + '-active']: index == activeIndex, [tabPrefixCls + '-disabled']: tab.disabled}]"
                                  @click="selectTab(index)">
                                 <span v-if="tab.icon !== ''" >
@@ -98,6 +98,7 @@
                 tabTransform: 0,
                 screenWH: this.getClientWH(document.body),
                 preTabPanesCount: 0,
+                barStyle: {},
             };
         },
         created() {
@@ -113,6 +114,7 @@
             this.$nextTick(function () {
                 /* 直接调用并不会触发视图更新，而在第一次看不到inkBar，所以使用事件排队 */
                 this.updateIndicator();
+                this.setBarStyle();
             });
         },
         updated() {
@@ -296,6 +298,28 @@
                 });
                 this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
                 this.$emit('tab-click', this.activatedTabKey);
+                this.setBarStyle();
+            },
+            setBarStyle() {
+                const barStyle = {};
+                if (this.isVertical) {
+                    barStyle.height = `${this.tabWH}px`;
+                    barStyle.transform = `translate3d(0px, ${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px)`;
+                } else {
+                    let width;
+                    let totalOffset = 0;
+                    const tabs = this.$el.querySelectorAll(`.${this.tabPrefixCls}`);
+                    for (const [index, tab] of tabs.entries()) {
+                        if (index === this.activeIndex) {
+                            width = tab.offsetWidth;
+                            break;
+                        }
+                        totalOffset += tab.offsetWidth + this.tabMarginRB;
+                    }
+                    barStyle.width = `${width}px`;
+                    barStyle.transform = `translate3d(${totalOffset}px, 0px, 0px)`;
+                }
+                this.barStyle = barStyle;
             },
             setOffset(offset) {
                 this.tabTransform = offset;
@@ -360,17 +384,6 @@
                     { [`${this.navPrefixCls}-container-scrolling`]: this.isScroll },
                 ];
             },
-            barStyle() {
-                const barStyle = {};
-                if (this.isVertical) {
-                    barStyle.height = `${this.tabWH}px`;
-                    barStyle.transform = `translate3d(0px, ${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px)`;
-                } else {
-                    barStyle.width = `${this.tabWH}px`;
-                    barStyle.transform = `translate3d(${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px, 0px)`;
-                }
-                return barStyle;
-            },
             contentStyle() {
                 const contentStyle = {};
                 if (!this.isVertical) {
@@ -386,7 +399,11 @@
                         this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
                     });
                 }
-                setTimeout(this.scrollToActiveTab, this.transitionTime);
+                this.barStyle = {};
+                setTimeout(() => {
+                    this.scrollToActiveTab();
+                    this.setBarStyle();
+                }, this.transitionTime);
             },
             screenWH() {
                 if (this.resizeThead) {
