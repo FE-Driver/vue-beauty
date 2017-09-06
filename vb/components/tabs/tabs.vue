@@ -14,12 +14,12 @@
             </div>
             <div :class="navContainerCls">
                 <span v-if="isScroll" unselectable="unselectable"
-                      :class="[tabPrefixCls + '-prev',{[tabPrefixCls + '-btn-disabled']: tabTransform == 0}]"
+                      :class="[tabPrefixCls + '-prev',tabPrefixCls + '-arrow-show',{[tabPrefixCls + '-btn-disabled']: tabTransform == 0}]"
                       @click="before">
                     <span :class="tabPrefixCls + '-prev-icon'"></span>
                 </span>
                 <span v-if="isScroll" unselectable="unselectable"
-                      :class="[tabPrefixCls + '-next',{[tabPrefixCls + '-btn-disabled']: tabTransform + navScrollWH >= navWH}]"
+                      :class="[tabPrefixCls + '-next',tabPrefixCls + '-arrow-show',{[tabPrefixCls + '-btn-disabled']: tabTransform + navScrollWH >= navWH}]"
                       @click="next">
                     <span :class="tabPrefixCls + '-next-icon'"></span>
                 </span>
@@ -361,14 +361,13 @@
                 ];
             },
             barStyle() {
-                const barStyle = {
-                    transform: `translate3d(${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px, 0px)`,
-                };
+                const barStyle = {};
                 if (this.isVertical) {
                     barStyle.height = `${this.tabWH}px`;
                     barStyle.transform = `translate3d(0px, ${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px)`;
                 } else {
                     barStyle.width = `${this.tabWH}px`;
+                    barStyle.transform = `translate3d(${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px, 0px)`;
                 }
                 return barStyle;
             },
