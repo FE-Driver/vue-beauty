@@ -52,6 +52,12 @@ module.exports = {
     'max-len': 0,
     'no-unused-expressions': 0,
     'import/no-dynamic-require': 0,
+    'no-underscore-dangle': 0,
+    'prefer-arrow-callback': 0,
+    'no-continue': 0,
+    'yoda': 1,
     'prefer-destructuring': 0,
+    'no-restricted-globals': 0,
+    'object-curly-newline': 0,
   }
 }

@@ -36,7 +36,7 @@
                                     {{ tab.tab }}
                                     <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
                                 </span>
-                                <template v-else="">
+                                <template v-else>
                                     {{ tab.tab }}
                                     <i v-if="type === 'editable-card'" class="anticon anticon-close" @click.stop="onRemove(tab.tabKey)"></i>
                                 </template>
@@ -62,21 +62,21 @@
             activeTabKey: String,
             type: {
                 type: String,
-                default: 'line'
+                default: 'line',
             },
             size: String,
             position: {
                 type: String,
-                default: 'top'
+                default: 'top',
             },
             hideAdd: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             animated: {
                 type: Boolean,
-                default: true
-            }
+                default: true,
+            },
         },
         model: {
             prop: 'activeTabKey',
@@ -98,13 +98,13 @@
                 tabTransform: 0,
                 screenWH: this.getClientWH(document.body),
                 preTabPanesCount: 0,
-            }
+            };
         },
         created() {
-            window.addEventListener('resize',()=> {
+            window.addEventListener('resize', () => {
                 this.screenWH = this.getClientWH(document.body);
             });
-            this.$on('tabs.disabledItem', (tabPane)=> {
+            this.$on('tabs.disabledItem', (tabPane) => {
                 this.disableTab(tabPane.tabKey, tabPane.disabled);
             });
         },
@@ -116,45 +116,42 @@
             });
         },
         updated() {
-            this.$nextTick(function () {
-                let that = this;
+            this.$nextTick(() => {
                 this.updateIndicator();
                 /* 当有增加或删除操作时，要更新tabs */
-                if (this.tabPanesCount() != this.preTabPanesCount) {
+                if (this.tabPanesCount() !== this.preTabPanesCount) {
                     this.updateTabs();
                     if (this.scrollToActiveTabThread) {
-                        clearTimeout(this.scrollToActiveTabThread)
+                        clearTimeout(this.scrollToActiveTabThread);
                     }
-                    this.scrollToActiveTabThread = setTimeout(function () {
-                        that.scrollToActiveTab();
-                    }, that.transitionTime);
+                    this.scrollToActiveTabThread = setTimeout(this.scrollToActiveTab, this.transitionTime);
                 }
             });
         },
         methods: {
             getOffsetWH(element) {
-                var prop = 'offsetWidth';
+                let prop = 'offsetWidth';
                 if (this.isVertical) {
                     prop = 'offsetHeight';
                 }
                 return element[prop];
             },
             getMarginRB(element) {
-                var prop = 'marginRight';
+                let prop = 'marginRight';
                 if (this.isVertical) {
                     prop = 'marginBottom';
                 }
                 return element[prop];
             },
             getClientWH(element) {
-                var prop = 'clientWidth';
+                let prop = 'clientWidth';
                 if (this.isVertical) {
                     prop = 'clientHeight';
                 }
                 return element[prop];
             },
             getOffsetLT(element) {
-                var prop = 'left';
+                let prop = 'left';
                 if (this.isVertical) {
                     prop = 'top';
                 }
@@ -162,22 +159,22 @@
             },
             tabPanesCount() {
                 let count = 0;
-                for (let child of this.$children) {
+                for (const child of this.$children) {
                     if (child.$options.name !== 'TabPane') continue;
                     count++;
                 }
                 return count;
             },
             updateTabs() {
-                let temp_tabs = [];
+                const tempTabs = [];
                 let tabPaneIndex = 0;
-                for (let child of this.$children) {
+                for (const child of this.$children) {
                     if (child.$options.name !== 'TabPane') continue;
-                    temp_tabs.push({
+                    tempTabs.push({
                         tab: child.tab,
                         icon: child.icon || '',
                         tabKey: child.tabKey || tabPaneIndex,
-                        disabled: child.disabled
+                        disabled: child.disabled,
                     });
 
                     if (this.activatedTabKey === child.tabKey) {
@@ -186,7 +183,7 @@
                     }
                     tabPaneIndex++;
                 }
-                this.$set(this, 'tabs', temp_tabs);
+                this.$set(this, 'tabs', tempTabs);
                 this.preTabPanesCount = tabPaneIndex;
 
                 if (tabPaneIndex > 0) {
@@ -202,15 +199,15 @@
                     }
                 }
 
-                this.$nextTick(function() {
+                this.$nextTick(() => {
                     this.updateScroll();
-                })
+                });
             },
             updateIndicator() {
-                let tab = this.$el.querySelector('.' + this.tabPrefixCls);
+                const tab = this.$el.querySelector(`.${this.tabPrefixCls}`);
                 try {
                     this.tabWH = this.getOffsetWH(tab);
-                    this.tabMarginRB = parseInt(this.getMarginRB(getComputedStyle(tab, false)));
+                    this.tabMarginRB = parseInt(this.getMarginRB(getComputedStyle(tab, false)), 10);
                     this.updateScroll();
                 } catch (e) {
                     /* Do nothing */
@@ -231,15 +228,15 @@
                 }
             },
             scrollToActiveTab() {
-                var navWrap = this.$refs.navWrap,
-                    activeTab = this.getActiveTab();
+                const navWrap = this.$refs.navWrap;
+                const activeTab = this.getActiveTab();
 
                 if (activeTab) {
-                    var activeTabWH = this.getOffsetWH(activeTab);
-                    var activeTabMarginRB = parseInt(this.getMarginRB(getComputedStyle(activeTab, false)));
-                    var navWrapWH = this.getOffsetWH(navWrap);
-                    var navWrapOffset = this.getOffsetLT(navWrap);
-                    var activeTabOffset = this.getOffsetLT(activeTab);
+                    const activeTabWH = this.getOffsetWH(activeTab);
+                    const activeTabMarginRB = parseInt(this.getMarginRB(getComputedStyle(activeTab, false)), 10);
+                    const navWrapWH = this.getOffsetWH(navWrap);
+                    const navWrapOffset = this.getOffsetLT(navWrap);
+                    const activeTabOffset = this.getOffsetLT(activeTab);
                     if (navWrapOffset > activeTabOffset) {
                         this.tabTransform -= navWrapOffset - activeTabOffset;
                     } else if (navWrapOffset + navWrapWH < activeTabOffset + activeTabWH + activeTabMarginRB) {
@@ -250,17 +247,17 @@
                 }
             },
             scrollToLastTab() {
-                var navWrap = this.$refs.navWrap,
-                    nav = this.$refs.nav,
-                    lastTab = this.getLastTab();
+                const navWrap = this.$refs.navWrap;
+                const nav = this.$refs.nav;
+                const lastTab = this.getLastTab();
 
                 if (lastTab) {
-                    var lastTabbWH = this.getOffsetWH(lastTab);
-                    var lastTabbWHMarginRB = parseInt(this.getMarginRB(getComputedStyle(lastTab, false)));
-                    var navWrapWH = this.getOffsetWH(navWrap);
-                    var navWH = this.navWH = this.getOffsetWH(nav);
-                    var navWrapOffset = this.getOffsetLT(navWrap);
-                    var lastTabOffset = this.getOffsetLT(lastTab);
+                    const lastTabbWH = this.getOffsetWH(lastTab);
+                    const lastTabbWHMarginRB = parseInt(this.getMarginRB(getComputedStyle(lastTab, false)), 10);
+                    const navWrapWH = this.getOffsetWH(navWrap);
+                    const navWH = this.navWH = this.getOffsetWH(nav);
+                    const navWrapOffset = this.getOffsetLT(navWrap);
+                    const lastTabOffset = this.getOffsetLT(lastTab);
 
                     if (navWrapOffset + navWrapWH > lastTabOffset + lastTabbWH + lastTabbWHMarginRB) {
                         if (navWrapWH < navWH) {
@@ -272,11 +269,11 @@
                 }
             },
             getActiveTab() {
-                return this.$el.querySelector('.' + this.tabPrefixCls + '-active');
+                return this.$el.querySelector(`.${this.tabPrefixCls}-active`);
             },
             getLastTab() {
                 let tab = null;
-                let tabs = this.$el.querySelectorAll('.' + this.tabPrefixCls);
+                const tabs = this.$el.querySelectorAll(`.${this.tabPrefixCls}`);
                 if (tabs && tabs.length) {
                     tab = tabs[tabs.length - 1];
                 }
@@ -284,9 +281,9 @@
             },
             disableTab(tabKey, disabled) {
                 for (let i = 0; i < this.tabs.length; i++) {
-                    let tab = this.tabs[i];
-                    if (tab.tabKey == tabKey) {
-                        this.$set(this.tabs[i], "disabled", disabled);
+                    const tab = this.tabs[i];
+                    if (tab.tabKey === tabKey) {
+                        this.$set(this.tabs[i], 'disabled', disabled);
                         break;
                     }
                 }
@@ -304,7 +301,7 @@
                 this.tabTransform = offset;
             },
             before() {
-                this.moveWH = Math.floor(this.navScrollWH / ( this.tabWH + 24 )) * ( this.tabWH + 24 );
+                this.moveWH = Math.floor(this.navScrollWH / (this.tabWH + 24)) * (this.tabWH + 24);
                 if (this.tabTransform - this.moveWH >= 0) {
                     this.tabTransform += -1 * this.moveWH;
                 } else {
@@ -313,7 +310,7 @@
             },
             next() {
                 this.navScrollWH = this.getOffsetWH(this.$refs.navScroll);
-                this.moveWH = Math.floor(this.navScrollWH / ( this.tabWH + 24 )) * ( this.tabWH + 24 );
+                this.moveWH = Math.floor(this.navScrollWH / (this.tabWH + 24)) * (this.tabWH + 24);
                 if (this.tabTransform + this.moveWH <= this.navWH - this.navScrollWH) {
                     this.tabTransform += this.moveWH;
                 } else if (this.tabTransform <= this.navWH - this.navScrollWH) {
@@ -321,14 +318,14 @@
                 }
             },
             onAdd() {
-                this.$emit("add");
+                this.$emit('add');
             },
             onRemove(tabKey) {
-                this.$emit("remove", tabKey);
+                this.$emit('remove', tabKey);
             },
             updateActiveIndex(activatedTabKey) {
                 for (let i = 0; i < this.tabs.length; i++) {
-                    if (this.tabs[i].tabKey == activatedTabKey) {
+                    if (this.tabs[i].tabKey === activatedTabKey) {
                         this.activeIndex = i;
                         this.selectTab(i);
                         break;
@@ -340,12 +337,12 @@
             isVertical() {
                 return this.position === 'left' || this.position === 'right';
             },
-            tabPrefixCls() { return this.prefixCls + '-tab' },
-            navPrefixCls() { return this.prefixCls + '-nav' },
-            inkBarPrefixCls() { return this.prefixCls + '-ink-bar' },
-            contentPrefixCls() { return this.prefixCls + '-content' },
+            tabPrefixCls() { return `${this.prefixCls}-tab`; },
+            navPrefixCls() { return `${this.prefixCls}-nav`; },
+            inkBarPrefixCls() { return `${this.prefixCls}-ink-bar`; },
+            contentPrefixCls() { return `${this.prefixCls}-content`; },
             tabsCls() {
-                const size = {small: 'mini'}[this.size];
+                const size = { small: 'mini' }[this.size];
                 return [
                     this.prefixCls,
                     `${this.prefixCls}-${this.position}`,
@@ -353,56 +350,50 @@
                     {
                         [`${this.prefixCls}-card`]: this.type === 'editable-card',
                         [`${this.prefixCls}-${size}`]: !!size,
-                        [`${this.prefixCls}-vertical`]: this.isVertical
-                    }
-                ]
+                        [`${this.prefixCls}-vertical`]: this.isVertical,
+                    },
+                ];
             },
             navContainerCls() {
                 return [
                     `${this.navPrefixCls}-container`,
-                    {[`${this.navPrefixCls}-container-scrolling`]: this.isScroll}
-                ]
+                    { [`${this.navPrefixCls}-container-scrolling`]: this.isScroll },
+                ];
             },
             barStyle() {
-                let barStyle =  {
-                    transform: 'translate3d(' + (this.tabWH + this.tabMarginRB) * this.activeIndex + 'px, 0px, 0px)'
+                const barStyle = {
+                    transform: `translate3d(${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px, 0px)`,
                 };
                 if (this.isVertical) {
-                    barStyle.height = this.tabWH + 'px';
-                    barStyle.transform = 'translate3d(0px, ' + (this.tabWH + this.tabMarginRB) * this.activeIndex + 'px, 0px)';
+                    barStyle.height = `${this.tabWH}px`;
+                    barStyle.transform = `translate3d(0px, ${(this.tabWH + this.tabMarginRB) * this.activeIndex}px, 0px)`;
                 } else {
-                    barStyle.width = this.tabWH + 'px';
+                    barStyle.width = `${this.tabWH}px`;
                 }
                 return barStyle;
             },
             contentStyle() {
-                let contentStyle =  {};
+                const contentStyle = {};
                 if (!this.isVertical) {
-                    contentStyle.marginLeft = -100 * this.activeIndex + '%';
+                    contentStyle.marginLeft = `${-100 * this.activeIndex}%`;
                 }
                 return contentStyle;
-            }
+            },
         },
         watch: {
             position(value, oldValue) {
-                let that = this;
-                if ( value == 'bottom' || oldValue == 'bottom') {
-                    this.$nextTick(function () {
+                if (value === 'bottom' || oldValue === 'bottom') {
+                    this.$nextTick(() => {
                         this.broadcast('TabPane', 'tabPane.activeTabKey', this.activatedTabKey);
-                    }, 0);
+                    });
                 }
-                setTimeout(function () {
-                    that.scrollToActiveTab();
-                }, this.transitionTime);
+                setTimeout(this.scrollToActiveTab, this.transitionTime);
             },
             screenWH() {
-                let that = this;
-                if (that.resizeThead) {
-                    clearTimeout(that.resizeThead);
+                if (this.resizeThead) {
+                    clearTimeout(this.resizeThead);
                 }
-                that.resizeThead = setTimeout(function () {
-                    that.updateScroll();
-                }, this.transitionTime)
+                this.resizeThead = setTimeout(this.updateScroll, this.transitionTime);
             },
             activeTabKey(value) {
                 this.activatedTabKey = value;
@@ -414,6 +405,6 @@
             activeIndex(value) {
                 this.$emit('index-change', value);
             },
-        }
-    }
+        },
+    };
 </script>
