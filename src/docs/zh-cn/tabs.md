@@ -487,7 +487,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 | tabKey  | 对应 activeTabKey | string | - |
 | tab  | 选项卡头显示文字 | string | - |
 | icon   | 图标 Icon 类型 | string | - |
-| disabled | 是否警用当前tab | boolean | `false` |
+| disabled | 是否禁用当前tab | boolean | `false` |
 
 ### Tabs Events
 | 事件名称 | 说明 | 回调参数 |

@@ -12,16 +12,16 @@
         mixins: [emitter],
         data: () => ({
             prefix: 'ant-tabs-tabpane',
-            selected: false
+            selected: false,
         }),
         props: {
             tabKey: String,
             icon: String,
             disabled: {
                 type: Boolean,
-                default: false
+                default: false,
             },
-            tab: String
+            tab: String,
         },
         mounted() {
             this.$on('tabPane.activeTabKey', (tabKey) => {
@@ -30,24 +30,25 @@
 
             /* 派发事件给parent */
             if (this.disabled) {
-                this.dispatch('Tabs', 'tabs.disabledItem', {tabKey: this.tabKey, disabled: this.disabled});
+                this.dispatch('Tabs', 'tabs.disabledItem', { tabKey: this.tabKey, disabled: this.disabled });
             }
         },
         computed: {
             wrapCls() {
                 return [
                     this.prefix,
-                    {[`${this.prefix}-active`]: this.selected},
-                    {[`${this.prefix}-inactive`]: !this.selected}
-                ]
-            }
+                    { [`${this.prefix}-active`]: this.selected },
+                    { [`${this.prefix}-inactive`]: !this.selected },
+                ];
+            },
         },
         watch: {
             disabled(value) {
-                if (value) {
-                    this.dispatch('Tabs', 'tabs.disabledItem', {tabKey: this.tabKey, disabled: value});
-                }
-            }
-        }
-    }
+                this.dispatch('Tabs', 'tabs.tabPropChange', { tabKey: this.tabKey, props: { disabled: value } });
+            },
+            tab(value) {
+                this.dispatch('Tabs', 'tabs.tabPropChange', { tabKey: this.tabKey, props: { tab: value } });
+            },
+        },
+    };
 </script>

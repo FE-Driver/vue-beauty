@@ -105,8 +105,15 @@
             window.addEventListener('resize', () => {
                 this.screenWH = this.getClientWH(document.body);
             });
-            this.$on('tabs.disabledItem', (tabPane) => {
-                this.disableTab(tabPane.tabKey, tabPane.disabled);
+            this.$on('tabs.tabPropChange', (data) => {
+                for (const tab of this.tabs) {
+                    if (tab.tabKey === data.tabKey) {
+                        for (const [prop, value] of Object.entries(data.props)) {
+                            this.$set(tab, prop, value);
+                        }
+                        break;
+                    }
+                }
             });
         },
         mounted() {
@@ -280,15 +287,6 @@
                     tab = tabs[tabs.length - 1];
                 }
                 return tab;
-            },
-            disableTab(tabKey, disabled) {
-                for (let i = 0; i < this.tabs.length; i++) {
-                    const tab = this.tabs[i];
-                    if (tab.tabKey === tabKey) {
-                        this.$set(this.tabs[i], 'disabled', disabled);
-                        break;
-                    }
-                }
             },
             selectTab(index) {
                 this.activeIndex = index;
