@@ -9,7 +9,7 @@
 		  :handle-select="handleLeftSelect"
 		  :handle-select-all="handleLeftSelectAll"
 		  :checked-keys="leftCheckedKeys"
-		  :render="render"
+		  :label="label"
 		  :title-text="titles[0]"
 		  :style="listStyle"
 		  :class-name="className"
@@ -37,7 +37,7 @@
 		  :handle-select="handleRightSelect"
 		  :handle-select-all="handleRightSelectAll"
 		  :checked-keys="rightCheckedKeys"
-		  :render="render"
+		  :label="label"
 		  :title-text="titles[1]"
 		  :style="listStyle"
 		  :class-name="className"
@@ -51,19 +51,19 @@
 	</div>
 </template>
 <script>
-	import {t} from '../../locale'
-	import list from './list';
-	import operation from './operation';
+import { t } from '../../locale';
+import list from './list';
+import operation from './operation';
 
-	function noop() {}
+function noop() { }
 export default {
-    name: 'Transfer',
+	name: 'Transfer',
 	props: {
 		data: {
 			type: Array,
 			default: () => [],
 		},
-		render: {
+		label: {
 			type: Function,
 			default: noop,
 		},
@@ -88,11 +88,11 @@ export default {
 		filterOption: Function,
 		searchPlaceholder: {
 			type: String,
-			default: ()=>t('transfer.searchPlaceholder'),
+			default: () => t('transfer.searchPlaceholder'),
 		},
 		notFoundContent: {
 			type: String,
-			default: ()=>t('transfer.notFoundContent'),
+			default: () => t('transfer.notFoundContent'),
 		},
 	},
 	data() {
@@ -121,34 +121,34 @@ export default {
 	},
 	created() {
 		this.leftCheckedKeys = this.leftCheckedKeys
-			.filter(data =>this.data
+			.filter(data => this.data
 				.filter(item => item.key === data).length)
 			.filter(data => this.targetKeys
-			.filter(key => key === data).length === 0)
+				.filter(key => key === data).length === 0)
 
-	this.rightCheckedKeys = this.rightCheckedKeys
-			.filter(data =>this.data
+		this.rightCheckedKeys = this.rightCheckedKeys
+			.filter(data => this.data
 				.filter(item => item.key === data).length)
 			.filter(data => this.targetKeys
-			.filter(key => key === data).length > 0)
+				.filter(key => key === data).length > 0)
 		this.splitDataSource();
 	},
 	methods: {
 		splitDataSource() {
-		this.leftDataSource = [...this.data];
-		this.rightDataSource = [];
-		if (this.targetKeys.length > 0) {
-			this.targetKeys.forEach((targetKey) => {
-			this.rightDataSource.push(
-				this.leftDataSource.filter((data, index) => {
-					if (data.key === targetKey) {
-					this.leftDataSource.splice(index, 1);
-					return true;
-					}
-					return false;
-			})[0]);
-			});
-		}
+			this.leftDataSource = [...this.data];
+			this.rightDataSource = [];
+			if (this.targetKeys.length > 0) {
+				this.targetKeys.forEach((targetKey) => {
+					this.rightDataSource.push(
+						this.leftDataSource.filter((data, index) => {
+							if (data.key === targetKey) {
+								this.leftDataSource.splice(index, 1);
+								return true;
+							}
+							return false;
+						})[0]);
+				});
+			}
 		},
 		handleLeftSelect(selectedItem, checked) {
 			this.handleSelect('left', selectedItem, checked);
@@ -159,41 +159,41 @@ export default {
 		handleSelect(direction, selectedItem, checked) {
 			const leftCheckedKeys = this.leftCheckedKeys;
 			const rightCheckedKeys = this.rightCheckedKeys;
-		const holder = direction === 'left' ? [...leftCheckedKeys] : [...rightCheckedKeys];
-		let index;
-		holder.forEach((key, i) => {
-			if (key === selectedItem.key) {
-			index = i;
+			const holder = direction === 'left' ? [...leftCheckedKeys] : [...rightCheckedKeys];
+			let index;
+			holder.forEach((key, i) => {
+				if (key === selectedItem.key) {
+					index = i;
+				}
+			});
+			if (index > -1) {
+				holder.splice(index, 1);
 			}
-		});
-		if (index > -1) {
-			holder.splice(index, 1);
-		}
-		if (checked) {
-			holder.push(selectedItem.key);
-		}
-		this[`${direction}CheckedKeys`] = holder;
+			if (checked) {
+				holder.push(selectedItem.key);
+			}
+			this[`${direction}CheckedKeys`] = holder;
 		},
 		handleSelectAll(direction, filteredDataSource, checkAll) {
-			const holder = checkAll ?  filteredDataSource
+			const holder = checkAll ? filteredDataSource
 				.map(item => item.key) : [];
 			this[`${direction}CheckedKeys`] = holder;
 		},
-		handleLeftSelectAll(...args){
+		handleLeftSelectAll(...args) {
 			this.handleSelectAll('left', ...args)
 		},
-		handleRightSelectAll(...args){
+		handleRightSelectAll(...args) {
 			this.handleSelectAll('right', ...args)
 		},
 		moveTo(direction) {
 			const targetKeys = this.targetKeys;
 			const key = direction === 'right' ? 'leftCheckedKeys' : 'rightCheckedKeys';
 			const moveKeys = this[key];
-			const newTargetKeys = direction === 'right' ? moveKeys.concat(targetKeys): targetKeys.filter(targetKey => !moveKeys.some(checkedKey => targetKey === checkedKey));
+			const newTargetKeys = direction === 'right' ? moveKeys.concat(targetKeys) : targetKeys.filter(targetKey => !moveKeys.some(checkedKey => targetKey === checkedKey));
 			this[key] = [];
 			this.$emit('change', newTargetKeys, direction, moveKeys);
 		},
-		moveToLeft() {			
+		moveToLeft() {
 			this.moveTo('left');
 		},
 		moveToRight() {

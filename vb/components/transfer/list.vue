@@ -62,7 +62,7 @@
 				type: Array,
 				default: () => [],
 			},
-			render: {
+			label: {
 				type: Function,
 				default: noop,
 			},
@@ -131,13 +131,13 @@
 		},
 		methods: {
 			showLabel(item) {
-				const result = this.render(item);
+				const result = this.label(item);
 				return result.label ? result.label : result;
 			},
 			setFilteredDataSource() {
 				this.filteredDataSource = [];
 				this.showItems = this.dataSource.map(item => {
-					const renderResult = this.render(item);
+					const renderResult = this.label(item);
 		      let renderedText;
 		      let renderedEl;
 		      if (renderResult.value) {

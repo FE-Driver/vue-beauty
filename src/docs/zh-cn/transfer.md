@@ -53,7 +53,7 @@ export default {
         this.mockData2(num+1);
       }
     },
-    render(item) {
+    render1(item) {
       return item.title;
     },
     render2(item) {
@@ -93,12 +93,12 @@ export default {
 ::: demo
 <summary>
   #### 基本用法
-  最基本的用法，展示了 `data`、`targetKeys`、每行的渲染函数 `render` 以及事件 `change` 的用法。
+  最基本的用法，展示了 `data`、`targetKeys`、每行的渲染函数 `label` 以及事件 `change` 的用法。
 </summary>
 
 ```html
 <template>
-  <v-transfer :data="dataSource1" :titles="['源列表','目的列表']" :target-keys="targetKeys1" @change="handleChange1" :render="render"></v-transfer>
+  <v-transfer :data="dataSource1" :titles="['源列表','目的列表']" :target-keys="targetKeys1" @change="handleChange1" :label="render1"></v-transfer>
 </template>
 
 <script>
@@ -126,7 +126,7 @@ export default {
         }
       }
     },
-    render(item) {
+    render1(item) {
       return item.title;
     },
     handleChange1(targetKeys, direction, moveKeys) {
@@ -147,7 +147,7 @@ export default {
 
 ```html
 <template>
-  <v-transfer :data="dataSource2" :target-keys="targetKeys2" @change="handleChange2" show-search :filter-option="filterOption" :render="render"></v-transfer>
+  <v-transfer :data="dataSource2" :target-keys="targetKeys2" @change="handleChange2" show-search :filter-option="filterOption" :label="render1"></v-transfer>
 </template>
 
 <script>
@@ -185,7 +185,7 @@ export default {
         this.mockData2(num+1);
       }
     },
-    render(item) {
+    render1(item) {
       return item.title;
     },
     handleChange2(targetKeys, direction, moveKeys) {
@@ -209,7 +209,7 @@ export default {
 
 ```html
 <template>
-  <v-transfer :data="dataSource3" :target-keys="targetKeys3" @change="handleChange3" :list-style="{width: '250px', height: '300px'}" show-search :operations="['向右', '向左']" :filter-option="filterOption" :render="render">
+  <v-transfer :data="dataSource3" :target-keys="targetKeys3" @change="handleChange3" :list-style="{width: '250px', height: '300px'}" show-search :operations="['向右', '向左']" :filter-option="filterOption" :label="render1">
     <div :style="{float: 'right', margin: '5px'}" slot="leftFooter">
         <v-button type="ghost" size="small" @click="mockData2(3)">刷新</v-button>
     </div>
@@ -254,7 +254,7 @@ export default {
         this.mockData2(num+1);
       }
     },
-    render(item) {
+    render1(item) {
       return item.title;
     },
     handleChange3(targetKeys, direction, moveKeys) {
@@ -278,7 +278,7 @@ export default {
 
 ```html
 <template>
-  <v-transfer :data="dataSource4" :target-keys="targetKeys4" @change="handleChange4" :list-style="{width: '300px', height: '300px'}" :render="render2"></v-transfer>
+  <v-transfer :data="dataSource4" :target-keys="targetKeys4" @change="handleChange4" :list-style="{width: '300px', height: '300px'}" :label="render2"></v-transfer>
 </template>
 
 <script>
@@ -338,7 +338,7 @@ export default {
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |----------  |-------- |
 | data | 数据源，其中的数据将会被渲染到左边一栏中，`targetKeys` 中指定的除外。 | Object[] | [] |
-| render | 每行数据渲染函数，该函数的入参为 `data` 中的项 | String[] | - |
+| label | 每行数据渲染函数，该函数的入参为 `data` 中的项 | Function | - |
 | targetKeys | 显示在右侧框数据的key集合 | String[] | [] |
 | listStyle | 两个穿梭框的自定义样式 | Object | - |
 | className | 两个穿梭框的自定义类 | String | - |
