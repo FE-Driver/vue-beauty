@@ -135,8 +135,8 @@
                 this.$modal.confirm({
                     title: '您是否确认要删除这项内容',
                     content: '点确认 1 秒后关闭',
-                    onOk: function () {
-                        return new Promise(function (resolve) {
+                    onOk: async () => {
+                        await new Promise(function (resolve) {
                             setTimeout(resolve, 1000);
                         })
                     },
@@ -419,8 +419,8 @@
                 this.$modal.confirm({
                     title: '您是否确认要删除这项内容',
                     content: '点确认 1 秒后关闭',
-                    onOk: function () {
-                        return new Promise(function (resolve) {
+                    onOk: async () => {
+                        await new Promise(function (resolve) {
                             setTimeout(resolve, 1000);
                         })
                     },
@@ -430,7 +430,7 @@
                         })
                     }
                 })
-            }
+            },
         }
     }
 </script>
