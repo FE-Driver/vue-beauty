@@ -1,6 +1,6 @@
-import "./style/index.less"
-import button from './button.vue'
-import buttonGroup from './button-group.vue'
+import './style/index.less';
+import button from './button';
+import buttonGroup from './button-group';
 
 button.group = buttonGroup;
 
