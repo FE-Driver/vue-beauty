@@ -1,4 +1,4 @@
-import "./style/index.less"
-import alert from './alert.vue'
+import './style/index.less';
+import alert from './alert';
 
-export default alert
+export default alert;
