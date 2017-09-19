@@ -10,7 +10,8 @@
                 <div :class="[prefix,{[prefix+'-range']:range},{[prefix+'-time']:showTime || range}]">
                     <div class="ant-calendar-top" v-if="range">
                         <template v-for="(item,index) in ranges">
-                            <i v-if="index"></i><a v-text="item.name" :class="item.active?'on':''" @click="selectRange(index)"></a>
+                            <i v-if="index"></i>
+                            <a v-text="item.name" :class="item.active?'on':''" @click="selectRange(index)"></a>
                         </template>
                     </div>
                     <div class="ant-calendar-date-panel">
@@ -53,11 +54,15 @@
                                 </transition>
                                 <transition name="fade">
                                     <div class="ant-calendar-year-panel" v-if="$data['showYear'+no]">
-                                        <span class="ant-calendar-year-panel-prev"  @click="changeYearRange(no,-1)"><a class="anticon anticon-up"></a></span>
-                                        <span class="ant-calendar-year-panel-cell" v-for="(item,index) in $data['years'+no]" :class="item.status" @click="selectYear(index,no)" style="width:33.33%; display:inline-block;padding:9px 0">
+                                        <span class="ant-calendar-year-panel-prev" @click="changeYearRange(no,-1)">
+                                            <a class="anticon anticon-up"></a>
+                                        </span>
+                                        <span class="ant-calendar-year-panel-cell" v-for="(item,index) in $data[`years${no}`]" :class="item.status" @click="selectYear(index,no)" style="width:33.33%; display:inline-block;padding:9px 0">
                                             <a class="ant-calendar-year-panel-year">{{item.year+t('datePicker.year')}}</a>
                                         </span>
-                                        <span class="ant-calendar-year-panel-next"  @click="changeYearRange(no,1)"><a class="anticon anticon-down"></a></span>
+                                        <span class="ant-calendar-year-panel-next" @click="changeYearRange(no,1)">
+                                            <a class="anticon anticon-down"></a>
+                                        </span>
                                     </div>
                                 </transition>
                                 <transition name="fade">
@@ -66,8 +71,8 @@
                                             <table class="ant-calendar-month-panel-table">
                                                 <tbody class="ant-calendar-month-panel-tbody">
                                                     <tr v-for="n in 4">
-                                                        <td class="ant-calendar-month-panel-cell" v-for="m in 3" :class="$data['months'+no][3*(n-1)+m-1].status">
-                                                            <a class="ant-calendar-month-panel-month" @click="selectMonth(3*(n-1)+m-1,no)">{{months[$data['months'+no][3*(n-1)+m-1].month-1].substr(0,3)}}</a>
+                                                        <td class="ant-calendar-month-panel-cell" v-for="m in 3" :class="$data[`months${no}`][3*(n-1)+m-1].status">
+                                                            <a class="ant-calendar-month-panel-month" @click="selectMonth(3*(n-1)+m-1,no)">{{months[$data[`months${no}`][3*(n-1)+m-1].month-1].substr(0,3)}}</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -90,7 +95,7 @@
     </span>
 </template>
 
-<script lang="babel">
+<script>
     import Locale from '../../mixins/locale';
     import { getOffset } from '../../utils/fn';
     import emitter from '../../mixins/emitter';
@@ -102,12 +107,12 @@
     export default {
         name: 'DatePicker',
         directives: { clickoutside },
-        components: {timePickerPanel},
-        mixins: [ Locale, emitter],
+        components: { timePickerPanel },
+        mixins: [Locale, emitter],
         props: {
             placeholder: {
                 type: String,
-                default: ()=> _t('datePicker.placeholder')
+                default: () => _t('datePicker.placeholder'),
             },
             // 是否显示范围
             range: {
@@ -126,39 +131,39 @@
                 },
             },
             position: {
-                type:String,
-                default:'absolute'
+                type: String,
+                default: 'absolute',
             },
             popupContainer: {
                 type: Function,
-                default: ()=> document.body
+                default: () => document.body,
             },
             showTime: {
                 type: Boolean,
-                default: false
+                default: false,
             },
-            //选择最大范围限制,以天为单位（只有range为true的时候才起作用）
+            // 选择最大范围限制,以天为单位（只有range为true的时候才起作用）
             maxRange: Number,
-            //是否可以清除
+            // 是否可以清除
             clearable: {
                 type: Boolean,
-                default: false
+                default: false,
             },
-            //显示格式
+            // 显示格式
             format: {
                 type: String,
-                default: 'yyyy-MM-dd'
+                default: 'yyyy-MM-dd',
             },
-            //禁用
+            // 禁用
             disabled: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             disabledDate: Function,
             disabledTime: {
                 type: Array,
-                default: ()=>[{},{}]
-            }
+                default: () => [{}, {}],
+            },
         },
         data() {
             return {
@@ -199,22 +204,21 @@
             label() {
                 let val = '';
                 if (this.range) {
-                    let startTime = '',endTime = '';
+                    let startTime = '';
+                    let endTime = '';
                     if (this.startTime && this.endTime) {
                         startTime = this.stringify(this.parse(this.startTime, false));
                         endTime = this.stringify(this.parse(this.endTime, false));
-                        if(this.showTime){
-                            startTime = startTime + ' ' + this.timeVal[0];
-                            endTime = endTime + ' ' + this.timeVal[1];
+                        if (this.showTime) {
+                            startTime = `${startTime} ${this.timeVal[0]}`;
+                            endTime = `${endTime} ${this.timeVal[1]}`;
                         }
-                        val = startTime + ' ~ ' + endTime;
+                        val = `${startTime} ~ ${endTime}`;
                     }
-                } else {
-                    if(this.value){
-                        val = this.stringify(this.parse(this.value, false));
-                        if(this.showTime){
-                            val = val + ' ' + this.timeVal[0];
-                        }
+                } else if (this.value) {
+                    val = this.stringify(this.parse(this.value, false));
+                    if (this.showTime) {
+                        val = `${val} ${this.timeVal[0]}`;
                     }
                 }
                 return val;
@@ -340,71 +344,70 @@
                         return tmpTime;
                     } else if (isLast) {
                         return new Date(tmpTime.getFullYear(), tmpTime.getMonth(), tmpTime.getDate(), 23, 59, 59, 999);
-                    } else {
-                        return new Date(tmpTime.getFullYear(), tmpTime.getMonth(), tmpTime.getDate());
                     }
+                    return new Date(tmpTime.getFullYear(), tmpTime.getMonth(), tmpTime.getDate());
                 }
                 return null;
             },
-            //初始化时间范围
+            // 初始化时间范围
             initRanges() {
-                var time = new Date(),
-                    ranges = [];
+                let time = new Date();
+                const ranges = [];
                 ranges.push({
                     name: '今天',
                     start: this.parse(time, false),
                     end: this.parse(time, true),
-                    active: true
+                    active: true,
                 });
                 time.setDate(time.getDate() - 1);
                 ranges.push({
                     name: '昨天',
                     start: this.parse(time, false),
-                    end: this.parse(time, true)
+                    end: this.parse(time, true),
                 });
                 time = new Date();
                 time.setDate(time.getDate() - 6);
                 ranges.push({
                     name: '最近7天',
                     start: this.parse(time, false),
-                    end: this.parse(new Date(), true)
+                    end: this.parse(new Date(), true),
                 });
                 time = new Date();
                 time.setMonth(time.getMonth() + 1, 0);
                 ranges.push({
                     name: '本月',
                     start: new Date(time.getFullYear(), time.getMonth(), 1),
-                    end: this.parse(time, true)
+                    end: this.parse(time, true),
                 });
                 time = new Date();
                 time.setMonth(time.getMonth(), 0);
                 ranges.push({
                     name: '上个月',
                     start: new Date(time.getFullYear(), time.getMonth(), 1),
-                    end: this.parse(time, true)
+                    end: this.parse(time, true),
                 });
                 time = new Date();
                 time.setDate(time.getDate() - 29);
                 ranges.push({
                     name: '最近一个月',
                     start: this.parse(time, false),
-                    end: this.parse(new Date(), true)
+                    end: this.parse(new Date(), true),
                 });
                 time = new Date();
                 time.setDate(time.getDate() - 365);
                 ranges.push({
                     name: '最近一年',
                     start: this.parse(time, false),
-                    end: this.parse(new Date(), true)
+                    end: this.parse(new Date(), true),
                 });
                 this.ranges = ranges;
             },
-            //更新所有的日历
+            // 更新所有的日历
             updateAll() {
                 this.update(new Date(this.now1), 1);
                 this.range && this.update(new Date(this.now2), 2);
             },
-            //点击时间输入框的时候触发
+            // 点击时间输入框的时候触发
             click() {
                 this.time1 = this.parse(this.startTime) || this.parse(this.range ? this.value[0] : this.value);
                 this.now1 = this.parse(this.startTime) || this.parse(this.range ? this.value[0] : this.value) || new Date();
@@ -413,35 +416,35 @@
                     this.time2 = this.parse(this.endTime);
                     this.now2 = this.parse(this.endTime) || new Date();
                 }
-                var rect = this.$el.getBoundingClientRect(),
-                    right = document.documentElement.clientWidth - rect.left;
+                const rect = this.$el.getBoundingClientRect();
+                const right = document.documentElement.clientWidth - rect.left;
                 (right < (this.range ? 441 : 214) && right < rect.left) ? (this.left = true) : (this.left = false);
                 this.show = !this.show;
 
-                if(this.show){
-                    this.$nextTick(()=>{
+                if (this.show) {
+                    this.$nextTick(() => {
                         this.setPosition();
-                    })
+                    });
                 }
             },
-            //选择时间
+            // 选择时间
             select(item, no) {
                 this.hidePanel();
 
                 if (item.status.indexOf('ant-calendar-disabled-cell') !== -1) {
                     return;
                 }
-                this['now' + no] = new Date(item.time);
-                this['time' + no] = new Date(item.time);
+                this[`now${no}`] = new Date(item.time);
+                this[`time${no}`] = new Date(item.time);
 
-                if(this.range){
+                if (this.range) {
                     this[no === 1 ? 'startTime' : 'endTime'] = this.getOutTime(item.time);
-                }else{
-                    this.$emit('input',this.getOutTime(item.time))
-                    if(!this.showTime) this.closeDropdown();
+                } else {
+                    this.$emit('input', this.getOutTime(item.time));
+                    if (!this.showTime) this.closeDropdown();
                 }
             },
-            //确认
+            // 确认
             confirm() {
                 this.closeDropdown();
                 this.$emit('confirm');
@@ -449,11 +452,11 @@
             closeDropdown() {
                 this.show = false;
             },
-            //选择范围
+            // 选择范围
             selectRange(index) {
-                let item = this.ranges[index];
+                const item = this.ranges[index];
 
-                for(let i=0;i<this.ranges.length;i++){
+                for (let i = 0; i < this.ranges.length; i++) {
                     this.$set(this.ranges[i], 'active', false);
                 }
                 this.$set(this.ranges[index], 'active', true);
@@ -465,26 +468,30 @@
                 this.endTime = this.getOutTime(item.end);
                 this.hidePanel();
             },
-            //根据输出类型，获取输出的时间
+            // 根据输出类型，获取输出的时间
             getOutTime(time) {
-//                var type = this.value ? typeof(this.value) : typeof(this.startTime);
+                // let type = this.value ? typeof(this.value) : typeof(this.startTime);
                 // TODO: 疑问，这里的逻辑判断近乎 Magic 并且在旧的版本引发了 bug：清除时间然后再选会报错
-                let type = typeof(this.value);
-                if(!this.value && this.startTime) type = typeof(this.startTime);
+                let type = typeof this.value;
+                if (!this.value && this.startTime) type = typeof this.startTime;
                 if (type === 'number') {
                     return time.getTime();
                 } else if (type === 'object') {
                     return new Date(time);
-                } else {
-                    return this.stringify(time);
                 }
+                return this.stringify(time);
             },
-            //更新时间
+            // 更新时间
             update(time, no) {
-                var i, tmpTime, curFirstDay, lastDay, curDay, day, arr = [];
-                time.setDate(0); //切换到上个月最后一天
-                curFirstDay = time.getDay(); //星期几
-                lastDay = time.getDate(); //上个月的最后一天
+                let i;
+                let tmpTime;
+                const curFirstDay = time.getDay(); // 星期几
+                const lastDay = time.getDate(); // 上个月的最后一天;
+                const curDay = time.getDate(); // 当前月的最后一天
+                let day;
+                const arr = [];
+                time.setDate(0); // 切换到上个月最后一天
+
                 for (i = curFirstDay; i > 0; i--) {
                     day = lastDay - i + 1;
                     tmpTime = new Date(time.getFullYear(), time.getMonth(), day);
@@ -493,11 +500,10 @@
                         status: this.getTimeStatus(tmpTime, no) || 'ant-calendar-last-month-cell',
                         title: this.stringify(tmpTime),
                         text: day,
-                        time: tmpTime
+                        time: tmpTime,
                     });
                 }
-                time.setMonth(time.getMonth() + 2, 0); //切换到当前月的最后一天
-                curDay = time.getDate(); //当前月的最后一天
+                time.setMonth(time.getMonth() + 2, 0); // 切换到当前月的最后一天
                 time.setDate(1);
                 for (i = 1; i <= curDay; i++) {
                     tmpTime = new Date(time.getFullYear(), time.getMonth(), i);
@@ -506,10 +512,10 @@
                         status: this.getTimeStatus(tmpTime, no),
                         title: this.stringify(tmpTime),
                         text: i,
-                        time: tmpTime
+                        time: tmpTime,
                     });
                 }
-                //下个月的前几天
+                // 下个月的前几天
                 for (i = 1; arr.length < 42; i++) {
                     tmpTime = new Date(time.getFullYear(), time.getMonth() + 1, i);
                     tmpTime = this.parse(tmpTime, no === 2);
@@ -517,29 +523,29 @@
                         status: this.getTimeStatus(tmpTime, no) || 'ant-calendar-next-month-btn-day',
                         title: this.stringify(tmpTime),
                         text: i,
-                        time: tmpTime
+                        time: tmpTime,
                     });
                 }
-                this['date' + no] = arr;
+                this[`date${no}`] = arr;
             },
-            //获取时间状态
+            // 获取时间状态
             getTimeStatus(time, no, format) {
-                var status = '',
-                    curTime = new Date(),
-                    selTime = this['time' + no],
-                    tmpTimeVal = this.stringify(time, format || 'yyyy-MM-dd'), //需要查询状态的时间字符串值
-                    curTimeVal = this.stringify(curTime, format || 'yyyy-MM-dd'), //当前时间字符串值
-                    selTimeVal = this.stringify(selTime, format || 'yyyy-MM-dd'); //选中时间字符串值
+                let status = '';
+                const curTime = new Date();
+                const selTime = this[`time${no}`];
+                const tmpTimeVal = this.stringify(time, format || 'yyyy-MM-dd'); // 需要查询状态的时间字符串值
+                const curTimeVal = this.stringify(curTime, format || 'yyyy-MM-dd'); // 当前时间字符串值
+                const selTimeVal = this.stringify(selTime, format || 'yyyy-MM-dd'); // 选中时间字符串值
                 if (tmpTimeVal === selTimeVal) {
-                    status = this.prefix+'-selected-day';
+                    status = `${this.prefix}-selected-day`;
                 } else if (tmpTimeVal === curTimeVal) {
-                    status = this.prefix+'-today';
+                    status = `${this.prefix}-today`;
                 }
                 if (this.time1 && this.time2 && time >= this.time1 && time <= this.time2) {
                     status += ` ${this.prefix}-inrange`;
                 }
-                if (no == 1 && this.time2) {
-                    var minTime = new Date(this.time2);
+                if (no * 1 === 1 && this.time2) {
+                    let minTime = new Date(this.time2);
                     if (this.maxRange) {
                         minTime.setDate(minTime.getDate() - this.maxRange);
                         if (format === 'yyyy') {
@@ -558,8 +564,8 @@
                         status += ` ${this.prefix}-disabled-cell`;
                     }
                 }
-                if (no == 2 && this.time1) {
-                    var maxTime = new Date(this.time1);
+                if (no * 1 === 2 && this.time1) {
+                    let maxTime = new Date(this.time1);
                     if (this.maxRange) {
                         maxTime.setDate(maxTime.getDate() + this.maxRange);
                         if (format === 'yyyy') {
@@ -575,222 +581,227 @@
                         status += ` ${this.prefix}-disabled-cell`;
                     }
                 }
-                if(this.disabledDate && this.disabledDate(time)){
+                if (this.disabledDate && this.disabledDate(time)) {
                     status += ` ${this.prefix}-disabled-cell`;
                 }
                 return status;
             },
-            //将Date转化为指定格式的String
+            // 将Date转化为指定格式的String
             stringify(time, format) {
                 if (!time) {
                     return '';
                 }
                 format = format || this.format;
-                var year = time.getFullYear(), //年份
-                    month = time.getMonth() + 1, //月份
-                    day = time.getDate(), //日
-                    hours24 = time.getHours(), //小时
-                    hours = hours24 % 12 === 0 ? 12 : hours24 % 12,
-                    minutes = time.getMinutes(), //分
-                    seconds = time.getSeconds(), //秒
-                    milliseconds = time.getMilliseconds(); //毫秒
-                var map = {
+                const year = time.getFullYear(); // 年份
+                const month = time.getMonth() + 1; // 月份
+                const day = time.getDate(); // 日
+                const hours24 = time.getHours(); // 小时
+                const hours = hours24 % 12 === 0 ? 12 : hours24 % 12;
+                const minutes = time.getMinutes(); // 分
+                const seconds = time.getSeconds(); // 秒
+                const milliseconds = time.getMilliseconds(); // 毫秒
+                const map = {
                     yyyy: year,
-                    MM: ('0' + month).slice(-2),
+                    MM: (`0${month}`).slice(-2),
                     M: month,
-                    dd: ('0' + day).slice(-2),
+                    dd: (`0${day}`).slice(-2),
                     d: day,
-                    HH: ('0' + hours24).slice(-2),
+                    HH: (`0${hours24}`).slice(-2),
                     H: hours24,
-                    hh: ('0' + hours).slice(-2),
+                    hh: (`0${hours}`).slice(-2),
                     h: hours,
-                    mm: ('0' + minutes).slice(-2),
+                    mm: (`0${minutes}`).slice(-2),
                     m: minutes,
-                    ss: ('0' + seconds).slice(-2),
+                    ss: (`0${seconds}`).slice(-2),
                     s: seconds,
-                    S: milliseconds
+                    S: milliseconds,
                 };
-                return format.replace(/y+|M+|d+|H+|h+|m+|s+|S+/g, function(str) {
+                return format.replace(/y+|M+|d+|H+|h+|m+|s+|S+/g, function (str) {
                     return map[str];
                 });
             },
-            //显示年份选择器
+            // 显示年份选择器
             showYear(no) {
-                var name = 'showYear' + no;
+                const name = `showYear${no}`;
                 this.hidePanel(name);
                 this[name] = !this[name];
-                var time = new Date(this['now' + no] || new Date()),
-                    selectedYear = time.getFullYear(),
-                    num = Math.floor(selectedYear % 10), //获取当前时间个位数
-                    arr = [];
-                time.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
+                const time = new Date(this[`now${no}`] || new Date());
+                const selectedYear = time.getFullYear();
+                const num = Math.floor(selectedYear % 10); // 获取当前时间个位数
+                const arr = [];
+                time.setDate(1); // 先设置为第一天，因为月份天数不一样，要不存在bug
                 time.setFullYear(selectedYear - num);
                 while (arr.length < 12) {
                     no === 2 && time.setMonth(time.getMonth() + 1, 0);
                     arr.push({
                         year: time.getFullYear(),
-                        status:  time.getFullYear() == selectedYear?'ant-calendar-year-panel-selected-cell':''
+                        status: time.getFullYear() === selectedYear ? 'ant-calendar-year-panel-selected-cell' : '',
                     });
                     time.setDate(1);
                     time.setFullYear(time.getFullYear() + 1);
                 }
-                this['years' + no] = arr;
+                this[`years${no}`] = arr;
             },
-            //显示月份选择器
+            // 显示月份选择器
             showMonth(no) {
-                var name = 'showMonth' + no;
+                const name = `showMonth${no}`;
                 this.hidePanel(name);
                 this[name] = !this[name];
-                var time = new Date(this['now' + no] || new Date()),
-                    selectedMonth = time.getMonth(),
-                    arr = [];
+                const time = new Date(this[`now${no}`] || new Date());
+                const selectedMonth = time.getMonth();
+                const arr = [];
                 while (arr.length < 12) {
-                    time.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
+                    time.setDate(1); // 先设置为第一天，因为月份天数不一样，要不存在bug
                     time.setMonth(arr.length);
                     no === 2 && time.setMonth(time.getMonth() + 1, 0);
                     arr.push({
                         month: arr.length + 1,
-                        status: arr.length == selectedMonth?'ant-calendar-month-panel-selected-cell':''
+                        status: arr.length === selectedMonth ? 'ant-calendar-month-panel-selected-cell' : '',
                     });
                 }
-                this['months' + no] = arr;
+                this[`months${no}`] = arr;
             },
-            //切换年份选择器
+            // 切换年份选择器
             changeYearRange(no, flag) {
-                var arr = this['years' + no],
-                    time = new Date(this['time' + no] || new Date());
-                for (var i in arr) {
-                    var item = arr[i],
-                        year = item.year + 12 * flag;
-                    time.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
+                const arr = this[`years${no}`];
+                const time = new Date(this[`time${no}`] || new Date());
+                for (const i in arr) {
+                    const item = arr[i];
+                    const year = item.year + 12 * flag;
+                    time.setDate(1); // 先设置为第一天，因为月份天数不一样，要不存在bug
                     time.setFullYear(year);
                     no === 2 && time.setMonth(time.getMonth() + 1, 0);
                     item.year = year;
-                    item.status = year == new Date(this['now' + no] || new Date()).getFullYear()?'ant-calendar-year-panel-selected-cell':''
+                    item.status = year === new Date(this[`now${no}`] || new Date()).getFullYear() ? 'ant-calendar-year-panel-selected-cell' : '';
                 }
             },
-            //改变年份
+            // 改变年份
             changeYear(flag, no) {
-                var now = this['now' + no];
-                now.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
+                const now = this[`now${no}`];
+                now.setDate(1); // 先设置为第一天，因为月份天数不一样，要不存在bug
                 now.setFullYear(now.getFullYear() + flag);
                 no === 2 && now.setMonth(now.getMonth() + 1, 0);
-                this['now' + no] = new Date(now);
+                this[`now${no}`] = new Date(now);
                 this.hidePanel();
             },
-            //改变月份
+            // 改变月份
             changeMonth(flag, no) {
-                var now = this['now' + no];
-                now.setDate(1); //先设置为第一天，因为月份天数不一样，要不存在bug
+                const now = this[`now${no}`];
+                now.setDate(1); // 先设置为第一天，因为月份天数不一样，要不存在bug
                 now.setMonth(now.getMonth() + flag);
                 no === 2 && now.setMonth(now.getMonth() + 1, 0);
-                this['now' + no] = new Date(now);
+                this[`now${no}`] = new Date(now);
                 this.hidePanel();
             },
-            //选择年份
+            // 选择年份
             selectYear(index, no) {
-                if (this['years'+no][index].status.indexOf('ant-calendar-disabled-cell') !== -1) {
+                if (this[`years${no}`][index].status.indexOf('ant-calendar-disabled-cell') !== -1) {
                     return;
                 }
-                for(var i=0;i<this['years'+no].length;i++){
-                    if(this['years'+no][i].status == 'ant-calendar-year-panel-selected-cell'){
-                        this.$set(this['years'+no][i], 'status', '');
+                for (let i = 0; i < this[`years${no}`].length; i++) {
+                    if (this[`years${no}`][i].status === 'ant-calendar-year-panel-selected-cell') {
+                        this.$set(this[`years${no}`][i], 'status', '');
                     }
                 }
-                this.$set(this['years'+no][index], 'status', 'ant-calendar-year-panel-selected-cell');
-                var now = this['now' + no];
-                now.setFullYear(this['years'+no][index].year);
-                this['now' + no] = new Date(now);
+                this.$set(this[`years${no}`][index], 'status', 'ant-calendar-year-panel-selected-cell');
+                const now = this[`now${no}`];
+                now.setFullYear(this[`years${no}`][index].year);
+                this[`now${no}`] = new Date(now);
                 this.hidePanel();
             },
-            //选择月份
+            // 选择月份
             selectMonth(index, no) {
-                if (this['months'+no][index].status.indexOf('ant-calendar-disabled-cell') !== -1) {
+                if (this[`months${no}`][index].status.indexOf('ant-calendar-disabled-cell') !== -1) {
                     return;
                 }
-                for(var i=0;i<this['months'+no].length;i++){
-                    if(this['months'+no][i].status == 'ant-calendar-month-panel-selected-cell'){
-                        this.$set(this['years'+no][i], 'status', '');
+                for (let i = 0; i < this[`months${no}`].length; i++) {
+                    if (this[`months${no}`][i].status === 'ant-calendar-month-panel-selected-cell') {
+                        this.$set(this[`years${no}`][i], 'status', '');
                     }
                 }
-                this.$set(this['months'+no][index], 'status', 'ant-calendar-month-panel-selected-cell');
-                var now = this['now' + no];
-                now.setMonth(this['months'+no][index].month - 1);
-                this['now' + no] = new Date(now);
+                this.$set(this[`months${no}`][index], 'status', 'ant-calendar-month-panel-selected-cell');
+                const now = this[`now${no}`];
+                now.setMonth(this[`months${no}`][index].month - 1);
+                this[`now${no}`] = new Date(now);
                 this.hidePanel();
             },
-            //隐藏所有面板
+            // 隐藏所有面板
             hidePanel(name) {
-                ['showYear1', 'showYear2', 'showMonth1', 'showMonth2'].map(function(item) {
+                ['showYear1', 'showYear2', 'showMonth1', 'showMonth2'].map(function (item) {
                     if (item !== name) {
                         this[item] = false;
                     }
                 }.bind(this));
             },
-            //清除时间
+            // 清除时间
             clear() {
                 this.time1 = this.time2 = this.startTime = this.endTime = null;
-                if(!this.range) this.$emit('input','');
-                this.timeVal = ["00:00","00:00"];
+                if (!this.range) this.$emit('input', '');
+                this.timeVal = ['00:00', '00:00'];
                 this.timeSelected = false;
                 this.now1 = new Date();
                 this.now2 = new Date();
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 <style scoped lang="less">
-    .ant-calendar{
-        .ant-calendar-year-panel,.ant-calendar-month-panel{
-            top: 34px;
-        }
-        .ant-calendar-month-panel-table{
-            height:208px;
-        }
-    }
-    .ant-calendar-range.ant-calendar-time .ant-calendar-time-picker{
+.ant-calendar {
+    .ant-calendar-year-panel,
+    .ant-calendar-month-panel {
         top: 34px;
     }
-    .ant-calendar-top {
-        color: #616161;
-        padding: 8px;
-        border-bottom: 1px solid #f3f3f3;
-
-        a{
-            display: inline-block;
-            vertical-align: middle;
-            height: 16px;
-            cursor: pointer;
-
-            &:hover {
-                color: #77BDFB;
-            }
-            &.on{
-                font-weight: bold;
-                color: #1284e7;
-            }
-        }
-        i{
-            content: '|';
-            display: inline-block;
-            width: 1px;
-            margin: 0 10px;
-            height: 16px;
-            background: #616161;
-            vertical-align: middle;
-        }
+    .ant-calendar-month-panel-table {
+        height: 208px;
     }
-    .ant-calendar-year-panel-prev,.ant-calendar-year-panel-next {
-        display: block;
-        height: 20px;
-        text-align: center;
+}
 
-        a{
-            color: #666
-        }
+.ant-calendar-range.ant-calendar-time .ant-calendar-time-picker {
+    top: 34px;
+}
+
+.ant-calendar-top {
+    color: #616161;
+    padding: 8px;
+    border-bottom: 1px solid #f3f3f3;
+
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        height: 16px;
+        cursor: pointer;
+
         &:hover {
-            background-color: #eaf8fe;
-            cursor: pointer;
+            color: #77BDFB;
+        }
+        &.on {
+            font-weight: bold;
+            color: #1284e7;
         }
     }
+    i {
+        content: '|';
+        display: inline-block;
+        width: 1px;
+        margin: 0 10px;
+        height: 16px;
+        background: #616161;
+        vertical-align: middle;
+    }
+}
+
+.ant-calendar-year-panel-prev,
+.ant-calendar-year-panel-next {
+    display: block;
+    height: 20px;
+    text-align: center;
+
+    a {
+        color: #666
+    }
+    &:hover {
+        background-color: #eaf8fe;
+        cursor: pointer;
+    }
+}
 </style>

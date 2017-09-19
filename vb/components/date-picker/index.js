@@ -1,4 +1,4 @@
-import "./style/index.less"
-import datePicker from './date-picker.vue'
+import './style/index.less';
+import datePicker from './date-picker';
 
-export default datePicker
+export default datePicker;
