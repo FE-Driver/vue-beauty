@@ -1,5 +1,5 @@
-import "./style/index.less"
-import row from './row'
-import col from './col'
+import './style/index.less';
+import row from './row';
+import col from './col';
 
-export {col,row}
+export { col, row };
