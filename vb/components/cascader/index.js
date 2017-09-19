@@ -1,4 +1,4 @@
-import "./style/index.less"
-import cascader from './cascader.vue'
+import './style/index.less';
+import cascader from './cascader';
 
-export default cascader
+export default cascader;

@@ -5,28 +5,28 @@
         </li>
     </ul>
 </template>
-<script lang="babel">
+<script>
     export default {
-        data: ()=>({
-            prefix: 'ant-cascader-menu'
+        data: () => ({
+            prefix: 'ant-cascader-menu',
         }),
         props: {
             _key: Number,
             value: {
                 type: Number,
-                default: -1
+                default: -1,
             },
             data: {
                 type: Array,
-                default: ()=> []
-            }
+                default: () => [],
+            },
         },
         methods: {
-            select(i,disabled){
-                if(disabled) return;
+            select(i, disabled) {
+                if (disabled) return;
                 this.$emit('input', i);
                 this.$emit('change', this._key, i);
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

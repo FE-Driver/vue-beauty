@@ -14,174 +14,177 @@
     </span>
 </template>
 
-<script lang="babel">
-    import vmenu from './menu.vue';
-    import  {getOffset } from '../../utils/fn';
-    import emitter from '../../mixins/emitter';
-    import clickoutside from '../../directives/clickoutside';
+<script>
+import vmenu from './menu';
+import { getOffset } from '../../utils/fn';
+import emitter from '../../mixins/emitter';
+import clickoutside from '../../directives/clickoutside';
 
-    export default {
-        name: 'Cascader',
-        directives: { clickoutside },
-        mixins: [emitter],
-        data: () => ({
-            prefix: 'ant-cascader',
-            defaultValue: [],
-            style: {},
-            container: null,
-            open: false,
-            label: '',
-            path: [-1]
-        }),
-        props: {
-            popupContainer: {
-                type: Function,
-                default: ()=> document.body
-            },
-            position: {
-                type: String,
-                default: 'absolute'
-            },
-            data: Array,
-            value: {
-                type: Array,
-                default: ()=> []
-            },
-            placeholder: {
-                type: String,
-                default: '请选择'
-            },
-            size: String,
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            allowClear: {
-                type: Boolean,
-                default: true
-            }
+export default {
+    name: 'Cascader',
+    components: { vmenu },
+    directives: { clickoutside },
+    mixins: [emitter],
+    data: () => ({
+        prefix: 'ant-cascader',
+        defaultValue: [],
+        style: {},
+        container: null,
+        open: false,
+        label: '',
+        path: [-1],
+    }),
+    props: {
+        popupContainer: {
+            type: Function,
+            default: () => document.body,
         },
-        mounted(){
-            this.init();
-            this.container = this.popupContainer()
-            this.$refs.menu.style.position = this.position;
-            this.container.appendChild(this.$refs.menu);
-            
-            this.$nextTick(()=>{
+        position: {
+            type: String,
+            default: 'absolute',
+        },
+        data: Array,
+        value: {
+            type: Array,
+            default: () => [],
+        },
+        placeholder: {
+            type: String,
+            default: '请选择',
+        },
+        size: String,
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        allowClear: {
+            type: Boolean,
+            default: true,
+        },
+    },
+    mounted() {
+        this.init();
+        this.container = this.popupContainer();
+        this.$refs.menu.style.position = this.position;
+        this.container.appendChild(this.$refs.menu);
+
+        this.$nextTick(() => {
+            this.setPosition();
+        });
+
+        window.addEventListener('resize', () => {
+            clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(() => {
                 this.setPosition();
-            })
+            }, 200);
+        });
+    },
+    beforeDestroy() {
+        this.container.removeChild(this.$refs.menu);
+    },
+    watch: {
+        path(val) {
+            const value = [];
+            const label = [];
+            let opt = this.data;
 
-            window.addEventListener('resize',()=> {
-                clearTimeout(this.resizeTimer);
-                this.resizeTimer = setTimeout(()=> {
-                    this.setPosition();
-                }, 200)
-            })
-        },
-        beforeDestroy(){
-            this.container.removeChild(this.$refs.menu);
-        },
-        watch: {
-            path(val){
-                let value = [], label = [], opt = this.data;
-
-                for(let i of val){
-                    if(i < 0) break;
-                    value.push(opt[i].value);
-                    label.push(opt[i].label);
-                    opt = opt[i].children;
-                }
-                this.defaultValue = value;
-                this.$emit('input', value);
-                this.$emit('change', value);
-                this.dispatch('FormItem', 'form.change', [value]);
-                this.label = label.join(' / ');
+            for (const i of val) {
+                if (i < 0) break;
+                value.push(opt[i].value);
+                label.push(opt[i].label);
+                opt = opt[i].children;
             }
+            this.defaultValue = value;
+            this.$emit('input', value);
+            this.$emit('change', value);
+            this.dispatch('FormItem', 'form.change', [value]);
+            this.label = label.join(' / ');
         },
-        computed: {
-            pickerCls(){
-                return [
-                    `${this.prefix}-picker`,
-                    {[`${this.prefix}-picker-disabled`]: this.disabled}
-                ]
-            },
-            inpCls(){
-                const size = {large:'lg',small:'sm'}[this.size];
-
-                return [
-                    'ant-input', 
-                    'ant-cascader-input',
-                    {['ant-input-'+size]: size}
-                ]
-            }
+    },
+    computed: {
+        pickerCls() {
+            return [
+                `${this.prefix}-picker`,
+                { [`${this.prefix}-picker-disabled`]: this.disabled },
+            ];
         },
-        methods: {
-            init(){
-                this.defaultValue = JSON.parse(JSON.stringify(this.value))
-                let res = [],opt = this.data;
-                for(let val of this.value){
-                    for(let [i,item] of opt.entries()){
-                        if(item.value == val){
-                            res.push(i)
-                            opt = opt[i].children;
-                            break;
-                        }
-                    }
-                }
-                if(opt) res.push(-1)
+        inpCls() {
+            const size = { large: 'lg', small: 'sm' }[this.size];
 
-                this.path = res;
-            },
-            clear(){
-                this.path = [-1];
-            },
-            setPosition(){
-                if(!this.$el){
-                    return
-                }
-                let p = getOffset(this.$el, this.container);
-
-                this.style = {
-                    top: p.bottom + 4 + 'px',
-                    left: p.left + 'px'
-                }
-            },
-            getMenuData(index){
-                let res = this.data;
-                for(let i=0;i < index;i++){
-                    const s = this.path[i];
-                    if(res[s].children){
-                        res  = res[s].children;
-                    }else{
-                        res = null;
+            return [
+                'ant-input',
+                'ant-cascader-input',
+                { [`ant-input-${size}`]: size },
+            ];
+        },
+    },
+    methods: {
+        init() {
+            this.defaultValue = JSON.parse(JSON.stringify(this.value));
+            const res = [];
+            let opt = this.data;
+            for (const val of this.value) {
+                for (const [i, item] of opt.entries()) {
+                    if (item.value === val) {
+                        res.push(i);
+                        opt = opt[i].children;
                         break;
                     }
                 }
-                return res;
-            },
-            closeDropdown() {
-                this.open = false;
-            },
-            toggleMenu(){
-                if(this.disabled) return;
-                this.open = !this.open;
-                if(this.open){
-                    this.$nextTick(()=>{
-                        this.setPosition();
-                    })
-                }
-            },
-            changeMenuValue(key,i){
-                this.$set(this.path, key, i)
-                if(this.getMenuData(key+1)){
-                    this.$set(this.path, key+1, -1)
-                    this.path.splice(key+2,this.path.length-1-key-1);
-                }else{
-                    this.path.splice(key+1,this.path.length-1-key);
-                    this.open = false;
+            }
+            if (opt) res.push(-1);
+
+            this.path = res;
+        },
+        clear() {
+            this.path = [-1];
+        },
+        setPosition() {
+            if (!this.$el) {
+                return;
+            }
+            const p = getOffset(this.$el, this.container);
+
+            this.style = {
+                top: `${p.bottom + 4}px`,
+                left: `${p.left}px`,
+            };
+        },
+        getMenuData(index) {
+            let res = this.data;
+            for (let i = 0; i < index; i++) {
+                const s = this.path[i];
+                if (res[s].children) {
+                    res = res[s].children;
+                } else {
+                    res = null;
+                    break;
                 }
             }
+            return res;
         },
-        components: {vmenu}
-    }
+        closeDropdown() {
+            this.open = false;
+        },
+        toggleMenu() {
+            if (this.disabled) return;
+            this.open = !this.open;
+            if (this.open) {
+                this.$nextTick(() => {
+                    this.setPosition();
+                });
+            }
+        },
+        changeMenuValue(key, i) {
+            this.$set(this.path, key, i);
+            if (this.getMenuData(key + 1)) {
+                this.$set(this.path, key + 1, -1);
+                this.path.splice(key + 2, this.path.length - 1 - key - 1);
+            } else {
+                this.path.splice(key + 1, this.path.length - 1 - key);
+                this.open = false;
+            }
+        },
+    },
+};
 </script>
