@@ -1,37 +1,30 @@
 <template>
-  <label :class="wrapClasses">
-    <span :class="radioClasses">
-      <span :class="prefixCls + '-inner'"></span>
-      <input
-              type="radio"
-              :value = "label"
-              :disabled="isDisabled"
-              v-model="model"
-              :checked="selected"
-              :class="prefixCls + '-input'"
-      >
-    </span>
-    <slot>radio</slot>
-  </label>
+    <label :class="wrapClasses">
+        <span :class="radioClasses">
+            <span :class="prefixCls + '-inner'"></span>
+            <input type="radio" :value="label" :disabled="isDisabled" v-model="model" :checked="selected" :class="prefixCls + '-input'">
+        </span>
+        <slot>radio</slot>
+    </label>
 </template>
 
-<script lang="babel">
+<script>
 export default {
     name: 'Radio',
-    data () {
+    data() {
         return {
-            prefixCls : 'ant-radio',
-            isGroup : false
+            prefixCls: 'ant-radio',
+            isGroup: false,
         };
     },
     props: {
-        type:{
+        type: {
             type: String,
-            default: 'radio',//或者button
+            default: 'radio', // 或者button
         },
         value: {
-          type: [String, Number, Boolean],
-          default: ''
+            type: [String, Number, Boolean],
+            default: '',
         },
         disabled: {
             type: Boolean,
@@ -41,28 +34,28 @@ export default {
             type: String,
             default: 'ant-radio-wrapper',
         },
-        label:{
+        label: {
             type: [String, Number],
             default: '',
-        }
+        },
     },
 
     computed: {
-        wrapClasses () {
+        wrapClasses() {
             return [
                 this.className,
-                {[`${this.className}-checked`]: this.selected},
-                {[`${this.className}-disabled`]: this.isDisabled}
-            ]
+                { [`${this.className}-checked`]: this.selected },
+                { [`${this.className}-disabled`]: this.isDisabled },
+            ];
         },
 
-        radioClasses () {
+        radioClasses() {
             return [
                 this.prefixCls,
-                {[`${this.prefixCls}-checked`]: this.selected},
-                {[`${this.prefixCls}-checked-${this.selected ? 1 : 0}`]: !!this.selected},
-                {[`${this.prefixCls}-disabled`]: this.isDisabled}
-            ]
+                { [`${this.prefixCls}-checked`]: this.selected },
+                { [`${this.prefixCls}-checked-${this.selected ? 1 : 0}`]: !!this.selected },
+                { [`${this.prefixCls}-disabled`]: this.isDisabled },
+            ];
         },
         model: {
             get() {
@@ -74,21 +67,19 @@ export default {
                 } else {
                     this.$emit('input', value);
                 }
-            }
+            },
         },
-        selected(){
-            return this.model == this.label;
+        selected() {
+            return this.model === this.label;
         },
-        isDisabled(){
-            return this.isGroup ? (this.$parent.disabled ? true : this.disabled) : this.disabled
-        }
+        isDisabled() {
+            return this.isGroup ? (this.$parent.disabled || this.disabled) : this.disabled;
+        },
     },
-
-    mounted :function() {
-        if(this.type === 'button'){
+    mounted() {
+        if (this.type === 'button') {
             this.prefixCls = 'ant-radio-button';
         }
-    }
-}
-
+    },
+};
 </script>
