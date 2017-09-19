@@ -3,13 +3,13 @@
         <slot></slot>
     </div>
 </template>
-<script lang="babel">
-    export default{
-        name: 'Content',
-        data(){
-            return{
-                prefixCls: 'ant-layout-content'
-            }
-        }
-    }
+<script>
+export default{
+    name: 'Content',
+    data() {
+        return {
+            prefixCls: 'ant-layout-content',
+        };
+    },
+};
 </script>

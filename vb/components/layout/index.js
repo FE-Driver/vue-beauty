@@ -1,8 +1,8 @@
-import "./style/index.less"
-import layout from './layout.vue'
-import sider from './sider.vue'
-import header from './header.vue'
-import content from './content.vue'
-import footer from './footer.vue'
+import './style/index.less';
+import layout from './layout';
+import sider from './sider';
+import header from './header';
+import content from './content';
+import footer from './footer';
 
-export {layout, sider, header, content, footer}
+export { layout, sider, header, content, footer };

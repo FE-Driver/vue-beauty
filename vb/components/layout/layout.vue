@@ -4,14 +4,14 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
     export default{
         name: 'Layout',
         data() {
             return {
                 prefixCls: 'ant-layout',
                 hasSider: false,
-            }
+            };
         },
         mounted() {
             this.mountedSider();
@@ -21,19 +21,19 @@
         },
         computed: {
             classes() {
-                let prefixCls = this.prefixCls;
-                return [prefixCls, {[`${prefixCls}-has-sider`]: this.hasSider}]
-            }
+                const prefixCls = this.prefixCls;
+                return [prefixCls, { [`${prefixCls}-has-sider`]: this.hasSider }];
+            },
         },
         methods: {
             mountedSider() {
-                let children = this.$children;
-                for(let i = 0; i < children.length; i++) {
-                    if (children[i].$options.name == 'Sider') {
+                const children = this.$children;
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i].$options.name === 'Sider') {
                         this.hasSider = true;
                     }
                 }
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

@@ -3,13 +3,13 @@
         <slot></slot>
     </div>
 </template>
-<script lang="babel">
-    export default{
-        name: 'Header',
-        data(){
-            return{
-                prefixCls: 'ant-layout-header'
-            }
-        }
-    }
+<script>
+export default{
+    name: 'Header',
+    data() {
+        return {
+            prefixCls: 'ant-layout-header',
+        };
+    },
+};
 </script>

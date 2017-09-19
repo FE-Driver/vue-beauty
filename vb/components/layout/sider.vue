@@ -11,7 +11,7 @@
         </template>
     </div>
 </template>
-<script lang="babel">
+<script>
     const dimensionMap = {
         xs: '480px',
         sm: '768px',
