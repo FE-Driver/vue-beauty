@@ -1,7 +1,7 @@
-import "./style/index.less"
-import input from './input.vue'
-import inputGroup from './input-group.vue'
+import './style/index.less';
+import input from './input';
+import inputGroup from './input-group';
 
 input.group = inputGroup;
 
-export default input
+export default input;

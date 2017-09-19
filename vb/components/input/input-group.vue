@@ -3,28 +3,28 @@
         <slot></slot>
     </span>
 </template>
-<script lang="babel">
+<script>
     export default {
         name: 'InputGroup',
         props: {
             size: {
                 type: String,
-                default: 'process'
+                default: 'process',
             },
             compact: {
                 type: Boolean,
-                default: false
-            }
+                default: false,
+            },
         },
         computed: {
-            wrapClasses () {
+            wrapClasses() {
                 return [
                     'ant-input-group',
-                    {['ant-input-group-sm']: this.size === 'small'},
-                    {['ant-input-group-lg']: this.size === 'large'},
-                    {['ant-input-group-compact']: this.compact === true}
-                ]
-            }
-        }
-    }
+                    { 'ant-input-group-sm': this.size === 'small' },
+                    { 'ant-input-group-lg': this.size === 'large' },
+                    { 'ant-input-group-compact': this.compact === true },
+                ];
+            },
+        },
+    };
 </script>
