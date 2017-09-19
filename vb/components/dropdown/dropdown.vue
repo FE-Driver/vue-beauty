@@ -97,7 +97,7 @@
             },
             initEvent() {
                 const { trigger, titleMouseEnter, titleMouseLeave,
-                        mouseEnter, mouseLeave, click } = this;
+                    mouseEnter, mouseLeave, click } = this;
                 const dropdownElm = this.$refs.dropdown;
                 const contentElm = this.$refs.content;
                 if (trigger === 'hover') {

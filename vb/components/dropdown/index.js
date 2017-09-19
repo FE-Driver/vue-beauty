@@ -5,4 +5,3 @@ import dropdownMenu from './dropdown-menu';
 dropdown.menu = dropdownMenu;
 
 export default dropdown;
-
