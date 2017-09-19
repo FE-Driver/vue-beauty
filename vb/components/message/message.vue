@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <div class="ant-message" :style="{ top: top + 'px' }">
         <span>
           <notice
@@ -15,42 +15,41 @@
     </div>
 </template>
 
-<script lang="babel">
-    import notice from './notice'
+<script>
+import notice from './notice';
 
-    export default {
-        props: {
-            top: {
-                type: Number
+export default {
+    components: {
+        notice,
+    },
+    props: {
+        top: {
+            type: Number,
+        },
+    },
+    data() {
+        return {
+            notices: [],
+        };
+    },
+    methods: {
+        add(not) {
+            if (!this.notices.filter(v => v.selfKey === not.selfKey).length) {
+                this.notices.push(not);
             }
         },
-        data: function () {
-            return {
-                notices: []
-            }
-        },
-        methods: {
-            add(notice) {
-                if (!this.notices.filter(v => v.selfKey === notice.selfKey).length) {
-                    this.notices.push(notice)
+        close(key) {
+            for (let i = 0; i < this.notices.length; i++) {
+                if (this.notices[i].selfKey === key) {
+                    this.notices.splice(i, 1);
+                    break;
                 }
-            },
-            close (key) {
-                for (let i = 0; i < this.notices.length; i++) {
-                    if (this.notices[i].selfKey === key) {
-                        this.notices.splice(i, 1)
-                        break
-                    }
-                }
-            },
-            destroy () {
-              this.$destroy(true)
-              this.$el.parentNode.removeChild(this.$el)
             }
         },
-        components: {
-            notice
-        }
-    }
-
+        destroy() {
+            this.$destroy(true);
+            this.$el.parentNode.removeChild(this.$el);
+        },
+    },
+};
 </script>
