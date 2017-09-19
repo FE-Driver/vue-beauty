@@ -4,30 +4,30 @@
     </i>
 </template>
 
-<script lang="babel">
+<script>
     export default {
         name: 'Icon',
-        data: ()=>({
-            prefix: 'anticon'
+        data: () => ({
+            prefix: 'anticon',
         }),
         props: {
             type: {
                 type: String,
-                require: true
+                require: true,
             },
             spin: {
                 type: Boolean,
-                default: false
-            }
+                default: false,
+            },
         },
         computed: {
-            iconClasses () {
+            iconClasses() {
                 return [
                     this.prefix,
                     `${this.prefix}-${this.type}`,
-                    {[`${this.prefix}-spin`]: this.spin || this.type === 'loading'}
-                ]
-            }
-        }
-    }
+                    { [`${this.prefix}-spin`]: this.spin || this.type === 'loading' },
+                ];
+            },
+        },
+    };
 </script>
