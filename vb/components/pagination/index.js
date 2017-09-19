@@ -1,3 +1,4 @@
-import "./style/index.less"
-import pagination from './pagination.vue'
-export default pagination
+import './style/index.less';
+import pagination from './pagination';
+
+export default pagination;
