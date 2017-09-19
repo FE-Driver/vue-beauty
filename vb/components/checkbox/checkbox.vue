@@ -11,72 +11,72 @@
 </template>
 
 <script>
-    import emitter from '../../mixins/emitter';
+import emitter from '../../mixins/emitter';
 
-    export default {
-        name: 'Checkbox',
-        mixins: [emitter],
-        props: {
-            value: {
-                default: false
-            },
-            indeterminate: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            trueValue: {
-                default: true
-            },
-            falseValue: {
-                default: false
-            }
+export default {
+    name: 'Checkbox',
+    mixins: [emitter],
+    props: {
+        value: {
+            default: false,
         },
-        data() {
-            return {
-                prefixCls: 'ant-checkbox',
-                parentIsGroup: false,
-                innerValue: this.value
-            }
+        indeterminate: {
+            type: Boolean,
+            default: false,
         },
-        mounted () {
-          if(this.$parent.$options.name == 'CheckboxGroup')  {
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        trueValue: {
+            default: true,
+        },
+        falseValue: {
+            default: false,
+        },
+    },
+    data() {
+        return {
+            prefixCls: 'ant-checkbox',
+            parentIsGroup: false,
+            innerValue: this.value,
+        };
+    },
+    mounted() {
+        if (this.$parent.$options.name === 'CheckboxGroup') {
             this.parentIsGroup = true;
-          }
+        }
+    },
+    computed: {
+        checkboxCls() {
+            return [
+                this.prefixCls,
+                {
+                    [`${this.prefixCls}-checked`]: !this.indeterminate && (this.innerValue === this.trueValue),
+                    [`${this.prefixCls}-indeterminate`]: this.indeterminate,
+                    [`${this.prefixCls}-group-item`]: this.parentIsGroup,
+                    [`${this.prefixCls}-disabled`]: this.disabled,
+                },
+            ];
         },
-        computed: {
-            checkboxCls() {
-                return [
-                    this.prefixCls, 
-                    {
-                        [this.prefixCls + '-checked']: !this.indeterminate && (this.innerValue === this.trueValue),  
-                        [this.prefixCls + '-indeterminate']: this.indeterminate, 
-                        [this.prefixCls + '-group-item']: this.parentIsGroup,
-                        [this.prefixCls + '-disabled']: this.disabled
-                    }
-                ]
-            },
+    },
+    watch: {
+        value(value) {
+            this.innerValue = value;
         },
-        watch: {
-            value(value) {
-                this.innerValue = value;
-            },
-            innerValue(value) {
-                this.$emit("change", value);
-                this.$emit("input", value);
-                this.dispatch('CheckboxGroup', 'checkbox.change', [this.trueValue === value, this.trueValue]);
-            }
+        innerValue(value) {
+            this.$emit('change', value);
+            this.$emit('input', value);
+            this.dispatch('CheckboxGroup', 'checkbox.change', [this.trueValue === value, this.trueValue]);
         },
-        methods: {
-            click(e) {
-                if (e.target.tagName !== 'INPUT') return;
-                this.$nextTick(() => {
-                    this.$emit('click', this.innerValue);
-                });
-            },
+    },
+    methods: {
+        click(e) {
+            if (e.target.tagName !== 'INPUT') return;
+            this.$nextTick(() => {
+                this.$emit('click', this.innerValue);
+            });
         },
-    };
+    },
+};
 </script>
