@@ -70,175 +70,176 @@
 
 </template>
 
-<script lang="babel">
+<script>
 import emitter from '../../mixins/emitter';
 
-  const IsAllMatch = function(obj,conditions){
+const IsAllMatch = function (obj, conditions) {
     let res = true;
-    for(let [key,val] of Object.entries(conditions)){
-      if(obj[key] !== val){
-        res = false;
-        break;
-      }
+    for (const [key, val] of Object.entries(conditions)) {
+        if (obj[key] !== val) {
+            res = false;
+            break;
+        }
     }
     return res;
-  }
+};
 
-  export default {
+export default {
     name: 'Menu',
     mixins: [emitter],
-    data:()=>({
-      prefix: 'ant-menu',
-      timer: []
+    data: () => ({
+        prefix: 'ant-menu',
+        timer: [],
     }),
     props: {
-      type:  {
-        type: String,
-        default: 'root'
-      },
-      id: Number,
-      isItemGroup: {
-        type: Boolean,
-        default: false
-      },
-      expand: {
-        type: Boolean,
-        default: false
-      },
-      data: {
-        type: Array,
-        default: ()=>[]
-      },
-      mode: {
-        type: String,
-        default: 'vertical'
-      },
-      theme: {
-        type: String,
-        default: 'light'
-      },
-      level: {
-        type: Number,
-        default: 1
-      }
+        type: {
+            type: String,
+            default: 'root',
+        },
+        id: Number,
+        isItemGroup: {
+            type: Boolean,
+            default: false,
+        },
+        expand: {
+            type: Boolean,
+            default: false,
+        },
+        data: {
+            type: Array,
+            default: () => [],
+        },
+        mode: {
+            type: String,
+            default: 'vertical',
+        },
+        theme: {
+            type: String,
+            default: 'light',
+        },
+        level: {
+            type: Number,
+            default: 1,
+        },
     },
-    created(){
-      if(this.expand) {
-        for(const item of this.data){
-           this.$set(item, 'expand', true);
+    created() {
+        if (this.expand) {
+            for (const item of this.data) {
+                this.$set(item, 'expand', true);
+            }
+        } else {
+            for (const item of this.data) {
+                if (item.expand === undefined) {
+                    this.$set(item, 'expand', false);
+                }
+            }
         }
-      }else{
-        for(const item of this.data){
-          if(item.expand === undefined) {
-           this.$set(item, 'expand', false);
-          }
-        }
-      }
-      this.$on('nodeSelected',(ori,id,dataPath)=>{
-        if(this.type == 'root') {
-          this.setAllSelected(false);
-          this.$emit('item-click',[this.data[id],...dataPath]);
-          this.broadcast('Menu', 'cancelSelected', [ori]);
-        }else{
-          this.dispatch('Menu', 'nodeSelected', [ori,this.id,[this.data[id],...dataPath]]);
-        }
-      })
-      this.$on('cancelSelected',ori=>{
-        this.broadcast('Menu', 'cancelSelected', [ori]);
-        if(this !== ori){
-          this.setAllSelected(false)
-        }
-      })
+        this.$on('nodeSelected', (ori, id, dataPath) => {
+            if (this.type === 'root') {
+                this.setAllSelected(false);
+                this.$emit('item-click', [this.data[id], ...dataPath]);
+                this.broadcast('Menu', 'cancelSelected', [ori]);
+            } else {
+                this.dispatch('Menu', 'nodeSelected', [ori, this.id, [this.data[id], ...dataPath]]);
+            }
+        });
+        this.$on('cancelSelected', (ori) => {
+            this.broadcast('Menu', 'cancelSelected', [ori]);
+            if (this !== ori) {
+                this.setAllSelected(false);
+            }
+        });
     },
     computed: {
-      menuCls(){
-        if(this.type == 'root' || this.type == 'sub'){
-          return [
-            this.prefix,
-            `${this.prefix}-${this.type}`,
-            `${this.prefix}-${this.mode}`,
-            {
-              [`${this.prefix}-${this.theme}`]: this.type == 'root'
+        menuCls() {
+            if (this.type === 'root' || this.type === 'sub') {
+                return [
+                    this.prefix,
+                    `${this.prefix}-${this.type}`,
+                    `${this.prefix}-${this.mode}`,
+                    {
+                        [`${this.prefix}-${this.theme}`]: this.type === 'root',
+                    },
+                ];
+            } else if (this.type === 'item-group-list') {
+                return `${this.prefix}-item-group-list`;
             }
-          ]
-        }else if(this.type == 'item-group-list'){
-          return `${this.prefix}-item-group-list`
-        }
-      },
-      paddingSty(){
-        return this.mode == 'inline'?{
-            paddingLeft: 24 * this.level + 'px' 
-          }:{}; 
-      }
+        },
+        paddingSty() {
+            return this.mode === 'inline' ? {
+                paddingLeft: `${24 * this.level}px`,
+            } : {};
+        },
     },
     watch: {
-      mode(){
-        for(const item of this.data){
-           this.$set(item, 'expand', false);
-        }
-      }
+        mode() {
+            for (const item of this.data) {
+                this.$set(item, 'expand', false);
+            }
+        },
     },
     methods: {
-      setAllSelected(status){
-        for(let i=0;i<this.data.length;i++){
-          this.$set(this.data[i], 'selected', status);
-        }
-      },
-      clickTriggerOpen(disabled,index){
-        if(!disabled && this.mode == 'inline'){
-          this.setOpen(index,!this.data[index].expand);
-        }
-      },
-      mouseTriggerOpen(disabled,index,status){
-        if(!disabled && this.mode != 'inline'){
-          if(this.timer[index]) clearTimeout(this.timer[index]);
-          this.timer[index] = setTimeout(() => this.setOpen(index,status),300);
-        }
-      },
-      setOpen(index,status = true){
-        this.$set(this.data[index], 'expand', status);
-      },
-      setCheck(conditions,status = true){
-        let res = false;
-        for(let i=0;i<this.data.length;i++){
-          res = IsAllMatch(this.data[i],conditions);
-          if(res){
-            if(status){
-              this.select(i);
-              let parent = this.$parent,id = this.id;
-              while(parent && parent.$options.name == 'Menu'){
-                parent.setOpen(id);
-                id = parent.id;
-                parent = parent.$parent;
-              }
-            }else{
-              this.$set(this.data[i], 'selected', false);
+        setAllSelected(status) {
+            for (let i = 0; i < this.data.length; i++) {
+                this.$set(this.data[i], 'selected', status);
             }
-            break;
-          }
-        }
-        if(!res){
-          for(let child of this.$children){
-            //如果使用者自定义了选项 可能会有其他类型的子组件
-            if(child.$options.name == 'Menu' && child.setCheck){
-              res  = child.setCheck(conditions,status);
-              if(res) break;
+        },
+        clickTriggerOpen(disabled, index) {
+            if (!disabled && this.mode === 'inline') {
+                this.setOpen(index, !this.data[index].expand);
             }
-          }
-        }
-        return res;
-      },
-      select(index,disabled){
-        if(disabled) return;
-        this.setAllSelected(false);
-        this.$set(this.data[index], 'selected', true);
-        if(this.type == 'root') {
-          this.$emit('item-click',[this.data[index]]);
-          this.broadcast('Menu', 'cancelSelected', [this]);
-        }else{
-          this.dispatch('Menu', 'nodeSelected', [this,this.id,[this.data[index]]]);
-        }
-      }
-    }
-  }
+        },
+        mouseTriggerOpen(disabled, index, status) {
+            if (!disabled && this.mode !== 'inline') {
+                if (this.timer[index]) clearTimeout(this.timer[index]);
+                this.timer[index] = setTimeout(() => this.setOpen(index, status), 300);
+            }
+        },
+        setOpen(index, status = true) {
+            this.$set(this.data[index], 'expand', status);
+        },
+        setCheck(conditions, status = true) {
+            let res = false;
+            for (let i = 0; i < this.data.length; i++) {
+                res = IsAllMatch(this.data[i], conditions);
+                if (res) {
+                    if (status) {
+                        this.select(i);
+                        let parent = this.$parent;
+                        let id = this.id;
+                        while (parent && parent.$options.name === 'Menu') {
+                            parent.setOpen(id);
+                            id = parent.id;
+                            parent = parent.$parent;
+                        }
+                    } else {
+                        this.$set(this.data[i], 'selected', false);
+                    }
+                    break;
+                }
+            }
+            if (!res) {
+                for (const child of this.$children) {
+                    // 如果使用者自定义了选项 可能会有其他类型的子组件
+                    if (child.$options.name === 'Menu' && child.setCheck) {
+                        res = child.setCheck(conditions, status);
+                        if (res) break;
+                    }
+                }
+            }
+            return res;
+        },
+        select(index, disabled) {
+            if (disabled) return;
+            this.setAllSelected(false);
+            this.$set(this.data[index], 'selected', true);
+            if (this.type === 'root') {
+                this.$emit('item-click', [this.data[index]]);
+                this.broadcast('Menu', 'cancelSelected', [this]);
+            } else {
+                this.dispatch('Menu', 'nodeSelected', [this, this.id, [this.data[index]]]);
+            }
+        },
+    },
+};
 </script>
