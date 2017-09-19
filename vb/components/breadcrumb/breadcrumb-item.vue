@@ -8,15 +8,15 @@
 </template>
 <script lang="babel">
 export default {
-  name: 'BreadcrumbItem',
-  data: () => ({
-    separator: '',
-  }),
-  props: {
-    href: String
-  },
-  mounted() {
-    this.separator = this.$parent.separator;
-  }
-}
+    name: 'BreadcrumbItem',
+    data: () => ({
+        separator: '',
+    }),
+    props: {
+        href: String,
+    },
+    mounted() {
+        this.separator = this.$parent.separator;
+    },
+};
 </script>

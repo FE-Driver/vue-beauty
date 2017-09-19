@@ -5,12 +5,12 @@
 </template>
 <script lang="babel">
 export default {
-  name: 'Breadcrumb',
-  props: {
-    separator: {
-      type: String,
-      default: '/'
-    }
-  }
-}
+    name: 'Breadcrumb',
+    props: {
+        separator: {
+            type: String,
+            default: '/',
+        },
+    },
+};
 </script>
