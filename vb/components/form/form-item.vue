@@ -12,9 +12,9 @@
     </div>
 </template>
 
-<script lang="babel">
-    import AsyncValidator from 'async-validator'
-    import {col as vCol} from '../grid'
+<script>
+    import AsyncValidator from 'async-validator';
+    import { col as vCol } from '../grid';
     import emitter from '../../mixins/emitter';
 
     function noop() {}
@@ -23,11 +23,11 @@
         path = path.replace(/\[(\w+)\]/g, '.$1');
         path = path.replace(/^\./, '');
 
-        let keyArr = path.split('.');
+        const keyArr = path.split('.');
         let i = 0;
 
         for (let len = keyArr.length; i < len - 1; ++i) {
-            let key = keyArr[i];
+            const key = keyArr[i];
             if (key in tempObj) {
                 tempObj = tempObj[key];
             } else {
@@ -37,12 +37,13 @@
         return {
             o: tempObj,
             k: keyArr[i],
-            v: tempObj[keyArr[i]]
+            v: tempObj[keyArr[i]],
         };
     }
     export default {
         name: 'FormItem',
         mixins: [emitter],
+        components: { vCol },
         data() {
             return {
                 formPrefix: 'ant-form',
@@ -51,23 +52,23 @@
                 validateMessage: this.help,
                 validateDisabled: false,
                 validator: {},
-                isRequired: this.required
-            }
+                isRequired: this.required,
+            };
         },
         props: {
             prop: String,
             label: String,
             labelCol: {
                 type: Object,
-                default: () => ({})
+                default: () => ({}),
             },
             wrapperCol: {
                 type: Object,
-                default: () => ({})
+                default: () => ({}),
             },
             hasFeedback: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             required: Boolean,
             rules: [Object, Array],
@@ -75,10 +76,9 @@
             validateStatus: String,
             showMessage: {
                 type: Boolean,
-                default: true
-            }
+                default: true,
+            },
         },
-        components: {vCol},
         watch: {
             help(value) {
                 this.validateMessage = value;
@@ -86,35 +86,35 @@
             },
             validateStatus(value) {
                 this.validateState = value;
-            }
+            },
         },
         computed: {
-            itemCls () {
+            itemCls() {
                 return [
                     'ant-row',
                     this.prefixCls,
-                    {[`${this.prefixCls}-with-help`]: this.validateMessage}
-                ]
+                    { [`${this.prefixCls}-with-help`]: this.validateMessage },
+                ];
             },
-            labelCls () {
-                return `${this.prefixCls}-label`
+            labelCls() {
+                return `${this.prefixCls}-label`;
             },
-            controlCls () {
-                let status = {
+            controlCls() {
+                const status = {
                     error: 'has-error',
                     warning: 'has-warning',
                     success: 'has-success',
-                    validating: 'is-validating'
+                    validating: 'is-validating',
                 }[this.validateState];
 
                 return [
                     `${this.prefixCls}-control`,
-                    {'has-feedback': this.hasFeedback},
-                    {[status]: status}
-                ]
+                    { 'has-feedback': this.hasFeedback },
+                    { [status]: status },
+                ];
             },
             form() {
-                var parent = this.$parent;
+                let parent = this.$parent;
                 while (parent.$options.name !== 'Form') {
                     parent = parent.$parent;
                 }
@@ -123,34 +123,35 @@
             fieldValue: {
                 cache: false,
                 get() {
-                    var model = this.form.model;
+                    const model = this.form.model;
                     if (!model || !this.prop) { return; }
 
-                    var path = this.prop;
+                    let path = this.prop;
                     if (path.indexOf(':') !== -1) {
                         path = path.replace(/:/, '.');
                     }
 
                     return getPropByPath(model, path).v;
-                }
-            }
+                },
+            },
         },
-        mounted(){
+        mounted() {
             if (this.prop) {
                 this.dispatch('Form', 'form.addField', [this]);
 
                 Object.defineProperty(this, 'initialValue', {
-                    value: this.fieldValue
+                    value: this.fieldValue,
                 });
 
-                let rules = this.getRules();
+                const rules = this.getRules();
 
                 if (rules.length) {
-                    rules.every(rule => {
+                    rules.every((rule) => {
                         if (rule.required) {
                             this.isRequired = true;
                             return false;
                         }
+                        return true;
                     });
                     this.$on('form.blur', this.onFieldBlur);
                     this.$on('form.change', this.onFieldChange);
@@ -162,7 +163,7 @@
         },
         methods: {
             validate(trigger, callback = noop) {
-                var rules = this.getFilteredRule(trigger);
+                const rules = this.getFilteredRule(trigger);
                 if (!rules || rules.length === 0) {
                     callback();
                     return true;
@@ -170,15 +171,15 @@
 
                 this.validateState = 'validating';
 
-                var descriptor = {};
+                const descriptor = {};
                 descriptor[this.prop] = rules;
 
-                var validator = new AsyncValidator(descriptor);
-                var model = {};
+                const validator = new AsyncValidator(descriptor);
+                const model = {};
 
                 model[this.prop] = this.fieldValue;
 
-                validator.validate(model, { firstFields: true }, (errors, fields) => {
+                validator.validate(model, { firstFields: true }, (errors) => {
                     this.validateState = !errors ? 'success' : 'error';
                     this.validateMessage = errors ? errors[0].message : '';
 
@@ -189,14 +190,14 @@
                 this.validateState = '';
                 this.validateMessage = '';
 
-                let model = this.form.model;
-                let value = this.fieldValue;
+                const model = this.form.model;
+                const value = this.fieldValue;
                 let path = this.prop;
                 if (path.indexOf(':') !== -1) {
                     path = path.replace(/:/, '.');
                 }
 
-                let prop = getPropByPath(model, path);
+                const prop = getPropByPath(model, path);
 
                 if (Array.isArray(value) && value.length > 0) {
                     this.validateDisabled = true;
@@ -207,19 +208,17 @@
                 }
             },
             getRules() {
-                var formRules = this.form.rules;
-                var selfRuels = this.rules;
+                let formRules = this.form.rules;
+                const selfRuels = this.rules;
 
                 formRules = formRules ? formRules[this.prop] : [];
 
                 return [].concat(selfRuels || formRules || []);
             },
             getFilteredRule(trigger) {
-                var rules = this.getRules();
+                const rules = this.getRules();
 
-                return rules.filter(rule => {
-                    return !rule.trigger || rule.trigger.indexOf(trigger) !== -1;
-                });
+                return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1);
             },
             onFieldBlur() {
                 this.validate('blur');
@@ -231,7 +230,7 @@
                 }
 
                 this.validate('change');
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

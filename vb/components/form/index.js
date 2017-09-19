@@ -1,7 +1,7 @@
-import "./style/index.less"
-import form from './form.vue'
-import formItem from './form-item.vue'
+import './style/index.less';
+import form from './form';
+import formItem from './form-item';
 
-form.item = formItem
+form.item = formItem;
 
-export default form
+export default form;
