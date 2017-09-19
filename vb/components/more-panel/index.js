@@ -1,4 +1,4 @@
-import "./style/index.less"
-import morePanel from './more-panel.vue'
+import './style/index.less';
+import morePanel from './more-panel';
 
-export default morePanel
+export default morePanel;

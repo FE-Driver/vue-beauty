@@ -15,61 +15,61 @@
     </div>
 </template>
 
-<script lang="babel">
-    export default{
-        name: 'MorePanel',
-        data: ()=>({
-            prefix: 'ant-more-panel',
-            collapse: true,
-            bindResize: false,
-            showBtn: false,
-            panelPR: 0
-        }),
-        props: {
-            originalHeight:{
-                type: [Number,String],
-                default: 34
-            },
-            controlStyle:{
-                type:Object,
-                default: ()=>({})
-            }
+<script>
+export default {
+    name: 'MorePanel',
+    data: () => ({
+        prefix: 'ant-more-panel',
+        collapse: true,
+        bindResize: false,
+        showBtn: false,
+        panelPR: 0,
+    }),
+    props: {
+        originalHeight: {
+            type: [Number, String],
+            default: 34,
         },
-        watch:{
-            showBtn(){
-                this.panelPR = this.$refs.panelControl.offsetWidth + 'px'
-            }
+        controlStyle: {
+            type: Object,
+            default: () => ({}),
         },
-        computed: {
-            height(){
-                return this.collapse?this.originalHeight + 'px':'auto'
-            },
-            btnIcon(){
-                return this.collapse?'down':'up'
-            }
+    },
+    watch: {
+        showBtn() {
+            this.panelPR = `${this.$refs.panelControl.offsetWidth}px`;
         },
-        mounted(){
-            this.panelPR = this.$refs.panelControl.offsetWidth + 'px'
-            this.ifShowBtn();
+    },
+    computed: {
+        height() {
+            return this.collapse ? `${this.originalHeight}px` : 'auto';
+        },
+        btnIcon() {
+            return this.collapse ? 'down' : 'up';
+        },
+    },
+    mounted() {
+        this.panelPR = `${this.$refs.panelControl.offsetWidth}px`;
+        this.ifShowBtn();
 
-            if(!this.bindResize){
-                window.addEventListener("resize",()=> {
-                    this.ifShowBtn();
-                },false);
-                this.bindResize = true;
-            }
-        },
-        methods: {
-            ifShowBtn(){
-                if(!this.$el) return;
-
-                this.$nextTick(()=> {
-                    this.showBtn = this.$refs.panelForm.offsetHeight > this.originalHeight;
-                });
-            },
-            click(){
-                this.collapse = !this.collapse;
-            }
+        if (!this.bindResize) {
+            window.addEventListener('resize', () => {
+                this.ifShowBtn();
+            }, false);
+            this.bindResize = true;
         }
-    }
+    },
+    methods: {
+        ifShowBtn() {
+            if (!this.$el) return;
+
+            this.$nextTick(() => {
+                this.showBtn = this.$refs.panelForm.offsetHeight > this.originalHeight;
+            });
+        },
+        click() {
+            this.collapse = !this.collapse;
+        },
+    },
+};
 </script>
