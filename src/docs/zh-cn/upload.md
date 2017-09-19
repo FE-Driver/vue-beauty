@@ -302,7 +302,7 @@
 | fileList    | 默认已经上传的文件列表 | object[] | [] |
 | data | 可选参数, 上传所需参数 | object | {} |
 | header | 可选参数, 设置request头信息 | object | {} |
-| beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传。注意：该方法不支持老 IE | (file) => boolean | Promise | - |
+| beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传。注意：该方法不支持老 IE | (file, reqOptions) => boolean | Promise | - |
 | multiple | 可选参数, 是否支持多选文件 | boolean | false |
 | accept | 可选参数, 接受上传的文件类型, 详见 input accept Attribute | string | - |
 

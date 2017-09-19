@@ -1,6 +1,6 @@
-const now = +(new Date())
-let index = 0
+const now = +(new Date());
+let index = 0;
 
-export default function uid () {
-  return 'ant-upload-' + now + '-' + (++index)
+export default function uid() {
+    return `ant-upload-${now}-${++index}`;
 }

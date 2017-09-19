@@ -1,4 +1,4 @@
-import "./style/index.less"
-import upload from './uploads.vue'
+import './style/index.less';
+import upload from './uploads';
 
-export default upload
+export default upload;
