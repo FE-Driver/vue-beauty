@@ -60,5 +60,6 @@ module.exports = {
     'no-restricted-globals': 0,
     'object-curly-newline': 0,
     'operator-assignment': 0,
+    'no-prototype-builtins': 0,
   }
 }

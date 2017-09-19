@@ -73,7 +73,7 @@ export default function (config = {}) {
         mixins: [Locale],
         data: props,
         methods: {
-            _onOk () {
+            _onOk() {
                 const okFn = this.onOk;
 
                 if (okFn) {
@@ -92,7 +92,7 @@ export default function (config = {}) {
                 }
             },
 
-            _onCancel () {
+            _onCancel() {
                 const cancelFn = this.onCancel;
 
                 if (cancelFn) {

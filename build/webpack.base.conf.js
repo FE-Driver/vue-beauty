@@ -147,6 +147,7 @@ module.exports = {
           resolve('vb/components/popover'),
           // resolve('vb/components/back-top'),
           resolve('vb/components/popconfirm'),
+          resolve('vb/components/modal'),
         ],
         options: {
           formatter: require('eslint-friendly-formatter')
