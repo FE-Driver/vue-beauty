@@ -45,19 +45,19 @@
         props: {
             count: {
                 type: Number,
-                default: 0
+                default: 0,
             },
             overflowCount: {
                 type: Number,
-                default: 99
+                default: 99,
             },
             dot: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             status: String,
             text: String,
-            countStyle: Object
+            countStyle: Object,
         },
         mounted() {
             if (this.$slots.default) {
@@ -68,29 +68,29 @@
             badgeCls() {
                 return [
                     prefix,
-                    {[`${prefix}-status`]: this.status},
-                    {[`${prefix}-not-a-wrapper`]: !this.defaultSlot}
-                ]
+                    { [`${prefix}-status`]: this.status },
+                    { [`${prefix}-not-a-wrapper`]: !this.defaultSlot },
+                ];
             },
             statusCls() {
                 return [
                     `${prefix}-status-dot`,
-                    `${prefix}-status-${this.status}`
-                ]
+                    `${prefix}-status-${this.status}`,
+                ];
             },
             countCls() {
                 return [
                     'ant-scroll-number',
-                    {[`${prefix}-count`]: !this.dot && this.count},
-                    {[`${prefix}-dot`]: this.dot || this.dotLeave},
-                    {[`${prefix}-zoom-enter`]: this.dotEnter && !this.count},
-                    {[`${prefix}-zoom-enter-active`]: this.dotEnter && !this.count},
-                    {[`${prefix}-zoom-leave`]: this.dotLeave && !this.count},
-                    {[`${prefix}-zoom-leave-active`]: this.dotLeave && !this.count},
-                ]
+                    { [`${prefix}-count`]: !this.dot && this.count },
+                    { [`${prefix}-dot`]: this.dot || this.dotLeave },
+                    { [`${prefix}-zoom-enter`]: this.dotEnter && !this.count },
+                    { [`${prefix}-zoom-enter-active`]: this.dotEnter && !this.count },
+                    { [`${prefix}-zoom-leave`]: this.dotLeave && !this.count },
+                    { [`${prefix}-zoom-leave-active`]: this.dotLeave && !this.count },
+                ];
             },
             num() {
-                return this.count > this.overflowCount ? this.overflowCount + '+' : this.count
+                return this.count > this.overflowCount ? `${this.overflowCount}+` : this.count;
             },
             showDot() {
                 return !this.status && (this.dot || this.count);
@@ -98,17 +98,16 @@
         },
         watch: {
             showDot(value) {
-                let that = this,
-                    action = 'dotEnter';
+                let action = 'dotEnter';
                 if (!value) {
                     action = 'dotLeave';
                 }
                 /* 控制动画Class */
-                that[action] = true;
-                setTimeout(function () {
-                    that[action] = false;
-                }, that.animationTime);
-            }
-        }
-    }
+                this[action] = true;
+                setTimeout(() => {
+                    this[action] = false;
+                }, this.animationTime);
+            },
+        },
+    };
 </script>

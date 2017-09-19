@@ -1,4 +1,4 @@
-import vBadge from './badge.vue'
-import './style/index.less'
+import vBadge from './badge';
+import './style/index.less';
 
-export default vBadge
+export default vBadge;
