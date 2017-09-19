@@ -183,7 +183,7 @@
                 });
             },
             handleResize() {
-                this.listWidth = parseInt(getComputedStyle(this.$el, null).width);
+                this.listWidth = parseInt(getComputedStyle(this.$el, null).width, 10);
                 this.updatePos();
                 this.updateOffset();
             },

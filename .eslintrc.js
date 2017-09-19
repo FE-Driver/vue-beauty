@@ -59,5 +59,6 @@ module.exports = {
     'prefer-destructuring': 0,
     'no-restricted-globals': 0,
     'object-curly-newline': 0,
+    'operator-assignment': 0,
   }
 }
