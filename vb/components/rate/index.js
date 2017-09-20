@@ -1,4 +1,4 @@
-import "./style/index.less"
-import rate from './rate.vue'
+import './style/index.less';
+import rate from './rate';
 
-export default rate
+export default rate;
