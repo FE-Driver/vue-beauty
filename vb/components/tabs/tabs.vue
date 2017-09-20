@@ -52,7 +52,7 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
     import emitter from '../../mixins/emitter';
 
     export default{
