@@ -1,4 +1,4 @@
-import "./style/index.less"
-import vSwitch from './switch.vue'
+import './style/index.less';
+import vSwitch from './switch';
 
-export default vSwitch
+export default vSwitch;

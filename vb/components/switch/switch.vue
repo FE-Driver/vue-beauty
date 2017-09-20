@@ -1,69 +1,69 @@
-<template lang="html">
-  <span :class="wrapClasses" @click="_toggle">
-    <span :class="prefix + '-inner'">
-      <slot v-if="checkStatus" name="checkedChildren"></slot>
-      <slot v-if="!checkStatus" name="unCheckedChildren"></slot>
+<template>
+    <span :class="wrapClasses" @click="_toggle">
+        <span :class="prefix + '-inner'">
+            <slot v-if="checkStatus" name="checkedChildren"></slot>
+            <slot v-if="!checkStatus" name="unCheckedChildren"></slot>
+        </span>
     </span>
-  </span>
 </template>
 
-<script lang="babel">
+<script>
 import emitter from '../../mixins/emitter';
+
 export default {
     name: 'Switch',
     mixins: [emitter],
     data() {
         return {
             prefix: 'ant-switch',
-            defaultValue: this.value
-        }
+            defaultValue: this.value,
+        };
     },
-    props:{
+    props: {
         size: {
-            type: String
+            type: String,
         },
         value: {
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
-        trueValue:{
-            default : true
+        trueValue: {
+            default: true,
         },
-        falseValue:{
-            default : false
-        }
+        falseValue: {
+            default: false,
+        },
     },
     computed: {
-        wrapClasses () {
-            let size = ['small'].indexOf(this.size) !== -1?this.size:'';
+        wrapClasses() {
+            const size = ['small'].indexOf(this.size) !== -1 ? this.size : '';
 
             return [
                 this.prefix,
-                {[`${this.prefix}-checked`]: this.checkStatus},
-                {[`${this.prefix}-disabled`]: this.disabled},
-                {[`${this.prefix}-${size}`]: size}
-            ]
+                { [`${this.prefix}-checked`]: this.checkStatus },
+                { [`${this.prefix}-disabled`]: this.disabled },
+                { [`${this.prefix}-${size}`]: size },
+            ];
         },
-        checkStatus(){
+        checkStatus() {
             return this.defaultValue === this.trueValue;
-        }
+        },
     },
     watch: {
         value(val) {
             this.defaultValue = val;
-        }
+        },
     },
     methods: {
-        _toggle () {
+        _toggle() {
             if (this.disabled) return;
             this.defaultValue = this.checkStatus ? this.falseValue : this.trueValue;
             this.$emit('input', this.defaultValue);
             this.dispatch('FormItem', 'form.change', [this.defaultValue]);
-        }
-    }
-}
-
+        },
+    },
+};
 </script>
