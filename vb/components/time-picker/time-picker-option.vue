@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <div :class="wrapClasses">
         <div :class="[prefix+'-inner',{[prefix+'-2-columns']: !hasSeconds}]">
             <div :class="prefix+'-input-wrap'">
@@ -32,7 +32,7 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
     export default {
         data() {
             return {

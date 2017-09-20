@@ -1,4 +1,4 @@
-import "./style/index.less"
-import timePicker from './time-picker.vue'
+import './style/index.less';
+import timePicker from './time-picker';
 
-export default timePicker
+export default timePicker;

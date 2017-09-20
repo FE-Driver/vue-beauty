@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <span :class="wrapClasses" v-clickoutside="closeDropdown">
         <input type="text" class="ant-time-picker-input" :placeholder="placeholder" @click="toggleDropdown" v-model="defaultValue" ref="timePicker" readonly :disabled="disabled">
         <span class="ant-time-picker-icon"></span>
@@ -11,7 +11,7 @@
     </span>
 </template>
 
-<script lang="babel">
+<script>
     import format from 'date-fns/format';
     import { t } from '../../locale';
     import emitter from '../../mixins/emitter';
