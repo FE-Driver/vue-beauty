@@ -1,4 +1,4 @@
-import "./style/index.less"
-import vSpin from './spin.vue'
+import './style/index.less';
+import spin from './spin';
 
-export default vSpin
+export default spin;
