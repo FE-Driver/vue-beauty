@@ -7,39 +7,39 @@ export default {
     props: {
         placement: {
             type: String,
-            default: 'bottom'
+            default: 'bottom',
         },
         boundariesPadding: {
             type: Number,
-            default: 5
+            default: 5,
         },
         reference: Object,
         popper: Object,
         offset: {
-            default: 0
+            default: 0,
         },
         value: {
             type: Boolean,
-            default: false
+            default: false,
         },
         transition: String,
         options: {
             type: Object,
-            default () {
+            default() {
                 return {
                     gpuAcceleration: false,
-                    boundariesElement: 'body'    // todo 暂时注释，发现在 vue 2 里方向暂时可以自动识别了，待验证(还是有问题的)
+                    boundariesElement: 'body', // todo 暂时注释，发现在 vue 2 里方向暂时可以自动识别了，待验证(还是有问题的)
                 };
-            }
+            },
         },
         // visible: {
         //     type: Boolean,
         //     default: false
         // }
     },
-    data () {
+    data() {
         return {
-            visible: this.value
+            visible: this.value,
         };
     },
     watch: {
@@ -48,7 +48,7 @@ export default {
             handler(val) {
                 this.visible = val;
                 this.$emit('input', val);
-            }
+            },
         },
         visible(val) {
             if (val) {
@@ -58,7 +58,7 @@ export default {
                 this.$emit('hide');
             }
             this.$emit('input', val);
-        }
+        },
     },
     computed: {
         _placement() {
@@ -85,8 +85,8 @@ export default {
             options.offset = this.offset;
 
             this.popperJS = new Popper(reference, popper, options);
-            this.popperJS.onCreate(popper => {
-                this.resetTransformOrigin(popper);
+            this.popperJS.onCreate((pop) => {
+                this.resetTransformOrigin(pop);
                 this.$nextTick(this.updatePopper);
                 this.$emit('created', this);
             });
@@ -105,15 +105,15 @@ export default {
             }
         },
         resetTransformOrigin(popper) {
-            let placementMap = {top: 'bottom', bottom: 'top', left: 'right', right: 'left'};
-            let placement = popper._popper.getAttribute('x-placement').split('-')[0];
-            let origin = placementMap[placement];
-            popper._popper.style.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? `center ${ origin }` : `${ origin } center`;
-        }
+            const placementMap = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
+            const placement = popper._popper.getAttribute('x-placement').split('-')[0];
+            const origin = placementMap[placement];
+            popper._popper.style.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? `center ${origin}` : `${origin} center`;
+        },
     },
     beforeDestroy() {
         if (this.popperJS) {
             this.popperJS.destroy();
         }
-    }
+    },
 };
