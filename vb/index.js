@@ -49,7 +49,7 @@ import carousel from './components/carousel';
 import treeSelect from './components/tree-select';
 import clickoutside from './directives/clickoutside';
 import tooltipd from './directives/tooltip';
-import locale from './locale';
+import { use, i18n } from './locale';
 
 import { version } from '../package.json';
 
@@ -146,8 +146,8 @@ for (const item of Object.values(components)) {
 
 const install = function (Vue, opts = {}) {
     if (install.installed) return;
-    locale.use(opts.locale);
-    locale.i18n(opts.i18n);
+    use(opts.locale);
+    i18n(opts.i18n);
 
     for (const item of Object.values(components)) {
         if (item.install) {
