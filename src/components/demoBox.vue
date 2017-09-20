@@ -14,20 +14,20 @@
 </template>
 <script>
 export default {
-  name: 'demoBox',
-  props: {
-    jsfiddle: Object,
-  },
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen;
+    name: 'demoBox',
+    props: {
+        jsfiddle: Object,
     },
-  },
+    data() {
+        return {
+            isOpen: false,
+        };
+    },
+    methods: {
+        toggle() {
+            this.isOpen = !this.isOpen;
+        },
+    },
 };
 </script>
 <style scoped lang="less">

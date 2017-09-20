@@ -69,15 +69,14 @@
                 }, {
                     name: 'nav 8',
                     icon: 'shop',
-                }]
-            }
+                }],
+            };
         },
-
         mounted() {
-            let removeDom = document.querySelectorAll('.page-wrapper > header')[0];
+            const removeDom = document.querySelectorAll('.page-wrapper > header')[0];
             if (removeDom) removeDom.remove();
-        }
-    }
+        },
+    };
 </script>
 
 <style lang="less">

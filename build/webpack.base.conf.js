@@ -139,12 +139,7 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        //include: [resolve('src'), resolve('vb'), resolve('test')],
-        include: [
-          resolve('src/docs/zh-cn/progress.md'),
-          resolve('src/docs/zh-cn/popover.md'),
-          resolve('vb'),
-        ],
+        include: [resolve('src'), resolve('vb'), resolve('test')],
         options: {
           formatter: require('eslint-friendly-formatter')
         }

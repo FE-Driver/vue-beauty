@@ -14,10 +14,6 @@
     </div>
 </template>
 
-<script>
-    export default {}
-</script>
-
 <style scoped lang="less">
     header {
         transition: opacity .5s;

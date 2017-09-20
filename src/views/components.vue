@@ -81,8 +81,8 @@ export default {
                     link: { name: 'menu' },
                 }, {
                     name: 'Dropdown 下拉菜单',
-                    link: { name:'dropdown'}
-                },{
+                    link: { name: 'dropdown' },
+                }, {
                     name: 'Pagination 分页',
                     link: { name: 'pagination' },
                 }, {

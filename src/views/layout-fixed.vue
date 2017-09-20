@@ -27,7 +27,7 @@
             return {
                 menuData: [{
                     name: 'nav 1',
-                    selected: true
+                    selected: true,
                 }, {
                     name: 'nav 2',
                 }, {
@@ -37,10 +37,10 @@
         },
 
         mounted() {
-            let removeDom = document.querySelectorAll('.page-wrapper > header')[0];
+            const removeDom = document.querySelectorAll('.page-wrapper > header')[0];
             if (removeDom) removeDom.remove();
-        }
-    }
+        },
+    };
 </script>
 
 <style lang="less">
