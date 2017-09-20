@@ -2,10 +2,10 @@ export default {
     select: {
         notFoundContent: 'not found',
         placeholder: 'plese select',
-        loadingText: 'loding...'
+        loadingText: 'loding...',
     },
     timePicker: {
-        placeholder: 'select time'
+        placeholder: 'select time',
     },
     datePicker: {
         placeholder: 'select date',
@@ -20,25 +20,25 @@ export default {
         selectTime: 'select time',
         selectDate: 'select date',
         days: 'Mo,Tu,We,Th,Fr,Sa,Su',
-        months: 'January,February,March,April,May,June,July,August,September,October,November,December'
+        months: 'January,February,March,April,May,June,July,August,September,October,November,December',
     },
     modal: {
         okText: 'OK',
         cancelText: 'Cancel',
-        justOkText: 'Got it!'
+        justOkText: 'Got it!',
     },
     popconfirm: {
         okText: 'Yes',
-        cancelText: 'No'
+        cancelText: 'No',
     },
     input: {
-        placeholder: 'plese enter'
+        placeholder: 'plese enter',
     },
     transfer: {
         searchPlaceholder: 'Search here',
-        notFoundContent: 'Not Found'
+        notFoundContent: 'Not Found',
     },
     treeSelect: {
         placeholder: 'please select',
     },
-}
+};

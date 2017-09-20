@@ -62,5 +62,6 @@ module.exports = {
     'operator-assignment': 0,
     'no-prototype-builtins': 0,
     'no-case-declarations': 0,
+    'prefer-rest-params': 0,
   }
 }
