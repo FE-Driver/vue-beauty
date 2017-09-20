@@ -102,69 +102,71 @@ export default {
     mounted() {
         this.setKey();
         this.preHandle();
-        
+
         this.$on('nodeSelected', (params) => {
-          if(this.clue !== '0') return this.dispatch('Tree', 'nodeSelected', params);
-          if (!this.multiple && params.status) {
-            if (this !== params.origin) {
-              for(let i = 0; i < this.data.length; i++) {
-                this.$set(this.data[i], 'selected', false);
-              }
+            if (this.clue !== '0') return this.dispatch('Tree', 'nodeSelected', params);
+            if (!this.multiple && params.status) {
+                if (this !== params.origin) {
+                    for (let i = 0; i < this.data.length; i++) {
+                        this.$set(this.data[i], 'selected', false);
+                    }
+                }
+                this.broadcast('Tree', 'cancelSelected', params.origin);
             }
-            this.broadcast('Tree', 'cancelSelected', params.origin);
-          }
-          this.$emit('select', this.getSelectedNodes());
+            this.$emit('select', this.getSelectedNodes());
         });
 
-        this.$on('cancelSelected', ori => {
-          this.broadcast('Tree', 'cancelSelected', ori);
+        this.$on('cancelSelected', (ori) => {
+            this.broadcast('Tree', 'cancelSelected', ori);
 
-          if(this !== ori) {
-            for(let i = 0; i < this.data.length; i++) {
-              this.$set(this.data[i], 'selected', false);
+            if (this !== ori) {
+                for (let i = 0; i < this.data.length; i++) {
+                    this.$set(this.data[i], 'selected', false);
+                }
             }
-          }
         });
 
         this.$on('parentChecked', (params) => {
-          if(this.clue == params.clue || this.clue.startsWith(params.clue + '-')) {
-            for(let i = 0; i < this.data.length; i++) {
-              this.$set(this.data[i], 'checked', params.status);
-              this.$set(this.data[i], 'childrenCheckedStatus', params.status ? 2 : 0);
+            if (this.clue === params.clue || this.clue.startsWith(`${params.clue}-`)) {
+                for (let i = 0; i < this.data.length; i++) {
+                    this.$set(this.data[i], 'checked', params.status);
+                    this.$set(this.data[i], 'childrenCheckedStatus', params.status ? 2 : 0);
+                }
+                this.broadcast('Tree', 'parentChecked', params);
             }
-            this.broadcast('Tree', 'parentChecked', params);
-          }
         });
 
         this.$on('childChecked', (params) => {
-          if(this.clue === '0') {
-            this.$nextTick(() => {
-              this.$emit('check', this.getCheckedNodes());
-            });
-          }
-          if (this === params.origin) return;
-
-          for (let [i, item] of this.data.entries()) {
-            if (`${this.clue}-${i}` === params.clue) {
-              let temp = this.getChildrenCheckedStatus(item.children);
-
-              if (temp !== item.childrenCheckedStatus) {
-                this.$set(this.data[i], 'checked', !!temp);
-                this.$set(this.data[i], 'childrenCheckedStatus', temp);
-              }
-
-              if (this.clue !== '0') {
-                this.dispatch('Tree', 'childChecked', { origin: this, clue: this.clue });
-              }
+            if (this.clue === '0') {
+                this.$nextTick(() => {
+                    this.$emit('check', this.getCheckedNodes());
+                });
             }
-          }
+            if (this === params.origin) return;
+
+            for (const [i, item] of this.data.entries()) {
+                if (`${this.clue}-${i}` === params.clue) {
+                    const temp = this.getChildrenCheckedStatus(item.children);
+
+                    if (temp !== item.childrenCheckedStatus) {
+                        this.$set(this.data[i], 'checked', !!temp);
+                        this.$set(this.data[i], 'childrenCheckedStatus', temp);
+                    }
+
+                    if (this.clue !== '0') {
+                        this.dispatch('Tree', 'childChecked', { origin: this, clue: this.clue });
+                    }
+                }
+            }
         });
         this.$on('dragdrop', (sourceClue, targetClue, dropPosition) => {
             if (this.clue !== '0') return this.dispatch('Tree', 'dragdrop', [sourceClue, targetClue, dropPosition]);
             // 直接父级是否是同一个
             const sameTree = sourceClue.substr(0, sourceClue.length - 1) === targetClue.substr(0, targetClue.length - 1);
             sourceClue = sourceClue.split('-');
-            let sourceData = this.data, _sourceData, lastSourceIndex = sourceClue[sourceClue.length - 1] * 1;
+            let sourceData = this.data;
+            let _sourceData;
+            let lastSourceIndex = sourceClue[sourceClue.length - 1] * 1;
             for (let i = 1; i < sourceClue.length - 1; i++) {
                 const index = sourceClue[i];
                 if (i === 1) {
@@ -181,51 +183,52 @@ export default {
 
             targetClue = targetClue.split('-');
             let targetData = this.data;
-            let targetIndex = targetClue[targetClue.length-1] * 1;
+            const targetIndex = targetClue[targetClue.length - 1] * 1;
 
-            for(let i = 1;i< targetClue.length - 1;i++){
-              const index = targetClue[i];
-              if(i === 1){
-                targetData = targetData[index];
-              }else{
-                targetData = targetData.children[index];
-              }
+            for (let i = 1; i < targetClue.length - 1; i++) {
+                const index = targetClue[i];
+                if (i === 1) {
+                    targetData = targetData[index];
+                } else {
+                    targetData = targetData.children[index];
+                }
             }
             let canDrop;
             if (targetClue.length > 2) {
-              canDrop = this.canDrop(_sourceData, targetData.children[targetIndex], dropPosition);
+                canDrop = this.canDrop(_sourceData, targetData.children[targetIndex], dropPosition);
             } else {
-              canDrop = this.canDrop(_sourceData, targetData[targetIndex], dropPosition);
+                canDrop = this.canDrop(_sourceData, targetData[targetIndex], dropPosition);
             }
             if (!canDrop) return;
 
             let sourcePositionChange = false;
-            switch(dropPosition) {
-              case 0:
-                if(targetClue.length > 2){
-                  targetData = targetData.children[targetIndex];
-                } else {
-                  targetData = targetData[targetIndex];
-                }
-                if(targetData.children){
-                  targetData.children.push(_sourceData);
-                }else{
-                  this.$set(targetData, 'children', [_sourceData]);
-                }
-                break;
-              case -1:
-              case 1:
-                const p = targetIndex + (dropPosition === -1 ? 0 : dropPosition);
-                if(targetClue.length > 2){
-                  targetData.children.splice(p, 0, _sourceData);
-                }else{
-                  targetData.splice(p, 0, _sourceData);
-                }
-                sourcePositionChange = sameTree && p <= lastSourceIndex;
-                break;
+            switch (dropPosition) {
+                case 0:
+                    if (targetClue.length > 2) {
+                        targetData = targetData.children[targetIndex];
+                    } else {
+                        targetData = targetData[targetIndex];
+                    }
+                    if (targetData.children) {
+                        targetData.children.push(_sourceData);
+                    } else {
+                        this.$set(targetData, 'children', [_sourceData]);
+                    }
+                    break;
+                case 1:
+                    const p = targetIndex + (dropPosition === -1 ? 0 : dropPosition);
+                    if (targetClue.length > 2) {
+                        targetData.children.splice(p, 0, _sourceData);
+                    } else {
+                        targetData.splice(p, 0, _sourceData);
+                    }
+                    sourcePositionChange = sameTree && p <= lastSourceIndex;
+                    break;
+                case -1:
+                default:
             }
 
-            if(sourcePositionChange) lastSourceIndex++;
+            if (sourcePositionChange) lastSourceIndex++;
             if (sourceClue.length > 2) {
                 if (sourceData.children.length === 1) {
                     this.$delete(sourceData, 'children');
@@ -238,283 +241,284 @@ export default {
         });
     },
     methods: {
-      dragstart(index,ev) {
-        ev.stopPropagation();
-        this.dragIndex = index;
-        ev.dataTransfer.setData('dragClue', `${this.clue}-${index}`);
-      },
-      dragover(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-      },
-      drop(index,ev) {
-        ev.stopPropagation();
-        this.dragOverIndex = -1;
-        const dragClue = ev.dataTransfer.getData('dragClue');
-        const selfClue = `${this.clue}-${index}`;
+        dragstart(index, ev) {
+            ev.stopPropagation();
+            this.dragIndex = index;
+            ev.dataTransfer.setData('dragClue', `${this.clue}-${index}`);
+        },
+        dragover(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+        },
+        drop(index, ev) {
+            ev.stopPropagation();
+            this.dragOverIndex = -1;
+            const dragClue = ev.dataTransfer.getData('dragClue');
+            const selfClue = `${this.clue}-${index}`;
 
-        // 如果拖拽的对象不是自己的父辈级
-        if (!selfClue.startsWith(dragClue)) {
-          if (this.clue === '0') {
-            this.$emit('dragdrop', dragClue, selfClue, this.dropPosition);
-          } else {
-            this.dispatch('Tree', 'dragdrop', [dragClue, selfClue, this.dropPosition]);
-          }
-        }
-      },
-      dragenter(index, ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        if(this.dragIndex === index) return;
-        if(this.dragOverIndex > -1) this.dragCrossSameTree = true;
-        this.dragOverIndex = index;
-        const offset = getOffset(this.$refs.node[index]);
-        const offsetTop = offset.top;
-        const offsetHeight = offset.bottom - offset.top;
-        const pageY = ev.pageY;
-        const gapHeight = 2;
+            // 如果拖拽的对象不是自己的父辈级
+            if (!selfClue.startsWith(dragClue)) {
+                if (this.clue === '0') {
+                    this.$emit('dragdrop', dragClue, selfClue, this.dropPosition);
+                } else {
+                    this.dispatch('Tree', 'dragdrop', [dragClue, selfClue, this.dropPosition]);
+                }
+            }
+        },
+        dragenter(index, ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            if (this.dragIndex === index) return;
+            if (this.dragOverIndex > -1) this.dragCrossSameTree = true;
+            this.dragOverIndex = index;
+            const offset = getOffset(this.$refs.node[index]);
+            const offsetTop = offset.top;
+            const offsetHeight = offset.bottom - offset.top;
+            const pageY = ev.pageY;
+            const gapHeight = 2;
 
-        if (pageY > offsetTop + offsetHeight - gapHeight) {
-          this.dropPosition = 1;
-        }else if (pageY < offsetTop + gapHeight) {
-          this.dropPosition = -1;
-        }else{
-          this.dropPosition = 0;
-        }
-        this.$set(this.data[index], 'expanded', true);
-      },
-      dragleave(index, ev) {
-        ev.stopPropagation();
-        if(this.dragIndex === index) return;
-        if(this.dragCrossSameTree) {
-          this.dragCrossSameTree = false;
-        }else{
-          this.dragOverIndex = -1;
-        }
-      },
-      dragend(ev) {
-        ev.stopPropagation();
-        this.dragIndex = -1;
-      },
-      treeNodeCls(item) {
-        return {
-          [`${this.prefixCls}-treenode-disabled`]: item.disabled
-        }
-      },
-      switcherCls(item) {
-        const expandedState = item.expanded ? 'open' : 'close';
+            if (pageY > offsetTop + offsetHeight - gapHeight) {
+                this.dropPosition = 1;
+            } else if (pageY < offsetTop + gapHeight) {
+                this.dropPosition = -1;
+            } else {
+                this.dropPosition = 0;
+            }
+            this.$set(this.data[index], 'expanded', true);
+        },
+        dragleave(index, ev) {
+            ev.stopPropagation();
+            if (this.dragIndex === index) return;
+            if (this.dragCrossSameTree) {
+                this.dragCrossSameTree = false;
+            } else {
+                this.dragOverIndex = -1;
+            }
+        },
+        dragend(ev) {
+            ev.stopPropagation();
+            this.dragIndex = -1;
+        },
+        treeNodeCls(item) {
+            return {
+                [`${this.prefixCls}-treenode-disabled`]: item.disabled,
+            };
+        },
+        switcherCls(item) {
+            const expandedState = item.expanded ? 'open' : 'close';
 
-        return [
-          `${this.prefixCls}-switcher`,
-          {
-            [`${this.prefixCls}-switcher-disabled`]: item.disabled,
-            [`${this.prefixCls}-switcher-noop`]: item.isLeaf,
-            [`${this.prefixCls}-noline_docu`]: item.isLeaf,
-            [`${this.prefixCls}-noline_${expandedState}`]: !item.isLeaf
-          }
-        ];
-      },
-      checkboxCls(item) {
-        return [
-          `${this.prefixCls}-checkbox`,
-          {
-            [`${this.prefixCls}-checkbox-disabled`]: item.disabled || item.disableCheckbox,
-            [`${this.prefixCls}-checkbox-checked`]: item.checked && item.childrenCheckedStatus === 2,
-            [`${this.prefixCls}-checkbox-indeterminate`]: item.checked && item.childrenCheckedStatus === 1
-          }
-        ];
-      },
-      selectHandleCls(item) {
-          const wrap = `${this.prefixCls}-node-content-wrapper`;
+            return [
+                `${this.prefixCls}-switcher`,
+                {
+                    [`${this.prefixCls}-switcher-disabled`]: item.disabled,
+                    [`${this.prefixCls}-switcher-noop`]: item.isLeaf,
+                    [`${this.prefixCls}-noline_docu`]: item.isLeaf,
+                    [`${this.prefixCls}-noline_${expandedState}`]: !item.isLeaf,
+                },
+            ];
+        },
+        checkboxCls(item) {
+            return [
+                `${this.prefixCls}-checkbox`,
+                {
+                    [`${this.prefixCls}-checkbox-disabled`]: item.disabled || item.disableCheckbox,
+                    [`${this.prefixCls}-checkbox-checked`]: item.checked && item.childrenCheckedStatus === 2,
+                    [`${this.prefixCls}-checkbox-indeterminate`]: item.checked && item.childrenCheckedStatus === 1,
+                },
+            ];
+        },
+        selectHandleCls(item) {
+            const wrap = `${this.prefixCls}-node-content-wrapper`;
 
-          return [
-              wrap,
-              `${wrap}-normal`,
-              {
-                  [`${this.prefixCls}-node-selected`]: !item.disable && item.selected,
-                  draggable: this.draggable,
-              },
-          ];
-      },
-      setKey() {
-          for (let i = 0; i < this.data.length; i++) {
-              this.data[i].clue = `${this.clue}-${i}`;
-          }
-      },
-      preHandle() {
-          for (const [i, item] of this.data.entries()) {
-              if (!item.children) {
-                  this.$set(item, 'isLeaf', true);
-                  this.$set(item, 'childrenCheckedStatus', 2);
-                  continue;
-              }
-
-              this.$set(item, 'isLeaf', false);
-              if (item.checked && !item.childrenCheckedStatus) {
-                  this.$set(item, 'childrenCheckedStatus', 2);
-                  this.broadcast('Tree', 'parentChecked', { status: true, clue: `${this.clue}-${i}` });
-              } else {
-                  const status = this.getChildrenCheckedStatus(item.children);
-                  this.$set(item, 'childrenCheckedStatus', status);
-
-                  if (status !== 0) {
-                      this.$set(item, 'checked', true);
-                  }
-              }
-          }
-      },
-      async setExpand(disabled, index) {
-        if (!disabled) {
-          const expanded = !this.data[index].expanded;
-          this.$set(this.data[index], 'expanded', expanded);
-          if(expanded && !this.data[index].children.length && this.async) {
-            this.$set(this.data[index], 'loading', true);
-            const data = await this.async(this.data[index]);
-            this.data[index].children = data;
-            this.$set(this.data[index], 'loading', false);
-          }
-        }
-      },
-      setSelect(disabled, index) {
-        if (!disabled) {
-          const selected = !this.data[index].selected;
-
-          if (this.multiple || !selected){
-            this.$set(this.data[index], 'selected', selected);
-          } else {
+            return [
+                wrap,
+                `${wrap}-normal`,
+                {
+                    [`${this.prefixCls}-node-selected`]: !item.disable && item.selected,
+                    draggable: this.draggable,
+                },
+            ];
+        },
+        setKey() {
             for (let i = 0; i < this.data.length; i++) {
-              if (i === index) {
-                this.$set(this.data[i], 'selected', true);
-              } else {
-                this.$set(this.data[i], 'selected', false);
-              }
+                this.data[i].clue = `${this.clue}-${i}`;
             }
-          }
+        },
+        preHandle() {
+            for (const [i, item] of this.data.entries()) {
+                if (!item.children) {
+                    this.$set(item, 'isLeaf', true);
+                    this.$set(item, 'childrenCheckedStatus', 2);
+                    continue;
+                }
 
-          if (this.clue === '0') {
-            this.$emit('nodeSelected', { origin: this, status: selected });
-          }else{
-            this.dispatch('Tree', 'nodeSelected', { origin: this, status: selected });
-          }
-        }
-      },
-      setCheck(disabled, index) {
-        if (disabled) return;
+                this.$set(item, 'isLeaf', false);
+                if (item.checked && !item.childrenCheckedStatus) {
+                    this.$set(item, 'childrenCheckedStatus', 2);
+                    this.broadcast('Tree', 'parentChecked', { status: true, clue: `${this.clue}-${i}` });
+                } else {
+                    const status = this.getChildrenCheckedStatus(item.children);
+                    this.$set(item, 'childrenCheckedStatus', status);
 
-        const checked = !this.data[index].checked;
-        this.$set(this.data[index], 'checked', checked);
-        this.$set(this.data[index], 'childrenCheckedStatus', checked ? 2 : 0);
-        if (this.clue === '0') {
-          this.$emit('childChecked', { origin: this, clue: this.clue });
-        }else{
-          this.dispatch('Tree', 'childChecked', { origin: this, clue: this.clue });
-        }
-        this.broadcast('Tree', 'parentChecked', { status: checked, clue: `${this.clue}-${index}` });
-      },
-      getNodes(data, opt) {
-        data = data || this.data;
-        let res = [];
-
-        for (let node of data) {
-          let tmp = true;
-          for (let [key, value] of Object.entries(opt)) {
-            if (node[key] !== value) {
-              tmp = false;
-              break;
+                    if (status !== 0) {
+                        this.$set(item, 'checked', true);
+                    }
+                }
             }
-          }
-          if (tmp) {
-            res.push(node);
-          }
-          if (node.children && node.children.length) {
-            res = res.concat(this.getNodes(node.children, opt));
-          }
-        }
-        return res;
-      },
-      getSelectedNodes() {
-        return this.getNodes(this.data, { selected: true });
-      },
-      getCheckedNodes() {
-        return this.getNodes(this.data, { checked: true, childrenCheckedStatus: 2 });
-      },
-      getHalfCheckedNodes(){
-        return this.getNodes(this.data, {checked: true,childrenCheckedStatus:1});
-      },
-      getChildrenCheckedStatus(children) {
-        let checkNum = 0,
-            child_childrenAllChecked = true;
-
-        for (let child of children) {
-          if (child.checked) {
-            checkNum++;
-          }
-          if (child.childrenCheckedStatus !== 2) {
-            child_childrenAllChecked = false;
-          }
-        }
-        // 全选
-        if (checkNum === children.length) {
-          return child_childrenAllChecked ? 2 : 1;
-        // 部分选择
-        } else if (checkNum > 0) {
-          return 1;
-        } else {
-          return 0;
-        }
-      },
-      edit(path, action, data) {
-        path = path.split('-');
-        const isTopNode = path.length === 2;
-
-        let node = this.data;
-        const lastIndex = path.pop();
-
-        if(!isTopNode) node = node[path[1]];
-        path.splice(0,2);
-
-        for( let i of path) {
-          node = node.children[i];
-        }
-        switch (action) {
-          case 'delete':
-            if(isTopNode) {
-              node.splice(lastIndex,1);
-            }else{
-              node.children.splice(lastIndex,1);
+        },
+        async setExpand(disabled, index) {
+            if (!disabled) {
+                const expanded = !this.data[index].expanded;
+                this.$set(this.data[index], 'expanded', expanded);
+                if (expanded && !this.data[index].children.length && this.async) {
+                    this.$set(this.data[index], 'loading', true);
+                    const data = await this.async(this.data[index]);
+                    this.data[index].children = data;
+                    this.$set(this.data[index], 'loading', false);
+                }
             }
-            break;
-          case 'add':
-            let child;
-            if(isTopNode) {
-              child = node[lastIndex];
-            }else{
-              child = node.children[lastIndex];
-            }
-            if(child.children){
-              child.children.push(data);
-            }else{
-              this.$set(child, 'children', [data]);
-            }
-            break;
-          case 'edit':
-            node = isTopNode ? node[lastIndex] : node.children[lastIndex];
+        },
+        setSelect(disabled, index) {
+            if (!disabled) {
+                const selected = !this.data[index].selected;
 
-            for(const [key, val] of Object.entries(data)) {
-              node[key] = val;
+                if (this.multiple || !selected) {
+                    this.$set(this.data[index], 'selected', selected);
+                } else {
+                    for (let i = 0; i < this.data.length; i++) {
+                        if (i === index) {
+                            this.$set(this.data[i], 'selected', true);
+                        } else {
+                            this.$set(this.data[i], 'selected', false);
+                        }
+                    }
+                }
+
+                if (this.clue === '0') {
+                    this.$emit('nodeSelected', { origin: this, status: selected });
+                } else {
+                    this.dispatch('Tree', 'nodeSelected', { origin: this, status: selected });
+                }
             }
-        }
-      },
-      editNode(path, data) {
-        this.edit(path, 'edit', data);
-      },
-      addNode(path, data) {
-        if(path === '0') return this.data.push(data);
-        this.edit(path, 'add', data);
-      },
-      delNode(path) {
-        this.edit(path, 'delete');
-      }
-    }
-}
+        },
+        setCheck(disabled, index) {
+            if (disabled) return;
+
+            const checked = !this.data[index].checked;
+            this.$set(this.data[index], 'checked', checked);
+            this.$set(this.data[index], 'childrenCheckedStatus', checked ? 2 : 0);
+            if (this.clue === '0') {
+                this.$emit('childChecked', { origin: this, clue: this.clue });
+            } else {
+                this.dispatch('Tree', 'childChecked', { origin: this, clue: this.clue });
+            }
+            this.broadcast('Tree', 'parentChecked', { status: checked, clue: `${this.clue}-${index}` });
+        },
+        getNodes(data, opt) {
+            data = data || this.data;
+            let res = [];
+
+            for (const node of data) {
+                let tmp = true;
+                for (const [key, value] of Object.entries(opt)) {
+                    if (node[key] !== value) {
+                        tmp = false;
+                        break;
+                    }
+                }
+                if (tmp) {
+                    res.push(node);
+                }
+                if (node.children && node.children.length) {
+                    res = res.concat(this.getNodes(node.children, opt));
+                }
+            }
+            return res;
+        },
+        getSelectedNodes() {
+            return this.getNodes(this.data, { selected: true });
+        },
+        getCheckedNodes() {
+            return this.getNodes(this.data, { checked: true, childrenCheckedStatus: 2 });
+        },
+        getHalfCheckedNodes() {
+            return this.getNodes(this.data, { checked: true, childrenCheckedStatus: 1 });
+        },
+        getChildrenCheckedStatus(children) {
+            let checkNum = 0;
+            let childChildrenAllChecked = true;
+
+            for (const child of children) {
+                if (child.checked) {
+                    checkNum++;
+                }
+                if (child.childrenCheckedStatus !== 2) {
+                    childChildrenAllChecked = false;
+                }
+            }
+            // 全选
+            if (checkNum === children.length) {
+                return childChildrenAllChecked ? 2 : 1;
+                // 部分选择
+            } else if (checkNum > 0) {
+                return 1;
+            }
+            return 0;
+        },
+        edit(path, action, data) {
+            path = path.split('-');
+            const isTopNode = path.length === 2;
+
+            let node = this.data;
+            const lastIndex = path.pop();
+
+            if (!isTopNode) node = node[path[1]];
+            path.splice(0, 2);
+
+            for (const i of path) {
+                node = node.children[i];
+            }
+            switch (action) {
+                case 'delete':
+                    if (isTopNode) {
+                        node.splice(lastIndex, 1);
+                    } else {
+                        node.children.splice(lastIndex, 1);
+                    }
+                    break;
+                case 'add':
+                    let child;
+                    if (isTopNode) {
+                        child = node[lastIndex];
+                    } else {
+                        child = node.children[lastIndex];
+                    }
+                    if (child.children) {
+                        child.children.push(data);
+                    } else {
+                        this.$set(child, 'children', [data]);
+                    }
+                    break;
+                case 'edit':
+                    node = isTopNode ? node[lastIndex] : node.children[lastIndex];
+
+                    for (const [key, val] of Object.entries(data)) {
+                        node[key] = val;
+                    }
+                    break;
+                default: break;
+            }
+        },
+        editNode(path, data) {
+            this.edit(path, 'edit', data);
+        },
+        addNode(path, data) {
+            if (path === '0') return this.data.push(data);
+            this.edit(path, 'add', data);
+        },
+        delNode(path) {
+            this.edit(path, 'delete');
+        },
+    },
+};
 </script>

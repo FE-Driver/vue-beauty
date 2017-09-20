@@ -61,5 +61,6 @@ module.exports = {
     'object-curly-newline': 0,
     'operator-assignment': 0,
     'no-prototype-builtins': 0,
+    'no-case-declarations': 0,
   }
 }
