@@ -1,5 +1,4 @@
-<template lang="html">
-
+<template>
     <div :class="wrapClasses" :style="{'width': tailWidth}">
         <div class="ant-steps-tail" v-if="!stepLast"><i></i></div>
         <div class="ant-steps-head">
@@ -15,43 +14,41 @@
         </div>
 
     </div>
-
 </template>
 
-<script lang="babel">
-
-    export default {
-        name: 'Step',
-        props: {
-            status: String,
-            title: String,
-            description: String,
-            icon: String,
+<script>
+export default {
+    name: 'Step',
+    props: {
+        status: String,
+        title: String,
+        description: String,
+        icon: String,
+    },
+    data() {
+        return {
+            stepLast: Boolean,
+            stepNumber: 1,
+            iconPrefix: '',
+            maxDescriptionWidth: '',
+            tailWidth: String,
+            currentStatus: this.status,
+            rootStatus: false,
+        };
+    },
+    computed: {
+        iconName() {
+            return this.icon ? this.icon : 'check';
         },
-        data: function () {
-            return {
-                stepLast: Boolean,
-                stepNumber: 1,
-                iconPrefix: '',
-                maxDescriptionWidth: '',
-                tailWidth: String,
-                currentStatus: this.status,
-                rootStatus: false
-            }
+        wrapClasses() {
+            return [
+                'ant-steps-item',
+                `ant-steps-status-${this.currentStatus}`,
+                { 'ant-steps-item-last': this.stepLast },
+                { [`ant-steps-next-${this.rootStatus}`]: this.rootStatus },
+                { 'ant-steps-custom': this.icon },
+            ];
         },
-        computed: {
-            iconName () {
-                return this.icon ? this.icon : 'check'
-            },
-            wrapClasses () {
-                return [
-                    'ant-steps-item',
-                    `ant-steps-status-${this.currentStatus}`,
-                    {['ant-steps-item-last']: this.stepLast},
-                    {[`ant-steps-next-${this.rootStatus}`]: this.rootStatus},
-                    {['ant-steps-custom']: this.icon}
-                ]
-            }
-        }
-    }
+    },
+};
 </script>

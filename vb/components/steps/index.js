@@ -1,5 +1,5 @@
-import "./style/steps.less"
-import steps from './steps.vue'
-import step from './step.vue'
+import './style/steps.less';
+import steps from './steps';
+import step from './step';
 
-export { steps, step }
+export { steps, step };
