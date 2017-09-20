@@ -77,7 +77,7 @@
             },
         },
         mounted() {
-            //document.addEventListener('click', () => this.open = false);
+            // document.addEventListener('click', () => this.open = false);
             this.container = this.popupContainer();
             this.$refs.dropdown.style.position = this.position;
             this.container.appendChild(this.$refs.dropdown);

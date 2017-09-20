@@ -136,14 +136,15 @@
             setCheck(clue) {
                 const route = clue.split('-');
                 let node = this.$refs.tree;
-                for (var i = 1; i < route.length - 1; i++) {
+                let i = 1;
+                for (; i < route.length - 1; i++) {
                     node = node.$children[route[i]];
                 }
                 const item = node.data[route[i]];
                 node.setCheck(item.disabled, route[i]);
             },
             searchFn(val) {
-                console.log(val)
+                console.log(val);
             },
         },
     };
