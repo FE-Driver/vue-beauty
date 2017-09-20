@@ -1,4 +1,4 @@
-import "./style/index.less"
-import vTooltip from './tooltip.vue'
+import './style/index.less';
+import vTooltip from './tooltip';
 
-export default vTooltip
+export default vTooltip;
