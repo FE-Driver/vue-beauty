@@ -13,37 +13,37 @@
 import vIcon from '../icon';
 
 export default {
+    components: {
+        vIcon,
+    },
     props: {
         prefixCls: String,
         placeholder: {
             type: Array,
-			default: () => [],
-		},
-		handleClear: {
-			type: Function,
-			default: ()=> {},
-		},
-		value: {
-			type: String,
-			default: '',
-		},
-		searchPlaceholder: {
-			type: String,
-			default: '',
-		},
-	},
-	methods: {
-		handleChange(e) {
-			this.$emit('input', e.target.value);
-			this.$emit('change', e.target.value);
-		},
-		clear(e) {
-			e.preventDefault();
-			this.handleClear();
-		}
-	},
-	components: {
-		vIcon
-	}
-}
+            efault: () => [],
+        },
+        handleClear: {
+            type: Function,
+            default: () => {},
+        },
+        value: {
+            type: String,
+            default: '',
+        },
+        searchPlaceholder: {
+            type: String,
+            default: '',
+        },
+    },
+    methods: {
+        handleChange(e) {
+            this.$emit('input', e.target.value);
+            this.$emit('change', e.target.value);
+        },
+        clear(e) {
+            e.preventDefault();
+            this.handleClear();
+        },
+    },
+};
 </script>
