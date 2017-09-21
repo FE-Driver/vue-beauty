@@ -487,7 +487,6 @@
                 let tmpTime;
                 const curFirstDay = time.getDay(); // 星期几
                 const lastDay = time.getDate(); // 上个月的最后一天;
-                const curDay = time.getDate(); // 当前月的最后一天
                 let day;
                 const arr = [];
                 time.setDate(0); // 切换到上个月最后一天
@@ -504,6 +503,7 @@
                     });
                 }
                 time.setMonth(time.getMonth() + 2, 0); // 切换到当前月的最后一天
+                const curDay = time.getDate(); // 当前月的最后一天
                 time.setDate(1);
                 for (i = 1; i <= curDay; i++) {
                     tmpTime = new Date(time.getFullYear(), time.getMonth(), i);
