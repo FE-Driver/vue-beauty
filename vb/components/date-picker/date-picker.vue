@@ -485,11 +485,11 @@
             update(time, no) {
                 let i;
                 let tmpTime;
-                const curFirstDay = time.getDay(); // 星期几
-                const lastDay = time.getDate(); // 上个月的最后一天;
                 let day;
                 const arr = [];
                 time.setDate(0); // 切换到上个月最后一天
+                const curFirstDay = time.getDay(); // 星期几
+                const lastDay = time.getDate(); // 上个月的最后一天;
 
                 for (i = curFirstDay; i > 0; i--) {
                     day = lastDay - i + 1;
