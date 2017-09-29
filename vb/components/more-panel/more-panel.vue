@@ -53,9 +53,7 @@ export default {
         this.ifShowBtn();
 
         if (!this.bindResize) {
-            window.addEventListener('resize', () => {
-                this.ifShowBtn();
-            }, false);
+            window.addEventListener('resize', this.ifShowBtn, false);
             this.bindResize = true;
         }
     },
@@ -70,6 +68,11 @@ export default {
         click() {
             this.collapse = !this.collapse;
         },
+    },
+    beforeDestroy() {
+        if (this.bindResize) {
+            window.removeEventListener('resize', this.ifShowBtn);
+        }
     },
 };
 </script>

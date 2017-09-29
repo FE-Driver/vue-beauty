@@ -716,7 +716,7 @@
                 }
                 for (let i = 0; i < this[`months${no}`].length; i++) {
                     if (this[`months${no}`][i].status === 'ant-calendar-month-panel-selected-cell') {
-                        this.$set(this[`years${no}`][i], 'status', '');
+                        this.$set(this[`months${no}`][i], 'status', '');
                     }
                 }
                 this.$set(this[`months${no}`][index], 'status', 'ant-calendar-month-panel-selected-cell');

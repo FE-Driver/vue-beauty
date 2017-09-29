@@ -125,7 +125,7 @@
                 this.selected = !this.selected;
             },
             setPosition() {
-                if (!this.$el) return;
+                if (!this.$el || !this.$refs.timePicker) return;
                 const p = getOffset(this.$refs.timePicker, this.container);
 
                 this.style = {
