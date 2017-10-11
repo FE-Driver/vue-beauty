@@ -1,7 +1,7 @@
 <template>
   <ul :class="treeCls">
     <li v-for="(item, index) in data" :class="{[`${prefixCls}-treenode-disabled`]: item.disabled,[dropOverCls]: dragOverIndex === index,'filter-node': item.filter}" @dragover="dragover" @drop="drop(index,$event)" @dragenter="dragenter(index,$event)" @dragleave="dragleave(index,$event)" ref="node">
-      <span :class="[`${prefixCls}-switcher`,{[`${prefixCls}-switcher-disabled`]: item.disabled,[`${prefixCls}-switcher-noop`]: item.isLeaf,[`${prefixCls}-noline_docu`]: item.isLeaf,[`${prefixCls}-noline_${item.expanded ? 'open' : 'close'}`]: !item.isLeaf}]" @click="setExpand(item.disabled, index)"></span>
+      <span :class="[`${prefixCls}-switcher`,{[`${prefixCls}-switcher-disabled`]: item.disabled,[`${prefixCls}-switcher-noop`]: item.isLeaf,[`${prefixCls}-switcher_${item.expanded ? 'open' : 'close'}`]: !item.isLeaf}]" @click="setExpand(item.disabled, index)"></span>
       <span v-if="checkable" :class="checkboxCls(item)" @click.prevent="setCheck(item.disabled || item.disableCheckbox, index)">
         <span :class="prefixCls + '-checkbox-inner'"></span>
       </span>
@@ -10,7 +10,7 @@
         <span :class="prefixCls + '-title'" v-html="item.title"></span>
       </span>
       <transition name="slide-up">
-        <tree v-if="!item.isLeaf" :prefix-cls="prefixCls" :data="item.children" :clue="`${clue}-${index}`" :multiple="multiple" :checkable="checkable" :class="`${prefixCls}-child-tree-open`" v-show="item.expanded" :draggable="draggable"></tree>
+        <tree v-if="!item.isLeaf" :prefix-cls="prefixCls" :data="item.children" :clue="`${clue}-${index}`" :multiple="multiple" :checkable="checkable" :class="`${prefixCls}-child-tree-open`" v-show="item.expanded" :draggable="draggable" :async="async"></tree>
       </transition>
     </li>
   </ul>
@@ -303,19 +303,6 @@ export default {
             return {
                 [`${this.prefixCls}-treenode-disabled`]: item.disabled,
             };
-        },
-        switcherCls(item) {
-            const expandedState = item.expanded ? 'open' : 'close';
-
-            return [
-                `${this.prefixCls}-switcher`,
-                {
-                    [`${this.prefixCls}-switcher-disabled`]: item.disabled,
-                    [`${this.prefixCls}-switcher-noop`]: item.isLeaf,
-                    [`${this.prefixCls}-noline_docu`]: item.isLeaf,
-                    [`${this.prefixCls}-noline_${expandedState}`]: !item.isLeaf,
-                },
-            ];
         },
         checkboxCls(item) {
             return [
