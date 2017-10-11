@@ -42,6 +42,11 @@ export default {
           title: 'parent 1-2',
         }]
       }],
+      asyncData:  [
+        { title: 'pNode 01', children: []},
+        { title: 'pNode 02', children: []},
+        { title: 'pNode 03'},
+      ]
     }
   },
   methods: {
@@ -53,7 +58,19 @@ export default {
     },
     onClear(data) {
       console.log('clear', data);
-    }
+    },
+    getData(node) {
+      console.log(node);
+      return new Promise(resolve => {
+        setTimeout(()=>{
+          resolve([
+            { title: `leaf ${node.clue}-0`, children: []},
+            { title: `leaf ${node.clue}-1`},
+            { title: `leaf ${node.clue}-2`},
+          ])
+        }, 1000)
+      })
+    },
   }
 }
 </script>
@@ -118,8 +135,8 @@ export default {
 
 ::: demo
 <summary>
-  #### 多选
-  多选和勾选框功能。
+  #### 可勾选
+  使用勾选框实现多选功能。
 </summary>
 
 ```html
@@ -169,6 +186,48 @@ export default {
 
 :::
 
+::: demo
+<summary>
+  #### 异步加载数据
+  点击展开节点，动态加载数据。
+</summary>
+
+```html
+<template>
+  <v-tree-select :data="asyncData" allow-clear style="width:300px" :async="getData"></v-tree-select>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      asyncData: [
+        { title: 'pNode 01', children: []},
+        { title: 'pNode 02', children: []},
+        { title: 'pNode 03'},
+      ]
+    }
+  },
+  methods: {
+    getData(node) {
+      console.log(node);
+      return new Promise(resolve => {
+        setTimeout(()=>{
+          resolve([
+            { title: `leaf ${node.clue}-0`, children: []},
+            { title: `leaf ${node.clue}-1`},
+            { title: `leaf ${node.clue}-2`},
+          ])
+        }, 1000)
+      })
+    },
+  }
+}
+</script>
+```
+
+:::
+
 ## API
 
 ### TreeSelect Props 
@@ -177,6 +236,7 @@ export default {
 | data | 可嵌套的节点属性的数组，生成tree的数据 | Array | [] |
 | multiple | 支持多选 | Boolean | false |
 | allowClear | 显示清除按钮 | Boolean | false |
+| async | 异步加载数据	 | Function(node) | - |
 | popupContainer | 下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | Function | () => document.body |
 | position | 设置节点可拖拽 | Boolean | false |
 

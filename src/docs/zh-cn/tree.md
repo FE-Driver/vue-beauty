@@ -273,7 +273,7 @@ export default {
       return new Promise(resolve => {
         setTimeout(()=>{
           resolve([
-            { title: `leaf ${node.clue}-0`},
+            { title: `leaf ${node.clue}-0`, children: []},
             { title: `leaf ${node.clue}-1`},
             { title: `leaf ${node.clue}-2`},
           ])

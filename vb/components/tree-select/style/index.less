@@ -10,7 +10,8 @@
 
 .@{select-tree-prefix-cls} {
   margin: 0;
-  padding: 8px;
+  padding: 0 4px;
+  margin-top: -4px;
   font-size: @font-size-base;
   li {
     padding: 0;
@@ -20,7 +21,7 @@
     outline: 0;
     &.filter-node {
       > span {
-        font-weight: bold !important;
+        font-weight: 500;
       }
     }
     ul {
@@ -34,9 +35,9 @@
       margin: 0;
       cursor: pointer;
       text-decoration: none;
-      vertical-align: top;
       color: @text-color;
-      transition: all 0.3s ease;
+      transition: all .3s;
+      width: ~"calc(100% - 24px)";
       &:hover {
         background-color: @item-hover-bg;
       }
@@ -44,16 +45,19 @@
         background-color: @primary-2;
       }
     }
-    > span {
+    span {
       &.@{select-tree-prefix-cls}-checkbox {
-        margin: 2px 4px 0 0;
+        margin: 0 4px 0 0;
+        + .@{select-tree-prefix-cls}-node-content-wrapper {
+          width: ~"calc(100% - 46px)";
+        }
       }
       &.@{select-tree-prefix-cls}-switcher,
       &.@{select-tree-prefix-cls}-iconEle {
         margin: 0;
         width: 24px;
         height: 24px;
-        line-height: 24px;
+        line-height: 22px;
         display: inline-block;
         vertical-align: middle;
         border: 0 none;
@@ -64,26 +68,19 @@
       &.@{select-tree-prefix-cls}-icon_loading {
         &:after {
           display: inline-block;
-          .iconfont-font("\e64d");
-          font-weight: bold;
+          .iconfont-font("\e6ae");
           animation: loadingCircle 1s infinite linear;
-          margin-top: 8px;
+          color: @primary-color;
         }
       }
       &.@{select-tree-prefix-cls}-switcher {
         &.@{select-tree-prefix-cls}-switcher-noop {
           cursor: auto;
         }
-        &.@{select-tree-prefix-cls}-roots_open,
-        &.@{select-tree-prefix-cls}-center_open,
-        &.@{select-tree-prefix-cls}-bottom_open,
-        &.@{select-tree-prefix-cls}-noline_open {
+        &.@{select-tree-prefix-cls}-switcher_open {
           .antTreeSwitcherIcon();
         }
-        &.@{select-tree-prefix-cls}-roots_close,
-        &.@{select-tree-prefix-cls}-center_close,
-        &.@{select-tree-prefix-cls}-bottom_close,
-        &.@{select-tree-prefix-cls}-noline_close {
+        &.@{select-tree-prefix-cls}-switcher_close {
           .antTreeSwitcherIcon();
           .ie-rotate(3);
           &:after {
@@ -99,12 +96,16 @@
       display: block;
     }
   }
-  &-treenode-disabled {
+  li&-treenode-disabled {
     > span,
-    > a,
-    > a span {
+    > .@{select-tree-prefix-cls}-node-content-wrapper,
+    > .@{select-tree-prefix-cls}-node-content-wrapper span,
+    > span.@{select-tree-prefix-cls}-switcher {
       color: @disabled-color;
       cursor: not-allowed;
+    }
+    > .@{select-tree-prefix-cls}-node-content-wrapper:hover {
+      background: transparent;
     }
   }
   &-icon__open {
@@ -141,5 +142,19 @@
     color: @disabled-color;
     padding: 7px 16px;
     display: block;
+  }
+  &.@{select-prefix-cls}-icon_loading {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    background: #fff;
+    transform: translateX(-100%);
+    transition: all .3s;
+    &:after {
+      display: inline-block;
+      .iconfont-font("\e6ae");
+      animation: loadingCircle 1s infinite linear;
+      color: @primary-color;
+    }
   }
 }

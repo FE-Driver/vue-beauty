@@ -6,7 +6,7 @@
         <span :class="prefixCls + '-checkbox-inner'"></span>
       </span>
       <span :title="item.title" :class="selectHandleCls(item)" @click.prevent="setSelect(item.disabled, index)" :draggable="draggable" @dragstart="dragstart(index,$event)" @dragend="dragend">
-        <span class="ant-tree-iconEle ant-tree-icon_loading ant-tree-icon__open" v-if="item.loading"></span>
+        <span :class="`${prefixCls}-iconEle ${prefixCls}-icon_loading ${prefixCls}-icon__open`" v-if="item.loading"></span>
         <span :class="prefixCls + '-title'" v-html="item.title"></span>
       </span>
       <transition name="slide-up">

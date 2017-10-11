@@ -1,6 +1,6 @@
 <template>
     <base-select v-model="value" :popup-container="popupContainer" :placeholder="placeholder" :search="search" :position="position" :multiple="multiple" :allow-clear="allowClear" @clear="clear" ref="select" @search="searchFn">
-        <v-tree prefix-cls="ant-select-tree" :data="data" @select="select" @check="check" :multiple="multiple" :checkable="checkable" ref="tree"></v-tree>
+        <v-tree prefix-cls="ant-select-tree" :data="data" @select="select" @check="check" :multiple="multiple" :checkable="checkable" ref="tree" :async="async"></v-tree>
     </base-select>
 </template>
 <script>
@@ -46,6 +46,7 @@
                 type: String,
                 default: 'absolute',
             },
+            async: Function,
         },
         mounted() {
             if (this.multiple) {
