@@ -61,6 +61,7 @@
 @link-color             : @primary-color;
 @link-hover-color       : @primary-5;
 @link-active-color      : @primary-7;
+@link-decoration        : none;
 @link-hover-decoration  : none;
 
 // Animation
@@ -142,9 +143,12 @@
 
 @btn-group-border       : @primary-7;
 
+// Checkbox
+@checkbox-size          : 14px;
+
 // Radio buttons
-@radio-button-bg           : @btn-default-bg;
-@radio-button-color        : @btn-default-color;
+@radio-button-bg        : @btn-default-bg;
+@radio-button-color     : @btn-default-color;
 
 // Media queries breakpoints
 // Extra small screen / phone
@@ -180,6 +184,7 @@
 // Layout
 @layout-body-background      : #ececec;
 @layout-header-background    : #404040;
+@layout-footer-background    : @layout-body-background;
 @layout-header-height        : 64px;
 @layout-header-padding       : 0 50px;
 @layout-footer-padding       : 24px 50px;
@@ -223,7 +228,7 @@
 @input-padding-vertical-base : 4px;
 @input-padding-vertical-sm   : 1px;
 @input-padding-vertical-lg   : 6px;
-@input-placeholder-color     : @disabled-color;
+@input-placeholder-color     : hsv(0, 0, 75%);
 @input-color                 : @text-color;
 @input-border-color          : @border-color-base;
 @input-bg                    : #fff;
