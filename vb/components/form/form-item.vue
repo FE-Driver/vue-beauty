@@ -87,6 +87,9 @@
             validateStatus(value) {
                 this.validateState = value;
             },
+            required(value) {
+                this.isRequired = value;
+            },
         },
         computed: {
             itemCls() {
