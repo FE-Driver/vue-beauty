@@ -14,6 +14,7 @@
   color: @text-color;
   background: @component-background;
   line-height: 46px;
+  transition: background .3s, width .2s;
 
   &-hidden {
     display: none;
@@ -27,15 +28,21 @@
   &-item-group-title {
     color: @text-color-secondary;
     font-size: @font-size-base;
-    line-height: 1.5;
+    line-height: @line-height-base;
     padding: 8px 16px;
+    transition: all .3s;
   }
 
   &-item,
   &-submenu,
   &-submenu-title {
     cursor: pointer;
-    transition: all .3s;
+  }
+  &-submenu, &-submenu-inline {
+    transition: border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
+  }
+  &-item, &-submenu-title {
+    transition: color .3s @ease-in-out, border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
   }
 
   &-item:active,
@@ -45,6 +52,7 @@
 
   &-submenu &-sub {
     cursor: initial;
+    transition: background .3s @ease-in-out, padding .3s @ease-in-out;
   }
 
   &-item > a {
@@ -133,7 +141,8 @@
         bottom: 0;
         border-right: 3px solid @primary-color;
         transform: scaleY(.0001);
-        transition: all .2s;
+        opacity: 0;
+        transition: transform .15s @ease-out, opacity .15s @ease-out;
       }
     }
   }
@@ -162,43 +171,12 @@
 
   &-inline {
     width: 100%;
-    transition: width .24s;
     .@{menu-prefix-cls}-selected,
     .@{menu-prefix-cls}-item-selected {
       &:after {
+        transition: transform .15s @ease-in-out, opacity .15s @ease-in-out;
+        opacity: 1;
         transform: scaleY(1);
-      }
-    }
-  }
-
-  &-inline-collapsed {
-    width: 64px;
-    transition: all .3s;
-    > .@{menu-prefix-cls}-item,
-    > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
-      text-align: center;
-      left: 0;
-      padding: 0;
-      &:after {
-        display: none;
-      }
-      .@{iconfont-css-prefix} {
-        font-size: 16px;
-        line-height: 42px;
-        margin: 0;
-        + span {
-          max-width: 0;
-          visibility: hidden;
-        }
-      }
-    }
-    &-tooltip {
-      pointer-events: none;
-      .@{iconfont-css-prefix} {
-        display: none;
-      }
-      a {
-        color: @text-color-dark;
       }
     }
   }
@@ -232,20 +210,13 @@
     position: relative;
     display: block;
     white-space: nowrap;
-
     .@{iconfont-css-prefix} {
       min-width: 14px;
       margin-right: 8px;
-      transition: all .3s;
-      vertical-align: middle;
+      transition: font-size .15s @ease-out, margin .3s @ease-in-out;
       + span {
-        max-width: 100%;
-        display: inline-block;
-        overflow: hidden;
-        transition: all .3s;
-        vertical-align: middle;
-        line-height: @line-height-base;
-        text-overflow: ellipsis;
+        transition: opacity .3s @ease-in-out, width .3s @ease-in-out;
+        opacity: 1;
       }
     }
   }
@@ -265,6 +236,9 @@
     > .@{menu-prefix-cls} {
       background-color: @component-background;
       border-radius: @border-radius-base;
+      &-submenu-title:after {
+        transition: transform .3s @ease-in-out;
+      }
     }
 
     &-vertical > .@{menu-prefix-cls}-submenu-title:after {
@@ -275,7 +249,6 @@
       text-transform: none;
       text-rendering: auto;
       position: absolute;
-      transition: transform .3s;
       content: "\e61d";
       right: 16px;
       .ie-rotate(3);
@@ -290,7 +263,6 @@
       text-transform: none;
       text-rendering: auto;
       position: absolute;
-      transition: transform .3s;
       content: "\e61d";
       right: 16px;
       top: 0;
@@ -360,6 +332,48 @@
       height: 42px;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+
+  &-inline-collapsed {
+    width: @menu-collapsed-width;
+
+    > .@{menu-prefix-cls}-item,
+    > .@{menu-prefix-cls}-item-group > .@{menu-prefix-cls}-item-group-list > .@{menu-prefix-cls}-item,
+    > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
+      left: 0;
+      text-overflow: clip;
+      padding: 0 (@menu-collapsed-width - 16px) / 2 !important;
+      &:after {
+        display: none;
+      }
+      .@{iconfont-css-prefix} {
+        font-size: 16px;
+        line-height: 42px;
+        margin: 0;
+        + span {
+          max-width: 0;
+          display: inline-block;
+          opacity: 0;
+        }
+      }
+    }
+    &-tooltip {
+      pointer-events: none;
+      .@{iconfont-css-prefix} {
+        display: none;
+      }
+      a {
+        color: @text-color-dark;
+      }
+    }
+
+    .@{menu-prefix-cls}-item-group-title {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-left: 4px;
+      padding-right: 4px;
     }
   }
 
@@ -468,7 +482,6 @@
   &-dark &-submenu-active,
   &-dark:not(&-inline) &-submenu-open,
   &-dark &-submenu-selected,
-  &-dark &-submenu:hover,
   &-dark &-submenu-title:hover {
     background-color: transparent;
     color: #fff;
