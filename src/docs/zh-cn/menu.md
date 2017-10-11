@@ -638,6 +638,7 @@ export default {
 | data | 可嵌套的节点属性的数组，生成menu的数据 | Array | - |
 | theme | 主题颜色 | String: `light` `dark` | light |
 | expand | 设为true会展开所有第一级的菜单 | Boolean | false |
+| inlineCollapsed | inline 时菜单是否收起状态 | Boolean | false |
 | default:scopedSlot | 自定义MenuItem Name的内容，传入的参数:data | Slot Node | - |
 | sub:scopedSlot | 自定义SubMenu Name的内容，传入的参数:data | Slot Node | - |
 | group:scopedSlot | 自定义Group Name的内容，传入的参数:data | Slot Node | - |
