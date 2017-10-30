@@ -1,5 +1,5 @@
 function getError(option, xhr) {
-    const msg = `cannot post ${option.action} ${xhr.status}'`;
+    const msg = `cannot post ${option.action} ${xhr.status}`;
     const err = new Error(msg);
     err.status = xhr.status;
     err.method = 'post';
@@ -36,7 +36,7 @@ export default function upload(option) {
     }
 
     const formData = new FormData();
-    formData.append('enctype', 'multipart/form-data');
+    // formData.append('enctype', 'multipart/form-data');
     formData.append(option.filename, option.file);
     if (option.data) {
         for (const key in option.data) {
