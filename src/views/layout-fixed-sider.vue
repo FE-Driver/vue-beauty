@@ -4,11 +4,11 @@
             <v-sider :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
                 <div class="logo"></div>
                 <v-menu theme="dark" mode="inline" :data="menuData">
-                    <template scope="{data}">
+                    <template slot-scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span :class="{'nav-text':data.icon}">{{data.name}}</span>
                     </template>
-                    <template scope="{data}" slot="sub">
+                    <template slot-scope="{data}" slot="sub">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span class="nav-text">{{data.name}}</span>
                     </template>

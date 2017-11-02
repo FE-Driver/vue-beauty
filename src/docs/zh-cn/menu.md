@@ -568,15 +568,15 @@ export default {
 ```html
 <template>
     <v-menu style="width:240px" :data="customMenuData">
-        <template scope="{data}">
+        <template slot-scope="{data}">
             <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
             <router-link :to="data.href" style="display:inline">{{'item-' + data.name}}</router-link>
         </template>
-        <template scope="{data}" slot="sub">
+        <template slot-scope="{data}" slot="sub">
             <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
             <span>{{'sub-' + data.name}}</span>
         </template>
-        <template scope="{data}" slot="group">
+        <template slot-scope="{data}" slot="group">
             {{'group-' + data.groupName}}
         </template>
     </v-menu>

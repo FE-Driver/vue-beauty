@@ -305,10 +305,10 @@
 
 ```html
 <v-data-table :data='loadData' :columns='columns' bordered>
-    <template slot="th" scope="props">
+    <template slot="th" slot-scope="props">
         <strong v-html="props.title"></strong>
     </template>
-    <template slot="td" scope="props">
+    <template slot="td" slot-scope="props">
         <span v-html="props.content"></span>
     </template>     
 </v-data-table>
@@ -323,11 +323,11 @@
 
 ```html
 <v-data-table :data='loadData' :columns='columns' size="small" bordered>
-    <template slot="th" scope="props">
+    <template slot="th" slot-scope="props">
         <strong v-if="props.column.field=='album'">操作</strong>
         <strong v-else v-html="props.title"></strong>
     </template>
-    <template slot="td" scope="props">
+    <template slot="td" slot-scope="props">
         <div v-if="props.column.field=='album'">
             <v-icon type="play-circle"></v-icon>
             <v-icon type="download"></v-icon>
@@ -362,7 +362,7 @@
 
 ```html
 <v-data-table :data='loadData' :columns='longColumns' :fixed-left="1" :fixed-right="1">
-    <template slot="td" scope="props">
+    <template slot="td" slot-scope="props">
         <div v-if="props.column.field=='action'">
             <v-icon type="play-circle"></v-icon>
             <v-icon type="download"></v-icon>
@@ -455,7 +455,7 @@
 ```html
 
 <v-data-table :data='loadData' :columns='columns'>
-    <template slot="emptytext" scope="props">
+    <template slot="emptytext" slot-scope="props">
         <v-tag color="orange">我去，这是几个意思？</v-tag>
     </template>    
 </v-data-table>

@@ -9,13 +9,13 @@
         </div>
         <Menu :data="item.list" type="item-group-list" :mode="innerMode" :level="level" :id="index">
           <!-- slot不支持v-if 所以用:slot="$scopedSlots.default?'default':'hack'"来让没有使用slot的时候不会影响正常的渲染 -->
-            <template scope="{data}" :slot="$scopedSlots.default?'default':'hack'">
+            <template slot-scope="{data}" :slot="$scopedSlots.default?'default':'hack'">
               <slot :data="data"></slot>
             </template>
-            <template scope="{data}" :slot="$scopedSlots.sub?'sub':'hack'">
+            <template slot-scope="{data}" :slot="$scopedSlots.sub?'sub':'hack'">
               <slot :data="data" name="sub"></slot>
             </template>
-            <template scope="{data}" :slot="$scopedSlots.group?'group':'hack'">
+            <template slot-scope="{data}" :slot="$scopedSlots.group?'group':'hack'">
               <slot :data="data" name="group"></slot>
             </template>
         </Menu>
@@ -41,25 +41,25 @@
           </div>
             <Menu v-if="item.children" :data="item.children" type="sub" :mode="innerMode" :level="level+1" :transition="innerMode=='inline'?'slide-up':'fade'" v-show="item.expand" :id="index">
                 <!-- slot不支持v-if 所以用:slot="$scopedSlots.default?'default':'hack'"来让没有使用slot的时候不会影响正常的渲染 -->
-                <template scope="{data}" :slot="$scopedSlots.default?'default':'hack'">
+                <template slot-scope="{data}" :slot="$scopedSlots.default?'default':'hack'">
                 <slot :data="data"></slot>
                 </template>
-                <template scope="{data}" :slot="$scopedSlots.sub?'sub':'hack'">
+                <template slot-scope="{data}" :slot="$scopedSlots.sub?'sub':'hack'">
                 <slot :data="data" name="sub"></slot>
                 </template>
-                <template scope="{data}" :slot="$scopedSlots.group?'group':'hack'">
+                <template slot-scope="{data}" :slot="$scopedSlots.group?'group':'hack'">
                 <slot :data="data" name="group"></slot>
                 </template>
             </Menu>
             <Menu v-else :is-item-group="true" :data="item.groups" type="sub" :mode="innerMode" :level="level+1" :transition="innerMode=='inline'?'slide-up':'fade'" v-show="item.expand" :id="index">
                 <!-- slot不支持v-if 所以用:slot="$scopedSlots.default?'default':'hack'"来让没有使用slot的时候不会影响正常的渲染 -->
-                <template scope="{data}" :slot="$scopedSlots.default?'default':'hack'">
+                <template slot-scope="{data}" :slot="$scopedSlots.default?'default':'hack'">
                 <slot :data="data"></slot>
                 </template>
-                <template scope="{data}" :slot="$scopedSlots.sub?'sub':'hack'">
+                <template slot-scope="{data}" :slot="$scopedSlots.sub?'sub':'hack'">
                 <slot :data="data" name="sub"></slot>
                 </template>
-                <template scope="{data}" :slot="$scopedSlots.group?'group':'hack'">
+                <template slot-scope="{data}" :slot="$scopedSlots.group?'group':'hack'">
                 <slot :data="data" name="group"></slot>
                 </template>
             </Menu>

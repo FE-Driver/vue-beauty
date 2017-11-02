@@ -666,11 +666,11 @@
             <v-sider collapsible v-model="collapsed">
                 <div class="logo"></div>
                 <v-menu theme="dark" :mode="collapsed?'vertical':'inline'" :data="menuData3">
-                    <template scope="{data}">
+                    <template slot-scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span :class="{'nav-text':data.icon}">{{data.name}}</span>
                     </template>
-                    <template scope="{data}" slot="sub">
+                    <template slot-scope="{data}" slot="sub">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span class="nav-text">{{data.name}}</span>
                     </template>
@@ -766,7 +766,7 @@
             <v-sider collapsible :collapsed="customCollapsed" :trigger="false" :collapsed-width="64">
                 <div class="logo"></div>
                 <v-menu theme="dark" mode="inline" :data="menuData4">
-                    <template scope="{data}">
+                    <template slot-scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span class="nav-text">{{data.name}}</span>
                     </template>
@@ -859,7 +859,7 @@
             <v-sider breakpoint="lg" :collapsed-width="0">
                 <div class="logo"></div>
                 <v-menu theme="dark" mode="inline" :data="menuData5">
-                    <template scope="{data}">
+                    <template slot-scope="{data}">
                         <i v-if="data.icon" :class="'anticon anticon-' + data.icon"></i>
                         <span class="nav-text">{{data.name}}</span>
                     </template>

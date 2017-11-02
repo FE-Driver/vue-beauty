@@ -157,7 +157,7 @@
 
 ```html
 <v-time-picker>
-  <template slot="addon" scope="props">
+  <template slot="addon" slot-scope="props">
     <v-button size="small" type="primary" @click="props.panel.close()">OK</v-button>
   </template>
 </v-time-picker>

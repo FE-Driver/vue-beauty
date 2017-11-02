@@ -164,7 +164,7 @@
 ```html
 <template>
     <v-select style="width: 100%" :data="options" v-model="value">
-        <template scope="{data}">
+        <template slot-scope="{data}">
             {{data.label}}-{{data.value}}
         </template>
     </v-select>

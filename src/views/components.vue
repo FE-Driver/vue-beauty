@@ -4,7 +4,7 @@
         <div class="ant-row">
             <div class="aside-container ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-4">
                 <v-menu mode="inline" :data="menuData" :expand="true">
-                    <template scope="{data}">
+                    <template slot-scope="{data}">
                         <a v-if="data.href" :href="data.href" style="display:inline" :target="data.target">{{data.name}}</a>
                         <router-link v-else :to="data.link" style="display:inline" :target="data.target">{{data.name}}</router-link>
                     </template>
