@@ -205,6 +205,10 @@ export default [{
         path: 'treeSelect',
         name: 'treeSelect',
         component: resolve => require(['./docs/zh-cn/tree-select.md'], resolve),
+    }, {
+        path: 'avatar',
+        name: 'avatar',
+        component: resolve => require(['./docs/zh-cn/avatar.md'], resolve),
     }],
 }, {
     path: '/demo/layout-fixed',

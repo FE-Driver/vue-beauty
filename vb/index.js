@@ -3,6 +3,7 @@ import './utils/polyfill';
 import config from './utils/config';
 
 import alert from './components/alert';
+import avatar from './components/avatar';
 import breadcrumb from './components/breadcrumb';
 import button from './components/button';
 import icon from './components/icon';
@@ -68,6 +69,7 @@ notification.install = function (Vue) {
 };
 
 const components = {
+    avatar,
     breadcrumb,
     breadcrumbItem: breadcrumb.item,
     badge,
@@ -168,6 +170,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export {
     version,
+    avatar,
     breadcrumb,
     badge,
     col,

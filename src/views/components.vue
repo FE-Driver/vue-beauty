@@ -74,9 +74,6 @@ export default {
                     name: 'Breadcrumb 面包屑',
                     link: { name: 'breadcrumb' },
                 }, {
-                    name: 'BackTop 回到顶部',
-                    link: { name: 'backTop' },
-                }, {
                     name: 'Menu 导航菜单',
                     link: { name: 'menu' },
                 }, {
@@ -141,8 +138,11 @@ export default {
                     link: { name: 'upload' },
                 }],
             }, {
-                groupName: 'Data display',
+                groupName: 'Data Display',
                 list: [{
+                    name: 'Avatar 头像',
+                    link: { name: 'avatar' },
+                }, {
                     name: 'Badge 徽标数',
                     link: { name: 'badge' },
                 }, {
@@ -199,6 +199,10 @@ export default {
                 }],
             }, {
                 groupName: 'Other',
+                list: [{
+                    name: 'BackTop 回到顶部',
+                    link: { name: 'backTop' },
+                }],
             }],
         }, {
             name: 'Directives',
