@@ -4,7 +4,7 @@
         data: function () {
             return {
                 loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                    return axios.get("static/datatable.json",pramas).then(res =>{
                         return res.data;
                     });
                 },
@@ -37,7 +37,7 @@
                 treeOption:{
                     isAsync:true,
                     loadChildren:function(pramas){
-                        return axios.get("static/static/children.json",pramas).then(res =>{
+                        return axios.get("static/children.json",pramas).then(res =>{
                             return res.data;
                         });
                     }
@@ -187,7 +187,7 @@
         data: function () {
             return {
                 loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                    return axios.get("static/datatable.json",pramas).then(res =>{
                         return res.data;
                     });
                 },
@@ -222,7 +222,7 @@
         data: function () {
             return {
                 loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                    return axios.get("static/datatable.json",pramas).then(res =>{
                         return res.data;
                     });
                 },
@@ -235,7 +235,7 @@
                 treeOption:{
                     isAsync:true,
                     loadChildren:function(pramas){
-                        return axios.get("static/static/children.json",pramas).then(res =>{
+                        return axios.get("static/children.json",pramas).then(res =>{
                             return res.data;
                         });
                     }
@@ -266,7 +266,7 @@
         data: function () {
             return {
                 loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                    return axios.get("static/datatable.json",pramas).then(res =>{
                         return res.data;
                     });
                 },
@@ -424,7 +424,7 @@
         data: function () {
             return {
                 loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                    return axios.get("static/datatable.json",pramas).then(res =>{
                         return res.data;
                     });
                 },
@@ -484,7 +484,7 @@
         data: function () {
             return {
                 loadData(pramas) {
-                    return axios.get("static/static/datatable.json",pramas).then(res =>{
+                    return axios.get("static/datatable.json",pramas).then(res =>{
                         return res.data;
                     });
                 },
