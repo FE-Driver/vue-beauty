@@ -11,6 +11,7 @@
             </div>
         </header>
         <router-view keep-alive></router-view>
+        <v-back-top style="right:15px"></v-back-top>
     </div>
 </template>
 
