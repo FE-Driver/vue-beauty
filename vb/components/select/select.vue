@@ -83,7 +83,6 @@ export default {
             multipleSearchStyle: {},
             searchFound: false,
             show: false,
-            style: {},
             dropdownStyle: {},
             labels: this.multiple ? [] : '',
             ori_data: JSON.parse(JSON.stringify(this.data)),
@@ -370,14 +369,6 @@ export default {
             this.getDropdownHeight();
             if (!this.$el) return;
             const p = getOffset(this.$el, this.container);
-
-            this.style = {
-                top: `${this.placement === 'top' ? p.top - this.dropdownHeight - 4 : p.bottom + 4}px`,
-                left: `${p.left}px`,
-                width: `${p.right - p.left}px`,
-                maxHeight: `${this.maxHeight}px`,
-            };
-
             const dwidth = this.dropdownWidth || `${p.right - p.left}px`;
 
             this.dropdownStyle = {
