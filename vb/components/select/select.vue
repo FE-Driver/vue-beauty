@@ -1,7 +1,7 @@
 <template>
     <div :class="wrapCls" v-clickoutside="closeDropdown">
         <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" @click="toggleDropdown">
-            <div class="ant-select-selection__rendered">
+            <div class="ant-select-selection__rendered ant-select__dropdown" :tabindex="search ? false : '0'" @focus="$emit('focus')" @blur="$emit('blur')">
                 <template v-if="labels">
                     <ul v-if="multiple">
                         <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none;">
@@ -10,7 +10,7 @@
                         </li>
                         <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
-                                <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="isSearchFocus = true" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
+                                <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="searchFocus" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
                                 <span class="ant-select-search__field__mirror" ref="searchMirror">{{searchVal}}</span>
                             </div>
                         </li>
@@ -20,7 +20,7 @@
                 <div v-show="((multiple && !labels.length) || (!multiple && !labels)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
                 <div v-if="search && !multiple" class="ant-select-search ant-select-search--inline">
                     <div class="ant-select-search__field__wrap">
-                        <input class="ant-select-search__field" v-model="searchVal" @focus="isSearchFocus = true" @blur="searchBlur" ref="searchInput">
+                        <input class="ant-select-search__field" v-model="searchVal" @focus="searchFocus" @blur="searchBlur" ref="searchInput">
                         <span class="ant-select-search__field__mirror"></span>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
             </span>
         </div>
         <transition name="slide-up">
-            <div ref="dropdown" v-show="show" style="overflow: auto" :style="style" :class="dropdownCls">
+            <div ref="dropdown" v-show="show" style="overflow: auto" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
                     <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
@@ -84,6 +84,7 @@ export default {
             searchFound: false,
             show: false,
             style: {},
+            dropdownStyle: {},
             labels: this.multiple ? [] : '',
             ori_data: JSON.parse(JSON.stringify(this.data)),
             isSearchFocus: false,
@@ -165,6 +166,9 @@ export default {
         optionOnChange: {
             type: Boolean,
             default: false,
+        },
+        dropdownWidth: {
+            type: String,
         },
     },
     mounted() {
@@ -373,6 +377,15 @@ export default {
                 width: `${p.right - p.left}px`,
                 maxHeight: `${this.maxHeight}px`,
             };
+
+            const dwidth = this.dropdownWidth || `${p.right - p.left}px`;
+
+            this.dropdownStyle = {
+                top: `${this.placement === 'top' ? p.top - this.dropdownHeight - 4 : p.bottom + 4}px`,
+                left: `${p.left}px`,
+                width: dwidth,
+                maxHeight: `${this.maxHeight}px`,
+            };
         },
         closeDropdown() {
             this.show = false;
@@ -396,6 +409,11 @@ export default {
             setTimeout(() => {
                 this.searchVal = '';
             }, 300);
+            this.$emit('blur');
+        },
+        searchFocus() {
+            this.isSearchFocus = true;
+            this.$emit('focus');
         },
         clear() {
             this.innerValue = '';
@@ -454,5 +472,8 @@ export default {
 <style scoped>
 .ant-select-selection__choice__remove {
     top: 0
+}
+.ant-select__dropdown:focus {
+    outline: 0px solid transparent;
 }
 </style>
