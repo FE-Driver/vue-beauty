@@ -120,7 +120,7 @@
 ```html
 <template>
     <v-select placeholder="请选择人员" style="width: 120px;" :data="options" @change="change"></v-select>
-    <v-select placement="top" style="width: 120px;" :data="options" v-model="value"></v-select>
+    <v-select placement="top" style="width: 120px;" dropdown-width="240px" :data="options" v-model="value"></v-select>
     <v-select disabled style="width: 120px;"></v-select>
 </template>
 
@@ -350,7 +350,7 @@
 ```html
 <template>
     <v-select tags style="width: 120px;" :data="options" ></v-select>
-    
+
 </template>
 
 <script>
@@ -467,6 +467,7 @@
 | placement | 下拉框出现的位置(top、bottom) | string | bottom |
 | search    | 是否可以搜索 | boolean | false |
 | maxHeight | 下拉框的最大高度 | number | 300 |
+| dropdownWidth | 下拉框宽度	 | string | - |
 | disabled | 控件是否禁用 | boolean | false |
 | allowClear | 支持清除, 单选模式有效 | boolean | true |
 | placeholder | 选择框默认文字 | string | 请选择 |
@@ -490,3 +491,5 @@
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | change    | 选择的值发生变化的时候触发，默认返回value，如需返回整个option，请设置optionOnChange | value |
+| focus     | focus事件  | - |
+| blur      | blur事件   | - |
