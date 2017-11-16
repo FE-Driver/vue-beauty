@@ -1,7 +1,7 @@
 <template>
     <span :class="pickerCls" v-clickoutside="closeDropdown">
-        <input type="text" :placeholder="label?'':placeholder" :class="inpCls" value="" readonly="" autocomplete="off" @click="toggleMenu">
         <span class="ant-cascader-picker-label">{{label}}</span>
+        <input type="text" :placeholder="label?'':placeholder" :class="inpCls" value="" readonly="" autocomplete="off" @click="toggleMenu">
         <i v-if="allowClear && defaultValue.length" class="anticon anticon-cross-circle ant-cascader-picker-clear" @click.stop="clear"></i>
         <i class="anticon anticon-down ant-cascader-picker-arrow"></i>
         <transition name="slide-up">
@@ -99,6 +99,11 @@ export default {
             this.$emit('change', value);
             this.dispatch('FormItem', 'form.change', [value]);
             this.label = label.join(' / ');
+            this.pathChange = true;
+        },
+        value() {
+            if (this.pathChange) return this.pathChange = false;
+            this.init();
         },
     },
     computed: {
@@ -134,7 +139,7 @@ export default {
             }
             if (opt) res.push(-1);
 
-            this.path = res;
+            if (this.path.join() !== res.join()) this.path = res;
         },
         clear() {
             this.path = [-1];
