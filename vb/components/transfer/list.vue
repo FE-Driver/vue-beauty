@@ -155,7 +155,8 @@ export default {
             this.handleSelect(selectedItem, !result);
         },
         selectAll() {
-            this.handleSelectAll(this.filteredDataSource, this.checkAll);
+            // 点击的时候checkAll还未发生变化
+            this.handleSelectAll(this.filteredDataSource, !this.checkAll);
         },
         getCheckStatus(filteredDataSource) {
             if (this.checkedKeys.length === 0) {
