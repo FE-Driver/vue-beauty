@@ -1,6 +1,8 @@
 <template lang="html">
     <div :class="prefixCls">
-        <v-checkbox v-for="item in data" :true-value="item[keyField]" :key="item[keyField]" :disabled="item.disabled">{{item[label]}}</v-checkbox>
+        <v-checkbox v-for="item in data" :true-value="item[keyField]"
+                    :key="item[keyField]" :disabled="item.disabled"
+                    @change="itemChange" @click="itemClick">{{item[label]}}</v-checkbox>
         <slot></slot>
     </div>
 </template>
@@ -29,6 +31,10 @@ export default {
             type: Array,
             default: () => [],
         },
+        isSingle: {
+             type: Boolean,
+             default: false,
+        }
     },
     data() {
         return {
@@ -40,7 +46,10 @@ export default {
         this.$on('checkbox.change', (checked, value) => {
             if (checked) {
                 if (!this.innerValue.includes(value)) {
-                    this.innerValue.push(value);
+                    if (!this.isSingle) {
+                        this.innerValue.push(value);
+                    } else {
+                        this.innerValue.splice(0, this.innerValue.length, value)}
                 }
             } else {
                 const i = this.innerValue.indexOf(value);
@@ -77,6 +86,12 @@ export default {
                 }
             }
         },
+        itemClick() {
+            this.$emit('item-click');
+        },
+        itemChange(value) {
+            this.$emit('item-change', value);
+        }
     },
 };
 </script>

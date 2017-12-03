@@ -40,6 +40,11 @@ export default {
             this.handStatus();
         },
     },
+    created() {
+        window.addEventListener('resize', () => {
+            this.handleTailWidth();
+        });
+    },
     mounted() {
         this.$nextTick(() => {
             if (this.direction === 'vertical') {

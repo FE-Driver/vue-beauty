@@ -354,6 +354,7 @@ export default {
 | keyField | 选项的value的字段名 | String | value |
 | label | 选项显示的文本的字段名 | String | label |
 | data | 选项 | Array | — |
+| isSingle | 控制checkbox组最多只能选中一个 | Boolean | false |
 
 ### Data Props
 | 参数      | 说明          | 类型      | 默认值  |
@@ -372,3 +373,5 @@ export default {
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | change    | 选择的值发生变化的时候触发 | value |
+| item-change    | 单项选择的值发生变化的时候触发 | value数组中对应的值 |
+| item-click    | 点击单项的时候触发 | value |
