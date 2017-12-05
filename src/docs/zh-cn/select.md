@@ -12,6 +12,22 @@
                 value: '3',
                 label: '小明'
             }],
+            filterOptions: [{
+                value: '1',
+                label: '河北',
+                jp: 'HB',
+                qp: 'HeiBei',
+            }, {
+                value: '2',
+                label: '河南',
+                jp: 'HN',
+                qp: 'HeiNan',
+            }, {
+                value: '3',
+                label: '海南',
+                jp: 'HN',
+                qp: 'HaiNan',
+            }],
             value: '3',
             groupOpt: [{
                 label: '重庆',
@@ -94,7 +110,13 @@
                 } else {
                     this.remoteOption = [];
                 }
-            }
+            },
+            filter(val, item) {
+                const input = val.toLocaleUpperCase();
+                return item.label.startsWith(input) ||
+                        item.jp.startsWith(input) ||
+                        item.qp.startsWith(input);
+            },
         }
     }
 </script>
@@ -301,6 +323,52 @@
 
 ::: demo
 <summary>
+  #### 搜索过滤
+  使用 `filter` 进行自定义的搜索
+</summary>
+
+```html
+<template>
+    <v-select search style="width: 120px;" :filter="filter" :data="filterOptions"></v-select>
+    <br><br>
+    <v-select search multiple style="width: 100%" :filter="filter" :data="filterOptions"></v-select>
+</template>
+
+<script>
+     export default {
+         data: ()=> ({
+             filterOptions: [{
+                value: '1',
+                label: '河北',
+                jp: 'HB',
+                qp: 'HeiBei',
+            }, {
+                value: '2',
+                label: '河南',
+                jp: 'HN',
+                qp: 'HeiNan',
+            }, {
+                value: '3',
+                label: '海南',
+                jp: 'HN',
+                qp: 'HaiNan',
+            }],
+         }),
+         methods: {
+             filter(val, item) {
+                const input = val.toLocaleUpperCase();
+                return item.label.startsWith(input) ||
+                        item.jp.startsWith(input) ||
+                        item.qp.startsWith(input);
+            },
+         }
+     }
+</script>
+```
+:::
+
+::: demo
+<summary>
   #### 分组
   用嵌套的数据结构进行选项分组。
 </summary>
@@ -466,6 +534,7 @@
 | notFoundContent | 当下拉列表为空时显示的内容 | string | 没有找到 |
 | placement | 下拉框出现的位置(top、bottom) | string | bottom |
 | search    | 是否可以搜索 | boolean | false |
+| filter    | 搜索过滤函数,返回Boolean | Function(value, item) | - |
 | maxHeight | 下拉框的最大高度 | number | 300 |
 | dropdownWidth | 下拉框宽度	 | string | - |
 | disabled | 控件是否禁用 | boolean | false |

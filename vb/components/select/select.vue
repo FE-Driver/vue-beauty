@@ -120,6 +120,7 @@ export default {
             type: Boolean,
             default: false,
         },
+        filter: Function,
         maxHeight: {
             type: Number,
             default: 300,
@@ -213,7 +214,7 @@ export default {
                 this.searchFound = false;
                 let show = false;
                 this.mapData(([type, path, item]) => {
-                    const isIncluded = item[this.label].includes(val);
+                    const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
                     if (isIncluded) this.searchFound = true;
 
                     if (type === 'item') {
