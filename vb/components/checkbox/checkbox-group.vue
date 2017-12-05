@@ -32,9 +32,9 @@ export default {
             default: () => [],
         },
         isSingle: {
-             type: Boolean,
-             default: false,
-        }
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -49,7 +49,8 @@ export default {
                     if (!this.isSingle) {
                         this.innerValue.push(value);
                     } else {
-                        this.innerValue.splice(0, this.innerValue.length, value)}
+                        this.innerValue.splice(0, this.innerValue.length, value);
+                    }
                 }
             } else {
                 const i = this.innerValue.indexOf(value);
@@ -91,7 +92,7 @@ export default {
         },
         itemChange(value) {
             this.$emit('item-change', value);
-        }
+        },
     },
 };
 </script>
