@@ -5880,7 +5880,6 @@ samp {
   padding: 4px 7px;
   width: 100%;
   height: 28px;
-  cursor: text;
   font-size: 12px;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.65);
@@ -5923,6 +5922,7 @@ textarea.ant-pagination-options-quick-jumper input {
   max-width: 100%;
   height: auto;
   vertical-align: bottom;
+  transition: all .3s, height 0s;
 }
 .ant-pagination-options-quick-jumper input-lg {
   padding: 6px 7px;
@@ -6055,6 +6055,7 @@ textarea.ant-pagination-options-quick-jumper input {
   right: 8px;
   line-height: 1;
   margin-top: -6px;
+  color: rgba(0, 0, 0, 0.43);
   display: inline-block;
   font-size: 12px;
   font-size: 9px \9;
@@ -6251,6 +6252,13 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-select-search__field__placeholder {
   left: 8px;
 }
+.ant-select-search__field__mirror {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  white-space: pre;
+  pointer-events: none;
+}
 .ant-select-search--inline {
   position: absolute;
   height: 100%;
@@ -6272,13 +6280,7 @@ textarea.ant-pagination-options-quick-jumper input {
   background: transparent;
   outline: 0;
   border-radius: 4px;
-}
-.ant-select-search--inline .ant-select-search__field__mirror {
-  position: absolute;
-  top: 0;
-  left: -9999px;
-  white-space: pre;
-  pointer-events: none;
+  line-height: 1;
 }
 .ant-select-search--inline > i {
   float: right;
@@ -6485,12 +6487,10 @@ textarea.ant-pagination-options-quick-jumper input {
   white-space: nowrap;
   cursor: pointer;
   overflow: hidden;
+  text-overflow: ellipsis;
   transition: background 0.3s ease;
 }
 .ant-select-dropdown-menu-item:hover {
-  background-color: #ecf6fd;
-}
-.ant-select-dropdown-menu-item-active {
   background-color: #ecf6fd;
 }
 .ant-select-dropdown-menu-item-disabled {
@@ -6505,8 +6505,11 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-select-dropdown-menu-item-selected,
 .ant-select-dropdown-menu-item-selected:hover {
   background-color: #f7f7f7;
-  font-weight: bold;
+  font-weight: 600;
   color: rgba(0, 0, 0, 0.65);
+}
+.ant-select-dropdown-menu-item-active {
+  background-color: #ecf6fd;
 }
 .ant-select-dropdown-menu-item-divider {
   height: 1px;
@@ -9616,7 +9619,6 @@ textarea.ant-pagination-options-quick-jumper input {
   filter: blur(0.5px);
   /* autoprefixer: off */
   filter: progid\:DXImageTransform\.Microsoft\.Blur(PixelRadius\=1, MakeShadow\=false);
-  /* autoprefixer: on */
   -webkit-transform: translateZ(0);
 }
 .ant-spin-blur:after {
@@ -9736,10 +9738,10 @@ textarea.ant-pagination-options-quick-jumper input {
   font-size: 12px;
 }
 .ant-cascader-input.ant-input {
-  background-color: transparent;
+  background-color: transparent !important;
   cursor: pointer;
   width: 100%;
-  z-index: 1;
+  display: block;
 }
 .ant-cascader-picker {
   position: relative;
@@ -9748,6 +9750,7 @@ textarea.ant-pagination-options-quick-jumper input {
   font-size: 12px;
   background-color: #fff;
   border-radius: 4px;
+  outline: 0;
 }
 .ant-cascader-picker-with-value .ant-cascader-picker-label {
   color: transparent;
@@ -9759,6 +9762,11 @@ textarea.ant-pagination-options-quick-jumper input {
 }
 .ant-cascader-picker-disabled .ant-cascader-input {
   cursor: not-allowed;
+}
+.ant-cascader-picker:focus .ant-cascader-input {
+  border-color: #49a9ee;
+  outline: 0;
+  box-shadow: 0 0 0 2px rgba(16, 142, 233, 0.2);
 }
 .ant-cascader-picker-label {
   position: absolute;
@@ -9878,10 +9886,10 @@ textarea.ant-pagination-options-quick-jumper input {
   border-radius: 4px;
 }
 .ant-cascader-menu-item {
-  padding: 7px 26px 7px 16px;
+  padding: 7px 8px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: all 0.3s;
 }
 .ant-cascader-menu-item:hover {
   background: #ecf6fd;
@@ -9895,11 +9903,12 @@ textarea.ant-pagination-options-quick-jumper input {
 }
 .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
 .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover {
-  background-color: #f7f7f7;
-  font-weight: bold;
+  background: #f7f7f7;
+  font-weight: 600;
 }
 .ant-cascader-menu-item-expand {
   position: relative;
+  padding-right: 24px;
 }
 .ant-cascader-menu-item-expand:after {
   font-family: 'anticon';
@@ -9916,7 +9925,7 @@ textarea.ant-pagination-options-quick-jumper input {
   zoom: 1;
   color: rgba(0, 0, 0, 0.43);
   position: absolute;
-  right: 15px;
+  right: 8px;
 }
 :root .ant-cascader-menu-item-expand:after {
   filter: none;
@@ -10391,7 +10400,6 @@ textarea.ant-pagination-options-quick-jumper input {
   padding: 4px 7px;
   width: 100%;
   height: 28px;
-  cursor: text;
   font-size: 12px;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.65);
@@ -10432,6 +10440,7 @@ textarea.ant-input {
   max-width: 100%;
   height: auto;
   vertical-align: bottom;
+  transition: all .3s, height 0s;
 }
 .ant-input-lg {
   padding: 6px 7px;
@@ -10575,10 +10584,24 @@ textarea.ant-input {
   width: 100%;
   float: left;
 }
+.ant-input-group.ant-input-group-compact {
+  zoom: 1;
+}
+.ant-input-group.ant-input-group-compact:before,
+.ant-input-group.ant-input-group-compact:after {
+  content: " ";
+  display: table;
+}
+.ant-input-group.ant-input-group-compact:after {
+  clear: both;
+  visibility: hidden;
+  font-size: 0;
+  height: 0;
+}
 .ant-input-group.ant-input-group-compact > * {
   border-radius: 0;
   border-right-width: 0;
-  vertical-align: middle;
+  vertical-align: top;
   float: none;
   display: inline-block;
 }
@@ -10684,7 +10707,6 @@ textarea.ant-input {
   position: relative;
   padding: 4px 7px;
   width: 100%;
-  cursor: text;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.65);
   background-color: #fff;
@@ -10730,6 +10752,7 @@ textarea.ant-input-number {
   max-width: 100%;
   height: auto;
   vertical-align: bottom;
+  transition: all .3s, height 0s;
 }
 .ant-input-number-lg {
   padding: 6px 7px;
@@ -11135,7 +11158,6 @@ li.ant-time-picker-panel-select-option-disabled:hover {
   padding: 4px 7px;
   width: 100%;
   height: 28px;
-  cursor: text;
   font-size: 12px;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.65);
@@ -11176,6 +11198,7 @@ textarea.ant-time-picker-input {
   max-width: 100%;
   height: auto;
   vertical-align: bottom;
+  transition: all .3s, height 0s;
 }
 .ant-time-picker-input-lg {
   padding: 6px 7px;
@@ -12397,7 +12420,6 @@ textarea.ant-time-picker-input {
   padding: 4px 7px;
   width: 100%;
   height: 28px;
-  cursor: text;
   font-size: 12px;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.65);
@@ -12449,6 +12471,7 @@ textarea.ant-calendar-range .ant-calendar-time-picker-input {
   max-width: 100%;
   height: auto;
   vertical-align: bottom;
+  transition: all .3s, height 0s;
 }
 .ant-calendar-range .ant-calendar-input-lg,
 .ant-calendar-range .ant-calendar-time-picker-input-lg {
@@ -16062,8 +16085,8 @@ li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper:hover {
   padding-right: 0;
 }
 .ant-progress-show-info .ant-progress-outer {
-  padding-right: 45px;
-  margin-right: -45px;
+  padding-right: 2.75em;
+  margin-right: -2.75em;
 }
 .ant-progress-inner {
   display: inline-block;
@@ -16077,6 +16100,7 @@ li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper:hover {
 }
 .ant-progress-circle-path {
   stroke: #108ee9;
+  animation: ant-progress-appear 0.3s;
 }
 .ant-progress-bg {
   border-radius: 100px;
@@ -16085,14 +16109,12 @@ li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper:hover {
   position: relative;
 }
 .ant-progress-text {
-  width: 35px;
+  width: 2em;
   text-align: left;
   font-size: 1em;
-  margin-left: 10px;
+  margin-left: 0.75em;
   vertical-align: middle;
   display: inline-block;
-  position: relative;
-  top: -1px;
 }
 .ant-progress-text .anticon {
   font-size: 12px;
@@ -16152,6 +16174,14 @@ li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper:hover {
 }
 .ant-progress-circle .ant-progress-status-success .ant-progress-text {
   color: #00a854;
+}
+@keyframes ant-progress-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes ant-progress-active {
   0% {
