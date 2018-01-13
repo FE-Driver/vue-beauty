@@ -1,7 +1,7 @@
 <template>
     <div :class="itemCls">
         <v-col :class="labelCls" v-if="label" :span="labelCol.span" :offset="labelCol.offset">
-            <label for="userName" :class="[{'ant-form-item-required':isRequired}]" v-text="label"></label>
+            <label :class="[{'ant-form-item-required':isRequired}]" v-text="label"></label>
         </v-col>
         <v-col :span="wrapperCol.span" :offset="wrapperCol.offset">
             <div :class="controlCls">
