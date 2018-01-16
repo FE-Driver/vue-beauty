@@ -1,0 +1,8 @@
+vue-beauty@2.0.0-beta.9 /Users/jason/workspaces/vue-beauty
+└─┬ stylus@0.54.5 
+  ├── css-parse@1.7.0 
+  ├── glob@7.0.6 
+  ├── sax@0.5.8 
+  └─┬ source-map@0.1.43 
+    └── amdefine@1.0.1 
+
