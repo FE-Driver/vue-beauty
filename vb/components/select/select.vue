@@ -238,8 +238,10 @@ export default {
                     let selected = false;
                     if (this.multiple && this.innerValue.includes(item[this.clue])) {
                         selected = true;
+                        this.labels.push(item[this.label]);
                     } else if (!this.multiple && this.innerValue === item[this.clue]) {
                         selected = true;
+                        this.labels = item[this.label];
                     }
                     if (type === 'item') {
                         this.$set(this.ori_data[path], 'selected', selected);
