@@ -86,6 +86,7 @@ export default {
                     this.$parent &&
                     this.$parent.$options.name === 'CheckboxGroup' &&
                     this.$parent.max &&
+                    this.$parent.max !== 1 &&
                     this.$parent.max <= this.$parent.innerValue.length
                 ) {
                     return this.innerValue = this.falseValue;

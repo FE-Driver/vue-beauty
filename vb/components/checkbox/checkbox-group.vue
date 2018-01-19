@@ -57,6 +57,8 @@ export default {
                 if (!this.innerValue.includes(value)) {
                     if (!this.max || this.max > this.innerValue.length) {
                         this.innerValue.push(value);
+                    } else if (this.max === 1) {
+                        this.innerValue.splice(0, 1, value);
                     }
                 }
             } else {
