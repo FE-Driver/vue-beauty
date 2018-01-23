@@ -550,6 +550,7 @@
 | fixedLeft | 左侧固定列数 | Number | 0 |
 | fixedRight | 右侧固定列数 | Number | 0 |
 | treeTable | 是否启用树状表格 | Boolean | false |
+| emptyText | 没有数据时的提示 | String | 老板,没有找到你想要的信息...... |
 | treeOption | 树状表格配置 | Object | {idKey: "id",pidKey: "pid",indent: 4,position: 0,sortKey: null, order: "asc",isAsync: false,loadChildren: null} |
 
 ### currentData与checked状态说明

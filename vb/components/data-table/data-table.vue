@@ -86,7 +86,7 @@
                         <tr>
                             <td :colspan="checkType ? columns.length+1 : columns.length" style="text-align:center">
                                 <slot name="emptytext">
-                                    老板,没有找到你想要的信息......
+                                    {{emptyText}}
                                 </slot>
                             </td>
                         </tr>
@@ -399,6 +399,10 @@ export default {
             default() {
                 return {};
             },
+        },
+        emptyText: {
+            type: String,
+            default: '老板,没有找到你想要的信息......',
         },
     },
     /*
