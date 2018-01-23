@@ -141,7 +141,7 @@ const components = {
 for (const item of Object.values(components)) {
     if (!item.install && item.name) {
         item.install = function (Vue, prefix = config.componentNamePrefix) {
-            Vue.component(prefix + item.name, item);
+            Vue.component(`${prefix}${item.name === 'vSwitch' ? 'Switch' : item.name}`, item);
         };
     }
 }
