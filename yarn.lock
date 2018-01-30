@@ -2212,9 +2212,9 @@ eslint-module-utils@^2.1.1:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
 
-eslint-plugin-html@^4.0.1:
-  version "4.0.1"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-html/download/eslint-plugin-html-4.0.1.tgz#fc70072263cc938496fbbc9cf648660e41fa269a"
+eslint-plugin-html@^4.0.2:
+  version "4.0.2"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-html/download/eslint-plugin-html-4.0.2.tgz#0e56149e42c2ffc3f0df6261a8bb96b1a9f2280d"
   dependencies:
     htmlparser2 "^3.8.2"
 
@@ -5831,9 +5831,9 @@ vue-style-loader@^3.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-style-loader@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-3.0.3.tgz#623658f81506aef9d121cdc113a4f5c9cac32df7"
+vue-style-loader@^3.1.1:
+  version "3.1.1"
+  resolved "http://registry.npm.taobao.org/vue-style-loader/download/vue-style-loader-3.1.1.tgz#74fdef91a81d38bc0125746a1b5505e62d69e32c"
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"

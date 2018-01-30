@@ -1,10 +1,9 @@
 <template lang="html">
-    <label :class="prefixCls + '-wrapper'" @click="click">
+    <label :class="wrapperCls" @click="click">
         <span :class="checkboxCls">
             <input type="checkbox" :class="prefixCls + '-input'"  v-model="innerValue" :true-value="trueValue" :false-value="falseValue" :disabled="innerDisabled">
             <span :class="prefixCls + '-inner'"></span>
-        </span>
-        <span v-if="$slots && $slots.default">
+        </span><span v-if="$slots && $slots.default">
             <slot></slot>
         </span>
     </label>
@@ -49,13 +48,20 @@ export default {
         }
     },
     computed: {
+        wrapperCls() {
+            return [
+                `${this.prefixCls}-wrapper`,
+                {
+                    [`${this.prefixCls}-group-item`]: this.parentIsGroup,
+                },
+            ];
+        },
         checkboxCls() {
             return [
                 this.prefixCls,
                 {
                     [`${this.prefixCls}-checked`]: !this.indeterminate && (this.innerValue === this.trueValue),
                     [`${this.prefixCls}-indeterminate`]: this.indeterminate,
-                    [`${this.prefixCls}-group-item`]: this.parentIsGroup,
                     [`${this.prefixCls}-disabled`]: this.innerDisabled,
                 },
             ];
