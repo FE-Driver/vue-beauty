@@ -719,11 +719,13 @@ export default {
             this.hoverIndex = index;
         },
         getRowClass(index) {
-            const clazz = {};
-            if ((this.fixedLeft || this.fixedRight) && index === this.hoverIndex) {
-                clazz[`${this.prefix}-row-hover`] = true;
-            }
-            return clazz;
+            return [
+                `${this.prefix}-row`,
+                {
+                    [`${this.prefix}-row-selected`]: this.rowSelectionStates[index],
+                    [`${this.prefix}-row-hover`]: (this.fixedLeft || this.fixedRight) && index === this.hoverIndex,
+                },
+            ];
         },
         mouseOutTable() {
             this.hoverIndex = null;
