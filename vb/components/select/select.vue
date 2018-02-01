@@ -4,7 +4,7 @@
             <div class="ant-select-selection__rendered ant-select__dropdown" :tabindex="search ? false : '0'" @focus="$emit('focus')" @blur="$emit('blur')">
                 <template v-if="labels">
                     <ul v-if="multiple">
-                        <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none;">
+                        <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none" :key="text">
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
                         </li>
@@ -15,7 +15,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="ant-select-selection-selected-value" :title="labels" :style="{opacity: isSearchFocus?0.4:1}">{{labels}}</div>
+                    <div v-else class="ant-select-selection-selected-value" :title="labels" :style="selectedValueStyle">{{labels}}</div>
                 </template>
                 <div v-show="((multiple && !labels.length) || (!multiple && !labels)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
                 <div v-if="search && !multiple" class="ant-select-search ant-select-search--inline">
@@ -285,6 +285,17 @@ export default {
                 { [`${this.prefix}-dropdown--multiple`]: this.multiple },
             ];
         },
+        selectedValueStyle() {
+            let opacity = 1;
+
+            // Blur时isSearchFocus为false，但searchVal延时清空了，所以这里单独判断
+            if (this.searchVal) {
+                opacity = 0;
+            } else if (this.isSearchFocus) {
+                opacity = 0.4;
+            }
+            return { opacity };
+        },
     },
     methods: {
         getOption(val) {
@@ -400,6 +411,7 @@ export default {
         },
         searchBlur() {
             this.isSearchFocus = false;
+            // 多选时，searchVal必须延迟清空，否则选不上
             setTimeout(() => {
                 this.searchVal = '';
             }, 300);
