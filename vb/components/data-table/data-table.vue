@@ -282,12 +282,9 @@
             </div>
         </div>
     </div>
-
-
 </template>
-
 <script>
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import vPagination from '../pagination';
 import vSpin from '../spin';
 import vIcon from '../icon';
@@ -470,9 +467,7 @@ export default {
         }
 
         if (!this.bindResize) {
-            window.addEventListener('resize', () => {
-                this.calculateSize();
-            }, false);
+            window.addEventListener('resize', this.calculateSize);
             this.bindResize = true;
         }
     },
@@ -483,6 +478,9 @@ export default {
     },
     updated() {
         this.debounceCalculate();
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.calculateSize);
     },
     methods: {
         getScrollbarWidth() {
