@@ -642,7 +642,7 @@ export default {
                 this.total = response[this.paramsName.total] * 1;
 
                 this.loading = false;
-            }, () => {
+            }).catch(() => {
                 // error callback
                 this.loading = false;
             });
@@ -789,6 +789,11 @@ export default {
             let fixedRightThs;
             let fixedRightCols;
 
+            for (const [index, el] of lettheaderThs.entries()) {
+                if (index !== lettheaderThs.length - 1) {
+                    el.style.width = `${tbodyThs[index].offsetWidth}px`;
+                }
+            }
             if (this.fixedLeft) {
                 const fixedLeftHeader = this.$refs.fixedLeftHeader;
                 fixedLeftThs = fixedLeftHeader && fixedLeftHeader.querySelectorAll('thead>tr>th');
