@@ -10,8 +10,18 @@ module.exports = merge(baseWebpackConfig, {
     },
     module: {
         loaders: [{
-            test: /\.less$/i, 
-            loader: extractLESS.extract(['css-loader','less-loader'])
+            test: /\.less$/i,
+            loader: extractLESS.extract({
+                use: [
+                    {
+                        loader: 'css-loader' ,
+                        options: {
+                            minimize: true
+                        }
+                    },
+                    { loader: 'less-loader' },
+                ],
+            })
         }]
     },
     plugins: [
