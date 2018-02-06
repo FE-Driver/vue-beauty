@@ -249,21 +249,7 @@
             }
             if (this.showTime) {
                 this.timeBtnEnable = !!this.value;
-                const temp = ['00:00', '00:00'];
-                if (this.range) {
-                    if (this.startTime) {
-                        const start = this.startTime.split(' ')[1];
-                        if (start) temp[0] = start;
-                    }
-                    if (this.endTime) {
-                        const end = this.endTime.split(' ')[1];
-                        if (end) temp[1] = end;
-                    }
-                } else if (this.value) {
-                    const time = this.value.split(' ')[1];
-                    if (time) temp[0] = (time || '00:00').substr(0, 5);
-                }
-                this.timeVal = temp;
+                this.setTimeVal();
             }
         },
         beforeDestroy() {
@@ -306,9 +292,27 @@
             value(val) {
                 this.startTime = this.range && val ? val[0] : '';
                 this.endTime = this.range && val ? val[1] : '';
+                this.setTimeVal();
             },
         },
         methods: {
+            setTimeVal() {
+                const temp = ['00:00', '00:00'];
+                if (this.range) {
+                    if (this.startTime) {
+                        const start = this.startTime.split(' ')[1];
+                        if (start) temp[0] = start;
+                    }
+                    if (this.endTime) {
+                        const end = this.endTime.split(' ')[1];
+                        if (end) temp[1] = end;
+                    }
+                } else if (this.value) {
+                    const time = this.value.split(' ')[1];
+                    if (time) temp[0] = (time || '00:00').substr(0, 5);
+                }
+                this.timeVal = temp;
+            },
             optionClose() {
                 this.timeSelected = false;
             },
