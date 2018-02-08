@@ -5,6 +5,8 @@
         </span>
         <input :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled"
                :value="innerValue" @input="handleInput" autocomplete="off"
+               @keyup="keyUp"
+               @keydown="keyDown"
                @blur="blur" @focus="$emit('focus', $event)">
         <span v-if="hasafter" class="ant-input-group-addon">
             <slot name="after"></slot>
@@ -12,10 +14,14 @@
     </span>
     <textarea v-else-if="type ==='textarea'" :id="id" :class="inpClasses" :placeholder="placeholder"
               :disabled="disabled" :value="innerValue" @input="handleInput"
+              @keyup="keyUp"
+              @keydown="keyDown"
               @blur="blur" @focus="$emit('focus', $event)" ref="textarea" :rows="autosize && autosize.minRows ?autosize.minRows:2" :style="{maxHeight: autosize && autosize.maxRows ? `${autosize.maxRows*18+10}px`:'auto'}">
     </textarea>
     <input v-else :id="id" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled"
            :value="innerValue" @input="handleInput" autocomplete="off"
+           @keyup="keyUp"
+           @keydown="keyDown"
            @blur="blur" @focus="$emit('focus', $event)">
 </template>
 
@@ -123,6 +129,14 @@
             blur() {
                 this.$emit('blur', this.innerValue);
                 this.dispatch('FormItem', 'form.blur', [this.innerValue]);
+            },
+            keyUp() {
+                this.$emit('keyup', this.innerValue);
+                this.dispatch('FormItem', 'form.keyup', [this.innerValue]);
+            },
+            keyDown() {
+                this.$emit('keydown', this.innerValue);
+                this.dispatch('FormItem', 'form.keydown', [this.innerValue]);
             },
         },
     };
