@@ -158,6 +158,8 @@
                     });
                     this.$on('form.blur', this.onFieldBlur);
                     this.$on('form.change', this.onFieldChange);
+                    this.$on('form.keyup', this.onFieldKeyUp);
+                    this.$on('form.keydown', this.onFieldKeyDown);
                 }
             }
         },
@@ -226,6 +228,12 @@
             onFieldBlur() {
                 this.validate('blur');
             },
+            onFieldKeyUp() {
+                this.validate('keyup');
+            },
+            onFieldKeyDown() {
+                this.validate('keydown');
+            },
             onFieldChange() {
                 if (this.validateDisabled) {
                     this.validateDisabled = false;
@@ -234,6 +242,7 @@
 
                 this.validate('change');
             },
+
         },
     };
 </script>
