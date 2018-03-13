@@ -3,6 +3,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.package.config')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var extractLESS = new ExtractTextPlugin('/style/vue-beauty.min.css')
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {
     output: {
@@ -11,17 +12,7 @@ module.exports = merge(baseWebpackConfig, {
     module: {
         loaders: [{
             test: /\.less$/i,
-            loader: extractLESS.extract({
-                use: [
-                    {
-                        loader: 'css-loader' ,
-                        options: {
-                            minimize: true
-                        }
-                    },
-                    { loader: 'less-loader' },
-                ],
-            })
+            loader: extractLESS.extract(['css-loader','less-loader'])
         }]
     },
     plugins: [
@@ -35,6 +26,9 @@ module.exports = merge(baseWebpackConfig, {
                 warnings: false
             }
         }),
-        extractLESS
+        extractLESS,
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: { safe: true }
+        }),
     ]
 })
