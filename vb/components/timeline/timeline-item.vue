@@ -37,5 +37,8 @@
       mounted() {
           this.dot = !!this.$slots && !!this.$slots.dot;
       },
+      updated() {
+          this.dot = !!this.$slots && !!this.$slots.dot;
+      },
   };
 </script>
