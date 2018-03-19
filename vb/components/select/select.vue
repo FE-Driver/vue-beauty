@@ -3,7 +3,7 @@
         <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" @click="toggleDropdown">
             <div class="ant-select-selection__rendered ant-select__dropdown" :tabindex="search ? false : '0'" @focus="$emit('focus')" @blur="$emit('blur')">
                 <template v-if="labels">
-                    <ul v-if="multiple">
+                    <ul v-if="multiple"> 
                         <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none" :key="text">
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
@@ -238,7 +238,7 @@ export default {
                     let selected = false;
                     if (this.multiple && this.innerValue.includes(item[this.clue])) {
                         selected = true;
-                        this.labels.push(item[this.label]);
+                        if (!this.labels.includes(item[this.label])) this.labels.push(item[this.label]);
                     } else if (!this.multiple && this.innerValue === item[this.clue]) {
                         selected = true;
                         this.labels = item[this.label];
