@@ -8577,7 +8577,7 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
                     var selected = false;
                     if (_this4.multiple && _this4.innerValue.includes(item[_this4.clue])) {
                         selected = true;
-                        _this4.labels.push(item[_this4.label]);
+                        if (!_this4.labels.includes(item[_this4.label])) _this4.labels.push(item[_this4.label]);
                     } else if (!_this4.multiple && _this4.innerValue === item[_this4.clue]) {
                         selected = true;
                         _this4.labels = item[_this4.label];
@@ -9848,14 +9848,14 @@ var pagination_render = function() {
                   keydown: function($event) {
                     if (
                       !("button" in $event) &&
-                      _vm._k(
-                        $event.keyCode,
-                        "down",
-                        40,
-                        $event.key,
+                      _vm._k($event.keyCode, "down", 40, $event.key, [
+                        "Down",
                         "ArrowDown"
-                      ) &&
-                      _vm._k($event.keyCode, "up", 38, $event.key, "ArrowUp")
+                      ]) &&
+                      _vm._k($event.keyCode, "up", 38, $event.key, [
+                        "Up",
+                        "ArrowUp"
+                      ])
                     ) {
                       return null
                     }
@@ -12957,7 +12957,10 @@ var input_number_render = function() {
             mouse: function($event) {
               if (
                 !("button" in $event) &&
-                _vm._k($event.keyCode, "down", 40, $event.key, "ArrowDown")
+                _vm._k($event.keyCode, "down", 40, $event.key, [
+                  "Down",
+                  "ArrowDown"
+                ])
               ) {
                 return null
               }
@@ -12989,7 +12992,10 @@ var input_number_render = function() {
             mouse: function($event) {
               if (
                 !("button" in $event) &&
-                _vm._k($event.keyCode, "down", 40, $event.key, "ArrowDown")
+                _vm._k($event.keyCode, "down", 40, $event.key, [
+                  "Down",
+                  "ArrowDown"
+                ])
               ) {
                 return null
               }
@@ -15688,7 +15694,10 @@ var date_picker_render = function() {
                   function($event) {
                     if (
                       !("button" in $event) &&
-                      _vm._k($event.keyCode, "up", 38, $event.key, "ArrowUp")
+                      _vm._k($event.keyCode, "up", 38, $event.key, [
+                        "Up",
+                        "ArrowUp"
+                      ])
                     ) {
                       return null
                     }
@@ -15697,13 +15706,10 @@ var date_picker_render = function() {
                   function($event) {
                     if (
                       !("button" in $event) &&
-                      _vm._k(
-                        $event.keyCode,
-                        "down",
-                        40,
-                        $event.key,
+                      _vm._k($event.keyCode, "down", 40, $event.key, [
+                        "Down",
                         "ArrowDown"
-                      )
+                      ])
                     ) {
                       return null
                     }
@@ -15712,13 +15718,10 @@ var date_picker_render = function() {
                   function($event) {
                     if (
                       !("button" in $event) &&
-                      _vm._k(
-                        $event.keyCode,
-                        "left",
-                        37,
-                        $event.key,
+                      _vm._k($event.keyCode, "left", 37, $event.key, [
+                        "Left",
                         "ArrowLeft"
-                      )
+                      ])
                     ) {
                       return null
                     }
@@ -15730,13 +15733,10 @@ var date_picker_render = function() {
                   function($event) {
                     if (
                       !("button" in $event) &&
-                      _vm._k(
-                        $event.keyCode,
-                        "right",
-                        39,
-                        $event.key,
+                      _vm._k($event.keyCode, "right", 39, $event.key, [
+                        "Right",
                         "ArrowRight"
-                      )
+                      ])
                     ) {
                       return null
                     }
@@ -37100,7 +37100,7 @@ if (hadRuntime) {
 /* 328 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"vue-beauty","version":"2.0.0-beta.12","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.0","core-js":"^2.5.3","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.1.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.10","eslint":"^4.18.2","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.8.4","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.2","eslint-plugin-import":"^2.9.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.0","friendly-errors-webpack-plugin":"^1.6.1","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.2.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.15","vue-loader":"^14.2.1","vue-markdown-loader":"^2.4.0","vue-router":"^3.0.1","vue-style-loader":"^4.0.2","vue-template-compiler":"^2.5.15","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.21.2","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
+module.exports = {"name":"vue-beauty","version":"2.0.0-beta.13","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.0","core-js":"^2.5.3","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.1.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.0","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.8.4","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.2","eslint-plugin-import":"^2.9.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.0","friendly-errors-webpack-plugin":"^1.6.1","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.1","vue-markdown-loader":"^2.4.0","vue-router":"^3.0.1","vue-style-loader":"^4.0.2","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.21.2","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
 
 /***/ })
 /******/ ]);
