@@ -687,6 +687,14 @@ export default {
         rowSelectionChange(index) {
             // firefox上checkbox对应的值没有立即更新，延时获取
             setTimeout(() => {
+                if (this.checkType === 'radio') {
+                    this.current.forEach((item, i) => {
+                        if (i !== index) {
+                            item.vb_dt_checked = false;
+                            this.$set(this.rowSelectionStates, i, false);
+                        }
+                    });
+                }
                 this.$set(this.rowSelectionStates, index, this.current[index].vb_dt_checked);
 
                 this.$emit('clickrow', {
@@ -709,6 +717,14 @@ export default {
             this.current[index].vb_dt_checked = status;
             // firefox上checkbox对应的值没有立即更新，延时获取
             setTimeout(() => {
+                if (this.checkType === 'radio') {
+                    this.current.forEach((item, i) => {
+                        if (i !== index) {
+                            item.vb_dt_checked = false;
+                            this.$set(this.rowSelectionStates, i, false);
+                        }
+                    });
+                }
                 this.$set(this.rowSelectionStates, index, status);
 
                 // 将数据更新至父组件
