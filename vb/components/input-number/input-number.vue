@@ -65,7 +65,7 @@
         if (symb === '+') {
             return (num1 * m + num2 * m) / m;
         } else if (symb === '-') {
-            return (num1 * m - num2 * m) / m;
+            return (Math.round(num1 * m) - Math.round(num2 * m)) / m;
         }
     }
 
