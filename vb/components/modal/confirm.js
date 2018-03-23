@@ -47,7 +47,7 @@ export default function (config = {}) {
                         <div :class="prefixCls + '-body'">
                             <v-icon :type="iconType"></v-icon>
                             <span :class="prefixCls + '-title'">{{ title }}</span>
-                            <div :class="prefixCls + '-content'">{{ content }}</div>
+                            <div :class="prefixCls + '-content'" v-html="content"></div>
                         </div>
                         <div :class="prefixCls + '-btns'" v-if="!okCancel">
                             <v-button :type="'primary'" :size="'large'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>
