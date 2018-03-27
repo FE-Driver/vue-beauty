@@ -3,7 +3,7 @@
         <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" @click="toggleDropdown">
             <div class="ant-select-selection__rendered ant-select__dropdown" :tabindex="search ? false : '0'" @focus="$emit('focus')" @blur="$emit('blur')">
                 <template v-if="labels">
-                    <ul v-if="multiple"> 
+                    <ul v-if="multiple">
                         <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none" :key="text">
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
@@ -214,6 +214,13 @@ export default {
                 this.searchFound = false;
                 let show = false;
                 this.mapData(([type, path, item]) => {
+                    console.log('type', type);
+                    // console.log('path', path);
+                    console.log('item', item[this.label]);
+                    // console.log('label', this.label);
+                    console.log('val', val);
+
+
                     const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
                     if (isIncluded) this.searchFound = true;
 
@@ -230,6 +237,7 @@ export default {
             } else {
                 this.setData({ show: true }, { show: true });
             }
+            this.$nextTick(() => { this.$emit('search', val); });
         },
         data: {
             handler(val) {

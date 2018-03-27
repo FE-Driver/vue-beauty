@@ -527,3 +527,4 @@
 | change    | 选择的值发生变化的时候触发，默认返回value，如需返回整个option，请设置optionOnChange | value |
 | focus     | focus事件  | - |
 | blur      | blur事件   | - |
+| search      | 文本框值变化时回调   | value |
