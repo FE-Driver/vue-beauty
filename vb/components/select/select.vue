@@ -212,19 +212,20 @@ export default {
             if (val) {
                 this.searchFound = false;
                 let show = false;
-                this.mapData(([type, path, item]) => {
-                    const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
-                    if (isIncluded) this.searchFound = true;
-
-                    if (type === 'item') {
-                        this.$set(this.ori_data[path], 'show', isIncluded);
-                    } else {
-                        this.$set(this.ori_data[path[0]].options[path[1]], 'show', isIncluded);
-                        if (isIncluded) show = true;
-                    }
-                }, (i) => {
-                    this.$set(this.ori_data[i], 'show', show);
-                    show = false;
+                this.$nextTick(() => {
+                    this.mapData(([type, path, item]) => {
+                        const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
+                        if (isIncluded) this.searchFound = true;
+                        if (type === 'item') {
+                            this.$set(this.ori_data[path], 'show', isIncluded);
+                        } else {
+                            this.$set(this.ori_data[path[0]].options[path[1]], 'show', isIncluded);
+                            if (isIncluded) show = true;
+                        }
+                    }, (i) => {
+                        this.$set(this.ori_data[i], 'show', show);
+                        show = false;
+                    });
                 });
             } else {
                 this.setData({ show: true }, { show: true });
