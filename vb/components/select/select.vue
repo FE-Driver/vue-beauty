@@ -8,7 +8,7 @@
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
                         </li>
-                        <li style="border: 1px solid pink;" v-if="search && multiple" class="ant-select-search ant-select-search--inline">
+                        <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
                                 <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="searchFocus" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
                                 <span class="ant-select-search__field__mirror" ref="searchMirror">{{searchVal}}</span>
@@ -199,7 +199,6 @@ export default {
         },
         value(val) {
             if (this.innerValue !== val) {
-                this.labels = this.multiple ? [] : '';
                 this.innerValue = val;
                 this.$nextTick(() => {
                     this.initVal();
@@ -215,18 +214,20 @@ export default {
             if (val) {
                 this.searchFound = false;
                 let show = false;
-                this.mapData(([type, path, item]) => {
-                    const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
-                    if (isIncluded) this.searchFound = true;
-                    if (type === 'item') {
-                        this.$set(this.ori_data[path], 'show', isIncluded);
-                    } else {
-                        this.$set(this.ori_data[path[0]].options[path[1]], 'show', isIncluded);
-                        if (isIncluded) show = true;
-                    }
-                }, (i) => {
-                    this.$set(this.ori_data[i], 'show', show);
-                    show = false;
+                this.$nextTick(() => {
+                    this.mapData(([type, path, item]) => {
+                        const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
+                        if (isIncluded) this.searchFound = true;
+                        if (type === 'item') {
+                            this.$set(this.ori_data[path], 'show', isIncluded);
+                        } else {
+                            this.$set(this.ori_data[path[0]].options[path[1]], 'show', isIncluded);
+                            if (isIncluded) show = true;
+                        }
+                    }, (i) => {
+                        this.$set(this.ori_data[i], 'show', show);
+                        show = false;
+                    });
                 });
             } else {
                 this.setData({ show: true }, { show: true });
@@ -332,13 +333,13 @@ export default {
                         groupCallback && groupCallback(i, opt);
                     }
                 } else {
-                    callback(['item', i, opt]);
-                    // const res = callback(['item', i, opt]);
-                    // if (res) break;
+                    const res = callback(['item', i, opt]);
+                    if (res) break;
                 }
             }
         },
         initVal() {
+            this.labels = this.multiple ? [] : '';
             this.mapData(([type, path, item]) => {
                 let selected = false;
                 if (this.multiple && this.innerValue.includes(item[this.clue])) {
