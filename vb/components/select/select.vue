@@ -198,7 +198,6 @@ export default {
         },
         value(val) {
             if (this.innerValue !== val) {
-                this.labels = this.multiple ? [] : '';
                 this.innerValue = val;
                 this.$nextTick(() => {
                     this.initVal();
@@ -337,6 +336,7 @@ export default {
             }
         },
         initVal() {
+            this.labels = this.multiple ? [] : '';
             this.mapData(([type, path, item]) => {
                 let selected = false;
                 if (this.multiple && this.innerValue.includes(item[this.clue])) {
