@@ -11,7 +11,6 @@
         @blur="blur"
         @focus="focus"
     >
-        <!-- :value="value" -->
         <template slot-scope="{data}">
             <slot :data="data">{{data.label}}</slot>
         </template>
@@ -33,10 +32,6 @@ export default {
             default: () => t('autoComplete.placeholder'),
         },
         filter: Function,
-        // value: {
-        //     type: [Number, String, Array],
-        //     default: '',
-        // },
     },
     data() {
         return {

@@ -128,7 +128,7 @@
 
 ```html
 <template>
-    <v-auto-complete value="Burns Bay Road" :data="dataSource" :filter="filter" style="width:200px;"></v-auto-complete>
+    <v-auto-complete :data="dataSource" :filter="filter" style="width:200px;"></v-auto-complete>
 </template>
 
 <script>

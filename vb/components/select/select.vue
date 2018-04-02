@@ -8,7 +8,7 @@
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
                         </li>
-                        <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
+                        <li style="border: 1px solid pink;" v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
                                 <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="searchFocus" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
                                 <span class="ant-select-search__field__mirror" ref="searchMirror">{{searchVal}}</span>
@@ -34,11 +34,6 @@
         <transition name="slide-up">
             <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
-                    <!-- <div style="border: 1px solid blue;">
-                        <div>searchVal: {{searchVal}}</div>
-                        <div>remoteMethod: {{remoteMethod}}</div>
-                        <div>searchFound: {{searchFound}}</div>
-                    </div> -->
                     <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
                         <template v-else>
@@ -223,7 +218,6 @@ export default {
                 this.mapData(([type, path, item]) => {
                     const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
                     if (isIncluded) this.searchFound = true;
-
                     if (type === 'item') {
                         this.$set(this.ori_data[path], 'show', isIncluded);
                     } else {
@@ -338,8 +332,9 @@ export default {
                         groupCallback && groupCallback(i, opt);
                     }
                 } else {
-                    const res = callback(['item', i, opt]);
-                    if (res) break;
+                    callback(['item', i, opt]);
+                    // const res = callback(['item', i, opt]);
+                    // if (res) break;
                 }
             }
         },
