@@ -3,7 +3,7 @@
         <div :class="selectionCls" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" @click="toggleDropdown">
             <div class="ant-select-selection__rendered ant-select__dropdown" :tabindex="search ? false : '0'" @focus="$emit('focus')" @blur="$emit('blur')">
                 <template v-if="labels">
-                    <ul v-if="multiple"> 
+                    <ul v-if="multiple">
                         <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none" :key="text">
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
@@ -32,7 +32,7 @@
             </span>
         </div>
         <transition name="slide-up">
-            <div ref="dropdown" v-show="show" style="overflow: auto" :style="dropdownStyle" :class="dropdownCls">
+            <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
                     <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
@@ -188,6 +188,7 @@ export default {
         innerValue(val) {
             this.$emit('input', val);
             this.dispatch('FormItem', 'form.change', [val]);
+
             if (this.optionOnChange) {
                 this.$nextTick(() => {
                     this.$emit('change', this.getOption(val));
@@ -205,6 +206,7 @@ export default {
             }
         },
         searchVal(val) {
+            this.$emit('search', val);
             if (this.multiple) {
                 this.$nextTick(() => { this.multipleSearchStyle = val ? { width: `${this.$refs.searchMirror.offsetWidth + 2}px` } : {}; });
             }

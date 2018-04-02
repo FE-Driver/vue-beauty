@@ -50,6 +50,10 @@ export default [{
         name: 'cascader',
         component: resolve => require(['./docs/zh-cn/cascader.md'], resolve),
     }, {
+        path: 'autoComplete',
+        name: 'autoComplete',
+        component: resolve => require(['./docs/zh-cn/auto-complete.md'], resolve),
+    }, {
         path: 'collapse',
         name: 'collapse',
         component: resolve => require(['./docs/zh-cn/collapse.md'], resolve),

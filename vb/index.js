@@ -48,6 +48,7 @@ import transfer from './components/transfer';
 import timeline from './components/timeline';
 import carousel from './components/carousel';
 import treeSelect from './components/tree-select';
+import autoComplete from './components/auto-complete';
 import clickoutside from './directives/clickoutside';
 import tooltipd from './directives/tooltip';
 import { use, i18n } from './locale';
@@ -136,6 +137,7 @@ const components = {
     carousel,
     carouselItem: carousel.item,
     treeSelect,
+    autoComplete,
 };
 
 for (const item of Object.values(components)) {
@@ -224,6 +226,7 @@ export {
     timeline,
     carousel,
     treeSelect,
+    autoComplete,
 };
 
 export default {
