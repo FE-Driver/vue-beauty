@@ -81,7 +81,7 @@ export default {
             innerValue: this.multiple && !this.value ? [] : this.value,
             searchVal: '',
             multipleSearchStyle: {},
-            searchFound: true,
+            searchFound: false,
             show: false,
             dropdownStyle: {},
             labels: this.multiple ? [] : '',
