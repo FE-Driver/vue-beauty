@@ -4,6 +4,9 @@ export default {
         placeholder: '请选择',
         loadingText: '加载中...',
     },
+    autoComplete: {
+        placeholder: '请输入',
+    },
     timePicker: {
         placeholder: '选择时间',
     },

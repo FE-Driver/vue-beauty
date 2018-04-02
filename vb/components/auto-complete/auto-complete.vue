@@ -1,36 +1,65 @@
 <template>
     <v-select
-      search
-      style="width: 100%"
-      :data="data"
-      v-model="value"
-      @search="search"
-    ></v-select>
+        ref="test"
+        search
+        :data="data"
+        v-model="value"
+        @search="search"
+        @change="select"
+        :placeholder="placeholder"
+        :filter="filter"
+        @blur="blur"
+        @focus="focus"
+    >
+        <!-- :value="value" -->
+        <template slot-scope="{data}">
+            <slot :data="data">{{data.label}}</slot>
+        </template>
+    </v-select>
 </template>
 
 <script lang="babel">
-    export default {
-        name: 'AutoComplete',
-        props: {
-            data: {
-                type: Array,
-                default: () => [],
-            },
+import { t } from '../../locale';
+
+export default {
+    name: 'AutoComplete',
+    props: {
+        data: {
+            type: Array,
+            default: () => [],
         },
-        data() {
-            return {
-                value: '',
-            };
+        placeholder: {
+            type: String,
+            default: () => t('autoComplete.placeholder'),
         },
-        watch: {
-            value(val) {
-                this.$emit('select', val);
-            },
+        filter: Function,
+        // value: {
+        //     type: [Number, String, Array],
+        //     default: '',
+        // },
+    },
+    data() {
+        return {
+            value: '',
+        };
+    },
+    created() {
+        const { value } = this.$attrs;
+        this.value = value;
+    },
+    methods: {
+        search(val) {
+            this.$emit('search', val);
         },
-        methods: {
-            search(val) {
-                this.$emit('search', val);
-            },
+        select(val) {
+            this.$emit('select', val);
         },
-    };
+        blur() {
+            this.$emit('blur');
+        },
+        focus() {
+            this.$emit('focus');
+        },
+    },
+};
 </script>

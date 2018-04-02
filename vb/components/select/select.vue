@@ -32,8 +32,13 @@
             </span>
         </div>
         <transition name="slide-up">
-            <div ref="dropdown" v-show="show" style="overflow: auto" :style="dropdownStyle" :class="dropdownCls">
+            <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
+                    <!-- <div style="border: 1px solid blue;">
+                        <div>searchVal: {{searchVal}}</div>
+                        <div>remoteMethod: {{remoteMethod}}</div>
+                        <div>searchFound: {{searchFound}}</div>
+                    </div> -->
                     <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
                         <template v-else>
@@ -81,7 +86,7 @@ export default {
             innerValue: this.multiple && !this.value ? [] : this.value,
             searchVal: '',
             multipleSearchStyle: {},
-            searchFound: false,
+            searchFound: true,
             show: false,
             dropdownStyle: {},
             labels: this.multiple ? [] : '',
@@ -188,6 +193,7 @@ export default {
         innerValue(val) {
             this.$emit('input', val);
             this.dispatch('FormItem', 'form.change', [val]);
+
             if (this.optionOnChange) {
                 this.$nextTick(() => {
                     this.$emit('change', this.getOption(val));
@@ -206,6 +212,7 @@ export default {
             }
         },
         searchVal(val) {
+            this.$emit('search', val);
             if (this.multiple) {
                 this.$nextTick(() => { this.multipleSearchStyle = val ? { width: `${this.$refs.searchMirror.offsetWidth + 2}px` } : {}; });
             }
@@ -214,13 +221,6 @@ export default {
                 this.searchFound = false;
                 let show = false;
                 this.mapData(([type, path, item]) => {
-                    console.log('type', type);
-                    // console.log('path', path);
-                    console.log('item', item[this.label]);
-                    // console.log('label', this.label);
-                    console.log('val', val);
-
-
                     const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
                     if (isIncluded) this.searchFound = true;
 
@@ -237,7 +237,6 @@ export default {
             } else {
                 this.setData({ show: true }, { show: true });
             }
-            this.$nextTick(() => { this.$emit('search', val); });
         },
         data: {
             handler(val) {
