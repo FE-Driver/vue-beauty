@@ -710,8 +710,8 @@ export default {
             // 点击行后是否选中
             if (this.rowClickChecked) {
                 this.current[index].vb_dt_checked = !this.current[index].vb_dt_checked;
+                this.rowSelectionChange(index);
             }
-            this.rowSelectionChange(index);
         },
         setChecked(index, status = true) {
             this.current[index].vb_dt_checked = status;
