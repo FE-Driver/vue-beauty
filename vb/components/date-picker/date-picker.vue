@@ -263,8 +263,10 @@
                     this.setPosition();
                 }, 200);
             },
-            show() {
+            show(visible) {
                 this.hidePanel();
+
+                this.$emit('dropdownToggle', visible);
             },
             now1() {
                 this.updateAll();
@@ -357,25 +359,37 @@
             initRanges() {
                 let time = new Date();
                 const ranges = [];
-                ranges.push({
-                    name: '今天',
-                    start: this.parse(time, false),
-                    end: this.parse(time, true),
-                    active: true,
-                });
-                time.setDate(time.getDate() - 1);
-                ranges.push({
-                    name: '昨天',
-                    start: this.parse(time, false),
-                    end: this.parse(time, true),
-                });
+
                 time = new Date();
-                time.setDate(time.getDate() - 6);
+                time.setDate(time.getDate() - 2);
                 ranges.push({
-                    name: '最近7天',
+                    name: '近三天',
                     start: this.parse(time, false),
                     end: this.parse(new Date(), true),
                 });
+
+                time = new Date();
+                time.setDate(time.getDate() - 6);
+                ranges.push({
+                    name: '近七天',
+                    start: this.parse(time, false),
+                    end: this.parse(new Date(), true),
+                });
+
+                time = new Date();
+                ranges.push({
+                    name: '本周',
+                    start: new Date().setDate(time.getDate() - (time.getDay() || 7) + 1),
+                    end: new Date().setDate(time.getDate() - (time.getDay() || 7) + 7),
+                });
+
+                time = new Date();
+                ranges.push({
+                    name: '上周',
+                    start: new Date().setDate(time.getDate() - (time.getDay() || 7) - 6),
+                    end: new Date().setDate(time.getDate() - (time.getDay() || 7)),
+                });
+
                 time = new Date();
                 time.setMonth(time.getMonth() + 1, 0);
                 ranges.push({
@@ -383,27 +397,15 @@
                     start: new Date(time.getFullYear(), time.getMonth(), 1),
                     end: this.parse(time, true),
                 });
+
                 time = new Date();
                 time.setMonth(time.getMonth(), 0);
                 ranges.push({
-                    name: '上个月',
+                    name: '上月',
                     start: new Date(time.getFullYear(), time.getMonth(), 1),
                     end: this.parse(time, true),
                 });
-                time = new Date();
-                time.setDate(time.getDate() - 29);
-                ranges.push({
-                    name: '最近一个月',
-                    start: this.parse(time, false),
-                    end: this.parse(new Date(), true),
-                });
-                time = new Date();
-                time.setDate(time.getDate() - 365);
-                ranges.push({
-                    name: '最近一年',
-                    start: this.parse(time, false),
-                    end: this.parse(new Date(), true),
-                });
+
                 this.ranges = ranges;
             },
             // 更新所有的日历
@@ -450,8 +452,8 @@
             },
             // 确认
             confirm() {
+                this.$emit('confirm', this.value);
                 this.closeDropdown();
-                this.$emit('confirm');
             },
             closeDropdown() {
                 this.show = false;

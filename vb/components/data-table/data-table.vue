@@ -468,6 +468,7 @@ export default {
 
         if (!this.bindResize) {
             window.addEventListener('resize', this.calculateSize);
+            window.top.addEventListener('resize', this.calculateSize);
             this.bindResize = true;
         }
     },
@@ -481,6 +482,7 @@ export default {
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.calculateSize);
+        window.top.removeEventListener('resize', this.calculateSize);
     },
     methods: {
         getScrollbarWidth() {
@@ -549,7 +551,7 @@ export default {
                         order = 'desc';
                         break;
                     case 'desc':
-                        order = true;
+                        order = 'asc';
                         break;
                     default:
                         order = 'asc';
@@ -867,8 +869,12 @@ export default {
         fixGapHeight() {
             // 获取挂载元素在屏幕上的位置
             const rect = this.$el.getBoundingClientRect();
-            const winHeight = window.innerHeight;
-            const tableBodyHeight = winHeight - this.bottomGap - rect.top;
+            const winHeight = window.top.innerHeight;
+            let extHeight = 0;
+            if (window.top !== window) {
+                extHeight = 90;
+            }
+            const tableBodyHeight = winHeight - this.bottomGap - rect.top - extHeight;
             // 在可见首屏范围内且计算高度至少200时处理，否则不处理
             if (rect.top > 0 && tableBodyHeight >= 200) {
                 this.tableBodyHeight = tableBodyHeight;

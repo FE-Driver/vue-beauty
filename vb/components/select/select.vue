@@ -34,7 +34,7 @@
         <transition name="slide-up">
             <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
-                    <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
+                    <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" :style="dropdownUiStyle" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
                         <template v-else>
                             <li v-if="searchVal && remoteMethod && !data.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
@@ -84,6 +84,7 @@ export default {
             searchFound: false,
             show: false,
             dropdownStyle: {},
+            dropdownUiStyle: {},
             labels: this.multiple ? [] : '',
             ori_data: JSON.parse(JSON.stringify(this.data)),
             isSearchFocus: false,
@@ -392,6 +393,9 @@ export default {
                 top: `${this.placement === 'top' ? p.top - this.dropdownHeight - 4 : p.bottom + 4}px`,
                 left: `${p.left}px`,
                 width: dwidth,
+            };
+
+            this.dropdownUiStyle = {
                 maxHeight: `${this.maxHeight}px`,
             };
         },
