@@ -8122,6 +8122,9 @@ var deepmerge_1 = deepmerge;
         placeholder: '请选择',
         loadingText: '加载中...'
     },
+    autoComplete: {
+        placeholder: '请输入'
+    },
     timePicker: {
         placeholder: '选择时间'
     },
@@ -8508,6 +8511,7 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
 
             this.$emit('input', val);
             this.dispatch('FormItem', 'form.change', [val]);
+
             if (this.optionOnChange) {
                 this.$nextTick(function () {
                     _this.$emit('change', _this.getOption(val));
@@ -8520,7 +8524,6 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
             var _this2 = this;
 
             if (this.innerValue !== val) {
-                this.labels = this.multiple ? [] : '';
                 this.innerValue = val;
                 this.$nextTick(function () {
                     _this2.initVal();
@@ -8530,6 +8533,7 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
         searchVal: function searchVal(val) {
             var _this3 = this;
 
+            this.$emit('search', val);
             if (this.multiple) {
                 this.$nextTick(function () {
                     _this3.multipleSearchStyle = val ? { width: _this3.$refs.searchMirror.offsetWidth + 2 + 'px' } : {};
@@ -8539,24 +8543,25 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
             if (val) {
                 this.searchFound = false;
                 var show = false;
-                this.mapData(function (_ref) {
-                    var _ref2 = select__slicedToArray(_ref, 3),
-                        type = _ref2[0],
-                        path = _ref2[1],
-                        item = _ref2[2];
+                this.$nextTick(function () {
+                    _this3.mapData(function (_ref) {
+                        var _ref2 = select__slicedToArray(_ref, 3),
+                            type = _ref2[0],
+                            path = _ref2[1],
+                            item = _ref2[2];
 
-                    var isIncluded = _this3.filter ? _this3.filter(val, item) : item[_this3.label].includes(val);
-                    if (isIncluded) _this3.searchFound = true;
-
-                    if (type === 'item') {
-                        _this3.$set(_this3.ori_data[path], 'show', isIncluded);
-                    } else {
-                        _this3.$set(_this3.ori_data[path[0]].options[path[1]], 'show', isIncluded);
-                        if (isIncluded) show = true;
-                    }
-                }, function (i) {
-                    _this3.$set(_this3.ori_data[i], 'show', show);
-                    show = false;
+                        var isIncluded = _this3.filter ? _this3.filter(val, item) : item[_this3.label].includes(val);
+                        if (isIncluded) _this3.searchFound = true;
+                        if (type === 'item') {
+                            _this3.$set(_this3.ori_data[path], 'show', isIncluded);
+                        } else {
+                            _this3.$set(_this3.ori_data[path[0]].options[path[1]], 'show', isIncluded);
+                            if (isIncluded) show = true;
+                        }
+                    }, function (i) {
+                        _this3.$set(_this3.ori_data[i], 'show', show);
+                        show = false;
+                    });
                 });
             } else {
                 this.setData({ show: true }, { show: true });
@@ -8724,6 +8729,7 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
         initVal: function initVal() {
             var _this6 = this;
 
+            this.labels = this.multiple ? [] : '';
             this.mapData(function (_ref17) {
                 var _ref18 = select__slicedToArray(_ref17, 3),
                     type = _ref18[0],
@@ -12759,7 +12765,7 @@ function calNum(num1, num2, symb) {
     if (symb === '+') {
         return (num1 * m + num2 * m) / m;
     } else if (symb === '-') {
-        return (num1 * m - num2 * m) / m;
+        return (Math.round(num1 * m) - Math.round(num2 * m)) / m;
     }
 }
 
@@ -18014,7 +18020,7 @@ if (false) {(function () {
     }
 
     var _Modal = this.extend({
-        template: '\n            <div>\n                <v-modal\n                        title=""\n                        :wrap-class-name="wrapClasses"\n                        :visible="visible"\n                        :closable="false"\n                        :mask-closable="maskClosable"\n                        :has-footer="false"\n                        :width="width"\n                        :modal-style = "modalStyle"\n                        @cancel="_onCancel">\n                    <div :class="prefixCls + \'-body-wrapper\'">\n                        <div :class="prefixCls + \'-body\'">\n                            <v-icon :type="iconType"></v-icon>\n                            <span :class="prefixCls + \'-title\'">{{ title }}</span>\n                            <div :class="prefixCls + \'-content\'">{{ content }}</div>\n                        </div>\n                        <div :class="prefixCls + \'-btns\'" v-if="!okCancel">\n                            <v-button :type="\'primary\'" :size="\'large\'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>\n                        </div>\n                        <div :class="prefixCls + \'-btns\'" v-else>\n                            <v-button :type="\'ghost\'" :size="\'large\'" @click="_onCancel" :loading="cancelLoading">{{ localeCancelText }}</v-button>\n                            <v-button :type="\'primary\'" :size="\'large\'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>\n                        </div>\n                    </div>\n                </v-modal>\n            </div>\n        ',
+        template: '\n            <div>\n                <v-modal\n                        title=""\n                        :wrap-class-name="wrapClasses"\n                        :visible="visible"\n                        :closable="false"\n                        :mask-closable="maskClosable"\n                        :has-footer="false"\n                        :width="width"\n                        :modal-style = "modalStyle"\n                        @cancel="_onCancel">\n                    <div :class="prefixCls + \'-body-wrapper\'">\n                        <div :class="prefixCls + \'-body\'">\n                            <v-icon :type="iconType"></v-icon>\n                            <span :class="prefixCls + \'-title\'">{{ title }}</span>\n                            <div :class="prefixCls + \'-content\'" v-html="content"></div>\n                        </div>\n                        <div :class="prefixCls + \'-btns\'" v-if="!okCancel">\n                            <v-button :type="\'primary\'" :size="\'large\'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>\n                        </div>\n                        <div :class="prefixCls + \'-btns\'" v-else>\n                            <v-button :type="\'ghost\'" :size="\'large\'" @click="_onCancel" :loading="cancelLoading">{{ localeCancelText }}</v-button>\n                            <v-button :type="\'primary\'" :size="\'large\'" @click="_onOk" :loading="okLoading">{{ localeOkText }}</v-button>\n                        </div>\n                    </div>\n                </v-modal>\n            </div>\n        ',
 
         components: { vModal: modal_modal, vIcon: components_icon, vButton: components_button }
     });
@@ -23371,6 +23377,14 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
 
             // firefox上checkbox对应的值没有立即更新，延时获取
             setTimeout(function () {
+                if (_this3.checkType === 'radio') {
+                    _this3.current.forEach(function (item, i) {
+                        if (i !== index) {
+                            item.vb_dt_checked = false;
+                            _this3.$set(_this3.rowSelectionStates, i, false);
+                        }
+                    });
+                }
                 _this3.$set(_this3.rowSelectionStates, index, _this3.current[index].vb_dt_checked);
 
                 _this3.$emit('clickrow', {
@@ -23386,8 +23400,8 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             // 点击行后是否选中
             if (this.rowClickChecked) {
                 this.current[index].vb_dt_checked = !this.current[index].vb_dt_checked;
+                this.rowSelectionChange(index);
             }
-            this.rowSelectionChange(index);
         },
         setChecked: function setChecked(index) {
             var _this4 = this;
@@ -23397,6 +23411,14 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             this.current[index].vb_dt_checked = status;
             // firefox上checkbox对应的值没有立即更新，延时获取
             setTimeout(function () {
+                if (_this4.checkType === 'radio') {
+                    _this4.current.forEach(function (item, i) {
+                        if (i !== index) {
+                            item.vb_dt_checked = false;
+                            _this4.$set(_this4.rowSelectionStates, i, false);
+                        }
+                    });
+                }
                 _this4.$set(_this4.rowSelectionStates, index, status);
 
                 // 将数据更新至父组件
@@ -29602,8 +29624,158 @@ if (false) {(function () {
 
 
 /* harmony default export */ var components_tree_select = (tree_select_tree_select);
+// EXTERNAL MODULE: ./vb/components/auto-complete/style/index.less
+var auto_complete_style = __webpack_require__(327);
+var auto_complete_style_default = /*#__PURE__*/__webpack_require__.n(auto_complete_style);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/auto-complete/auto-complete.vue
+
+
+
+
+/* harmony default export */ var auto_complete = ({
+    name: 'AutoComplete',
+    props: {
+        data: {
+            type: Array,
+            default: function _default() {
+                return [];
+            }
+        },
+        placeholder: {
+            type: String,
+            default: function _default() {
+                return locale_t('autoComplete.placeholder');
+            }
+        },
+        filter: Function
+    },
+    data: function data() {
+        return {
+            value: ''
+        };
+    },
+    created: function created() {
+        var value = this.$attrs.value;
+
+        this.value = value;
+    },
+
+    methods: {
+        search: function search(val) {
+            this.$emit('search', val);
+        },
+        select: function select(val) {
+            this.$emit('select', val);
+        },
+        blur: function blur() {
+            this.$emit('blur');
+        },
+        focus: function focus() {
+            this.$emit('focus');
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-2c39364b","hasScoped":false,"optionsId":"0","buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./vb/components/auto-complete/auto-complete.vue
+var auto_complete_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-select", {
+    ref: "test",
+    attrs: {
+      search: "",
+      data: _vm.data,
+      placeholder: _vm.placeholder,
+      filter: _vm.filter
+    },
+    on: {
+      search: _vm.search,
+      change: _vm.select,
+      blur: _vm.blur,
+      focus: _vm.focus
+    },
+    scopedSlots: _vm._u([
+      {
+        key: "default",
+        fn: function(ref) {
+          var data = ref.data
+          return [
+            _vm._t("default", [_vm._v(_vm._s(data.label))], { data: data })
+          ]
+        }
+      }
+    ]),
+    model: {
+      value: _vm.value,
+      callback: function($$v) {
+        _vm.value = $$v
+      },
+      expression: "value"
+    }
+  })
+}
+var auto_complete_staticRenderFns = []
+auto_complete_render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2c39364b", { render: auto_complete_render, staticRenderFns: auto_complete_staticRenderFns })
+  }
+}
+// CONCATENATED MODULE: ./vb/components/auto-complete/auto-complete.vue
+var auto_complete_disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var auto_complete___vue_template_functional__ = false
+/* styles */
+var auto_complete___vue_styles__ = null
+/* scopeId */
+var auto_complete___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var auto_complete___vue_module_identifier__ = null
+
+var auto_complete_Component = normalizeComponent(
+  auto_complete,
+  auto_complete_render,
+  auto_complete_staticRenderFns,
+  auto_complete___vue_template_functional__,
+  auto_complete___vue_styles__,
+  auto_complete___vue_scopeId__,
+  auto_complete___vue_module_identifier__
+)
+auto_complete_Component.options.__file = "vb/components/auto-complete/auto-complete.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2c39364b", auto_complete_Component.options)
+  } else {
+    hotAPI.reload("data-v-2c39364b", auto_complete_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    auto_complete_disposed = true
+  })
+})()}
+
+/* harmony default export */ var auto_complete_auto_complete = (auto_complete_Component.exports);
+
+// CONCATENATED MODULE: ./vb/components/auto-complete/index.js
+
+
+
+/* harmony default export */ var components_auto_complete = (auto_complete_auto_complete);
 // EXTERNAL MODULE: ./vb/directives/style/index.less
-var directives_style = __webpack_require__(327);
+var directives_style = __webpack_require__(328);
 var directives_style_default = /*#__PURE__*/__webpack_require__.n(directives_style);
 
 // CONCATENATED MODULE: ./vb/directives/tooltip.js
@@ -29824,7 +29996,7 @@ var directives_style_default = /*#__PURE__*/__webpack_require__.n(directives_sty
     }
 });
 // EXTERNAL MODULE: ./package.json
-var package_0 = __webpack_require__(328);
+var package_0 = __webpack_require__(329);
 var package_default = /*#__PURE__*/__webpack_require__.n(package_0);
 
 // CONCATENATED MODULE: ./vb/index.js
@@ -29883,6 +30055,8 @@ var package_default = /*#__PURE__*/__webpack_require__.n(package_0);
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "timeline", function() { return components_timeline; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "carousel", function() { return components_carousel; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "treeSelect", function() { return components_tree_select; });
+/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "autoComplete", function() { return components_auto_complete; });
+
 
 
 
@@ -30022,7 +30196,8 @@ var components = {
     timelineItem: components_timeline.item,
     carousel: components_carousel,
     carouselItem: components_carousel.item,
-    treeSelect: components_tree_select
+    treeSelect: components_tree_select,
+    autoComplete: components_auto_complete
 };
 
 var vb__loop = function _loop(item) {
@@ -37100,7 +37275,13 @@ if (hadRuntime) {
 /* 328 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"vue-beauty","version":"2.0.0-beta.13","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.0","core-js":"^2.5.3","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.1.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.0","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.8.4","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.2","eslint-plugin-import":"^2.9.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.0","friendly-errors-webpack-plugin":"^1.6.1","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.1","vue-markdown-loader":"^2.4.0","vue-router":"^3.0.1","vue-style-loader":"^4.0.2","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.21.2","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports) {
+
+module.exports = {"name":"vue-beauty","version":"2.0.0-beta.13","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.0","core-js":"^2.5.3","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.8.4","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.2","eslint-plugin-import":"^2.9.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.6.1","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.1","vue-markdown-loader":"^2.4.0","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.21.2","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
 
 /***/ })
 /******/ ]);
