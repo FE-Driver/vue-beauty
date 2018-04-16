@@ -4,18 +4,27 @@
             <div class="ant-select-selection__rendered ant-select__dropdown" :tabindex="search ? false : '0'" @focus="$emit('focus')" @blur="$emit('blur')">
                 <template v-if="labels">
                     <ul v-if="multiple">
-                        <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none;">
+                        <li v-for="(text,i) in labels" unselectable="unselectable" class="ant-select-selection__choice" :title="text" style="user-select: none" :key="text">
                             <div class="ant-select-selection__choice__content">{{text}}</div>
                             <span class="ant-select-selection__choice__remove" @click="remove(i,text)"></span>
                         </li>
                         <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
-                                <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="searchFocus" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
+                                <input class="ant-select-search__field" 
+                                    v-model="searchVal" 
+                                    :style="multipleSearchStyle" 
+                                    @focus="searchFocus" 
+                                    @blur="searchBlur" 
+                                    ref="searchInput" 
+                                    @keydown.delete="handleInputDelete" 
+                                    @keydown.enter="handleInputEnter"
+                                    @keydown.up="handleInputMove(0)"
+                                    @keydown.down="handleInputMove(1)">
                                 <span class="ant-select-search__field__mirror" ref="searchMirror">{{searchVal}}</span>
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="ant-select-selection-selected-value" :title="labels" :style="{opacity: isSearchFocus?0.4:1}">{{labels}}</div>
+                    <div v-else class="ant-select-selection-selected-value" :title="labels" :style="selectedValueStyle">{{labels}}</div>
                 </template>
                 <div v-show="((multiple && !labels.length) || (!multiple && !labels)) && !searchVal" unselectable="unselectable" class="ant-select-selection__placeholder" style="user-select: none;">{{placeholder}}</div>
                 <div v-if="search && !multiple" class="ant-select-search ant-select-search--inline">
@@ -32,9 +41,9 @@
             </span>
         </div>
         <transition name="slide-up">
-            <div ref="dropdown" v-show="show" style="overflow: auto" :style="dropdownStyle" :class="dropdownCls">
+            <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
-                    <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
+                    <ul ref='dropDownMenu' class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
                         <template v-else>
                             <li v-if="searchVal && remoteMethod && !data.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
@@ -53,7 +62,11 @@
                                     </li>
                                 </template>
                                 <template v-else>
-                                    <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
+                                    <li v-show="option.show" unselectable="unselectable"
+                                    :class="['ant-select-dropdown-menu-item',
+                                    {'ant-select-dropdown-menu-item-disabled': option.disabled},
+                                    {'ant-select-dropdown-menu-item-selected': option.selected},
+                                    {'ant-select-dropdown-menu-item-likehover': showDataIndex === i}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
                                         <slot :data="option">{{option[label]}}</slot>
                                     </li>
                                 </template>
@@ -89,6 +102,8 @@ export default {
             isSearchFocus: false,
             dropdownHeight: 0,
             container: null,
+            keySelectIndex: -1,
+            dropItemNodeList: [],
         };
     },
     props: {
@@ -188,6 +203,7 @@ export default {
         innerValue(val) {
             this.$emit('input', val);
             this.dispatch('FormItem', 'form.change', [val]);
+
             if (this.optionOnChange) {
                 this.$nextTick(() => {
                     this.$emit('change', this.getOption(val));
@@ -198,7 +214,6 @@ export default {
         },
         value(val) {
             if (this.innerValue !== val) {
-                this.labels = this.multiple ? [] : '';
                 this.innerValue = val;
                 this.$nextTick(() => {
                     this.initVal();
@@ -206,6 +221,8 @@ export default {
             }
         },
         searchVal(val) {
+            this.$emit('search', val);
+            this.initKeySelectIndex(); // 输入新内容清除键盘指向
             if (this.multiple) {
                 this.$nextTick(() => { this.multipleSearchStyle = val ? { width: `${this.$refs.searchMirror.offsetWidth + 2}px` } : {}; });
             }
@@ -213,19 +230,20 @@ export default {
             if (val) {
                 this.searchFound = false;
                 let show = false;
-                this.mapData(([type, path, item]) => {
-                    const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
-                    if (isIncluded) this.searchFound = true;
-
-                    if (type === 'item') {
-                        this.$set(this.ori_data[path], 'show', isIncluded);
-                    } else {
-                        this.$set(this.ori_data[path[0]].options[path[1]], 'show', isIncluded);
-                        if (isIncluded) show = true;
-                    }
-                }, (i) => {
-                    this.$set(this.ori_data[i], 'show', show);
-                    show = false;
+                this.$nextTick(() => {
+                    this.mapData(([type, path, item]) => {
+                        const isIncluded = this.filter ? this.filter(val, item) : item[this.label].includes(val);
+                        if (isIncluded) this.searchFound = true;
+                        if (type === 'item') {
+                            this.$set(this.ori_data[path], 'show', isIncluded);
+                        } else {
+                            this.$set(this.ori_data[path[0]].options[path[1]], 'show', isIncluded);
+                            if (isIncluded) show = true;
+                        }
+                    }, (i) => {
+                        this.$set(this.ori_data[i], 'show', show);
+                        show = false;
+                    });
                 });
             } else {
                 this.setData({ show: true }, { show: true });
@@ -238,8 +256,10 @@ export default {
                     let selected = false;
                     if (this.multiple && this.innerValue.includes(item[this.clue])) {
                         selected = true;
+                        if (!this.labels.includes(item[this.label])) this.labels.push(item[this.label]);
                     } else if (!this.multiple && this.innerValue === item[this.clue]) {
                         selected = true;
+                        this.labels = item[this.label];
                     }
                     if (type === 'item') {
                         this.$set(this.ori_data[path], 'selected', selected);
@@ -283,6 +303,24 @@ export default {
                 { [`${this.prefix}-dropdown--multiple`]: this.multiple },
             ];
         },
+        selectedValueStyle() {
+            let opacity = 1;
+
+            // Blur时isSearchFocus为false，但searchVal延时清空了，所以这里单独判断
+            if (this.searchVal) {
+                opacity = 0;
+            } else if (this.isSearchFocus) {
+                opacity = 0.4;
+            }
+            return { opacity };
+        },
+        oriShowData() {
+            const showData = this.ori_data.filter(item => item.show);
+            return showData;
+        },
+        showDataIndex() {
+            return this.ori_data.indexOf(this.oriShowData[this.keySelectIndex]);
+        },
     },
     methods: {
         getOption(val) {
@@ -324,6 +362,7 @@ export default {
             }
         },
         initVal() {
+            this.labels = this.multiple ? [] : '';
             this.mapData(([type, path, item]) => {
                 let selected = false;
                 if (this.multiple && this.innerValue.includes(item[this.clue])) {
@@ -378,6 +417,7 @@ export default {
                 width: dwidth,
                 maxHeight: `${this.maxHeight}px`,
             };
+            this.dropItemNodeList = this.$refs.dropDownMenu.querySelectorAll('li');
         },
         closeDropdown() {
             this.show = false;
@@ -398,6 +438,7 @@ export default {
         },
         searchBlur() {
             this.isSearchFocus = false;
+            // 多选时，searchVal必须延迟清空，否则选不上
             setTimeout(() => {
                 this.searchVal = '';
             }, 300);
@@ -405,6 +446,7 @@ export default {
         },
         searchFocus() {
             this.isSearchFocus = true;
+            this.initKeySelectIndex();
             this.$emit('focus');
         },
         clear() {
@@ -416,6 +458,41 @@ export default {
             if (this.multiple && this.innerValue.length && this.searchVal === '') {
                 this.remove(this.innerValue.length - 1, this.labels[this.innerValue.length - 1]);
             }
+        },
+        handleInputEnter() {
+            console.log(this.keySelectIndex);
+            if ((this.keySelectIndex === -1 || !this.oriShowData.length) && this.searchVal) { // -1表示直接填入输入内容，非-1表示选中当前item，但没有匹配项时直接填入内容
+                let isExistIndex = -1;
+                const isExist = this.ori_data.some((item, index) => {
+                    isExistIndex = index;
+                    return item.label === this.searchVal;
+                })
+                if (!isExist) {
+                    this.ori_data.push({
+                        [this.clue]: null, // 手动输入的值，clue默认为null，并加入ori_data列表中。
+                        [this.label]: this.searchVal,
+                    });
+                    this.select(this.ori_data.length - 1);
+                } else {
+                    this.select(isExistIndex);
+                }
+                
+            } else {
+                this.select(this.showDataIndex);
+            }
+        },
+        handleInputMove(type = 1) { // type，0:up 1:down 
+            if (type) {
+                this.keySelectIndex < (this.oriShowData.length - 1) && this.keySelectIndex++;
+            } else {
+                this.keySelectIndex > 0 && this.keySelectIndex--;
+            }
+            const itemNode = this.dropItemNodeList[this.showDataIndex];
+            console.log(itemNode);
+            itemNode && itemNode.scrollIntoView(false);
+        },
+        initKeySelectIndex() {
+            this.keySelectIndex = -1;
         },
         remove(i, text) {
             this.labels.splice(i, 1);
