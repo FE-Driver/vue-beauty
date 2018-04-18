@@ -92,6 +92,9 @@ export default {
             }, {
                 groupName: 'Data Entry',
                 list: [{
+                    name: 'AutoComplete 自动完成',
+                    link: { name: 'autoComplete' },
+                }, {
                     name: 'Cascader 级联选择',
                     link: { name: 'cascader' },
                 }, {
