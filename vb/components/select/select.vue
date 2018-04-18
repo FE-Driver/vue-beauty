@@ -460,7 +460,6 @@ export default {
             }
         },
         handleInputEnter() {
-            console.log(this.keySelectIndex);
             if ((this.keySelectIndex === -1 || !this.oriShowData.length) && this.searchVal) { // -1表示直接填入输入内容，非-1表示选中当前item，但没有匹配项时直接填入内容
                 let isExistIndex = -1;
                 const isExist = this.ori_data.some((item, index) => {
@@ -488,7 +487,6 @@ export default {
                 this.keySelectIndex > 0 && this.keySelectIndex--;
             }
             const itemNode = this.dropItemNodeList[this.showDataIndex];
-            console.log(itemNode);
             itemNode && itemNode.scrollIntoView(false);
         },
         initKeySelectIndex() {
