@@ -465,7 +465,7 @@ export default {
                 const isExist = this.ori_data.some((item, index) => {
                     isExistIndex = index;
                     return item.label === this.searchVal;
-                })
+                });
                 if (!isExist) {
                     this.ori_data.push({
                         [this.clue]: null, // 手动输入的值，clue默认为null，并加入ori_data列表中。
@@ -475,12 +475,11 @@ export default {
                 } else {
                     this.select(isExistIndex);
                 }
-                
             } else {
                 this.select(this.showDataIndex);
             }
         },
-        handleInputMove(type = 1) { // type，0:up 1:down 
+        handleInputMove(type = 1) { // type，0:up 1:down
             if (type) {
                 this.keySelectIndex < (this.oriShowData.length - 1) && this.keySelectIndex++;
             } else {
