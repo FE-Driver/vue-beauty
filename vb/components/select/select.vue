@@ -10,7 +10,16 @@
                         </li>
                         <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
-                                <input class="ant-select-search__field" v-model="searchVal" :style="multipleSearchStyle" @focus="searchFocus" @blur="searchBlur" ref="searchInput" @keydown.delete="handleInputDelete">
+                                <input class="ant-select-search__field" 
+                                    v-model="searchVal" 
+                                    :style="multipleSearchStyle" 
+                                    @focus="searchFocus" 
+                                    @blur="searchBlur" 
+                                    ref="searchInput" 
+                                    @keydown.delete="handleInputDelete" 
+                                    @keydown.enter="handleInputEnter"
+                                    @keydown.up="handleInputMove(0)"
+                                    @keydown.down="handleInputMove(1)">
                                 <span class="ant-select-search__field__mirror" ref="searchMirror">{{searchVal}}</span>
                             </div>
                         </li>
@@ -34,7 +43,7 @@
         <transition name="slide-up">
             <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
-                    <ul class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
+                    <ul ref='dropDownMenu' class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
                         <template v-else>
                             <li v-if="searchVal && remoteMethod && !data.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
@@ -53,7 +62,11 @@
                                     </li>
                                 </template>
                                 <template v-else>
-                                    <li v-show="option.show" unselectable="unselectable" :class="['ant-select-dropdown-menu-item', {'ant-select-dropdown-menu-item-disabled': option.disabled}, {'ant-select-dropdown-menu-item-selected': option.selected}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
+                                    <li v-show="option.show" unselectable="unselectable"
+                                    :class="['ant-select-dropdown-menu-item',
+                                    {'ant-select-dropdown-menu-item-disabled': option.disabled},
+                                    {'ant-select-dropdown-menu-item-selected': option.selected},
+                                    {'ant-select-dropdown-menu-item-likehover': showDataIndex === i}]" role="menuitem" aria-selected="false" style="user-select: none;" @click="select(i)">
                                         <slot :data="option">{{option[label]}}</slot>
                                     </li>
                                 </template>
@@ -89,6 +102,8 @@ export default {
             isSearchFocus: false,
             dropdownHeight: 0,
             container: null,
+            keySelectIndex: -1,
+            dropItemNodeList: [],
         };
     },
     props: {
@@ -207,6 +222,7 @@ export default {
         },
         searchVal(val) {
             this.$emit('search', val);
+            this.initKeySelectIndex(); // 输入新内容清除键盘指向
             if (this.multiple) {
                 this.$nextTick(() => { this.multipleSearchStyle = val ? { width: `${this.$refs.searchMirror.offsetWidth + 2}px` } : {}; });
             }
@@ -297,6 +313,13 @@ export default {
                 opacity = 0.4;
             }
             return { opacity };
+        },
+        oriShowData() {
+            const showData = this.ori_data.filter(item => item.show);
+            return showData;
+        },
+        showDataIndex() {
+            return this.ori_data.indexOf(this.oriShowData[this.keySelectIndex]);
         },
     },
     methods: {
@@ -394,6 +417,7 @@ export default {
                 width: dwidth,
                 maxHeight: `${this.maxHeight}px`,
             };
+            this.dropItemNodeList = this.$refs.dropDownMenu.querySelectorAll('li');
         },
         closeDropdown() {
             this.show = false;
@@ -422,6 +446,7 @@ export default {
         },
         searchFocus() {
             this.isSearchFocus = true;
+            this.initKeySelectIndex();
             this.$emit('focus');
         },
         clear() {
@@ -433,6 +458,39 @@ export default {
             if (this.multiple && this.innerValue.length && this.searchVal === '') {
                 this.remove(this.innerValue.length - 1, this.labels[this.innerValue.length - 1]);
             }
+        },
+        handleInputEnter() {
+            if ((this.keySelectIndex === -1 || !this.oriShowData.length) && this.searchVal) { // -1表示直接填入输入内容，非-1表示选中当前item，但没有匹配项时直接填入内容
+                let isExistIndex = -1;
+                const isExist = this.ori_data.some((item, index) => {
+                    isExistIndex = index;
+                    return item.label === this.searchVal;
+                })
+                if (!isExist) {
+                    this.ori_data.push({
+                        [this.clue]: null, // 手动输入的值，clue默认为null，并加入ori_data列表中。
+                        [this.label]: this.searchVal,
+                    });
+                    this.select(this.ori_data.length - 1);
+                } else {
+                    this.select(isExistIndex);
+                }
+                
+            } else {
+                this.select(this.showDataIndex);
+            }
+        },
+        handleInputMove(type = 1) { // type，0:up 1:down 
+            if (type) {
+                this.keySelectIndex < (this.oriShowData.length - 1) && this.keySelectIndex++;
+            } else {
+                this.keySelectIndex > 0 && this.keySelectIndex--;
+            }
+            const itemNode = this.dropItemNodeList[this.showDataIndex];
+            itemNode && itemNode.scrollIntoView(false);
+        },
+        initKeySelectIndex() {
+            this.keySelectIndex = -1;
         },
         remove(i, text) {
             this.labels.splice(i, 1);
