@@ -11,7 +11,7 @@
 import emitter from '../../mixins/emitter';
 
 export default {
-    name: 'Switch',
+    name: 'vSwitch',
     mixins: [emitter],
     data() {
         return {

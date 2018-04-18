@@ -1,10 +1,9 @@
 <template lang="html">
-    <label :class="prefixCls + '-wrapper'" @click="click">
+    <label :class="wrapperCls" @click="click">
         <span :class="checkboxCls">
-            <input type="checkbox" :class="prefixCls + '-input'"  v-model="innerValue" :true-value="trueValue" :false-value="falseValue" :disabled="disabled">
+            <input type="checkbox" :class="prefixCls + '-input'"  v-model="innerValue" :true-value="trueValue" :false-value="falseValue" :disabled="innerDisabled">
             <span :class="prefixCls + '-inner'"></span>
-        </span>
-        <span v-if="$slots && $slots.default">
+        </span><span v-if="$slots && $slots.default">
             <slot></slot>
         </span>
     </label>
@@ -40,6 +39,7 @@ export default {
             prefixCls: 'ant-checkbox',
             parentIsGroup: false,
             innerValue: this.value,
+            innerDisabled: this.disabled,
         };
     },
     mounted() {
@@ -48,21 +48,34 @@ export default {
         }
     },
     computed: {
+        wrapperCls() {
+            return [
+                `${this.prefixCls}-wrapper`,
+                {
+                    [`${this.prefixCls}-group-item`]: this.parentIsGroup,
+                },
+            ];
+        },
         checkboxCls() {
             return [
                 this.prefixCls,
                 {
                     [`${this.prefixCls}-checked`]: !this.indeterminate && (this.innerValue === this.trueValue),
                     [`${this.prefixCls}-indeterminate`]: this.indeterminate,
-                    [`${this.prefixCls}-group-item`]: this.parentIsGroup,
-                    [`${this.prefixCls}-disabled`]: this.disabled,
+                    [`${this.prefixCls}-disabled`]: this.innerDisabled,
                 },
             ];
         },
     },
     watch: {
+        disabled(value) {
+            this.innerDisabled = value;
+        },
         value(value) {
             this.innerValue = value;
+        },
+        innerDisabled(value) {
+            this.$emit('update:disbled', value);
         },
         innerValue(value) {
             this.$emit('change', value);
@@ -74,6 +87,16 @@ export default {
         click(e) {
             if (e.target.tagName !== 'INPUT') return;
             this.$nextTick(() => {
+                if (
+                    this.innerValue === this.trueValue &&
+                    this.$parent &&
+                    this.$parent.$options.name === 'CheckboxGroup' &&
+                    this.$parent.max &&
+                    this.$parent.max !== 1 &&
+                    this.$parent.max <= this.$parent.innerValue.length
+                ) {
+                    return this.innerValue = this.falseValue;
+                }
                 this.$emit('click', this.innerValue);
             });
         },

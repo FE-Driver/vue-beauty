@@ -1,7 +1,7 @@
 <template>
     <div :class="itemCls">
         <v-col :class="labelCls" v-if="label" :span="labelCol.span" :offset="labelCol.offset">
-            <label for="userName" :class="[{'ant-form-item-required':isRequired}]" v-text="label"></label>
+            <label :class="[{'ant-form-item-required':isRequired}]" v-text="label"></label>
         </v-col>
         <v-col :span="wrapperCol.span" :offset="wrapperCol.offset">
             <div :class="controlCls">
@@ -158,6 +158,8 @@
                     });
                     this.$on('form.blur', this.onFieldBlur);
                     this.$on('form.change', this.onFieldChange);
+                    this.$on('form.keyup', this.onFieldKeyUp);
+                    this.$on('form.keydown', this.onFieldKeyDown);
                 }
             }
         },
@@ -226,6 +228,12 @@
             onFieldBlur() {
                 this.validate('blur');
             },
+            onFieldKeyUp() {
+                this.validate('keyup');
+            },
+            onFieldKeyDown() {
+                this.validate('keydown');
+            },
             onFieldChange() {
                 if (this.validateDisabled) {
                     this.validateDisabled = false;
@@ -234,6 +242,7 @@
 
                 this.validate('change');
             },
+
         },
     };
 </script>

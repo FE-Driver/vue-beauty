@@ -653,6 +653,8 @@ export default {
 
 | 事件     |   说明	   | 参数      |
 |---------- |-------------- |----------  |-------- |
+| submenu-click | 点击subMenu title时触发 | 被点击的submenu的数据 |
+| submenu-enter | 鼠标移入subMenu title时触发 | 鼠标移入的submenu的数据 |
 | item-click | 点击Menu Item时触发 | 从根到叶的数组，包含路径上的每个节点的数据 |
 
 ### Menu:Data Prop

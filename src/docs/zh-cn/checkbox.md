@@ -5,8 +5,7 @@ export default {
             checkStatus: 1,
             checked: false,
             disabled: false,
-            defaultValue: ['Apple', 'Orange'],
-            arrayValue: ['Apple', 'Orange'],
+            arrayValue: [],
             options: [
                 {label: '苹果', value: 'Apple'},
                 {label: '梨', value: 'Pear'},
@@ -30,20 +29,6 @@ export default {
         checkGroup(values) {
             console.log("checkboxGroup change event!!! ");
             console.log(values);
-        },
-        changeArrayValue() {
-            if (this.arrayValue.length > 0) {
-                this.arrayValue.splice(0,1);
-            } else {
-                this.arrayValue.push("Pear");
-            }
-        },
-        changeDefaultValue() {
-            if (this.defaultValue.length > 0) {
-                this.defaultValue.splice(0,1);
-            } else {
-                this.defaultValue.push("Pear");
-            }
         },
         checkAll() {
             if (this.fruits.length == this.options.length) {
@@ -106,7 +91,7 @@ export default {
 
 ::: demo
 <summary>
-  #### 和外部组件通信
+  #### 受控的 Checkbox
   联动 checkbox。
 </summary>
 
@@ -167,66 +152,6 @@ export default {
 
 ::: demo
 <summary>
-  #### 多选框组
-  适用于多个勾选框绑定到同一个数组的情景，通过是否勾选来表示这一组选项中选中的项。
-</summary>
-
-```html
-<template>
-    <div>
-        <p style="margin-bottom: 16px;">
-            <v-checkbox-group v-model="defaultValue" @change="checkGroup">
-                <v-checkbox v-for="item in options" :true-value="item.value" :key="item.value">{{item.label}}</v-checkbox>
-            </v-checkbox-group>
-        </p>
-        <p>
-            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="changeDefaultValue">修改默认选中值</button>
-        </p>
-        <p style="margin-bottom: 16px;">
-            <v-checkbox-group @change="checkGroup">
-                <v-checkbox v-for="item in optionsWithDisabled" :true-value="item.value" :disabled="item.disabled" :key="item.value">{{item.text}}</v-checkbox>
-            </v-checkbox-group>
-        </p>
-    </div>
-</template>
-
-<script>
-    export default {
-        data () {
-            return {
-                defaultValue: ['Apple', 'Orange'],
-                options: [
-                    {label: '苹果', value: 'Apple'},
-                    {label: '梨', value: 'Pear'},
-                    {label: '橘', value: 'Orange'},
-                ],
-                optionsWithDisabled: [
-                    {text: '苹果', value: 'Apple'},
-                    {text: '梨', value: 'Pear'},
-                    {text: '橘', value: 'Orange', disabled: true},
-                ]
-            }
-        },
-        methods: {
-            checkGroup(values) {
-                console.log("checkboxGroup change event!!! ");
-                console.log(values);
-            },
-            changeDefaultValue() {
-                if (this.defaultValue.length > 0) {
-                    this.defaultValue.splice(0,1);
-                } else {
-                    this.defaultValue.push("Pear");
-                }
-            }
-        }
-    }
-</script>
-```
-:::
-
-::: demo
-<summary>
   #### checkbox 组
   方便的从数组生成 Checkbox 组。
 </summary>
@@ -235,13 +160,17 @@ export default {
 <template>
     <div>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :data="options" v-model="arrayValue" @change="checkGroup"></v-checkbox-group>
-        </p>
-        <p>
-            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="changeArrayValue">修改默认选中值</button>
+            <v-checkbox-group :data="options" v-model="arrayValue" @change="checkGroup" :max="2"></v-checkbox-group>
         </p>
         <p style="margin-bottom: 16px;">
-            <v-checkbox-group :data="optionsWithDisabled" label="text" @change="checkGroup"></v-checkbox-group>
+            <v-checkbox-group @change="checkGroup">
+                <v-checkbox v-for="item in optionsWithDisabled" :true-value="item.value" :disabled="item.disabled" :key="item.value">{{item.text}}</v-checkbox>
+            </v-checkbox-group>
+        </p>
+        <p style="margin-bottom: 16px;">
+            <v-checkbox-group disabled>
+                <v-checkbox v-for="item in options" :true-value="item.value" :key="item.value">{{item.label}}</v-checkbox>
+            </v-checkbox-group>
         </p>
     </div>
 </template>
@@ -250,7 +179,7 @@ export default {
     export default {
         data() {
             return {
-                arrayValue: ['Apple', 'Orange'],
+                arrayValue: [],
                 options: [
                     {label: '苹果', value: 'Apple'},
                     {label: '梨', value: 'Pear'},
@@ -267,13 +196,6 @@ export default {
             checkGroup(values) {
                 console.log("checkboxGroup change event!!! ");
                 console.log(values);
-            },
-            changeArrayValue() {
-                if (this.arrayValue.length > 0) {
-                    this.arrayValue.splice(0,1);
-                } else {
-                    this.arrayValue.push("Pear");
-                }
             }
         }
     }
@@ -354,7 +276,8 @@ export default {
 | keyField | 选项的value的字段名 | String | value |
 | label | 选项显示的文本的字段名 | String | label |
 | data | 选项 | Array | — |
-| isSingle | 控制checkbox组最多只能选中一个 | Boolean | false |
+| disabled | 禁用 | Boolean | false |
+| max | 控制checkbox组最多的选中数量 | Number | - |
 
 ### Data Props
 | 参数      | 说明          | 类型      | 默认值  |

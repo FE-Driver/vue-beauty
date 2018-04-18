@@ -2,7 +2,7 @@
     <label :class="wrapClasses">
         <span :class="radioClasses">
             <span :class="prefixCls + '-inner'"></span>
-            <input type="radio" :value="label" :disabled="isDisabled" v-model="model" :checked="selected" :class="prefixCls + '-input'">
+            <input type="radio" :value="label" :disabled="isDisabled" v-model="model" :class="prefixCls + '-input'">
         </span>
         <slot>radio</slot>
     </label>

@@ -29,7 +29,13 @@ export default {
     methods: {
         blur(val) {
             console.log(val)
-        }
+        },
+        keyup(val){
+            console.log(val)
+        },
+        keydown(val){
+            console.log(val)
+        },
     }
 }
 </script>
@@ -52,14 +58,21 @@ export default {
 
 ```html
 <template>
-  <v-input placeholder="基本使用" v-model="value" @blur="blur('blur')"></v-input>
+  <v-input placeholder="基本使用" v-model="value" @keydown="keydown" @keyup="keyup"  @blur="blur('blur')"></v-input>
 </template>
 <script>
 export default {
     methods: {
         blur(val) {
             console.log(val)
-        }
+        },
+        keyup(val){
+            console.log(val)
+        },
+        keydown(val){
+            console.log(val)
+        },
+
     }
 }
 </script>
@@ -233,6 +246,8 @@ export default {
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | blur    | blur事件 | val |
+| keyup    | keyup事件 | val |
+| keydown    | keydown事件 | val |
 
 ### InputGroup
 | 参数        | 说明           | 类型               | 默认值       |

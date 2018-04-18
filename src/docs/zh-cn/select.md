@@ -408,41 +408,6 @@
 ```
 :::
 
-
-::: demo
-<summary>
-  #### 标签
-  tags select，随意输入的内容（scroll the menu）。
-</summary>
-
-```html
-<template>
-    <v-select tags style="width: 120px;" :data="options" ></v-select>
-
-</template>
-
-<script>
-     export default {
-         data: ()=> ({
-            xxx:'ff',
-             options: [{
-                 value: '1',
-                 label: 'lady'
-             }, {
-                 value: '2',
-                 label: '小强',
-                 disabled: true
-             }, {
-                 value: '3',
-                 label: '小明'
-             }]
-         })
-     }
-</script>
-```
-:::
-
-
 ::: demo
 <summary>
   #### 远程搜索
@@ -562,3 +527,4 @@
 | change    | 选择的值发生变化的时候触发，默认返回value，如需返回整个option，请设置optionOnChange | value |
 | focus     | focus事件  | - |
 | blur      | blur事件   | - |
+| search      | 文本框值变化时回调   | value |

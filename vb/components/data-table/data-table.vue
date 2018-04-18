@@ -86,7 +86,7 @@
                         <tr>
                             <td :colspan="checkType ? columns.length+1 : columns.length" style="text-align:center">
                                 <slot name="emptytext">
-                                    老板,没有找到你想要的信息......
+                                    {{emptyText}}
                                 </slot>
                             </td>
                         </tr>
@@ -282,12 +282,9 @@
             </div>
         </div>
     </div>
-
-
 </template>
-
 <script>
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import vPagination from '../pagination';
 import vSpin from '../spin';
 import vIcon from '../icon';
@@ -400,6 +397,10 @@ export default {
                 return {};
             },
         },
+        emptyText: {
+            type: String,
+            default: '老板,没有找到你想要的信息......',
+        },
     },
     /*
      我们应当使用一个函数作为 data 选项，让这个函数返回一个新对象
@@ -466,9 +467,7 @@ export default {
         }
 
         if (!this.bindResize) {
-            window.addEventListener('resize', () => {
-                this.calculateSize();
-            }, false);
+            window.addEventListener('resize', this.calculateSize);
             this.bindResize = true;
         }
     },
@@ -479,6 +478,9 @@ export default {
     },
     updated() {
         this.debounceCalculate();
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.calculateSize);
     },
     methods: {
         getScrollbarWidth() {
@@ -640,7 +642,7 @@ export default {
                 this.total = response[this.paramsName.total] * 1;
 
                 this.loading = false;
-            }, () => {
+            }).catch(() => {
                 // error callback
                 this.loading = false;
             });
@@ -685,6 +687,14 @@ export default {
         rowSelectionChange(index) {
             // firefox上checkbox对应的值没有立即更新，延时获取
             setTimeout(() => {
+                if (this.checkType === 'radio') {
+                    this.current.forEach((item, i) => {
+                        if (i !== index) {
+                            item.vb_dt_checked = false;
+                            this.$set(this.rowSelectionStates, i, false);
+                        }
+                    });
+                }
                 this.$set(this.rowSelectionStates, index, this.current[index].vb_dt_checked);
 
                 this.$emit('clickrow', {
@@ -700,13 +710,21 @@ export default {
             // 点击行后是否选中
             if (this.rowClickChecked) {
                 this.current[index].vb_dt_checked = !this.current[index].vb_dt_checked;
+                this.rowSelectionChange(index);
             }
-            this.rowSelectionChange(index);
         },
         setChecked(index, status = true) {
             this.current[index].vb_dt_checked = status;
             // firefox上checkbox对应的值没有立即更新，延时获取
             setTimeout(() => {
+                if (this.checkType === 'radio') {
+                    this.current.forEach((item, i) => {
+                        if (i !== index) {
+                            item.vb_dt_checked = false;
+                            this.$set(this.rowSelectionStates, i, false);
+                        }
+                    });
+                }
                 this.$set(this.rowSelectionStates, index, status);
 
                 // 将数据更新至父组件
@@ -717,11 +735,13 @@ export default {
             this.hoverIndex = index;
         },
         getRowClass(index) {
-            const clazz = {};
-            if ((this.fixedLeft || this.fixedRight) && index === this.hoverIndex) {
-                clazz[`${this.prefix}-row-hover`] = true;
-            }
-            return clazz;
+            return [
+                `${this.prefix}-row`,
+                {
+                    [`${this.prefix}-row-selected`]: this.rowSelectionStates[index],
+                    [`${this.prefix}-row-hover`]: (this.fixedLeft || this.fixedRight) && index === this.hoverIndex,
+                },
+            ];
         },
         mouseOutTable() {
             this.hoverIndex = null;
@@ -785,6 +805,11 @@ export default {
             let fixedRightThs;
             let fixedRightCols;
 
+            for (const [index, el] of lettheaderThs.entries()) {
+                if (index !== lettheaderThs.length - 1) {
+                    el.style.width = `${tbodyThs[index].offsetWidth}px`;
+                }
+            }
             if (this.fixedLeft) {
                 const fixedLeftHeader = this.$refs.fixedLeftHeader;
                 fixedLeftThs = fixedLeftHeader && fixedLeftHeader.querySelectorAll('thead>tr>th');

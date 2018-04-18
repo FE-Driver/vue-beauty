@@ -197,11 +197,13 @@ export default {
         },
         clickTriggerOpen(disabled, index) {
             if (!disabled && this.innerMode === 'inline') {
+                this.$emit('submenu-click', this.data[index]);
                 this.setOpen(index, !this.data[index].expand);
             }
         },
         mouseTriggerOpen(disabled, index, status) {
             if (!disabled && this.innerMode !== 'inline') {
+                this.$emit('submenu-enter', this.data[index]);
                 if (this.timer[index]) clearTimeout(this.timer[index]);
                 this.timer[index] = setTimeout(() => this.setOpen(index, status), 300);
             }

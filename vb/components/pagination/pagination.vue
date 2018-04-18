@@ -2,31 +2,27 @@
     <div>
         <ul v-if="simple" :class="[prefixCls, prefixCls + '-simple']">
             <li title="上一页" @click="_handleChange(current - 1)" :class="prefixCls + '-prev'">
-                <a></a>
+                <a class="ant-pagination-item-link"></a>
             </li>
-
-            <div :title="pageTitle" :class="prefixCls + `-simple-pager`" :style="{marginRight: total?'8px':0}">
+            <li :title="pageTitle" :class="prefixCls + `-simple-pager`" :style="{marginRight: total?'8px':0}">
                 <input type="text" v-model="currentForSimple" @keyup.prevent="_handleKeyUp($event)" @keydown.down.up.prevent @change="_handleKeyUp">
                 <template v-if="total">
                     <span class="ant-pagination-slash">／</span>
                     {{allPages}}
                 </template>
-            </div>
-
+            </li>
             <li title="下一页" @click="_handleChange(current + 1)" :class="prefixCls + '-next'">
-                <a></a>
+                <a class="ant-pagination-item-link"></a>
             </li>
         </ul>
-
         <ul v-else :class="[prefixCls, {'mini':!!size}]">
             <span :class="prefixCls + '-total-text'" v-if="totalText">{{totalText}}</span>
             <li title="上一页" @click="_prev" :class="[
     	  			prefixCls + '-prev',
     	  			_hasPrev() ? '' : prefixCls + '-disabled'
     	  		]">
-                <a></a>
+                <a class="ant-pagination-item-link"></a>
             </li>
-
             <li v-if="showFirstPager" title="1" @click="_handleChange(1)" :class="[
     	  			prefixCls + '-item',
     	  			prefixCls + '-item-1',
@@ -34,9 +30,8 @@
     	  		]">
                 <a>1</a>
             </li>
-
             <li v-if="showJumpPrev" title="向前5页" @click="_jumpPrev" :class="prefixCls + '-jump-prev'">
-                <a></a>
+                <a class="ant-pagination-item-link"></a>
             </li>
             <li v-for="index in pageList" @click="_handleChange(index)" :title="index" :class="[
     	  			prefixCls + '-item',
@@ -45,11 +40,9 @@
     	  		]">
                 <a>{{index}}</a>
             </li>
-
             <li v-if="showJumpNext" title="向后5页" @click="_jumpNext" :class="prefixCls + '-jump-next'">
-                <a></a>
+                <a class="ant-pagination-item-link"></a>
             </li>
-
             <li v-if="showLastPager" :title="allPages" @click="_handleChange(allPages)" :class="[
     	  			prefixCls + '-item',
     	  			prefixCls + '-item-' + allPages,
@@ -57,14 +50,12 @@
     	  		]">
                 <a>{{allPages}}</a>
             </li>
-
             <li title="下一页" @click="_next" :class="[
     	  			prefixCls + '-next',
     	  			_hasNext() ? '' : prefixCls + '-disabled'
     	  		]">
-                <a></a>
+                <a class="ant-pagination-item-link"></a>
             </li>
-
             <div :class="prefixCls + '-options'">
                 <div v-if="showSizeChanger" :class="prefixCls + '-options-size-changer'">
                     <v-select :size="!!size ? 'sm' : ''" :data="options" v-model="currentPageSize" :allow-clear="false" placement="top"></v-select>
@@ -230,7 +221,7 @@ export default {
             this._handleChange(Math.max(1, this.current - 5));
         },
         _jumpNext() {
-            this._handleChange(Math.max(this.allPages, this.current + 5));
+            this._handleChange(Math.min(this.allPages, this.current + 5));
         },
         _hasPrev() {
             return this.current > 1;

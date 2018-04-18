@@ -31,7 +31,13 @@ export default {
             type: Array,
             default: () => [],
         },
-        isSingle: {
+        max: {
+            type: Number,
+            validator(value) {
+                return value > 0;
+            },
+        },
+        disabled: {
             type: Boolean,
             default: false,
         },
@@ -42,14 +48,17 @@ export default {
         };
     },
     mounted() {
+        if (this.disabled) {
+            this.setDisabled();
+        }
         this.setChecked();
         this.$on('checkbox.change', (checked, value) => {
             if (checked) {
                 if (!this.innerValue.includes(value)) {
-                    if (!this.isSingle) {
+                    if (!this.max || this.max > this.innerValue.length) {
                         this.innerValue.push(value);
-                    } else {
-                        this.innerValue.splice(0, this.innerValue.length, value);
+                    } else if (this.max === 1) {
+                        this.innerValue.splice(0, 1, value);
                     }
                 }
             } else {
@@ -76,6 +85,13 @@ export default {
         },
     },
     methods: {
+        setDisabled() {
+            for (const child of this.$children) {
+                if (child.$options.name === 'Checkbox') {
+                    child.innerDisabled = true;
+                }
+            }
+        },
         setChecked() {
             for (const child of this.$children) {
                 if (child.$options.name === 'Checkbox') {
