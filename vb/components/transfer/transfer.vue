@@ -175,6 +175,12 @@ export default {
                 holder.push(selectedItem.key);
             }
             this[`${direction}CheckedKeys`] = holder;
+            this.$emit('select', {
+                direction,
+                data: selectedItem,
+                isChecked: checked,
+                selectedKeys: holder,
+            });
         },
         handleSelectAll(direction, filteredDataSource, checkAll) {
             const holder = checkAll ? filteredDataSource
