@@ -363,3 +363,4 @@ export default {
 | 事件        | 说明           | 参数        |
 |------------|----------------|------------|
 | change    | 选项在两栏之间转移时触发 | (targetKeys, direction, moveKeys) |
+| select    | 两栏任意项被选中/取消选中时触发 | ({ direction, data, isChecked, selectedKeys }) |
