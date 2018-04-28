@@ -806,7 +806,8 @@ export default {
             let fixedRightCols;
 
             for (const [index, el] of lettheaderThs.entries()) {
-                if (index !== lettheaderThs.length - 1) {
+                // if (index !== lettheaderThs.length - 1) {
+                if (index !== lettheaderThs.length) {
                     el.style.width = `${tbodyThs[index].offsetWidth}px`;
                 }
             }
@@ -832,7 +833,7 @@ export default {
 
             if (condition) {
                 for (const [index, el] of lettheaderThs.entries()) {
-                    if (index !== lettheaderThs.length - 1) {
+                    if (index !== lettheaderThs.length) {
                         el.style.width = `${tbodyThs[index].offsetWidth}px`;
                     }
                 }
