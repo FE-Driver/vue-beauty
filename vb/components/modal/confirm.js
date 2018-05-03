@@ -112,6 +112,11 @@ export default function (config = {}) {
         mounted() {
             instance = this;
             this.visible = true;
+
+            // fixme 关闭$modal临时解决方案
+            window.Bus && window.Bus.$on('vbmodalclose', () => {
+                _close();
+            });
         },
         computed: {
             localeOkText() {
