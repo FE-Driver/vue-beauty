@@ -62,6 +62,7 @@ export default {
             if (this.disabled) return;
             this.defaultValue = this.checkStatus ? this.falseValue : this.trueValue;
             this.$emit('input', this.defaultValue);
+            this.$emit('change', this.defaultValue);
             this.dispatch('FormItem', 'form.change', [this.defaultValue]);
         },
     },
