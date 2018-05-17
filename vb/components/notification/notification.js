@@ -2,15 +2,21 @@ import Vue from 'vue';
 import vNotification from './notification.vue';
 
 vNotification.newInstance = (data) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<v-notification :top='${data.top}' :bottom='${data.bottom}' placement='${data.placement}' :duration='${data.duration}'></v-notification>`;
-    document.body.appendChild(div);
+    const _props = data || {};
 
-    const notification = new Vue({
-        el: div,
-        data: {},
-        components: { vNotification },
-    }).$children[0];
+    const Instance = new Vue({
+        data: _props,
+        render(h) {
+            return h(vNotification, {
+                props: _props,
+            });
+        },
+    });
+
+    const component = Instance.$mount();
+    document.body.appendChild(component.$el);
+
+    const notification = Instance.$children[0];
 
     return {
         notice(noticeProps) {
