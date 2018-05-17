@@ -37,12 +37,13 @@ export default function upload(option) {
 
     const formData = new FormData();
     // formData.append('enctype', 'multipart/form-data');
-    formData.append(option.filename, option.file);
     if (option.data) {
         for (const key in option.data) {
             formData.append(key, option.data[key]);
         }
     }
+    // 阿里云oss上传要求file在key后面
+    formData.append(option.filename, option.file);
 
     xhr.onerror = (e) => {
         option.onError(e);
