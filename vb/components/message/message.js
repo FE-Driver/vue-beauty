@@ -2,15 +2,21 @@ import Vue from 'vue';
 import vMessage from './message.vue';
 
 vMessage.newInstance = (data) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<v-message :top='${data.top}' :duration='${data.duration}'></v-message>`;
-    document.body.appendChild(div);
+    const _props = data || {};
 
-    const message = new Vue({
-        el: div,
-        data: {},
-        components: { vMessage },
-    }).$children[0];
+    const Instance = new Vue({
+        data: _props,
+        render(h) {
+            return h(vMessage, {
+                props: _props,
+            });
+        },
+    });
+
+    const component = Instance.$mount();
+    document.body.appendChild(component.$el);
+
+    const message = Instance.$children[0];
 
     return {
         notice(noticeProps) {
@@ -30,3 +36,4 @@ vMessage.newInstance = (data) => {
 };
 
 export default vMessage;
+
