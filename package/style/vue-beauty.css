@@ -6545,6 +6545,9 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-select-dropdown-menu-item:hover {
   background-color: #ecf6fd;
 }
+.ant-select-dropdown-menu-item-likehover {
+  background-color: #ecf6fd;
+}
 .ant-select-dropdown-menu-item-disabled {
   color: rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
@@ -6599,6 +6602,9 @@ textarea.ant-pagination-options-quick-jumper input {
   font-size: 12px;
 }
 .ant-select-dropdown.ant-select-dropdown--multiple .ant-select-dropdown-menu-item:hover:after {
+  color: #ddd;
+}
+.ant-select-dropdown.ant-select-dropdown--multiple .ant-select-dropdown-menu-item-likehover:after {
   color: #ddd;
 }
 .ant-select-dropdown.ant-select-dropdown--multiple .ant-select-dropdown-menu-item-disabled:after {
