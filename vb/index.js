@@ -163,6 +163,7 @@ const install = function (Vue, opts = {}) {
 // 注册全局方法
 notification.install = function (Vue) {
     Vue.$notification = Vue.prototype.$notification = notification;
+    Vue.$modal = Vue.prototype.$modal = modal;
 };
 
 // auto install
