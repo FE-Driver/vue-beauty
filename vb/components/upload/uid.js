@@ -1,6 +1,5 @@
-const now = +(new Date());
 let index = 0;
 
 export default function uid() {
-    return `ant-upload-${now}-${++index}`;
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${++index}`;
 }

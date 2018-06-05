@@ -147,16 +147,16 @@ export default {
         },
 
         onSuccess(response, file) {
-            // 服务器端需要返回标准 json 字符串
+            // 服务器端需要返回标准 json 字符串 （阿里oss返回response为空，只要200就算成功）
             // 否则视为失败
-            try {
-                if (typeof response === 'string') {
-                    JSON.parse(response);
-                }
-            } catch (e) {
-                this.onError(new Error('No response'), response, file);
-                return;
-            }
+            // try {
+            //     if (typeof response === 'string') {
+            //         JSON.parse(response);
+            //     }
+            // } catch (e) {
+            //     this.onError(new Error('No response'), response, file);
+            //     return;
+            // }
 
             const fileList = this.defaultFileList;
             const targetItem = getFileItem(file, fileList);
