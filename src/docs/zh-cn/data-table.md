@@ -544,6 +544,7 @@
 | pageSizeOptions | 分页大小可选参数 | Array | [10, 20, 30, 40, 50] |
 | checkType | 选择框类型 | 'checkbox'或'radio' | - |
 | height | 表格高度，注意是指表格整体高度（包含表头、表格和底部分页） | Number | - |
+| maxHeight | 表格最大高度，注意是指表格整体高度（包含表头、表格和底部分页） | Number | - |
 | bottomGap | 距离viewport底部的间隙距离 | Number | - |
 | responseParamsName | 接口数据的关键字段命名，目前支持total和results,分别表示总数字段和结果字段 | Object | {total:'totalCount',results: 'result'} |
 | rowClickChecked | 点击表格行是否选中checkbox | Boolean | false |
