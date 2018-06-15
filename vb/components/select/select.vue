@@ -43,7 +43,7 @@
         <transition name="slide-up">
             <div ref="dropdown" v-show="show" style="overflow: auto;" :style="dropdownStyle" :class="dropdownCls">
                 <div style="overflow: auto;">
-                    <ul ref='dropDownMenu' class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="">
+                    <ul ref='dropDownMenu' class="ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root" role="menu" aria-activedescendant="" :style="dropdownUlStyle">
                         <li v-if="loading" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{loadingText}}</li>
                         <template v-else>
                             <li v-if="searchVal && remoteMethod && !data.length" unselectable="unselectable" class="ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled" role="menuitem" aria-selected="false" style="user-select: none;">{{notFoundContent}}</li>
@@ -97,6 +97,7 @@ export default {
             searchFound: false,
             show: false,
             dropdownStyle: {},
+            dropdownUlStyle: {},
             labels: this.multiple ? [] : '',
             ori_data: JSON.parse(JSON.stringify(this.data)),
             isSearchFocus: false,
@@ -410,11 +411,13 @@ export default {
             if (!this.$el) return;
             const p = getOffset(this.$el, this.container);
             const dwidth = this.dropdownWidth || `${p.right - p.left}px`;
-
             this.dropdownStyle = {
                 top: `${this.placement === 'top' ? p.top - this.dropdownHeight - 4 : p.bottom + 4}px`,
                 left: `${p.left}px`,
                 width: dwidth,
+                maxHeight: `${this.maxHeight}px`,
+            };
+            this.dropdownUlStyle = {
                 maxHeight: `${this.maxHeight}px`,
             };
             this.dropItemNodeList = this.$refs.dropDownMenu.querySelectorAll('li');
