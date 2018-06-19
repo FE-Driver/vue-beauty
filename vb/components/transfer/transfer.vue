@@ -27,6 +27,9 @@
 		  :right-active="rightActive"
 		  :move-to-left = "moveToLeft"
 		  :move-to-right = "moveToRight"
+          :move-up = "moveUp"
+          :move-down = "moveDown"
+          :vertical-active="verticalActive"
 		 ></operation>
 		<list
 		  :filter="rightFilter"
@@ -108,6 +111,7 @@ export default {
             rightDataSource: [],
             leftActive: false,
             rightActive: false,
+            verticalActive: false,
             leftFilter: '',
             rightFilter: '',
         };
@@ -118,6 +122,7 @@ export default {
         },
         rightCheckedKeys() {
             this.rightActive = this.rightCheckedKeys.length > 0;
+            this.verticalActive = this.rightCheckedKeys.length === 1;
         },
         targetKeys() {
             this.splitDataSource();
@@ -206,6 +211,22 @@ export default {
         },
         moveToRight() {
             this.moveTo('right');
+        },
+        moveUp() {
+            this.moveVertical('up');
+        },
+        moveDown() {
+            this.moveVertical('down');
+        },
+        moveVertical(direction) {
+            const index = this.targetKeys.indexOf(this.rightCheckedKeys[0]);
+            if (index === 0 && direction === 'up') {
+                return;
+            }
+            const directFlag = direction === 'up' ? -1 : 1;
+            this.targetKeys.splice(index, 1);
+            this.targetKeys.splice(index + directFlag, 0, this.rightCheckedKeys[0]);
+            this.$emit('change', this.targetKeys, direction, this.rightCheckedKeys);
         },
         handleLeftClear() {
             this.leftFilter = '';

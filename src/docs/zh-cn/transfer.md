@@ -209,7 +209,7 @@ export default {
 
 ```html
 <template>
-  <v-transfer :data="dataSource3" :target-keys="targetKeys3" @change="handleChange3" :list-style="{width: '250px', height: '300px'}" show-search :operations="['向右', '向左']" :filter-option="filterOption" :label="render1">
+  <v-transfer :data="dataSource3" :target-keys="targetKeys3" @change="handleChange3" :list-style="{width: '250px', height: '300px'}" show-search :operations="['向左', '向右', '向上', '向下']" :filter-option="filterOption" :label="render1">
     <div :style="{float: 'right', margin: '5px'}" slot="leftFooter">
         <v-button type="ghost" size="small" @click="mockData2(3)">刷新</v-button>
     </div>
