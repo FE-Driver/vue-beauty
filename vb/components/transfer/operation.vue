@@ -7,6 +7,14 @@
 			{{operations[1]}}
 			<v-icon type="right"></v-icon>
 		</v-button>
+		<v-button type="primary" size="small" :disabled="!verticalActive" @click="moveUp">
+            {{operations[2]}}
+            <v-icon type="up"></v-icon>
+		</v-button>
+		<v-button type="primary" size="small" :disabled="!verticalActive" @click="moveDown">
+            {{operations[3]}}
+            <v-icon type="down"></v-icon>
+		</v-button>
 	</div>
 </template>
 <script>
@@ -33,11 +41,23 @@ export default {
             type: Boolean,
             default: false,
         },
+        verticalActive: {
+            type: Boolean,
+            default: false,
+        },
         moveToLeft: {
             type: Function,
             default: noop,
         },
         moveToRight: {
+            type: Function,
+            default: noop,
+        },
+        moveUp: {
+            type: Function,
+            default: noop,
+        },
+        moveDown: {
             type: Function,
             default: noop,
         },
