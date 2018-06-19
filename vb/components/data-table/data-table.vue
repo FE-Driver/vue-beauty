@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div :class="tableCls" :style="{height:tableBodyHeight+'px'}">
+    <div :class="tableCls" :style="{height:tableBodyHeight+'px',maxHeight:tableBodyMaxHeight}">
 
         <div :class="prefix + '-header'" :style="{left:-tableBodyScrollLeft+'px',width:tableBodyWidth}">
             <table ref="theader" :style="{width:tableBodyWidth}">
@@ -376,6 +376,11 @@ export default {
             type: Number,
             default: null,
         },
+        // 最大高度
+        maxHeight: { // fixed by luozhong 支持表格最大高度
+            type: Number,
+            default: null,
+        },
         // 左侧固定列
         fixedLeft: {
             type: Number,
@@ -427,6 +432,7 @@ export default {
             tableBodyScrollLeft: 0,
             tableBodyWidth: '100%',
             tableBodyHeight: null,
+            tableBodyMaxHeight: null, // fixed by luozhong 支持表格最大高度
             pageNumber: this.pageNum,
             pageSizeT: this.pageSize,
             paramsName: {},
@@ -784,6 +790,9 @@ export default {
                 // 未设置height属性时，处理bottomGap属性（height属性优先）
                 this.fixGapHeight();
             }
+            if (this.maxHeight) { // fixed by luozhong 支持表格最大高度
+                this.tableBodyMaxHeight = `${this.maxHeight}px`;
+            }
             this.getBodyWidth();
             this.fixHeaderWidth();
         },
@@ -890,7 +899,8 @@ export default {
             for (let i = 0; i < children.length; i++) {
                 const obj = children[i];
                 obj.children = this.transTreeData(obj[TreeTableOpt.idKey]);
-                obj.level = this.getLevel(obj.id);
+                // obj.level = this.getLevel(obj.id); // 默认是id，但用户可以自定义idkey
+                obj.level = this.getLevel(obj[TreeTableOpt.idKey]); // fixed by luozhong 兼容用户自定义idkey情况
                 obj.vshow = !(obj.level > 1);
                 obj.vopen = !(obj.level > 0);
                 obj.paddingLeft = `${(obj.level - 1) * 12 * this.treeTableOption.indent}px`;
