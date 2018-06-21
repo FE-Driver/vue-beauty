@@ -20644,9 +20644,10 @@ span.ant-transfer-list-search-action {
 }
 .ant-transfer-operation .ant-btn {
   display: block;
-}
-.ant-transfer-operation .ant-btn:first-child {
   margin-bottom: 4px;
+}
+.ant-transfer-operation .ant-btn:last-child {
+  margin-bottom: 0;
 }
 .ant-transfer-operation .ant-btn .anticon {
   display: inline-block;
