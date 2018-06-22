@@ -1,20 +1,28 @@
 <template>
 	<div :class="prefixCls + '-operation'">
-		<v-button type="primary" size="small" :disabled="!rightActive" @click="moveToLeft">
-			<v-icon type="left"></v-icon>{{operations[0]}}
-		</v-button>
-		<v-button type="primary" size="small" :disabled="!leftActive" @click="moveToRight">
-			{{operations[1]}}
-			<v-icon type="right"></v-icon>
-		</v-button>
-		<v-button type="primary" size="small" :disabled="!verticalActive" @click="moveUp">
+        <v-button type="primary" size="small" :disabled="!rightActive" @click="moveToLeft">
+            <v-icon type="left"></v-icon>{{operations[0]}}
+        </v-button>
+        <v-button style="margin-bottom: 15px;" type="primary" size="small" :disabled="!leftActive" @click="moveToRight">
+            {{operations[1]}}
+            <v-icon type="right"></v-icon>
+        </v-button>
+        <v-button type="primary" size="small" :disabled="!rightActive" @click="moveTop">
+            {{operations[4]}}
+            <v-icon type="caret-up"></v-icon>
+        </v-button>
+        <v-button type="primary" size="small" :disabled="!verticalActive" @click="moveUp">
             {{operations[2]}}
             <v-icon type="up"></v-icon>
-		</v-button>
-		<v-button type="primary" size="small" :disabled="!verticalActive" @click="moveDown">
+        </v-button>
+        <v-button type="primary" size="small" :disabled="!verticalActive" @click="moveDown">
             {{operations[3]}}
             <v-icon type="down"></v-icon>
-		</v-button>
+        </v-button>
+        <v-button type="primary" size="small" :disabled="!rightActive" @click="moveBottom">
+            {{operations[5]}}
+            <v-icon type="caret-down"></v-icon>
+        </v-button>
 	</div>
 </template>
 <script>
@@ -58,6 +66,14 @@ export default {
             default: noop,
         },
         moveDown: {
+            type: Function,
+            default: noop,
+        },
+        moveTop: {
+            type: Function,
+            default: noop,
+        },
+        moveBottom: {
             type: Function,
             default: noop,
         },
