@@ -29,6 +29,8 @@
 		  :move-to-right = "moveToRight"
           :move-up = "moveUp"
           :move-down = "moveDown"
+          :move-top = "moveTop"
+          :move-bottom = "moveBottom"
           :vertical-active="verticalActive"
 		 ></operation>
 		<list
@@ -101,6 +103,10 @@ export default {
             type: String,
             default: () => t('transfer.notFoundContent'),
         },
+        top: {
+            type: Boolean,
+            default: true,
+        },
     },
     data() {
         return {
@@ -122,7 +128,17 @@ export default {
         },
         rightCheckedKeys() {
             this.rightActive = this.rightCheckedKeys.length > 0;
-            this.verticalActive = this.rightCheckedKeys.length === 1;
+            const indexs = [];
+            this.rightDataSource.forEach((item, index) => {
+                this.rightCheckedKeys.includes(item.key) && indexs.push(index);
+            });
+            const lastFlag = indexs.every((val, index) => {
+                if (index < indexs.length - 1) {
+                    return indexs[index + 1] === val + 1;
+                }
+                return true;
+            }) && indexs.length !== 0;
+            this.verticalActive = lastFlag;
         },
         targetKeys() {
             this.splitDataSource();
@@ -202,7 +218,12 @@ export default {
             const targetKeys = this.targetKeys;
             const key = direction === 'right' ? 'leftCheckedKeys' : 'rightCheckedKeys';
             const moveKeys = this[key];
-            const newTargetKeys = direction === 'right' ? moveKeys.concat(targetKeys) : targetKeys.filter(targetKey => !moveKeys.some(checkedKey => targetKey === checkedKey));
+            let newTargetKeys = [];
+            if (this.top) {
+                newTargetKeys = direction === 'right' ? [...moveKeys, ...targetKeys] : targetKeys.filter(targetKey => !moveKeys.some(checkedKey => targetKey === checkedKey));
+            } else {
+                newTargetKeys = direction === 'right' ? [...targetKeys, ...moveKeys] : targetKeys.filter(targetKey => !moveKeys.some(checkedKey => targetKey === checkedKey));
+            }
             this[key] = [];
             this.$emit('change', newTargetKeys, direction, moveKeys);
         },
@@ -218,15 +239,30 @@ export default {
         moveDown() {
             this.moveVertical('down');
         },
+        moveTop() {
+            this.moveDirect('top');
+        },
+        moveBottom() {
+            this.moveDirect('bottom');
+        },
         moveVertical(direction) {
-            const index = this.targetKeys.indexOf(this.rightCheckedKeys[0]);
-            if (index === 0 && direction === 'up') {
-                return;
-            }
-            const directFlag = direction === 'up' ? -1 : 1;
-            this.targetKeys.splice(index, 1);
-            this.targetKeys.splice(index + directFlag, 0, this.rightCheckedKeys[0]);
+            const step = direction === 'up' ? -1 : 1;
+            const checkKeys = this.rightCheckedKeys;
+            const len = checkKeys.length;
+            const el = this.targetKeys.find(val => checkKeys[0] === val);
+            const index = this.targetKeys.indexOf(el);
+            this.targetKeys.splice(index, len);
+            this.targetKeys.splice(index + step, 0, ...checkKeys);
             this.$emit('change', this.targetKeys, direction, this.rightCheckedKeys);
+        },
+        moveDirect(type) {
+            const checkKeys = this.rightCheckedKeys;
+            checkKeys.forEach((val) => {
+                const index = this.targetKeys.indexOf(val);
+                this.targetKeys.splice(index, 1);
+            });
+            type === 'top' && this.$emit('change', [...checkKeys, ...this.targetKeys], type, this.rightCheckedKeys);
+            type === 'bottom' && this.$emit('change', [...this.targetKeys, ...checkKeys], type, this.rightCheckedKeys);
         },
         handleLeftClear() {
             this.leftFilter = '';

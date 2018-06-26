@@ -209,7 +209,7 @@ export default {
 
 ```html
 <template>
-  <v-transfer :data="dataSource3" :target-keys="targetKeys3" @change="handleChange3" :list-style="{width: '250px', height: '300px'}" show-search :operations="['向左', '向右', '向上', '向下']" :filter-option="filterOption" :label="render1">
+  <v-transfer :data="dataSource3" :target-keys="targetKeys3" @change="handleChange3" :list-style="{width: '250px', height: '300px'}" show-search :operations="['向左', '向右', '向上', '向下', '置顶', '置底']" :filter-option="filterOption" :label="render1">
     <div :style="{float: 'right', margin: '5px'}" slot="leftFooter">
         <v-button type="ghost" size="small" @click="mockData2(3)">刷新</v-button>
     </div>
@@ -350,6 +350,7 @@ export default {
 | notFoundContent | 当列表为空时显示的内容 | String | '列表为空' |
 | slot:leftFooter | 左侧穿梭框底部渲染插槽 | Slot Node | - |
 | slot:rightFooter | 右侧穿梭框底部渲染插槽 | Slot Node | - |
+| top | 右侧项是从底部添加还是顶部添加 | Boolean | true |
 
 ### Data Props
 | 属性        | 说明           | 类型               | 默认值       |
