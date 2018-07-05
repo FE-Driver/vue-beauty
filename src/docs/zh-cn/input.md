@@ -249,6 +249,13 @@ export default {
 | keyup    | keyup事件 | val |
 | keydown    | keydown事件 | val |
 
+### Input Methods
+| 方法名        | 说明         | 参数        |
+|------------|----------------|------------|
+| setFocus   | 设置 input 获取焦点 | - |
+| setBlur    | 设置 input 失去焦点 | - |
+| selectText | 选中 input 中的文字 | - |
+
 ### InputGroup
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|

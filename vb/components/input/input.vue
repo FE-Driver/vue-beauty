@@ -7,6 +7,7 @@
                :value="innerValue" @input="handleInput" autocomplete="off"
                @keyup="keyUp"
                @keydown="keyDown"
+               ref="input"
                @blur="blur" @focus="$emit('focus', $event)">
         <span v-if="hasafter" class="ant-input-group-addon">
             <slot name="after"></slot>
@@ -22,6 +23,7 @@
            :value="innerValue" @input="handleInput" autocomplete="off"
            @keyup="keyUp"
            @keydown="keyDown"
+           ref="input"
            @blur="blur" @focus="$emit('focus', $event)">
 </template>
 
@@ -116,6 +118,15 @@
             });
         },
         methods: {
+            setFocus() {
+                (this.$refs.input || this.$refs.textarea).focus();
+            },
+            setBlur() {
+                (this.$refs.input || this.$refs.textarea).blur();
+            },
+            selectText() {
+                (this.$refs.input || this.$refs.textarea).select();
+            },
             handleInput(event) {
                 if (this.debounceTimer) clearTimeout(this.debounceTimer);
                 this.debounceTimer = setTimeout(() => {
