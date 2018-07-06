@@ -7,6 +7,7 @@
                :value="innerValue" @input="handleInput" autocomplete="off"
                @keyup="keyUp"
                @keydown="keyDown"
+               v-bind="$attrs"
                ref="input"
                @blur="blur" @focus="$emit('focus', $event)">
         <span v-if="hasafter" class="ant-input-group-addon">
@@ -17,12 +18,14 @@
               :disabled="disabled" :value="innerValue" @input="handleInput"
               @keyup="keyUp"
               @keydown="keyDown"
+              v-bind="$attrs"
               @blur="blur" @focus="$emit('focus', $event)" ref="textarea" :rows="autosize && autosize.minRows ?autosize.minRows:2" :style="{maxHeight: autosize && autosize.maxRows ? `${autosize.maxRows*18+10}px`:'auto'}">
     </textarea>
     <input v-else :id="id" :type="type" :class="inpClasses" :placeholder="placeholder" :disabled="disabled"
            :value="innerValue" @input="handleInput" autocomplete="off"
            @keyup="keyUp"
            @keydown="keyDown"
+           v-bind="$attrs"
            ref="input"
            @blur="blur" @focus="$emit('focus', $event)">
 </template>
