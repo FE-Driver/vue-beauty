@@ -12587,6 +12587,15 @@ function input__defineProperty(obj, key, value) { if (key in obj) { define_prope
     },
 
     methods: {
+        setFocus: function setFocus() {
+            (this.$refs.input || this.$refs.textarea).focus();
+        },
+        setBlur: function setBlur() {
+            (this.$refs.input || this.$refs.textarea).blur();
+        },
+        selectText: function selectText() {
+            (this.$refs.input || this.$refs.textarea).select();
+        },
         handleInput: function handleInput(event) {
             var _this2 = this;
 
@@ -12630,6 +12639,7 @@ var input_render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("input", {
+          ref: "input",
           class: _vm.inpClasses,
           attrs: {
             type: _vm.type,
@@ -12687,6 +12697,7 @@ var input_render = function() {
           }
         })
       : _c("input", {
+          ref: "input",
           class: _vm.inpClasses,
           attrs: {
             id: _vm.id,
@@ -12913,6 +12924,9 @@ function preventDefault(e) {
             type: Number,
             default: 1
         },
+        precision: {
+            type: Number
+        },
         autoFocus: {
             type: Boolean,
             default: false
@@ -13029,9 +13043,17 @@ function preventDefault(e) {
                 }
             }
 
-            this.currentValue = e.target.value * 1;
+            if (this.precision) {
+                this.currentValue = Number(e.target.value).toFixed(this.precision) * 1;
+            } else {
+                this.currentValue = e.target.value * 1;
+            }
+
             this.focused = false;
-            this.dispatch('FormItem', 'form.blur', [this.currentValue * 1]);
+            if (e.target.value !== '') {
+                this.setValue(this.currentValue);
+            }
+            this.dispatch('FormItem', 'form.blur', [this.currentValue]);
         },
         makeStep: function makeStep(type) {
             var _this = this;
@@ -13046,6 +13068,7 @@ function preventDefault(e) {
 
             if (value > this.max || value < this.min) return;
 
+            value = this.precision ? Number(value).toFixed(this.precision) * 1 : value;
             this.setValue(value, function () {
                 _this.$refs.input.focus();
             });
@@ -13148,7 +13171,7 @@ var input_number_render = function() {
         class: _vm.prefixCls + "-input",
         attrs: {
           autoComplete: "off",
-          autoFocus: _vm.autoFocus,
+          autofocus: _vm.autoFocus,
           readOnly: _vm.readOnly,
           disabled: _vm.disabled,
           max: _vm.max,
@@ -27750,6 +27773,14 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27795,6 +27826,14 @@ function operation_noop() {}
         moveDown: {
             type: Function,
             default: operation_noop
+        },
+        moveTop: {
+            type: Function,
+            default: operation_noop
+        },
+        moveBottom: {
+            type: Function,
+            default: operation_noop
         }
     }
 });
@@ -27815,7 +27854,7 @@ var operation_render = function() {
         },
         [
           _c("v-icon", { attrs: { type: "left" } }),
-          _vm._v(_vm._s(_vm.operations[0]) + "\n\t\t")
+          _vm._v(_vm._s(_vm.operations[0]) + "\n        ")
         ],
         1
       ),
@@ -27823,12 +27862,30 @@ var operation_render = function() {
       _c(
         "v-button",
         {
+          staticStyle: { "margin-bottom": "15px" },
           attrs: { type: "primary", size: "small", disabled: !_vm.leftActive },
           on: { click: _vm.moveToRight }
         },
         [
-          _vm._v("\n\t\t\t" + _vm._s(_vm.operations[1]) + "\n\t\t\t"),
+          _vm._v(
+            "\n            " + _vm._s(_vm.operations[1]) + "\n            "
+          ),
           _c("v-icon", { attrs: { type: "right" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-button",
+        {
+          attrs: { type: "primary", size: "small", disabled: !_vm.rightActive },
+          on: { click: _vm.moveTop }
+        },
+        [
+          _vm._v(
+            "\n            " + _vm._s(_vm.operations[4]) + "\n            "
+          ),
+          _c("v-icon", { attrs: { type: "caret-up" } })
         ],
         1
       ),
@@ -27867,6 +27924,21 @@ var operation_render = function() {
             "\n            " + _vm._s(_vm.operations[3]) + "\n            "
           ),
           _c("v-icon", { attrs: { type: "down" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-button",
+        {
+          attrs: { type: "primary", size: "small", disabled: !_vm.rightActive },
+          on: { click: _vm.moveBottom }
+        },
+        [
+          _vm._v(
+            "\n            " + _vm._s(_vm.operations[5]) + "\n            "
+          ),
+          _c("v-icon", { attrs: { type: "caret-down" } })
         ],
         1
       )
@@ -27988,6 +28060,8 @@ function transfer__toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i
 //
 //
 //
+//
+//
 
 
 
@@ -28047,6 +28121,10 @@ function transfer_noop() {}
             default: function _default() {
                 return locale_t('transfer.notFoundContent');
             }
+        },
+        top: {
+            type: Boolean,
+            default: true
         }
     },
     data: function data() {
@@ -28069,31 +28147,43 @@ function transfer_noop() {}
             this.leftActive = this.leftCheckedKeys.length > 0;
         },
         rightCheckedKeys: function rightCheckedKeys() {
+            var _this = this;
+
             this.rightActive = this.rightCheckedKeys.length > 0;
-            this.verticalActive = this.rightCheckedKeys.length === 1;
+            var indexs = [];
+            this.rightDataSource.forEach(function (item, index) {
+                _this.rightCheckedKeys.includes(item.key) && indexs.push(index);
+            });
+            var lastFlag = indexs.every(function (val, index) {
+                if (index < indexs.length - 1) {
+                    return indexs[index + 1] === val + 1;
+                }
+                return true;
+            }) && indexs.length !== 0;
+            this.verticalActive = lastFlag;
         },
         targetKeys: function targetKeys() {
             this.splitDataSource();
         }
     },
     created: function created() {
-        var _this = this;
+        var _this2 = this;
 
         this.leftCheckedKeys = this.leftCheckedKeys.filter(function (data) {
-            return _this.data.filter(function (item) {
+            return _this2.data.filter(function (item) {
                 return item.key === data;
             }).length;
         }).filter(function (data) {
-            return _this.targetKeys.filter(function (key) {
+            return _this2.targetKeys.filter(function (key) {
                 return key === data;
             }).length === 0;
         });
         this.rightCheckedKeys = this.rightCheckedKeys.filter(function (data) {
-            return _this.data.filter(function (item) {
+            return _this2.data.filter(function (item) {
                 return item.key === data;
             }).length;
         }).filter(function (data) {
-            return _this.targetKeys.filter(function (key) {
+            return _this2.targetKeys.filter(function (key) {
                 return key === data;
             }).length > 0;
         });
@@ -28102,15 +28192,15 @@ function transfer_noop() {}
 
     methods: {
         splitDataSource: function splitDataSource() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.leftDataSource = [].concat(transfer__toConsumableArray(this.data));
             this.rightDataSource = [];
             if (this.targetKeys.length > 0) {
                 this.targetKeys.forEach(function (targetKey) {
-                    _this2.rightDataSource.push(_this2.leftDataSource.filter(function (data, index) {
+                    _this3.rightDataSource.push(_this3.leftDataSource.filter(function (data, index) {
                         if (data.key === targetKey) {
-                            _this2.leftDataSource.splice(index, 1);
+                            _this3.leftDataSource.splice(index, 1);
                             return true;
                         }
                         return false;
@@ -28172,11 +28262,20 @@ function transfer_noop() {}
             var targetKeys = this.targetKeys;
             var key = direction === 'right' ? 'leftCheckedKeys' : 'rightCheckedKeys';
             var moveKeys = this[key];
-            var newTargetKeys = direction === 'right' ? moveKeys.concat(targetKeys) : targetKeys.filter(function (targetKey) {
-                return !moveKeys.some(function (checkedKey) {
-                    return targetKey === checkedKey;
+            var newTargetKeys = [];
+            if (this.top) {
+                newTargetKeys = direction === 'right' ? [].concat(transfer__toConsumableArray(moveKeys), transfer__toConsumableArray(targetKeys)) : targetKeys.filter(function (targetKey) {
+                    return !moveKeys.some(function (checkedKey) {
+                        return targetKey === checkedKey;
+                    });
                 });
-            });
+            } else {
+                newTargetKeys = direction === 'right' ? [].concat(transfer__toConsumableArray(targetKeys), transfer__toConsumableArray(moveKeys)) : targetKeys.filter(function (targetKey) {
+                    return !moveKeys.some(function (checkedKey) {
+                        return targetKey === checkedKey;
+                    });
+                });
+            }
             this[key] = [];
             this.$emit('change', newTargetKeys, direction, moveKeys);
         },
@@ -28192,15 +28291,36 @@ function transfer_noop() {}
         moveDown: function moveDown() {
             this.moveVertical('down');
         },
+        moveTop: function moveTop() {
+            this.moveDirect('top');
+        },
+        moveBottom: function moveBottom() {
+            this.moveDirect('bottom');
+        },
         moveVertical: function moveVertical(direction) {
-            var index = this.targetKeys.indexOf(this.rightCheckedKeys[0]);
-            if (index === 0 && direction === 'up') {
-                return;
-            }
-            var directFlag = direction === 'up' ? -1 : 1;
-            this.targetKeys.splice(index, 1);
-            this.targetKeys.splice(index + directFlag, 0, this.rightCheckedKeys[0]);
+            var _targetKeys;
+
+            var step = direction === 'up' ? -1 : 1;
+            var checkKeys = this.rightCheckedKeys;
+            var len = checkKeys.length;
+            var el = this.targetKeys.find(function (val) {
+                return checkKeys[0] === val;
+            });
+            var index = this.targetKeys.indexOf(el);
+            this.targetKeys.splice(index, len);
+            (_targetKeys = this.targetKeys).splice.apply(_targetKeys, [index + step, 0].concat(transfer__toConsumableArray(checkKeys)));
             this.$emit('change', this.targetKeys, direction, this.rightCheckedKeys);
+        },
+        moveDirect: function moveDirect(type) {
+            var _this4 = this;
+
+            var checkKeys = this.rightCheckedKeys;
+            checkKeys.forEach(function (val) {
+                var index = _this4.targetKeys.indexOf(val);
+                _this4.targetKeys.splice(index, 1);
+            });
+            type === 'top' && this.$emit('change', [].concat(transfer__toConsumableArray(checkKeys), transfer__toConsumableArray(this.targetKeys)), type, this.rightCheckedKeys);
+            type === 'bottom' && this.$emit('change', [].concat(transfer__toConsumableArray(this.targetKeys), transfer__toConsumableArray(checkKeys)), type, this.rightCheckedKeys);
         },
         handleLeftClear: function handleLeftClear() {
             this.leftFilter = '';
@@ -28261,6 +28381,8 @@ var transfer_render = function() {
           "move-to-right": _vm.moveToRight,
           "move-up": _vm.moveUp,
           "move-down": _vm.moveDown,
+          "move-top": _vm.moveTop,
+          "move-bottom": _vm.moveBottom,
           "vertical-active": _vm.verticalActive
         }
       }),
@@ -37516,7 +37638,7 @@ if (hadRuntime) {
 /* 329 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"vue-beauty","version":"2.0.0-beta.15","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.1","core-js":"^2.5.5","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.9.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.3","eslint-plugin-import":"^2.11.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.7.0","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.2","vue-markdown-loader":"^2.4.1","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.22.0","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
+module.exports = {"name":"vue-beauty","version":"2.0.0-beta.16","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.1","core-js":"^2.5.5","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.9.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.3","eslint-plugin-import":"^2.11.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.7.0","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.2","vue-markdown-loader":"^2.4.1","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.22.0","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
 
 /***/ })
 /******/ ]);
