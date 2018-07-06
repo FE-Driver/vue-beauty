@@ -2,6 +2,7 @@
 export default {
     data() {
         return {
+            autoFocus: true,
             value: 5,
             disabled: true
         }
@@ -34,7 +35,7 @@ export default {
 </summary>
 
 ```html
-<v-input-number :min="1" :max="1000" v-model="value" @change="_handleChange"></v-input-number>
+<v-input-number :min="1" :max="1000" v-model="value" @change="_handleChange" :auto-focus="autoFocus"></v-input-number>
 <script>
 export default {
     data() {
@@ -116,7 +117,7 @@ export default {
 </summary>
 
 ```html
-<v-input-number :min="1" :max="10" :step="0.1"></v-input-number>
+<v-input-number :min="1" :max="10" :step="0.1" :precision="2"></v-input-number>
 ```
 
 :::
@@ -126,10 +127,12 @@ export default {
 ### Input Props
 | 参数        | 说明           | 类型               | 默认值       |
 |------------|----------------|-------------------|-------------|
+| autoFocus    | 自动获取焦点 | boolean | false |
 | min    | 最小值 | Number | -Infinity |
 | max | 最大值 | Number | Infinity |
 | value | 当前值 | Number | - |
 | step    | 每次改变步数，可以为小数 | Number | 1 |
+| precision    | 数值精度	 | Number | - |
 | disabled | 禁用	 | Boolean | false |
 | size | 输入框大小 | String | - |
 

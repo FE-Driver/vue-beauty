@@ -30,7 +30,7 @@
                 @blur="_onBlur"
                 @keydown.stop="_onKeyDown"
                 :class="prefixCls + '-input'"
-                :autoFocus="autoFocus"
+                :autofocus="autoFocus"
                 :readOnly="readOnly"
                 :disabled="disabled"
                 :max="max"
@@ -90,6 +90,9 @@
             step: {
                 type: Number,
                 default: 1,
+            },
+            precision: {
+                type: Number,
             },
             autoFocus: {
                 type: Boolean,
@@ -210,9 +213,17 @@
                     }
                 }
 
-                this.currentValue = e.target.value * 1;
+                if (this.precision) {
+                    this.currentValue = Number(e.target.value).toFixed(this.precision) * 1;
+                } else {
+                    this.currentValue = e.target.value * 1;
+                }
+
                 this.focused = false;
-                this.dispatch('FormItem', 'form.blur', [this.currentValue * 1]);
+                if (e.target.value !== '') {
+                    this.setValue(this.currentValue);
+                }
+                this.dispatch('FormItem', 'form.blur', [this.currentValue]);
             },
             makeStep(type) {
                 if (this.disabled) return;
@@ -226,6 +237,7 @@
 
                 if (value > this.max || value < this.min) return;
 
+                value = this.precision ? Number(value).toFixed(this.precision) * 1 : value;
                 this.setValue(value, () => {
                     this.$refs.input.focus();
                 });
