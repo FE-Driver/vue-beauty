@@ -803,6 +803,9 @@ export default {
         },
         // 修正各个表头的宽度
         fixHeaderWidth() {
+            if (this.current.length === 0) {
+                return;
+            }
             const theader = this.$refs.theader;
             const lettheaderThs = theader && theader.querySelectorAll('thead>tr>th');
             const tbody = this.$refs.tbody;
