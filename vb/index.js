@@ -158,6 +158,7 @@ const install = function (Vue, opts = {}) {
             Vue.use(item, opts.prefix);
         }
     }
+    Vue.prototype.$VUEBEAUTY = { size: opts.size || '' };
 };
 
 // 注册全局方法
