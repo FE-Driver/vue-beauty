@@ -22,7 +22,9 @@ vue-beauty 是一套基于 vue.js 和 ant-design样式 的PC端 UI 组件库，�
 
     //import components
     import vueBeauty from 'vue-beauty'
-    Vue.use(vueBeauty)
+    //size 属性用来改变组件的默认尺寸均为 'small'
+    Vue.use(vueBeauty, { size: 'small' })
+
 
     //OR
     import {alert} from 'vue-beauty'

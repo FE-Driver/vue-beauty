@@ -52,7 +52,7 @@ export default {
 
     computed: {
         wrapClasses() {
-            const size = ['small', 'large'].indexOf(this.size) !== -1 ? this.size : '';
+            const size = ['small', 'large'].indexOf(this.size || this.$VUEBEAUTY.size) !== -1 ? this.size || this.$VUEBEAUTY.size : '';
             return [
                 this.prefixCls,
                 { [`${this.prefixCls}-${size}`]: size },

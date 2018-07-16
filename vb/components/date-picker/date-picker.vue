@@ -1,7 +1,7 @@
 <template>
     <span :class="prefix+'-picker'" :style="styleObject" ref="wapper" v-clickoutside="closeDropdown">
         <span>
-            <input :value="label" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+size]:size}]" @click="click" @mousedown="$event.preventDefault()">
+            <input :value="label" :placeholder="placeholder" readonly :disabled="disabled" :class="['ant-calendar-range-picker','ant-input',{['ant-input-'+dateCls]:dateCls}]" @click="click" @mousedown="$event.preventDefault()">
             <i v-if="clearable&&label" @click.stop="clear" class="anticon anticon-cross-circle ant-calendar-picker-clear"></i>
             <span class="ant-calendar-picker-icon"></span>
         </span>
@@ -222,6 +222,15 @@
                     }
                 }
                 return val;
+            },
+            dateCls() {
+                let $VUEBEAUTYSIZE = '';
+                if (this.$VUEBEAUTY.size === 'small') {
+                    $VUEBEAUTYSIZE = 'sm';
+                } else if (this.$VUEBEAUTY.size === 'large') {
+                    $VUEBEAUTYSIZE = 'lg';
+                }
+                return this.size || $VUEBEAUTYSIZE;
             },
         },
         mounted() {

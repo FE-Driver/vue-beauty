@@ -283,10 +283,16 @@ export default {
     },
     computed: {
         wrapCls() {
+            let $VUEBEAUTYSIZE = '';
+            if (this.$VUEBEAUTY.size === 'small') {
+                $VUEBEAUTYSIZE = 'sm';
+            } else if (this.$VUEBEAUTY.size === 'large') {
+                $VUEBEAUTYSIZE = 'lg';
+            }
             return [
                 this.prefix,
                 { [`${this.prefix}-disabled`]: this.disabled },
-                { [`${this.prefix}-${this.size}`]: this.size },
+                { [`${this.prefix}-${this.size || $VUEBEAUTYSIZE}`]: this.size || $VUEBEAUTYSIZE },
             ];
         },
         selectionCls() {
