@@ -159,7 +159,7 @@
                     this.$on('form.blur', this.onFieldBlur);
                     this.$on('form.change', this.onFieldChange);
                     this.$on('form.keyup', this.onFieldKeyUp);
-                    this.$on('form.keydown', this.onFieldKeyDown);
+                    // this.$on('form.keydown', this.onFieldKeyDown);
                 }
             }
         },
