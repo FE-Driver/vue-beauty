@@ -12638,26 +12638,34 @@ var input_render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _c("input", {
-          ref: "input",
-          class: _vm.inpClasses,
-          attrs: {
-            type: _vm.type,
-            placeholder: _vm.placeholder,
-            disabled: _vm.disabled,
-            autocomplete: "off"
-          },
-          domProps: { value: _vm.innerValue },
-          on: {
-            input: _vm.handleInput,
-            keyup: _vm.keyUp,
-            keydown: _vm.keyDown,
-            blur: _vm.blur,
-            focus: function($event) {
-              _vm.$emit("focus", $event)
-            }
-          }
-        }),
+        _c(
+          "input",
+          _vm._b(
+            {
+              ref: "input",
+              class: _vm.inpClasses,
+              attrs: {
+                type: _vm.type,
+                placeholder: _vm.placeholder,
+                disabled: _vm.disabled,
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.innerValue },
+              on: {
+                input: _vm.handleInput,
+                keyup: _vm.keyUp,
+                keydown: _vm.keyDown,
+                blur: _vm.blur,
+                focus: function($event) {
+                  _vm.$emit("focus", $event)
+                }
+              }
+            },
+            "input",
+            _vm.$attrs,
+            false
+          )
+        ),
         _vm._v(" "),
         _vm.hasafter
           ? _c(
@@ -12669,54 +12677,72 @@ var input_render = function() {
           : _vm._e()
       ])
     : _vm.type === "textarea"
-      ? _c("textarea", {
-          ref: "textarea",
-          class: _vm.inpClasses,
-          style: {
-            maxHeight:
-              _vm.autosize && _vm.autosize.maxRows
-                ? _vm.autosize.maxRows * 18 + 10 + "px"
-                : "auto"
-          },
-          attrs: {
-            id: _vm.id,
-            placeholder: _vm.placeholder,
-            disabled: _vm.disabled,
-            rows:
-              _vm.autosize && _vm.autosize.minRows ? _vm.autosize.minRows : 2
-          },
-          domProps: { value: _vm.innerValue },
-          on: {
-            input: _vm.handleInput,
-            keyup: _vm.keyUp,
-            keydown: _vm.keyDown,
-            blur: _vm.blur,
-            focus: function($event) {
-              _vm.$emit("focus", $event)
-            }
-          }
-        })
-      : _c("input", {
-          ref: "input",
-          class: _vm.inpClasses,
-          attrs: {
-            id: _vm.id,
-            type: _vm.type,
-            placeholder: _vm.placeholder,
-            disabled: _vm.disabled,
-            autocomplete: "off"
-          },
-          domProps: { value: _vm.innerValue },
-          on: {
-            input: _vm.handleInput,
-            keyup: _vm.keyUp,
-            keydown: _vm.keyDown,
-            blur: _vm.blur,
-            focus: function($event) {
-              _vm.$emit("focus", $event)
-            }
-          }
-        })
+      ? _c(
+          "textarea",
+          _vm._b(
+            {
+              ref: "textarea",
+              class: _vm.inpClasses,
+              style: {
+                maxHeight:
+                  _vm.autosize && _vm.autosize.maxRows
+                    ? _vm.autosize.maxRows * 18 + 10 + "px"
+                    : "auto"
+              },
+              attrs: {
+                id: _vm.id,
+                placeholder: _vm.placeholder,
+                disabled: _vm.disabled,
+                rows:
+                  _vm.autosize && _vm.autosize.minRows
+                    ? _vm.autosize.minRows
+                    : 2
+              },
+              domProps: { value: _vm.innerValue },
+              on: {
+                input: _vm.handleInput,
+                keyup: _vm.keyUp,
+                keydown: _vm.keyDown,
+                blur: _vm.blur,
+                focus: function($event) {
+                  _vm.$emit("focus", $event)
+                }
+              }
+            },
+            "textarea",
+            _vm.$attrs,
+            false
+          )
+        )
+      : _c(
+          "input",
+          _vm._b(
+            {
+              ref: "input",
+              class: _vm.inpClasses,
+              attrs: {
+                id: _vm.id,
+                type: _vm.type,
+                placeholder: _vm.placeholder,
+                disabled: _vm.disabled,
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.innerValue },
+              on: {
+                input: _vm.handleInput,
+                keyup: _vm.keyUp,
+                keydown: _vm.keyDown,
+                blur: _vm.blur,
+                focus: function($event) {
+                  _vm.$emit("focus", $event)
+                }
+              }
+            },
+            "input",
+            _vm.$attrs,
+            false
+          )
+        )
 }
 var input_staticRenderFns = []
 input_render._withStripped = true
@@ -22477,7 +22503,7 @@ function getPropByPath(obj, path) {
                 this.$on('form.blur', this.onFieldBlur);
                 this.$on('form.change', this.onFieldChange);
                 this.$on('form.keyup', this.onFieldKeyUp);
-                this.$on('form.keydown', this.onFieldKeyDown);
+                // this.$on('form.keydown', this.onFieldKeyDown);
             }
         }
     },
@@ -23658,6 +23684,9 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
         fixHeaderWidth: function fixHeaderWidth() {
             var _this5 = this;
 
+            if (this.current.length === 0) {
+                return;
+            }
             var theader = this.$refs.theader;
             var lettheaderThs = theader && theader.querySelectorAll('thead>tr>th');
             var tbody = this.$refs.tbody;
@@ -37638,7 +37667,7 @@ if (hadRuntime) {
 /* 329 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"vue-beauty","version":"2.0.0-beta.16","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.1","core-js":"^2.5.5","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.9.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.3","eslint-plugin-import":"^2.11.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.7.0","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.2","vue-markdown-loader":"^2.4.1","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.22.0","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
+module.exports = {"name":"vue-beauty","version":"2.0.0-beta.17","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.1","core-js":"^2.5.5","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.9.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.3","eslint-plugin-import":"^2.11.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.7.0","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.2","vue-markdown-loader":"^2.4.1","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.22.0","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
 
 /***/ })
 /******/ ]);
