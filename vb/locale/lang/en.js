@@ -41,4 +41,16 @@ export default {
     treeSelect: {
         placeholder: 'please select',
     },
+    dataTable: {
+        total: 'Total {total}'
+    },
+    pagination: {
+        prev: 'Prev',
+        next: 'Next',
+        forward5: '5 pages forward',
+        backward5: '5 pages backward',
+        goto: 'Go to',
+        page: 'page',
+        pageSize: '/page',
+    },
 };

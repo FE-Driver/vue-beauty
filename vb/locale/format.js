@@ -4,11 +4,11 @@
  *    https://github.com/Matt-Esch/string-template/index.js
  */
 
+import { hasOwn } from '../utils/fn';
+
 const RE_NARGS = /(%|)\{([0-9a-zA-Z_]+)\}/g;
 
-export default function (Vue) {
-    const { hasOwn } = Vue.util;
-
+export default function () {
     /**
      * template
      *

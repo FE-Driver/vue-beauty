@@ -38,3 +38,7 @@ export function getOffset(element, container = document.body) {
         bottom: elRect.bottom + top - clientTop,
     };
 }
+
+export function hasOwn(obj, key) {
+    return hasOwnProperty.call(obj, key);
+}

@@ -277,7 +277,7 @@
             </div>
             <div :class="prefix + '-description pull-left'">
                 <slot name="footerinfo" :total="total" pageNumber="pageNumber">
-                    共有{{total}}条数据
+                    {{ t('dataTable.total', { total }) }}
                 </slot>
             </div>
         </div>
@@ -285,6 +285,7 @@
 </template>
 <script>
 import debounce from 'lodash/debounce';
+import Locale from '../../mixins/locale';
 import vPagination from '../pagination';
 import vSpin from '../spin';
 import vIcon from '../icon';
@@ -293,6 +294,7 @@ import vRadio from '../radio';
 
 export default {
     name: 'DataTable',
+    mixins: [Locale],
     props: {
         size: {
             type: String,

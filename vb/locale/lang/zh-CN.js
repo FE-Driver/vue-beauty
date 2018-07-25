@@ -44,4 +44,16 @@ export default {
     treeSelect: {
         placeholder: '请选择',
     },
+    dataTable: {
+        total: '共有 {total} 条数据',
+    },
+    pagination: {
+        prev: '上一页',
+        next: '下一页',
+        forward5: '向前5页',
+        backward5: '向后5页',
+        goto: '跳至',
+        page: '页',
+        pageSize: '条/页',
+    },
 };
