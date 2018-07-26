@@ -19,6 +19,7 @@ import vmenu from './menu';
 import { getOffset } from '../../utils/fn';
 import emitter from '../../mixins/emitter';
 import clickoutside from '../../directives/clickoutside';
+import { t } from '../../locale';
 
 export default {
     name: 'Cascader',
@@ -50,7 +51,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: '请选择',
+            default: () => t('common.placeholder1'),
         },
         size: String,
         disabled: {

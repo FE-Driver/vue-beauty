@@ -291,6 +291,7 @@ import vSpin from '../spin';
 import vIcon from '../icon';
 import vCheckbox from '../checkbox';
 import vRadio from '../radio';
+import { t } from '../../locale';
 
 export default {
     name: 'DataTable',
@@ -406,7 +407,7 @@ export default {
         },
         emptyText: {
             type: String,
-            default: '老板,没有找到你想要的信息......',
+            default: () => t('dataTable.notFoundContent'),
         },
     },
     /*
@@ -428,7 +429,7 @@ export default {
             // 加载状态
             loading: false,
             sortParams: {},
-            //                排序模式:single和multi,单参数和多参数
+            // 排序模式:single和multi,单参数和多参数
             sortModel: 'single',
             rowSelectionStates: [],
             tableBodyScrollLeft: 0,
@@ -549,7 +550,7 @@ export default {
 
             this.loadData();
         },
-        //            单参数排序模式
+        // 单参数排序模式
         setCurrentSort(sortColumn, order) {
             if (!order) {
                 switch (sortColumn.sort) {
@@ -920,13 +921,13 @@ export default {
                 const obj = trData[i];
                 const ch = obj.children;
 
-                //                    如果是异步模式，直接使用isparent字段判断是否为父节点；否则使用children长度判断
+                // 如果是异步模式，直接使用isparent字段判断是否为父节点；否则使用children长度判断
                 if (!this.treeTableOption.isAsync) {
                     obj.isparent = !!ch.length;
                 }
-                //                    先插入父节点
+                // 先插入父节点
                 this.newData.push(obj);
-                //                     递归插入子节点
+                // 递归插入子节点
                 ch.length && this.sortTrData(ch);
             }
         },
@@ -938,7 +939,7 @@ export default {
             }
             return a[name] < b[name] ? 1 : -1;
         },
-        //            查找子节点
+        // 查找子节点
         findChildren(pid) {
             const results = [];
             const origindata = this.originData;
@@ -949,7 +950,7 @@ export default {
             }
             return results;
         },
-        //            获取节点层级
+        // 获取节点层级
         getLevel(id) {
             const origindata = this.originData;
             const TreeTableOpt = this.treeTableOption;
@@ -997,7 +998,7 @@ export default {
             const children = item.children || [];
             for (let i = 0; i < children.length; i++) {
                 children[i].vshow = vshow;
-                //                    关闭节点时，所有子孙节点都要关闭
+                // 关闭节点时，所有子孙节点都要关闭
                 this.collapse(children[i]);
             }
             this.calculateSize();

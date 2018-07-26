@@ -40,7 +40,7 @@
             },
             placeholder: {
                 type: String,
-                default: () => t('treeSelect.placeholder'),
+                default: () => t('common.placeholder1'),
             },
             position: {
                 type: String,

@@ -29,7 +29,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: () => t('autoComplete.placeholder'),
+            default: () => t('common.placeholder2'),
         },
         filter: Function,
     },

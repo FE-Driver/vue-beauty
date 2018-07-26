@@ -45,7 +45,7 @@
             },
             placeholder: {
                 type: String,
-                default: () => t('input.placeholder'),
+                default: () => t('common.placeholder2'),
             },
             id: [Number, String],
             value: null,

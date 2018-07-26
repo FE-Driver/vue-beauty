@@ -3,7 +3,7 @@
 		<div :class="prefixCls + '-header'">
 			<v-checkbox @click="selectAll" v-model="checkAll" :disabled="disabled" :indeterminate="checkPart"></v-checkbox>
 			<span :class="prefixCls + '-header-selected'">
-				<span>{{(checkedKeys.length > 0 ? `${checkedKeys.length}/` : '') + dataSource.length + '条'}}</span>
+				<span>{{(checkedKeys.length > 0 ? `${checkedKeys.length}/` : '') + dataSource.length + t('transfer.strip')}}</span>
 				<span :class="prefixCls + '-header-title'">{{titleText}}</span>
 			</span>
 		</div>
@@ -17,7 +17,7 @@
 					<span>{{ showLabel(item) }}</span>
 				</li>
 			</ul>
-			<div :class="prefixCls + '-body-not-found'">{{notFoundContent || '列表为空'}}</div>
+			<div :class="prefixCls + '-body-not-found'">{{notFoundContent || t('transfer.notFoundContent')}}</div>
 		</div>
 		<div v-if="hasFooter" :class="prefixCls + '-footer'">
 			<slot></slot>
@@ -27,9 +27,11 @@
 <script>
 import vCheckbox from '../checkbox';
 import vSearch from './search';
+import Locale from '../../mixins/locale';
 
 function noop() { }
 export default {
+    mixins: [Locale],
     components: {
         vCheckbox,
         vSearch,

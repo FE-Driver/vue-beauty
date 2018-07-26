@@ -10,13 +10,13 @@
                         </li>
                         <li v-if="search && multiple" class="ant-select-search ant-select-search--inline">
                             <div class="ant-select-search__field__wrap">
-                                <input class="ant-select-search__field" 
-                                    v-model="searchVal" 
-                                    :style="multipleSearchStyle" 
-                                    @focus="searchFocus" 
-                                    @blur="searchBlur" 
-                                    ref="searchInput" 
-                                    @keydown.delete="handleInputDelete" 
+                                <input class="ant-select-search__field"
+                                    v-model="searchVal"
+                                    :style="multipleSearchStyle"
+                                    @focus="searchFocus"
+                                    @blur="searchBlur"
+                                    ref="searchInput"
+                                    @keydown.delete="handleInputDelete"
                                     @keydown.enter="handleInputEnter"
                                     @keydown.up="handleInputMove(0)"
                                     @keydown.down="handleInputMove(1)">
@@ -155,7 +155,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: () => t('select.placeholder'),
+            default: () => t('common.placeholder1'),
         },
         data: {
             type: Array,

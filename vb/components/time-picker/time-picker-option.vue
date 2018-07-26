@@ -2,8 +2,8 @@
     <div :class="wrapClasses">
         <div :class="[prefix+'-inner',{[prefix+'-2-columns']: !hasSeconds}]">
             <div :class="prefix+'-input-wrap'">
-                <input :class="prefix+'-input'" placeholder="请选择时间" ref="timePickerPanel" v-model="defaultValue">
-                <a :class="prefix+'-clear-btn'" role="button" title="清除" @click="clearTime"></a>
+                <input :class="prefix+'-input'" :placeholder="t('timePicker.placeholder')" ref="timePickerPanel" v-model="defaultValue">
+                <a :class="prefix+'-clear-btn'" role="button" :title="t('timePicker.eliminate')" @click="clearTime"></a>
             </div>
             <div :class="prefix+'-combobox'">
                 <div :class="prefix+'-select'">
@@ -33,7 +33,10 @@
 </template>
 
 <script>
+    import Locale from '../../mixins/locale';
+
     export default {
+        mixins: [Locale],
         data() {
             return {
                 H: '00',

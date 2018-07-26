@@ -1,18 +1,22 @@
 export default {
+    common: {
+        placeholder1: 'please select',
+        placeholder2: 'please enter',
+    },
     select: {
         notFoundContent: 'not found',
-        placeholder: 'plese select',
         loadingText: 'loding...',
     },
     timePicker: {
         placeholder: 'select time',
+        eliminate: 'eliminate',
     },
     datePicker: {
-        placeholder: 'select date',
+        placeholder: 'please select date',
         year: '',
-        lastYear: 'last year',
+        prevYear: 'prev year',
         nextYear: 'next year',
-        lastMonth: 'last month',
+        prevMonth: 'prev month',
         nextMonth: 'next month',
         confirm: 'ok',
         selectYear: 'select year',
@@ -21,6 +25,13 @@ export default {
         selectDate: 'select date',
         days: 'Mo,Tu,We,Th,Fr,Sa,Su',
         months: 'January,February,March,April,May,June,July,August,September,October,November,December',
+        today: 'Today',
+        yesterday: 'Yesterday',
+        last7days: 'The last 7 days',
+        thisMonth: 'This month',
+        lastMonth: 'Last month',
+        latelyMonth: 'The last month',
+        latelyYear: 'The last year',
     },
     modal: {
         okText: 'OK',
@@ -31,18 +42,14 @@ export default {
         okText: 'Yes',
         cancelText: 'No',
     },
-    input: {
-        placeholder: 'plese enter',
-    },
     transfer: {
         searchPlaceholder: 'Search here',
         notFoundContent: 'Not Found',
-    },
-    treeSelect: {
-        placeholder: 'please select',
+        strip: '',
     },
     dataTable: {
-        total: 'Total {total}'
+        total: 'Total {total}',
+        notFoundContent: 'Not Found',
     },
     pagination: {
         prev: 'Prev',

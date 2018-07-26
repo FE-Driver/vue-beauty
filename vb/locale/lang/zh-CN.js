@@ -1,21 +1,22 @@
 export default {
+    common: {
+        placeholder1: '请选择',
+        placeholder2: '请输入',
+    },
     select: {
         notFoundContent: '没有找到',
-        placeholder: '请选择',
         loadingText: '加载中...',
     },
-    autoComplete: {
-        placeholder: '请输入',
-    },
     timePicker: {
-        placeholder: '选择时间',
+        placeholder: '请选择时间',
+        eliminate: '清除',
     },
     datePicker: {
         placeholder: '请选择日期',
         year: '年',
-        lastYear: '上一年',
+        prevYear: '上一年',
         nextYear: '下一年',
-        lastMonth: '上一月',
+        prevMonth: '上一月',
         nextMonth: '下一月',
         confirm: '确定',
         selectYear: '选择年份',
@@ -24,6 +25,13 @@ export default {
         selectDate: '选择日期',
         days: '一,二,三,四,五,六,日',
         months: '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月',
+        today: '今天',
+        yesterday: '昨天',
+        last7days: '最近7天',
+        thisMonth: '本月',
+        lastMonth: '上个月',
+        latelyMonth: '最近一个月',
+        latelyYear: '最近一年',
     },
     modal: {
         okText: '确定',
@@ -34,18 +42,14 @@ export default {
         okText: '是',
         cancelText: '否',
     },
-    input: {
-        placeholder: '请输入',
-    },
     transfer: {
         searchPlaceholder: '请输入搜索内容',
         notFoundContent: '列表为空',
-    },
-    treeSelect: {
-        placeholder: '请选择',
+        strip: '条',
     },
     dataTable: {
         total: '共有 {total} 条数据',
+        notFoundContent: '老板,没有找到你想要的信息......',
     },
     pagination: {
         prev: '上一页',

@@ -18,14 +18,14 @@
                         <template v-for="no in count">
                             <div :class="range?'ant-calendar-range-part ant-calendar-range-left':''">
                                 <div class="ant-calendar-header">
-                                    <a class="ant-calendar-prev-year-btn" :title="t('datePicker.lastYear')" @click="changeYear(-1,no)"></a>
-                                    <a class="ant-calendar-prev-month-btn" :title="t('datePicker.lastMonth')" @click="changeMonth(-1,no)"></a>
+                                    <a class="ant-calendar-prev-year-btn" :title="t('datePicker.prevYear')" @click="changeYear(-1,no)"></a>
+                                    <a class="ant-calendar-prev-month-btn" :title="t('datePicker.prevMonth')" @click="changeMonth(-1,no)"></a>
                                     <span class="ant-calendar-my-select">
                                         <a class="ant-calendar-year-select" :title="t('datePicker.selectYear')" @click="showYear(no)">{{$data['now'+no].getFullYear()+t('datePicker.year')}}</a>
                                         <a class="ant-calendar-month-select" :title="t('datePicker.selectMonth')" @click="showMonth(no)">{{months[$data['now'+no].getMonth()]}}</a>
                                     </span>
-                                    <a class="ant-calendar-next-month-btn" :title="t('datePicker.nextYear')" @click="changeMonth(1,no)"></a>
-                                    <a class="ant-calendar-next-year-btn" :title="t('datePicker.nextMonth')" @click="changeYear(1,no)"></a>
+                                    <a class="ant-calendar-next-month-btn" :title="t('datePicker.nextMonth')" @click="changeMonth(1,no)"></a>
+                                    <a class="ant-calendar-next-year-btn" :title="t('datePicker.nextYear')" @click="changeYear(1,no)"></a>
                                 </div>
                                 <div class="ant-calendar-body">
                                     <table class="ant-calendar-table" cellspacing="0" role="grid">
@@ -358,49 +358,49 @@
                 let time = new Date();
                 const ranges = [];
                 ranges.push({
-                    name: '今天',
+                    name: this.t('datePicker.today'),
                     start: this.parse(time, false),
                     end: this.parse(time, true),
                     active: true,
                 });
                 time.setDate(time.getDate() - 1);
                 ranges.push({
-                    name: '昨天',
+                    name: this.t('datePicker.yesterday'),
                     start: this.parse(time, false),
                     end: this.parse(time, true),
                 });
                 time = new Date();
                 time.setDate(time.getDate() - 6);
                 ranges.push({
-                    name: '最近7天',
+                    name: this.t('datePicker.last7days'),
                     start: this.parse(time, false),
                     end: this.parse(new Date(), true),
                 });
                 time = new Date();
                 time.setMonth(time.getMonth() + 1, 0);
                 ranges.push({
-                    name: '本月',
+                    name: this.t('datePicker.thisMonth'),
                     start: new Date(time.getFullYear(), time.getMonth(), 1),
                     end: this.parse(time, true),
                 });
                 time = new Date();
                 time.setMonth(time.getMonth(), 0);
                 ranges.push({
-                    name: '上个月',
+                    name: this.t('datePicker.lastMonth'),
                     start: new Date(time.getFullYear(), time.getMonth(), 1),
                     end: this.parse(time, true),
                 });
                 time = new Date();
                 time.setDate(time.getDate() - 29);
                 ranges.push({
-                    name: '最近一个月',
+                    name: this.t('datePicker.latelyMonth'),
                     start: this.parse(time, false),
                     end: this.parse(new Date(), true),
                 });
                 time = new Date();
                 time.setDate(time.getDate() - 365);
                 ranges.push({
-                    name: '最近一年',
+                    name: this.t('datePicker.latelyYear'),
                     start: this.parse(time, false),
                     end: this.parse(new Date(), true),
                 });
