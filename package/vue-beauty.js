@@ -8244,23 +8244,24 @@ var deepmerge_1 = deepmerge;
 
 // CONCATENATED MODULE: ./vb/locale/lang/zh-CN.js
 /* harmony default export */ var zh_CN = ({
+    common: {
+        placeholder1: '请选择',
+        placeholder2: '请输入'
+    },
     select: {
         notFoundContent: '没有找到',
-        placeholder: '请选择',
         loadingText: '加载中...'
     },
-    autoComplete: {
-        placeholder: '请输入'
-    },
     timePicker: {
-        placeholder: '选择时间'
+        placeholder: '请选择时间',
+        eliminate: '清除'
     },
     datePicker: {
         placeholder: '请选择日期',
         year: '年',
-        lastYear: '上一年',
+        prevYear: '上一年',
         nextYear: '下一年',
-        lastMonth: '上一月',
+        prevMonth: '上一月',
         nextMonth: '下一月',
         confirm: '确定',
         selectYear: '选择年份',
@@ -8268,7 +8269,14 @@ var deepmerge_1 = deepmerge;
         selectTime: '选择时间',
         selectDate: '选择日期',
         days: '一,二,三,四,五,六,日',
-        months: '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月'
+        months: '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月',
+        today: '今天',
+        yesterday: '昨天',
+        last7days: '最近7天',
+        thisMonth: '本月',
+        lastMonth: '上个月',
+        latelyMonth: '最近一个月',
+        latelyYear: '最近一年'
     },
     modal: {
         okText: '确定',
@@ -8279,18 +8287,14 @@ var deepmerge_1 = deepmerge;
         okText: '是',
         cancelText: '否'
     },
-    input: {
-        placeholder: '请输入'
-    },
     transfer: {
         searchPlaceholder: '请输入搜索内容',
-        notFoundContent: '列表为空'
-    },
-    treeSelect: {
-        placeholder: '请选择'
+        notFoundContent: '列表为空',
+        strip: '条'
     },
     dataTable: {
-        total: '共有 {total} 条数据'
+        total: '共有 {total} 条数据',
+        notFoundContent: '老板,没有找到你想要的信息......'
     },
     pagination: {
         prev: '上一页',
@@ -8633,7 +8637,7 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
         placeholder: {
             type: String,
             default: function _default() {
-                return locale_t('select.placeholder');
+                return locale_t('common.placeholder1');
             }
         },
         data: {
@@ -12006,6 +12010,7 @@ function cascader__defineProperty(obj, key, value) { if (key in obj) { define_pr
 
 
 
+
 /* harmony default export */ var cascader = ({
     name: 'Cascader',
     components: { vmenu: components_cascader_menu },
@@ -12042,7 +12047,9 @@ function cascader__defineProperty(obj, key, value) { if (key in obj) { define_pr
         },
         placeholder: {
             type: String,
-            default: '请选择'
+            default: function _default() {
+                return locale_t('common.placeholder1');
+            }
         },
         size: String,
         disabled: {
@@ -12690,7 +12697,7 @@ function input__defineProperty(obj, key, value) { if (key in obj) { define_prope
         placeholder: {
             type: String,
             default: function _default() {
-                return locale_t('input.placeholder');
+                return locale_t('common.placeholder2');
             }
         },
         id: [Number, String],
@@ -13501,7 +13508,10 @@ function time_picker_option__defineProperty(obj, key, value) { if (key in obj) {
 //
 //
 
+
+
 /* harmony default export */ var time_picker_option = ({
+    mixins: [mixins_locale],
     data: function data() {
         return {
             H: '00',
@@ -13676,7 +13686,7 @@ var time_picker_option_render = function() {
             ],
             ref: "timePickerPanel",
             class: _vm.prefix + "-input",
-            attrs: { placeholder: "请选择时间" },
+            attrs: { placeholder: _vm.t("timePicker.placeholder") },
             domProps: { value: _vm.defaultValue },
             on: {
               input: function($event) {
@@ -13690,7 +13700,7 @@ var time_picker_option_render = function() {
           _vm._v(" "),
           _c("a", {
             class: _vm.prefix + "-clear-btn",
-            attrs: { role: "button", title: "清除" },
+            attrs: { role: "button", title: _vm.t("timePicker.eliminate") },
             on: { click: _vm.clearTime }
           })
         ]),
@@ -15533,49 +15543,49 @@ var _t = mixins_locale.methods.t;
             var time = new Date();
             var ranges = [];
             ranges.push({
-                name: '今天',
+                name: this.t('datePicker.today'),
                 start: this.parse(time, false),
                 end: this.parse(time, true),
                 active: true
             });
             time.setDate(time.getDate() - 1);
             ranges.push({
-                name: '昨天',
+                name: this.t('datePicker.yesterday'),
                 start: this.parse(time, false),
                 end: this.parse(time, true)
             });
             time = new Date();
             time.setDate(time.getDate() - 6);
             ranges.push({
-                name: '最近7天',
+                name: this.t('datePicker.last7days'),
                 start: this.parse(time, false),
                 end: this.parse(new Date(), true)
             });
             time = new Date();
             time.setMonth(time.getMonth() + 1, 0);
             ranges.push({
-                name: '本月',
+                name: this.t('datePicker.thisMonth'),
                 start: new Date(time.getFullYear(), time.getMonth(), 1),
                 end: this.parse(time, true)
             });
             time = new Date();
             time.setMonth(time.getMonth(), 0);
             ranges.push({
-                name: '上个月',
+                name: this.t('datePicker.lastMonth'),
                 start: new Date(time.getFullYear(), time.getMonth(), 1),
                 end: this.parse(time, true)
             });
             time = new Date();
             time.setDate(time.getDate() - 29);
             ranges.push({
-                name: '最近一个月',
+                name: this.t('datePicker.latelyMonth'),
                 start: this.parse(time, false),
                 end: this.parse(new Date(), true)
             });
             time = new Date();
             time.setDate(time.getDate() - 365);
             ranges.push({
-                name: '最近一年',
+                name: this.t('datePicker.latelyYear'),
                 start: this.parse(time, false),
                 end: this.parse(new Date(), true)
             });
@@ -16152,7 +16162,7 @@ var date_picker_render = function() {
                                   _c("a", {
                                     staticClass: "ant-calendar-prev-year-btn",
                                     attrs: {
-                                      title: _vm.t("datePicker.lastYear")
+                                      title: _vm.t("datePicker.prevYear")
                                     },
                                     on: {
                                       click: function($event) {
@@ -16164,7 +16174,7 @@ var date_picker_render = function() {
                                   _c("a", {
                                     staticClass: "ant-calendar-prev-month-btn",
                                     attrs: {
-                                      title: _vm.t("datePicker.lastMonth")
+                                      title: _vm.t("datePicker.prevMonth")
                                     },
                                     on: {
                                       click: function($event) {
@@ -16237,7 +16247,7 @@ var date_picker_render = function() {
                                   _c("a", {
                                     staticClass: "ant-calendar-next-month-btn",
                                     attrs: {
-                                      title: _vm.t("datePicker.nextYear")
+                                      title: _vm.t("datePicker.nextMonth")
                                     },
                                     on: {
                                       click: function($event) {
@@ -16249,7 +16259,7 @@ var date_picker_render = function() {
                                   _c("a", {
                                     staticClass: "ant-calendar-next-year-btn",
                                     attrs: {
-                                      title: _vm.t("datePicker.nextMonth")
+                                      title: _vm.t("datePicker.nextYear")
                                     },
                                     on: {
                                       click: function($event) {
@@ -23184,6 +23194,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
 
 
 
+
 /* harmony default export */ var data_table = ({
     name: 'DataTable',
     mixins: [mixins_locale],
@@ -23298,7 +23309,9 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
         },
         emptyText: {
             type: String,
-            default: '老板,没有找到你想要的信息......'
+            default: function _default() {
+                return locale_t('dataTable.notFoundContent');
+            }
         }
     },
     /*
@@ -23320,7 +23333,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             // 加载状态
             loading: false,
             sortParams: {},
-            //                排序模式:single和multi,单参数和多参数
+            // 排序模式:single和multi,单参数和多参数
             sortModel: 'single',
             rowSelectionStates: [],
             tableBodyScrollLeft: 0,
@@ -23448,7 +23461,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             this.loadData();
         },
 
-        //            单参数排序模式
+        // 单参数排序模式
         setCurrentSort: function setCurrentSort(sortColumn, order) {
             if (!order) {
                 switch (sortColumn.sort) {
@@ -24071,13 +24084,13 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
                 var obj = trData[i];
                 var ch = obj.children;
 
-                //                    如果是异步模式，直接使用isparent字段判断是否为父节点；否则使用children长度判断
+                // 如果是异步模式，直接使用isparent字段判断是否为父节点；否则使用children长度判断
                 if (!this.treeTableOption.isAsync) {
                     obj.isparent = !!ch.length;
                 }
-                //                    先插入父节点
+                // 先插入父节点
                 this.newData.push(obj);
-                //                     递归插入子节点
+                // 递归插入子节点
                 ch.length && this.sortTrData(ch);
             }
         },
@@ -24091,7 +24104,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             return a[name] < b[name] ? 1 : -1;
         },
 
-        //            查找子节点
+        // 查找子节点
         findChildren: function findChildren(pid) {
             var results = [];
             var origindata = this.originData;
@@ -24103,7 +24116,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             return results;
         },
 
-        //            获取节点层级
+        // 获取节点层级
         getLevel: function getLevel(id) {
             var origindata = this.originData;
             var TreeTableOpt = this.treeTableOption;
@@ -24153,7 +24166,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
             var children = item.children || [];
             for (var i = 0; i < children.length; i++) {
                 children[i].vshow = vshow;
-                //                    关闭节点时，所有子孙节点都要关闭
+                // 关闭节点时，所有子孙节点都要关闭
                 this.collapse(children[i]);
             }
             this.calculateSize();
@@ -27604,8 +27617,10 @@ if (false) {(function () {
 
 
 
+
 function list_noop() {}
 /* harmony default export */ var list = ({
+    mixins: [mixins_locale],
     components: {
         vCheckbox: components_checkbox,
         vSearch: transfer_search
@@ -27801,7 +27816,7 @@ var list_render = function() {
                     ? _vm.checkedKeys.length + "/"
                     : "") +
                     _vm.dataSource.length +
-                    "条"
+                    _vm.t("transfer.strip")
                 )
               )
             ]),
@@ -27877,7 +27892,9 @@ var list_render = function() {
           ),
           _vm._v(" "),
           _c("div", { class: _vm.prefixCls + "-body-not-found" }, [
-            _vm._v(_vm._s(_vm.notFoundContent || "列表为空"))
+            _vm._v(
+              _vm._s(_vm.notFoundContent || _vm.t("transfer.notFoundContent"))
+            )
           ])
         ]
       ),
@@ -29894,7 +29911,7 @@ if (false) {(function () {
         placeholder: {
             type: String,
             default: function _default() {
-                return locale_t('treeSelect.placeholder');
+                return locale_t('common.placeholder1');
             }
         },
         position: {
@@ -30201,7 +30218,7 @@ var auto_complete_style_default = /*#__PURE__*/__webpack_require__.n(auto_comple
         placeholder: {
             type: String,
             default: function _default() {
-                return locale_t('autoComplete.placeholder');
+                return locale_t('common.placeholder2');
             }
         },
         filter: Function
@@ -34758,7 +34775,7 @@ exports = module.exports = __webpack_require__(65)(false);
 
 
 // module
-exports.push([module.i, "\n.ant-select-selection__choice__remove[data-v-70af5da8] {\r\n    top: 0\n}\n.ant-select__dropdown[data-v-70af5da8]:focus {\r\n    outline: 0px solid transparent;\n}\r\n", ""]);
+exports.push([module.i, "\n.ant-select-selection__choice__remove[data-v-70af5da8] {\n    top: 0\n}\n.ant-select__dropdown[data-v-70af5da8]:focus {\n    outline: 0px solid transparent;\n}\n", ""]);
 
 // exports
 
@@ -37911,7 +37928,7 @@ if (hadRuntime) {
 /* 334 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"vue-beauty","version":"2.0.0-beta.17","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.1","core-js":"^2.5.5","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.9.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.3","eslint-plugin-import":"^2.11.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.7.0","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.2","vue-markdown-loader":"^2.4.1","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.22.0","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
+module.exports = {"name":"vue-beauty","version":"2.0.0-beta.19","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.1","core-js":"^2.5.5","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.9.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.3","eslint-plugin-import":"^2.11.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.7.0","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.2","vue-markdown-loader":"^2.4.1","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.22.0","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
 
 /***/ })
 /******/ ]);
