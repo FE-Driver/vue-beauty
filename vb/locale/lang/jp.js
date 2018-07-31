@@ -1,0 +1,63 @@
+export default {
+    common: {
+        placeholder1: '選択してください',
+        placeholder2: '入力してください',
+    },
+    select: {
+        notFoundContent: '見つかりませんでした',
+        loadingText: 'ロード中...',
+    },
+    timePicker: {
+        placeholder: '時間を選択してください',
+        eliminate: 'クリア',
+    },
+    datePicker: {
+        placeholder: '日付を選択してください',
+        year: '年',
+        prevYear: '前年',
+        nextYear: '次の年',
+        prevMonth: '先月',
+        nextMonth: '翌月',
+        confirm: '確定する',
+        selectYear: '年の選択',
+        selectMonth: '月の選択',
+        selectTime: '選択時間',
+        selectDate: '日付の選択',
+        days: '月,火,水,木,金,土,日',
+        months: '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月',
+        today: '今日',
+        yesterday: '昨日',
+        last7days: '最近7日間',
+        thisMonth: '今月',
+        lastMonth: '先月',
+        latelyMonth: '最近1ヶ月',
+        latelyYear: '最近1年',
+    },
+    modal: {
+        okText: '確定する',
+        cancelText: 'キャンセル',
+        justOkText: 'はい',
+    },
+    popconfirm: {
+        okText: 'はい',
+        cancelText: 'いいえ',
+    },
+    transfer: {
+        searchPlaceholder: '検索を入力してください',
+        notFoundContent: 'リストが空です',
+        strip: '条',
+    },
+    dataTable: {
+        total: '{total} 個のデータ',
+        notFoundContent: 'ご希望の情報が見つかりませんでした......',
+    },
+    pagination: {
+        prev: '前のページ',
+        next: '次のページ',
+        forward5: '前へ5ページ',
+        backward5: '後ろへ5ページ',
+        goto: 'ジャンプ先',
+        page: 'ページ',
+        pageSize: 'レコード/ページ',
+    },
+};
