@@ -8393,6 +8393,7 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
             searchFound: false,
             show: false,
             dropdownStyle: {},
+            dropdownUiStyle: {},
             labels: this.multiple ? [] : '',
             ori_data: JSON.parse(stringify_default()(this.data)),
             isSearchFocus: false,
@@ -8870,7 +8871,10 @@ function select__defineProperty(obj, key, value) { if (key in obj) { define_prop
             this.dropdownStyle = {
                 top: (this.placement === 'top' ? p.top - this.dropdownHeight - 4 : p.bottom + 4) + 'px',
                 left: p.left + 'px',
-                width: dwidth,
+                width: dwidth
+            };
+
+            this.dropdownUiStyle = {
                 maxHeight: this.maxHeight + 'px'
             };
         },
@@ -9266,6 +9270,7 @@ var select_render = function() {
                 {
                   staticClass:
                     "ant-select-dropdown-menu ant-select-dropdown-menu-vertical  ant-select-dropdown-menu-root",
+                  style: _vm.dropdownUiStyle,
                   attrs: { role: "menu", "aria-activedescendant": "" }
                 },
                 [
@@ -15102,8 +15107,10 @@ var _t = mixins_locale.methods.t;
                 _this2.setPosition();
             }, 200);
         },
-        show: function show() {
+        show: function show(visible) {
             this.hidePanel();
+
+            this.$emit('dropdownToggle', visible);
         },
         now1: function now1() {
             this.updateAll();
@@ -15198,25 +15205,37 @@ var _t = mixins_locale.methods.t;
         initRanges: function initRanges() {
             var time = new Date();
             var ranges = [];
-            ranges.push({
-                name: '今天',
-                start: this.parse(time, false),
-                end: this.parse(time, true),
-                active: true
-            });
-            time.setDate(time.getDate() - 1);
-            ranges.push({
-                name: '昨天',
-                start: this.parse(time, false),
-                end: this.parse(time, true)
-            });
+
             time = new Date();
-            time.setDate(time.getDate() - 6);
+            time.setDate(time.getDate() - 2);
             ranges.push({
-                name: '最近7天',
+                name: '近三天',
                 start: this.parse(time, false),
                 end: this.parse(new Date(), true)
             });
+
+            time = new Date();
+            time.setDate(time.getDate() - 6);
+            ranges.push({
+                name: '近七天',
+                start: this.parse(time, false),
+                end: this.parse(new Date(), true)
+            });
+
+            time = new Date();
+            ranges.push({
+                name: '本周',
+                start: new Date().setDate(time.getDate() - (time.getDay() || 7) + 1),
+                end: new Date().setDate(time.getDate() - (time.getDay() || 7) + 7)
+            });
+
+            time = new Date();
+            ranges.push({
+                name: '上周',
+                start: new Date().setDate(time.getDate() - (time.getDay() || 7) - 6),
+                end: new Date().setDate(time.getDate() - (time.getDay() || 7))
+            });
+
             time = new Date();
             time.setMonth(time.getMonth() + 1, 0);
             ranges.push({
@@ -15224,27 +15243,15 @@ var _t = mixins_locale.methods.t;
                 start: new Date(time.getFullYear(), time.getMonth(), 1),
                 end: this.parse(time, true)
             });
+
             time = new Date();
             time.setMonth(time.getMonth(), 0);
             ranges.push({
-                name: '上个月',
+                name: '上月',
                 start: new Date(time.getFullYear(), time.getMonth(), 1),
                 end: this.parse(time, true)
             });
-            time = new Date();
-            time.setDate(time.getDate() - 29);
-            ranges.push({
-                name: '最近一个月',
-                start: this.parse(time, false),
-                end: this.parse(new Date(), true)
-            });
-            time = new Date();
-            time.setDate(time.getDate() - 365);
-            ranges.push({
-                name: '最近一年',
-                start: this.parse(time, false),
-                end: this.parse(new Date(), true)
-            });
+
             this.ranges = ranges;
         },
 
@@ -15297,8 +15304,8 @@ var _t = mixins_locale.methods.t;
 
         // 确认
         confirm: function confirm() {
+            this.$emit('confirm', this.value);
             this.closeDropdown();
-            this.$emit('confirm');
         },
         closeDropdown: function closeDropdown() {
             this.show = false;
@@ -18074,6 +18081,11 @@ if (false) {(function () {
         mounted: function mounted() {
             instance = this;
             this.visible = true;
+
+            // fixme 关闭$modal临时解决方案
+            window.Bus && window.Bus.$on('vbmodalclose', function () {
+                _close();
+            });
         },
 
         computed: {
@@ -19548,12 +19560,13 @@ function request_upload(option) {
 
     var formData = new FormData();
     // formData.append('enctype', 'multipart/form-data');
-    formData.append(option.filename, option.file);
     if (option.data) {
         for (var key in option.data) {
             formData.append(key, option.data[key]);
         }
     }
+    // 阿里云oss上传要求file在key后面
+    formData.append(option.filename, option.file);
 
     xhr.onerror = function (e) {
         option.onError(e);
@@ -19576,11 +19589,10 @@ function request_upload(option) {
     xhr.send(formData);
 }
 // CONCATENATED MODULE: ./vb/components/upload/uid.js
-var now = +new Date();
 var uid_index = 0;
 
 function uid() {
-    return "ant-upload-" + now + "-" + ++uid_index;
+    return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2) + "-" + ++uid_index;
 }
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./vb/components/upload/ajax-uploader.vue
 //
@@ -20099,16 +20111,16 @@ function fileToObject(file) {
             }
         },
         onSuccess: function onSuccess(response, file) {
-            // 服务器端需要返回标准 json 字符串
+            // 服务器端需要返回标准 json 字符串 （阿里oss返回response为空，只要200就算成功）
             // 否则视为失败
-            try {
-                if (typeof response === 'string') {
-                    JSON.parse(response);
-                }
-            } catch (e) {
-                this.onError(new Error('No response'), response, file);
-                return;
-            }
+            // try {
+            //     if (typeof response === 'string') {
+            //         JSON.parse(response);
+            //     }
+            // } catch (e) {
+            //     this.onError(new Error('No response'), response, file);
+            //     return;
+            // }
 
             var fileList = this.defaultFileList;
             var targetItem = getFileItem(file, fileList);
@@ -22320,7 +22332,7 @@ function getPropByPath(obj, path) {
                 this.$on('form.blur', this.onFieldBlur);
                 this.$on('form.change', this.onFieldChange);
                 this.$on('form.keyup', this.onFieldKeyUp);
-                this.$on('form.keydown', this.onFieldKeyDown);
+                // this.$on('form.keydown', this.onFieldKeyDown);
             }
         }
     },
@@ -23014,6 +23026,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
 
         if (!this.bindResize) {
             window.addEventListener('resize', this.calculateSize);
+            window.top.addEventListener('resize', this.calculateSize);
             this.bindResize = true;
         }
     },
@@ -23029,6 +23042,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
     },
     beforeDestroy: function beforeDestroy() {
         window.removeEventListener('resize', this.calculateSize);
+        window.top.removeEventListener('resize', this.calculateSize);
     },
 
     methods: {
@@ -23102,7 +23116,7 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
                         order = 'desc';
                         break;
                     case 'desc':
-                        order = true;
+                        order = 'asc';
                         break;
                     default:
                         order = 'asc';
@@ -23669,8 +23683,12 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
         fixGapHeight: function fixGapHeight() {
             // 获取挂载元素在屏幕上的位置
             var rect = this.$el.getBoundingClientRect();
-            var winHeight = window.innerHeight;
-            var tableBodyHeight = winHeight - this.bottomGap - rect.top;
+            var winHeight = window.top.innerHeight;
+            var extHeight = 0;
+            if (window.top !== window) {
+                extHeight = 90;
+            }
+            var tableBodyHeight = winHeight - this.bottomGap - rect.top - extHeight;
             // 在可见首屏范围内且计算高度至少200时处理，否则不处理
             if (rect.top > 0 && tableBodyHeight >= 200) {
                 this.tableBodyHeight = tableBodyHeight;
@@ -37281,7 +37299,7 @@ if (hadRuntime) {
 /* 329 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"vue-beauty","version":"2.0.0-beta.13","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.0","core-js":"^2.5.3","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.8.4","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.2","eslint-plugin-import":"^2.9.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.6.1","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.1","vue-markdown-loader":"^2.4.0","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.21.2","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
+module.exports = {"name":"vue-beauty","version":"2.0.0-beta.14","description":"Ant Design components built with Vue.js","author":"G7:FE-driver","main":"package/vue-beauty.min.js","scripts":{"dev":"node build/dev-server.js","start":"node build/dev-server.js","build":"node build/build.js","lint":"eslint --ext .js,.vue src","package:dev":"webpack --config build/webpack.package.dev.config.js","package:prod":"webpack --config build/webpack.package.prod.config.js","package":"npm run package:dev && npm run package:prod"},"repository":{"type":"git","url":"https://github.com/FE-Driver/vue-beauty.git"},"license":"MIT","keywords":["vue","vue-beauty","vue-component","ant-design"],"eslintConfig":{"env":{"browser":true,"es6":true}},"homepage":"https://github.com/FE-Driver/vue-beauty","dependencies":{"async-validator":"^1.8.2","autosize":"^4.0.0","core-js":"^2.5.3","date-fns":"^1.29.0","deepmerge":"^2.1.0","lodash":"^4.17.5","popper.js":"^0.6.4"},"devDependencies":{"autoprefixer":"^8.2.0","axios":"^0.18.0","babel-core":"^6.26.0","babel-eslint":"^8.2.2","babel-loader":"^7.1.4","babel-plugin-transform-runtime":"^6.23.0","babel-preset-env":"^1.6.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","chalk":"^2.3.2","cheerio":"^0.22.0","clipboard":"^2.0.0","connect-history-api-fallback":"^1.5.0","copy-webpack-plugin":"^4.5.1","css-loader":"^0.28.11","eslint":"^4.19.1","eslint-config-airbnb-base":"^12.1.0","eslint-friendly-formatter":"^3.0.0","eslint-import-resolver-webpack":"^0.8.4","eslint-loader":"^1.9.0","eslint-plugin-html":"^4.0.2","eslint-plugin-import":"^2.9.0","eventsource-polyfill":"^0.9.6","express":"^4.16.3","extract-text-webpack-plugin":"^3.0.2","file-loader":"^1.1.11","formidable":"^1.2.1","friendly-errors-webpack-plugin":"^1.6.1","highlight.js":"^9.12.0","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.18.0","less":"^2.7.3","less-loader":"^4.1.0","markdown-it":"^8.4.1","markdown-it-anchor":"^4.0.0","markdown-it-container":"^2.0.0","opn":"^5.3.0","optimize-css-assets-webpack-plugin":"^3.2.0","ora":"^2.0.0","rimraf":"^2.6.2","semver":"^5.5.0","shelljs":"^0.8.1","transliteration":"1.6.2","url-loader":"^0.6.2","vue":"^2.5.16","vue-loader":"^14.2.1","vue-markdown-loader":"^2.4.0","vue-router":"^3.0.1","vue-style-loader":"^4.1.0","vue-template-compiler":"^2.5.16","webpack":"^3.11.0","webpack-bundle-analyzer":"^2.11.1","webpack-dev-middleware":"^2.0.6","webpack-hot-middleware":"^2.21.2","webpack-merge":"^4.1.2"},"engines":{"node":">= 4.0.0","npm":">= 3.0.0"}}
 
 /***/ })
 /******/ ]);
