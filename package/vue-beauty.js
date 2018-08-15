@@ -3161,7 +3161,7 @@ var alert_style_default = /*#__PURE__*/__webpack_require__.n(alert_style);
     }
 });
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-6ea24515","hasScoped":false,"optionsId":"0","buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./vb/components/alert/alert.vue
-var render = function() {
+var alert_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -3219,12 +3219,12 @@ var render = function() {
   )
 }
 var staticRenderFns = []
-render._withStripped = true
+alert_render._withStripped = true
 
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6ea24515", { render: render, staticRenderFns: staticRenderFns })
+    require("vue-hot-reload-api")      .rerender("data-v-6ea24515", { render: alert_render, staticRenderFns: staticRenderFns })
   }
 }
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/component-normalizer.js
@@ -3348,7 +3348,7 @@ var __vue_module_identifier__ = null
 
 var Component = normalizeComponent(
   alert_alert,
-  render,
+  alert_render,
   staticRenderFns,
   __vue_template_functional__,
   __vue_styles__,
@@ -16759,15 +16759,21 @@ if (false) {(function () {
 
 
 components_message_message.newInstance = function (data) {
-    var div = document.createElement('div');
-    div.innerHTML = '<v-message :top=\'' + data.top + '\' :duration=\'' + data.duration + '\'></v-message>';
-    document.body.appendChild(div);
+    var _props = data || {};
 
-    var message = new external___root___Vue___commonjs___vue___commonjs2___vue___amd___vue___default.a({
-        el: div,
-        data: {},
-        components: { vMessage: components_message_message }
-    }).$children[0];
+    var Instance = new external___root___Vue___commonjs___vue___commonjs2___vue___amd___vue___default.a({
+        data: _props,
+        render: function render(h) {
+            return h(components_message_message, {
+                props: _props
+            });
+        }
+    });
+
+    var component = Instance.$mount();
+    document.body.appendChild(component.$el);
+
+    var message = Instance.$children[0];
 
     return {
         notice: function notice(noticeProps) {
