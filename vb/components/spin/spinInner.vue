@@ -31,7 +31,7 @@ export default {
     },
     computed: {
         wrapClasses() {
-            const size = { small: 'sm', large: 'lg' }[this.size];
+            const size = { small: 'sm', large: 'lg' }[this.size || this.$VUEBEAUTY.size];
 
             return [
                 this.prefix,

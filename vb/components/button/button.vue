@@ -40,14 +40,14 @@
                 const { prefixCls, type, size, shape, loading, clicked, ghost } = this;
                 const btnClass = {};
                 let tmpSize = '';
-                if (size === 'small') {
+                if (size === 'small' || this.$VUEBEAUTY.size === 'small') {
                     tmpSize = 'sm';
-                } else if (size === 'large') {
+                } else if (size === 'large' || this.$VUEBEAUTY.size === 'large') {
                     tmpSize = 'lg';
                 }
+                this.$VUEBEAUTY.size ? btnClass[`${prefixCls}-${tmpSize}`] = this.$VUEBEAUTY.size : btnClass[`${prefixCls}-${tmpSize}`] = size;
                 btnClass[prefixCls] = true;
                 btnClass[`${prefixCls}-${type}`] = type;
-                btnClass[`${prefixCls}-${tmpSize}`] = size;
                 btnClass[`${prefixCls}-${shape}`] = shape;
                 btnClass[`${prefixCls}-loading`] = loading;
                 btnClass[`${prefixCls}-background-ghost`] = ghost;

@@ -115,7 +115,7 @@ export default {
             ];
         },
         inpCls() {
-            const size = { large: 'lg', small: 'sm' }[this.size];
+            const size = { large: 'lg', small: 'sm' }[this.size || this.$VUEBEAUTY.size];
 
             return [
                 'ant-input',

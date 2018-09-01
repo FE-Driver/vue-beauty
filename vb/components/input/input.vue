@@ -51,7 +51,6 @@
             value: null,
             size: {
                 type: String,
-                default: 'default',
             },
             debounce: {
                 type: Number,
@@ -93,7 +92,7 @@
                 ];
             },
             inpClasses() {
-                const size = { small: 'sm', large: 'lg' }[this.size];
+                const size = { small: 'sm', large: 'lg' }[this.size || this.$VUEBEAUTY.size];
 
                 return [
                     this.prefix,

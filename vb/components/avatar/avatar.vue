@@ -20,7 +20,6 @@ export default {
     props: {
         size: {
             type: String,
-            default: 'circle',
         },
         src: String,
         shape: {
@@ -31,7 +30,7 @@ export default {
     },
     computed: {
         avatarCls() {
-            const size = { large: 'lg', small: 'sm' }[this.size];
+            const size = { large: 'lg', small: 'sm' }[this.size || this.$VUEBEAUTY.size];
 
             return [
                 this.prefixCls,

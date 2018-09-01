@@ -68,7 +68,7 @@
             wrapClasses() {
                 return [
                     this.prefix,
-                    `${this.prefix}-${this.size}`,
+                    `${this.prefix}-${this.size || this.$VUEBEAUTY.size}`,
                 ];
             },
         },

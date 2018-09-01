@@ -13,7 +13,7 @@ import locale from '../vb/locale/lang/zh-CN';
 
 window.Promise = Promise;
 Vue.use(VueRouter);
-Vue.use(vueBeauty, { locale });
+Vue.use(vueBeauty, { locale, size: '' });
 Vue.use(components);
 
 window.Vue = Vue;

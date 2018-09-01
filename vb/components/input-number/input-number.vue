@@ -122,9 +122,9 @@
 
         computed: {
             sizeClass() {
-                if (this.size === 'large') {
+                if (this.size === 'large' || this.$VUEBEAUTY.size === 'large') {
                     return 'ant-input-number-lg';
-                } else if (this.size === 'small') {
+                } else if (this.size === 'small' || this.$VUEBEAUTY.size === 'small') {
                     return 'ant-input-number-sm';
                 }
             },

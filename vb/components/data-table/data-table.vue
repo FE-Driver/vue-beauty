@@ -1062,7 +1062,7 @@ export default {
         tableCls() {
             return [
                 this.prefix,
-                `${this.prefix}-${this.size}`,
+                `${this.prefix}-${this.size || this.$VUEBEAUTY.size}`,
                 { [`${this.prefix}-bordered`]: this.bordered },
                 { [`${this.prefix}-stripe`]: this.stripe },
             ];
