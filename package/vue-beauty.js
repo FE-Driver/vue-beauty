@@ -29558,7 +29558,7 @@ function tree_select_select__toConsumableArray(arr) { if (Array.isArray(arr)) { 
     },
     methods: {
         setPosition: function setPosition() {
-            if (!this.$el) return;
+        if (!this.$el || !this.$refs.inputArea) return;
             var p = fn_getOffset(this.$refs.inputArea, this.container);
 
             this.style = {
