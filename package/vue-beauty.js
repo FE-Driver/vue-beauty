@@ -23032,7 +23032,12 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
 
         if (!this.bindResize) {
             window.addEventListener('resize', this.calculateSize);
-            window.top.addEventListener('resize', this.calculateSize);
+            try {
+                window.top.addEventListener('resize', this.calculateSize);
+                window.Bus.$on('updateClientHeight', this.calculateSize);
+            } catch (e) {
+                //
+            }
             this.bindResize = true;
         }
     },
@@ -23048,7 +23053,12 @@ function data_table__defineProperty(obj, key, value) { if (key in obj) { define_
     },
     beforeDestroy: function beforeDestroy() {
         window.removeEventListener('resize', this.calculateSize);
-        window.top.removeEventListener('resize', this.calculateSize);
+        try {
+            window.top.removeEventListener('resize', this.calculateSize);
+            window.Bus.$off('updateClientHeight', this.calculateSize);
+        } catch (e) {
+            //
+        }
     },
 
     methods: {
