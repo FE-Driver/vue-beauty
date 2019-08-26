@@ -468,7 +468,12 @@ export default {
 
         if (!this.bindResize) {
             window.addEventListener('resize', this.calculateSize);
-            window.top.addEventListener('resize', this.calculateSize);
+            try {
+                window.top.addEventListener('resize', this.calculateSize);
+                window.Bus.$on('updateClientHeight', this.calculateSize);
+            } catch (e) {
+                //
+            }
             this.bindResize = true;
         }
     },
@@ -482,7 +487,12 @@ export default {
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.calculateSize);
-        window.top.removeEventListener('resize', this.calculateSize);
+        try {
+            window.top.removeEventListener('resize', this.calculateSize);
+            window.Bus.$off('updateClientHeight', this.calculateSize);
+        } catch (e) {
+            //
+        }
     },
     methods: {
         getScrollbarWidth() {
