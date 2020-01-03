@@ -1,10 +1,10 @@
 import demoBox from './demoBox';
 
-const compnents = {
+const components = {
     demoBox,
 };
 
-for (const item of Object.values(compnents)) {
+for (const item of Object.values(components)) {
     if (!item.install && item.name) {
         item.install = function (Vue) {
             Vue.component(item.name, item);
@@ -15,7 +15,7 @@ for (const item of Object.values(compnents)) {
 const install = function (Vue) {
     if (install.installed) return;
 
-    for (const item of Object.values(compnents)) {
+    for (const item of Object.values(components)) {
         if (item.install) {
             Vue.use(item);
         }
@@ -29,5 +29,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
     install,
-    ...compnents,
+    ...components,
 };
