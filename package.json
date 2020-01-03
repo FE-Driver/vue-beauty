@@ -4,6 +4,7 @@
   "description": "Ant Design components built with Vue.js",
   "author": "G7:FE-driver",
   "main": "package/vue-beauty.min.js",
+  "types": "vb/index.d.ts",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
