@@ -49,7 +49,7 @@
                                 </div>
                                 <transition name="fade">
                                     <div v-if="showTime" v-show="timeSelected" :class="prefix+'-time-picker'">
-                                        <time-picker-panel prefix="ant-calendar-time-picker" v-model="timeVal[no-1]" :selected="timeSelected" :disabled-h="disabledTime[no-1].disabledHours" :disabled-m="disabledTime[no-1].disabledMinutes" local-format="HH:mm" @close="optionClose"></time-picker-panel>
+                                        <time-picker-panel prefix="ant-calendar-time-picker" v-model="timeVal[no-1]" :selected="timeSelected" :disabled-h="disabledTime[no-1].disabledHours" :disabled-m="disabledTime[no-1].disabledMinutes" :local-format="format.split(' ')[1] || 'HH:mm'" @close="optionClose"></time-picker-panel>
                                     </div>
                                 </transition>
                                 <transition name="fade">
@@ -217,8 +217,9 @@
                     }
                 } else if (this.value) {
                     val = this.stringify(this.parse(this.value, false));
+					this.setTimeVal();
                     if (this.showTime) {
-                        val = `${val} ${this.timeVal[0]}`;
+                        val = `${val.split(' ')[0]} ${this.timeVal[0]}`;
                     }
                 }
                 return val;
@@ -232,6 +233,9 @@
                 }
                 return this.size || $VUEBEAUTYSIZE;
             },
+			timeFormat () {
+				return this.format.split(' ')[1] || 'HH:mm:ss';
+			}
         },
         mounted() {
             this.container = this.popupContainer();
@@ -306,7 +310,9 @@
         },
         methods: {
             setTimeVal() {
-                const temp = ['00:00', '00:00'];
+				const length = this.timeFormat.length;
+				const timeStr = '00:00:00'.substr(0 ,length);
+                const temp = [timeStr, timeStr];
                 if (this.range) {
                     if (this.startTime) {
                         const start = this.startTime.split(' ')[1];
@@ -318,7 +324,7 @@
                     }
                 } else if (this.value) {
                     const time = this.value.split(' ')[1];
-                    if (time) temp[0] = (time || '00:00').substr(0, 5);
+                    if (time) temp[0] = (time || timeStr).substr(0, length);
                 }
                 this.timeVal = temp;
             },
